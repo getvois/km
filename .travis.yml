@@ -1,0 +1,72 @@
+language: php
+
+cache:
+  apt: true
+  bundler: true
+  directories:
+    - vendor
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm-nightly
+
+matrix:
+    allow_failures:
+        - php: hhvm-nightly
+        
+env:
+  - SYMFONY_VERSION="2.3.*"
+  - SYMFONY_VERSION="2.4.*"
+  - SYMFONY_VERSION="2.5.*"
+
+before_script:
+  - composer selfupdate
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libxss1 imagemagick ghostscript
+  - ulimit -n 10000
+  - sh -c 'if [ $(php -r "echo PHP_MINOR_VERSION;") -le 4 ]; then echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
+  - sh -c 'if [ $(php -r "echo PHP_MINOR_VERSION;") -ge 5 ]; then printf "\n" | pecl install apcu-beta; fi;'
+  - sh -c 'printf "\n" | pecl install imagick'
+  - echo '' > ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+  - gem install sass
+  - npm install bower
+  - npm install grunt
+  - npm install grunt-cli
+  - npm install uglify-js
+  - npm install uglifycss
+  - composer --prefer-source --no-interaction install
+  - composer require symfony/symfony:${SYMFONY_VERSION}
+  - mysql -e 'create database kunstmaanbundles;'
+  - chmod -R 777 app/cache/ app/logs/
+  - app/console kuma:generate:bundle --namespace="MyProject\\WebsiteBundle" --no-interaction --dir=src
+  - app/console kuma:generate:default-site --namespace="MyProject\\WebsiteBundle" --prefix="myproject_" --demosite --no-interaction
+  - app/console kuma:generate:admin-tests --namespace="MyProject\\WebsiteBundle"
+  - app/console kuma:generate:article --namespace="MyProject\\WebsiteBundle" --entity=News --prefix="myproject_" --dummydata
+  - npm install
+  - bower install
+  - grunt build
+  - app/console --force --no-interaction doctrine:schema:drop --env=test
+  - app/console --no-interaction doctrine:schema:create --env=test
+  - app/console --no-interaction doctrine:fixtures:load --env=test
+  - app/console --no-interaction assets:install web --env=test
+  - app/console --no-interaction assetic:dump --env=test
+  - app/console --no-interaction cache:clear --env=test
+  - app/console --no-interaction cache:warmup --env=test
+  - chmod -R 777 app/cache/ app/logs/
+  - app/console server:run &
+  - sh -e /etc/init.d/xvfb start
+  - export DISPLAY=:99.0
+  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.34.0.jar
+  - java -jar selenium-server-standalone-2.34.0.jar > /dev/null &
+  - sleep 5
+
+script:
+    - phpunit -c app
+    - php -d memory_limit=2048M bin/behat @MyProjectWebsiteBundle --verbose
+
+notifications:
+  email:
+    - travis@kunstmaan.be

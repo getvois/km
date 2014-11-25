@@ -1,0 +1,211 @@
+<?php
+
+namespace Sandbox\WebsiteBundle\Entity\Article;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Sandbox\WebsiteBundle\Entity\Article\ArticleAuthor;
+use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
+use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
+use Sandbox\WebsiteBundle\Form\Article\ArticlePageAdminType;
+use Sandbox\WebsiteBundle\PagePartAdmin\Article\ArticlePagePagePartAdminConfigurator;
+use Symfony\Component\Form\AbstractType;
+
+/**
+ * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Article\ArticlePageRepository")
+ * @ORM\Table(name="sb_article_pages")
+ * @ORM\HasLifecycleCallbacks
+ */
+class ArticlePage extends AbstractArticlePage implements IPlaceFromTo
+{
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->places = new ArrayCollection();
+        $this->fromPlaces = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="fromArticles")
+     * @ORM\JoinTable(name="sb_article_from_place_overview")
+     **/
+    private $fromPlaces;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="articles")
+     * @ORM\JoinTable(name="sb_article_place_overview")
+     **/
+    private $places;
+
+
+    /**
+     * @var ArticleAuthor
+     *
+     * @ORM\ManyToOne(targetEntity="ArticleAuthor")
+     * @ORM\JoinColumn(name="article_author_id", referencedColumnName="id")
+     */
+    protected $author;
+
+    /**
+     * Returns the default backend form type for this page
+     *
+     * @return AbstractType
+     */
+    public function getDefaultAdminType()
+    {
+        return new ArticlePageAdminType();
+    }
+
+    /**
+     * @return array
+     */
+    public function getPagePartAdminConfigurations()
+    {
+        return array(new ArticlePagePagePartAdminConfigurator());
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function getDefaultView()
+    {
+        return 'SandboxWebsiteBundle:Article/ArticlePage:view.html.twig';
+    }
+
+    /**
+     * Before persisting this entity, check the date.
+     * When no date is present, fill in current date and time.
+     *
+     * @ORM\PrePersist
+     */
+    public function _prePersist()
+    {
+        // Set date to now when none is set
+        if ($this->date == null) {
+            $this->setDate(new \DateTime());
+        }
+    }
+    /**
+     * Add children
+     *
+     * @param PlacePage $children
+     * @return PlacePage
+     */
+    public function addChild(PlacePage $children)
+    {
+        $this->places[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param PlacePage $children
+     */
+    public function removeChild(PlacePage $children)
+    {
+        $this->places->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * Add places
+     *
+     * @param PlaceOverviewPage $places
+     * @return ArticlePage
+     */
+    public function addPlace(PlaceOverviewPage $places)
+    {
+        $this->places[] = $places;
+
+        return $this;
+    }
+
+    /**
+     * Remove places
+     *
+     * @param PlaceOverviewPage $places
+     */
+    public function removePlace(PlaceOverviewPage $places)
+    {
+        $this->places->removeElement($places);
+    }
+
+    /**
+     * Add fromPlaces
+     *
+     * @param PlaceOverviewPage $fromPlaces
+     * @return ArticlePage
+     */
+    public function addFromPlace(PlaceOverviewPage $fromPlaces)
+    {
+        $this->fromPlaces[] = $fromPlaces;
+
+        return $this;
+    }
+
+    /**
+     * Remove fromPlaces
+     *
+     * @param PlaceOverviewPage $fromPlaces
+     */
+    public function removeFromPlace(PlaceOverviewPage $fromPlaces)
+    {
+        $this->fromPlaces->removeElement($fromPlaces);
+    }
+
+    /**
+     * Get fromPlaces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFromPlaces()
+    {
+        return $this->fromPlaces;
+    }
+
+    /**
+     * Remove all places
+     */
+    public function removeAllPlaces()
+    {
+        $this->places->clear();
+    }
+    /**
+     * Remove all from places
+     */
+    public function removeAllFromPlaces()
+    {
+        $this->fromPlaces->clear();
+    }
+
+    /**
+     * Get full entity name
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return "Sandbox\WebsiteBundle\Entity\Article\ArticlePage";
+    }
+}

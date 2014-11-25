@@ -1,0 +1,5 @@
+{% if object is not null and object.url is not empty %}
+    <img class="thumbnail" src="{{ object.url | imagine_filter('topimage') }}" />
+{% else %}
+    No picture!
+{% endif %}

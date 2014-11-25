@@ -1,0 +1,7 @@
+<div class="news-pp">
+    <p>{{ resource.title }}</p>
+    <p>{{ resource.subTitle }}</p>
+    <p>{{ resource.shortDesc }}</p>
+    {{ resource.text|raw }}
+    {% if resource.image is not empty %}<img src="{{ asset(resource.image.url) }}" {% if resource.imageAltText is not empty %}alt="{{ resource.imageAltText }}"{% endif %} />{% endif %}
+</div>

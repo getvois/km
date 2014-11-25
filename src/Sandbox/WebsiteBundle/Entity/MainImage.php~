@@ -1,0 +1,72 @@
+<?php
+
+namespace Sandbox\WebsiteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\AdminBundle\Entity\AbstractEntity;
+use Kunstmaan\MediaBundle\Entity\Media;
+
+/**
+ * MainImage
+ *
+ * @ORM\Table(name="sb_header_image")
+ * @ORM\Entity
+ */
+class MainImage
+{
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
+     * })
+     */
+    private $picture;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="external", type="string", length=255)
+     */
+    private $external;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="place_url", type="string", length=255)
+     */
+    private $placeUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * Set picture
+     *
+     * @param Media $picture
+     * @return MainImage
+     */
+    public function setPicture(Media $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return Media
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+
+}

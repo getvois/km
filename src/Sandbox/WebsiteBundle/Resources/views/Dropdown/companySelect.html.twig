@@ -1,0 +1,6 @@
+<select id="edit-companies" name="companies">
+    <option value="" selected="selected">All companies</option>
+    {% for company in companies %}
+        <option value="{{ company.companyId }}">{{ company.title }}</option>
+    {% endfor %}
+</select>

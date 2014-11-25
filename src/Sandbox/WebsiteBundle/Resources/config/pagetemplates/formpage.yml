@@ -1,0 +1,5 @@
+name: "Form page"
+rows:
+    - regions: 
+        - { name: "main", span: 12 }
+template: "SandboxWebsiteBundle::Pages\\FormPage\\pagetemplate.html.twig"

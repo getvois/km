@@ -1,0 +1,35 @@
+{% extends 'SandboxWebsiteBundle:Page:layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Travelbase Import</h1>
+
+        {% for flashMessage in app.session.flashbag.get('info') %}
+            <div class="alert alert-success">{{ flashMessage }}</div>
+        {% endfor %}
+
+        <h2>Countries:</h2>
+        <table>
+            {% for key, country in countries %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>=></td>
+                    <td>{{ country.countryName }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+        <h2>Cities:</h2>
+        <table>
+            {% for key, city in cities %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>=></td>
+                    <td>{{ city.cityName }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+

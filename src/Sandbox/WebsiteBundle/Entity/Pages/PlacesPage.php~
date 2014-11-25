@@ -1,0 +1,71 @@
+<?php
+
+namespace Sandbox\WebsiteBundle\Entity\Pages;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PlacesPage
+ *
+ * @ORM\Table(name="sb_places_pages")
+ * @ORM\Entity
+ */
+class PlacesPage extends \Kunstmaan\NodeBundle\Entity\AbstractPage implements \Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface
+{
+    /**
+     * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Pages\PlacesPage", mappedBy="parentPlace")
+     **/
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Pages\PlacesPage", inversedBy="children")
+     **/
+    private $parentPlace;
+
+
+    /**
+     * Returns the default backend form type for this page
+     *
+     * @return \Sandbox\WebsiteBundle\Form\Pages\PlacesPageAdminType
+     */
+    public function getDefaultAdminType()
+    {
+        return new \Sandbox\WebsiteBundle\Form\Pages\PlacesPageAdminType();
+    }
+
+    /**
+     * @return array
+     */
+    public function getPossibleChildTypes()
+    {
+        return array();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getPagePartAdminConfigurations()
+    {
+        return array(
+            'SandboxWebsiteBundle:main',
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPageTemplates()
+    {
+        return array('SandboxWebsiteBundle:contentpage');
+    }
+
+    /**
+     * Get the twig view.
+     *
+     * @return string
+     */
+    public function getDefaultView()
+    {
+        return 'SandboxWebsiteBundle:Pages:Common/view.html.twig';
+    }
+}

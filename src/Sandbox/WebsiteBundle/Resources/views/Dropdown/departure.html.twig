@@ -1,0 +1,238 @@
+<div style="margin-top: -99999px" class="city-picker" id="dropdown-departure">
+    <div class="city-filters">
+        <h1 class="form-item-header">Departure header</h1>
+
+        <div class="form-item-desc">Departure description</div>
+        <input name="city-search" class="city-search" type="text"><label for="city-search"></label>
+        <input id="806880" class="all" name="check-all" type="checkbox"><label
+                style="display: inline-block;"
+                class="check-all" for="806880">Un-Check All</label>
+    </div>
+    <div class="city-list">
+        <div class="no-cities" style="display: none">Nothing found</div>
+        <span class="city-picker-close glyphicon glyphicon-remove"></span>
+
+        {% for node in nodes %}
+            <ul class="">
+
+                <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
+                    {% if node.children.count > 0 %}
+                        <i class="glyphicon glyphicon-chevron-down"></i>
+                    {% endif %}
+
+                    {% set placePage = node.nodeTranslation(lang).ref(em) %}
+                    {% set rand1 = random(9999) %}
+                    {% set rand2 = random(9999) %}
+                    <input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">
+                    <label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>
+                    <a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>
+
+                    {% if node.children.count > 0 %}
+
+
+
+
+
+                            <ul style="display: none;">
+                                {% for node2 in node.children %}
+                                <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
+                                    {% if node2.children.count > 0 %}
+                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                    {% endif %}
+
+                                    {% set placePage = node2.nodeTranslation(lang).ref(em) %}
+                                    {% set rand1 = random(9999) %}
+                                    {% set rand2 = random(9999) %}
+                                    <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
+                                    <label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>
+                                    <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>
+
+                                    {% if node2.children.count > 0 %}
+
+
+
+                                        {% for node3 in node2.children.count %}
+                                            <ul style="display: none;">
+
+                                                <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
+                                                    {% if node3.children.count > 0 %}
+                                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                                    {% endif %}
+
+                                                    {% set placePage = node3.nodeTranslation(lang).ref(em) %}
+                                                    {% set rand1 = random(9999) %}
+                                                    {% set rand2 = random(9999) %}
+                                                    <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">
+                                                    <label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>
+                                                    <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>
+
+                                                    {% if node3.children.count > 0 %}
+
+
+
+
+
+
+                                                        <ul style="display: none;">
+                                                            <li>
+                                                                <input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">
+                                                                <label for="city4159859117">Riga</label>
+                                                                <a href="{{ path('_slug', { 'url': placePage.url }) }}">
+                                                                    <span class="fa fa-book"></span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+
+
+
+
+
+
+
+
+                                                    {% endif %}
+
+
+                                                </li>
+                                            </ul>
+                                        {% endfor %}
+
+
+
+
+
+
+
+
+                                    {% endif %}
+
+
+                                </li>{% endfor %}
+                            </ul>
+
+
+
+
+
+                    {% endif %}
+
+
+                </li>
+            </ul>
+        {% endfor %}
+
+
+
+
+
+
+        {#for reference#}
+
+
+
+        {#<ul class="city-near">#}
+            {#<li class="parent-list"><i class="glyphicon glyphicon-chevron-up"></i><input checked="checked"#}
+                                                                                         {#id="country6861121669"#}
+                                                                                         {#name="country6861"#}
+                                                                                         {#class="parent"#}
+                                                                                         {#value="6861"#}
+                                                                                         {#data-name="Estonia"#}
+                                                                                         {#data-depth="0"#}
+                                                                                         {#data-type="country"#}
+                                                                                         {#data-city-type="[]"#}
+                                                                                         {#type="checkbox"><label#}
+                        {#for="country6861121669">Estonia</label><a href="/estonia"><span#}
+                            {#class="fa fa-book"></span></a>#}
+                {#<ul style="display: block;">#}
+                    {#<li><input checked="checked" id="city6861516992" name="city6861" value="6861"#}
+                               {#data-name="Tallinn" data-depth="1" data-type="city"#}
+                               {#data-city-type="[&quot;Spa&quot;]" type="checkbox">#}
+                        {#<label for="city6861516992">Tallinn</label>#}
+                        {#<a href="/estonia/tallinn"><span class="fa fa-book"></span></a></li>#}
+                {#</ul>#}
+            {#</li>#}
+        {#</ul>#}
+
+
+        {#<ul class="city-near">#}
+            {#<li class="parent-list"><i class="glyphicon glyphicon-chevron-down"></i><input checked="checked"#}
+                                                                                           {#id="country6125198949"#}
+                                                                                           {#name="country6125"#}
+                                                                                           {#class="parent"#}
+                                                                                           {#value="6125"#}
+                                                                                           {#data-name="Finland"#}
+                                                                                           {#data-depth="0"#}
+                                                                                           {#data-type="country"#}
+                                                                                           {#data-city-type="[]"#}
+                                                                                           {#type="checkbox">#}
+                {#<label#}
+                        {#for="country6125198949">Finland</label><a href="/finland"><span#}
+                            {#class="fa fa-book"></span></a>#}
+                {#<ul style="display: none;">#}
+                    {#<li><input checked="checked" id="city6126912916" name="city6126" value="6126"#}
+                               {#data-name="Ivalo" data-depth="1" data-type="city"#}
+                               {#data-city-type="[&quot;Ski&quot;]" type="checkbox">#}
+                        {#<label for="city6126912916">Ivalo</label>#}
+                        {#<a href="/finland/ivalo"><span class="fa fa-book"></span></a></li>#}
+                    {#<li><input checked="checked" id="city6125121460" name="city6125" value="6125"#}
+                               {#data-name="Helsinki" data-depth="1" data-type="city" data-city-type="[]"#}
+                               {#type="checkbox">#}
+                        {#<label for="city6125121460">Helsinki</label>#}
+                        {#<a href="/finland/helsinki"><span class="fa fa-book"></span></a></li>#}
+                    {#<li><input checked="checked" id="city6131685561" name="city6131" value="6131"#}
+                               {#data-name="Kittila" data-depth="1" data-type="city"#}
+                               {#data-city-type="[&quot;Ski&quot;]" type="checkbox">#}
+                        {#<label for="city6131685561">Kittila</label>#}
+                        {#<a href="/finland/kittila"><span class="fa fa-book"></span></a></li>#}
+                    {#<li><input checked="checked" id="city6138547461" name="city6138" value="6138"#}
+                               {#data-name="Oulu" data-depth="1" data-type="city"#}
+                               {#data-city-type="[&quot;Ski&quot;]" type="checkbox">#}
+                        {#<label for="city6138547461">Oulu</label>#}
+                        {#<a href="/finland/oulu"><span class="fa fa-book"></span></a></li>#}
+                    {#<li><input checked="checked" id="city6140296818" name="city6140" value="6140"#}
+                               {#data-name="Rovaniemi" data-depth="1" data-type="city"#}
+                               {#data-city-type="[&quot;Ski&quot;]" type="checkbox">#}
+                        {#<label for="city6140296818">Rovaniemi</label>#}
+                        {#<a href="/finland/rovaniemi"><span class="fa fa-book"></span></a></li>#}
+                    {#<li><input checked="checked" id="city6143872262" name="city6143" value="6143"#}
+                               {#data-name="Tampere" data-depth="1" data-type="city" data-city-type="[]"#}
+                               {#type="checkbox">#}
+                        {#<label for="city6143872262">Tampere</label>#}
+                        {#<a href="/tampere"><span class="fa fa-book"></span></a></li>#}
+                {#</ul>#}
+            {#</li>#}
+        {#</ul>#}
+        {#<ul class="">#}
+            {#<li class="parent-list"><i class="glyphicon glyphicon-chevron-down"></i><input#}
+                        {#id="country6163892300" name="country6163" class="parent" value="6163"#}
+                        {#data-name="Svalbard and Jan Mayen" data-depth="0" data-type="country"#}
+                        {#data-city-type="[]" type="checkbox"><label for="country6163892300">Svalbard and Jan#}
+                    {#Mayen</label><a href="/svalbard-jan-mayen-islands"><span#}
+                            {#class="fa fa-book"></span></a>#}
+                {#<ul style="display: none;">#}
+                    {#<li><input id="city6163504913" name="city6163" value="6163" data-name="Longyearbyen"#}
+                               {#data-depth="1" data-type="city" data-city-type="[&quot;Ski&quot;]"#}
+                               {#type="checkbox">#}
+                        {#<label for="city6163504913">Longyearbyen</label>#}
+                        {#<a href="/svalbard-jan-mayen-islands/longyearbyen"><span#}
+                                    {#class="fa fa-book"></span></a></li>#}
+                {#</ul>#}
+            {#</li>#}
+        {#</ul>#}
+        {#<ul class="">#}
+            {#<li class="parent-list"><i class="glyphicon glyphicon-chevron-down"></i><input#}
+                        {#id="country4159872572" name="country4159" class="parent" value="4159"#}
+                        {#data-name="Latvia" data-depth="0" data-type="country" data-city-type="[]"#}
+                        {#type="checkbox"><label for="country4159872572">Latvia</label><a href="/latvia"><span#}
+                            {#class="fa fa-book"></span></a>#}
+                {#<ul style="display: none;">#}
+                    {#<li><input id="city4159859117" name="city4159" value="4159" data-name="Riga"#}
+                               {#data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]"#}
+                               {#type="checkbox">#}
+                        {#<label for="city4159859117">Riga</label>#}
+                        {#<a href="/latvia/riga"><span class="fa fa-book"></span></a></li>#}
+                {#</ul>#}
+            {#</li>#}
+        {#</ul>#}
+    </div>
+</div>

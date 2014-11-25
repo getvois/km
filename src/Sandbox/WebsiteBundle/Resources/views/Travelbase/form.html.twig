@@ -1,0 +1,121 @@
+<div class="col-md-10 col-md-offset-1">
+
+
+    <form action="/" method="post" id="travelbase-form" accept-charset="UTF-8">
+        <div>
+            <input name="order_field" value="date" type="hidden">
+            <input name="order_direction" value="asc" type="hidden">
+
+            <h1>Lowcost last minute travel deals!</h1>
+
+            {#<div class="site-topmenu">#}
+            {#<ul class="travelbase_top_menu">#}
+            {#<li><a href="#" data-target="#edit-destination-country">Destinations</a></li>#}
+            {#<li><a href="#" data-target="#edit-company">Companies</a></li>#}
+            {#</ul>#}
+            {#</div>#}
+            {#<div class="form-item form-type-select form-item-company">#}
+            {#<div class="city-picker-container"><input id="edit-company" name="company" class="form-text" type="text">#}
+
+            {#<div style="margin-top: -9999px;" class="row city-picker">#}
+            {#<div class="city-filters">#}
+            {#<h1 class="form-item-header">Company header </h1>#}
+
+            {#<div class="form-item-desc">Company description</div>#}
+            {#</div>#}
+            {#<div class="city-list">#}
+            {#<div class="no-cities" style="display: none">Nothing found</div>#}
+            {#<span class="city-picker-close glyphicon glyphicon-remove"></span>#}
+            {#<ul>#}
+            {#<li><a href="/apollomatkat">Apollomatkat</a></li>#}
+            {#</ul>#}
+            {#<ul>#}
+            {#<li><a href="/easyjet">EasyJet</a></li>#}
+            {#</ul>#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
+            <div class="row">
+                {#ROW 1#}
+                <div class="col-md-2">
+                    <div class="form-item form-type-select form-item-departure-city">
+                        <img src="http://ku.markmedia.fi/sites/default/files/images/i-dep.png" class="pull-left city-picker-dropdown" data-target="#dropdown-departure">
+                    </div>
+        <span class="city-picker-list city-picker-dropdown" data-target="#dropdown-departure">
+            <a href="#" onclick="return unCheckAll(this, event)" class="form-list-close">
+                <span>×</span>
+            </a>
+            Estonia, Finland, Sweden
+        </span>
+                </div>
+                {#ROW 2#}
+                <div class="col-md-2">
+                    <label for="edit-date-start-datepicker-popup-0">
+                        <img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">
+                    </label>
+                    <input id="edit-date-start-datepicker-popup-0" name="date_start[date]" value="" size="20"
+                           maxlength="30" class="date" type="text">
+                </div>
+                {#ROW 3#}
+                <div class="col-md-2">
+                    <img src="http://ku.markmedia.fi/sites/default/files/images/i-des.png" class="pull-left city-picker-dropdown" data-target="#dropdown-destination">
+                    <span class="city-picker-list city-picker-dropdown"  data-target="#dropdown-destination">Pick you destination</span>
+                </div>
+                {#ROW 4#}
+                <div class="col-md-2">
+                    <label for="edit-date-end-datepicker-popup-0">
+                        <img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">
+                    </label>
+                    <input id="edit-date-end-datepicker-popup-0" name="date_end[date]" value="" size="20" maxlength="30"
+                           class="date" type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p style="position: relative">
+                        <label for="amount">
+                            <img src="http://ku.markmedia.fi/sites/default/files/images/i-pri.png"
+                                 class="ico-price pull-left">
+                        </label>
+                        <input type="text" id="amount" readonly>
+                    </p>
+
+                    <div id="slider-range"></div>
+                </div>
+                <div class="col-md-10">
+                    <div class="field-six nopadding options-row">
+                        <div style="display: none;" class="option-div options">
+                            {{ render(controller('SandboxWebsiteBundle:Dropdown:companySelect')) }}
+                        </div>
+                        <a href="#" class="toggle" data-target=".options">
+                            <img src="http://ku.markmedia.fi/sites/default/files/images/i-plu.png" class="pull-left">
+                            &nbsp;<span class="text-underline">More options</span></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="display: none;" class="options">
+                        <input id="edit-only-flights" name="only_flights" value="1" checked="checked"
+                               class="form-checkbox" type="checkbox">
+                        <label class="option" for="edit-only-flights">Only Flights</label>
+                        <input id="edit-only-hotel" name="only_hotel" value="1" checked="checked" class="form-checkbox"
+                               type="checkbox">
+                        <label class="option" for="edit-only-hotel">Only Hotel </label>
+                        <input id="edit-flight-and-hotel" name="flight_and_hotel" value="1" checked="checked"
+                               class="form-checkbox" type="checkbox">
+                        <label class="option" for="edit-flight-and-hotel">Flight+Hotel </label>
+                        <input id="edit-flight-and-hotel-unknown" name="flight_and_hotel_unknown" value="1"
+                               checked="checked" class="form-checkbox" type="checkbox">
+                        <label class="option" for="edit-flight-and-hotel-unknown">Flight+HotelUnknown </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,3 @@
+name: "Satellite overview page"
+rows: []
+template: "SandboxWebsiteBundle::Pages\\SatelliteOverviewPage\\pagetemplate.html.twig"

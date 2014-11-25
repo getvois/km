@@ -1,0 +1,504 @@
+<?php
+
+namespace Sandbox\WebsiteBundle\Entity\Place;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Entity\Node;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\TopImage;
+use Sandbox\WebsiteBundle\Form\Place\PlaceOverviewPageAdminType;
+use Sandbox\WebsiteBundle\PagePartAdmin\Place\PlaceOverviewPagePagePartAdminConfigurator;
+use Kunstmaan\ArticleBundle\Entity\AbstractArticleOverviewPage;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
+use Kunstmaan\PagePartBundle\PagePartAdmin\AbstractPagePartAdminConfigurator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * The article overview page which shows its articles
+ *
+ * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository")
+ * @ORM\Table(name="sb_place_overviewpages")
+ */
+class PlaceOverviewPage
+{
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\TopImage", inversedBy="places")
+     **/
+    private $topImage;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", mappedBy="parentPlace")
+     **/
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="children")
+     **/
+    private $parentPlace;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country_code", type="string", length=2, nullable=true)
+     */
+    private $countryCode;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="city_id", type="integer", nullable=true)
+     */
+    private $cityId;
+
+    /**
+     * @return int
+     */
+    public function getCityId()
+    {
+        return $this->cityId;
+    }
+
+    /**
+     * @param int $cityId
+     * @return $this
+     */
+    public function setCityId($cityId)
+    {
+        $this->cityId = $cityId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountryCode()
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * @param string $countryCode
+     * @return $this
+     */
+    public function setCountryCode($countryCode)
+    {
+        $this->countryCode = $countryCode;
+        return $this;
+    }
+
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\News\NewsPage", mappedBy="places")
+     */
+    private $news;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\News\NewsPage", mappedBy="fromPlaces")
+     */
+    private $fromNews;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Article\ArticlePage", mappedBy="places")
+     */
+    private $articles;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Article\ArticlePage", mappedBy="fromPlaces")
+     */
+    private $fromArticles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+        $this->fromNews = new ArrayCollection();
+        $this->news = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+        $this->fromArticles = new ArrayCollection();
+    }
+
+    /**
+     * @return AbstractPagePartAdminConfigurator[]
+     */
+    public function getPagePartAdminConfigurations()
+    {
+        return array(new PlaceOverviewPagePagePartAdminConfigurator());
+    }
+
+
+    public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [])
+    {
+        $nodeTranslation = $node->getNodeTranslation($locale);
+        if($nodeTranslation && $nodeTranslation->isOnline()){
+            /** @var PlaceOverviewPage $placeOverviewPage */
+            $placeOverviewPage = $nodeTranslation->getPublicNodeVersion()->getRef($em);
+            /** @var NewsPage $item */
+            foreach ($placeOverviewPage->getNews() as $item) {
+
+                //get node version
+                /** @var NodeVersion $nodeVersion */
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                    ->findOneBy([
+                        'refId' => $item->getId(),
+                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\News\NewsPage',
+                        'type' => 'public'
+                    ]);
+                //check node online and lang
+                if($nodeVersion
+                    && $nodeVersion->getNodeTranslation()->isOnline()
+                    && $nodeVersion->getNodeTranslation()->getLang() == $locale
+                ){
+                    $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                }
+            }
+        }
+
+        foreach ($node->getChildren() as $child) {
+            $this->getSubNews($child, $locale, $em, $news);
+        }
+
+    }
+
+    public function getSubArticles(Node $node, $locale,ObjectManager $em, &$articles = [])
+    {
+        $nodeTranslation = $node->getNodeTranslation($locale);
+        if($nodeTranslation && $nodeTranslation->isOnline()){
+            /** @var PlaceOverviewPage $placeOverviewPage */
+            $placeOverviewPage = $nodeTranslation->getPublicNodeVersion()->getRef($em);
+            /** @var NewsPage $item */
+            foreach ($placeOverviewPage->getArticles() as $item) {
+                //get node version
+                /** @var NodeVersion $nodeVersion */
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                    ->findOneBy([
+                        'refId' => $item->getId(),
+                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage',
+                        'type' => 'public'
+                    ]);
+                //check node online and lang
+                if($nodeVersion
+                    && $nodeVersion->getNodeTranslation()->isOnline()
+                    && $nodeVersion->getNodeTranslation()->getLang() == $locale
+                ){
+                    $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                }
+            }
+        }
+
+        foreach ($node->getChildren() as $child) {
+            $this->getSubArticles($child, $locale, $em, $articles);
+        }
+
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @param Request $request
+     * @param RenderContext $context
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|void
+     */
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        $locale = $request->getLocale();//page language code
+        $placesLocale = [];//array of translated online nodes to return to template
+
+        /** @var NodeTranslation $nodeTranslation */
+        $nodeTranslation = $context->getArrayCopy()['nodetranslation'];
+        $nodeChildren = $nodeTranslation->getNode()->getChildren();
+
+        /** @var Node $node */
+        foreach ($nodeChildren as $node) {
+            $translation = $node->getNodeTranslation($locale);
+            if($translation && $translation->isOnline()){
+                $placesLocale[] = $translation;
+            }
+        }
+
+        $em = $container->get('doctrine.orm.entity_manager');
+        $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news);
+        $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles);
+
+//        $em = $container->get('doctrine.orm.entity_manager');
+//        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->findAll();
+//
+//        $translationIds = [];//array of node translation ids
+//        /** @var PlaceOverviewPage[] $placesLocale */
+//        $placesLocale = [];//array of translated online nodes to return to template
+//
+//        foreach ($places as $place) {
+//            //get node version
+//            /** @var NodeVersion $nodeVersion */
+//            $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+//                ->findOneBy([
+//                    'refId' => $place->getId(),
+//                    'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
+//                    'type' => 'public'
+//                ]);
+//
+//            //check node versions (node could have same node translations ids)
+//            //check node online and lang
+//            if($nodeVersion
+//                && $nodeVersion->getNodeTranslation()->isOnline()
+//                && $nodeVersion->getNodeTranslation()->getLang() == $locale
+//            ){
+//                //add node if translation does not exist
+//                if(!in_array($nodeVersion->getNodeTranslation()->getId(), $translationIds)) {
+//                    $placesLocale[] = $place;
+//                    $translationIds[] = $nodeVersion->getNodeTranslation()->getId();
+//                }
+//            }
+//        }
+
+
+        //$node = $em->getRepository('KunstmaanNodeBundle:Node')->find(12);//15 spain
+        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->childrenHierarchy()[0]['__children'][5]);
+        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->getChildren($node));
+        //var_dump($placesLocale[1]->()->count());
+
+        $context['places'] = $placesLocale;
+        $context['news'] = $news;
+        $context['articles'] = $articles;
+        $context['lang'] = $locale;
+
+        parent::service($container, $request, $context);
+    }
+
+    public function getArticleRepository($em)
+    {
+        return $em->getRepository('SandboxWebsiteBundle:Place\PlacePage');
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultView()
+    {
+        return 'SandboxWebsiteBundle:Place/PlaceOverviewPage:view.html.twig';
+    }
+
+    /**
+     * Returns the default backend form type for this page
+     *
+     * @return AbstractType
+     */
+    public function getDefaultAdminType()
+    {
+        return new PlaceOverviewPageAdminType();
+    }
+
+
+    public function getPossibleChildTypes()
+    {
+        return[
+            array(
+                'name' => 'Country',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'
+            )];
+    }
+
+
+
+    /**
+     * Add children
+     *
+     * @param PlacePage $children
+     * @return PlacePage
+     */
+    public function addChild(PlacePage $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param PlacePage $children
+     */
+    public function removeChild(PlacePage $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parentPlace
+     *
+     * @param PlacePage $parentPlace
+     * @return PlacePage
+     */
+    public function setParentPlace(PlacePage $parentPlace = null)
+    {
+        $this->parentPlace = $parentPlace;
+
+        return $this;
+    }
+
+    /**
+     * Get parentPlace
+     *
+     * @return PlacePage
+     */
+    public function getParentPlace()
+    {
+        return $this->parentPlace;
+    }
+
+    /**
+     * Add news
+     *
+     * @param NewsPage $news
+     * @return PlacePage
+     */
+    public function addNews(NewsPage $news)
+    {
+        $this->news[] = $news;
+
+        return $this;
+    }
+
+    /**
+     * Remove news
+     *
+     * @param NewsPage $news
+     */
+    public function removeNews(NewsPage $news)
+    {
+        $this->news->removeElement($news);
+    }
+
+    /**
+     * Get news
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
+
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Add fromNews
+     *
+     * @param NewsPage $fromNews
+     * @return PlaceOverviewPage
+     */
+    public function addFromNews(NewsPage $fromNews)
+    {
+        $this->fromNews[] = $fromNews;
+
+        return $this;
+    }
+
+    /**
+     * Remove fromNews
+     *
+     * @param NewsPage $fromNews
+     */
+    public function removeFromNews(NewsPage $fromNews)
+    {
+        $this->fromNews->removeElement($fromNews);
+    }
+
+    /**
+     * Get fromNews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFromNews()
+    {
+        return $this->fromNews;
+    }
+
+    /**
+     * Add articles
+     *
+     * @param ArticlePage $articles
+     * @return PlaceOverviewPage
+     */
+    public function addArticle(ArticlePage $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param ArticlePage $articles
+     */
+    public function removeArticle(ArticlePage $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Add fromArticles
+     *
+     * @param ArticlePage $fromArticles
+     * @return PlaceOverviewPage
+     */
+    public function addFromArticle(ArticlePage $fromArticles)
+    {
+        $this->fromArticles[] = $fromArticles;
+
+        return $this;
+    }
+
+    /**
+     * Remove fromArticles
+     *
+     * @param ArticlePage $fromArticles
+     */
+    public function removeFromArticle(ArticlePage $fromArticles)
+    {
+        $this->fromArticles->removeElement($fromArticles);
+    }
+
+    /**
+     * Get fromArticles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFromArticles()
+    {
+        return $this->fromArticles;
+    }
+}

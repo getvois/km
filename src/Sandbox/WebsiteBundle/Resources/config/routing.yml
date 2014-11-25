@@ -1,0 +1,88 @@
+sandboxwebsitebundle_default:
+    resource: "@SandboxWebsiteBundle/Controller/DefaultController.php"
+    type:     annotation
+    prefix:   /
+
+sandboxwebsitebundle_satellite_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/SatelliteAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/satellite/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_place_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/PlaceAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/place/
+    requirements:
+         _locale: %requiredlocales%
+
+
+sandboxwebsitebundle_newspage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/News/NewsPageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/newspage/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_newsauthor_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/News/NewsAuthorAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/newsauthor/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_placepage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/Place/PlacePageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/placepage/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_placeauthor_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/Place/PlaceAuthorAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/placeauthor/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_companypage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/Company/CompanyPageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/companypage/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_companyauthor_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/Company/CompanyAuthorAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/companyauthor/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_articlepage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/Article/ArticlePageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/articlepage/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_articleauthor_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/Article/ArticleAuthorAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/articleauthor/
+    requirements:
+         _locale: %requiredlocales%
+sandboxwebsitebundle_mainimage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/MainImageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/mainimage/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_topimage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/TopImageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/topimage/
+    requirements:
+         _locale: %requiredlocales%
