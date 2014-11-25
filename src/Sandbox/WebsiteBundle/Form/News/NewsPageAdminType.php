@@ -42,7 +42,8 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 }
             ]
         )
-        ->add('translate');
+        ->add('translate')
+        ->add('topImage');
     }
 
     /**

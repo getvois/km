@@ -138,4 +138,11 @@ class TopImage extends AbstractEntity
     {
         return $this->place;
     }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
 }

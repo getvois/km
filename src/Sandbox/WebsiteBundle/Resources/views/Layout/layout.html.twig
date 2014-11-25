@@ -141,9 +141,10 @@
                 {% endif %}
             </div>
         </section>
-        <section class="splash splash--{% block pagetitleColor %}green{% endblock %} mainbg" style="background-image: url('{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}')">
+        <section class="splash splash--{% block pagetitleColor %}green{% endblock %} mainbg"
+                 style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
 
-            <h3 class="top-img-title">{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}</h3>
+            <h3 class="top-img-title">{% block topImgTitle %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}{% endblock %}</h3>
 
             <div class=" splash__container">
                 <div class="row row--padded-large">

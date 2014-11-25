@@ -52,17 +52,21 @@ class TravelbaseController extends Controller
 
         return new Response($image->getPicture()->getUrl());
     }
+
     /**
      * Get picture title
      *
+     * @param Request $request
+     * @param null $image
      * @return Response
      */
-    public function getRandomImageTitleAction(Request $request)
+    public function getRandomImageTitleAction(Request $request, $image = null)
     {
         $lang = $request->getLocale();
-        $image = $this->getRandomTopImage();
+        if(!$image)
+            $image = $this->getRandomTopImage();
 
-        $place = $this->getRandomImagePlace($lang);
+        $place = $this->getRandomImagePlace($lang, $image);
 
         if($place){
             return new Response("<a href='/$place'>" . $image->getTitle() . "</a>");
@@ -76,11 +80,13 @@ class TravelbaseController extends Controller
      * Get picture place
      *
      * @param string $lang
+     * @param null $image
      * @return Response
      */
-    public function getRandomImagePlace($lang = 'en')
+    public function getRandomImagePlace($lang = 'en', $image = null)
     {
-        $image = $this->getRandomTopImage();
+        if(!$image)
+            $image = $this->getRandomTopImage();
 
         $place = $image->getPlace();
 

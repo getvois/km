@@ -8,6 +8,7 @@ use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
+use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Form\News\NewsPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\News\NewsPagePagePartAdminConfigurator;
 use Symfony\Component\Form\AbstractType;
@@ -28,6 +29,13 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo
         $this->places = new ArrayCollection();
         $this->fromPlaces = new ArrayCollection();
     }
+
+    /**
+     * @var TopImage
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\TopImage")
+     */
+    private $topImage;
 
     /**
      * @var boolean
@@ -211,6 +219,29 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo
      */
     public function getEntityName()
     {
-        return "Sandbox\WebsiteBundle\Entity\News\NewsPage";
+        return 'Sandbox\WebsiteBundle\Entity\News\NewsPage';
+    }
+
+    /**
+     * Set topImage
+     *
+     * @param TopImage $topImage
+     * @return NewsPage
+     */
+    public function setTopImage(TopImage $topImage = null)
+    {
+        $this->topImage = $topImage;
+
+        return $this;
+    }
+
+    /**
+     * Get topImage
+     *
+     * @return TopImage
+     */
+    public function getTopImage()
+    {
+        return $this->topImage;
     }
 }

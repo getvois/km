@@ -1,4 +1,19 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
+
+{% block mainBgUrl %}
+    {% if page.topImage is not null and page.topImage.picture is not null %}{{ page.topImage.picture.url }}{% else %}
+        {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endif %}
+{% endblock %}
+
+{% block topImgTitle %}
+    {% if page.topImage is not null and page.topImage.picture is not null %}
+        {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle', { 'image': page.topImage})) }}
+    {% else %}
+        {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}
+    {% endif %}
+{% endblock %}
+
 {% block content %}
-    {% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}
+    {{ render_pageparts(page, 'main') }}
+    {#{% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}#}
 {% endblock %}

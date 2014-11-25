@@ -8,7 +8,7 @@ Changes to kunstmaan bundles.
 
 ### Russian letters to slug fix.
 
-#### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/UtilitiesBundle/Helper/Slugifier.php
+###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/UtilitiesBundle/Helper/Slugifier.php
 
     /**
      * Convert russian to translit
@@ -72,7 +72,7 @@ Changes to kunstmaan bundles.
         
 ### Admin places multi select in news and articles as Jquery [select2](http://ivaynberg.github.io/select2/)
 
-#### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/AdminBundle/Resources/views/Default/layout.html.twig
+###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/AdminBundle/Resources/views/Default/layout.html.twig
 
     <!--=========== CSS ===========-->
     

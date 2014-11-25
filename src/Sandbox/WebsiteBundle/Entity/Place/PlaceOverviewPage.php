@@ -29,6 +29,13 @@ use Symfony\Component\HttpFoundation\Request;
 class PlaceOverviewPage extends AbstractArticleOverviewPage
 {
     /**
+     * @var TopImage
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\TopImage")
+     */
+    private $topImage;
+
+    /**
      * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", mappedBy="parentPlace")
      **/
     private $children;
@@ -37,6 +44,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="children")
      **/
     private $parentPlace;
+
 
 
     /**
@@ -496,4 +504,26 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
         return $this->fromArticles;
     }
 
+    /**
+     * Set topImage
+     *
+     * @param TopImage $topImage
+     * @return NewsPage
+     */
+    public function setTopImage(TopImage $topImage = null)
+    {
+        $this->topImage = $topImage;
+
+        return $this;
+    }
+
+    /**
+     * Get topImage
+     *
+     * @return TopImage
+     */
+    public function getTopImage()
+    {
+        return $this->topImage;
+    }
 }

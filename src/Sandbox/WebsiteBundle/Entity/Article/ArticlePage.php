@@ -9,6 +9,7 @@ use Sandbox\WebsiteBundle\Entity\Article\ArticleAuthor;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
+use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Form\Article\ArticlePageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Article\ArticlePagePagePartAdminConfigurator;
 use Symfony\Component\Form\AbstractType;
@@ -28,6 +29,13 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo
         $this->places = new ArrayCollection();
         $this->fromPlaces = new ArrayCollection();
     }
+
+    /**
+     * @var TopImage
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\TopImage")
+     */
+    private $topImage;
 
     /**
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="fromArticles")
@@ -206,6 +214,29 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo
      */
     public function getEntityName()
     {
-        return "Sandbox\WebsiteBundle\Entity\Article\ArticlePage";
+        return 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage';
+    }
+
+    /**
+     * Set topImage
+     *
+     * @param TopImage $topImage
+     * @return ArticlePage
+     */
+    public function setTopImage(TopImage $topImage = null)
+    {
+        $this->topImage = $topImage;
+
+        return $this;
+    }
+
+    /**
+     * Get topImage
+     *
+     * @return TopImage
+     */
+    public function getTopImage()
+    {
+        return $this->topImage;
     }
 }

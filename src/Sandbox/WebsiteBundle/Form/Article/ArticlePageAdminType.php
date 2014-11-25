@@ -41,7 +41,7 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                     return $er->getByLang($locale);
                 }
             ]
-        );
+        )->add('topImage');
     }
 
     /**
