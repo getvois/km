@@ -36,6 +36,7 @@ class TravelbaseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $topImages = $em->getRepository('SandboxWebsiteBundle:TopImage')->findAll();
+        if(!$topImages) return null;
         $id = rand(0, count($topImages)-1);
 
         return $topImages[$id];
@@ -49,6 +50,9 @@ class TravelbaseController extends Controller
     public function getRandomImageUrlAction()
     {
         $image = $this->getRandomTopImage();
+        if(!$image){
+            return new Response("");
+        }
 
         return new Response($image->getPicture()->getUrl());
     }
