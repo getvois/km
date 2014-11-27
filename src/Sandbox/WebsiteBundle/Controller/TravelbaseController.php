@@ -70,6 +70,9 @@ class TravelbaseController extends Controller
         if(!$image)
             $image = $this->getRandomTopImage();
 
+        if(!$image)
+            return new Response("");
+
         $place = $this->getRandomImagePlace($lang, $image);
 
         if($place){
@@ -91,6 +94,8 @@ class TravelbaseController extends Controller
     {
         if(!$image)
             $image = $this->getRandomTopImage();
+
+        if(!$image) return "";
 
         $place = $image->getPlace();
 
