@@ -1,0 +1,20 @@
+{% extends '@SandboxWebsite/Page/layout.html.twig' %}
+
+{% block content %}
+    <h2>Your subscriptions:</h2>
+    <form action="" method="post">
+
+        {% for subscription in subscriptions %}
+            <div>
+                <label for="subscription_{{ subscription.id }}">
+                    {{ subscription.node.nodeTranslation(lang).ref(em).title }}
+                </label>
+                <input type="checkbox" name="subscription_{{ subscription.id }}" id="subscription_{{ subscription.id }}" value="{{ subscription.id }}">
+            </div>
+        {% endfor %}
+
+        <div>
+            <input type="submit" value="Un subscribe">
+        </div>
+    </form>
+{% endblock %}

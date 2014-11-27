@@ -12,11 +12,30 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\TopImageMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.subscription:
+        class: Sandbox\WebsiteBundle\Helper\Menu\SubscriptionMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
+
+
+
+
     sandboxwebsitebundle.form_listener:
         class: Sandbox\WebsiteBundle\EventListener\FormListener
         arguments: [%kuma_translator.managed_locales%, @service_container]
         tags:
           - { name: kernel.event_listener, event: kunstmaan_node.postPersist, method: onFormPostPersist }
+
+    sandboxwebsitebundle.publish_listener:
+        class: Sandbox\WebsiteBundle\EventListener\PublishListener
+        arguments: [@service_container]
+        tags:
+          - { name: kernel.event_listener, event: kunstmaan_node.postPublish, method: onPostPublish }
+
+
+
+
+
 
     sandboxwebsitebundle.admin_menu_adaptor:
         class: Sandbox\WebsiteBundle\Helper\Menu\AdminMenuAdaptor

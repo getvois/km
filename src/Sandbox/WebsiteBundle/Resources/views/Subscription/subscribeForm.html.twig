@@ -1,0 +1,21 @@
+
+<div class="subscribe-form">
+    <h3>Subscribe</h3>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+        {{ form_errors(form.node) }}
+        {{ form_widget(form.node) }}
+    <div>
+        {#{{ form_label(form.email) }}#}
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email, {'attr': {'placeholder': 'Email'}}) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.submit) }}
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+</div>

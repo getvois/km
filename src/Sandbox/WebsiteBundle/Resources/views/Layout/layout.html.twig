@@ -190,6 +190,12 @@
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
+        {% for flashMessage in app.session.flashbag.get('info') %}
+
+            <div class="alert alert-info">{{ flashMessage }}</div>
+
+        {% endfor %}
+
         <section class="">
             <div class="row">
                 <div class="col-md-6 col--padded">

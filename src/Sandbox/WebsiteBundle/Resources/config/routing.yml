@@ -3,6 +3,11 @@ sandboxwebsitebundle_default:
     type:     annotation
     prefix:   /
 
+sandboxwebsitebundle_subscription:
+    resource: "@SandboxWebsiteBundle/Controller/SubscriptionController.php"
+    type:     annotation
+    prefix:   /
+
 sandboxwebsitebundle_satellite_admin_list:
     resource: @SandboxWebsiteBundle/Controller/SatelliteAdminListController.php
     type:     annotation
@@ -84,5 +89,12 @@ sandboxwebsitebundle_topimage_admin_list:
     resource: @SandboxWebsiteBundle/Controller/TopImageAdminListController.php
     type:     annotation
     prefix:   /{_locale}/admin/topimage/
+    requirements:
+         _locale: %requiredlocales%
+
+sandboxwebsitebundle_subscription_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/SubscriptionAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/subscription/
     requirements:
          _locale: %requiredlocales%

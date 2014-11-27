@@ -10,6 +10,7 @@ use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Model\EntryInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
@@ -24,12 +25,15 @@ class DefaultController extends Controller
      */
     public function testAction()
     {
-        $text = "Ólesgfhfh";
-        $text = "ъхзвжэюбьтсйцу";
-        $text = iconv('utf-8', 'us-ascii//IGNORE//TRANSLIT', $text);
-        var_dump($text);
+        $email = 'kosmos123@gmail.com';
+        $node = 58;
 
-        return [];
+        var_dump(microtime());
+
+        var_dump(md5(md5($email . $node . microtime())));
+
+        var_dump(strlen('dafdf0a69c3364ab2e509dbb2fa9d8e4'));
+        return new Response("");
     }
 
     /**
