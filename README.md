@@ -124,3 +124,17 @@ Changes to kunstmaan bundles.
 
 
      </script>
+     
+     
+     
+### Change Swedish country code from **sv** to **se** and add Estonia language
+
+###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/SearchBundle/Resources/config/analyzer_languages.yml
+
+
+     //CHANGE
+     -- sv: { analyzer: 'swedish' }
+     ++ se: { analyzer: 'swedish' }
+     
+     //ADD
+     ++ ee: { analyzer: 'estonian' }
