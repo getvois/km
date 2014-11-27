@@ -1,0 +1,785 @@
+.mainbg{
+    background-image: url('http://ku.markmedia.fi/sites/default/files/images/mainbg2.jpg');
+    height: 380px;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+}
+#travelbase-form h1 {
+    color:#FFF;
+    /*text-shadow:1px 1px #454545;*/
+    /*margin: 35px 10px 30px;*/
+    /*font-family:  "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+}
+.top-menu-container{
+    height: 0;
+}
+#travelbase_tabs{
+    position: relative;
+    top: -40px;
+}
+#slider-range{
+    border: none;
+    height: 1px;
+    background: #000000 none;
+    width: 70%;
+    margin-left: 47px;
+}
+#slider-range .ui-slider-range{
+    background: #00BE8D none;
+}
+#slider-range .ui-slider-handle{
+    top: -0.3em;
+    width: 12px;
+    height: 12px;
+    border-radius: 15px;
+    border: none;
+}
+#amount{
+    border:0;
+    color:#fff;
+}
+label[for=amount]{
+    position: absolute;
+    top: 32px;
+}
+.top-img-title{
+    color: #fff;
+    position: absolute;
+    right: 50px;
+    top: 83px;
+    z-index: 1;
+}
+
+
+
+
+
+
+/* old needs refactoring */
+
+
+
+
+
+
+
+.select2-input {
+    min-width: 100px !important;
+}
+#block-travelbase-travelbase-image-header .content{
+    position: relative;
+    height: 400px;
+}
+#block-travelbase-travelbase-search-form {
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-travelbase-search-form .col-md-4, #block-travelbase-travelbase-search-form .col-md-8, #block-travelbase-travelbase-search-form .col-md-7, #block-travelbase-travelbase-search-form .col-md-6, #block-travelbase-travelbase-search-form .col-md-12 {
+    position: static!important;
+}
+#block-travelbase-travelbase-search-form .ico-flight .form-item {float:left;}
+#block-travelbase-travelbase-search-form .ico-flight:nth-of-type(2) {padding:0;}
+#travelbase_items {
+    clear:both;
+    border-width: 0;
+    padding: 10px 10px 30px 10px;
+    background: #fff;
+    border-style: solid;
+}
+#travelbase_items table tbody tr th {
+    font-weight: normal;
+    border-bottom: 1px solid #00BE8D;
+    padding-top: 10px;
+}
+#travelbase_items table{
+    width: 100%;
+}
+#travelbase_items table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+#travelbase_items table tbody tr td {
+    line-height: 200%;
+    font-size:13px;
+}
+#travelbase_items #loadMore {
+    left: 50%;
+    background: transparent;
+    right: 50%;
+    border: none;
+    position: absolute;
+}
+#travelbase_items #loadMore span {
+    font-size: 33px;
+    background: rgba(0, 231, 172, 1);
+    border: 1px solid #bbb;
+    width: 38px;
+    height: 38px;
+    padding-top: 3px;
+    color: #00BE8D;
+    border-radius: 35px;
+}
+#travelbase_items #loadMore span:before {
+    text-shadow: 1px 1px 1px #aaa;
+    color: #fff;
+}
+#travelbase_items #loadMore span:hover:before {
+    text-shadow: 1px 1px 1px #00BE8D;
+    color: #bbb;
+}
+/* Header right panel with blog headers */
+.img-text {
+    color: white;
+    /* width: 30%; */
+    /* padding: 10px; */
+    bottom: 20px;
+    position: absolute!important;
+    right: 0;
+    z-index: 100;
+    /* background: rgba(0,0,0,0.55); */
+    /* height: 180px; */
+}
+.img-text .date {
+    font: bold 12px 'Arimo';
+    background: #f9f9f9;
+    display: inline;
+    padding: 15px;
+    color: #222;
+}
+.img-text h1 {
+    font: bold 30px/1.3em 'Arimo';
+    margin-bottom: 0;
+    margin-top:5px;
+    color:#000000;
+    text-shadow: 1px 1px #f9f9f9;
+    float: left;
+    padding:10px 15px 0 15px;
+    background:-moz-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+    background:-webkit-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+    background: -ms-linear-gradient(top, #f9f9f9, #eeeeee); /* IE10 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */
+    -pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+}
+.img-text h3 {
+    clear: both;
+    color: #000000;
+    text-shadow: 1px 1px #f9f9f9;
+    margin:0;
+    padding:5px 15px 0 15px;
+    background:#eee;
+}
+.depth1{
+    margin-left: 20px;
+}
+.depth2{
+    margin-left: 40px;
+}
+.depth3{
+    margin-left: 60px;
+}
+/* TOP filtered topics */
+.top-all, .top-filt {
+    clear: both;
+    margin-left:15px;
+}
+a.top-link {
+    float: right;
+    margin: 0 15px 15px 0;
+}
+a.top-link img {
+    border-radius:3px;
+    height:55px;
+    width:55px;
+    box-shadow: 2px 2px #ccc;
+}
+.top-all .text-link, .top-filt .text-link {
+    display: block;
+    margin-bottom: 20px;
+}
+.top-date {
+    font-size: 12px;
+    color: #777;
+}
+.top-cities {
+    font-size: 12px;
+    color: #777;
+    font-weight:normal;
+}
+/* City picker list */
+.city-picker {
+    /*margin: 20px!important;*/
+    /*overflow-y:scroll;*/
+    /*height:300px;*/
+}
+.city-picker{
+    background: rgba(255,255,255,0.98);
+    box-shadow: none;
+    padding: 30px;
+    /*margin: 30px;*/
+    position: absolute;
+    left:0;
+    right: 0;
+    top: 0;
+    /*margin-top: -9999px;*/
+    z-index: 99999;
+    /*height:323px;*/
+    /*overflow-y:scroll;*/
+    box-sizing: padding-box;
+}
+.city-picker ul{
+    margin:0;
+}
+.city-picker li{
+    list-style-type: none;
+}
+.city-picker-container{
+    display: inline-block;
+    /*margin-top: -10px;*/
+    /*float: right;*/
+}
+span.city-picker-close {
+    color: #eaeaea;
+    font-size: 36px;
+    position: absolute;
+    z-index:99999;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+span.city-picker-close:hover {
+    color: #cccccc;
+}
+.city-picker input[type="checkbox"] {
+    display:none;
+}
+.city-picker input[type="checkbox"] + label {
+    cursor: pointer;
+    font-weight: normal;
+    margin-right:3px;
+    margin-left:3px;
+    padding: 5px 3px;
+}
+.city-picker input[type="checkbox"]:checked + label {
+    background-color: #ddd;
+    border-radius: 3px;
+    box-shadow: none;
+}
+.city-divider li{
+    line-height: 1px;
+}
+/* Travelbase search form style */
+#travelbase-form .field-one, #travelbase-form .field-two, #travelbase-form .field-three, #travelbase-form .field-four, #travelbase-form .field-five, #travelbase-form .field-six {
+    display:inline-block;
+    vertical-align: top;
+    margin-bottom: 15px;
+}
+/* From fields */
+#travelbase-form .field-one, #travelbase-form .field-three {
+    min-width: 150px;
+    max-width: 330px;
+    margin-right: 15px;
+}
+#travelbase-form .field-two {
+    margin-right: 30px;
+}
+#travelbase-form .field-four {
+    clear:both
+}
+/* Travelbase search form more options checkboxes */
+.option-div .form-type-checkbox {
+}
+.options input[type="radio"],
+.options input[type="checkbox"] {
+    display:none;
+}
+.options input[type="radio"] + label:before,
+.options input[type="checkbox"] + label:before {
+    font-family: 'FontAwesome';
+    padding-right: 6px;
+    font-size: 20px;
+}
+.options input[type="checkbox"]:checked + label:before {
+    padding-right: 3px;
+}
+.options input[type="radio"] + label:before {
+    content: "\f10c"; /* circle-blank */
+}
+.options input[type="radio"]:checked + label:before {
+    content: "\f111"; /* circle */
+}
+.options input[type="checkbox"] + label:before {
+    content: "\f096"; /* check-empty */
+}
+.options input[type="checkbox"]:checked + label:before {
+    content: "\f046"; /* check */
+}
+#travelbase-form .engine-offset{
+    padding-left:7%;
+}
+#travelbase-form .form-item-departure-city{
+    box-sizing: border-box;
+    display: inline-block;
+}
+#travelbase-form label{
+    text-decoration: underline;
+    font-weight: normal;
+}
+#travelbase-form .form-item-destination-country{
+    box-sizing: border-box;
+    display: inline-block;
+}
+#travelbase-form #edit-destination-country, #edit-departure-city{
+    display: inline-block;
+    width: 1px;
+    height: 1px;
+}
+#travelbase-form input[type='text']{
+    background-color: rgba(252, 252, 252, 0);
+    border: 0 solid #eaeaea;
+}
+#travelbase-form .description{
+    display: none;
+}
+#travelbase-form .form-type-date-popup > label{
+    /*float: left;*/
+    display: none;
+}
+#travelbase-form .form-item-date-start-date > label, #travelbase-form .form-item-date-end-date > label{
+    /*display: none;*/
+}
+#travelbase-form input.form-text, textarea.form-textarea, select {
+    padding: 5px;
+}
+#travelbase-form #edit-date-end-datepicker-popup-0, #travelbase-form #edit-date-start-datepicker-popup-0 {
+    margin-left:7px;
+    padding: 0 1px 3px;
+}
+.form-type-select label, .form-item label {
+    cursor:hand;
+    cursor:pointer;
+}
+.form-item-date-start-date label img, .form-item-date-end-date label img {
+    display:inherit;
+}
+.form-item #edit-date-start-datepicker-popup-0, .form-item #edit-date-end-datepicker-popup-0 {
+    border-bottom: 1px solid #000!important;
+    border-radius: 0;
+    color: #f9f9f9;
+    font-size:15px;
+    float: right;
+    width: 82px;
+}
+#travelbase-form .container-inline-date .date-padding {
+    padding:0 0 0 15px;;
+}
+#travelbase-form .container-inline-date > .form-item {
+    margin-bottom:0;
+    margin-right:0;
+}
+#travelbase-form .form-item, .form-actions {
+    margin-top:0;
+    margin-bottom:0;
+}
+#travelbase-form .form-item-price {
+    width:100%;
+}
+#travelbase-form .options-row {
+    margin-top:15px;
+}
+#travelbase-form .options-row img, #travelbase-form .options {
+    margin-top: 5px;
+}
+#travelbase-form .options label {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    margin-right: 15px;
+}
+#travelbase-form a.toggle{
+    margin: 0 0 0 7px;
+    color: #000;
+    font-size: 14px;
+    display: inline-block;
+    text-decoration: none;
+}
+#travelbase-form .text-underline {
+    text-decoration: underline;
+    color: #f2f2f2;
+}
+#travelbase-form #options .form-item{
+    margin: 5px 0;
+}
+#travelbase-form #options .option-div{
+    margin: 0 5px;
+}
+#travelbase-form #options .option-div .option{
+    color:#fff;
+}
+#travelbase-form .city-picker-list{
+    color: #f9f9f9;
+    border-bottom: 1px solid #000;
+    position: relative;
+    display: table;
+}
+
+#travelbase-form input.date{
+    border-bottom: 1px solid #000;
+}
+.date{
+    color: #f9f9f9;
+    font-size: 15px;
+}
+.city-picker .column ul li i.glyphicon {
+    color: #999;
+}
+#travelbase-form .city-picker-list .form-list-close {
+    color:#eee;
+    position:absolute;
+    top:-5px;
+    font-size: 22px;
+    right:-20px;
+    text-decoration:none;
+}
+#travelbase-form .city-picker-list .form-list-close:hover {
+    color:#ccc;
+}
+#travelbase-form .city-picker-list .form-list-close span {
+    display: block;
+    line-height: 0.7em;
+    width: 14px;
+}
+#block-travelbase-travelbase-recent-sun{
+}
+.form-item-company{
+    height: 1px;
+    margin: 0;
+    display: flex;
+}
+/* TOP MENU */
+.site-topmenu {
+    position: absolute;
+    left:3%;
+    top:0;
+    width:65%;
+}
+.site-logo a {
+    width:98px;
+    height:140px;
+    position: absolute;
+    right:5%;
+    display:block;
+    background:url(http://ku.markmedia.fi/sites/default/files/images/logo.png) no-repeat 0 -10px;
+}
+.travelbase_top_menu{
+    float:right;
+    margin: 0 5px 0;
+    padding: 0;
+    display:none;
+}
+.travelbase_top_menu > li {
+    float: left;
+    list-style: outside none none;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+.travelbase_top_menu a {
+    color: black;
+    font-size: 16px;
+    text-decoration: underline;
+    font-style: italic;
+}
+/* SUBSCRIPTION BLOCK */
+.block.block-total-subscription {
+}
+#edit-mail{
+    width: 230px;
+}
+#travelbase_items .active {
+    font-weight: bold;
+}
+@media (min-width: 992px) {
+    #travelbase-form .form-second, #travelbase-form .form-third {
+        margin-top: 20px!important;
+    }
+}
+@media (max-width: 1370px) {
+    .img-text h1 {
+        font-size: 28px!important;
+    }
+}
+@media (max-width: 1100px) {
+    .img-text h1 {
+        font-size: 22px!important;
+    }
+}
+@media (max-width: 992px) {
+    .city-picker{
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .form-item-date-start-date label img, .form-item-date-end-date label img {
+        margin-left:6px;
+        margin-right: 6px;
+    }
+    #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-travelbase-search-form .col-md-4, #block-travelbase-travelbase-search-form .col-md-8, #block-travelbase-travelbase-search-form .col-md-7, #block-travelbase-travelbase-search-form .col-md-6 {
+        padding-bottom: 10px;
+    }
+    .site-logo {
+        display:none;
+    }
+    #travelbase-form .field-one, #travelbase-form .field-two, #travelbase-form .field-three, #travelbase-form .field-four {
+    }
+    /* From fields */
+    #travelbase-form .field-one, #travelbase-form .field-three {
+        width: 250px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.nopadding, .no-padding {
+    padding: 0;
+}
+#ui-datepicker-div {
+    z-index: 9999!important;
+}
+/* Form popup lists */
+h1.form-item-header {margin:0!important;color:#333!important;font-size:22px!important;}
+.form-item-desc {margin:0 0 10px 0;color:#333;font-size:16px;font-style:italic}
+.no-cities {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 4px;
+}
+.city-search {
+    border:1px solid #ccc!important;
+    border-radius:3px 0 0 3px;
+    height: 34px;
+    padding:3px 8px;
+    float: left;
+    box-shadow: 2px 2px #ccc;
+}
+label[for=city-search] {
+    background:url(http://ku.markmedia.fi/sites/default/files/images/i-sea.png) no-repeat top left;
+    width:25px;
+    height:40px;
+    padding:3px 3px 3px 8px;
+    float:left;
+}
+label[for=spa], label[for=map], label[for=ski], label[for=sun] {
+    height:34px;
+    display:inline-table;
+    padding-left:47px!important;
+    margin-right:8px!important;
+    width:77px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px #ccc;
+    background-position: 8px top;
+    background-repeat:no-repeat;
+}
+.city-picker input[type="checkbox"]:checked + label[for=spa],
+.city-picker input[type="checkbox"]:checked + label[for=ski],
+.city-picker input[type="checkbox"]:checked + label[for=sun] {
+    margin: 1px 0 0 3px;
+}
+label[for=map] {
+    background-image:url(http://ku.markmedia.fi/sites/default/files/images/i-map.png);
+    margin-left:20px!important;
+}
+label[for=spa] {
+    background-image:url(http://ku.markmedia.fi/sites/default/files/images/i-spa.png);
+}
+label[for=ski] {
+    background-image:url(http://ku.markmedia.fi/sites/default/files/images/i-ski.png);
+}
+label[for=sun] {
+    background-image:url(http://ku.markmedia.fi/sites/default/files/images/i-bea.png);
+}
+.city-list {
+    clear: both;
+    margin-top: 15px;
+}
+/* Homepage form */
+.form-item label {margin:0}
+.form-item .ico-price {
+    position: absolute;
+    left: -35px;
+}
+.priceline {
+    margin-left: 38px;
+    padding-left: 15px;
+    margin-right: 65px;
+    width: 100px;
+    position:relative!important;
+}
+label[for=ski], label[for=sun], label[for=spa] {
+    float:right
+}
+/* Form pricefield */
+.form-item .sliderfield-display-values-field { color:#fff }
+.form-item-price .ui-state-default, .form-item-price .ui-widget-content .ui-state-default, .form-item-price .ui-widget-header .ui-state-default {
+    font-weight: 400;
+    border-radius: 15px;
+    color: #555;
+    width: 0.8em;
+    height: 0.8em;
+    background: #F8C701;
+    border: 1px solid #000;
+    cursor:pointer;
+}
+.form-item .ui-slider-horizontal {
+    height: 1px;
+}
+#edit-price .ui-widget-content, #edit-price .ui-widget-content .ui-slider-range {
+    border: none!important;
+    background: #000;
+}
+.form-item .sliderfield .sliderfield-bubble {
+    top: 15px;
+    color: #fff;
+    border: none;
+    background:transparent;
+    font: italic 12px 'Arimo';
+    padding: 0 3px;
+}
+/* Homepage tabs */
+#page #main-content .container .col-md-7 {margin-top: -40px;}
+.nav-tabs > li > a {border-radius:0;margin-right:0}
+/* Homepage articles */
+.view-homepage td.col-1 {width:50%;}
+article h2 {font-size: 18px;}
+.article-headaaa {top:50%;position:relative;transform:translateY(-50%)}
+/*#header-inside,*/
+.article-bg {
+    height:380px;
+    background-attachment: scroll;
+    background-position: center center;
+    background-repeat: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+/* Homepage slider */
+#page #main-content{ padding:0 0 30px 0;z-index:9;position: relative;}
+.slider-wrapper {width:350px;float:right;margin-top:-180px;z-index: 99;position: relative;}
+.field-type-taxonomy-term-reference{ float:none;}
+.vertical-tabs ul.vertical-tabs-list li{list-style: none outside none;}
+#header > .container, #main-content > .container {width:100%;}
+#header > .container, #header > .container .row, #header > .container .row .col-md-12, .block-nivo-slider {padding:0;margin:0}
+.block-nivo-slider {width:100px;float:right}
+.theme-default .nivoSlider {box-shadow: none;position:relative;margin:0;overflow: visible;}
+.theme-default .nivo-controlNav {position: absolute;top: -50px;}
+.theme-default .nivoSlider .nivo-caption .date {display:inline-block;background:#000;padding: 5px;opacity:0.8;bottom:50%;right:5%;font:12px/1.5em 'Arimo';}
+.theme-default .nivoSlider .nivo-caption p {font:16px/1.5em 'Arimo';}
+/* Blog page */
+#travelbase_header h3, #travelbase_footer h3 {font-size:11px;margin:0;font-weight:normal;}
+#travelbase_header h1 {font-size:26px;margin:10px 0;font-weight:normal;}
+#travelbase_header h2 {font-size:14px;margin:0;font-weight:normal;}
+#block-search-form {
+    position: absolute;
+    top: -355px;
+    margin-left: -15px;
+    width: 180px;
+}
+/* Search engine tabs */
+ul#form-type-switcher { padding: 0px;
+    margin: 0;
+    text-align: center;
+    border:none;
+}
+ul#form-type-switcher li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #fafafa;
+    white-space: nowrap;
+}
+ul#form-type-switcher li {
+    margin-right: 2px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+ul#form-type-switcher li a {
+    display: inline-block;
+    line-height: 40px;
+    padding: 0;
+    border: 0;
+    height: 40px;
+    font-size: 14px;
+    color:rgba(0, 231, 171, 1);
+    position: relative;
+    font-weight: bold;
+}
+ul#form-type-switcher li a:hover {
+    text-decoration:none;
+}
+ul#form-type-switcher li a.active {
+    color: #FFF;
+    text-shadow: 1px 1px rgba(0, 108, 80, 1);
+    background-color: #00BE8D;
+}
+ul#form-type-switcher li a.active:after {
+    position: absolute;
+    content: '';
+    bottom: -8px;
+    left: 50%;
+    margin-left: -7px;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 0 solid transparent;
+    border-top: 8px solid #00BE8D;
+}
+ul#form-type-switcher li a img {
+    float: right;
+    margin-right: 5px;
+}
+/* ASIDE */
+aside.aside-first {
+    background: #eee;
+    border-radius: 0 0 0 10px;
+}
+aside.aside-second {
+    float: right;
+}
