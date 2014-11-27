@@ -1,0 +1,10 @@
+/*Copyright 2013 Allison Stone*/
+
+ul {list-style-type:none;}
+li {padding:1px 0;}
+
+input[type="radio"], input[type="checkbox"] {margin:-4px 0 0 0;}
+
+i {color:#388ED1;cursor:pointer;margin:1px 0 0 0;position:relative;top:1px;}
+
+#container {width:1000px;margin:0 auto;}

@@ -78,7 +78,7 @@ Changes to kunstmaan bundles.
     
     //ADD THIS LINE
     
-    <link rel="stylesheet" href="{{ asset("frontend/js/select2/select2.css") }}"/>
+    <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/frontend/js/select2/select2.css") }}"/>
     
     //END
     
@@ -98,7 +98,7 @@ Changes to kunstmaan bundles.
 
     //ADD THIS LINE.
 
-    <script src="{{ asset("frontend/js/select2/select2.js") }}"></script>
+    <script src="{{ asset("bundles/sandboxwebsite/frontend/js/select2/select2.min.js") }}"></script>
 
     //END
 
