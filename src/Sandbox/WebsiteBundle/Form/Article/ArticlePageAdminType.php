@@ -24,7 +24,7 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('author')
+            //->add('author')
             ->add('fromPlaces', 'entity', [
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
@@ -41,7 +41,8 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                     return $er->getByLang($locale);
                 }
             ]
-        )->add('topImage');
+        )->add('topImage')
+        ->add('hosts');
     }
 
     /**

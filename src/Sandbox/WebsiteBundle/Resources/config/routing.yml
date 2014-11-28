@@ -98,3 +98,10 @@ sandboxwebsitebundle_subscription_admin_list:
     prefix:   /{_locale}/admin/subscription/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_host_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/HostAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/host/
+    requirements:
+         _locale: %requiredlocales%

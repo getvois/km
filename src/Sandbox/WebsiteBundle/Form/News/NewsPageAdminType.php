@@ -23,7 +23,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('author')
+        $builder//->add('author')
         ->add('fromPlaces', 'entity', [
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
@@ -43,7 +43,8 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             ]
         )
         ->add('translate')
-        ->add('topImage');
+        ->add('topImage')
+        ->add('hosts');
     }
 
     /**

@@ -28,16 +28,16 @@ class PlaceMenuAdaptor implements MenuAdaptorInterface
     public function adaptChildren(MenuBuilder $menu, array &$children, MenuItem $parent = null, Request $request = null)
     {
         if (!is_null($parent) && 'KunstmaanAdminBundle_modules' == $parent->getRoute()) {
-            // Page
-            $menuitem = new TopMenuItem($menu);
-            $menuitem->setRoute('sandboxwebsitebundle_admin_place_placepage');
-            $menuitem->setInternalName('Places');
-            $menuitem->setParent($parent);
-            if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {
-                $menuitem->setActive(true);
-                $parent->setActive(true);
-            }
-            $children[] = $menuitem;
+//            // Page
+//            $menuitem = new TopMenuItem($menu);
+//            $menuitem->setRoute('sandboxwebsitebundle_admin_place_placepage');
+//            $menuitem->setInternalName('Places');
+//            $menuitem->setParent($parent);
+//            if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {
+//                $menuitem->setActive(true);
+//                $parent->setActive(true);
+//            }
+//            $children[] = $menuitem;
 //            // Author
 //            $menuitem = new TopMenuItem($menu);
 //            $menuitem->setRoute('sandboxwebsitebundle_admin_place_placeauthor');

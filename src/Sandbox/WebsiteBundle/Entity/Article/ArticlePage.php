@@ -3,9 +3,12 @@
 namespace Sandbox\WebsiteBundle\Entity\Article;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Sandbox\WebsiteBundle\Entity\Article\ArticleAuthor;
+use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
@@ -19,7 +22,7 @@ use Symfony\Component\Form\AbstractType;
  * @ORM\Table(name="sb_article_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class ArticlePage extends AbstractArticlePage implements IPlaceFromTo
+class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
 {
     /**
      * Constructor
@@ -28,7 +31,17 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo
     {
         $this->places = new ArrayCollection();
         $this->fromPlaces = new ArrayCollection();
+        $this->hosts = new ArrayCollection();
+
     }
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Host", inversedBy="articles")
+     * @ORM\JoinTable(name="sb_host_article")
+     **/
+    private $hosts;
 
     /**
      * @var TopImage
@@ -238,5 +251,38 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo
     public function getTopImage()
     {
         return $this->topImage;
+    }
+
+    /**
+     * Add hosts
+     *
+     * @param Host $hosts
+     * @return ArticlePage
+     */
+    public function addHost(Host $hosts)
+    {
+        $this->hosts[] = $hosts;
+
+        return $this;
+    }
+
+    /**
+     * Remove hosts
+     *
+     * @param Host $hosts
+     */
+    public function removeHost(Host $hosts)
+    {
+        $this->hosts->removeElement($hosts);
+    }
+
+    /**
+     * Get hosts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHosts()
+    {
+        return $this->hosts;
     }
 }

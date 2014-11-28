@@ -3,12 +3,15 @@
 namespace Sandbox\WebsiteBundle\Entity\Place;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Form\Place\PlaceOverviewPageAdminType;
@@ -26,7 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository")
  * @ORM\Table(name="sb_place_overviewpages")
  */
-class PlaceOverviewPage extends AbstractArticleOverviewPage
+class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
 {
     /**
      * @var TopImage
@@ -45,6 +48,14 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
      **/
     private $parentPlace;
 
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Host", inversedBy="places")
+     * @ORM\JoinTable(name="sb_host_place")
+     **/
+    private $hosts;
 
 
     /**
@@ -132,6 +143,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
         $this->news = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->fromArticles = new ArrayCollection();
+        $this->hosts = new ArrayCollection();
     }
 
     /**
@@ -143,7 +155,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
     }
 
 
-    public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [])
+    public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [], $host)
     {
         $nodeTranslation = $node->getNodeTranslation($locale);
         if($nodeTranslation && $nodeTranslation->isOnline()){
@@ -158,25 +170,40 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
                     ->findOneBy([
                         'refId' => $item->getId(),
                         'refEntityName' => 'Sandbox\WebsiteBundle\Entity\News\NewsPage',
-                        'type' => 'public'
-                    ]);
+                        'type' => 'public',
+                    ]//, ['created' => 'desc', 'updated' => 'desc']
+                    );
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()
                     && $nodeVersion->getNodeTranslation()->getLang() == $locale
                 ){
-                    $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                    //check host
+                    /** @var Host $host */
+                    if($host){
+                        /** @var Host $itemHost */
+                        foreach ($item->getHosts() as $itemHost) {
+                            if($itemHost->getId() == $host->getId()){
+                                $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                                break;
+                            }
+                        }
+
+
+                    }else {
+                        $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                    }
                 }
             }
         }
 
         foreach ($node->getChildren() as $child) {
-            $this->getSubNews($child, $locale, $em, $news);
+            $this->getSubNews($child, $locale, $em, $news, $host);
         }
 
     }
 
-    public function getSubArticles(Node $node, $locale,ObjectManager $em, &$articles = [])
+    public function getSubArticles(Node $node, $locale,ObjectManager $em, &$articles = [], $host)
     {
         $nodeTranslation = $node->getNodeTranslation($locale);
         if($nodeTranslation && $nodeTranslation->isOnline()){
@@ -197,13 +224,25 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
                     && $nodeVersion->getNodeTranslation()->isOnline()
                     && $nodeVersion->getNodeTranslation()->getLang() == $locale
                 ){
-                    $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                    //check host
+                    /** @var Host $host */
+                    if($host){
+                        /** @var Host $itemHost */
+                        foreach ($item->getHosts() as $itemHost) {
+                            if($itemHost->getId() == $host->getId()){
+                                $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                                break;
+                            }
+                        }
+                    }else {
+                        $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                    }
                 }
             }
         }
 
         foreach ($node->getChildren() as $child) {
-            $this->getSubArticles($child, $locale, $em, $articles);
+            $this->getSubArticles($child, $locale, $em, $articles, $host);
         }
 
     }
@@ -232,50 +271,16 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
         }
 
         $em = $container->get('doctrine.orm.entity_manager');
-        $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news);
-        $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles);
-
-//        $em = $container->get('doctrine.orm.entity_manager');
-//        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->findAll();
-//
-//        $translationIds = [];//array of node translation ids
-//        /** @var PlaceOverviewPage[] $placesLocale */
-//        $placesLocale = [];//array of translated online nodes to return to template
-//
-//        foreach ($places as $place) {
-//            //get node version
-//            /** @var NodeVersion $nodeVersion */
-//            $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-//                ->findOneBy([
-//                    'refId' => $place->getId(),
-//                    'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
-//                    'type' => 'public'
-//                ]);
-//
-//            //check node versions (node could have same node translations ids)
-//            //check node online and lang
-//            if($nodeVersion
-//                && $nodeVersion->getNodeTranslation()->isOnline()
-//                && $nodeVersion->getNodeTranslation()->getLang() == $locale
-//            ){
-//                //add node if translation does not exist
-//                if(!in_array($nodeVersion->getNodeTranslation()->getId(), $translationIds)) {
-//                    $placesLocale[] = $place;
-//                    $translationIds[] = $nodeVersion->getNodeTranslation()->getId();
-//                }
-//            }
-//        }
-
-
-        //$node = $em->getRepository('KunstmaanNodeBundle:Node')->find(12);//15 spain
-        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->childrenHierarchy()[0]['__children'][5]);
-        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->getChildren($node));
-        //var_dump($placesLocale[1]->()->count());
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+        $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news, $host);
+        $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles, $host);
 
         $context['places'] = $placesLocale;
         $context['news'] = $news;
         $context['articles'] = $articles;
         $context['lang'] = $locale;
+        $context['em'] = $em;
 
         parent::service($container, $request, $context);
     }
@@ -525,5 +530,38 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage
     public function getTopImage()
     {
         return $this->topImage;
+    }
+
+    /**
+     * Add hosts
+     *
+     * @param Host $hosts
+     * @return PlaceOverviewPage
+     */
+    public function addHost(Host $hosts)
+    {
+        $this->hosts[] = $hosts;
+
+        return $this;
+    }
+
+    /**
+     * Remove hosts
+     *
+     * @param Host $hosts
+     */
+    public function removeHost(Host $hosts)
+    {
+        $this->hosts->removeElement($hosts);
+    }
+
+    /**
+     * Get hosts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHosts()
+    {
+        return $this->hosts;
     }
 }

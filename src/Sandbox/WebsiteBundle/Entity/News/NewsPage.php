@@ -3,8 +3,11 @@
 namespace Sandbox\WebsiteBundle\Entity\News;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
@@ -18,7 +21,7 @@ use Symfony\Component\Form\AbstractType;
  * @ORM\Table(name="sb_news_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class NewsPage extends AbstractArticlePage implements IPlaceFromTo
+class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable
 {
 
     /**
@@ -28,7 +31,20 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo
     {
         $this->places = new ArrayCollection();
         $this->fromPlaces = new ArrayCollection();
+        $this->hosts = new ArrayCollection();
+
     }
+
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Host", inversedBy="news")
+     * @ORM\JoinTable(name="sb_host_news")
+     **/
+    private $hosts;
+
+
 
     /**
      * @var TopImage
@@ -243,5 +259,48 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo
     public function getTopImage()
     {
         return $this->topImage;
+    }
+
+    /**
+     * Get translate
+     *
+     * @return boolean 
+     */
+    public function getTranslate()
+    {
+        return $this->translate;
+    }
+
+    /**
+     * Add hosts
+     *
+     * @param Host $hosts
+     * @return NewsPage
+     */
+    public function addHost(Host $hosts)
+    {
+        $this->hosts[] = $hosts;
+
+        return $this;
+    }
+
+    /**
+     * Remove hosts
+     *
+     * @param Host $hosts
+     */
+    public function removeHost(Host $hosts)
+    {
+        $this->hosts->removeElement($hosts);
+    }
+
+    /**
+     * Get hosts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHosts()
+    {
+        return $this->hosts;
     }
 }

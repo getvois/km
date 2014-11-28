@@ -38,16 +38,16 @@ class NewsMenuAdaptor implements MenuAdaptorInterface
                 $parent->setActive(true);
             }
             $children[] = $menuitem;
-            // Author
-            $menuitem = new TopMenuItem($menu);
-            $menuitem->setRoute('sandboxwebsitebundle_admin_news_newsauthor');
-            $menuitem->setInternalName('News Authors');
-            $menuitem->setParent($parent);
-            if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {
-                $menuitem->setActive(true);
-                $parent->setActive(true);
-            }
-            $children[] = $menuitem;
+//            // Author
+//            $menuitem = new TopMenuItem($menu);
+//            $menuitem->setRoute('sandboxwebsitebundle_admin_news_newsauthor');
+//            $menuitem->setInternalName('News Authors');
+//            $menuitem->setParent($parent);
+//            if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {
+//                $menuitem->setActive(true);
+//                $parent->setActive(true);
+//            }
+//            $children[] = $menuitem;
         }
 
         //don't load children

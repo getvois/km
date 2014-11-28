@@ -25,39 +25,80 @@
         {% if places > 0 %}
             <ul class="article__overview--list">
                 {% for article in places %}
-                    <li class="article__overview--list-item">
-                        {#{{ dump(article) }}#}
+                    {% if host %}
+                        {% if host in article.publicNodeVersion.getRef(em).hosts %}
+                            <li class="article__overview--list-item">
+                                {#{{ dump(article) }}#}
+                                {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
+                                {#{% set articlenode = get_node_translation_for(article) %}#}
+                                <h4><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h4>
+                                {# 2 level #}
+                                {% if article.node.children.count > 0 %}
+                                    <ul class="article__overview--list">
+                                        {% for node in article.node.children%}
+                                            {% if host in node.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                                <li class="article__overview--list-item">
+                                                    <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
 
-                        {#{% set articlenode = get_node_translation_for(article) %}#}
-                        <h4><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h4>
-                        {# 2 level #}
-                        {% if article.node.children.count > 0 %}
-                            <ul class="article__overview--list">
-                                {% for node in article.node.children%}
-                                    <li class="article__overview--list-item">
-                                        <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
+                                                    {# 3 level #}
+                                                    {% if node.children.count > 0 %}
+                                                        <ul class="article__overview--list">
+                                                            {% for node2 in node.children%}
+                                                                {% if host in node2.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                                                    <li class="article__overview--list-item">
+                                                                        <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
 
-                                        {# 3 level #}
-                                        {% if node.children.count > 0 %}
-                                            <ul class="article__overview--list">
-                                                {% for node2 in node.children%}
-                                                    <li class="article__overview--list-item">
-                                                        <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
-
-
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% endif %}
-
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                                {#{{ article.summary }}#}
+                                {#<time>{{ article.date | date("d/m/Y")}}</time>#}
+                            </li>
                         {% endif %}
+                    {% else %}
+                        <li class="article__overview--list-item">
+                            {#{{ dump(article) }}#}
+                            {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
+                            {#{% set articlenode = get_node_translation_for(article) %}#}
+                            <h4><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h4>
+                            {# 2 level #}
+                            {% if article.node.children.count > 0 %}
+                                <ul class="article__overview--list">
+                                    {% for node in article.node.children%}
+                                        <li class="article__overview--list-item">
+                                            <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
 
-                        {#{{ article.summary }}#}
-                        {#<time>{{ article.date | date("d/m/Y")}}</time>#}
-                    </li>
+                                            {# 3 level #}
+                                            {% if node.children.count > 0 %}
+                                                <ul class="article__overview--list">
+                                                    {% for node2 in node.children%}
+                                                        <li class="article__overview--list-item">
+                                                            <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
+
+
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            {#{{ article.summary }}#}
+                            {#<time>{{ article.date | date("d/m/Y")}}</time>#}
+                        </li>
+                    {% endif %}
+
+
                     {% set count = count + 1 %}
                 {% endfor %}
             </ul>

@@ -23,12 +23,17 @@
 
 
     {# CUSTOM CSS #}
-    <link href="{{ asset("bundles/sandboxwebsite/frontend/css/travelbase.css") }}" rel="stylesheet" type="text/css">
     <link href="{{ asset("bundles/sandboxwebsite/frontend/js/select2/select2.css") }}" rel="stylesheet" type="text/css">
     <link href="{{ asset("bundles/sandboxwebsite/frontend/js/jquery-ui-1.11.2/jquery-ui.min.css") }}" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+    <link href="{{ asset("bundles/sandboxwebsite/frontend/css/travelbase.css") }}" rel="stylesheet" type="text/css">
+
+    {% if host and asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") %}
+        <link href="{{ asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") }}" rel="stylesheet" type="text/css">
+    {% endif %}
 
     <!-- webfonts - should be included through css-method -->
     {#<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>#}
@@ -107,14 +112,44 @@
                                                 <ul class="navigation__level navigation__level--sublevel">
                                                     {% for node in node.children %}
                                                         {% if not node.node.isHiddenFromNav() %}
-                                                            <li class="navigation__item navigation__item--sublevel {% if(node.active) %}navigation__item--active{% endif %}">
-                                                                <a href="{{ path('_slug', { 'url': node.slug }) }}" class="navigation__link navigation__link--sublevel">
-                                                                    {{ node.title }}
-                                                                    {% if(node.active) %}
-                                                                        <i class="icon-chevron-right"></i>
+
+                                                            {# check if host exists#}
+                                                            {% if host %}
+                                                                {% if(node.page.hosts) is defined %}
+                                                                    {# output only host based content #}
+                                                                    {% if host in node.page.hosts %}
+                                                                        <li class="navigation__item navigation__item--sublevel {% if(node.active) %}navigation__item--active{% endif %}">
+                                                                            <a href="{{ path('_slug', { 'url': node.slug }) }}" class="navigation__link navigation__link--sublevel">
+                                                                                {{ node.title }}
+                                                                                {% if(node.active) %}
+                                                                                    <i class="icon-chevron-right"></i>
+                                                                                {% endif %}
+                                                                            </a>
+                                                                        </li>
                                                                     {% endif %}
-                                                                </a>
-                                                            </li>
+                                                                {% else %}
+                                                                    {# object without hosts. print as normal#}
+                                                                    <li class="navigation__item navigation__item--sublevel {% if(node.active) %}navigation__item--active{% endif %}">
+                                                                        <a href="{{ path('_slug', { 'url': node.slug }) }}" class="navigation__link navigation__link--sublevel">
+                                                                            {{ node.title }}
+                                                                            {% if(node.active) %}
+                                                                                <i class="icon-chevron-right"></i>
+                                                                            {% endif %}
+                                                                        </a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <li class="navigation__item navigation__item--sublevel {% if(node.active) %}navigation__item--active{% endif %}">
+                                                                    <a href="{{ path('_slug', { 'url': node.slug }) }}" class="navigation__link navigation__link--sublevel">
+                                                                        {{ node.title }}
+                                                                        {% if(node.active) %}
+                                                                            <i class="icon-chevron-right"></i>
+                                                                        {% endif %}
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+
+
                                                         {% endif %}
                                                     {% endfor %}
                                                 </ul>
@@ -156,26 +191,28 @@
                             {#{% endif %}#}
                         {#{% endblock %}#}
                     {#</h1>#}
-                    {% if requiredlocales is defined %}
-                        {% set langs = requiredlocales|split('|') %}
-                        {% if langs|length > 0 %}
-                            <nav class="col-md-2 language-nav">
-                                <span class="language-nav__active-lang">
-                                    {{ app.request.locale }}
-                                    <i class="icon-chevron-down"></i>
-                                </span>
-                                <ul class="list-reset language-nav__list">
-                                    {% for lang in langs %}
-                                        {% if lang != app.request.locale %}
-                                            <li class="language-nav__list-item">
-                                                <a href="{{ path('_slug', { '_locale': lang }) }}" class="language-nav__link">
-                                                    {{ lang }}
-                                                </a>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </nav>
+                    {% if host is not null and host.multiLanguage %}
+                        {% if requiredlocales is defined %}
+                            {% set langs = requiredlocales|split('|') %}
+                            {% if langs|length > 0 %}
+                                <nav class="col-md-2 language-nav">
+                                    <span class="language-nav__active-lang">
+                                        {{ app.request.locale }}
+                                        <i class="icon-chevron-down"></i>
+                                    </span>
+                                    <ul class="list-reset language-nav__list">
+                                        {% for lang in langs %}
+                                            {% if lang != app.request.locale %}
+                                                <li class="language-nav__list-item">
+                                                    <a href="{{ path('_slug', { '_locale': lang }) }}" class="language-nav__link">
+                                                        {{ lang }}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </div>
@@ -301,9 +338,26 @@
                                             {% else %}
                                                 {% for node2 in node.children %}
                                                     {% if not node.node.isHiddenFromNav() or true %}
-                                                        <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
-                                                            <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
-                                                        </li>
+                                                        {# check if host exists#}
+                                                        {% if host %}
+                                                            {% if(node2.page.hosts) is defined %}
+                                                                {# output only host based content #}
+                                                                {% if host in node2.page.hosts %}
+                                                                    <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
+                                                                        <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {# object without hosts. print as normal#}
+                                                                <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
+                                                                    <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
+                                                                <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
+                                                            </li>
+                                                        {% endif %}
                                                     {% endif %}
                                                 {% endfor %}
                                             {% endif %}

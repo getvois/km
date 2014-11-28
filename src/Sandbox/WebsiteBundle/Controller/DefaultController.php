@@ -247,6 +247,7 @@ class DefaultController extends Controller
                         $otherLanguageNodeTranslation = $translation;
                         $otherLanguageNodeNodeVersion = $otherLanguageNodeTranslation->getPublicNodeVersion();
                         $otherLanguagePage = $otherLanguageNodeNodeVersion->getRef($em);
+                        //current hosts will be copied to new page with this command
                         $myLanguagePage = $this->get('kunstmaan_admin.clone.helper')->deepCloneAndSave($otherLanguagePage);
                         /* @var NodeTranslation $nodeTranslation */
                         $nodeTranslation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')->createNodeTranslationFor($myLanguagePage, $lang, $translation->getNode(), $user);
@@ -273,6 +274,7 @@ class DefaultController extends Controller
 
         $parentNodeTranslation = $parentNode->getNodeTranslation($locale, true);
         $parentNodeVersion = $parentNodeTranslation->getPublicNodeVersion();
+        /** @var PlaceOverviewPage $parentPage */
         $parentPage = $parentNodeVersion->getRef($em);
 
         $placeOverviewPage = new PlaceOverviewPage();
@@ -280,10 +282,15 @@ class DefaultController extends Controller
         $placeOverviewPage->setCityId($country->id);
         $placeOverviewPage->setCountryCode($country->countryCode);
 
-        $em->persist($placeOverviewPage);
-        $em->flush();
+        //copy hosts from parent
+        foreach ($parentPage->getHosts() as $host) {
+            $placeOverviewPage->addHost($host);
+        }
 
         $placeOverviewPage->setParent($parentPage);
+
+        $em->persist($placeOverviewPage);
+        $em->flush();
 
         /* @var Node $nodeNewPage */
             $nodeNewPage = $em->getRepository('KunstmaanNodeBundle:Node')->createNodeFor($placeOverviewPage, $locale, $user);
@@ -298,6 +305,7 @@ class DefaultController extends Controller
             $otherLanguageNodeTranslation = $nodeNewPage->getNodeTranslation($locale, true);
             $otherLanguageNodeNodeVersion = $otherLanguageNodeTranslation->getPublicNodeVersion();
             $otherLanguagePage = $otherLanguageNodeNodeVersion->getRef($em);
+            //hosts will be copied with this command
             $myLanguagePage = $this->get('kunstmaan_admin.clone.helper')->deepCloneAndSave($otherLanguagePage);
             /* @var NodeTranslation $nodeTranslation */
             $nodeTranslation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')->createNodeTranslationFor($myLanguagePage, $lang, $nodeNewPage, $user);
@@ -344,19 +352,19 @@ class DefaultController extends Controller
             $title = $country->countryName;
 
             switch($lang){
-                case 'fi': $title = $country->countryName;
+                case 'fi': $title = $country->countryNameFi;
                     break;
                 case 'en': $title = $country->countryName;
                     break;
-                case 'de': $title = $country->countryName;
+                case 'de': $title = $country->countryNameDe;
                     break;
-                case 'fr': $title = $country->countryName;
+                case 'fr': $title = $country->countryNameFr;
                     break;
                 case 'ru': $title = $country->countryNameRu;
                     break;
-                case 'se': $title = $country->countryName;
+                case 'se': $title = $country->countryNameSe;
                     break;
-                case 'ee': $title = $country->countryName;
+                case 'ee': $title = $country->countryNameEe;
                     break;
             }
 

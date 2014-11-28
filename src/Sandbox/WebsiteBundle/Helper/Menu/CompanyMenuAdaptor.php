@@ -38,16 +38,16 @@ class CompanyMenuAdaptor implements MenuAdaptorInterface
                 $parent->setActive(true);
             }
             $children[] = $menuitem;
-            // Author
-            $menuitem = new TopMenuItem($menu);
-            $menuitem->setRoute('sandboxwebsitebundle_admin_company_companyauthor');
-            $menuitem->setInternalName('Company Authors');
-            $menuitem->setParent($parent);
-            if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {
-                $menuitem->setActive(true);
-                $parent->setActive(true);
-            }
-            $children[] = $menuitem;
+//            // Author
+//            $menuitem = new TopMenuItem($menu);
+//            $menuitem->setRoute('sandboxwebsitebundle_admin_company_companyauthor');
+//            $menuitem->setInternalName('Company Authors');
+//            $menuitem->setParent($parent);
+//            if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {
+//                $menuitem->setActive(true);
+//                $parent->setActive(true);
+//            }
+//            $children[] = $menuitem;
         }
 
 //        //don't load children

@@ -36,7 +36,7 @@ interface IPlaceFromTo {
     /**
      * Get fromPlaces
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
      */
     public function getFromPlaces();
 

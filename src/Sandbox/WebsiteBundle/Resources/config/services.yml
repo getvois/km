@@ -4,6 +4,16 @@ services:
         tags:
           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
         arguments: [%defaultlocale%]
+
+#Twig
+    sandboxwebsitebundle.twigHostExtension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\HostExtension
+        arguments: [@service_container]
+        tags:
+          - { name: twig.extension }
+
+
+#Menu items
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor
         tags:
@@ -16,10 +26,14 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\SubscriptionMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.host:
+        class: Sandbox\WebsiteBundle\Helper\Menu\HostMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 
 
-
+#Listeners
     sandboxwebsitebundle.form_listener:
         class: Sandbox\WebsiteBundle\EventListener\FormListener
         arguments: [%kuma_translator.managed_locales%, @service_container]
@@ -31,6 +45,13 @@ services:
         arguments: [@service_container]
         tags:
           - { name: kernel.event_listener, event: kunstmaan_node.postPublish, method: onPostPublish }
+
+    sandboxwebsitebundle.addnode_listener:
+        class: Sandbox\WebsiteBundle\EventListener\AddNodeListener
+        arguments: [@service_container]
+        tags:
+          - { name: kernel.event_listener, event: kunstmaan_node.postPersist, method: onAddNode }
+          - { name: kernel.event_listener, event: kunstmaan_node.addNode, method: onAddNode }
 
 
 
