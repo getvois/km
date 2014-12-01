@@ -1,3 +1,4 @@
+{% if pages is defined and pages is not null%}
 <h3>Top 10</h3>
 <div role="tabpanel">
 
@@ -11,10 +12,17 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="top-ten-all">all</div>
+        <div role="tabpanel" class="tab-pane active" id="top-ten-all">
+            {% for p in pages %}
+                <div>
+                    <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
+                </div>
+            {% endfor %}
+        </div>
         <div role="tabpanel" class="tab-pane" id="top-ten-ski">ski</div>
         <div role="tabpanel" class="tab-pane" id="top-ten-spa">spa</div>
         <div role="tabpanel" class="tab-pane" id="top-ten-sun">sun</div>
     </div>
 
 </div>
+{% endif %}

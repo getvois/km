@@ -2,6 +2,9 @@
 
 namespace Sandbox\WebsiteBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
+use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +23,52 @@ class TravelbaseController extends Controller
      */
     public function topTenAction(Request $request)
     {
-        return [];
+        $lang = $request->getLocale();
+
+        $em = $this->getDoctrine()->getManager();
+        /** @var NodeVersion[] $nodeVersions */
+        $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+            ->createQueryBuilder('v')
+            ->select('v')
+            ->andWhere('v.refEntityName like :news')
+            ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
+            ->orWhere('v.refEntityName like :article')
+            ->setParameter('article', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\Article\\\\ArticlePage")
+            ->andWhere('v.type like \'public\'')
+            ->orderBy('v.created')
+            ->getQuery()
+            ->getResult();
+
+        if(!$nodeVersions) return [];
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $pages = [];
+        foreach ($nodeVersions as $nodeVersion) {
+            $nodeTranslation = $nodeVersion->getNodeTranslation();
+            if($nodeTranslation && $nodeTranslation->isOnline() && $nodeTranslation->getLang() == $lang && $nodeTranslation->getNode()->isDeleted() == false){
+                /** @var IHostable $page */
+                $page = $nodeVersion->getRef($em);
+
+                //check host
+                if($host){
+                    foreach ($page->getHosts() as $h) {
+                        if($h->getName() == $host){
+                            $pages[$nodeTranslation->getNode()->getId()] = $page;
+                            break;
+                        }
+                    }
+                }else{
+                    $pages[$nodeTranslation->getNode()->getId()] = $page;
+                }
+
+                if(count($pages) == 10) break;
+            }
+        }
+
+
+        return ['pages' => $pages];
     }
 
 
