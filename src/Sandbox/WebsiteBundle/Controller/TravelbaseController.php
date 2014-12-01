@@ -147,6 +147,11 @@ class TravelbaseController extends Controller
 
         $place = $image->getPlace();
 
+        if(!$place){
+            return null;
+        }
+
+
         $em = $this->getDoctrine()->getManager();
         $version = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
             ->findOneBy(['refId' => $place->getId(),
