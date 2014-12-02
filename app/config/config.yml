@@ -78,6 +78,10 @@ doctrine:
                         dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
                         alias: GedmoTree # this one is optional and will default to the name set for the mapping
                         is_bundle: false
+                    taggable:
+                        type: annotation
+                        prefix: DoctrineExtensions\Taggable\Entity
+                        dir: "%kernel.root_dir%/../vendor/fpn/doctrine-extensions-taggable/metadata"
 
 parameters:
     assetic.cache.class: Assetic\Cache\ArrayCache

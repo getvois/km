@@ -138,3 +138,25 @@ Changes to kunstmaan bundles.
      
      //ADD
      ++ ee: { analyzer: 'estonian' }
+     
+     
+### Tagging bundle registry change
+
+###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/TaggingBundle/Controller/TagAdminListController.php
+
+    Change all routes to lowercase:
+
+    kunstmaantaggingbundle_admin_tag
+    kunstmaantaggingbundle_admin_tag_add
+    kunstmaantaggingbundle_admin_tag_edit
+    kunstmaantaggingbundle_admin_tag_delete
+    kunstmaantaggingbundle_admin_tag_autocomplete
+
+
+###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/TaggingBundle/Helper/Menu/TagMenuAdaptor.php
+
+    Change route to lowercase:
+    From:
+    $menuitem->setRoute('KunstmaanTaggingBundle_admin_tag');
+    To:
+    $menuitem->setRoute('kunstmaantaggingbundle_admin_tag');

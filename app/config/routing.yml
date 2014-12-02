@@ -75,3 +75,15 @@ KunstmaanDashboardBundle:
     prefix:   /{_locale}/
     requirements:
         _locale: %requiredlocales%
+
+KunstmaanTaggingBundle:
+     resource: "@KunstmaanTaggingBundle/Resources/config/routing.yml"
+     prefix:   /{_locale}/
+     requirements:
+         _locale: %requiredlocales%
+
+Router:
+    pattern: "/{path}"
+    defaults: { _controller: "SandboxWebsiteBundle:Route:path" }
+    requirements:
+        path: ".+"

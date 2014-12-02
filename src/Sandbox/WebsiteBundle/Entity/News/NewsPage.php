@@ -5,7 +5,9 @@ namespace Sandbox\WebsiteBundle\Entity\News;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Taggable\Doctrine;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
@@ -21,7 +23,7 @@ use Symfony\Component\Form\AbstractType;
  * @ORM\Table(name="sb_news_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable
+class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable
 {
 
     /**
@@ -32,6 +34,7 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable
         $this->places = new ArrayCollection();
         $this->fromPlaces = new ArrayCollection();
         $this->hosts = new ArrayCollection();
+        $this->tags = new ArrayCollection();
 
     }
 
@@ -303,4 +306,43 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable
     {
         return $this->hosts;
     }
+
+    /**
+     * Returns the unique taggable resource type
+     *
+     * @return string
+     */
+    function getTaggableType()
+    {
+        return "news_tag";
+    }
+
+    /**
+     * Returns the unique taggable resource identifier
+     *
+     * @return string
+     */
+    function getTaggableId()
+    {
+        return $this->getId();
+    }
+
+
+    protected $tags;
+    /**
+     * Returns the collection of tags for this Taggable entity
+     *
+     * @return Collection
+     */
+    function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+        return $this->tags;
+    }
+
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
 }
