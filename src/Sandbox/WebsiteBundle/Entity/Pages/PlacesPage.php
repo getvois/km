@@ -2,7 +2,11 @@
 
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
+use Sandbox\WebsiteBundle\Form\Pages\PlacesPageAdminType;
 
 /**
  * PlacesPage
@@ -10,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sb_places_pages")
  * @ORM\Entity
  */
-class PlacesPage extends \Kunstmaan\NodeBundle\Entity\AbstractPage implements \Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface
+class PlacesPage extends AbstractPage implements HasPageTemplateInterface
 {
     /**
      * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Pages\PlacesPage", mappedBy="parentPlace")
@@ -26,11 +30,11 @@ class PlacesPage extends \Kunstmaan\NodeBundle\Entity\AbstractPage implements \K
     /**
      * Returns the default backend form type for this page
      *
-     * @return \Sandbox\WebsiteBundle\Form\Pages\PlacesPageAdminType
+     * @return PlacesPageAdminType
      */
     public function getDefaultAdminType()
     {
-        return new \Sandbox\WebsiteBundle\Form\Pages\PlacesPageAdminType();
+        return new PlacesPageAdminType();
     }
 
     /**
@@ -84,7 +88,7 @@ class PlacesPage extends \Kunstmaan\NodeBundle\Entity\AbstractPage implements \K
      */
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**

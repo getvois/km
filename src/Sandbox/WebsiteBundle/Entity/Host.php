@@ -29,6 +29,13 @@ class Host extends AbstractEntity
     private $multiLanguage;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="lang", type="string", length=2, nullable=true)
+     */
+    private $lang;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", mappedBy="hosts")
      **/
     private $places;
@@ -86,6 +93,31 @@ class Host extends AbstractEntity
     {
         return $this->multiLanguage;
     }
+
+
+    /**
+     * Set lang
+     *
+     * @param string $lang
+     * @return Host
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    /**
+     * Get lang
+     *
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
     /**
      * Constructor
      */

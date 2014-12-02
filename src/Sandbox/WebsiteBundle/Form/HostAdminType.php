@@ -26,6 +26,19 @@ class HostAdminType extends AbstractType
     {
         $builder->add('name');
         $builder->add('multiLanguage');
+        $builder->add('lang', 'choice',
+            [  'required' => false,
+                'choices'   =>
+                    [
+                        'fi' => 'fi',
+                        'en' => 'en',
+                        'de' => 'de',
+                        'fr' => 'fr',
+                        'ru' => 'ru',
+                        'se' => 'se',
+                        'ee' => 'ee'
+                    ],
+            ]);
     }
 
     /**

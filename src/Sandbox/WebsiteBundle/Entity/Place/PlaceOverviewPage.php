@@ -313,7 +313,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
     {
         return[
             array(
-                'name' => 'Country',
+                'name' => 'Place',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'
             )];
     }

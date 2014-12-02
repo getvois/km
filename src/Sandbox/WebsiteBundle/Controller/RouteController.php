@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,12 +15,31 @@ class RouteController extends Controller
      * @param $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function pathAction($path)
+    public function pathAction(Request $request, $path)
     {
-        $locale = substr($path, 0, 2);
+        $em = $this->getDoctrine()->getManager();
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
 
-        $path = str_replace($locale . "/" , "", $path);
-        $path = str_replace($locale , "", $path);
+        $originalLocale = substr($path, 0, 2);
+
+        $locale = substr($path, 0, 2);
+        if($host){
+            if(!$host->getMultiLanguage()){
+                $locale = $host->getLang();
+            }
+        }
+        if(!$locale) $locale = substr($path, 0, 2);
+
+
+        $path = str_replace($originalLocale . "/" , "", $path);
+        $path = str_replace($originalLocale , "", $path);
+
+        //redirect to host lang
+        if($locale != $originalLocale){
+            $request->setLocale($locale);
+            return $this->redirect("http://" . $request->getHost() . $request->getBaseUrl() . "/" . $locale);
+        }
 
         return $this->forward("KunstmaanNodeBundle:Slug:slug", ['locale' => $locale, 'url' => $path]);
 
