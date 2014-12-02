@@ -19,6 +19,7 @@ class RouteController extends Controller
         $locale = substr($path, 0, 2);
 
         $path = str_replace($locale . "/" , "", $path);
+        $path = str_replace($locale , "", $path);
 
         return $this->forward("KunstmaanNodeBundle:Slug:slug", ['locale' => $locale, 'url' => $path]);
 
