@@ -43,6 +43,7 @@ class TopImageAdminType extends AbstractType
                 'required' => false,
             )
         );
+        $builder->add('visible');
     }
 
     /**

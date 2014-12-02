@@ -83,7 +83,7 @@ class TravelbaseController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $topImages = $em->getRepository('SandboxWebsiteBundle:TopImage')->findAll();
+        $topImages = $em->getRepository('SandboxWebsiteBundle:TopImage')->findBy(['visible' => 1]);
         if(!$topImages) return null;
         $id = rand(0, count($topImages)-1);
 

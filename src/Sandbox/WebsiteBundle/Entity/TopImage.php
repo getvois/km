@@ -47,6 +47,32 @@ class TopImage extends AbstractEntity
     private $picture;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
+     */
+    private $visible;
+
+    /**
+     * @return boolean
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param boolean $visible
+     * @return $this
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
      * Set picture
      *
      * @param Media $picture
