@@ -41,7 +41,7 @@ class RouteController extends Controller
             return $this->redirect("http://" . $request->getHost() . $request->getBaseUrl() . "/" . $locale);
         }
 
-        return $this->forward("KunstmaanNodeBundle:Slug:slug", ['locale' => $locale, 'url' => $path]);
+        return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $path]);
 
     }
 }
