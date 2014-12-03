@@ -15,6 +15,33 @@ use Sandbox\WebsiteBundle\Form\PageParts\ImageThumbnailPagePartAdminType;
  */
 class ImageThumbnailPagePart extends AbstractPagePart
 {
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $content;
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return ImageThumbnailPagePart
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+
     /**
      * @var string
      *

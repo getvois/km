@@ -1,8 +1,11 @@
-<div class="image-thumbnail-pp">
-    {% if resource.image is not empty %}
-    <a href="{{ resource.linkUrl }}" {% if resource.linkNewWindow %}target="_blank"{% endif %}>
-        <img {% if resource.responsive %}class='img-responsive'{% endif %} src="{{ asset(resource.image.url | imagine_filter(resource.size)) }}" {% if resource.imageAltText is not empty %}alt="{{ resource.imageAltText }}"{% endif %} />
-    </a>
-    {% endif %}
-    {#{{ resource.linkText }}#}
+<div class="image-thumbnail-wrapper">
+    <div class="image-thumbnail-img">
+        {% if resource.image is not empty %}
+            <a href="{{ resource.linkUrl }}" {% if resource.linkNewWindow %}target="_blank"{% endif %}>
+                <img {% if resource.responsive %}class='img-responsive'{% endif %} src="{{ asset(resource.image.url | imagine_filter(resource.size)) }}" {% if resource.imageAltText is not empty %}alt="{{ resource.imageAltText }}"{% endif %} />
+            </a>
+        {% endif %}
+        {#{{ resource.linkText }}#}
+    </div>
+    <div class="image-thumbnail-text"></div>{{ resource.content | raw }}
 </div>

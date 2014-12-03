@@ -56,6 +56,9 @@ class ImageThumbnailPagePartAdminType extends \Symfony\Component\Form\AbstractTy
             "300x210" => '300x210',
             "150x105" => '150x105',
         ]]);
+
+        $builder->add('content', 'textarea', array('label' => 'pagepart.text.content', 'required' => false, 'attr' => array('rows' => 32, 'cols' => 600, 'class' => 'rich_editor')));
+
     }
 
     /**
