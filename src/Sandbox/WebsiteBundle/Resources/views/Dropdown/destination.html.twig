@@ -20,6 +20,7 @@
 <span class="city-picker-close glyphicon glyphicon-remove"></span>
 
     {% for node in nodes %}
+        {% if node.nodeTranslation(lang) %}
         <ul class="">
 
             <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
@@ -42,6 +43,7 @@
 
                     <ul style="display: none;">
                         {% for node2 in node.children %}
+                            {% if node2.nodeTranslation(lang) %}
                         <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
                             {% if node2.children.count > 0 %}
                                 <i class="glyphicon glyphicon-chevron-down"></i>
@@ -59,6 +61,7 @@
 
 
                                 {% for node3 in node2.children.count %}
+                                    {% if node3.nodeTranslation(lang) %}
                                     <ul style="display: none;">
 
                                         <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
@@ -102,6 +105,7 @@
 
                                         </li>
                                     </ul>
+                                    {% endif %}
                                 {% endfor %}
 
 
@@ -114,7 +118,9 @@
                             {% endif %}
 
 
-                            </li>{% endfor %}
+                            </li>
+                        {% endif %}
+                        {% endfor %}
                     </ul>
 
 
@@ -126,6 +132,7 @@
 
             </li>
         </ul>
+        {% endif %}
     {% endfor %}
 
 </div>
