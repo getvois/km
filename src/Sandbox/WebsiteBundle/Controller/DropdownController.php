@@ -13,6 +13,7 @@ class DropdownController extends Controller
 {
 
     /**
+     * @param Request $request
      * @return array
      *
      * @Template()
@@ -21,12 +22,16 @@ class DropdownController extends Controller
         $lang = $request->getLocale();
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
-        $placeNodes = $this->getCountries($lang);
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $placeNodes = $this->getCountries($lang, $host);
 
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
 
     /**
+     * @param Request $request
      * @return array
      *
      * @Template()
@@ -36,7 +41,10 @@ class DropdownController extends Controller
         $lang = $request->getLocale();
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
-        $placeNodes = $this->getCountries($lang);
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $placeNodes = $this->getCountries($lang, $host);
 
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
@@ -99,7 +107,7 @@ class DropdownController extends Controller
     }
 
 
-    private function getCountries($lang)
+    private function getCountries($lang, $host = null)
     {
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -127,6 +135,7 @@ class DropdownController extends Controller
                 $nodeIds[] = $translation->getRef($em)->getId();
         }
 
+        /** @var PlaceOverviewPage[] $placeOverviewPages */
         $placeOverviewPages = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->createQueryBuilder('n')
             ->where('n.id IN(:ids)')
             ->setParameter(':ids', $nodeIds)
@@ -134,14 +143,27 @@ class DropdownController extends Controller
             ->getQuery()
             ->getResult();
 
-        foreach ($placeOverviewPages as $placeOverviewPage) {
-            /** @var PlaceOverviewPage $placeOverviewPage */
-            $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                ->findOneBy(['refId' => $placeOverviewPage->getId(),
-                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage']
-                );
 
-            $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+        foreach ($placeOverviewPages as $placeOverviewPage) {
+
+            if($host){
+                if ($placeOverviewPage->getHosts()->contains($host)) {
+                    /** @var PlaceOverviewPage $placeOverviewPage */
+                    $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                        ->findOneBy(['refId' => $placeOverviewPage->getId(),
+                                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage']
+                        );
+                    $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+                }
+            }else{
+                /** @var PlaceOverviewPage $placeOverviewPage */
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                    ->findOneBy(['refId' => $placeOverviewPage->getId(),
+                            'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage']
+                    );
+                $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+            }
+
         }
 
         return $placeNodes;
