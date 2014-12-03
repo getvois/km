@@ -1,3 +1,5 @@
-name: "Left column"
-context: "left_column"
-extends: "middle-column"
+name: 'Left column'
+context: left_column
+extends: middle-column
+types:
+    - { name: ImageThumbnail, class: Sandbox\WebsiteBundle\Entity\PageParts\ImageThumbnailPagePart }

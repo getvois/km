@@ -121,6 +121,22 @@ liip_imagine:
             quality: 80
             filters:
                 thumbnail: { size: [100, 100], mode: outbound }
+        1000x700:
+            quality: 80
+            filters:
+                thumbnail: { size: [1000, 700], mode: outbound }
+        500x350:
+            quality: 80
+            filters:
+                thumbnail: { size: [500, 350], mode: outbound }
+        300x210:
+            quality: 80
+            filters:
+                thumbnail: { size: [300, 210], mode: outbound }
+        150x105:
+            quality: 80
+            filters:
+                thumbnail: { size: [150, 105], mode: outbound }
 
 services:
     twig.extension.text:
