@@ -17,6 +17,84 @@ class ImageThumbnailPagePart extends AbstractPagePart
 {
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="wrapper_class", type="string", length=255, nullable=true)
+     */
+    private $wrapperClass;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_class", type="string", length=255, nullable=true)
+     */
+    private $imgClass;
+
+    /**
+     * @return string
+     */
+    public function getImgClass()
+    {
+        return $this->imgClass;
+    }
+
+    /**
+     * @param string $imgClass
+     * @return $this
+     */
+    public function setImgClass($imgClass)
+    {
+        $this->imgClass = $imgClass;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWrapperClass()
+    {
+        return $this->wrapperClass;
+    }
+
+    /**
+     * @param string $wrapperClass
+     * @return $this
+     */
+    public function setWrapperClass($wrapperClass)
+    {
+        $this->wrapperClass = $wrapperClass;
+        return $this;
+    }
+
+
+
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $content;

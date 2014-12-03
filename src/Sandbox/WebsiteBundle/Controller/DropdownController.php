@@ -25,7 +25,7 @@ class DropdownController extends Controller
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        $placeNodes = $this->getCountries($lang, $host);
+        $placeNodes = $this->getCountries($lang);
 
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
