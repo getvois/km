@@ -40,6 +40,7 @@ Changes to kunstmaan bundles.
             'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
             'Ь' => '',    'Ы' => 'Y',   'Ъ' => '',
             'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+            'ä' => 'a'
         );
         return strtr($string, $converter);
     }

@@ -65,6 +65,28 @@ class FormListener {
         if($page instanceof IPlaceFromTo){
             $this->selectPlaces($originalLanguage, $page);
         }
+
+        if($page instanceof PlaceOverviewPage){
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var PlaceOverviewPage $pp */
+                $pp = $translation->getRef($this->em);
+
+                foreach ($page->getHosts() as $host) {
+                    $pp->addHost($host);
+                }
+
+                $this->em->persist($pp);
+
+            }
+
+            $this->em->flush();
+
+        }
+
     }
 
 
