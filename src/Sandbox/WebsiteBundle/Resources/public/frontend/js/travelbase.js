@@ -671,20 +671,38 @@ function getFilter(){
     var $destination_city = [];
     var $departure = [];
 
-    $("#dropdown-destination").find(".city-list").find('input[type=checkbox]').each(function () {
-        if($(this).is(":checked")){
+    var $dropdown = $("#dropdown-destination");
+    if($dropdown.find(".city-list").find('input[type=checkbox]:checked').length == 0){
+        $dropdown.find(".city-list").find('input[type=checkbox]').each(function () {
             if($(this).data('type') == 'country'){
                 $destination_country.push($(this).val());
             }else if($(this).data('type') == 'city'){
                 $destination_city.push($(this).val());
             }
-        }
-    });
+        });
+    }else{
+        $dropdown.find(".city-list").find('input[type=checkbox]').each(function () {
+            if($(this).is(":checked")){
+                if($(this).data('type') == 'country'){
+                    $destination_country.push($(this).val());
+                }else if($(this).data('type') == 'city'){
+                    $destination_city.push($(this).val());
+                }
+            }
+        });
+    }
+
+
+
+
+
+
     $("#dropdown-departure").find(".city-list").find('input[type=checkbox]').each(function () {
         if($(this).is(":checked")){
             $departure.push($(this).val());
         }
     });
+
 
     var $slider = $("#slider-range");
 
