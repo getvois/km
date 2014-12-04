@@ -1,5 +1,6 @@
 {% for node in nodes %}
-    {% if node.nodeTranslation(lang) %}
+    {% if node is null %}
+    {% elseif node.nodeTranslation(lang) %}
         {% set placePage = node.nodeTranslation(lang).ref(em) %}
         {% if host %}
             {% for h in placePage.hosts %}

@@ -42,7 +42,7 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 }
             ]
         )->add('topImage')
-        ->add('hosts');
+        ->add('hosts', 'entity', ['empty_data'  => null, 'class' => 'Sandbox\WebsiteBundle\Entity\Host', 'required' => false, 'multiple' => true]);
     }
 
     /**

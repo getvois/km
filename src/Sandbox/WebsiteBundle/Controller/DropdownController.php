@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kunstmaan\NodeBundle\Entity\Node;
+use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,7 +26,7 @@ class DropdownController extends Controller
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        $placeNodes = $this->getCountries($lang);
+        $placeNodes = $this->getCountries($lang, $host, true, true);
 
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
@@ -107,7 +108,7 @@ class DropdownController extends Controller
     }
 
 
-    private function getCountries($lang, $host = null)
+    private function getCountries($lang, $host = null, $withPreferred = false, $full = false)
     {
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -144,27 +145,92 @@ class DropdownController extends Controller
             ->getResult();
 
 
-        foreach ($placeOverviewPages as $placeOverviewPage) {
+        /** @var PlaceOverviewPage[] $preferred */
+        $preferred = [];
+        /** @var Host $host */
 
-            if($host){
-                if ($placeOverviewPage->getHosts()->contains($host)) {
-                    /** @var PlaceOverviewPage $placeOverviewPage */
-                    $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                        ->findOneBy(['refId' => $placeOverviewPage->getId(),
-                                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage']
-                        );
+        //if with preferred get preferred countries by locale
+        if($withPreferred && $host && $host->getPreferredCountries()->count() > 0) {
+            foreach ($host->getPreferredCountries() as $place) {
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($place);
+                $trans = $node->getNodeTranslation($lang);
+                if ($trans) {
+                    $placeLocale = $trans->getRef($em);
+                    $preferred[$node->getId()] = $placeLocale;
+                }
+            }
+        }
+
+        $preferredResult = [];
+
+        foreach ($placeOverviewPages as $placeOverviewPage) {
+            /** @var PlaceOverviewPage $placeOverviewPage */
+            $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                ->findOneBy(['refId' => $placeOverviewPage->getId(),
+                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage']
+                );
+
+            //if full list
+            if($full){
+                //checked preferred countries
+                if($preferred){
+                    $added = false;
+                    foreach ($preferred as $country) {
+                        if($placeOverviewPage->getId() == $country->getId()) {
+
+                            //add to preferred (to add later to front of array)
+                            $preferredResult[] = $nodeVersion->getNodeTranslation()->getNode();
+                            $added = true;
+                            break;
+                        }
+
+                    }
+
+                    //if was not in preferred add it
+                    if(!$added){
+                        $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+                    }
+                }else{
                     $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
                 }
             }else{
-                /** @var PlaceOverviewPage $placeOverviewPage */
-                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                    ->findOneBy(['refId' => $placeOverviewPage->getId(),
-                            'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage']
-                    );
-                $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
-            }
 
+                if($host){
+                    //if place in host
+                    if ($placeOverviewPage->getHosts()->contains($host)) {
+
+                        //check preferred country
+                        if($preferred){
+                            $added = false;
+                            foreach ($preferred as $country) {
+                                if($placeOverviewPage->getId() == $country->getId()) {
+
+                                    //add to preferred (to add later to front of array)
+                                    $preferredResult[] = $nodeVersion->getNodeTranslation()->getNode();
+                                    $added = true;
+                                    break;
+                                }
+
+                            }
+
+                            //if was not in preferred add it
+                            if(!$added){
+                                $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+                            }
+
+                        }else{
+                            $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+                        }
+                    }
+                }else{
+                    $placeNodes[] = $nodeVersion->getNodeTranslation()->getNode();
+                }
+            }
         }
+
+        $preferredResult[] = null;//add null for breaker of classes in css
+        $placeNodes = array_merge($preferredResult, $placeNodes);
 
         return $placeNodes;
     }

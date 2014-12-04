@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Form;
 
+use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
@@ -39,6 +40,15 @@ class HostAdminType extends AbstractType
                         'ee' => 'ee'
                     ],
             ]);
+
+        $builder->add('preferredCountries', 'entity', [
+            'multiple' => true,
+            'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
+            'query_builder' => function(PlaceOverviewPageRepository $er) {
+                $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                return $er->getByLang($locale);
+            }
+        ]);
     }
 
     /**

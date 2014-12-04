@@ -22,6 +22,15 @@ class Host extends AbstractEntity
     private $name;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     * @ORM\JoinTable(name="host_place",
+     *      joinColumns={@ORM\JoinColumn(name="host_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $preferredCountries;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="multi_language", type="boolean", nullable=true)
@@ -232,5 +241,38 @@ class Host extends AbstractEntity
     public function getArticles()
     {
         return $this->articles;
+    }
+
+    /**
+     * Add preferredCountries
+     *
+     * @param Place\PlaceOverviewPage $preferredCountries
+     * @return Host
+     */
+    public function addPreferredCountry(Place\PlaceOverviewPage $preferredCountries)
+    {
+        $this->preferredCountries[] = $preferredCountries;
+
+        return $this;
+    }
+
+    /**
+     * Remove preferredCountries
+     *
+     * @param Place\PlaceOverviewPage $preferredCountries
+     */
+    public function removePreferredCountry(Place\PlaceOverviewPage $preferredCountries)
+    {
+        $this->preferredCountries->removeElement($preferredCountries);
+    }
+
+    /**
+     * Get preferredCountries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPreferredCountries()
+    {
+        return $this->preferredCountries;
     }
 }
