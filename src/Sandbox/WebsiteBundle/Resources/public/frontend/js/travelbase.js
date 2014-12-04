@@ -124,23 +124,51 @@ $(document).ready(function() {
 
     //Pre Select current place
     //////////////////////////////////////////////////////////////////////////////////////////////
-    var $place = $('ol.breadcrumb').find('li.active').text();
-    $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
-        if($(this).data('name') == $place){
-            $(this).attr('checked', true).change();
-            $formSubmitted = true;
-        }
-    });
+    var $to = $('.to-places');
+    if($to.length > 0){
+        $to.find('a').each(function () {
+            var $name = $(this).text();
+            $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
+                if($(this).data('name') == $name){
+                    $(this).attr('checked', true).change();
+                    $formSubmitted = true;
+                }
+            });
+        });
+
+    }else{
+        //Pre Select from bread crumbs
+        var $place = $('ol.breadcrumb').find('li.active').text();
+        $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
+            if($(this).data('name') == $place){
+                $(this).attr('checked', true).change();
+                $formSubmitted = true;
+            }
+        });    }
+
+
+
+
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     $(".city-list").columnize();
 
 
+    //Pre Select departure
+    var $from = $('.from-places');
+    if($from.length > 0){
+        var $name = $from.find('a').first().text();
+        $("#dropdown-departure").find('.city-list').find("input[type='checkbox']").each(function () {
+            if($(this).data('name') == $name){
+                $(this).attr('checked', true).change();
+                $formSubmitted = true;
+            }
+        });
+    }else{
+        //Pre Select from preferred countries
+        $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
+    }
 
-    //Pre Select preferred countries
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
-    ////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

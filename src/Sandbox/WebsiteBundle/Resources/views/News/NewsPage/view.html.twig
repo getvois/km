@@ -17,7 +17,7 @@
     <h1>{{ page.title }}</h1>
 
     {% if page.places.count > 0 %}
-        <div>
+        <div class="from-places">
             From:
             {% for place in page.places %}
                 <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
@@ -25,7 +25,7 @@
         </div>
     {% endif %}
     {% if page.fromPlaces.count > 0 %}
-        <div>
+        <div class="to-places">
             To:
             {% for place in page.fromPlaces %}
                 <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
