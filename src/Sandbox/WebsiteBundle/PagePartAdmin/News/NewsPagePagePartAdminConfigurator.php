@@ -18,6 +18,10 @@ class NewsPagePagePartAdminConfigurator extends AbstractArticlePagePagePartAdmin
                     'name' => 'Image thumbnail',
                     'class'=> 'Sandbox\WebsiteBundle\Entity\PageParts\ImageThumbnailPagePart'
                 ),
+                array(
+                    'name' => 'GoogleMap',
+                    'class'=> 'Sandbox\WebsiteBundle\Entity\PageParts\GoogleMapPagePart'
+                ),
             ), $this->pagePartTypes
         );
     }

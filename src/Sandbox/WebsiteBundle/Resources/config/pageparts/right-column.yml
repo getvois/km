@@ -3,3 +3,4 @@ context: right_column
 extends: middle-column
 types:
     - { name: ImageThumbnail, class: Sandbox\WebsiteBundle\Entity\PageParts\ImageThumbnailPagePart }
+    - { name: GoogleMap, class: Sandbox\WebsiteBundle\Entity\PageParts\GoogleMapPagePart }
