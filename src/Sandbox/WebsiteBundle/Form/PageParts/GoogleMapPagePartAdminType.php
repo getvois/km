@@ -32,12 +32,7 @@ class GoogleMapPagePartAdminType extends \Symfony\Component\Form\AbstractType
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
         ));
-        $builder->add('places', 'entity', array(
-            'class' => 'Sandbox\WebsiteBundle\Entity\GooglePlace',
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-        ));
+
         $builder->add('onlyMap');
 
         $builder->add('places', 'collection', array(

@@ -25,10 +25,10 @@ class GooglePlaceAdminType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
+        $builder->add('title', 'text', ['required' => true]);
         $builder->add('type', 'text', ['required' => false]);
-        $builder->add('latitude');
-        $builder->add('longitude');
+        $builder->add('latitude', 'text', ['required' => true]);
+        $builder->add('longitude', 'text', ['required' => true]);
         $builder->add('description', 'text', ['required' => false]);
         $builder->add('url', 'text', ['required' => false]);
 
