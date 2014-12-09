@@ -15,3 +15,4 @@ types:
     - { name: Audio, class: Kunstmaan\MediaPagePartBundle\Entity\AudioPagePart }
     - { name: News, class: Sandbox\WebsiteBundle\Entity\PageParts\NewsPagePart }
     - { name: GoogleMap, class: Sandbox\WebsiteBundle\Entity\PageParts\GoogleMapPagePart }
+    - { name: Gallery, class: Sandbox\WebsiteBundle\Entity\PageParts\GalleryPagePart }

@@ -1,3 +1,6 @@
+<h2>{{ resource.title }}</h2>
+{{ resource.content|raw }}
+
 {% if resource.onlymap == 0 %}
 
 {% for item in resource.places %}
@@ -11,7 +14,7 @@
             {% endif %}
             {#{{ resource.linkText }}#}
         </div>
-        <div class="image-thumbnail-text"></div>{{ item.content | raw }}
+        <div class="image-thumbnail-text">{{ item.content | raw }}</div>
     </div>
 {% endfor %}
 {% endif %}
@@ -19,8 +22,6 @@
 
 
 <div class="google-map-pp">
-    <h2>{{ resource.title }}</h2>
-    {{ resource.content|raw }}
     {% if resource.places is not empty %}
         <div id="map_wrapper">
             <div id="map_canvas" class="mapping"></div>

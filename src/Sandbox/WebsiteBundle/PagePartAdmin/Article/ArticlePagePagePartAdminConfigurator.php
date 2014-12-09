@@ -22,6 +22,10 @@ class ArticlePagePagePartAdminConfigurator extends AbstractArticlePagePagePartAd
                     'name' => 'GoogleMap',
                     'class'=> 'Sandbox\WebsiteBundle\Entity\PageParts\GoogleMapPagePart'
                 ),
+                array(
+                    'name' => 'Gallery',
+                    'class'=> 'Sandbox\WebsiteBundle\Entity\PageParts\GalleryPagePart'
+                ),
             ), $this->pagePartTypes
         );
     }

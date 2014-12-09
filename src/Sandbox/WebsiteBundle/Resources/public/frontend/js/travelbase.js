@@ -6,11 +6,8 @@ $(document).ready(function() {
     $form.submit(function () {
         return false;
     });
-    $form.find(':input').change(formChange);
     var $city_picker = $(".city-picker");
-    $city_picker.find('.city-list').find(':input').change(formChange);
 
-    var $formSubmitted = false;
 
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
 
@@ -131,7 +128,6 @@ $(document).ready(function() {
             $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
                 if($(this).data('name') == $name){
                     $(this).attr('checked', true).change();
-                    $formSubmitted = true;
                 }
             });
         });
@@ -142,7 +138,6 @@ $(document).ready(function() {
         $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
             if($(this).data('name') == $place){
                 $(this).attr('checked', true).change();
-                $formSubmitted = true;
             }
         });    }
 
@@ -161,7 +156,6 @@ $(document).ready(function() {
         $("#dropdown-departure").find('.city-list').find("input[type='checkbox']").each(function () {
             if($(this).data('name') == $name){
                 $(this).attr('checked', true).change();
-                $formSubmitted = true;
             }
         });
     }else{
@@ -172,6 +166,74 @@ $(document).ready(function() {
 
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //SKYPICKER FETCH DATA
+    var $travelbaseItems = $("#travelbase_items");
+    $travelbaseItems.on('click', '.skypicker-toggle', function () {
+        if($(this).next("tr").hasClass('skypicker-dropdown')){
+            $(this).next("tr").slideToggle();
+            return;
+        }
+
+        var $tr = $(this);
+
+        var $id = $(this).data('itemid');
+        var $filter = getFilter();
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', "http://api.travel.markmedia.fi/api/skypicker.fetch/" + $id);
+        //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+
+                var $row = '<tr class="skypicker-dropdown"><td colspan="7"><table class="table">';
+
+                var $data = JSON.parse(this.responseText);
+
+                for(var i = 0; i< $data.length; i++){
+                    var stops = $data[i].route.length - 1 ;
+                    $row += '<tr class="skypicker-route-details-toggle"><td>departure: '+$data[i].dTime+'<br/>arrival: '+$data[i].aTime+'</td>';
+                    $row += '<td>'+ stops  +' Stops<br/>'+$data[i].fly_duration+'</td>';
+                    $row += '<td>'+$data[i].from.cityNameEn+'<br/>'+$data[i].to.cityNameEn +'</td>';
+                    $row += '<td><a href="'+$data[i].deep_link+'">'+$data[i].price+'</a></td>';
+                    $row += '</tr>';
+
+                    $row += '<tr class="skypicker-route-details" style="display: none;"><td colspan="4"><table class="table">';
+
+                    for(var j=0; j<$data[i].route.length; j++){
+                        var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
+                        if(duration > 60){
+                            var $hours = Math.floor(duration / 60 );//hours
+                            var $mins = duration - $hours*60;
+                            duration = $hours  + "h " + $mins + 'min';
+                        }else{
+                            duration += "min";
+                        }
+
+                        $row += '<tr><td>departure: '+$data[i].route[j].dTime+'<br/>arrival: '+$data[i].route[j].aTime+'</td>';
+                        $row += '<td>'+ $data[i].route[j].airline  +'<br/>'+duration+'</td>';
+                        $row += '<td>'+ $data[i].route[j].cityFrom  +'<br/>'+$data[i].route[j].cityTo+'</td>';
+                        $row += '</tr>'
+                    }
+                    $row += '</table></td></tr>';
+                }
+
+                $row += '</table></tr>';
+
+                $tr.after($row);
+            }
+        };
+        xhr.send(JSON.stringify($filter));
+
+    });
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //SKYPICKER show route details
+    $travelbaseItems.on('click', ".skypicker-route-details-toggle", function () {
+        $(this).next(".skypicker-route-details").slideToggle();
+    });
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -318,10 +380,10 @@ $(document).ready(function() {
 
 
 
-
+    $form.find(':input').change(formChange);
+    $city_picker.find('.city-list').find(':input').change(formChange);
     //////////////////////////////////////////////////////////////////////////////
     //submit the form
-    if(!$formSubmitted)
         $form.find(':input').eq(0).change();
     //////////////////////////////////////////////////////////////////////////////
 });
@@ -513,8 +575,35 @@ function setField(){
 
 
 function formChange(e){
-    var $filter = getFilter();
+    getTable();
+    skyPickerImport();
+}
 
+function skyPickerImport(){
+    var $progressbar = $("#progressbar");
+    $progressbar.show();
+    $progressbar.progressbar({
+        value: false
+    });
+    var $filter = getFilter();
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://api.travel.markmedia.fi/api/skypicker.import/');
+    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            var $data = JSON.parse(this.responseText);
+            if($data.status == 1){
+                getTable();
+                $( "#progressbar").hide();
+
+            }
+        }
+    };
+    xhr.send(JSON.stringify($filter));
+}
+
+function getTable(){
+    var $filter = getFilter();
     var xhr = new XMLHttpRequest();
     xhr.open('POST', $api_url);
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -524,11 +613,11 @@ function formChange(e){
 
             var $table = '<table><tr>' +
                 '<th><a href="#" data-field="date" '+ (($field == 'date')?'class="active"':"") + '>Date</a></th>' +
-                //'<th><a href="#" data-field="company">Company</a></th>' +
+                    //'<th><a href="#" data-field="company">Company</a></th>' +
                 '<th><a href="#" data-field="departure" '+ (($field == 'departure')?'class="active"':"") + '>From</a></th>' +
                 '<th><a href="#" data-field="destination" '+ (($field == 'destination')?'class="active"':"") + '>To</a></th>' +
                 '<th><a href="#" data-field="hotel" '+ (($field == 'hotel')?'class="active"':"") + '>Info</a></th>' +
-                //'<th><a href="#" data-field="info">Info</a></th>' +
+                    //'<th><a href="#" data-field="info">Info</a></th>' +
                 '<th><a href="#" data-field="duration" '+ (($field == 'duration')?'class="active"':"") + '>Duration</a></th>' +
                 '<th><a href="#" data-field="price" '+ (($field == 'price')?'class="active"':"") + '>Price</a></th>' +
                 '<th><a href="#" data-field="company" '+ (($field == 'company')?'class="active"':"") + '>Link</a></th></tr>';
@@ -552,7 +641,7 @@ function formChange(e){
             var $travelbase_items = $("#travelbase_items");
             $travelbase_items.html($table);
 
-            $travelbase_items.find('th a').click(function(){ 
+            $travelbase_items.find('th a').click(function(){
                 var $field = $(this).data('field');
                 var $form = $('#travelbase-form');
                 $form.find('input[name="order_field"]').val($field);
@@ -620,16 +709,30 @@ function itemToRow($item){
     if($prevDate != $date) {
         $prevDate = $date;
         if($dateCount > 5)
-            $class = 'class="day-sep"';
+            $class = 'day-sep';
         $dateCount = 0;
     }
 
     var $company = $item.company.name;
 
+    if($company == 'SkyPicker') $class += " skypicker-toggle";
+
     if(UrlExists("/sites/all/modules/travelbase/img/" + $item.company.name.toLowerCase() + ".png"))
         $company = "<img src='/sites/all/modules/travelbase/img/" + $item.company.name.toLowerCase() + ".png' alt='" + $item.company.name + "' />";
 
-    return "<tr " + $class + ">" +
+
+    var $lastCol = "<a href='" + $item.link + "'>" + $company + "</a>";
+
+    if($item.company.name == 'SkyPicker'){
+        $lastCol = "";
+        for(var i=0;i<$item.airline.length; i++){
+            $lastCol += "<img src='/bundles/sandboxwebsite/img/airlines/"+$item.airline[i]+".gif' title="+$item.airline[i]+" alt="+$item.airline[i]+">" ;
+            break;
+            if(i < $item.airline.length - 1) $lastCol += " ";
+        }
+    }
+
+    return "<tr class='" + $class + "' data-itemid='"+ $item.id +"' >" +
     "<td>" + $date + "</td>" +
     //"<td>" + $company + "</td>" +
     "<td>" + $item.departure.cityNameFi + "</td>" +
@@ -638,7 +741,7 @@ function itemToRow($item){
     //"<td>" + $item.info + "</td>" +
     "<td>" + $item.duration + "</td>" +
     "<td>" + Math.round($item.price) + "</td>" +
-    "<td><a href='" + $item.link + "'>" + $company + "</a></td>" +
+    "<td>"+$lastCol+"</td>" +
     "</tr>";
 }
 
@@ -700,6 +803,7 @@ function getFilter(){
 
     var $destination_country = [];
     var $destination_city = [];
+    var $departure_country = [];
     var $departure = [];
 
     var $dropdown = $("#dropdown-destination");
@@ -730,7 +834,11 @@ function getFilter(){
 
     $("#dropdown-departure").find(".city-list").find('input[type=checkbox]').each(function () {
         if($(this).is(":checked")){
-            $departure.push($(this).val());
+            if($(this).data('type') == 'country'){
+                $departure_country.push($(this).val());
+            }else if($(this).data('type') == 'city'){
+                $departure.push($(this).val());
+            }
         }
     });
 
@@ -738,6 +846,7 @@ function getFilter(){
     var $slider = $("#slider-range");
 
     var $filter = {
+        departure_country: $departure_country,
         departure: $departure,
         company: [ $("#edit-companies").val() ],
         type: $type,
