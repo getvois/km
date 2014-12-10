@@ -1,24 +1,25 @@
-<h2>{{ resource.title }}</h2>
-{{ resource.content|raw }}
+<div class="row">
+    <h2>{{ resource.title }}</h2>
+    {{ resource.content|raw }}
 
-{% if resource.onlymap == 0 %}
+    {% if resource.onlymap == 0 %}
 
-{% for item in resource.places %}
-    <div class="image-thumbnail-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
-        {% if item.title  %}<h2>{{ item.title }}</h2>{% endif %}
-        <div class="image-thumbnail-img {% if item.imgClass %}{{ item.imgClass }}{% endif %}">
-            {% if item.image is not empty %}
-                <a href="{{ item.url }}">
-                    <img {% if item.responsive %}class='img-responsive'{% endif %} src="{{ asset(item.image.url | imagine_filter(item.size)) }}" {% if item.imageAltText is not empty %}alt="{{ item.imageAltText }}"{% endif %} />
-                </a>
-            {% endif %}
-            {#{{ resource.linkText }}#}
+    {% for item in resource.places %}
+        <div class="image-thumbnail-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
+            {% if item.title  %}<h2>{{ item.title }}</h2>{% endif %}
+            <div class="image-thumbnail-img {% if item.imgClass %}{{ item.imgClass }}{% endif %}">
+                {% if item.image is not empty %}
+                    <a href="{{ item.url }}">
+                        <img {% if item.responsive %}class='img-responsive'{% endif %} src="{{ asset(item.image.url | imagine_filter(item.size)) }}" {% if item.imageAltText is not empty %}alt="{{ item.imageAltText }}"{% endif %} />
+                    </a>
+                {% endif %}
+                {#{{ resource.linkText }}#}
+            </div>
+            <div class="image-thumbnail-text">{{ item.content | raw }}</div>
         </div>
-        <div class="image-thumbnail-text">{{ item.content | raw }}</div>
-    </div>
-{% endfor %}
-{% endif %}
-
+    {% endfor %}
+    {% endif %}
+</div>
 
 
 <div class="google-map-pp">

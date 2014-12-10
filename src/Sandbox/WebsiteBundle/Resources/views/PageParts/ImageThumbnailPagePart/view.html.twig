@@ -1,12 +1,14 @@
-<div class="image-thumbnail-wrapper {% if resource.wrapperClass %}{{ resource.wrapperClass }}{% endif %} ">
-    {% if resource.title  %}<h2>{{ resource.title }}</h2>{% endif %}
-    <div class="image-thumbnail-img {% if resource.imgClass %}{{ resource.imgClass }}{% endif %}">
-        {% if resource.image is not empty %}
-            <a href="{{ resource.linkUrl }}" {% if resource.linkNewWindow %}target="_blank"{% endif %}>
-                <img {% if resource.responsive %}class='img-responsive'{% endif %} src="{{ asset(resource.image.url | imagine_filter(resource.size)) }}" {% if resource.imageAltText is not empty %}alt="{{ resource.imageAltText }}"{% endif %} />
-            </a>
-        {% endif %}
-        {#{{ resource.linkText }}#}
+<div class="image-thumbnail-wrapper row">
+    <div class="{% if resource.wrapperClass %}{{ resource.wrapperClass }}{% endif %} ">
+        {% if resource.title  %}<h2>{{ resource.title }}</h2>{% endif %}
+        <div class="image-thumbnail-img {% if resource.imgClass %}{{ resource.imgClass }}{% endif %}">
+            {% if resource.image is not empty %}
+                <a href="{{ resource.linkUrl }}" {% if resource.linkNewWindow %}target="_blank"{% endif %}>
+                    <img {% if resource.responsive %}class='img-responsive'{% endif %} src="{{ asset(resource.image.url | imagine_filter(resource.size)) }}" {% if resource.imageAltText is not empty %}alt="{{ resource.imageAltText }}"{% endif %} />
+                </a>
+            {% endif %}
+            {#{{ resource.linkText }}#}
+        </div>
+        <div class="image-thumbnail-text"></div>{{ resource.content | raw }}
     </div>
-    <div class="image-thumbnail-text"></div>{{ resource.content | raw }}
 </div>
