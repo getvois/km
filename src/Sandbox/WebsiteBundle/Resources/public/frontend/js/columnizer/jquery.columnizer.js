@@ -262,27 +262,28 @@
 						// next column
 						$clone.remove();
 					}else{
+                        $clone.remove();
 						//
 						// ok, we're allowed to split the node in half, so empty out
 						// the node in the column we're building, and start splitting
 						// it in half, leaving some of it in pullOutHere
-						$clone.empty();
-						if(!columnize($clone, $cloneMe, $parentColumn, targetHeight)){
-							// this node still has non-text nodes to split
-							// add the split class and then recur
-							$cloneMe.addClass(prefixTheClassName("split"));
-							if($cloneMe.children().length){
-								split($clone, $cloneMe, $parentColumn, targetHeight);
-							}
-						}else{
-							// this node only has text node children left, add the
-							// split class and move on.
-							$cloneMe.addClass(prefixTheClassName("split"));
-						}
-						if($clone.get(0).childNodes.length === 0){
-							// it was split, but nothing is in it :(
-							$clone.remove();
-						}
+						//$clone.empty();
+						//if(!columnize($clone, $cloneMe, $parentColumn, targetHeight)){
+						//	// this node still has non-text nodes to split
+						//	// add the split class and then recur
+						//	$cloneMe.addClass(prefixTheClassName("split"));
+						//	if($cloneMe.children().length){
+						//		split($clone, $cloneMe, $parentColumn, targetHeight);
+						//	}
+						//}else{
+						//	// this node only has text node children left, add the
+						//	// split class and move on.
+						//	$cloneMe.addClass(prefixTheClassName("split"));
+						//}
+						//if($clone.get(0).childNodes.length === 0){
+						//	// it was split, but nothing is in it :(
+						//	$clone.remove();
+						//}
 					}
 				}
 			}
