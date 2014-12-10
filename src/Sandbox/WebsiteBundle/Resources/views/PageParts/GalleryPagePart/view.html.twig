@@ -8,7 +8,7 @@
                 <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
                     <div class="image-img {% if item.class %}{{ item.class }}{% endif %}">
                         {% if item.picture is not empty %}
-                            <a rel="group-{{ resource.id }}" href="{{ item.picture.url }}">
+                            <a rel="group-{{ resource.id }}" href="{{ asset(item.picture.url | imagine_filter("1000x700")) }}">
                                 <img class='img-responsive' src="{{ asset(item.picture.url | imagine_filter(item.size)) }}" {% if item.title is not empty %}alt="{{ item.title }}"{% endif %} />
                             </a>
                         {% endif %}
