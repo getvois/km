@@ -68,6 +68,7 @@ class Subscription extends AbstractEntity
 
     /**
      * @param string $host
+     * @return $this
      */
     public function setHost($host)
     {

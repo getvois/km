@@ -39,6 +39,7 @@ class SubscriptionController extends Controller
             if($form->isValid()){
                 //save subscription
 
+                /** @var ObjectManager $em */
                 $em = $this->getDoctrine()->getManager();
 
                 $nodes = explode(',', $subscribeForm->getNode());
@@ -57,8 +58,7 @@ class SubscriptionController extends Controller
                     //check if subscription already exists
                     /** @var Subscription $subscription */
                     $subscription = $em->getRepository('SandboxWebsiteBundle:Subscription')
-                        ->findOneBy(['email' => $subscribeForm->getEmail(), 'lang' => $lang, 'node' => $node]);
-
+                        ->findOneBy(['email' => $subscribeForm->getEmail(), 'lang' => $lang, 'node' => $node, 'host' => $request->getHost()]);
 
                     if($subscription){
                         //if not active resend email?
@@ -72,13 +72,14 @@ class SubscriptionController extends Controller
                             $already = true;
                         }
                     }else{
-                        $hash = md5(md5($subscribeForm->getEmail() . $subscribeForm->getNode() . microtime()));
+                        $hash = md5(md5($request->getHost() . $subscribeForm->getEmail() . $subscribeForm->getNode() . microtime()));
                         $subscription = new Subscription();
                         $subscription->setLang($lang);
                         $subscription->setActive(0);
                         $subscription->setEmail($subscribeForm->getEmail());
                         $subscription->setNode($node);
                         $subscription->setHash($hash);
+                        $subscription->setHost($request->getHost());
 
                         //save
                         $em->persist($subscription);
@@ -128,7 +129,7 @@ class SubscriptionController extends Controller
      * @param $hash
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function activateSubscriptionAction($hash)
+    public function activateSubscriptionAction(Request $request, $hash)
     {
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -141,7 +142,7 @@ class SubscriptionController extends Controller
             throw new NotFoundHttpException("Subscription does not exist");
 
         $subscriptions = $em->getRepository('SandboxWebsiteBundle:Subscription')
-            ->findBy(['email' => $subscription->getEmail(), 'active' => 0]);
+            ->findBy(['email' => $subscription->getEmail(), 'active' => 0, 'host' => $request->getHost()]);
 
         foreach ($subscriptions as $subscription) {
             $subscription->setActive(1);
@@ -196,7 +197,7 @@ class SubscriptionController extends Controller
             $this->get('session')->getFlashBag()->add('info', 'Un subscribed successfully');
 
             $subscriptions = $em->getRepository('SandboxWebsiteBundle:Subscription')
-                ->findBy(['email' => $email]);
+                ->findBy(['email' => $email, 'host' => $request->getHost()]);
 
             if(!$subscriptions)
                 return new RedirectResponse($this->generateUrl('_slug'));
