@@ -129,6 +129,10 @@ class TravelbaseController extends Controller
 
         }
 
+        if($image->getExternal()){
+            return new Response("<a href='".$image->getExternal()."'>" . $image->getTitle() . "</a>");
+        }
+
         return new Response($image->getTitle());
     }
 
