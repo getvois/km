@@ -384,8 +384,9 @@ $(document).ready(function() {
         prevEffect	: 'none',
         nextEffect	: 'none',
         helpers	: {
-            title	: {
-                type: 'outside'
+            title: {
+                type: 'inside',
+                position: 'top'
             },
             thumbs	: {
                 width	: 50,
