@@ -87,7 +87,8 @@ class TravelbaseController extends Controller
         if(!$topImages) return null;
         $id = rand(0, count($topImages)-1);
 
-        return $topImages[$id];
+        $this->randomImage = $topImages[$id];
+        return $this->randomImage;
     }
 
     /**
