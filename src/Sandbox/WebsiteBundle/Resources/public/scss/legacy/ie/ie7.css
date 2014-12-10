@@ -4113,23 +4113,14 @@ h1, h2, h3, h4, h5, h6 {
 .splash--border-top {
   border-top: 0.8em solid #ddd; }
 
-.splash--green {
-  background-color: #00d9a3;
-  border-color: #555; }
-  .splash--green .splash__title {
-    color: #fff; }
+.splash--green .splash__title {
+  color: #fff; }
 
-.splash--blue {
-  background-color: #00b6fb;
-  border-color: #00a3d9; }
-  .splash--blue .splash__title {
-    color: #fff; }
+.splash--blue .splash__title {
+  color: #fff; }
 
-.splash--gray-dark {
-  background-color: #555;
-  border-color: #00d9a3; }
-  .splash--gray-dark .splash__title {
-    color: #fff; }
+.splash--gray-dark .splash__title {
+  color: #fff; }
 
 /* ==========================================================================
    Doormat
@@ -8388,23 +8379,14 @@ h1, h2, h3, h4, h5, h6 {
 .splash--border-top {
   border-top: 0.8em solid #ddd; }
 
-.splash--green {
-  background-color: #00d9a3;
-  border-color: #555; }
-  .splash--green .splash__title {
-    color: #fff; }
+.splash--green .splash__title {
+  color: #fff; }
 
-.splash--blue {
-  background-color: #00b6fb;
-  border-color: #00a3d9; }
-  .splash--blue .splash__title {
-    color: #fff; }
+.splash--blue .splash__title {
+  color: #fff; }
 
-.splash--gray-dark {
-  background-color: #555;
-  border-color: #00d9a3; }
-  .splash--gray-dark .splash__title {
-    color: #fff; }
+.splash--gray-dark .splash__title {
+  color: #fff; }
 
 /* ==========================================================================
    Doormat

@@ -18,6 +18,13 @@ class Subscription extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="host", type="string", length=255)
+     */
+    private $host;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -50,6 +57,23 @@ class Subscription extends AbstractEntity
      * @ORM\Column(name="hash", type="string", length=40)
      */
     private $hash;
+
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * @param string $host
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+        return $this;
+    }
 
     /**
      * @return string
