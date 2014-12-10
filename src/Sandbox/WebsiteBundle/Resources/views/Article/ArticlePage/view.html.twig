@@ -21,7 +21,7 @@
 {% block content %}
     <h1>{{ page.title }}</h1>
 
-    {% if page.places.count > 0 %}
+    {% if page.fromPlaces.count > 0 %}
         <div class="from-places">
         From:
         {% for place in page.fromPlaces %}
@@ -29,7 +29,7 @@
         {% endfor %}
         </div>
     {% endif %}
-    {% if page.fromPlaces.count > 0 %}
+    {% if page.places.count > 0 %}
         <div class="to-places">
         To:
         {% for place in page.places %}
