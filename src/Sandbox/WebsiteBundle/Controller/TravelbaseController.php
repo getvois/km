@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TravelbaseController extends Controller
 {
-    private $randomImage;
+    private static $randomImage;
 
     /**
      * @param Request $request
@@ -79,7 +79,7 @@ class TravelbaseController extends Controller
      */
     public function getRandomTopImage()
     {
-        if($this->randomImage) return $this->randomImage;
+        if(self::$randomImage) return self::$randomImage;
 
         $em = $this->getDoctrine()->getManager();
 
@@ -87,8 +87,8 @@ class TravelbaseController extends Controller
         if(!$topImages) return null;
         $id = rand(0, count($topImages)-1);
 
-        $this->randomImage = $topImages[$id];
-        return $this->randomImage;
+        self::$randomImage = $topImages[$id];
+        return self::$randomImage;
     }
 
     /**
