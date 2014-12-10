@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SubscribeForm {
 
     /**
-     * @var int
+     * @var string
      *
      * @Assert\NotBlank()
      */
@@ -39,15 +39,16 @@ class SubscribeForm {
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getNode()
     {
+        //return implode(",", $this->node);
         return $this->node;
     }
 
     /**
-     * @param int $node
+     * @param string $node
      * @return $this
      */
     public function setNode($node)
