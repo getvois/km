@@ -20,7 +20,7 @@
                 {% set class = '' %}
             {% elseif node.nodeTranslation(lang) %}
                 {% set placePage = node.nodeTranslation(lang).ref(em) %}
-                    <ul class="{{ class }}">
+                    <ul class="{{ class }} dontsplit">
 
                         <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
                             {% if node.children.count > 0 %}
