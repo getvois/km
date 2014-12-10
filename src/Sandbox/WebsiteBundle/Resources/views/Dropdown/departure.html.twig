@@ -25,6 +25,8 @@
                         <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
                             {% if node.children.count > 0 %}
                                 <i class="glyphicon glyphicon-chevron-down"></i>
+                                {% else %}
+                                    <i class=""></i>
                             {% endif %}
 
                             {% set rand1 = random(9999) %}
