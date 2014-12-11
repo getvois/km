@@ -16,6 +16,8 @@
 
 {% block sidebar %}
     {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
+
+    {% include '@SandboxWebsite/Tag/tagblock.html.twig' with { 'tags': page.tags } %}
 {% endblock %}
 
 {% block content %}

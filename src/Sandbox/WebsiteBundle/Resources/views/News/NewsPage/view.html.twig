@@ -13,6 +13,10 @@
     {% endif %}
 {% endblock %}
 
+{% block sidebar %}
+    {% include '@SandboxWebsite/Tag/tagblock.html.twig' with { 'tags': page.tags } %}
+{% endblock %}
+
 {% block content %}
     <h1>{{ page.title }}</h1>
 
