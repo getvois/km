@@ -293,7 +293,7 @@ class GooglePlace extends AbstractEntity
     /**
      * @var string
      *
-     * @Assert\Range()
+     * @Assert\Range(min="-360", max="360")
      * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
     private $latitude;
@@ -301,7 +301,7 @@ class GooglePlace extends AbstractEntity
     /**
      * @var string
      *
-     * @Assert\Range()
+     * @Assert\Range(min="-360", max="360")
      * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
      */
     private $longitude;
