@@ -292,14 +292,14 @@ class GooglePlace extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="latitude", type="string", length=255)
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
     private $latitude;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="longitude", type="string", length=255)
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
      */
     private $longitude;
 
