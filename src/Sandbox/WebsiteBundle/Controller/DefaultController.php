@@ -25,14 +25,11 @@ class DefaultController extends Controller
      */
     public function testAction()
     {
-        $email = 'kosmos123@gmail.com';
-        $node = 58;
+        var_dump('en/list/malta-one-of-top-ten-destinations');
+        $path = preg_replace('/en\//', "", '/en/list/malta-one-of-top-ten-destinations', 1);
 
-        var_dump(microtime());
+        var_dump($path);
 
-        var_dump(md5(md5($email . $node . microtime())));
-
-        var_dump(strlen('dafdf0a69c3364ab2e509dbb2fa9d8e4'));
         return new Response("");
     }
 
