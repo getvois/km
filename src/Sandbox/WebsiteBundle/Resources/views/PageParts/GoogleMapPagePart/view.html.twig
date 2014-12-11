@@ -58,38 +58,32 @@
 
                 // Multiple Markers
                 var markers = [
+                    {% set markers = "" %}
+                    {% for item in resource.places %}
+                        {% if item.latitude and item.longitude %}
+                            {% set markers = markers ~ "['" ~item.title~ "', " ~item.latitude ~", " ~item.longitude~ " ]," %}
+                        {% endif %}
+                    {% endfor %}
 
-
-                                {% for item in resource.places %}
-                               ['{{ item.title }}', {{ item.latitude }}, {{ item.longitude }}]
-                    {% if loop.last %}
-                    {% else %}
-                       ,
-                    {% endif %}
-                                {% endfor %}
-
+                    {{ markers | trim(',') | raw }}
                 ];
 
                 // Info Window Content
                 var infoWindowContent = [
 
+                    {% set desc = "" %}
                     {% for item in resource.places %}
-                    ['<div class="info_content">' +
-                    {% if item.url %}
-                            '<a href="{{ item.url }}"><h3>{{ item.title }}</h3></a>' +
-                    {% else %}
-                        '<h3>{{ item.title }}</h3>' +
-                    {% endif %}
+                    {% set desc = desc ~ "['<div class=\"info_content\">" %}
 
-                    '<p>{{ item.description }}</p>' +
-                    '</div>']
-
-                    {% if loop.last %}
+                     {% if item.url %}
+                            {% set desc = desc ~ "<a href=\""~ item.url ~"\"><h3>"~ item.title ~"</h3></a>" %}
                     {% else %}
-                    ,
+                            {% set desc = desc ~ "<h3>" ~ item.title  ~ "</h3>" %}
                     {% endif %}
+                            {% set desc = desc ~ "<p>" ~ item.description ~ "</p></div>']," %}
                     {% endfor %}
 
+                    {{ desc | trim(',') | raw}}
                 ];
 
                 // Display multiple markers on a map

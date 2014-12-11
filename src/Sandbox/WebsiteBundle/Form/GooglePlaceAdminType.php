@@ -27,8 +27,8 @@ class GooglePlaceAdminType extends AbstractType
     {
         $builder->add('title', 'text', ['required' => true]);
         $builder->add('type', 'text', ['required' => false]);
-        $builder->add('latitude', 'text', ['required' => true]);
-        $builder->add('longitude', 'text', ['required' => true]);
+        $builder->add('latitude', 'text', ['required' => false]);
+        $builder->add('longitude', 'text', ['required' => false]);
         $builder->add('description', 'text', ['required' => false]);
         $builder->add('url', 'text', ['required' => false]);
 

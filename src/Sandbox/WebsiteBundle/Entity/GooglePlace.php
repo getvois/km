@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\AdminBundle\Entity\AbstractEntity;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * GooglePlace
@@ -292,6 +293,7 @@ class GooglePlace extends AbstractEntity
     /**
      * @var string
      *
+     * @Assert\Range()
      * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
     private $latitude;
@@ -299,6 +301,7 @@ class GooglePlace extends AbstractEntity
     /**
      * @var string
      *
+     * @Assert\Range()
      * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
      */
     private $longitude;
