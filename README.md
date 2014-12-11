@@ -161,3 +161,13 @@ Changes to kunstmaan bundles.
     $menuitem->setRoute('KunstmaanTaggingBundle_admin_tag');
     To:
     $menuitem->setRoute('kunstmaantaggingbundle_admin_tag');
+    
+### Tagging bundle default options fix
+
+###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/TaggingBundle/Form/TagsAdminType.php
+
+    //ADD
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults($this->getDefaultOptions([]));
+    }

@@ -45,7 +45,7 @@ class GalleryPagePartAdminType extends \Symfony\Component\Form\AbstractType
             'attr' => array(
                 'nested_form' => true,
                 'nested_form_min' => 1,
-                'nested_form_max' => 4,
+                'nested_form_max' => 40,
             )
         ));
     }
