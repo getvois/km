@@ -3,10 +3,20 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
+use Kunstmaan\NodeBundle\Entity\Node;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Kunstmaan\NodeBundle\Helper\NodeMenu;
+use Kunstmaan\TaggingBundle\Entity\Tag;
+use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RouteController extends Controller
@@ -47,18 +57,163 @@ class RouteController extends Controller
         }
 
 
-//        //check for tag as last argument of path
-//        $args = explode('/', $path);
-//        $lastArg = $args[count($args)-1];
-//
-//        $tag = $em->getRepository('KunstmaanTaggingBundle:Tag')
-//            ->findOneBy(['name' => $lastArg]);
-//
-//        if($tag){
-//
-//        }
+        //check for tag as last argument of path
+        $args = explode('/', $path);
+        $lastArg = $args[count($args)-1];
+
+        $subject = $args[count($args) - 2];
+
+        $tag = $em->getRepository('KunstmaanTaggingBundle:Tag')
+            ->findOneBy(['name' => $lastArg]);
+
+        //check if tag page // $subject could be from tag/{tag} page
+        if($tag && $subject != "tag"){
+            $locale = $request->getLocale();//page language code
+            $placesLocale = [];//array of translated online nodes to return to template
+
+            /** @var NodeTranslation $nodeTranslation */
+            $nodeTranslation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                ->findOneBy(['slug' => $subject, 'online' => 1]);
+            if(!$nodeTranslation)
+                throw new NotFoundHttpException("Translation does not exist");
+
+            $nodeChildren = $nodeTranslation->getNode()->getChildren();
+
+            /** @var Node $node */
+            foreach ($nodeChildren as $node) {
+                $translation = $node->getNodeTranslation($locale);
+                if($translation && $translation->isOnline()){
+                    $placesLocale[] = $translation;
+                }
+            }
+
+            $host = $em->getRepository('SandboxWebsiteBundle:Host')
+                ->findOneBy(['name' => $request->getHost()]);
+            $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news, $host, $tag);
+            $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles, $host, $tag);
+
+            $context['places'] = $placesLocale;
+            $context['news'] = $news;
+            $context['articles'] = $articles;
+            $context['lang'] = $locale;
+            $context['em'] = $em;
+            $context['title'] = $nodeTranslation->getTitle();
+
+
+            //for top and bottom menu
+            $securityContext = $this->get('security.context');
+            $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')->find(1);
+            $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node, PermissionMap::PERMISSION_VIEW);
+            //
+
+            $context['nodemenu'] = $nodeMenu;
+
+            return $this->render('@SandboxWebsite/Tag/placetag.html.twig', $context);
+        }
 
         return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $path]);
+
+    }
+
+
+    public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [], $host, Tag $tag)
+    {
+        $nodeTranslation = $node->getNodeTranslation($locale);
+        if($nodeTranslation && $nodeTranslation->isOnline()){
+            /** @var PlaceOverviewPage $placeOverviewPage */
+            $placeOverviewPage = $nodeTranslation->getPublicNodeVersion()->getRef($em);
+            /** @var NewsPage $item */
+            foreach ($placeOverviewPage->getNews() as $item) {
+
+                //get node version
+                /** @var NodeVersion $nodeVersion */
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                    ->findOneBy([
+                        'refId' => $item->getId(),
+                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\News\NewsPage',
+                        'type' => 'public',
+                    ]//, ['created' => 'desc', 'updated' => 'desc']
+                    );
+                //check node online and lang
+                if($nodeVersion
+                    && $nodeVersion->getNodeTranslation()->isOnline()
+                    && $nodeVersion->getNodeTranslation()->getLang() == $locale
+                ){
+                    //check host
+                    /** @var Host $host */
+                    if($host){
+                        /** @var Host $itemHost */
+                        foreach ($item->getHosts() as $itemHost) {
+                            if($itemHost->getId() == $host->getId()){
+                                if($item->getTags()->contains($tag)) {
+                                    $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                                    break;
+                                }
+                            }
+                        }
+
+
+                    }else {
+                        if($item->getTags()->contains($tag)) {
+                            $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($node->getChildren() as $child) {
+            $this->getSubNews($child, $locale, $em, $news, $host, $tag);
+        }
+
+    }
+
+    public function getSubArticles(Node $node, $locale,ObjectManager $em, &$articles = [], $host, Tag $tag)
+    {
+        $nodeTranslation = $node->getNodeTranslation($locale);
+        if($nodeTranslation && $nodeTranslation->isOnline()){
+            /** @var PlaceOverviewPage $placeOverviewPage */
+            $placeOverviewPage = $nodeTranslation->getPublicNodeVersion()->getRef($em);
+            /** @var NewsPage $item */
+            foreach ($placeOverviewPage->getArticles() as $item) {
+                //get node version
+                /** @var NodeVersion $nodeVersion */
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                    ->findOneBy([
+                        'refId' => $item->getId(),
+                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage',
+                        'type' => 'public'
+                    ]);
+                //check node online and lang
+                if($nodeVersion
+                    && $nodeVersion->getNodeTranslation()->isOnline()
+                    && $nodeVersion->getNodeTranslation()->getLang() == $locale
+                ){
+                    //check host
+                    /** @var Host $host */
+                    if($host){
+                        /** @var Host $itemHost */
+                        foreach ($item->getHosts() as $itemHost) {
+                            if($itemHost->getId() == $host->getId()){
+                                if($item->getTags()->contains($tag)) {
+                                    $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                                    break;
+                                }
+                            }
+                        }
+                    }else {
+                        if($item->getTags()->contains($tag)) {
+                            $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($node->getChildren() as $child) {
+            $this->getSubArticles($child, $locale, $em, $articles, $host, $tag);
+        }
 
     }
 }

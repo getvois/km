@@ -1,26 +1,24 @@
-{% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
+{% extends '@SandboxWebsite/Page/layout.html.twig' %}
 
-{% block mainBgUrl %}
-    {% if page.topImage is not null and page.topImage.picture is not null %}{{ page.topImage.picture.url }}{% else %}
-        {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endif %}
-{% endblock %}
+{#{% block mainBgUrl %}#}
+    {#{% if page.topImage is not null and page.topImage.picture is not null %}{{ page.topImage.picture.url }}{% else %}#}
+        {#{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endif %}#}
+{#{% endblock %}#}
 
-{% block topImgTitle %}
-    {% if page.topImage is not null and page.topImage.picture is not null %}
-        {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle', { 'image': page.topImage})) }}
-    {% else %}
-        {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}
-    {% endif %}
-{% endblock %}
+{#{% block topImgTitle %}#}
+    {#{% if page.topImage is not null and page.topImage.picture is not null %}#}
+        {#{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle', { 'image': page.topImage})) }}#}
+    {#{% else %}#}
+        {#{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}#}
+    {#{% endif %}#}
+{#{% endblock %}#}
 
 {% block sidebar %}
 
-    {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
-
-
+    {#{{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}#}
 
     <div class="">
-        <h2>{{ page.title }}</h2>
+        <h2>{{ title }}</h2>
         {#{{ render_pageparts(page, 'main') }}#}
         {% set count = 0 %}
         {# 1 level #}
