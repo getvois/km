@@ -60,7 +60,7 @@ class TagController extends Controller
                 }
             }
 
-            foreach ($articleTags as $tag) {
+            foreach ($newsTags as $tag) {
                 /** @var Tagging $tag */
                 $page = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
                     ->find($tag->getResourceId());
