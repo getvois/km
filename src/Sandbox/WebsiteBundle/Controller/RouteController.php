@@ -32,8 +32,8 @@ class RouteController extends Controller
         if(!$locale) $locale = substr($path, 0, 2);
 
 
-        $path = str_replace($originalLocale . "/" , "", $path);
-        $path = str_replace($originalLocale , "", $path);
+        $path = preg_replace($originalLocale . "/", "", $path, 1);
+        $path = preg_replace($originalLocale , "", $path, 1);
 
         //redirect to host lang
         if($locale != $originalLocale){
