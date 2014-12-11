@@ -1,3 +1,7 @@
+@import url(http://fonts.googleapis.com/css?family=Dosis:700);
+.splash--green {
+    background-color: transparent;
+}
 .mainbg{
     background-image: url('http://ku.markmedia.fi/sites/default/files/images/mainbg2.jpg');
     height: 380px;
@@ -6,10 +10,10 @@
     position: relative;
 }
 #travelbase-form h1 {
-    color:#FFF;
-    /*text-shadow:1px 1px #454545;*/
-    /*margin: 35px 10px 30px;*/
-    /*font-family:  "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    color: #f8c701;
+    text-shadow:1px 1px #454545;
+    margin: 35px 10px 30px;
+    font:  700 35px "Dosis";
 }
 .top-menu-container{
     height: 0;
@@ -23,10 +27,11 @@
     height: 1px;
     background: #000000 none;
     width: 70%;
-    margin-left: 47px;
+    margin-top: 40px;
+	margin-left: 50px;
 }
 #slider-range .ui-slider-range{
-    background: #00BE8D none;
+    background: #f8c701 none;
 }
 #slider-range .ui-slider-handle{
     top: -0.3em;
@@ -38,6 +43,9 @@
 #amount{
     border:0;
     color:#fff;
+    position: absolute;
+	top: 47px;
+	left: 43px;
 }
 label[for=amount]{
     position: absolute;
@@ -47,6 +55,9 @@ label[for=amount]{
     color: #fff;
     position: absolute;
     right: 50px;
+    font-size:12px;
+    text-decoration:underline;
+    font-style:italic;
     top: 83px;
     z-index: 1;
 }
@@ -234,7 +245,12 @@ a.top-link img {
 }
 .city-picker li{
     list-style-type: none;
+    padding-left:19px;
 }
+.city-picker li.parent-list {
+    padding-left:0;
+}
+
 .city-picker-container{
     display: inline-block;
     /*margin-top: -10px;*/
@@ -322,14 +338,18 @@ span.city-picker-close:hover {
 #travelbase-form .form-item-departure-city{
     box-sizing: border-box;
     display: inline-block;
+    float:left;
+    margin-right:4px;
 }
 #travelbase-form label{
     text-decoration: underline;
     font-weight: normal;
 }
-#travelbase-form .form-item-destination-country{
+#travelbase-form .form-item-destination-city{
     box-sizing: border-box;
     display: inline-block;
+    float:left;
+    margin-right:4px;
 }
 #travelbase-form #edit-destination-country, #edit-departure-city{
     display: inline-block;
@@ -356,6 +376,7 @@ span.city-picker-close:hover {
 #travelbase-form #edit-date-end-datepicker-popup-0, #travelbase-form #edit-date-start-datepicker-popup-0 {
     margin-left:7px;
     padding: 0 1px 3px;
+    width:80px;
 }
 .form-type-select label, .form-item label {
     cursor:hand;
@@ -435,6 +456,7 @@ span.city-picker-close:hover {
 .city-picker .column ul li i.glyphicon {
     color: #999;
 }
+
 #travelbase-form .city-picker-list .form-list-close {
     color:#eee;
     position:absolute;
