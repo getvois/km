@@ -8,6 +8,13 @@ sandboxwebsitebundle_subscription:
     type:     annotation
     prefix:   /
 
+sandboxwebsitebundle_tag:
+    resource: @SandboxWebsiteBundle/Controller/TagController.php
+    type:     annotation
+    prefix:   /{_locale}/
+    requirements:
+         _locale: %requiredlocales%
+
 sandboxwebsitebundle_satellite_admin_list:
     resource: @SandboxWebsiteBundle/Controller/SatelliteAdminListController.php
     type:     annotation

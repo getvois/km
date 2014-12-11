@@ -296,7 +296,7 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
      */
     function getTaggableType()
     {
-        return "article_tag";
+        return $this->getEntityName();
     }
 
     /**

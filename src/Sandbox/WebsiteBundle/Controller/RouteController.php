@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Controller;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ class RouteController extends Controller
      */
     public function pathAction(Request $request, $path)
     {
+        /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
@@ -43,6 +45,18 @@ class RouteController extends Controller
             $request->setLocale($locale);
             return $this->redirect("http://" . $request->getHost() . $request->getBaseUrl() . "/" . $locale);
         }
+
+
+//        //check for tag as last argument of path
+//        $args = explode('/', $path);
+//        $lastArg = $args[count($args)-1];
+//
+//        $tag = $em->getRepository('KunstmaanTaggingBundle:Tag')
+//            ->findOneBy(['name' => $lastArg]);
+//
+//        if($tag){
+//
+//        }
 
         return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $path]);
 

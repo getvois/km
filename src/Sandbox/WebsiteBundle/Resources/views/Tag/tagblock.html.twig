@@ -1,0 +1,8 @@
+<div class="tags-block">
+    <h2>Tags</h2>
+    {% for tag in tags %}
+        <div>
+            <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : tag.name } ) }}">{{ tag.name }}</a>
+        </div>
+    {% endfor %}
+</div>

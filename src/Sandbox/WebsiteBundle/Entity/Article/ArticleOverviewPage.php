@@ -51,6 +51,7 @@ class ArticleOverviewPage extends AbstractArticleOverviewPage
         /** @var ArticlePage[] $articles */
         $articles = $repository->getArticles($request->getLocale());
 
+        $tags = [];
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
@@ -71,9 +72,23 @@ class ArticleOverviewPage extends AbstractArticleOverviewPage
                 if($remove){
                     //remove item
                     unset($articles[$i]);
+                }else{
+                    //add tags
+                    foreach ($articles[$i]->getTags() as $tag) {
+                        $tags[$tag->getId()] = $tag;
+                    }
+
+                }
+            }
+        }else{
+            //add tags
+            foreach ($articles as $article) {
+                foreach ($article->getTags() as $tag) {
+                    $tags[$tag->getId()] = $tag;
                 }
             }
         }
+        $context['tags'] = $tags;
 
         $adapter = new ArrayAdapter($articles);
         $pagerfanta = new Pagerfanta($adapter);

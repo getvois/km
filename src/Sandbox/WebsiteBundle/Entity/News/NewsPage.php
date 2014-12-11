@@ -314,7 +314,7 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
      */
     function getTaggableType()
     {
-        return "news_tag";
+        return $this->getEntityName();
     }
 
     /**
