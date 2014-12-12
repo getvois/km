@@ -119,3 +119,10 @@ sandboxwebsitebundle_googleplace_admin_list:
     prefix:   /{_locale}/admin/googleplace/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_preferredtag_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/PreferredTagAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/preferredtag/
+    requirements:
+         _locale: %requiredlocales%

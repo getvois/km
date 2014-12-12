@@ -102,7 +102,6 @@ class RouteController extends Controller
             $context['em'] = $em;
             $context['title'] = $nodeTranslation->getTitle();
 
-
             //for top and bottom menu
             $securityContext = $this->get('security.context');
             $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');

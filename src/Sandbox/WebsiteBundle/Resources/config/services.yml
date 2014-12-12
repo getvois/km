@@ -30,6 +30,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\HostMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.preferredtags:
+        class: Sandbox\WebsiteBundle\Helper\Menu\PreferredTagMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 
 
