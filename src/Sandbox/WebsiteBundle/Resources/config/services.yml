@@ -50,6 +50,12 @@ services:
         tags:
           - { name: kernel.event_listener, event: kunstmaan_node.postPublish, method: onPostPublish }
 
+    sandboxwebsitebundle.adminlist_listener:
+        class: Sandbox\WebsiteBundle\EventListener\AdminListListener
+        arguments: [@service_container]
+        tags:
+          - { name: kernel.event_listener, event: kunstmaan_adminlist.postPersist, method: onAdminListPostPersist }
+
     sandboxwebsitebundle.addnode_listener:
         class: Sandbox\WebsiteBundle\EventListener\AddNodeListener
         arguments: [@service_container]

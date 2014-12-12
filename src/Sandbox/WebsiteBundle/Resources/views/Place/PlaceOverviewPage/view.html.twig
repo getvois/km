@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block sidebar %}
-
+    {{ 'test 21' | trans({}, 'tag') }}
     <div class="">
         <h2>{{ page.title }}</h2>
         {#{{ render_pageparts(page, 'main') }}#}
