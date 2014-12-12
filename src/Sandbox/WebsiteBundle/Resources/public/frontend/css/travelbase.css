@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 @import url(http://fonts.googleapis.com/css?family=Yellowtail);
-html body {
+
+html body { 
     font-family: "Droid Sans";
 }
 h1, h2, h3, h4, h5  {
@@ -14,6 +15,9 @@ h1, h2, h3, h4, h5  {
 .image-wrapper, .map-container {
     margin-bottom:20px;
 }
+.map-container {
+    margin-top:20px;
+}
 /* Bootstrap Css Map Fix*/
 .google-map-pp img { 
   max-width: none;
@@ -23,6 +27,15 @@ h1, h2, h3, h4, h5  {
   width: auto; display:inline; 
 }
 
+/*banners*/
+.banner-col6, .banner-col4 {
+	padding:20px;
+	border:1px solid #ddd;
+	text-align:right;
+}
+.banner-col6 small, .banner-col4 small {
+	color: #aaa; 
+}
 main h2 {
     margin:20px 0 5px 0!important;
 }
@@ -624,13 +637,12 @@ span.city-picker-close:hover {
 
 
 
-
-
-
-
-
 .nopadding, .no-padding {
     padding: 0;
+}
+ 
+.nomargin, .no-margin {
+    margin: 0;
 }
 #ui-datepicker-div {
     z-index: 9999!important;
