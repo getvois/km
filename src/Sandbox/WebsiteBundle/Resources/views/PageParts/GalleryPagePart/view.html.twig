@@ -1,23 +1,34 @@
-<div class="row gallery">
-    <div class="{{ resource.wrapperClass }}">
-        <h2>{{ resource.title }}</h2>
-        {{ resource.description|raw }}
-
-        <div class="row">
-            {% for item in resource.images %}
-                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
-                    <div class="image-img {% if item.class %}{{ item.class }}{% endif %}">
-                        {% if item.picture is not empty %}
-                            <a rel="group-{{ resource.id }}" href="{{ asset(item.picture.url | imagine_filter("1000x700")) }}" {% if item.title is not empty %}title="{{ item.title }}"{% endif %}>
-                                <img class='img-responsive' src="{{ asset(item.picture.url | imagine_filter(item.size)) }}" {% if item.title is not empty %}alt="{{ item.title }}"{% endif %} />
-                            </a>
-                        {% endif %}
-                        {#{{ resource.linkText }}#}
-                    </div>
-                    {% if item.title  %}<strong>{{ item.title }}</strong>{% endif %}
-                    {% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+<div class="row gallery nomargin"> 
+    	<div class="{{ resource.wrapperClass }}  {% if resource.wrapperClass %}nopadding{% endif %}">
+	        <h2>{{ resource.title }}</h2>
+	        {{ resource.description|raw }}
+	        <div class="row">
+	            {% for item in resource.images %}
+	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
+	                    <div class="image-img {% if item.class %}{{ item.class }}{% endif %}">
+	                        {% if item.picture is not empty %}
+	                            <a rel="group" href="{{ asset(item.picture.url | imagine_filter("1000x700")) }}" {% if item.title is not empty %}title="{{ item.title }}"{% endif %}>
+	                                <img class='img-responsive' src="{{ asset(item.picture.url | imagine_filter(item.size)) }}" {% if item.title is not empty %}alt="{{ item.title }}"{% endif %} />
+	                            </a>
+	                        {% endif %}
+	                        {#{{ resource.linkText }}#}
+	                    </div>
+	                    {% if item.title  %}<strong>{{ item.title }}</strong>{% endif %}
+	                    {% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}
+	                </div>
+	            {% endfor %}
+	        </div>
+	       
+	    </div>    
+	         
+	     {% if resource.wrapperClass == "col-md-6"  %}
+	     <div class="col-md-6">
+	     	 {% include "@SandboxWebsite/Banner/col6.html.twig" %}
+	     </div>
+	     {% elseif resource.wrapperClass == "col-md-8"  %}
+	     <div class="col-md-4">
+	     	 {% include "@SandboxWebsite/Banner/col4.html.twig" %}
+	     </div>
+	     {% endif %} 
+	  
 </div>  
