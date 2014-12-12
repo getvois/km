@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row gallery">
     <div class="{{ resource.wrapperClass }}">
         <h2>{{ resource.title }}</h2>
         {{ resource.description|raw }}
@@ -14,10 +14,10 @@
                         {% endif %}
                         {#{{ resource.linkText }}#}
                     </div>
-                    {% if item.title  %}<h2>{{ item.title }}</h2>{% endif %}
+                    {% if item.title  %}<strong>{{ item.title }}</strong>{% endif %}
                     {% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}
                 </div>
             {% endfor %}
         </div>
     </div>
-</div>
+</div>  
