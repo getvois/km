@@ -1,5 +1,40 @@
-@import url(http://fonts.googleapis.com/css?family=Dosis:700);
-.splash--green {
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Yellowtail);
+html body {
+    font-family: "Droid Sans";
+}
+h1, h2, h3, h4, h5  {
+    font-family: "Droid Sans";
+}
+.clear {
+    clear:both;
+}
+
+/*pageparts gallery, googlemap */
+.image-wrapper, .map-container {
+    margin-bottom:20px;
+}
+/* Bootstrap Css Map Fix*/
+.google-map-pp img { 
+  max-width: none;
+}
+/* Bootstrap Css Map Fix*/
+.google-map-pp label { 
+  width: auto; display:inline; 
+}
+
+main h2 {
+    margin:20px 0 5px 0!important;
+}
+
+main {
+    line-height:1.6em;
+}
+main h1 {
+    font-family: "Yellowtail";
+    font-size: 45px;
+}
+body .splash--green { 
     background-color: transparent;
 }
 .mainbg{
@@ -13,7 +48,7 @@
     color: #f8c701;
     text-shadow:1px 1px #454545;
     margin: 35px 10px 30px;
-    font:  700 35px "Dosis";
+    font:  400 45px "Yellowtail";
 }
 .top-menu-container{
     height: 0;
@@ -752,7 +787,7 @@ ul#form-type-switcher li {
     float: left;
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style: none; 
     background-color: #fafafa;
     white-space: nowrap;
 }
