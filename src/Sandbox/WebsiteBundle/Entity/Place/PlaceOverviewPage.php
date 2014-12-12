@@ -166,13 +166,8 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
 
                 //get node version
                 /** @var NodeVersion $nodeVersion */
-                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                    ->findOneBy([
-                        'refId' => $item->getId(),
-                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\News\NewsPage',
-                        'type' => 'public',
-                    ]//, ['created' => 'desc', 'updated' => 'desc']
-                    );
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
+                $nodeVersion = $nodeVersion->getNodeTranslation()->getPublicNodeVersion();
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()
@@ -184,14 +179,12 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
                         /** @var Host $itemHost */
                         foreach ($item->getHosts() as $itemHost) {
                             if($itemHost->getId() == $host->getId()){
-                                $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                                $news[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
                                 break;
                             }
                         }
-
-
                     }else {
-                        $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                        $news[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
                     }
                 }
             }
@@ -213,12 +206,8 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
             foreach ($placeOverviewPage->getArticles() as $item) {
                 //get node version
                 /** @var NodeVersion $nodeVersion */
-                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                    ->findOneBy([
-                        'refId' => $item->getId(),
-                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage',
-                        'type' => 'public'
-                    ]);
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
+                $nodeVersion = $nodeVersion->getNodeTranslation()->getPublicNodeVersion();
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()
@@ -230,12 +219,12 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
                         /** @var Host $itemHost */
                         foreach ($item->getHosts() as $itemHost) {
                             if($itemHost->getId() == $host->getId()){
-                                $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                                $articles[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
                                 break;
                             }
                         }
                     }else {
-                        $articles[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                        $articles[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
                     }
                 }
             }
@@ -276,6 +265,21 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
         $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news, $host);
         $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles, $host);
 
+        $tags = [];
+        if($articles)
+        foreach ($articles as $article) {
+            foreach ($article->getTags() as $tag) {
+                $tags[$tag->getId()] = $tag;
+            }
+        }
+        if($news)
+        foreach ($news as $article) {
+            foreach ($article->getTags() as $tag) {
+                $tags[$tag->getId()] = $tag;
+            }
+        }
+
+        $context['tags'] = $tags;
         $context['places'] = $placesLocale;
         $context['news'] = $news;
         $context['articles'] = $articles;

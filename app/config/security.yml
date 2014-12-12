@@ -31,7 +31,7 @@ security:
             anonymous:    true
             remember_me:
                 key:      %secret%
-                lifetime: 604800
+                lifetime: 1604800
                 path:     /
                 domain:   ~
         dev:

@@ -17,7 +17,14 @@
 
     {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
 
-
+    <div class="tags-block">
+        <h2>Tags</h2>
+        {% for tag in tags %}
+            <div>
+                <a href="{{ app.request.requestUri ~ "/" ~ tag.name | replace({' ': "_"}) }}">{{ tag.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
 
     <div class="">
         <h2>{{ page.title }}</h2>

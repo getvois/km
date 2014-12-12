@@ -60,14 +60,17 @@ class RouteController extends Controller
         //check for tag as last argument of path
         $args = explode('/', $path);
         $lastArg = $args[count($args)-1];
+        $lastArg = str_replace("_", " ", $lastArg);
 
-        $subject = $args[count($args) - 2];
+        $subject = null;
+        if(array_key_exists(count($args) - 2, $args))
+            $subject = $args[count($args) - 2];
 
         $tag = $em->getRepository('KunstmaanTaggingBundle:Tag')
             ->findOneBy(['name' => $lastArg]);
 
         //check if tag page // $subject could be from tag/{tag} page
-        if($tag && $subject != "tag"){
+        if($tag && $subject && $subject != "tag"){
             $locale = $request->getLocale();//page language code
             $placesLocale = [];//array of translated online nodes to return to template
 
@@ -103,7 +106,7 @@ class RouteController extends Controller
             //for top and bottom menu
             $securityContext = $this->get('security.context');
             $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');
-            $node = $em->getRepository('KunstmaanNodeBundle:Node')->find(1);
+            $node = $nodeTranslation->getNode();
             $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node, PermissionMap::PERMISSION_VIEW);
             //
 
