@@ -279,6 +279,21 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
             }
         }
 
+        //preferred tags
+        /** @var PreferredTag[] $preferredTags */
+        $preferredTags = $em->getRepository('SandboxWebsiteBundle:PreferredTag')
+            ->findAll();
+
+        //delete preferred tags from tags
+        foreach ($preferredTags as $index => $tag) {
+            if(($key = array_search($tag->getTag(), $tags)) !== false){
+                unset($tags[$key]);
+            }else{
+                unset($preferredTags[$index]);
+            }
+        }
+
+        $context['preferredtags'] = $preferredTags;
         $context['tags'] = $tags;
         $context['places'] = $placesLocale;
         $context['news'] = $news;

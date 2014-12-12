@@ -15,19 +15,35 @@
 
 {% block sidebar %}
 
-    {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
-
-    <div class="tags-block">
-        <h2>Tags</h2>
-        {% for tag in tags %}
-            <div>
-                <a href="{{ app.request.requestUri ~ "/" ~ tag.name | replace({' ': "_"}) }}">{{ tag.name }}</a>
-            </div>
-        {% endfor %}
-    </div>
-
     <div class="">
         <h2>{{ page.title }}</h2>
+
+        {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
+
+        {% if preferredtags is defined %}
+            <div class="tags-block">
+                <h2>Tags</h2>
+                {% for tag in tags %}
+                    <div>
+                        <a href="{{ app.request.requestUri ~ "/" ~ tag.name | replace({' ': "_"}) }}">{{ tag.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if preferredtags is defined %}
+            <div class="preferred-tags-block">
+                <h2>Categories</h2>
+                {% for pt in preferredtags %}
+                    {% if pt.tag is not null %}
+                        <div class="{{ pt.class }}">
+                            <a href="{{ app.request.requestUri ~ "/" ~ pt.tag.name | replace({' ': "_"}) }}">{{ pt.tag.name }}</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {#{{ render_pageparts(page, 'main') }}#}
         {% set count = 0 %}
         {# 1 level #}

@@ -9,9 +9,11 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Helper\NodeMenu;
 use Kunstmaan\TaggingBundle\Entity\Tag;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
+use Sandbox\WebsiteBundle\Entity\PreferredTag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,6 +96,43 @@ class RouteController extends Controller
                 ->findOneBy(['name' => $request->getHost()]);
             $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news, $host, $tag);
             $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles, $host, $tag);
+
+            //tags
+            $tags = [];
+            if($articles)
+                /** @var ArticlePage $article */
+                foreach ($articles as $article) {
+                    foreach ($article->getTags() as $tag) {
+                        $tags[$tag->getId()] = $tag;
+                    }
+                }
+            if($news)
+                /** @var NewsPage $article */
+                foreach ($news as $article) {
+                    foreach ($article->getTags() as $tag) {
+                        $tags[$tag->getId()] = $tag;
+                    }
+                }
+
+            //preferred tags
+            /** @var PreferredTag[] $preferredTags */
+            $preferredTags = $em->getRepository('SandboxWebsiteBundle:PreferredTag')
+                ->findAll();
+
+            //delete preferred tags from tags
+            foreach ($preferredTags as $index => $tag) {
+                if(($key = array_search($tag->getTag(), $tags)) !== false){
+                    unset($tags[$key]);
+                }else{
+                    unset($preferredTags[$index]);
+                }
+            }
+
+            $context['preferredtags'] = $preferredTags;
+            $context['tags'] = $tags;
+
+
+
 
             $context['places'] = $placesLocale;
             $context['news'] = $news;

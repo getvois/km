@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
 use Sandbox\WebsiteBundle\Entity\Image;
+use Sandbox\WebsiteBundle\Form\PageParts\GalleryPagePartAdminType;
 
 /**
  * GalleryPagePart
@@ -189,10 +190,10 @@ class GalleryPagePart extends AbstractPagePart
     /**
      * Get the admin form type.
      *
-     * @return \Sandbox\WebsiteBundle\Form\PageParts\GalleryPagePartAdminType
+     * @return GalleryPagePartAdminType
      */
     public function getDefaultAdminType()
     {
-        return new \Sandbox\WebsiteBundle\Form\PageParts\GalleryPagePartAdminType();
+        return new GalleryPagePartAdminType();
     }
 }

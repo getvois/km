@@ -1,3 +1,5 @@
+
+{% if tags is defined %}
 <div class="tags-block">
     <h2>Tags</h2>
     {% for tag in tags %}
@@ -6,3 +8,17 @@
         </div>
     {% endfor %}
 </div>
+{% endif %}
+
+{% if preferredtags is defined %}
+<div class="preferred-tags-block">
+    <h2>Categories</h2>
+    {% for pt in preferredtags %}
+        {% if pt.tag is not null %}
+            <div class="{{ pt.class }}">
+                <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : pt.tag.name | replace({' ': "_"}) } ) }}">{{ pt.tag.name }}</a>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}

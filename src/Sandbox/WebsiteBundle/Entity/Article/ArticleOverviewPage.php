@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\PreferredTag;
 use Sandbox\WebsiteBundle\Form\Article\ArticleOverviewPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Article\ArticleOverviewPagePagePartAdminConfigurator;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticleOverviewPage;
@@ -88,6 +89,23 @@ class ArticleOverviewPage extends AbstractArticleOverviewPage
                 }
             }
         }
+
+        //preferred tags
+        /** @var PreferredTag[] $preferredTags */
+        $preferredTags = $em->getRepository('SandboxWebsiteBundle:PreferredTag')
+            ->findAll();
+
+        //delete preferred tags from tags
+        foreach ($preferredTags as $index => $tag) {
+            if(($key = array_search($tag->getTag(), $tags)) !== false){
+                unset($tags[$key]);
+            }else{
+                unset($preferredTags[$index]);
+            }
+        }
+
+
+        $context['preferredtags'] = $preferredTags;
         $context['tags'] = $tags;
 
         $adapter = new ArrayAdapter($articles);
