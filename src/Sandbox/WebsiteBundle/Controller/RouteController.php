@@ -221,12 +221,7 @@ class RouteController extends Controller
             foreach ($placeOverviewPage->getArticles() as $item) {
                 //get node version
                 /** @var NodeVersion $nodeVersion */
-                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                    ->findOneBy([
-                        'refId' => $item->getId(),
-                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage',
-                        'type' => 'public'
-                    ]);
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()
