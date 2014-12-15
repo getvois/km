@@ -20,10 +20,16 @@ class GoogleMapPagePart extends AbstractPagePart
     {
         $places = $this->getPlaces();
         $this->places = new ArrayCollection();
+        if($places)
         foreach ($places as $place) {
             $cloneContact = clone $place;
             $this->addPlace($cloneContact);
         }
+    }
+
+    function __clone()
+    {
+        $this->deepClone();
     }
 
 

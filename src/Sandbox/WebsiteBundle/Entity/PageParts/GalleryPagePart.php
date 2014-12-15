@@ -73,18 +73,12 @@ class GalleryPagePart extends AbstractPagePart
     {
         $images = $this->getImages();
         $this->images = new ArrayCollection();
-        foreach ($images as $image) {
-            $cloneContact = clone $image;
-            $this->addImage($cloneContact);
-        }
+        if($images)
+            foreach ($images as $image) {
+                $cloneContact = clone $image;
+                $this->addImage($cloneContact);
+            }
     }
-
-
-
-
-
-
-
 
     /**
      * @var string
@@ -196,4 +190,11 @@ class GalleryPagePart extends AbstractPagePart
     {
         return new GalleryPagePartAdminType();
     }
+
+    function __clone()
+    {
+        $this->deepClone();
+    }
+
+
 }

@@ -106,8 +106,8 @@
 	                        }
 	                    })(marker, i));
                         var bounds_listener = google.maps.event.addListener( map, 'bounds_changed', function(event) {
-                            if (this.getZoom() > 15) {
-                                this.setZoom(15);
+                            if (this.getZoom() > 13) {
+                                this.setZoom(13);
                             }
 
                             google.maps.event.removeListener( bounds_listener );
