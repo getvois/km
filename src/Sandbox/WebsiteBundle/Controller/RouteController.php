@@ -153,6 +153,7 @@ class RouteController extends Controller
             return $this->render('@SandboxWebsite/Tag/placetag.html.twig', $context);
         }
 
+        $path = trim($path, '/');
         return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $path]);
 
     }
