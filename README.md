@@ -171,3 +171,25 @@ Changes to kunstmaan bundles.
     {
         $resolver->setDefaults($this->getDefaultOptions([]));
     }
+
+
+### Option resolver bug fix
+
+###### File: /../vendor/symfony/symfony/src/Symfony/Component/OptionsResolver/OptionsResolver.php
+
+    private function validateOptionsExistence(array $options)
+    {
+        $diff = array_diff_key($options, $this->knownOptions);
+
+        if (count($diff) > 0) {
+            ksort($this->knownOptions);
+            ksort($diff);
+
+    //            throw new InvalidOptionsException(sprintf(
+    //                (count($diff) > 1 ? 'The options "%s" do not exist.' : 'The option "%s" does not exist.').' Known options are: "%s"',
+    //                implode('", "', array_keys($diff)),
+    //                implode('", "', array_keys($this->knownOptions))
+    //            ));
+        }
+    }
+    
