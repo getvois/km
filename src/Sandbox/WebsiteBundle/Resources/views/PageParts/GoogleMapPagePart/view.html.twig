@@ -47,9 +47,7 @@
 	                var map;
 	                var bounds = new google.maps.LatLngBounds();
 	                var mapOptions = {
-	                    mapTypeId: 'roadmap',
-                        minZoom: 10,
-                        zoom: 10
+	                    mapTypeId: 'roadmap'
 	                };
 	
 	                // Display a map on the page
@@ -111,9 +109,9 @@
 	                    map.fitBounds(bounds);
 	                }
 
-                    // Limit the zoom level
-                    google.maps.event.addListener(map, 'zoom_changed', function() {
+                    var listener = google.maps.event.addListener(map, "idle", function() {
                         if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+                        google.maps.event.removeListener(listener);
                     });
 	
 	            }
