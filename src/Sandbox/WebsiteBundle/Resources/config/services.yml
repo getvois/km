@@ -58,9 +58,9 @@ services:
 
     sandboxwebsitebundle.adminlist_listener:
         class: Sandbox\WebsiteBundle\EventListener\AdminListListener
-        arguments: [@service_container]
+        arguments: [%requiredlocales%]
         tags:
-          - { name: kernel.event_listener, event: kunstmaan_adminlist.postPersist, method: onAdminListPostPersist }
+          - { name: doctrine.event_listener, event: postPersist }
 
     sandboxwebsitebundle.addnode_listener:
         class: Sandbox\WebsiteBundle\EventListener\AddNodeListener

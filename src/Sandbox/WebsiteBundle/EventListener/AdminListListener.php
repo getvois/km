@@ -1,60 +1,48 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kosmos
- * Date: 12.12.14
- * Time: 17:05
- */
 
 namespace Sandbox\WebsiteBundle\EventListener;
 
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Kunstmaan\AdminListBundle\Event\AdminListEvent;
 use Kunstmaan\TaggingBundle\Entity\Tag;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
 use Kunstmaan\TranslatorBundle\Repository\TranslationRepository;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AdminListListener {
-    private $container;
-    /** @var \Doctrine\ORM\EntityManager $em */
-    private $em;
+    private $locales;
 
-    function __construct(ContainerInterface $container)
+    function __construct($locales)
     {
-        $this->container = $container;
-        $this->em = $container->get('doctrine.orm.entity_manager');
+        $this->locales = $locales;
     }
 
-    public function onAdminListPostPersist(AdminListEvent $adminListEvent){
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
 
-        $adminList = $adminListEvent->getAdminList();
-        if($adminList instanceof Tag){
-
+        if ($entity instanceof Tag) {
             /** @var TranslationRepository $repository */
-            $repository = $this->em->getRepository('KunstmaanTranslatorBundle:Translation');
-            $translation = $repository->findOneBy(['keyword' => $adminList->getName()]);
+            $repository = $entityManager->getRepository('KunstmaanTranslatorBundle:Translation');
+            $translation = $repository->findOneBy(['keyword' => $entity->getName()]);
             if($translation) return;
 
-            $translationId = $this->em->getRepository('KunstmaanTranslatorBundle:Translation')->getUniqueTranslationId();
+            $translationId = $entityManager->getRepository('KunstmaanTranslatorBundle:Translation')->getUniqueTranslationId();
 
-            $languages = $this->container->getParameter('requiredlocales');
-
-            foreach (explode('|', $languages) as $lang) {
+            foreach (explode('|', $this->locales) as $lang) {
                 $t = new Translation();
                 $t->setLocale($lang);
                 $t->setDomain('tag');
                 $t->setCreatedAt(new \DateTime());
                 $t->setFlag(Translation::FLAG_NEW);
                 $t->setTranslationId($translationId);
-                $t->setKeyword($adminList->getName());
-                $t->setText($adminList->getName());
-                $this->em->persist($t);
+                $t->setKeyword($entity->getName());
+                $t->setText($entity->getName());
+                $entityManager->persist($t);
             }
 
-            $this->em->flush();
+            $entityManager->flush();
         }
-
-
     }
 } 
