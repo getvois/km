@@ -43,11 +43,12 @@
 	            });
 	
 	            function initialize() {
-                    var minZoomLevel = 5;
+                    //var minZoomLevel = 5;
 	                var map;
 	                var bounds = new google.maps.LatLngBounds();
 	                var mapOptions = {
-	                    mapTypeId: 'roadmap'
+	                    mapTypeId: 'roadmap',
+                        minZoom: 5
 	                };
 	
 	                // Display a map on the page
@@ -109,10 +110,10 @@
 	                    map.fitBounds(bounds);
 	                }
 
-                    // Limit the zoom level
-                    google.maps.event.addListener(map, 'zoom_changed', function() {
-                        if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
-                    });
+//                    // Limit the zoom level
+//                    google.maps.event.addListener(map, 'zoom_changed', function() {
+//                        if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+//                    });
 	
 	            }
 	        </script>
