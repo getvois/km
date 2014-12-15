@@ -50,6 +50,12 @@ services:
         tags:
           - { name: kernel.event_listener, event: kunstmaan_node.postPublish, method: onPostPublish }
 
+    sandboxwebsitebundle.copypagetraslation_listener:
+        class: Sandbox\WebsiteBundle\EventListener\CopyPageTranslationListener
+        arguments: [@service_container]
+        tags:
+          - { name: kernel.event_listener, event: kunstmaan_node.copyPageTranslation, method: onCopyPageTranslation }
+
     sandboxwebsitebundle.adminlist_listener:
         class: Sandbox\WebsiteBundle\EventListener\AdminListListener
         arguments: [@service_container]
