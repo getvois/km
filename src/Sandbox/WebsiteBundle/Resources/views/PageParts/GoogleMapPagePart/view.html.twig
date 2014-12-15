@@ -46,8 +46,8 @@
 	                var map;
 	                var bounds = new google.maps.LatLngBounds();
 	                var mapOptions = {
-	                    mapTypeId: 'roadmap',
-                        maxZoom: 5
+	                    mapTypeId: 'roadmap'//,
+                        //maxZoom: 5
 	                };
 	
 	                // Display a map on the page
@@ -108,6 +108,10 @@
 	                    // Automatically center the map fitting all markers on the screen
 	                    map.fitBounds(bounds);
 	                }
+
+                    if(map.getZoom() < 5){
+                        map.setZoom(5);
+                    }
 	            }
 	        </script>
 	    {% endif %}
