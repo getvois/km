@@ -88,20 +88,6 @@
 	                var infoWindow = new google.maps.InfoWindow(), marker, i;
 
 
-                    map.initialZoom = true;
-                    // This is needed to set the zoom after fitbounds,
-                    google.maps.event.addListener(map, 'zoom_changed', function() {
-                        zoomChangeBoundsListener =
-                                google.maps.event.addListener(map, 'bounds_changed', function(event) {
-                                    if (this.getZoom() < 5 && this.initialZoom == true) {
-                                        // Change max/min zoom here
-                                        this.setZoom(5);
-                                        this.initialZoom = true;
-                                    }
-                                    //google.maps.event.removeListener(zoomChangeBoundsListener);
-                                });
-                    });
-
 	                // Loop through our array of markers & place each one on the map
 	                for( i = 0; i < markers.length; i++ ) {
 	                    var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
@@ -119,12 +105,17 @@
 	                            infoWindow.open(map, marker);
 	                        }
 	                    })(marker, i));
-	
+                        var bounds_listener = google.maps.event.addListener( map, 'bounds_changed', function(event) {
+                            if (this.getZoom() > 15) {
+                                this.setZoom(15);
+                            }
+
+                            google.maps.event.removeListener( bounds_listener );
+                        });
 	                    // Automatically center the map fitting all markers on the screen
 	                    map.fitBounds(bounds);
 	                }
 
-                    google.maps.event.removeListener(zoomChangeBoundsListener);
 
 	            }
 	        </script>
