@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Form\Company;
 
 use Kunstmaan\ArticleBundle\Form\AbstractArticleOverviewPageAdminType;
+use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -21,6 +22,35 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
     {
         parent::buildForm($builder, $options);
         $builder->add('companyId');
+        $builder->add('description', 'textarea', array(
+            'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
+            'required' => false,
+        ));
+        $builder->add('logo', 'media', array(
+            'pattern' => 'KunstmaanMediaBundle_chooser',
+            'mediatype' => 'image',
+            'required' => false,
+        ));
+        $builder->add('logoAltText', 'text', array(
+            'required' => false,
+        ));
+        $builder->add('linkUrl', 'urlchooser', array(
+            'required' => false,
+        ));
+        $builder->add('linkText', 'text', array(
+            'required' => false,
+        ));
+        $builder->add('linkNewWindow', 'checkbox', array(
+            'required' => false,
+        ));
+        $builder->add('place', 'entity', [
+                'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
+                'query_builder' => function(PlaceOverviewPageRepository $er) {
+                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                    return $er->getByLang($locale);
+                }
+            ]
+        );
     }
     /**
      * Sets the default options for this type.

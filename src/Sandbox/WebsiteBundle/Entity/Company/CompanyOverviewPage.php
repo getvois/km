@@ -3,8 +3,12 @@
 namespace Sandbox\WebsiteBundle\Entity\Company;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Company\CompanyOverviewPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Company\CompanyOverviewPagePagePartAdminConfigurator;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticleOverviewPage;
@@ -22,6 +26,214 @@ use Symfony\Component\HttpFoundation\Request;
 class CompanyOverviewPage extends AbstractArticleOverviewPage
 {
 
+    /**
+     * @var PlaceOverviewPage
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     */
+    private $place;
+
+    /**
+     * @return PlaceOverviewPage
+     */
+    public function getPlace()
+    {
+        return $this->place;
+    }
+
+    /**
+     * @param PlaceOverviewPage $place
+     * @return $this
+     */
+    public function setPlace($place)
+    {
+        $this->place = $place;
+        return $this;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo_alt_text", type="text", nullable=true)
+     */
+    private $logoAltText;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link_url", type="string", nullable=true)
+     */
+    private $linkUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link_text", type="string", nullable=true)
+     */
+    private $linkText;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="link_new_window", type="boolean", nullable=true)
+     */
+    private $linkNewWindow;
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="logo_id", referencedColumnName="id")
+     * })
+     */
+    private $logo;
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return CompanyPage
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set logoAltText
+     *
+     * @param string $logoAltText
+     * @return CompanyPage
+     */
+    public function setLogoAltText($logoAltText)
+    {
+        $this->logoAltText = $logoAltText;
+
+        return $this;
+    }
+
+    /**
+     * Get logoAltText
+     *
+     * @return string
+     */
+    public function getLogoAltText()
+    {
+        return $this->logoAltText;
+    }
+
+    /**
+     * Set linkUrl
+     *
+     * @param string $linkUrl
+     * @return CompanyPage
+     */
+    public function setLinkUrl($linkUrl)
+    {
+        $this->linkUrl = $linkUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get linkUrl
+     *
+     * @return string
+     */
+    public function getLinkUrl()
+    {
+        return $this->linkUrl;
+    }
+
+    /**
+     * Set linkText
+     *
+     * @param string $linkText
+     * @return CompanyPage
+     */
+    public function setLinkText($linkText)
+    {
+        $this->linkText = $linkText;
+
+        return $this;
+    }
+
+    /**
+     * Get linkText
+     *
+     * @return string
+     */
+    public function getLinkText()
+    {
+        return $this->linkText;
+    }
+
+    /**
+     * Set linkNewWindow
+     *
+     * @param boolean $linkNewWindow
+     * @return CompanyPage
+     */
+    public function setLinkNewWindow($linkNewWindow)
+    {
+        $this->linkNewWindow = $linkNewWindow;
+
+        return $this;
+    }
+
+    /**
+     * Get linkNewWindow
+     *
+     * @return boolean
+     */
+    public function getLinkNewWindow()
+    {
+        return $this->linkNewWindow;
+    }
+
+    /**
+     * Set logo
+     *
+     * @param Media $logo
+     * @return CompanyPage
+     */
+    public function setLogo(Media $logo = null)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return Media
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
     /**
      * @var integer
      *
