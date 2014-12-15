@@ -170,13 +170,7 @@ class RouteController extends Controller
 
                 //get node version
                 /** @var NodeVersion $nodeVersion */
-                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                    ->findOneBy([
-                        'refId' => $item->getId(),
-                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\News\NewsPage',
-                        'type' => 'public',
-                    ]//, ['created' => 'desc', 'updated' => 'desc']
-                    );
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()

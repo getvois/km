@@ -22,6 +22,8 @@ class TagController extends Controller
      */
     public function tagAction(Request $request, $tag)
     {
+        $tag = str_replace("_", ' ', $tag);
+
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Tag $tag */
