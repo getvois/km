@@ -80,6 +80,7 @@ Changes to kunstmaan bundles.
     //ADD THIS LINE
     
     <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/frontend/js/select2/select2.css") }}"/>
+    <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/css/style.css") }}"/>
     
     //END
     
@@ -116,7 +117,8 @@ Changes to kunstmaan bundles.
 
             jQuery("#form_main_fromPlaces").select2();
             jQuery("#form_main_places").select2();
-
+            jQuery("#form_main_place").select2();
+            
             //END
             
         });
