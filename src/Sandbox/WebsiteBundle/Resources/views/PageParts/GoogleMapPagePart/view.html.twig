@@ -43,7 +43,6 @@
 	            });
 	
 	            function initialize() {
-                    var minZoomLevel = 10;
 	                var map;
 	                var bounds = new google.maps.LatLngBounds();
 	                var mapOptions = {
@@ -109,12 +108,6 @@
 	                    // Automatically center the map fitting all markers on the screen
 	                    map.fitBounds(bounds);
 	                }
-
-                    var listener = google.maps.event.addListener(map, "idle", function() {
-                        if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
-                        google.maps.event.removeListener(listener);
-                    });
-	
 	            }
 	        </script>
 	    {% endif %}
