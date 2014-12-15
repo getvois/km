@@ -107,12 +107,13 @@
 	
 	                    // Automatically center the map fitting all markers on the screen
 	                    map.fitBounds(bounds);
+                        var listener = google.maps.event.addListener(map, "idle", function() {
+                            if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+                            google.maps.event.removeListener(listener);
+                        });
 	                }
 
-                    var listener = google.maps.event.addListener(map, "idle", function() {
-                        if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
-                        google.maps.event.removeListener(listener);
-                    });
+
 	
 	            }
 	        </script>
