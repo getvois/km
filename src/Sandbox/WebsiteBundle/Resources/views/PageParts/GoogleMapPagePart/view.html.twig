@@ -108,12 +108,11 @@
 	                    // Automatically center the map fitting all markers on the screen
 	                    map.fitBounds(bounds);
 	                }
-	
-	                // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-	                var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+
+                    // Limit the zoom level
+                    google.maps.event.addListener(map, 'zoom_changed', function() {
                         if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
-	                    //google.maps.event.removeListener(boundsListener);
-	                });
+                    });
 	
 	            }
 	        </script>
