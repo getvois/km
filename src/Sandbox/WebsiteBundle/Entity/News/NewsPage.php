@@ -41,6 +41,55 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
 
     }
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_until", type="datetime", nullable=true)
+     */
+    private $dateUntil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255, nullable=true)
+     */
+    private $link;
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateUntil()
+    {
+        return $this->dateUntil;
+    }
+
+    /**
+     * @param \DateTime $dateUntil
+     * @return $this
+     */
+    public function setDateUntil($dateUntil)
+    {
+        $this->dateUntil = $dateUntil;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param string $link
+     * @return $this
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+        return $this;
+    }
 
     /**
      * @var ArrayCollection

@@ -37,5 +37,9 @@
         </div>
     {% endif %}
     {{ render_pageparts(page, 'main') }}
+
+    {% if page.link %}
+        <div><a target="_blank" href="{{ page.link }}">{{ page.link }}</a></div>
+    {% endif %}
     {#{% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}#}
 {% endblock %}

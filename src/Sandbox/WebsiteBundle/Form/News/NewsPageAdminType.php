@@ -45,7 +45,17 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         ->add('translate')
         ->add('topImage')
         ->add('hosts');
-
+        $builder->add(
+            'dateUntil',
+            'datetime',
+            array(
+                'required' => true,
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'date_format' => 'dd/MM/yyyy'
+            )
+        );
+        $builder->add('link');
         $builder->add('companies');
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
