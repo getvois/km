@@ -58,4 +58,10 @@ class ArticlePageAdminListConfigurator extends AbstractArticlePageAdminListConfi
         return 'SandboxWebsiteBundle:AdminList/Article/ArticlePageAdminList:list.html.twig';
     }
 
+    public function getLimit()
+    {
+        return 30;
+    }
+
+
 }
