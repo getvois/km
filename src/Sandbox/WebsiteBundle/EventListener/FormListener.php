@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\EventListener;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Event\NodeEvent;
+use Sandbox\WebsiteBundle\Entity\ICompany;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -85,6 +86,26 @@ class FormListener {
 
             $this->em->flush();
 
+        }
+
+        if($page instanceof ICompany){
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var ICompany $pp */
+                $pp = $translation->getRef($this->em);
+
+                foreach ($page->getCompanies() as $company) {
+                    $pp->addCompany($company);
+                }
+
+                $this->em->persist($pp);
+
+            }
+
+            $this->em->flush();
         }
 
     }

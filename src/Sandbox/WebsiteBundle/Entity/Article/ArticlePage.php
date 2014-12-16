@@ -9,7 +9,9 @@ use DoctrineExtensions\Taggable\Doctrine;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\Article\ArticleAuthor;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\ICompany;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -24,7 +26,7 @@ use Symfony\Component\Form\AbstractType;
  * @ORM\Table(name="sb_article_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable
+class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany
 {
     /**
      * Constructor
@@ -35,7 +37,53 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
         $this->fromPlaces = new ArrayCollection();
         $this->hosts = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage")
+     * @ORM\JoinTable(name="companies_articles",
+     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *      )
+     */
+    private $companies;
+
+    /**
+     * Add companies
+     *
+     * @param CompanyOverviewPage $companies
+     * @return ArticlePage
+     */
+    public function addCompany(CompanyOverviewPage $companies)
+    {
+        $this->companies[] = $companies;
+
+        return $this;
+    }
+
+    /**
+     * Remove companies
+     *
+     * @param CompanyOverviewPage $companies
+     */
+    public function removeCompany(CompanyOverviewPage $companies)
+    {
+        $this->companies->removeElement($companies);
+    }
+
+    /**
+     * Get companies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
+
 
     /**
      * @var Collection

@@ -10,9 +10,12 @@ use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\ICompany;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\PreferredTag;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Form\Place\PlaceOverviewPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Place\PlaceOverviewPagePagePartAdminConfigurator;
@@ -29,8 +32,55 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository")
  * @ORM\Table(name="sb_place_overviewpages")
  */
-class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
+class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany
 {
+
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage")
+     * @ORM\JoinTable(name="companies_places",
+     *      joinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *      )
+     */
+    private $companies;
+
+    /**
+     * Add companies
+     *
+     * @param CompanyOverviewPage $companies
+     * @return PlaceOverviewPage
+     */
+    public function addCompany(CompanyOverviewPage $companies)
+    {
+        $this->companies[] = $companies;
+
+        return $this;
+    }
+
+    /**
+     * Remove companies
+     *
+     * @param CompanyOverviewPage $companies
+     */
+    public function removeCompany(CompanyOverviewPage $companies)
+    {
+        $this->companies->removeElement($companies);
+    }
+
+    /**
+     * Get companies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
+
+
     /**
      * @var TopImage
      *
@@ -144,6 +194,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
         $this->articles = new ArrayCollection();
         $this->fromArticles = new ArrayCollection();
         $this->hosts = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
 
     /**

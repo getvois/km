@@ -118,6 +118,7 @@ Changes to kunstmaan bundles.
             jQuery("#form_main_fromPlaces").select2();
             jQuery("#form_main_places").select2();
             jQuery("#form_main_place").select2();
+            jQuery("#form_main_companies").select2();
             
             //END
             
@@ -134,13 +135,9 @@ Changes to kunstmaan bundles.
 
 ###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/SearchBundle/Resources/config/analyzer_languages.yml
 
-
-     //CHANGE
-     -- sv: { analyzer: 'swedish' }
-     ++ se: { analyzer: 'swedish' }
-     
      //ADD
      ++ ee: { analyzer: 'estonian' }
+     ++ se: { analyzer: 'swedish' }
      
      
 ### Tagging bundle registry change

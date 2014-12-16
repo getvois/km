@@ -44,6 +44,7 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         )->add('topImage')
         ->add('hosts', 'entity', ['empty_data'  => null, 'class' => 'Sandbox\WebsiteBundle\Entity\Host', 'required' => false, 'multiple' => true]);
 
+        $builder->add('companies');
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 

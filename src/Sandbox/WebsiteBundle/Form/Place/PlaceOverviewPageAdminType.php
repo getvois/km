@@ -25,6 +25,7 @@ class PlaceOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
             ->add('countryCode')
             ->add('topImage')
             ->add('hosts');
+        $builder->add('companies');
 
         //$builder->add('parentPlace');
     }

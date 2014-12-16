@@ -46,6 +46,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         ->add('topImage')
         ->add('hosts');
 
+        $builder->add('companies');
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 
