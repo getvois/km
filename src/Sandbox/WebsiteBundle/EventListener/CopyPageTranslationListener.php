@@ -3,10 +3,14 @@
 namespace Sandbox\WebsiteBundle\EventListener;
 
 
+use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Event\CopyPageTranslationNodeEvent;
+use Kunstmaan\NodeBundle\Repository\NodeRepository;
 use Kunstmaan\PagePartBundle\Helper\HasPagePartsInterface;
 use Kunstmaan\PagePartBundle\Helper\PagePartConfigurationReader;
 use Kunstmaan\PagePartBundle\Repository\PagePartRefRepository;
+use Sandbox\WebsiteBundle\Entity\ICompany;
+use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Symfony\Component\DependencyInjection\Container;
 
 class CopyPageTranslationListener {
@@ -27,8 +31,8 @@ class CopyPageTranslationListener {
     public function onCopyPageTranslation(CopyPageTranslationNodeEvent $nodeEvent)
     {
         $page = $nodeEvent->getOriginalPage();
+        $langPage = $nodeEvent->getPage();
         if($page instanceof HasPagePartsInterface){
-            $langPage = $nodeEvent->getPage();
 
             $pagePartConfigurationReader = new PagePartConfigurationReader($this->kernel);
             $contexts = $pagePartConfigurationReader->getPagePartContexts($page);
@@ -40,5 +44,59 @@ class CopyPageTranslationListener {
                 }
             }
         }
+
+        if($page instanceof IPlaceFromTo && $langPage instanceof IPlaceFromTo){
+            $langPage->removeAllPlaces();
+            $langPage->removeAllFromPlaces();
+
+            $this->selectPlaces($page, $langPage, $nodeEvent->getNodeTranslation()->getLang());
+        }
+
+        if($page instanceof ICompany && $langPage instanceof ICompany){
+            foreach ($langPage->getCompanies() as $company) {
+                $langPage->removeCompany($company);
+            }
+
+            foreach ($page->getCompanies() as $company) {
+                $langPage->addCompany($company);
+            }
+
+        }
+    }
+
+    private function selectPlaces(IPlaceFromTo $page, IPlaceFromTo $newPage, $newLang)
+    {
+        //add selected places to other translations
+        foreach ($page->getPlaces() as $place) {
+            /** @var NodeRepository $nodeRepo */
+            $nodeRepo = $this->em->getRepository('KunstmaanNodeBundle:Node');
+            $node = $nodeRepo->getNodeFor($place);
+            $translation = $node->getNodeTranslation($newLang, true);
+
+            if(!$translation) continue;
+
+            $placePage = $translation->getPublicNodeVersion()->getRef($this->em);
+
+            //add place to news
+            $newPage->addPlace($placePage);
+        }
+
+        //add selected from places to other translations
+        foreach ($page->getFromPlaces() as $place) {
+            /** @var NodeRepository $nodeRepo */
+            $nodeRepo = $this->em->getRepository('KunstmaanNodeBundle:Node');
+            $node = $nodeRepo->getNodeFor($place);
+            $translation = $node->getNodeTranslation($newLang, true);
+
+            if(!$translation) continue;
+
+            $placePage = $translation->getPublicNodeVersion()->getRef($this->em);
+
+            //add place to news
+            $newPage->addFromPlace($placePage);
+
+        }
+        $this->em->persist($newPage);
+        $this->em->flush();
     }
 }

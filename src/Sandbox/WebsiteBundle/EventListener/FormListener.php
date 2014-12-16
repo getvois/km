@@ -97,6 +97,10 @@ class FormListener {
                 /** @var ICompany $pp */
                 $pp = $translation->getRef($this->em);
 
+                foreach ($pp->getCompanies() as $company) {
+                    $pp->removeCompany($company);
+                }
+
                 foreach ($page->getCompanies() as $company) {
                     $pp->addCompany($company);
                 }
