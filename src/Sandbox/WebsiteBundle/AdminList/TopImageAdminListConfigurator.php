@@ -66,4 +66,8 @@ class TopImageAdminListConfigurator extends AbstractDoctrineORMAdminListConfigur
         return 'TopImage';
     }
 
+    public function getLimit()
+    {
+        return 30;
+    }
 }

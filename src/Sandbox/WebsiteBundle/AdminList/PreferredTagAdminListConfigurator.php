@@ -62,4 +62,9 @@ class PreferredTagAdminListConfigurator extends AbstractDoctrineORMAdminListConf
         return 'PreferredTag';
     }
 
+    public function getLimit()
+    {
+        return 30;
+    }
+
 }

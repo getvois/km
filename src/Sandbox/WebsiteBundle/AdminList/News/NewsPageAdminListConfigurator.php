@@ -58,4 +58,8 @@ class NewsPageAdminListConfigurator extends AbstractArticlePageAdminListConfigur
         return 'SandboxWebsiteBundle:AdminList/News/NewsPageAdminList:list.html.twig';
     }
 
+    public function getLimit()
+    {
+        return 30;
+    }
 }
