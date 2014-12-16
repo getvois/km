@@ -195,3 +195,17 @@ Changes to kunstmaan bundles.
         }
     }
     
+
+### Tag save
+
+###### File: /../vendor/fpn/doctrine-extensions-taggable/lib/DoctrineExtensions/Taggable/TagManager.php
+
+    public function saveTagging(Taggable $resource)
+    {
+
+        $oldTags = $this->getTagging($resource);
+        
+        //ADD clone
+        $newTags = clone $resource->getTags();
+        
+        $tagsToAdd = $newTags;
