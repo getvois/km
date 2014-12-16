@@ -2,11 +2,13 @@
 
 namespace Sandbox\WebsiteBundle\Entity\Company;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Company\CompanyOverviewPageAdminType;
@@ -27,9 +29,18 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
 {
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Article\ArticlePage", mappedBy="companies")
+     **/
+    private $articles;
+    /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\News\NewsPage", mappedBy="companies")
+     **/
+    private $news;
+
+    /**
      * @var PlaceOverviewPage
      *
-     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="companies")
      */
     private $place;
 
@@ -413,4 +424,77 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
         );
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
+
+    /**
+     * Add articles
+     *
+     * @param ArticlePage $articles
+     * @return CompanyOverviewPage
+     */
+    public function addArticle(ArticlePage $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param ArticlePage $articles
+     */
+    public function removeArticle(ArticlePage $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Add news
+     *
+     * @param NewsPage $news
+     * @return CompanyOverviewPage
+     */
+    public function addNews(NewsPage $news)
+    {
+        $this->news[] = $news;
+
+        return $this;
+    }
+
+    /**
+     * Remove news
+     *
+     * @param NewsPage $news
+     */
+    public function removeNews(NewsPage $news)
+    {
+        $this->news->removeElement($news);
+    }
+
+    /**
+     * Get news
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
 }

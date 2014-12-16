@@ -45,11 +45,8 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage")
-     * @ORM\JoinTable(name="companies_news",
-     *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", inversedBy="news")
+     * @ORM\JoinTable(name="companies_news")
      */
     private $companies;
 

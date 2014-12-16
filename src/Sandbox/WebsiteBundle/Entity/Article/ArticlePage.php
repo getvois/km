@@ -43,11 +43,8 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage")
-     * @ORM\JoinTable(name="companies_articles",
-     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", inversedBy="articles")
+     * @ORM\JoinTable(name="companies_articles")
      */
     private $companies;
 

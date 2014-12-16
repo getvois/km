@@ -34,16 +34,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany
 {
-
-
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage")
-     * @ORM\JoinTable(name="companies_places",
-     *      joinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", mappedBy="place")
      */
     private $companies;
 
