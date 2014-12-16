@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Form\Article;
 
 use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
+use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
 use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -44,7 +45,13 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         )->add('topImage')
         ->add('hosts', 'entity', ['empty_data'  => null, 'class' => 'Sandbox\WebsiteBundle\Entity\Host', 'required' => false, 'multiple' => true]);
 
-        $builder->add('companies');
+        $builder->add('companies', 'entity', [
+            'multiple' => true,
+            'class' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', 'required' => false,
+            'query_builder' => function(CompanyOverviewPageRepository $er) {
+                return $er->getActive();
+            }
+        ]);
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 

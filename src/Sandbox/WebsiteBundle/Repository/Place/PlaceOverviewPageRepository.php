@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Repository\Place;
 
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Kunstmaan\ArticleBundle\Repository\AbstractArticleOverviewPageRepository;
 
 /**
@@ -12,32 +13,42 @@ class PlaceOverviewPageRepository extends AbstractArticleOverviewPageRepository
 
     public function getByLang($lang)
     {
-        $pageIds = $this->getEntityManager()->createQueryBuilder()
-            ->select('v.refId')
-            ->from('KunstmaanNodeBundle:NodeVersion', 'v')
-            ->join('v.nodeTranslation', 't')
-            ->join('t.node', 'n')
-            ->where('n.deleted = 0')
-            ->where('t.lang = :lang')
-            ->andWhere('v.refEntityName = :name')
-            ->andWhere('v.type = :type')
-            ->setParameter(':type', 'public')
-            ->setParameter(":lang", $lang)
-            ->setParameter(":name", 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage')
-            ->getQuery()
-            ->getResult();
+        $rsm = new ResultSetMappingBuilder($this->_em);
+        $rsm->addRootEntityFromClassMetadata($this->getEntityName(), 'overviewpage');
+        $query = "
+            SELECT
+                overviewpage.*
+            FROM ";
+        $query .= $this->_em->getClassMetadata($this->getEntityName())->getTableName();
+        $query .= " AS overviewpage
+            INNER JOIN
+                kuma_node_versions nv ON nv.ref_id = overviewpage.id
+            INNER JOIN
+                kuma_node_translations nt ON nt.public_node_version_id = nv.id AND nt.id = nv.node_translation_id
+            INNER JOIN
+                kuma_nodes n ON n.id = nt.node_id
+            WHERE
+                n.deleted = 0
+            AND
+                nt.lang = :lang
+            AND
+                n.ref_entity_name = :entity_name
+        ";
+        $q = $this->_em->createNativeQuery($query, $rsm);
+        $q->setParameter('entity_name',$this->getEntityName());
+        $q->setParameter('lang',$lang);
+
+        $res =  $q->getResult();
 
         $ids = [];
-        foreach ($pageIds as $id) {
-            $ids[] = $id['refId'];
+        foreach ($res as $page) {
+            $ids[] = $page->getId();
         }
 
         return $this->getEntityManager()->createQueryBuilder()
-            ->select('p')
-            ->from('SandboxWebsiteBundle:Place\PlaceOverviewPage', 'p')
-            ->where('p.id IN(:ids)')
-            ->orderBy('p.title')
-            ->setParameter(':ids', $ids);
-
+            ->select('n')
+            ->from('SandboxWebsiteBundle:Place\PlaceOverviewPage', 'n')
+            ->where('n.id IN(:ids)')
+            ->setParameter(":ids", $ids);
     }
 }
