@@ -13,6 +13,14 @@ services:
           - { name: twig.extension }
 
 
+#Form Fields
+    sandboxwebsitebundle.form.type.imagesize:
+        class: Sandbox\WebsiteBundle\Form\Type\ImageSizeType
+        arguments:
+            - "%liip_imagine.filter_sets%"
+        tags:
+            - { name: form.type, alias: image_size }
+
 #Menu items
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor

@@ -39,12 +39,7 @@ class ImageAdminType extends AbstractType
             )
         );
         ///config.yml: liip_imagine.filter_sets
-        $builder->add('size', 'choice', ['choices' => [
-            "1000x700" => '1000x700',
-            "500x350" => '500x350',
-            "300x210" => '300x210',
-            "150x105" => '150x105',
-        ]]);
+        $builder->add('size', 'image_size');
     }
 
     /**
