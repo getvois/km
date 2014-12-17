@@ -1,8 +1,8 @@
 <div class="row gallery nomargin"> 
     	<div class="{{ resource.wrapperClass }}  {% if resource.wrapperClass %}nopadding{% endif %}">
-	        <h2>{{ resource.title }}</h2>
+	        <h3>{{ resource.title }}</h3>
 	        {{ resource.description|raw }}
-	        <div class="row">
+	        <div class="row{% if resource.wrapperClass is not empty %} nomargin{% endif %}">
 	            {% for item in resource.images %}
 	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
 	                    <div class="image-img {% if item.class %}{{ item.class }}{% endif %}">
