@@ -51,10 +51,11 @@ class DefaultController extends Controller
                     $em->persist($t);
 
                 }
+                $em->flush();
                 printf("<div>translated: %s</div>", $tag->getName());
             }
         }
-        $em->flush();
+
 
 
 //        var_dump(date('H:i', 1418807117));
