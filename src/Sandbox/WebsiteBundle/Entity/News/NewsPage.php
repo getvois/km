@@ -44,7 +44,7 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_until", type="datetime", nullable=true)
+     * @ORM\Column(name="date_until", type="date", nullable=true)
      */
     private $dateUntil;
 

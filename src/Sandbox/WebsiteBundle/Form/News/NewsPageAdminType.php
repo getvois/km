@@ -42,17 +42,16 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 }
             ]
         )
-        ->add('translate')
+        //->add('translate') //slugpart error on translated language; no page parts copied
         ->add('topImage')
         ->add('hosts');
         $builder->add(
             'dateUntil',
-            'datetime',
+            'date',
             array(
-                'required' => true,
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
-                'date_format' => 'dd/MM/yyyy'
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy'
             )
         );
         $builder->add('link');
