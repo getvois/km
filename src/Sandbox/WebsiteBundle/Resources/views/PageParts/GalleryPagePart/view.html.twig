@@ -14,7 +14,17 @@
 	                        {#{{ resource.linkText }}#}
 	                    </div>
 	                    {% if item.title  %}<strong>{{ item.title }}</strong>{% endif %}
-	                    {% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}
+                        {% if item.copyrightUrl %}
+                            <small class="image-copy"><a href="{{ item.copyrightUrl }}" target="_blank">
+                                {% if item.copyright  %}
+                                    {{ item.copyright | raw }}
+                                {% else %}
+                                    {{ item.copyrightUrl }}
+                                {% endif %}
+                            </a></small>
+                        {% else %}
+                            {% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}
+                        {% endif %}
 	                </div>
 	            {% endfor %}
 	        </div>

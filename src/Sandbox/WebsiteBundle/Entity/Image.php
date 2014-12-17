@@ -116,6 +116,13 @@ class Image extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="copyright_url", type="string", length=255, nullable=true)
+     */
+    private $copyrightUrl;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="class", type="string", length=255, nullable=true)
      */
     private $class;
@@ -161,6 +168,24 @@ class Image extends AbstractEntity
     {
         $this->copyright = $copyright;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCopyrightUrl()
+    {
+        return $this->copyrightUrl;
+    }
+
+    /**
+     * @param string $copyrightUrl
+     * @return $this
+     */
+    public function setCopyrightUrl($copyrightUrl)
+    {
+        $this->copyrightUrl = $copyrightUrl;
         return $this;
     }
 
