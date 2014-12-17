@@ -3,9 +3,11 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\TranslatorBundle\Entity\Translation;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,10 +27,40 @@ class DefaultController extends Controller
      */
     public function testAction()
     {
-        var_dump('en/list/malta-one-of-top-ten-destinations');
-        $path = preg_replace('/en\//', "", '/en/list/malta-one-of-top-ten-destinations', 1);
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('KunstmaanTaggingBundle:Tag')
+            ->findAll();
 
-        var_dump($path);
+        foreach ($tags as $tag) {
+            $translation = $em->getRepository('KunstmaanTranslatorBundle:Translation')
+                ->findOneBy(['domain' => 'tag', 'keyword' => $tag->getName()]);
+
+            if(!$translation){
+                $translationId = $em->getRepository('KunstmaanTranslatorBundle:Translation')->getUniqueTranslationId();
+
+                foreach (explode('|', 'fi|en|de|fr|ru|se|ee') as $lang) {
+                    $t = new Translation();
+                    $t->setLocale($lang);
+                    $t->setDomain('tag');
+                    $t->setCreatedAt(new \DateTime());
+                    $t->setFlag(Translation::FLAG_NEW);
+                    $t->setTranslationId($translationId);
+                    $t->setKeyword($tag->getName());
+                    $t->setText($tag->getName());
+                    $em->persist($t);
+
+                }
+                printf("<div>translated: %s</div>", $tag->getName());
+            }
+        }
+        $em->flush();
+
+
+//        var_dump(date('H:i', 1418807117));
+//        $diff = time() - 1418807117;
+//        var_dump($diff / 60 );
+        //if($diff/60 < 60)
 
         return new Response("");
     }
