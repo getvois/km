@@ -110,9 +110,13 @@ label[for=amount]{
     z-index: 1;
 }
 
+.select2-container-multi .select2-choices li{
+    display: inline-block;
+}
 
-
-
+.select2-container-multi .select2-choices {
+    white-space: nowrap;
+}
 
 
 /* old needs refactoring */

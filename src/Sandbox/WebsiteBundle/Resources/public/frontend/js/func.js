@@ -23,41 +23,63 @@ function getFilter(){
     var $departure_country = [];
     var $departure = [];
 
-    var $dropdown = $("#dropdown-destination");
-    if($dropdown.find(".city-list").find('input[type=checkbox]:checked').length == 0){
-        $dropdown.find(".city-list").find('input[type=checkbox]').each(function () {
-            if($(this).data('type') == 'country'){
-                $destination_country.push($(this).val());
-            }else if($(this).data('type') == 'city'){
-                $destination_city.push($(this).val());
-            }
-        });
-    }else{
-        $dropdown.find(".city-list").find('input[type=checkbox]').each(function () {
-            if($(this).is(":checked")){
-                if($(this).data('type') == 'country'){
-                    $destination_country.push($(this).val());
-                }else if($(this).data('type') == 'city'){
-                    $destination_city.push($(this).val());
-                }
-            }
-        });
+    //var $dropdown = $("#dropdown-destination");
+    //if($dropdown.find(".city-list").find('input[type=checkbox]:checked').length == 0){
+    //    $dropdown.find(".city-list").find('input[type=checkbox]').each(function () {
+    //        if($(this).data('type') == 'country'){
+    //            $destination_country.push($(this).val());
+    //        }else if($(this).data('type') == 'city'){
+    //            $destination_city.push($(this).val());
+    //        }
+    //    });
+    //}else{
+    //    $dropdown.find(".city-list").find('input[type=checkbox]').each(function () {
+    //        if($(this).is(":checked")){
+    //            if($(this).data('type') == 'country'){
+    //                $destination_country.push($(this).val());
+    //            }else if($(this).data('type') == 'city'){
+    //                $destination_city.push($(this).val());
+    //            }
+    //        }
+    //    });
+    //}
+
+    $destData = $('#destination-selected').select2("data");
+    for(var i=0;i<$destData.length; i++){
+        var $id = $destData[i].id;
+        if($id.toString().indexOf("_") != -1){
+            //country
+            $destination_country.push($id.replace("_", ""));
+        }else{
+            //city
+            $destination_city.push($id);
+        }
     }
 
 
 
 
+    //$("#dropdown-departure").find(".city-list").find('input[type=checkbox]').each(function () {
+    //    if($(this).is(":checked")){
+    //        if($(this).data('type') == 'country'){
+    //            $departure_country.push($(this).val());
+    //        }else if($(this).data('type') == 'city'){
+    //            $departure.push($(this).val());
+    //        }
+    //    }
+    //});
 
-
-    $("#dropdown-departure").find(".city-list").find('input[type=checkbox]').each(function () {
-        if($(this).is(":checked")){
-            if($(this).data('type') == 'country'){
-                $departure_country.push($(this).val());
-            }else if($(this).data('type') == 'city'){
-                $departure.push($(this).val());
-            }
+    $depData = $('#departure-selected').select2("data");
+    for(var i=0;i<$depData.length; i++){
+        var $id = $depData[i].id;
+        if($id.toString().indexOf("_") != -1){
+            //country
+            $departure_country.push($id.replace("_", ""));
+        }else{
+            //city
+            $departure.push($id);
         }
-    });
+    }
 
 
     var $slider = $("#slider-range");
