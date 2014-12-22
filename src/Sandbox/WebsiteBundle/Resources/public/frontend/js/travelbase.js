@@ -10,6 +10,12 @@ $(document).ready(function() {
 
 
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
+    $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", new Date() );
+    $("#edit-date-start-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
+        $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
+
+    } );
+
 
     // RANGE SLIDER(PRICE SLIDER)
     ////////////////////////////////////////////////////////////////////////////////////////////

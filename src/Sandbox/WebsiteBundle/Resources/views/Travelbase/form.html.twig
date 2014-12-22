@@ -51,7 +51,12 @@
 
                         function cityPicker($el, $selected) {
                             function repoFormatResult(repo) {
-                                var $title = repo.cityNameEn;//repo.countryName + "/" + repo.cityNameEn;
+                                var $title = repo.cityNameEn;
+                                if(repo.airportNameEn){
+                                    $title += "("+repo.airportNameEn+", "+repo.airportCode+")";
+                                }else{
+                                    $title += "("+repo.airportCode+")";
+                                }
 
                                 $title = '<div class="col-xs-10 col-xs-offset-2">' + $title +'</div>';
 
@@ -135,6 +140,7 @@
                                 minimumInputLength: 3,
                                 multiple: true,
                                 width: '100%',
+                                dropdownAutoWidth: true,
                                 ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
                                     url: "http://api.travel.markmedia.fi/api/city.findByText/",
                                     dataType: 'json',
