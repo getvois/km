@@ -13,7 +13,10 @@ $(document).ready(function() {
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", new Date() );
     $("#edit-date-start-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
         $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
-
+        formChange();
+    } );
+    $("#edit-date-end-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
+        formChange();
     } );
 
 
@@ -404,6 +407,7 @@ $(document).ready(function() {
 
 
     $form.find(':input').change(formChange);
+
     $city_picker.find('.city-list').find(':input').change(formChange);
     //////////////////////////////////////////////////////////////////////////////
     //submit the form
