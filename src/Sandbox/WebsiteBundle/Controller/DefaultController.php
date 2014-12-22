@@ -12,6 +12,7 @@ use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Model\EntryInterface;
@@ -21,6 +22,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
+    /**
+     * @Route("/book-form/")
+     * @Template()
+     *
+     * @param Request $request
+     * @return array
+     *
+     */
+    public function skypickerFormAction(Request $request)
+    {
+        return [];
+    }
+
     /**
      * @Route("/test/")
      *

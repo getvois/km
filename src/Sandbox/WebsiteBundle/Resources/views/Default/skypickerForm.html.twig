@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            {#FIRST NAME#}
+            <h3>Passenger</h3>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="first-name">First Name</label>
+                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                </div>
+            </div>
+            {#LAST NAME#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="last-name">Last Name</label>
+                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                </div>
+            </div>
+
+            {#SEX#}
+            <div class="radio">
+                <label>
+                    <input type="radio" name="sex" value="male" checked>
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="sex" value="female">
+                </label>
+            </div>
+
+            {#BIRTH#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="birthday">Date of Birth</label>
+                    <input type="text" class="form-control" id="birthday" placeholder="Date of Birth">
+                </div>
+            </div>
+
+            {#NATIONALITY#}
+            <select name="nationality" class="form-control">
+                <option>est</option>
+                <option>rus</option>
+                <option>fin</option>
+            </select>
+        </div>
+
+        <div class="well">
+
+            <h3>Contact information</h3>
+            {#EMAIL#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                </div>
+            </div>
+
+            {#PHONE#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="phone">Phone</label>
+                    <input type="email" class="form-control" id="phone" placeholder="Phone">
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <h3>Payment information</h3>
+            {#CC NUMBER#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="cc-number">Credit Card Number</label>
+                    <input type="text" class="form-control" id="cc-number" placeholder="Credit Card Number">
+                </div>
+            </div>
+            {#CC NAME#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="cc-name">Cardholder's Name</label>
+                    <input type="text" class="form-control" id="cc-name" placeholder="Cardholder's Name">
+                </div>
+            </div>
+            {#CC EXP MONTH#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="cc-exp-month">Expiration Month</label>
+                    <input type="text" class="form-control" id="cc-exp-month" placeholder="Expiration Month">
+                </div>
+            </div>
+            {#CC EXP YEAR#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="cc-exp-year">Expiration Year</label>
+                    <input type="text" class="form-control" id="cc-exp-year" placeholder="Expiration Year">
+                </div>
+            </div>
+            {#CC CVC#}
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="cc-cvc">CVC</label>
+                    <input type="text" class="form-control" id="cc-cvc" placeholder="CVC">
+                </div>
+            </div>
+        </div>
+
+        {#PAY#}
+        <div class="form-group">
+            <div class="input-group">
+                <input type="submit" class="btn btn-primary" id="pay" value="Pay">
+            </div>
+        </div>
+
+    </div>
+</div>

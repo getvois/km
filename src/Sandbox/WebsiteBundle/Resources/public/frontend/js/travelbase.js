@@ -333,6 +333,22 @@ $(document).ready(function() {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //SKYPICKER FETCH DATA
     var $travelbaseItems = $("#travelbase_items");
+    $travelbaseItems.on('click', '.book-form', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+
+        var $container = $(this).closest('tr');
+
+        if(!$container.next().hasClass('form')){
+            $.get('/app_dev.php/book-form', function (responce) {
+                $container.after("<tr class='form'><td colspan='4'>"+ responce +"</td></tr>");
+            });
+        }else{
+            $container.next().toggle();
+        }
+    });
+
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
         if($(this).next("tr").hasClass('skypicker-dropdown')){
             $(this).next("tr").slideToggle();
@@ -358,7 +374,7 @@ $(document).ready(function() {
                     $row += '<tr class="skypicker-route-details-toggle"><td>departure: '+$data[i].dTime+'<br/>arrival: '+$data[i].aTime+'</td>';
                     $row += '<td>'+ stops  +' Stops<br/>'+$data[i].fly_duration+'</td>';
                     $row += '<td>'+$data[i].from.cityNameEn+'<br/>'+$data[i].to.cityNameEn +'</td>';
-                    $row += '<td><a href="'+$data[i].deep_link+'">'+$data[i].price+'</a></td>';
+                    $row += '<td><a class="book-form" href="'+$data[i].deep_link+'">'+$data[i].price+'</a></td>';
                     $row += '</tr>';
 
                     $row += '<tr class="skypicker-route-details" style="display: none;"><td colspan="4"><table class="table">';
