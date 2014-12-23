@@ -38,11 +38,19 @@
             </div>
 
             {#NATIONALITY#}
-            <select name="nationality" class="form-control">
-                <option>est</option>
-                <option>rus</option>
-                <option>fin</option>
-            </select>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="nationality">Nationality</label>
+                    <input type="text" class="form-control" id="nationality" placeholder="Nationality">
+                </div>
+            </div>
+
+            {#&#123;&#35;NATIONALITY&#35;&#125;#}
+            {#<select name="nationality" class="form-control">#}
+                {#<option>est</option>#}
+                {#<option>rus</option>#}
+                {#<option>fin</option>#}
+            {#</select>#}
         </div>
 
         <div class="well">
@@ -107,7 +115,7 @@
         {#PAY#}
         <div class="form-group">
             <div class="input-group">
-                <input type="submit" class="btn btn-primary" id="pay" value="Pay">
+                <input type="submit" class="btn btn-primary btn-pay" id="pay" value="Pay">
             </div>
         </div>
 

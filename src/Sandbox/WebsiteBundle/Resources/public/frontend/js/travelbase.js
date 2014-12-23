@@ -348,6 +348,98 @@ $(document).ready(function() {
             $container.next().toggle();
         }
     });
+    ///////////////////////////////////////////////////////////////////
+    //PAY BUTTON
+    $travelbaseItems.on('click', '.btn-pay', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+
+        var $flightId = $(this).closest('tr').prev().data('flightid');
+
+        var $form = $(this).closest('tr');
+
+        //check fields
+        var errors = false;
+        $form.find(":input").each(function () {
+            if($(this).val() == ""){
+                errors = true;
+                $(this).closest("div.form-group").addClass("has-error");
+            }
+        });
+
+        if(errors)
+            return;
+
+        $.getJSON("https://api.skypicker.com/api/v0.1/check_flights?flights="+$flightId+"&pnum=1&bnum=0&partner=picky", function (responce) {
+            console.log(responce.flights_checked + " " + !responce.flights_invalid);
+            if(responce.flights_checked && !responce.flights_invalid){
+                //can book
+
+                var price = responce.flights_price;
+                var fname = $form.find('#first-name').val();
+                var lname = $form.find('#last-name').val();
+                var nationality = $form.find('#nationality').val();
+                var email = $form.find('#email').val();
+                var phone = $form.find('#phone').val();
+                var ccNumber = $form.find('#cc-number').val();
+                var ccExpMonth = $form.find('#cc-exp-month').val();
+                var ccExpYear = $form.find('#cc-exp-year').val();
+                var bday = new Date($form.find('#birthday').val()).getTime();
+                var title = 'ms';
+
+                if($form.find('input[name=sex]:checked').val() == 'male'){
+                    title = 'mr';
+                }
+
+                var $postData = {
+                    "lang": "en",
+                    "bags": 0,
+                    "passengers": [{
+                        "surname": lname,
+                        "name": fname,
+                        "title": title,
+                        "birthday": bday/1000,
+                        "nationality": nationality,
+                        "insurance": "none",
+                        "checkin": "REMOVED, DEPRECATED",
+                        "issuer": "REMOVED, DEPRECATED",
+                        "cardno": null,
+                        "expiration": null,
+                        "email": email,
+                        "phone": phone
+                    }],
+                    "price": price,
+                    "currency": "eur",
+                    "flights": $flightId.toString().split("|"),
+                    "customerLoginID": "unknown",
+                    "customerLoginName": "unknown",
+                    "affily": "picky",
+                    "locale": "en"
+
+                    //,
+                    //"orig_price": price,
+                    //"orig_pnum": 1,
+                    //"orig_currency": "eur",
+                    //"use_credits": false,
+                    //"visitor_uniqid": "74a4980f437923a82a3a9ac3bda04171",
+                    //"eur_transaction": false
+                };
+
+                $.post("https://api.skypicker.com/api/v0.1/save_booking?v=2", JSON.stringify($postData), function (responce) {
+                    console.log(responce);
+                    if(responce.status && responce.status == 'error'){
+                        alert(responce.msg);
+                    }
+                })
+
+            }else{
+                //flight changed
+            }
+        });
+
+        return false;
+    });
 
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
         if($(this).next("tr").hasClass('skypicker-dropdown')){
@@ -371,7 +463,7 @@ $(document).ready(function() {
 
                 for(var i = 0; i< $data.length; i++){
                     var stops = $data[i].route.length - 1 ;
-                    $row += '<tr class="skypicker-route-details-toggle"><td>departure: '+$data[i].dTime+'<br/>arrival: '+$data[i].aTime+'</td>';
+                    $row += '<tr data-flightid="'+$data[i].flight_id+'" class="skypicker-route-details-toggle"><td>departure: '+$data[i].dTime+'<br/>arrival: '+$data[i].aTime+'</td>';
                     $row += '<td>'+ stops  +' Stops<br/>'+$data[i].fly_duration+'</td>';
                     $row += '<td>'+$data[i].from.cityNameEn+'<br/>'+$data[i].to.cityNameEn +'</td>';
                     $row += '<td><a class="book-form" href="'+$data[i].deep_link+'">'+$data[i].price+'</a></td>';
