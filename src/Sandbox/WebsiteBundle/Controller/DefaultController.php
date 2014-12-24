@@ -8,10 +8,14 @@ use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
+use Sandbox\WebsiteBundle\Entity\Form\BookingForm;
+use Sandbox\WebsiteBundle\Entity\Form\Passenger;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
+use Sandbox\WebsiteBundle\Form\Booking\BookingFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -32,7 +36,136 @@ class DefaultController extends Controller
      */
     public function skypickerFormAction(Request $request)
     {
-        return [];
+        //form submitted
+        if($request->query->has('booking_form')){
+            $form = $request->query->get('booking_form');
+
+            $formData = new BookingForm();
+
+            $bags = 0;
+            if(!array_key_exists('passengers', $form) || count($form['passengers']) == 0){
+                //error
+                return new JsonResponse(['error' => 1, 'msg' => 'No passengers specified']);
+            }else{
+                foreach ($form['passengers'] as $passenger) {
+                    if(!$passenger['first_name']){
+                        return new JsonResponse(['error' => 1, 'msg' => 'Empty first name']);
+                    }
+                    if(!$passenger['last_name']){
+                        return new JsonResponse(['error' => 1, 'msg' => 'Empty last name']);
+                    }
+                    if(!$passenger['sex']){
+                        return new JsonResponse(['error' => 1, 'msg' => 'No sex specified']);
+                    }
+                    if(!$passenger['birth_day']){
+                        return new JsonResponse(['error' => 1, 'msg' => 'Empty birthday']);
+                    }
+                    if(!$passenger['nationality']){
+                        return new JsonResponse(['error' => 1, 'msg' => 'No nationality specified']);
+                    }
+                    if(!$passenger['bnum']){
+                        return new JsonResponse(['error' => 1, 'msg' => 'Number of bags not specified']);
+                    }
+
+                    $p = new Passenger();
+                    $p->setFirstName($passenger['first_name']);
+                    $p->setLastName($passenger['last_name']);
+                    $p->setSex($passenger['sex']);
+                    $p->setBirthDay($passenger['birth_day']);
+                    $p->setNationality($passenger['nationality']);
+                    $p->setBNum($passenger['bnum']);
+                    $bags += (int)$passenger['bnum'];
+                    
+                    $formData->addPassenger($p);
+                }
+
+            }
+
+            if(!$request->query->get('price')){
+                return new JsonResponse(['error' => 1, 'msg' => 'No price specified']);
+            }
+            if(!$request->query->get('flights')){
+                return new JsonResponse(['error' => 1, 'msg' => 'No flights specified']);
+            }
+            if(!$form['email']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No email specified']);
+            }
+            if(!$form['phone']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No phone specified']);
+            }
+            if(!$form['cc_number']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No credit card number specified']);
+            }
+            if(!$form['cc_name']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No credit card name specified']);
+            }
+            if(!$form['cc_exp_month']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No credit card expiration month specified']);
+            }
+            if(!$form['cc_exp_year']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No credit card expiration year specified']);
+            }
+            if(!$form['cc_cvc']){
+                return new JsonResponse(['error' => 1, 'msg' => 'No credit card cvc specified']);
+            }
+
+            $formData->setEmail($form['email']);
+            $formData->setPhone($form['phone']);
+            $formData->setCcNumber($form['cc_number']);
+            $formData->setCcName($form['cc_name']);
+            $formData->setCcExpMonth($form['cc_exp_month']);
+            $formData->setCcExpYear($form['cc_exp_year']);
+            $formData->setCcCVC($form['cc_cvc']);
+
+            $passengers = [];
+
+            foreach ($formData->getPassengers() as $passenger) {
+                $passengers[] = [
+                    "surname" => $passenger->getLastName(),
+                    "name" => $passenger->getFirstName(),
+                    "title" => $passenger->getSex()=="male"?"mr":"ms",
+                    "birthday" => strtotime($passenger->getBirthDay()),
+                    "nationality" => $passenger->getNationality(),
+                    "insurance" => "none",
+                    "checkin" => "REMOVED, DEPRECATED",
+                    "issuer" => "REMOVED, DEPRECATED",
+                    "cardno" => null,
+                    "expiration" => null,
+                    "email" => $formData->getEmail(),
+                    "phone" => $formData->getPhone()
+                ];
+            }
+
+
+            $posData = [
+                "lang" => "en",
+                "bags" => $bags,
+                "passengers" => $passengers,
+                "price" => $request->query->get('price'),
+                "currency" => "eur",
+                "flights" => explode("|", $request->query->get('flights')),
+                "customerLoginID" => "unknown",
+                "customerLoginName" => "unknown",
+                "affily" => "picky",
+                "locale" => "en"
+                
+            ];
+
+            return new JsonResponse($posData);
+            
+//            $form = $this->createForm(new BookingFormType(), $formData);
+//            $form->submit($form);
+//            if($form->isValid()){
+//                var_dump('valid');
+//            }else{
+//                foreach ($form->getErrors() as $error) {
+//                    var_dump($error);
+//                }
+//            }
+        }
+        $form = $this->createForm(new BookingFormType());
+
+        return ['form' => $form->createView()];
     }
 
     /**

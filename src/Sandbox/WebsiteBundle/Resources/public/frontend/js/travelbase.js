@@ -96,6 +96,17 @@ $(document).ready(function() {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////
+    //PRE SELECT COMPANY
+    if($(".company-name").length > 0){
+        $("#edit-companies option").each(function () {
+            if($(this).text().toLowerCase() == $(".company-name").text().toLowerCase()){
+                $(this).attr('selected', true);
+            }
+        });
+    }
+
+
     $("#edit-companies").select2({placeholder: "Companies"});
 
     $city_picker.find(".check-all").hide();
@@ -341,7 +352,7 @@ $(document).ready(function() {
         var $container = $(this).closest('tr');
 
         if(!$container.next().hasClass('form')){
-            $.get('/app_dev.php/book-form', function (responce) {
+            $.get('/app_dev.php/book-form/', function (responce) {
                 $container.after("<tr class='form'><td colspan='4'>"+ responce +"</td></tr>");
             });
         }else{
@@ -357,7 +368,7 @@ $(document).ready(function() {
 
         var $flightId = $(this).closest('tr').prev().data('flightid');
 
-        var $form = $(this).closest('tr');
+        var $form = $(this).closest('form');
 
         //check fields
         var errors = false;
@@ -371,67 +382,36 @@ $(document).ready(function() {
         if(errors)
             return;
 
-        $.getJSON("https://api.skypicker.com/api/v0.1/check_flights?flights="+$flightId+"&pnum=1&bnum=0&partner=picky", function (responce) {
+        var $pnum = $form.find('ul.passengers > li').length-1;
+
+        var $bnum = 0;
+        $form.find('ul.passengers').find('select[id$="bnum"]').find("option:selected").each(function () {
+            $bnum += parseInt($(this).val());
+        });
+
+        $.getJSON("https://api.skypicker.com/api/v0.1/check_flights?flights="+$flightId+"&pnum="+$pnum+"&bnum="+$bnum+"&partner=picky", function (responce) {
             console.log(responce.flights_checked + " " + !responce.flights_invalid);
             if(responce.flights_checked && !responce.flights_invalid){
                 //can book
 
                 var price = responce.flights_price;
-                var fname = $form.find('#first-name').val();
-                var lname = $form.find('#last-name').val();
-                var nationality = $form.find('#nationality').val();
-                var email = $form.find('#email').val();
-                var phone = $form.find('#phone').val();
-                var ccNumber = $form.find('#cc-number').val();
-                var ccExpMonth = $form.find('#cc-exp-month').val();
-                var ccExpYear = $form.find('#cc-exp-year').val();
-                var bday = new Date($form.find('#birthday').val()).getTime();
-                var title = 'ms';
 
-                if($form.find('input[name=sex]:checked').val() == 'male'){
-                    title = 'mr';
-                }
+                $.getJSON('/app_dev.php/book-form/?price='+price+"&flights="+$flightId+"&"+$form.serialize(), function (postData) {
+                    console.log(postData);
 
-                var $postData = {
-                    "lang": "en",
-                    "bags": 0,
-                    "passengers": [{
-                        "surname": lname,
-                        "name": fname,
-                        "title": title,
-                        "birthday": bday/1000,
-                        "nationality": nationality,
-                        "insurance": "none",
-                        "checkin": "REMOVED, DEPRECATED",
-                        "issuer": "REMOVED, DEPRECATED",
-                        "cardno": null,
-                        "expiration": null,
-                        "email": email,
-                        "phone": phone
-                    }],
-                    "price": price,
-                    "currency": "eur",
-                    "flights": $flightId.toString().split("|"),
-                    "customerLoginID": "unknown",
-                    "customerLoginName": "unknown",
-                    "affily": "picky",
-                    "locale": "en"
-
-                    //,
-                    //"orig_price": price,
-                    //"orig_pnum": 1,
-                    //"orig_currency": "eur",
-                    //"use_credits": false,
-                    //"visitor_uniqid": "74a4980f437923a82a3a9ac3bda04171",
-                    //"eur_transaction": false
-                };
-
-                $.post("https://api.skypicker.com/api/v0.1/save_booking?v=2", JSON.stringify($postData), function (responce) {
-                    console.log(responce);
-                    if(responce.status && responce.status == 'error'){
-                        alert(responce.msg);
+                    if(postData.error){
+                        alert(postData.msg);
+                    }else{
+                        $.post("https://api.skypicker.com/api/v0.1/save_booking?v=2", JSON.stringify(postData), function (responce) {
+                            console.log(responce);
+                            if(responce.status && responce.status == 'error'){
+                                alert(responce.msg);
+                            }
+                        })
                     }
-                })
+
+
+                });
 
             }else{
                 //flight changed
@@ -810,6 +790,8 @@ function getTable(){
             if($data.total > $data.items.length)//add load more button
                 $table += '<button id="loadMore" onclick="loadMore()"><span class="fa fa-angle-double-down"></span></button>';
 
+            if($data.total > 0)
+                $("#hot-offers-badge").text($data.total);
 
             if($data.items.length == 0){
                 $table = "<div>No items found</div>";
@@ -829,8 +811,8 @@ function getTable(){
                 else $directionVal = 'asc';
 
                 $direction.val($directionVal);
-
-                $("#edit-companies").change();
+                getTable();
+                //$("#edit-companies").change();
                 return false;
             });
         }

@@ -1,56 +1,73 @@
+
 <div class="row">
     <div class="col-md-12">
+        {{ form_start(form) }}
         <div class="well">
-            {#FIRST NAME#}
-            <h3>Passenger</h3>
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="sr-only" for="first-name">First Name</label>
-                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
-                </div>
-            </div>
-            {#LAST NAME#}
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="sr-only" for="last-name">Last Name</label>
-                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
-                </div>
-            </div>
 
-            {#SEX#}
-            <div class="radio">
-                <label>
-                    <input type="radio" name="sex" value="male" checked>
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="sex" value="female">
-                </label>
-            </div>
 
-            {#BIRTH#}
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="sr-only" for="birthday">Date of Birth</label>
-                    <input type="text" class="form-control" id="birthday" placeholder="Date of Birth">
-                </div>
-            </div>
+            <h3>Passengers</h3>
+            <ul class="passengers" data-prototype="{{ form_widget(form.passengers.vars.prototype)|e }}">
+                {# iterate over each existing tag and render its only field: name #}
+                {% for passenger in form.passengers %}
+                <li>
+                    {#FIRST NAME#}
+                    <h3>Passenger</h3>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="first-name">First Name</label>
+                            {{ form_widget(tag.firstName, { 'attr': {'placeholder': 'First Name', 'class': "form-control"}} ) }}
+                        </div>
+                    </div>
+                    {#LAST NAME#}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="last-name">Last Name</label>
+                            {{ form_widget(tag.lastName, { 'attr': {'placeholder': 'Last Name', 'class': "form-control"}} ) }}
+                        </div>
+                    </div>
 
-            {#NATIONALITY#}
-            <div class="form-group">
-                <div class="input-group">
-                    <label class="sr-only" for="nationality">Nationality</label>
-                    <input type="text" class="form-control" id="nationality" placeholder="Nationality">
-                </div>
-            </div>
+                    {#SEX#}
+                    <div class="radio">
+                        {{ form_widget(tag.sex ) }}
+                    </div>
 
-            {#&#123;&#35;NATIONALITY&#35;&#125;#}
-            {#<select name="nationality" class="form-control">#}
-                {#<option>est</option>#}
-                {#<option>rus</option>#}
-                {#<option>fin</option>#}
-            {#</select>#}
+                    {#BIRTH#}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="birthday">Date of Birth</label>
+                            {{ form_widget(tag.birthDay, { 'attr': {'placeholder': 'Date of Birth', 'class': "form-control"}} ) }}
+                        </div>
+                    </div>
+
+                    {#NATIONALITY#}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="nationality">Nationality</label>
+                            {{ form_widget(tag.nationality, { 'attr': {'placeholder': 'Nationality', 'class': "form-control"}} ) }}
+                        </div>
+                    </div>
+
+                    {#{#NATIONALITY#}
+                    {#<select name="nationality" class="form-control">#}
+                    {#<option>est</option>#}
+                    {#<option>rus</option>#}
+                    {#<option>fin</option>#}
+                    {#</select>#}
+
+
+                    {#NATIONALITY#}
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="nationality">Number of Bags</label>
+                            {{ form_widget(tag.bNum, { 'attr': {'placeholder': 'Number of Bags', 'class': "form-control"}} ) }}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+
         </div>
 
         <div class="well">
@@ -59,16 +76,16 @@
             {#EMAIL#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="email">E-mail</label>
-                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                    <label class="sr-only" for="booking_form_email">E-mail</label>
+                    {{ form_widget(form.email, { 'attr': {'placeholder': 'E-mail', 'class': "form-control"}} ) }}
                 </div>
             </div>
 
             {#PHONE#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="phone">Phone</label>
-                    <input type="email" class="form-control" id="phone" placeholder="Phone">
+                    <label class="sr-only" for="booking_form_phone">Phone</label>
+                    {{ form_widget(form.phone, { 'attr': {'placeholder': 'Phone', 'class': "form-control"}} ) }}
                 </div>
             </div>
         </div>
@@ -78,36 +95,36 @@
             {#CC NUMBER#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="cc-number">Credit Card Number</label>
-                    <input type="text" class="form-control" id="cc-number" placeholder="Credit Card Number">
+                    <label class="sr-only" for="booking_form_cc_number">Credit Card Number</label>
+                    {{ form_widget(form.cc_number, { 'attr': {'placeholder': 'Credit Card Number', 'class': "form-control"}} ) }}
                 </div>
             </div>
             {#CC NAME#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="cc-name">Cardholder's Name</label>
-                    <input type="text" class="form-control" id="cc-name" placeholder="Cardholder's Name">
+                    <label class="sr-only" for="booking_form_cc_name">Cardholder's Name</label>
+                    {{ form_widget(form.cc_name, { 'attr': {'placeholder': 'Cardholder\'s Name', 'class': "form-control"}} ) }}
                 </div>
             </div>
             {#CC EXP MONTH#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="cc-exp-month">Expiration Month</label>
-                    <input type="text" class="form-control" id="cc-exp-month" placeholder="Expiration Month">
+                    <label class="sr-only" for="booking_form_cc_exp_month">Expiration Month</label>
+                    {{ form_widget(form.cc_exp_month, { 'attr': {'placeholder': 'Expiration Month', 'class': "form-control"}} ) }}
                 </div>
             </div>
             {#CC EXP YEAR#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="cc-exp-year">Expiration Year</label>
-                    <input type="text" class="form-control" id="cc-exp-year" placeholder="Expiration Year">
+                    <label class="sr-only" for="booking_form_cc_exp_year">Expiration Year</label>
+                    {{ form_widget(form.cc_exp_year, { 'attr': {'placeholder': 'Expiration Year', 'class': "form-control"}} ) }}
                 </div>
             </div>
             {#CC CVC#}
             <div class="form-group">
                 <div class="input-group">
-                    <label class="sr-only" for="cc-cvc">CVC</label>
-                    <input type="text" class="form-control" id="cc-cvc" placeholder="CVC">
+                    <label class="sr-only" for="booking_form_cc_cvc">CVC</label>
+                    {{ form_widget(form.cc_cvc, { 'attr': {'placeholder': 'CVC', 'class': "form-control"}} ) }}
                 </div>
             </div>
         </div>
@@ -118,6 +135,74 @@
                 <input type="submit" class="btn btn-primary btn-pay" id="pay" value="Pay">
             </div>
         </div>
-
+        {{ form_end(form) }}
     </div>
 </div>
+
+<script>
+    var $collectionHolder;
+
+    // setup an "add a tag" link
+    var $addTagLink = $('<a href="#" class="add_tag_link">Add passenger</a>');
+    var $newLinkLi = $('<li></li>').append($addTagLink);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('ul.passengers');
+
+        // add a delete link to all of the existing tag form li elements
+        $collectionHolder.find('li').each(function() {
+            addTagFormDeleteLink($(this));
+        });
+
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder.append($newLinkLi);
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $addTagLink.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // add a new tag form (see next code block)
+            addTagForm($collectionHolder, $newLinkLi);
+        });
+    });
+
+    function addTagForm($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+
+        // get the new index
+        var index = $collectionHolder.data('index');
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm = prototype.replace(/__name__/g, index);
+
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<li></li>').append(newForm);
+        $newLinkLi.before($newFormLi);
+
+        // add a delete link to the new form
+        addTagFormDeleteLink($newFormLi);
+    }
+
+    function addTagFormDeleteLink($tagFormLi) {
+        var $removeFormA = $('<a href="#">delete this passenger</a>');
+        $tagFormLi.append($removeFormA);
+
+        $removeFormA.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // remove the li for the tag form
+            $tagFormLi.remove();
+        });
+    }
+</script>
