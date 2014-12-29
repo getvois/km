@@ -5,7 +5,7 @@ $(document).ready(function(){
     $("li.parent-list ul").hide(); //hide the child lists
     $("li.parent-list i").click(function () {
         $(this).toggleClass('glyphicon-chevron-down glyphicon-chevron-up'); // toggle the font-awesome icon class on click
-        $(this).next().next().next().next("ul").toggle(); // toggle the visibility of the child list on click
+        $(this).next("ul").toggle(); // toggle the visibility of the child list on click
 
         //body top margin
             var $cityPicker = $(this).closest(".city-picker");
