@@ -62,6 +62,25 @@ class DropdownController extends Controller
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')->
+        findOneBy([
+            'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
+            'deleted' => 0]);
+
+        while($node->getParent()->getId() != 1){//1 = home page
+            $node = $node->getParent();
+        }
+
+        $rightNodes = [];
+        //now node is company root.
+        foreach ($node->getChildren() as $node) {
+            /** @var Node $node */
+            if(!$node->isDeleted() && !$node->isHiddenFromNav()){
+                $rightNodes[] = $node;
+            }
+        }
+
+
         $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
         findBy([
                 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
@@ -76,7 +95,7 @@ class DropdownController extends Controller
             }
         }
 
-        return ['companies' => $companies];
+        return ['companies' => $companies, 'nodes' => $rightNodes, 'lang' => $lang, 'em' => $em];
     }
     /**
      * @return array
