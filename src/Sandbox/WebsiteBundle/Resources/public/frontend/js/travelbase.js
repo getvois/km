@@ -243,7 +243,7 @@ $(document).ready(function() {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    $(".city-list").columnize();
+    $(".city-list").columnize({lastNeverTallest: true});
 
 
     //Pre Select departure
