@@ -36,6 +36,14 @@
             {% endfor %}
         </div>
     {% endif %}
+    {% if page.companies.count > 0 %}
+        <div class="companies">
+            Airlines:
+            {% for place in page.companies %}
+                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
     {{ render_pageparts(page, 'main') }}
 
     {% if page.link %}
