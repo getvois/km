@@ -535,7 +535,8 @@ span.city-picker-close:hover {
 /* TOP MENU */
 .site-topmenu {
     position: absolute;
-    top:0;
+    top:40px;
+    color: #ffffff;
     width:100%;
 }
 .site-logo a {
