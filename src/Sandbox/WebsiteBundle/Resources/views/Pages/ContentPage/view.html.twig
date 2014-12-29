@@ -21,6 +21,7 @@
                         {% if article.node.children.count > 0 %}
                             <ul class="article__overview--list">
                                 {% for node in article.node.children%}
+                                    {% if node.NodeTranslation(lang) %}
                                     <li class="article__overview--list-item">
                                         <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
 
@@ -38,6 +39,7 @@
                                         {% endif %}
 
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         {% endif %}
