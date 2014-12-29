@@ -59,6 +59,14 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
             'required' => false,
           ));
 
+        $builder->add('imgSize', 'choice', [
+            'choices' => [
+                '1000' => '1000x',
+                '300l' => '300x left',
+                '300r' => '300x right',
+            ]]
+        );
+
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 

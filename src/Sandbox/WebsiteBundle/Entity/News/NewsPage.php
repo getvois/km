@@ -57,6 +57,31 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="img_size", type="string", length=255)
+     */
+    private $imgSize;
+
+    /**
+     * @return string
+     */
+    public function getImgSize()
+    {
+        return $this->imgSize;
+    }
+
+    /**
+     * @param string $imgSize
+     */
+    public function setImgSize($imgSize)
+    {
+        $this->imgSize = $imgSize;
+        return $this;
+    }
+
+
+    /**
      * Constructor
      */
     public function __construct()

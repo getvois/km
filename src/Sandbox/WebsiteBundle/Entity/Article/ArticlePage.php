@@ -57,6 +57,32 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
     }
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_size", type="string", length=255)
+     */
+    private $imgSize;
+
+    /**
+     * @return string
+     */
+    public function getImgSize()
+    {
+        return $this->imgSize;
+    }
+
+    /**
+     * @param string $imgSize
+     */
+    public function setImgSize($imgSize)
+    {
+        $this->imgSize = $imgSize;
+        return $this;
+    }
+
+
+
 
     /**
      * Constructor
