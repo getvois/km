@@ -616,11 +616,11 @@ $(document).ready(function() {
 
 
 
-    $('.travelbase_top_menu').find("a").click(function () {
-        var $target = $(this).data('target');
-        $($target).focus();
-        return false;
-    });
+    //$('.travelbase_top_menu').find("a").click(function () {
+    //    var $target = $(this).data('target');
+    //    $($target).focus();
+    //    return false;
+    //});
 
 
 
