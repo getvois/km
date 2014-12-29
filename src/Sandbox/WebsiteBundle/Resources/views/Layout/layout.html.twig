@@ -193,30 +193,34 @@
                             {#{% endif %}#}
                         {#{% endblock %}#}
                     {#</h1>#}
-                    {% if host is not null and host.multiLanguage %}
-                        {% if requiredlocales is defined %}
-                            {% set langs = requiredlocales|split('|') %}
-                            {% if langs|length > 0 %}
-                                <nav class="col-md-2 language-nav">
-                                    <span class="language-nav__active-lang">
-                                        {{ app.request.locale }}
-                                        <i class="icon-chevron-down"></i>
-                                    </span>
-                                    <ul class="list-reset language-nav__list">
-                                        {% for lang in langs %}
-                                            {% if lang != app.request.locale %}
-                                                <li class="language-nav__list-item">
-                                                    <a href="{{ path('_slug', { '_locale': lang }) }}" class="language-nav__link">
-                                                        {{ lang }}
-                                                    </a>
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
+
+
+                    {#{% if host is not null and host.multiLanguage %}#}
+                        {#{% if requiredlocales is defined %}#}
+                            {#{% set langs = requiredlocales|split('|') %}#}
+                            {#{% if langs|length > 0 %}#}
+                                {#<nav class="col-md-2 language-nav">#}
+                                    {#<span class="language-nav__active-lang">#}
+                                        {#{{ app.request.locale }}#}
+                                        {#<i class="icon-chevron-down"></i>#}
+                                    {#</span>#}
+                                    {#<ul class="list-reset language-nav__list">#}
+                                        {#{% for lang in langs %}#}
+                                            {#{% if lang != app.request.locale %}#}
+                                                {#<li class="language-nav__list-item">#}
+                                                    {#<a href="{{ path('_slug', { '_locale': lang }) }}" class="language-nav__link">#}
+                                                        {#{{ lang }}#}
+                                                    {#</a>#}
+                                                {#</li>#}
+                                            {#{% endif %}#}
+                                        {#{% endfor %}#}
+                                    {#</ul>#}
+                                {#</nav>#}
+                            {#{% endif %}#}
+                        {#{% endif %}#}
+                    {#{% endif %}#}
+
+
                 </div>
             </div>
         </section>
