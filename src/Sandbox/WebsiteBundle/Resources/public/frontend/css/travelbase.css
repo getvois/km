@@ -546,7 +546,7 @@ span.city-picker-close:hover {
     position: absolute;
     right:5%;
     display:block;
-    background:url(http://ku.markmedia.fi/sites/default/files/images/logo.png) no-repeat 0 -10px;
+    background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 -10px;
 }
 .travelbase_top_menu{
     float:right;
