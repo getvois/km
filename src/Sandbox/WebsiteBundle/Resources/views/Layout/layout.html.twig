@@ -184,6 +184,9 @@
             <h3 class="top-img-title">{% block topImgTitle %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}{% endblock %}</h3>
             <div class=" splash__container">
                 <div class="row row--padded-large">
+                    <div class="site-logo">
+                        <a href="/"></a>
+                    </div>
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
                     {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
                     {#<h1 class="col-md-9 splash__title">#}
