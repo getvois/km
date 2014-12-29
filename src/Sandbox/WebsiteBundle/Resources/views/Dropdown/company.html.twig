@@ -9,7 +9,7 @@
 
         {% for company in companies%}
             <ul class="dontsplit">
-                <li><a href="{{ path('_slug', { 'url': get_node_translation_for(company).slug }) }}">{{ company.title }}</a></li>
+                <li><a href="{{ path('_slug', { 'url': get_node_translation_for(company).fullSlug }) }}">{{ company.title }}</a></li>
             </ul>
         {% endfor %}
     </div>
