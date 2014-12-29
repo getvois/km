@@ -181,7 +181,7 @@
 
                                     {#{% set rand1 = random(9999) %}#}
                                     {#{% set rand2 = random(9999) %}#}
-                                    {#<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">#}
+                                    <input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">
                                     {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
                                     {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
                                     <a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
@@ -210,7 +210,7 @@
 
                                                                 {#{% set rand1 = random(9999) %}#}
                                                                 {#{% set rand2 = random(9999) %}#}
-                                                                {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">#}
+                                                                <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
                                                                 {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>#}
                                                                 {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
                                                                 <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
@@ -236,7 +236,7 @@
 
                                                                                             {#{% set rand1 = random(9999) %}#}
                                                                                             {#{% set rand2 = random(9999) %}#}
-                                                                                            {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">#}
+                                                                                            <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">
                                                                                             {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>#}
                                                                                             {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
                                                                                             <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>
