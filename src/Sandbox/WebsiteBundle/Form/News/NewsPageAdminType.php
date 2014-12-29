@@ -56,6 +56,13 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         );
         $builder->add('link');
         $builder->add('companies');
+
+        $builder->add('image', 'media', array(
+            'pattern' => 'KunstmaanMediaBundle_chooser',
+            'mediatype' => 'image',
+            'required' => false,
+          ));
+
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 

@@ -52,6 +52,13 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 return $er->getActive();
             }
         ]);
+
+        $builder->add('image', 'media', array(
+            'pattern' => 'KunstmaanMediaBundle_chooser',
+            'mediatype' => 'image',
+            'required' => false,
+          ));
+
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 
