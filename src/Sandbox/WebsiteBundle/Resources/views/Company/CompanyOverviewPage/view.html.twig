@@ -138,11 +138,11 @@
                                 <article class="main-article main-article--summary">
                                     {% if item.image %}
                                         {% if item.imgSize == '1000' %}
-                                            <img src="{{ asset(item.image.path | imagine_filter("1000x"))) }}" alt="" class="img-responsive"/>
+                                            <img src="{{ asset(item.image.path | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
                                         {% elseif item.imgSize == '300l' %}
-                                            <img src="{{ asset(item.image.path | imagine_filter("300x"))) }}" alt="" class="img-responsive pull-left"/>
+                                            <img src="{{ asset(item.image.path | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
                                         {% elseif item.imgSize == '300r' %}
-                                            <img src="{{ asset(item.image.path | imagine_filter("300x"))) }}" alt="" class="img-responsive pull-right"/>
+                                            <img src="{{ asset(item.image.path | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
                                         {% endif %}
                                     {% endif %}
 
@@ -191,11 +191,11 @@
                                 <article class="main-article main-article--summary">
                                     {% if item.image %}
                                         {% if item.imgSize == '1000' %}
-                                            <img src="{{ asset(item.image.path | imagine_filter("1000x"))) }}" alt="" class="img-responsive"/>
+                                            <img src="{{ asset(item.image.path | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
                                         {% elseif item.imgSize == '300l' %}
-                                            <img src="{{ asset(item.image.path | imagine_filter("300x"))) }}" alt="" class="img-responsive pull-left"/>
+                                            <img src="{{ asset(item.image.path | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
                                         {% elseif item.imgSize == '300r' %}
-                                            <img src="{{ asset(item.image.path | imagine_filter("300x"))) }}" alt="" class="img-responsive pull-right"/>
+                                            <img src="{{ asset(item.image.path | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
                                         {% endif %}
                                     {% endif %}
 
