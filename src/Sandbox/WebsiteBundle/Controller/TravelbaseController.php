@@ -35,11 +35,12 @@ class TravelbaseController extends Controller
         if(!$root)
             return[];
 
-        /** @var Node[] $pages */
+        $exclude = ['countries', 'companies']; //node internal name
+
         $pages = [];
         /** @var Node $node */
         foreach ($root->getChildren() as $node) {
-            if(!$node->isDeleted() && !$node->isHiddenFromNav()){
+            if(!$node->isDeleted() && !$node->isHiddenFromNav() && !in_array($node->getInternalName(), $exclude)){
                 $translation = $node->getNodeTranslation($request->getLocale());
                 if($translation){
                     $page = $translation->getRef($em);
