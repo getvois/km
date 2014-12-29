@@ -81,19 +81,19 @@ class DropdownController extends Controller
         }
 
 
-        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-        findBy([
-                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
-                'deleted' => 0]);
+//        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
+//        findBy([
+//                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
+//                'deleted' => 0]);
 
         $companies = [];
 
-        foreach ($nodes as $node) {
-            $translation = $node->getNodeTranslation($lang);
-            if($translation && $translation->isOnline()) {
-                $companies[] = $translation->getRef($em);
-            }
-        }
+//        foreach ($nodes as $node) {
+//            $translation = $node->getNodeTranslation($lang);
+//            if($translation && $translation->isOnline()) {
+//                $companies[] = $translation->getRef($em);
+//            }
+//        }
 
         return ['companies' => $companies, 'nodes' => $rightNodes, 'lang' => $lang, 'em' => $em];
     }

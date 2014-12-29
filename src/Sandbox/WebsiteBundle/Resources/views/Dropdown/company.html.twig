@@ -26,7 +26,7 @@
 
                     <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
                         {% if node.children.count > 0 %}
-                            <i class="glyphicon glyphicon-chevron-down"></i>
+                            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
                         {% else %}
                             <span></span>
                         {% endif %}
@@ -44,13 +44,13 @@
 
 
 
-                            <ul style="display: none;">
+                            <ul style="">
 
                                 {% for node2 in node.children %}
                                     {% if node2.nodeTranslation(lang) %}
                                         <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
                                             {% if node2.children.count > 0 %}
-                                                <i class="glyphicon glyphicon-chevron-down"></i>
+                                                {#<i class="glyphicon glyphicon-chevron-down"></i>#}
                                             {% endif %}
 
                                             {#{% set placePage = node2.nodeTranslation(lang).ref(em) %}#}
@@ -67,11 +67,11 @@
 
                                                 {% for node3 in node2.children.count %}
                                                     {% if node3.nodeTranslation(lang) %}
-                                                        <ul style="display: none;">
+                                                        <ul style="">
 
                                                             <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
                                                                 {% if node3.children.count > 0 %}
-                                                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                                                    {#<i class="glyphicon glyphicon-chevron-down"></i>#}
                                                                 {% endif %}
 
                                                                 {#{% set placePage = node3.nodeTranslation(lang).ref(em) %}#}
