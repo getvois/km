@@ -3,14 +3,17 @@
 namespace Sandbox\WebsiteBundle\Entity\Company;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
+use Sandbox\WebsiteBundle\Entity\PreferredTag;
 use Sandbox\WebsiteBundle\Form\Company\CompanyOverviewPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Company\CompanyOverviewPagePagePartAdminConfigurator;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticleOverviewPage;
@@ -278,9 +281,7 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
         return array(new CompanyOverviewPagePagePartAdminConfigurator());
     }
 
-
-
-    public function getSubNews(Node $node, $locale, $em, &$news = [])
+    public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [], $host)
     {
         $nodeTranslation = $node->getNodeTranslation($locale);
         if($nodeTranslation && $nodeTranslation->isOnline()){
@@ -291,24 +292,72 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
 
                 //get node version
                 /** @var NodeVersion $nodeVersion */
-                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-                    ->findOneBy([
-                        'refId' => $item->getId(),
-                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\News\NewsPage',
-                        'type' => 'public'
-                    ]);
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
+                $nodeVersion = $nodeVersion->getNodeTranslation()->getPublicNodeVersion();
                 //check node online and lang
                 if($nodeVersion
-                    && $nodeVersion->getNodeTranslation()->isOnline()
-                    && $nodeVersion->getNodeTranslation()->getLang() == $locale
+                  && $nodeVersion->getNodeTranslation()->isOnline()
+                  && $nodeVersion->getNodeTranslation()->getLang() == $locale
                 ){
-                    $news[$nodeVersion->getNodeTranslation()->getId()] = $item;
+                    //check host
+                    /** @var Host $host */
+                    if($host){
+                        /** @var Host $itemHost */
+                        foreach ($item->getHosts() as $itemHost) {
+                            if($itemHost->getId() == $host->getId()){
+                                $news[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
+                                break;
+                            }
+                        }
+                    }else {
+                        $news[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
+                    }
                 }
             }
         }
 
         foreach ($node->getChildren() as $child) {
-            $this->getSubNews($child, $locale, $em, $news);
+            $this->getSubNews($child, $locale, $em, $news, $host);
+        }
+
+    }
+
+    public function getSubArticles(Node $node, $locale,ObjectManager $em, &$articles = [], $host)
+    {
+        $nodeTranslation = $node->getNodeTranslation($locale);
+        if($nodeTranslation && $nodeTranslation->isOnline()){
+            /** @var PlaceOverviewPage $placeOverviewPage */
+            $placeOverviewPage = $nodeTranslation->getPublicNodeVersion()->getRef($em);
+            /** @var NewsPage $item */
+            foreach ($placeOverviewPage->getArticles() as $item) {
+                //get node version
+                /** @var NodeVersion $nodeVersion */
+                $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
+                $nodeVersion = $nodeVersion->getNodeTranslation()->getPublicNodeVersion();
+                //check node online and lang
+                if($nodeVersion
+                  && $nodeVersion->getNodeTranslation()->isOnline()
+                  && $nodeVersion->getNodeTranslation()->getLang() == $locale
+                ){
+                    //check host
+                    /** @var Host $host */
+                    if($host){
+                        /** @var Host $itemHost */
+                        foreach ($item->getHosts() as $itemHost) {
+                            if($itemHost->getId() == $host->getId()){
+                                $articles[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
+                                break;
+                            }
+                        }
+                    }else {
+                        $articles[$nodeVersion->getNodeTranslation()->getId()] = $nodeVersion->getRef($em);//$item;
+                    }
+                }
+            }
+        }
+
+        foreach ($node->getChildren() as $child) {
+            $this->getSubArticles($child, $locale, $em, $articles, $host);
         }
 
     }
@@ -337,49 +386,46 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
         }
 
         $em = $container->get('doctrine.orm.entity_manager');
-        //$this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news);
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+          ->findOneBy(['name' => $request->getHost()]);
+        $this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news, $host);
+        $this->getSubArticles($nodeTranslation->getNode(), $locale, $em, $articles, $host);
 
-//        $em = $container->get('doctrine.orm.entity_manager');
-//        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->findAll();
-//
-//        $translationIds = [];//array of node translation ids
-//        /** @var PlaceOverviewPage[] $placesLocale */
-//        $placesLocale = [];//array of translated online nodes to return to template
-//
-//        foreach ($places as $place) {
-//            //get node version
-//            /** @var NodeVersion $nodeVersion */
-//            $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-//                ->findOneBy([
-//                    'refId' => $place->getId(),
-//                    'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
-//                    'type' => 'public'
-//                ]);
-//
-//            //check node versions (node could have same node translations ids)
-//            //check node online and lang
-//            if($nodeVersion
-//                && $nodeVersion->getNodeTranslation()->isOnline()
-//                && $nodeVersion->getNodeTranslation()->getLang() == $locale
-//            ){
-//                //add node if translation does not exist
-//                if(!in_array($nodeVersion->getNodeTranslation()->getId(), $translationIds)) {
-//                    $placesLocale[] = $place;
-//                    $translationIds[] = $nodeVersion->getNodeTranslation()->getId();
-//                }
-//            }
-//        }
+        $tags = [];
+        if($articles)
+            foreach ($articles as $article) {
+                foreach ($article->getTags() as $tag) {
+                    $tags[$tag->getId()] = $tag;
+                }
+            }
+        if($news)
+            foreach ($news as $article) {
+                foreach ($article->getTags() as $tag) {
+                    $tags[$tag->getId()] = $tag;
+                }
+            }
 
+        //preferred tags
+        /** @var PreferredTag[] $preferredTags */
+        $preferredTags = $em->getRepository('SandboxWebsiteBundle:PreferredTag')
+          ->findAll();
 
-        //$node = $em->getRepository('KunstmaanNodeBundle:Node')->find(12);//15 spain
-        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->childrenHierarchy()[0]['__children'][5]);
-        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->getChildren($node));
-        //var_dump($placesLocale[1]->()->count());
+        //delete preferred tags from tags
+        foreach ($preferredTags as $index => $tag) {
+            if(($key = array_search($tag->getTag(), $tags)) !== false){
+                unset($tags[$key]);
+            }else{
+                unset($preferredTags[$index]);
+            }
+        }
 
-
+        $context['preferredtags'] = $preferredTags;
+        $context['tags'] = $tags;
         $context['places'] = $placesLocale;
-        //$context['news'] = $news;
+        $context['news'] = $news;
+        $context['articles'] = $articles;
         $context['lang'] = $locale;
+        $context['em'] = $em;
 
         parent::service($container, $request, $context);
     }
