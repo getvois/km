@@ -538,6 +538,7 @@ span.city-picker-close:hover {
     top:40px;
     color: #ffffff;
     width:100%;
+    z-index: 9999;
 }
 .site-logo a {
     width:98px;
