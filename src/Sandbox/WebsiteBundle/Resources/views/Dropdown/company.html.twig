@@ -24,7 +24,7 @@
                 {#{% set placePage = node.nodeTranslation(lang).ref(em) %}#}
                 <ul class="dontsplit">
 
-                    <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
+                    <li {% if node.children.count > 0 %}class=""{% endif %}>
                         {% if node.children.count > 0 %}
                             {#<i class="glyphicon glyphicon-chevron-down"></i>#}
                         {% else %}
@@ -48,7 +48,7 @@
 
                                 {% for node2 in node.children %}
                                     {% if node2.nodeTranslation(lang) %}
-                                        <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
+                                        <li {% if node2.children.count > 0 %}class=""{% endif %}>
                                             {% if node2.children.count > 0 %}
                                                 {#<i class="glyphicon glyphicon-chevron-down"></i>#}
                                             {% endif %}
@@ -69,7 +69,7 @@
                                                     {% if node3.nodeTranslation(lang) %}
                                                         <ul style="">
 
-                                                            <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
+                                                            <li {% if node3.children.count > 0 %}class=""{% endif %}>
                                                                 {% if node3.children.count > 0 %}
                                                                     {#<i class="glyphicon glyphicon-chevron-down"></i>#}
                                                                 {% endif %}
