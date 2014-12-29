@@ -535,9 +535,8 @@ span.city-picker-close:hover {
 /* TOP MENU */
 .site-topmenu {
     position: absolute;
-    left:3%;
     top:0;
-    width:65%;
+    width:100%;
 }
 .site-logo a {
     width:98px;
@@ -549,21 +548,14 @@ span.city-picker-close:hover {
 }
 .travelbase_top_menu{
     float:right;
-    margin: 0 5px 0;
-    padding: 0;
-    display:none;
+    /*margin: 0 5px 0;*/
+    /*padding: 0;*/
 }
 .travelbase_top_menu > li {
     float: left;
     list-style: outside none none;
     margin-right: 20px;
-    margin-top: 10px;
-}
-.travelbase_top_menu a {
-    color: black;
-    font-size: 16px;
-    text-decoration: underline;
-    font-style: italic;
+    /*margin-top: 10px;*/
 }
 /* SUBSCRIPTION BLOCK */
 .block.block-total-subscription {

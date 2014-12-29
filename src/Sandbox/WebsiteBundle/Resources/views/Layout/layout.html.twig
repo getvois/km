@@ -182,9 +182,9 @@
                  style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
 
             <h3 class="top-img-title">{% block topImgTitle %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}{% endblock %}</h3>
-
             <div class=" splash__container">
                 <div class="row row--padded-large">
+                    {% include "@SandboxWebsite/Travelbase/menu.html.twig" %}
                     {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
                     {#<h1 class="col-md-9 splash__title">#}
                         {#{% block pagetitleText %}#}

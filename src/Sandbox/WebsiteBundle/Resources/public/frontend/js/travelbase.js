@@ -919,7 +919,7 @@ function cityPicker($el, $selected) {
             quietMillis: 250,
             data: function (term, page) {
                 return {
-                    q: term, // search term
+                    q: term // search term
                 };
             },
             results: function (data, page) { // parse the results into the format expected by Select2.

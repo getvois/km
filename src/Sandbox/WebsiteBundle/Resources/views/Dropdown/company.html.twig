@@ -1,0 +1,13 @@
+<div style="margin-top: -99999px" class="city-picker" id="dropdown-company">
+    <div class="city-list">
+        <div class="no-cities" style="display: none">Nothing found</div>
+        <span class="city-picker-close glyphicon glyphicon-remove"></span>
+
+        {% for company in companies%}
+            <ul class="dontsplit">
+                <li><a href="{{ path('_slug', { 'url': get_node_translation_for(company).slug }) }}">{{ company.title }}</a></li>
+            </ul>
+        {% endfor %}
+    </div>
+</div>
+
