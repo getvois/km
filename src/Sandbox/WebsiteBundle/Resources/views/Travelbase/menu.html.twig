@@ -6,5 +6,11 @@
         <li>
             <span class="city-picker-list city-picker-dropdown" data-target="#dropdown-company">Companies</span>
         </li>
+
+        {% if pages is defined %}
+            {% for page in pages %}
+                <li><a href="{{ path("_slug", { 'url': get_node_translation_for(page).fullslug}) }}">{{ page.title }}</a></li>
+            {% endfor %}
+        {% endif %}
     </ul>
 </div>

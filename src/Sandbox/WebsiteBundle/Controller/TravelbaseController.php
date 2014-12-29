@@ -3,6 +3,8 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManager;
+use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\TopImage;
@@ -15,6 +17,42 @@ use Symfony\Component\Routing\Annotation\Route;
 class TravelbaseController extends Controller
 {
     private static $randomImage;
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Template()
+     */
+    public function menuAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $root = $em->getRepository('KunstmaanNodeBundle:Node')->findOneBy(
+          ['parent' => null, 'deleted' => 0, 'hiddenFromNav' => 0]
+        );
+
+        if(!$root)
+            return[];
+
+        /** @var Node[] $pages */
+        $pages = [];
+        /** @var Node $node */
+        foreach ($root->getChildren() as $node) {
+            if(!$node->isDeleted() && !$node->isHiddenFromNav()){
+                $translation = $node->getNodeTranslation($request->getLocale());
+                if($translation){
+                    $page = $translation->getRef($em);
+                    if($page){
+                        $pages[] = $page;
+                    }
+                }
+            }
+        }
+
+        return ['pages' => $pages];
+    }
+
 
     /**
      * @param Request $request
