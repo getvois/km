@@ -474,6 +474,7 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
 
     /**
