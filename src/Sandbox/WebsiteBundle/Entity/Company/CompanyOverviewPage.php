@@ -41,7 +41,10 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     private $news;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", mappedBy="companies")
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="companies")
+     * @ORM\JoinTable(name="companies_places")
      */
     private $places;
 

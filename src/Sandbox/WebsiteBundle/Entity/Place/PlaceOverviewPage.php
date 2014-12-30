@@ -34,12 +34,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany
 {
-
     /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", inversedBy="places")
-     * @ORM\JoinTable(name="companies_places")
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", mappedBy="places")
      */
     private $companies;
 
