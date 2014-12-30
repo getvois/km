@@ -130,6 +130,16 @@ function loadMore(){
         $filter.offset = $tr.length - 1 ;
     }
 
+    $.post('/app_dev.php/api-filter/?body=0', JSON.stringify($filter), function (responce) {
+        var $table = $(".travelbase_items:visible").find('table');
+        $table.append(responce.html);
+
+        if($table.find('tr').length - 1 >= responce.total){
+            //hide load more btn
+            $("#loadMore").hide();
+        }
+    });
+
     var xhr = new XMLHttpRequest();
     xhr.open('POST', $api_url);
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -155,7 +165,7 @@ function loadMore(){
 
         }
     };
-    xhr.send(JSON.stringify($filter));
+    //xhr.send(JSON.stringify($filter));
 }
 
 

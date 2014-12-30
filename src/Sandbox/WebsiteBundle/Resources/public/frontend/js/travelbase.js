@@ -762,8 +762,7 @@ function skyPickerImport(){
 function getTable(){
     var $filter = getFilter();
 
-    $.post('/app_dev.php/api-filter/', JSON.stringify($filter), function (responce) {
-        console.log(responce);
+    $.post('/app_dev.php/api-filter/?body=1', JSON.stringify($filter), function (responce) {
         var $travelbase_items = $(".travelbase_items:visible");
         $travelbase_items.html(responce.html);
 
@@ -785,67 +784,7 @@ function getTable(){
             //$("#edit-companies").change();
             return false;
         });
-
     });
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', $api_url);
-    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            var $field = $filter.orderField;
-
-            var $table = '<table><tr>' +
-                '<th><a href="#" data-field="date" '+ (($field == 'date')?'class="active"':"") + '>Date</a></th>' +
-                    //'<th><a href="#" data-field="company">Company</a></th>' +
-                '<th><a href="#" data-field="departure" '+ (($field == 'departure')?'class="active"':"") + '>From</a></th>' +
-                '<th><a href="#" data-field="destination" '+ (($field == 'destination')?'class="active"':"") + '>To</a></th>' +
-                '<th><a href="#" data-field="hotel" '+ (($field == 'hotel')?'class="active"':"") + '>Info</a></th>' +
-                    //'<th><a href="#" data-field="info">Info</a></th>' +
-                '<th><a href="#" data-field="duration" '+ (($field == 'duration')?'class="active"':"") + '>Duration</a></th>' +
-                '<th><a href="#" data-field="price" '+ (($field == 'price')?'class="active"':"") + '>Price</a></th>' +
-                '<th><a href="#" data-field="company" '+ (($field == 'company')?'class="active"':"") + '>Link</a></th></tr>';
-
-            var $data = JSON.parse(this.responseText);
-
-            for(var i = 0; i< $data.items.length; i++){
-                $table += itemToRow($data.items[i]);
-            }
-            $table += '<script>$(".my-popover").popover();</script><script></script>';
-            $table += '</table>';
-
-            if($data.total > $data.items.length)//add load more button
-                $table += '<button id="loadMore" onclick="loadMore()"><span class="fa fa-angle-double-down"></span></button>';
-
-            var $travelbase_items = $(".travelbase_items:visible");
-
-            if($data.total > 0 && $travelbase_items.data('badge'))
-                $($travelbase_items.data('badge')).text($data.total);
-
-            if($data.items.length == 0){
-                $table = "<div>No items found</div>";
-            }
-
-            $travelbase_items.html($table);
-
-            $travelbase_items.find('th a').click(function(){
-                var $field = $(this).data('field');
-                var $form = $('#travelbase-form');
-                $form.find('input[name="order_field"]').val($field);
-
-                var $direction = $form.find('input[name="order_direction"]');
-                var  $directionVal = "";
-                if($direction.val() == 'asc') $directionVal = 'desc';
-                else $directionVal = 'asc';
-
-                $direction.val($directionVal);
-                getTable();
-                //$("#edit-companies").change();
-                return false;
-            });
-        }
-    };
-    //xhr.send(JSON.stringify($filter));
 }
 
 
