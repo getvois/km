@@ -41,27 +41,27 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     private $news;
 
     /**
-     * @var PlaceOverviewPage
-     *
-     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", inversedBy="companies")
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", mappedBy="companies")
      */
-    private $place;
+    private $places;
+
+//article multiple company
 
     /**
      * @return PlaceOverviewPage
      */
-    public function getPlace()
+    public function getPlaces()
     {
-        return $this->place;
+        return $this->places;
     }
 
     /**
      * @param PlaceOverviewPage $place
      * @return $this
      */
-    public function setPlace($place)
+    public function setPlaces($place)
     {
-        $this->place = $place;
+        $this->places = $place;
         return $this;
     }
 

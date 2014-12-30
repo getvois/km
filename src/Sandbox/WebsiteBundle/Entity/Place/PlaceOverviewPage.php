@@ -34,10 +34,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany
 {
+
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", mappedBy="place")
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", inversedBy="places")
+     * @ORM\JoinTable(name="companies_places")
      */
     private $companies;
 
@@ -45,7 +47,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
      * Add companies
      *
      * @param CompanyOverviewPage $companies
-     * @return PlaceOverviewPage
+     * @return NewsPage
      */
     public function addCompany(CompanyOverviewPage $companies)
     {
