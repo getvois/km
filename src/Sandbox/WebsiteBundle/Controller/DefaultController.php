@@ -38,10 +38,10 @@ class DefaultController extends Controller
 
             if($body == 1 && in_array(4, $filter->type)){
                 //import from skypicker first
-                $url = 'http://api.travel.markmedia.fi/api/skypicker.import/';
+                $url = 'http://80.69.162.115/api/skypicker.import/';
                 $options = array(
                   'http' => array(
-                    'header'  => "Connection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
+                    'header'  => "Host: api.travel.markmedia.fi\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
                     'method'  => 'POST',
                     'content' => json_encode($filter),
                   ),
@@ -51,11 +51,11 @@ class DefaultController extends Controller
             }
 
 
-            $url = 'http://api.travel.markmedia.fi/api/item.filter/';
+            $url = 'http://80.69.162.115/api/item.filter/';
 
             $options = array(
               'http' => array(
-                'header'  => "Connection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
+                'header'  => "Host: api.travel.markmedia.fi\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
                 'method'  => 'POST',
                 'content' => json_encode($filter),
               ),
