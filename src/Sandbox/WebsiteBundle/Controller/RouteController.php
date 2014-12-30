@@ -30,6 +30,10 @@ class RouteController extends Controller
      */
     public function pathAction(Request $request, $path)
     {
+
+        if(preg_match("/api-filter/", $path))
+            return $this->forward("KunstmaanNodeBundle:Slug:slug", ['url' => $path]);
+
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
