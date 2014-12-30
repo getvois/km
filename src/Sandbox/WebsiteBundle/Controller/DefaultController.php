@@ -50,7 +50,7 @@ class DefaultController extends Controller
 
             $result = json_decode($result);
 
-            $field = $filter['orderField'];//sort field
+            $field = $filter->orderField;//sort field
 
 
             $table = '<table><tr>' .
@@ -64,7 +64,7 @@ class DefaultController extends Controller
               '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
               '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
 
-            $data = $result['items'];
+            $data = $result->items;
 
             foreach ($data as $item) {
 
@@ -74,11 +74,11 @@ class DefaultController extends Controller
             $table .= '</table>';
 
 
-            if($result['total'] > count($data))//add load more button
+            if($result->total > count($data))//add load more button
                 $table .= '<button id="loadMore" onclick="loadMore()"><span class="fa fa-angle-double-down"></span></button>';
 
 
-            if($result['total'] == 0){
+            if($result->total == 0){
                 $table = "<div>No items found</div>";
             }
 
