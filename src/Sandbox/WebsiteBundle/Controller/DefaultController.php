@@ -67,7 +67,7 @@ class DefaultController extends Controller
             $data = $result->items;
 
             foreach ($data as $item) {
-
+                $table .= $this->itemToRow($item);
             }
 
             $table .= '<script>$(".my-popover").popover();</script><script></script>';
@@ -86,6 +86,69 @@ class DefaultController extends Controller
             return new Response($table);
         }
         return "hello";
+    }
+
+
+    private $prevDate = "";
+    private $dateCount = 0;
+    private function itemToRow($item){
+
+        if(!$item->info) $item->info = "";
+        if(!$item->duration) $item->duration = "";
+        $hotel = "Flight";
+        if($item->hotel != false) $hotel= $item->hotel->name;
+
+        if($hotel == "Flight" && ($item->duration == "" || $item->duration == "1")){
+            $item->duration = 'One way';
+        }
+
+        if($hotel == 'Flyg och första hotellnatt på Phuket' || $hotel == 'Flyg och första hotellnatt i Ao Nang'){
+            $hotel = 'Hotel with 1 night stay only';
+        }
+
+        $date = substr($item->date, 8,2). "." .substr($item->date, 5,2). "." . substr($item->date, 2,2);
+
+        $class = '';
+        if($this->prevDate == '')
+            $this->prevDate = $date;
+        $this->dateCount++;
+        if($this->prevDate != $date) {
+            $prevDate = $date;
+            if($this->dateCount > 5)
+                $class = 'day-sep';
+            $this->dateCount = 0;
+        }
+
+        $company = $item->company->name;
+
+        if($company == 'SkyPicker') $class .= " skypicker-toggle";
+
+        //if(UrlExists("/sites/all/modules/travelbase/img/" + $item.company.name.toLowerCase() + ".png"))
+            $company = "<img src='/sites/all/modules/travelbase/img/" . strtolower($item->company->name) . ".png' alt='" . $item->company->name . "' />";
+
+
+        $lastCol = "<a href='" . $item->link . "'>" . $company . "</a>";
+
+        if($item->company->name == 'SkyPicker'){
+            $lastCol = "";
+            for($i=0;$i<$item->airline->length; $i++){
+                $lastCol .= "<img src='/bundles/sandboxwebsite/img/airlines/".$item->airline[$i].".gif' title=".$item->airline[$i]." alt=".$item->airline[$i].">" ;
+            break;
+            if($i < count($item->airline) - 1) $lastCol .= " ";
+        }
+    }
+
+        return "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
+        "<td>" . $date . "</td>" .
+        //"<td>" + $company + "</td>" +
+        "<td>" . $item->departure->cityNameFi . "</td>" .
+        "<td>" . $item->destination->cityNameFi . "</td>" .
+        "<td><a href='#' onclick='return false;' class='my-popover' data-toggle='popover' title='".$hotel."' data-content='".$item->info."' >" . $hotel . "</a></td>" .
+        //"<td>" + $item.info + "</td>" +
+        "<td>" . $item->duration . "</td>" .
+        "<td>" . round($item->price) . "</td>" .
+        "<td>".$lastCol."</td>" .
+        "</tr>";
     }
 
 
