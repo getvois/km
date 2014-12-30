@@ -733,7 +733,7 @@ function cityFilter(){
 
 function formChange(e){
     getTable();
-    skyPickerImport();
+    //skyPickerImport();
 }
 
 function skyPickerImport(){
@@ -761,6 +761,11 @@ function skyPickerImport(){
 
 function getTable(){
     var $filter = getFilter();
+
+    $.post('/fiter/', JSON.stringify($filter), function (responce) {
+        console.log(responce);
+    });
+
     var xhr = new XMLHttpRequest();
     xhr.open('POST', $api_url);
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
