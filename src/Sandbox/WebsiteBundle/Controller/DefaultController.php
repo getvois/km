@@ -44,7 +44,7 @@ class DefaultController extends Controller
               'http' => array(
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
                 'method'  => 'POST',
-                'content' => http_build_query($filter),
+                'content' => json_encode($filter),
               ),
             );
             $context  = stream_context_create($options);
