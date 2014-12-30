@@ -36,7 +36,7 @@ class DefaultController extends Controller
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
-            if(in_array(4, $filter->type)){
+            if($body == 1 && in_array(4, $filter->type)){
                 //import from skypicker first
                 $url = 'http://api.travel.markmedia.fi/api/skypicker.import/';
                 $options = array(

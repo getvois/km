@@ -764,12 +764,13 @@ function skyPickerImport(){
     xhr.send(JSON.stringify($filter));
 }
 
-function getTable(container){
+function getTable(container, reimport){
     if(!container) container = ".travelbase_items:visible";
+    var type = 1;
+    if(reimport === false) type = 2;
 
     var $filter = getFilter(container);
-
-    $.post('/app_dev.php/api-filter/1', JSON.stringify($filter), function (responce) {
+    $.post('/app_dev.php/api-filter/' + type, JSON.stringify($filter), function (responce) {
         var $travelbase_items = $(container);
         $travelbase_items.html(responce.html);
 
@@ -787,7 +788,7 @@ function getTable(container){
             else $directionVal = 'asc';
 
             $direction.val($directionVal);
-            getTable();
+            getTable(null, false);
             //$("#edit-companies").change();
             return false;
         });
