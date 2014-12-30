@@ -343,7 +343,7 @@ $(document).ready(function() {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //SKYPICKER FETCH DATA
-    var $travelbaseItems = $(".travelbase_items:visible");
+    var $travelbaseItems = $(".travelbase_items");
     $travelbaseItems.on('click', '.book-form', function (e) {
         e.preventDefault();
         e.stopPropagation();
