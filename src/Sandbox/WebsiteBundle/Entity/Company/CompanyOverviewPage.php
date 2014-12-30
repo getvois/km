@@ -45,8 +45,6 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
      */
     private $places;
 
-//article multiple company
-
     /**
      * @return PlaceOverviewPage
      */

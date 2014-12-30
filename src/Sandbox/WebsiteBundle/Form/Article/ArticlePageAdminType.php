@@ -49,7 +49,8 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
             'multiple' => true,
             'class' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', 'required' => false,
             'query_builder' => function(CompanyOverviewPageRepository $er) {
-                return $er->getActive();
+                $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                return $er->getByLang($locale);
             }
         ]);
 
