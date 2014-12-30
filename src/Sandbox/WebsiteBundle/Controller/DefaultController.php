@@ -83,9 +83,9 @@ class DefaultController extends Controller
             }
 
 
-            return new Response($table);
+            return new JsonResponse(['total' => $result->total, 'html' => $table]);
         }
-        return "hello";
+        return new JsonResponse(['total' => 0, 'html' => "<div>No items found</div>"]);
     }
 
 
