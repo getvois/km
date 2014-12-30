@@ -762,7 +762,7 @@ function skyPickerImport(){
 function getTable(){
     var $filter = getFilter();
 
-    $.post('/app_dev.php/fiter/', JSON.stringify($filter), function (responce) {
+    $.post('/app_dev.php/api-filter/', JSON.stringify($filter), function (responce) {
         console.log(responce);
     });
 
