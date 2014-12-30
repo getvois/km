@@ -46,6 +46,25 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     private $places;
 
     /**
+     * @param $place
+     * @return $this
+     */
+    public function addPlace($place)
+    {
+        $this->places->add($place);
+        return $this;
+    }
+
+    /**
+     * @param $place
+     * @return $this
+     */
+    public function removePlace($place)
+    {
+        $this->places->removeElement($place);
+        return $this;
+    }
+    /**
      * @return PlaceOverviewPage
      */
     public function getPlaces()
