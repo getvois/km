@@ -762,7 +762,7 @@ function skyPickerImport(){
 function getTable(){
     var $filter = getFilter();
 
-    $.post('/app_dev.php/api-filter/?body=1', JSON.stringify($filter), function (responce) {
+    $.post('/app_dev.php/en/api-filter/?body=1', JSON.stringify($filter), function (responce) {
         var $travelbase_items = $(".travelbase_items:visible");
         $travelbase_items.html(responce.html);
 

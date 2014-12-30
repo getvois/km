@@ -28,7 +28,7 @@ class DefaultController extends Controller
 {
 
     /**
-     * @Route("/api-filter/{body}")
+     * @Route("/en/api-filter/{body}")
      * @param Request $request
      */
     public function filterAction(Request $request, $body)
