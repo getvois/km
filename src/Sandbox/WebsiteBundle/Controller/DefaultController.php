@@ -36,6 +36,21 @@ class DefaultController extends Controller
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
+            if(in_array(4, $filter->type)){
+                //import from skypicker first
+                $url = 'http://api.travel.markmedia.fi/api/skypicker.import/';
+                $options = array(
+                  'http' => array(
+                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method'  => 'POST',
+                    'content' => json_encode($filter),
+                  ),
+                );
+                $context  = stream_context_create($options);
+                file_get_contents($url, false, $context);
+            }
+
+
             $url = 'http://api.travel.markmedia.fi/api/item.filter/';
 
             $options = array(
