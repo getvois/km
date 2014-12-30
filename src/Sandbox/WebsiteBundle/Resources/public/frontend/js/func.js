@@ -5,6 +5,11 @@ function getFilter(){
     if($("#edit-flight-and-hotel").is(":checked")) $type.push(1);
     if($("#edit-flight-and-hotel-unknown").is(":checked")) $type.push(2);
 
+    var $dataFilter = $(".travelbase_items:visible").data('filter-type');
+    if($dataFilter){
+        $type = $dataFilter;
+    }
+
     var $form = $('#travelbase-form');
 
     var $field = $form.find('input[name="order_field"]').val();
@@ -120,7 +125,7 @@ function getFilter(){
 function loadMore(){
     var $filter = getFilter();
 
-    var $tr = $("#travelbase_items").find("tr");
+    var $tr = $(".travelbase_items:visible").find("tr");
     if($tr.length > 1){//1 because of header
         $filter.offset = $tr.length - 1 ;
     }
@@ -139,7 +144,7 @@ function loadMore(){
             }
 
             $rows += '<script>$(".my-popover").popover();</script><script></script>';
-            var $table = $("#travelbase_items").find('table');
+            var $table = $(".travelbase_items:visible").find('table');
             $table.append($rows);
 
             if($table.find('tr').length - 1 >= $data.total){

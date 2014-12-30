@@ -343,7 +343,7 @@ $(document).ready(function() {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //SKYPICKER FETCH DATA
-    var $travelbaseItems = $("#travelbase_items");
+    var $travelbaseItems = $(".travelbase_items:visible");
     $travelbaseItems.on('click', '.book-form', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -737,7 +737,7 @@ function formChange(e){
 }
 
 function skyPickerImport(){
-    var $progressbar = $("#progressbar");
+    var $progressbar = $(".progressbar");
     $progressbar.show();
     $progressbar.progressbar({
         value: false
@@ -751,7 +751,7 @@ function skyPickerImport(){
             var $data = JSON.parse(this.responseText);
             if($data.status == 1){
                 getTable();
-                $( "#progressbar").hide();
+                $( ".progressbar").hide();
 
             }
         }
@@ -797,7 +797,7 @@ function getTable(){
                 $table = "<div>No items found</div>";
             }
 
-            var $travelbase_items = $("#travelbase_items");
+            var $travelbase_items = $(".travelbase_items:visible");
             $travelbase_items.html($table);
 
             $travelbase_items.find('th a').click(function(){
