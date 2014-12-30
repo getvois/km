@@ -654,8 +654,10 @@ $(document).ready(function() {
     $city_picker.find('.city-list').find(':input').change(formChange);
     //////////////////////////////////////////////////////////////////////////////
     //submit the form
-        $form.find(':input').eq(0).change();
+    //$form.find(':input').eq(0).change();
     //////////////////////////////////////////////////////////////////////////////
+    getTable();
+    getTable(".travelbase_items_sp");
 });
 
 function cityFilter(){
@@ -759,11 +761,13 @@ function skyPickerImport(){
     xhr.send(JSON.stringify($filter));
 }
 
-function getTable(){
-    var $filter = getFilter();
+function getTable(container){
+    if(!container) container = ".travelbase_items:visible";
+
+    var $filter = getFilter(container);
 
     $.post('/app_dev.php/api-filter/1', JSON.stringify($filter), function (responce) {
-        var $travelbase_items = $(".travelbase_items:visible");
+        var $travelbase_items = $(container);
         $travelbase_items.html(responce.html);
 
         if(responce.total > 0 && $travelbase_items.data('badge'))

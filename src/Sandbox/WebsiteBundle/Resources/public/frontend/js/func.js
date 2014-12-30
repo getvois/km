@@ -1,11 +1,13 @@
-function getFilter(){
+function getFilter(container){
+    if(!container) container = ".travelbase_items:visible";
+
     var $type = [];
     if($("#edit-only-flights").is(":checked")) $type.push(4);
     if($("#edit-only-hotel").is(":checked")) $type.push(6);
     if($("#edit-flight-and-hotel").is(":checked")) $type.push(1);
     if($("#edit-flight-and-hotel-unknown").is(":checked")) $type.push(2);
 
-    var $dataFilter = $(".travelbase_items:visible").data('filter-type');
+    var $dataFilter = $(container).data('filter-type');
     if($dataFilter){
         $type = $dataFilter;
     }
