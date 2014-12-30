@@ -150,7 +150,7 @@ class DefaultController extends Controller
 
         if($item->company->name == 'SkyPicker'){
             $lastCol = "";
-            for($i=0;$i<$item->airline->length; $i++){
+            for($i=0;$i<count($item->airline); $i++){
                 $lastCol .= "<img src='/bundles/sandboxwebsite/img/airlines/".$item->airline[$i].".gif' title=".$item->airline[$i]." alt=".$item->airline[$i].">" ;
             break;
             if($i < count($item->airline) - 1) $lastCol .= " ";
