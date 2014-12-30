@@ -737,7 +737,11 @@ function cityFilter(){
 }
 
 function formChange(e){
-    getTable();
+    getTable('.travelbase_items_df');
+    setTimeout(function () {
+        getTable(".travelbase_items_sp");
+    }, 1000);
+
     //skyPickerImport();
 }
 
