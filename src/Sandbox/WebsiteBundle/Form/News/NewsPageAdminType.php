@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Form\News;
 
 use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
+use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
 use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -55,7 +56,14 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             )
         );
         $builder->add('link');
-        $builder->add('companies');
+        $builder->add('companies', 'entity', [
+            'multiple' => true,
+            'class' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', 'required' => false,
+            'query_builder' => function(CompanyOverviewPageRepository $er) {
+                $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                return $er->getByLang($locale);
+            }
+          ]);
 
         $builder->add('image', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
