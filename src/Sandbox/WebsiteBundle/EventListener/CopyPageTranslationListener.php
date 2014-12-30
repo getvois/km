@@ -57,13 +57,34 @@ class CopyPageTranslationListener {
                 $langPage->removeCompany($company);
             }
 
-            foreach ($page->getCompanies() as $company) {
-                $langPage->addCompany($company);
-            }
+            $this->selectCompanies($page, $langPage, $nodeEvent->getNodeTranslation()->getLang());
+
+//            foreach ($page->getCompanies() as $company) {
+//                $langPage->addCompany($company);
+//            }
 
         }
     }
+    private function selectCompanies(ICompany $page, ICompany $newPage, $newLang)
+    {
+        //add selected places to other translations
+        foreach ($page->getCompanies() as $place) {
+            /** @var NodeRepository $nodeRepo */
+            $nodeRepo = $this->em->getRepository('KunstmaanNodeBundle:Node');
+            $node = $nodeRepo->getNodeFor($place);
+            $translation = $node->getNodeTranslation($newLang, true);
 
+            if(!$translation) continue;
+
+            $placePage = $translation->getPublicNodeVersion()->getRef($this->em);
+
+            //add place to news
+            $newPage->addCompany($placePage);
+        }
+
+        $this->em->persist($newPage);
+        $this->em->flush();
+    }
     private function selectPlaces(IPlaceFromTo $page, IPlaceFromTo $newPage, $newLang)
     {
         //add selected places to other translations
