@@ -657,7 +657,10 @@ $(document).ready(function() {
     //$form.find(':input').eq(0).change();
     //////////////////////////////////////////////////////////////////////////////
     getTable();
-    getTable(".travelbase_items_sp");
+    setTimeout(function () {
+        getTable(".travelbase_items_sp");
+    }, 1000);
+
 });
 
 function cityFilter(){
