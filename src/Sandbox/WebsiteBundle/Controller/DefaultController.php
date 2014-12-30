@@ -33,7 +33,25 @@ class DefaultController extends Controller
      */
     public function filterAction(Request $request)
     {
-        var_dump($request->getContent());
+        if($request->getContent()){
+            $filter = json_decode($request->getContent());
+
+            var_dump($filter);
+
+            $url = 'http://api.travel.markmedia.fi/api/item.filter/';
+
+            $options = array(
+              'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($filter),
+              ),
+            );
+            $context  = stream_context_create($options);
+            $result = file_get_contents($url, false, $context);
+
+            var_dump($result);
+        }
         return "hello";
     }
 
