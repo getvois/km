@@ -41,7 +41,7 @@ class DefaultController extends Controller
                 $url = 'http://api.travel.markmedia.fi/api/skypicker.import/';
                 $options = array(
                   'http' => array(
-                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'header'  => "Connection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
                     'method'  => 'POST',
                     'content' => json_encode($filter),
                   ),
@@ -55,7 +55,7 @@ class DefaultController extends Controller
 
             $options = array(
               'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'header'  => "Connection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
                 'method'  => 'POST',
                 'content' => json_encode($filter),
               ),
