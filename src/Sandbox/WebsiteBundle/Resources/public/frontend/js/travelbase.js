@@ -764,6 +764,28 @@ function getTable(){
 
     $.post('/app_dev.php/api-filter/', JSON.stringify($filter), function (responce) {
         console.log(responce);
+        var $travelbase_items = $(".travelbase_items:visible");
+        $travelbase_items.html(responce.html);
+
+        if(responce.total > 0 && $travelbase_items.data('badge'))
+            $($travelbase_items.data('badge')).text(responce.total);
+
+        $travelbase_items.find('th a').click(function(){
+            var $field = $(this).data('field');
+            var $form = $('#travelbase-form');
+            $form.find('input[name="order_field"]').val($field);
+
+            var $direction = $form.find('input[name="order_direction"]');
+            var  $directionVal = "";
+            if($direction.val() == 'asc') $directionVal = 'desc';
+            else $directionVal = 'asc';
+
+            $direction.val($directionVal);
+            getTable();
+            //$("#edit-companies").change();
+            return false;
+        });
+
     });
 
     var xhr = new XMLHttpRequest();
@@ -823,7 +845,7 @@ function getTable(){
             });
         }
     };
-    xhr.send(JSON.stringify($filter));
+    //xhr.send(JSON.stringify($filter));
 }
 
 
