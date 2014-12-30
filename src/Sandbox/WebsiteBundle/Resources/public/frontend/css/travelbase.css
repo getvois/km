@@ -145,36 +145,36 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 }
 #block-travelbase-travelbase-search-form .ico-flight .form-item {float:left;}
 #block-travelbase-travelbase-search-form .ico-flight:nth-of-type(2) {padding:0;}
-#travelbase_items {
+.travelbase_items {
     clear:both;
     border-width: 0;
     padding: 10px 10px 30px 10px;
     background: #fff;
     border-style: solid;
 }
-#travelbase_items table tbody tr th {
+.travelbase_items table tbody tr th {
     font-weight: normal;
     border-bottom: 1px solid #00BE8D;
     padding-top: 10px;
 }
-#travelbase_items table{
+.travelbase_items table{
     width: 100%;
 }
-#travelbase_items table tbody tr:nth-child(even) {
+.travelbase_items table tbody tr:nth-child(even) {
     background: #f9f9f9;
 }
-#travelbase_items table tbody tr td {
+.travelbase_items table tbody tr td {
     line-height: 200%;
     font-size:13px;
 }
-#travelbase_items #loadMore {
+.travelbase_items #loadMore {
     left: 50%;
     background: transparent;
     right: 50%;
     border: none;
     position: absolute;
 }
-#travelbase_items #loadMore span {
+.travelbase_items #loadMore span {
     font-size: 33px;
     background: rgba(0, 231, 172, 1);
     border: 1px solid #bbb;
@@ -184,11 +184,11 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     color: #00BE8D;
     border-radius: 35px;
 }
-#travelbase_items #loadMore span:before {
+.travelbase_items #loadMore span:before {
     text-shadow: 1px 1px 1px #aaa;
     color: #fff;
 }
-#travelbase_items #loadMore span:hover:before {
+.travelbase_items #loadMore span:hover:before {
     text-shadow: 1px 1px 1px #00BE8D;
     color: #bbb;
 }
@@ -565,7 +565,7 @@ span.city-picker-close:hover {
 #edit-mail{
     width: 230px;
 }
-#travelbase_items .active {
+.travelbase_items .active {
     font-weight: bold;
 }
 @media (min-width: 992px) {
