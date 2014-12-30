@@ -26,6 +26,18 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
+
+    /**
+     * @Route("/filter/")
+     * @param Request $request
+     */
+    public function filterAction(Request $request)
+    {
+        var_dump($request->request->all());
+        return "hello";
+    }
+
+
     /**
      * @Route("/book-form/")
      * @Template()
