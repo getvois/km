@@ -33,8 +33,7 @@ class DefaultController extends Controller
      */
     public function filterAction(Request $request)
     {
-        var_dump($request->query->all());
-        var_dump($request->request->all());
+        var_dump($request->getContent());
         return "hello";
     }
 
