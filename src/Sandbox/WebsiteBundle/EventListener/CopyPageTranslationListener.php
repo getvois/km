@@ -9,6 +9,7 @@ use Kunstmaan\NodeBundle\Repository\NodeRepository;
 use Kunstmaan\PagePartBundle\Helper\HasPagePartsInterface;
 use Kunstmaan\PagePartBundle\Helper\PagePartConfigurationReader;
 use Kunstmaan\PagePartBundle\Repository\PagePartRefRepository;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\ICompany;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Symfony\Component\DependencyInjection\Container;
@@ -62,6 +63,27 @@ class CopyPageTranslationListener {
 //            foreach ($page->getCompanies() as $company) {
 //                $langPage->addCompany($company);
 //            }
+
+        }
+
+        if($page instanceof CompanyOverviewPage){
+            //add selected places to other translations
+            foreach ($page->getPlaces() as $place) {
+                /** @var NodeRepository $nodeRepo */
+                $nodeRepo = $this->em->getRepository('KunstmaanNodeBundle:Node');
+                $node = $nodeRepo->getNodeFor($place);
+                $translation = $node->getNodeTranslation($nodeEvent->getNodeTranslation()->getLang(), true);
+
+                if(!$translation) continue;
+
+                $placePage = $translation->getPublicNodeVersion()->getRef($this->em);
+
+                //add place to news
+                $langPage->addPlace($placePage);
+            }
+
+            $this->em->persist($langPage);
+            $this->em->flush();
 
         }
     }
