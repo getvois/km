@@ -36,8 +36,6 @@ class DefaultController extends Controller
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
-            var_dump($filter);
-
             $url = 'http://api.travel.markmedia.fi/api/item.filter/';
 
             $options = array(
@@ -50,7 +48,42 @@ class DefaultController extends Controller
             $context  = stream_context_create($options);
             $result = file_get_contents($url, false, $context);
 
-            var_dump($result);
+            $result = json_decode($result);
+
+            $field = $filter['orderField'];//sort field
+
+
+            $table = '<table><tr>' .
+              '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
+              //'<th><a href="#" data-field="company">Company</a></th>' .
+              '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
+              '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
+              '<th><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></th>' .
+              //'<th><a href="#" data-field="info">Info</a></th>' .
+              '<th><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></th>' .
+              '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
+              '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
+
+            $data = $result['items'];
+
+            foreach ($data as $item) {
+
+            }
+
+            $table .= '<script>$(".my-popover").popover();</script><script></script>';
+            $table .= '</table>';
+
+
+            if($result['total'] > count($data))//add load more button
+                $table .= '<button id="loadMore" onclick="loadMore()"><span class="fa fa-angle-double-down"></span></button>';
+
+
+            if($result['total'] == 0){
+                $table = "<div>No items found</div>";
+            }
+
+
+            return new Response($table);
         }
         return "hello";
     }
