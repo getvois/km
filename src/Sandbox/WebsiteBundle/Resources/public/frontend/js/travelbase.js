@@ -790,14 +790,15 @@ function getTable(){
             if($data.total > $data.items.length)//add load more button
                 $table += '<button id="loadMore" onclick="loadMore()"><span class="fa fa-angle-double-down"></span></button>';
 
-            if($data.total > 0)
-                $("#hot-offers-badge").text($data.total);
+            var $travelbase_items = $(".travelbase_items:visible");
+
+            if($data.total > 0 && $travelbase_items.data('badge'))
+                $($travelbase_items.data('badge')).text($data.total);
 
             if($data.items.length == 0){
                 $table = "<div>No items found</div>";
             }
 
-            var $travelbase_items = $(".travelbase_items:visible");
             $travelbase_items.html($table);
 
             $travelbase_items.find('th a').click(function(){
