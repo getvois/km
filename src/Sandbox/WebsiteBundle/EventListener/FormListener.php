@@ -76,6 +76,10 @@ class FormListener {
                 /** @var PlaceOverviewPage $pp */
                 $pp = $translation->getRef($this->em);
 
+                foreach ($pp->getHosts() as $host) {
+                    $pp->removeHost($host);
+                }
+
                 foreach ($page->getHosts() as $host) {
                     $pp->addHost($host);
                 }
