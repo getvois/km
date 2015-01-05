@@ -2,7 +2,7 @@
 {% block content %}
 
     <h2>{{ page.title }}</h2>
-
+{{ dump(app.request.get('_route_params')) }}
     {{ render_pageparts(page, 'main') }}
 
     {% set count = 0 %}
