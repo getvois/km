@@ -1,10 +1,10 @@
 <div class="image-thumbnail-wrapper row nomargin"> 
     <div class="{% if resource.wrapperClass %}{{ resource.wrapperClass }}{% endif %} ">
         {% if resource.title  %}<h3>{{ resource.title }}</h3>{% endif %}
-        <div class="image-thumbnail-img {% if resource.imgClass %}{{ resource.imgClass }}{% endif %}">
+        <div class="image-thumbnail-img">
             {% if resource.image is not empty %}
                 {#<a href="{{ resource.linkUrl }}" {% if resource.linkNewWindow %}target="_blank"{% endif %}>#}
-                    <img {% if resource.responsive %}class='img-responsive'{% endif %} src="{{ asset(resource.image.url | imagine_filter(resource.size)) }}" {% if resource.imageAltText is not empty %}alt="{{ resource.imageAltText }}"{% endif %} />
+                    <img class='img-responsive' src="{{ asset(resource.image.url | imagine_filter(resource.size)) }}" alt="{{ resource.title }}" />
                 {#</a>#}
             {% endif %}
             {#{{ resource.linkText }}#}

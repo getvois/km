@@ -30,30 +30,30 @@ class ImageThumbnailPagePart extends AbstractPagePart
      */
     private $wrapperClass;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="img_class", type="string", length=255, nullable=true)
-     */
-    private $imgClass;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="img_class", type="string", length=255, nullable=true)
+//     */
+//    private $imgClass;
 
-    /**
-     * @return string
-     */
-    public function getImgClass()
-    {
-        return $this->imgClass;
-    }
-
-    /**
-     * @param string $imgClass
-     * @return $this
-     */
-    public function setImgClass($imgClass)
-    {
-        $this->imgClass = $imgClass;
-        return $this;
-    }
+//    /**
+//     * @return string
+//     */
+//    public function getImgClass()
+//    {
+//        return $this->imgClass;
+//    }
+//
+//    /**
+//     * @param string $imgClass
+//     * @return $this
+//     */
+//    public function setImgClass($imgClass)
+//    {
+//        $this->imgClass = $imgClass;
+//        return $this;
+//    }
 
     /**
      * @return string
@@ -120,26 +120,26 @@ class ImageThumbnailPagePart extends AbstractPagePart
     }
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_alt_text", type="text", nullable=true)
-     */
-    private $imageAltText;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="responsive", type="boolean", nullable=true)
-     */
-    private $responsive;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
-     */
-    private $alt;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="image_alt_text", type="text", nullable=true)
+//     */
+//    private $imageAltText;
+//
+//    /**
+//     * @var boolean
+//     *
+//     * @ORM\Column(name="responsive", type="boolean", nullable=true)
+//     */
+//    private $responsive;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
+//     */
+//    private $alt;
 
     /**
      * @var string
@@ -199,74 +199,74 @@ class ImageThumbnailPagePart extends AbstractPagePart
     private $image;
 
 
-    /**
-     * Set imageAltText
-     *
-     * @param string $imageAltText
-     * @return ImageThumbnailPagePart
-     */
-    public function setImageAltText($imageAltText)
-    {
-        $this->imageAltText = $imageAltText;
+//    /**
+//     * Set imageAltText
+//     *
+//     * @param string $imageAltText
+//     * @return ImageThumbnailPagePart
+//     */
+//    public function setImageAltText($imageAltText)
+//    {
+//        $this->imageAltText = $imageAltText;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get imageAltText
+//     *
+//     * @return string
+//     */
+//    public function getImageAltText()
+//    {
+//        return $this->imageAltText;
+//    }
 
-        return $this;
-    }
+//    /**
+//     * Set responsive
+//     *
+//     * @param boolean $responsive
+//     * @return ImageThumbnailPagePart
+//     */
+//    public function setResponsive($responsive)
+//    {
+//        $this->responsive = $responsive;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get responsive
+//     *
+//     * @return boolean
+//     */
+//    public function getResponsive()
+//    {
+//        return $this->responsive;
+//    }
 
-    /**
-     * Get imageAltText
-     *
-     * @return string 
-     */
-    public function getImageAltText()
-    {
-        return $this->imageAltText;
-    }
-
-    /**
-     * Set responsive
-     *
-     * @param boolean $responsive
-     * @return ImageThumbnailPagePart
-     */
-    public function setResponsive($responsive)
-    {
-        $this->responsive = $responsive;
-
-        return $this;
-    }
-
-    /**
-     * Get responsive
-     *
-     * @return boolean 
-     */
-    public function getResponsive()
-    {
-        return $this->responsive;
-    }
-
-    /**
-     * Set alt
-     *
-     * @param string $alt
-     * @return ImageThumbnailPagePart
-     */
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
-
-        return $this;
-    }
-
-    /**
-     * Get alt
-     *
-     * @return string 
-     */
-    public function getAlt()
-    {
-        return $this->alt;
-    }
+//    /**
+//     * Set alt
+//     *
+//     * @param string $alt
+//     * @return ImageThumbnailPagePart
+//     */
+//    public function setAlt($alt)
+//    {
+//        $this->alt = $alt;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get alt
+//     *
+//     * @return string
+//     */
+//    public function getAlt()
+//    {
+//        return $this->alt;
+//    }
 
     /**
      * Set linkUrl

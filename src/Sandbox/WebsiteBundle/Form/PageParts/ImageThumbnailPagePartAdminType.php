@@ -30,15 +30,15 @@ class ImageThumbnailPagePartAdminType extends \Symfony\Component\Form\AbstractTy
             'mediatype' => 'image',
             'required' => false,
         ));
-        $builder->add('imageAltText', 'text', array(
-            'required' => false,
-        ));
-        $builder->add('responsive', 'checkbox', array(
-            'required' => false,
-        ));
-        $builder->add('alt', 'text', array(
-            'required' => false,
-        ));
+//        $builder->add('imageAltText', 'text', array(
+//            'required' => false,
+//        ));
+//        $builder->add('responsive', 'checkbox', array(
+//            'required' => false,
+//        ));
+//        $builder->add('alt', 'text', array(
+//            'required' => false,
+//        ));
         $builder->add('linkUrl', 'urlchooser', array(
             'required' => false,
         ));
@@ -56,7 +56,7 @@ class ImageThumbnailPagePartAdminType extends \Symfony\Component\Form\AbstractTy
         $builder->add('content', 'textarea', array('label' => 'pagepart.text.content', 'required' => false, 'attr' => array('rows' => 32, 'cols' => 600, 'class' => 'rich_editor')));
 
         $builder->add('wrapperClass');
-        $builder->add('imgClass');
+//        $builder->add('imgClass');
     }
 
     /**
