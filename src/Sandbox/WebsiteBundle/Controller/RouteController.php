@@ -24,11 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class RouteController extends Controller
 {
     /**
-     * @Route("/{path}/")
+     * @Route("{_locale}/{countryPrefix}/{path}/")
      * @param $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function pathAction(Request $request, $path)
+    public function pathAction(Request $request, $_locale, $countryPrefix, $path)
     {
 
         if(preg_match("/api-filter/", $path))
@@ -39,22 +39,22 @@ class RouteController extends Controller
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        $originalLocale = substr($path, 0, 2);
+        $originalLocale = $_locale;// substr($path, 0, 2);
 
-        $locale = substr($path, 0, 2);
+        $locale = $_locale;//substr($path, 0, 2);
         if($host){
             if(!$host->getMultiLanguage()){
                 $locale = $host->getLang();
             }
         }
-        if(!$locale) $locale = substr($path, 0, 2);
+        if(!$locale) $locale = $_locale;//substr($path, 0, 2);
 
 
-        $newPath = preg_replace('/' . $originalLocale . "\//", "", $path, 1);
-        if($newPath == $path)
-            $path = preg_replace('/' . $originalLocale . '/' , "", $path, 1);
-        else
-            $path = $newPath;
+//        $newPath = preg_replace('/' . $originalLocale . "\//", "", $path, 1);
+//        if($newPath == $path)
+//            $path = preg_replace('/' . $originalLocale . '/' , "", $path, 1);
+//        else
+//            $path = $newPath;
 
         //redirect to host lang
         if($locale != $originalLocale){
@@ -158,7 +158,7 @@ class RouteController extends Controller
         }
 
         $path = trim($path, '/');
-        return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $path]);
+        return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $countryPrefix."/".$path]);
 
     }
 
