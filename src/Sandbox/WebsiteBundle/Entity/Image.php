@@ -106,26 +106,26 @@ class Image extends AbstractEntity
      */
     private $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="copyright", type="string", length=255, nullable=true)
-     */
-    private $copyright;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="copyright", type="string", length=255, nullable=true)
+//     */
+//    private $copyright;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="copyright_url", type="string", length=255, nullable=true)
+//     */
+//    private $copyrightUrl;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="copyright_url", type="string", length=255, nullable=true)
-     */
-    private $copyrightUrl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="class", type="string", length=255, nullable=true)
-     */
-    private $class;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="class", type="string", length=255, nullable=true)
+//     */
+//    private $class;
 
     /**
      * @var string
@@ -158,69 +158,70 @@ class Image extends AbstractEntity
         return $this->title;
     }
 
-    /**
-     * Set copyright
-     *
-     * @param string $copyright
-     * @return Image
-     */
-    public function setCopyright($copyright)
-    {
-        $this->copyright = $copyright;
+//    /**
+//     * Set copyright
+//     *
+//     * @param string $copyright
+//     * @return Image
+//     */
+//    public function setCopyright($copyright)
+//    {
+//        $this->copyright = $copyright;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    public function getCopyrightUrl()
+//    {
+//        return $this->copyrightUrl;
+//    }
+//
+//    /**
+//     * @param string $copyrightUrl
+//     * @return $this
+//     */
+//    public function setCopyrightUrl($copyrightUrl)
+//    {
+//        $this->copyrightUrl = $copyrightUrl;
+//        return $this;
+//    }
+//
+//    /**
+//     * Get copyright
+//     *
+//     * @return string
+//     */
+//    public function getCopyright()
+//    {
+//        return $this->copyright;
+//    }
 
-        return $this;
-    }
+//    /**
+//     * Set class
+//     *
+//     * @param string $class
+//     * @return Image
+//     */
+//    public function setClass($class)
+//    {
+//        $this->class = $class;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get class
+//     *
+//     * @return string
+//     */
+//    public function getClass()
+//    {
+//        return $this->class;
+//    }
 
-    /**
-     * @return string
-     */
-    public function getCopyrightUrl()
-    {
-        return $this->copyrightUrl;
-    }
-
-    /**
-     * @param string $copyrightUrl
-     * @return $this
-     */
-    public function setCopyrightUrl($copyrightUrl)
-    {
-        $this->copyrightUrl = $copyrightUrl;
-        return $this;
-    }
-
-    /**
-     * Get copyright
-     *
-     * @return string 
-     */
-    public function getCopyright()
-    {
-        return $this->copyright;
-    }
-
-    /**
-     * Set class
-     *
-     * @param string $class
-     * @return Image
-     */
-    public function setClass($class)
-    {
-        $this->class = $class;
-
-        return $this;
-    }
-
-    /**
-     * Get class
-     *
-     * @return string 
-     */
-    public function getClass()
-    {
-        return $this->class;
-    }
     /**
      * Set class
      *

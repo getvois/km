@@ -33,7 +33,7 @@ class GoogleMapPagePartAdminType extends \Symfony\Component\Form\AbstractType
             'required' => false,
         ));
 
-        $builder->add('onlyMap');
+//        $builder->add('onlyMap');
 
         $builder->add('places', 'collection', array(
             'type' => new GooglePlaceAdminType(),

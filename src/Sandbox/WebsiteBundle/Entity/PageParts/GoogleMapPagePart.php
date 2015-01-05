@@ -40,30 +40,30 @@ class GoogleMapPagePart extends AbstractPagePart
      */
     private $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="only_map", type="boolean", nullable=true)
-     */
-    private $onlyMap;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="only_map", type="boolean", nullable=true)
+//     */
+//    private $onlyMap;
 
-    /**
-     * @return string
-     */
-    public function getOnlyMap()
-    {
-        return $this->onlyMap;
-    }
-
-    /**
-     * @param string $onlyMap
-     * @return $this
-     */
-    public function setOnlyMap($onlyMap)
-    {
-        $this->onlyMap = $onlyMap;
-        return $this;
-    }
+//    /**
+//     * @return string
+//     */
+//    public function getOnlyMap()
+//    {
+//        return $this->onlyMap;
+//    }
+//
+//    /**
+//     * @param string $onlyMap
+//     * @return $this
+//     */
+//    public function setOnlyMap($onlyMap)
+//    {
+//        $this->onlyMap = $onlyMap;
+//        return $this;
+//    }
 
 
     /**

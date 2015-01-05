@@ -41,30 +41,30 @@ class GooglePlace extends AbstractEntity
     }
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="size", type="string", length=50)
-     */
-    private $size;
-
-    /**
-     * @return string
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param string $size
-     * @return $this
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-        return $this;
-    }
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="size", type="string", length=50)
+//     */
+//    private $size;
+//
+//    /**
+//     * @return string
+//     */
+//    public function getSize()
+//    {
+//        return $this->size;
+//    }
+//
+//    /**
+//     * @param string $size
+//     * @return $this
+//     */
+//    public function setSize($size)
+//    {
+//        $this->size = $size;
+//        return $this;
+//    }
 
     /**
      * @var Media
@@ -76,95 +76,95 @@ class GooglePlace extends AbstractEntity
      */
     private $image;
 
+//
+//    /**
+//     * Set imageAltText
+//     *
+//     * @param string $imageAltText
+//     * @return GooglePlace
+//     */
+//    public function setImageAltText($imageAltText)
+//    {
+//        $this->imageAltText = $imageAltText;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get imageAltText
+//     *
+//     * @return string
+//     */
+//    public function getImageAltText()
+//    {
+//        return $this->imageAltText;
+//    }
 
-    /**
-     * Set imageAltText
-     *
-     * @param string $imageAltText
-     * @return GooglePlace
-     */
-    public function setImageAltText($imageAltText)
-    {
-        $this->imageAltText = $imageAltText;
+//    /**
+//     * Set responsive
+//     *
+//     * @param boolean $responsive
+//     * @return GooglePlace
+//     */
+//    public function setResponsive($responsive)
+//    {
+//        $this->responsive = $responsive;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get responsive
+//     *
+//     * @return boolean
+//     */
+//    public function getResponsive()
+//    {
+//        return $this->responsive;
+//    }
 
-        return $this;
-    }
+//    /**
+//     * Set alt
+//     *
+//     * @param string $alt
+//     * @return GooglePlace
+//     */
+//    public function setAlt($alt)
+//    {
+//        $this->alt = $alt;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get alt
+//     *
+//     * @return string
+//     */
+//    public function getAlt()
+//    {
+//        return $this->alt;
+//    }
 
-    /**
-     * Get imageAltText
-     *
-     * @return string
-     */
-    public function getImageAltText()
-    {
-        return $this->imageAltText;
-    }
-
-    /**
-     * Set responsive
-     *
-     * @param boolean $responsive
-     * @return GooglePlace
-     */
-    public function setResponsive($responsive)
-    {
-        $this->responsive = $responsive;
-
-        return $this;
-    }
-
-    /**
-     * Get responsive
-     *
-     * @return boolean
-     */
-    public function getResponsive()
-    {
-        return $this->responsive;
-    }
-
-    /**
-     * Set alt
-     *
-     * @param string $alt
-     * @return GooglePlace
-     */
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
-
-        return $this;
-    }
-
-    /**
-     * Get alt
-     *
-     * @return string
-     */
-    public function getAlt()
-    {
-        return $this->alt;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getWrapperClass()
-    {
-        return $this->wrapperClass;
-    }
-
-    /**
-     * @param string $wrapperClass
-     * @return $this
-     */
-    public function setWrapperClass($wrapperClass)
-    {
-        $this->wrapperClass = $wrapperClass;
-        return $this;
-    }
-
+//
+//    /**
+//     * @return string
+//     */
+//    public function getWrapperClass()
+//    {
+//        return $this->wrapperClass;
+//    }
+//
+//    /**
+//     * @param string $wrapperClass
+//     * @return $this
+//     */
+//    public function setWrapperClass($wrapperClass)
+//    {
+//        $this->wrapperClass = $wrapperClass;
+//        return $this;
+//    }
+//
 
 
 
@@ -194,34 +194,34 @@ class GooglePlace extends AbstractEntity
     }
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_alt_text", type="text", nullable=true)
-     */
-    private $imageAltText;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="responsive", type="boolean", nullable=true)
-     */
-    private $responsive;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
-     */
-    private $alt;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="wrapper_class", type="string", length=255, nullable=true)
-     */
-    private $wrapperClass;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="image_alt_text", type="text", nullable=true)
+//     */
+//    private $imageAltText;
+//
+//    /**
+//     * @var boolean
+//     *
+//     * @ORM\Column(name="responsive", type="boolean", nullable=true)
+//     */
+//    private $responsive;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
+//     */
+//    private $alt;
+//
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="wrapper_class", type="string", length=255, nullable=true)
+//     */
+//    private $wrapperClass;
 
     /**
      * @var string
@@ -306,12 +306,12 @@ class GooglePlace extends AbstractEntity
      */
     private $longitude;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="description", type="text", nullable=true)
+//     */
+//    private $description;
 
     /**
      * @var string
@@ -413,28 +413,28 @@ class GooglePlace extends AbstractEntity
         return $this->longitude;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return GooglePlace
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+//    /**
+//     * Set description
+//     *
+//     * @param string $description
+//     * @return GooglePlace
+//     */
+//    public function setDescription($description)
+//    {
+//        $this->description = $description;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get description
+//     *
+//     * @return string
+//     */
+//    public function getDescription()
+//    {
+//        return $this->description;
+//    }
 
     /**
      * Set url

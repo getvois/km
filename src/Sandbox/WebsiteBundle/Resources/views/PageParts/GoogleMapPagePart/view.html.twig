@@ -1,24 +1,7 @@
 <div class="row google-map nomargin">
     <h2>{{ resource.title }}</h2>
-    {{ resource.content|raw }} 
+    {{ resource.content|raw }}
 
-    {% if resource.onlymap == 0 %}
-
-    {% for item in resource.places %}
-        <div class="image-thumbnail-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
-            {% if item.title  %}<h3>{{ item.title }}</h3>{% endif %}
-            <div class="image-img {% if item.imgClass %}{{ item.imgClass }}{% endif %}">
-                {% if item.image is not empty %}
-                    <a href="{{ item.url }}">
-                        <img {% if item.responsive %}class='img-responsive'{% endif %} src="{{ asset(item.image.url | imagine_filter(item.size)) }}" {% if item.imageAltText is not empty %}alt="{{ item.imageAltText }}"{% endif %} />
-                    </a>
-                {% endif %}
-                {#{{ resource.linkText }}#}
-            </div>
-            {% if item.content is not empty %}<p>{{ item.content | raw }}</p>{% endif %}
-        </div>
-    {% endfor %}
-    {% endif %}
 	<div class="google-map-pp map-container">
 	    {% if resource.places is not empty %}
 	        <div id="map_wrapper"> 
@@ -78,7 +61,7 @@
 	                    {% else %}
 	                            {% set desc = desc ~ "<h4>" ~ item.title  ~ "</h4>" %}
 	                    {% endif %}
-	                            {% set desc = desc ~ "<p>" ~ item.description ~ "</p></div>']," %}
+	                            {% set desc = desc ~ "<p>" ~ item.content | raw ~ "</p></div>']," %}
 	                    {% endfor %}
 	
 	                    {{ desc | trim(',') | raw}}

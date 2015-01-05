@@ -9,7 +9,7 @@
 	        <div class="row{% if resource.wrapperClass is not empty %} nomargin{% endif %}">
 	            {% for item in resource.images %}
 	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% else %}col-md-12{% endif %} ">
-	                    <div class="image-img {% if item.class %}{{ item.class }}{% endif %}">
+	                    <div class="image-img">
 	                        {% if item.picture is not empty %}
 	                            <a rel="group" href="{{ asset(item.picture.url | imagine_filter("1000x700")) }}" {% if item.title is not empty %}title="{{ item.title }}"{% endif %}>
 	                                <img class='img-responsive' src="{{ asset(item.picture.url | imagine_filter(item.size)) }}" {% if item.title is not empty %}alt="{{ item.title }}"{% endif %} />
@@ -18,17 +18,17 @@
 	                        {#{{ resource.linkText }}#}
 	                    </div>
 	                    {% if item.title  %}<p>{{ item.title }}</p>{% endif %}
-                        {% if item.copyrightUrl %}
-                            <small class="image-copy"><a href="{{ item.copyrightUrl }}" target="_blank">
-                                {% if item.copyright  %}
-                                    {{ item.copyright | raw }}
-                                {% else %}
-                                    {{ item.copyrightUrl }}
-                                {% endif %}
-                            </a></small>
-                        {% else %}
-                            {% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}
-                        {% endif %}
+                        {#{% if item.copyrightUrl %}#}
+                            {#<small class="image-copy"><a href="{{ item.copyrightUrl }}" target="_blank">#}
+                                {#{% if item.copyright  %}#}
+                                    {#{{ item.copyright | raw }}#}
+                                {#{% else %}#}
+                                    {#{{ item.copyrightUrl }}#}
+                                {#{% endif %}#}
+                            {#</a></small>#}
+                        {#{% else %}#}
+                            {#{% if item.copyright  %}<small class="image-copy">{{ item.copyright | raw }}</small>{% endif %}#}
+                        {#{% endif %}#}
 	                </div>
 	            {% endfor %}
 	        </div>

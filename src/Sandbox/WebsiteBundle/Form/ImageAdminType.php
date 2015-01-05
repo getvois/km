@@ -27,10 +27,10 @@ class ImageAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', 'text', ['required' => false]);
-        $builder->add('copyright', 'text', ['required' => false]);
-        $builder->add('copyrightUrl', 'text', ['required' => false]);
+//        $builder->add('copyright', 'text', ['required' => false]);
+//        $builder->add('copyrightUrl', 'text', ['required' => false]);
         $builder->add('wrapperClass', 'text', ['required' => false]);
-        $builder->add('class', 'text', ['required' => false]);
+//        $builder->add('class', 'text', ['required' => false]);
         $builder->add(
             'picture',
             'media',
