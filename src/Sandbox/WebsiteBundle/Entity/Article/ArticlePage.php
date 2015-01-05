@@ -18,6 +18,7 @@ use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
+use Sandbox\WebsiteBundle\Entity\TPriceFrom;
 use Sandbox\WebsiteBundle\Form\Article\ArticlePageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Article\ArticlePagePagePartAdminConfigurator;
 use Symfony\Component\Form\AbstractType;
@@ -29,6 +30,31 @@ use Symfony\Component\Form\AbstractType;
  */
 class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany
 {
+    use TPriceFrom;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="image_only_on_preview", type="boolean", nullable=true)
+     */
+    private $imageOnlyOnPreview;
+
+    /**
+     * @return boolean
+     */
+    public function isImageOnlyOnPreview()
+    {
+        return $this->imageOnlyOnPreview;
+    }
+
+    /**
+     * @param boolean $imageOnlyOnPreview
+     */
+    public function setImageOnlyOnPreview($imageOnlyOnPreview)
+    {
+        $this->imageOnlyOnPreview = $imageOnlyOnPreview;
+    }
+
     /**
      * @var Media
      *

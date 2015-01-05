@@ -68,6 +68,10 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
             ]]
         );
 
+        $builder->add('imageOnlyOnPreview');
+
+        $builder->add('priceFrom');
+
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 

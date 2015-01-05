@@ -173,7 +173,7 @@
                                         {{ item.date | date("d/m/Y") }}
                                     </time>
                                     <h4 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ page.priceFrom }}</span></a>
                                     </h4>
                                 </header>
                                 {{ item.summary }}
@@ -224,7 +224,7 @@
                                         {{ item.date | date("d.m.Y") }}
                                     </time>
                                     <h4 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ page.priceFrom }}</span></a>
                                     </h4>
                                 </header>
                                 

@@ -78,6 +78,8 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             ]]
         );
 
+        $builder->add('priceFrom');
+
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 

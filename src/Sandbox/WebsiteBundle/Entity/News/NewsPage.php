@@ -17,6 +17,7 @@ use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
+use Sandbox\WebsiteBundle\Entity\TPriceFrom;
 use Sandbox\WebsiteBundle\Form\News\NewsPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\News\NewsPagePagePartAdminConfigurator;
 use Symfony\Component\Form\AbstractType;
@@ -28,6 +29,8 @@ use Symfony\Component\Form\AbstractType;
  */
 class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany
 {
+    use TPriceFrom;
+
     /**
      * @var Media
      *
