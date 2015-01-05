@@ -19,7 +19,7 @@
             {% endfor %}
         </ul>
         {% if pagerfanta.haveToPaginate() %}
-            {#{{ pagerfanta(pagerfanta) }}#}
+            {{ pagerfanta(pagerfanta) }}
         {% endif %}
     {% endif %}
 
