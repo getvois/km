@@ -69,7 +69,7 @@ services:
         arguments: [%requiredlocales%]
         tags:
           - { name: doctrine.event_listener, event: postPersist }
-          - { name: doctrine.event_listener, event: preUpdate }
+#          - { name: doctrine.event_listener, event: preUpdate }
 
     sandboxwebsitebundle.addnode_listener:
         class: Sandbox\WebsiteBundle\EventListener\AddNodeListener
