@@ -1,6 +1,6 @@
-<div class="image-thumbnail-wrapper row nomargin">
+<div class="image-thumbnail-wrapper row nomargin"> 
     <div class="{% if resource.wrapperClass %}{{ resource.wrapperClass }}{% endif %} ">
-        {% if resource.title  %}<h2>{{ resource.title }}</h2>{% endif %}
+        {% if resource.title  %}<h3>{{ resource.title }}</h3>{% endif %}
         <div class="image-thumbnail-img {% if resource.imgClass %}{{ resource.imgClass }}{% endif %}">
             {% if resource.image is not empty %}
                 {#<a href="{{ resource.linkUrl }}" {% if resource.linkNewWindow %}target="_blank"{% endif %}>#}

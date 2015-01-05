@@ -1,4 +1,4 @@
-<div class="row nomargin">
+<div class="row google-map nomargin">
     <h2>{{ resource.title }}</h2>
     {{ resource.content|raw }} 
 
@@ -6,8 +6,8 @@
 
     {% for item in resource.places %}
         <div class="image-thumbnail-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
-            {% if item.title  %}<h2>{{ item.title }}</h2>{% endif %}
-            <div class="image-thumbnail-img {% if item.imgClass %}{{ item.imgClass }}{% endif %}">
+            {% if item.title  %}<h3>{{ item.title }}</h3>{% endif %}
+            <div class="image-img {% if item.imgClass %}{{ item.imgClass }}{% endif %}">
                 {% if item.image is not empty %}
                     <a href="{{ item.url }}">
                         <img {% if item.responsive %}class='img-responsive'{% endif %} src="{{ asset(item.image.url | imagine_filter(item.size)) }}" {% if item.imageAltText is not empty %}alt="{{ item.imageAltText }}"{% endif %} />
@@ -15,7 +15,7 @@
                 {% endif %}
                 {#{{ resource.linkText }}#}
             </div>
-            <div class="image-thumbnail-text">{{ item.content | raw }}</div>
+            {% if item.content is not empty %}<p>{{ item.content | raw }}</p>{% endif %}
         </div>
     {% endfor %}
     {% endif %}
@@ -74,9 +74,9 @@
 	                    {% set desc = desc ~ "['<div class=\"info_content\">" %}
 	
 	                     {% if item.url %}
-	                            {% set desc = desc ~ "<a href=\""~ item.url ~"\"><h3>"~ item.title ~"</h3></a>" %}
+	                            {% set desc = desc ~ "<a href=\""~ item.url ~"\"><h4>"~ item.title ~"</h4></a>" %}
 	                    {% else %}
-	                            {% set desc = desc ~ "<h3>" ~ item.title  ~ "</h3>" %}
+	                            {% set desc = desc ~ "<h4>" ~ item.title  ~ "</h4>" %}
 	                    {% endif %}
 	                            {% set desc = desc ~ "<p>" ~ item.description ~ "</p></div>']," %}
 	                    {% endfor %}

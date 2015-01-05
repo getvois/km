@@ -1,10 +1,14 @@
 <div class="row gallery nomargin"> 
-    	<div class="{{ resource.wrapperClass }}  {% if resource.wrapperClass %}nopadding{% endif %}">
+    	<div {% if resource.wrapperClass %}class="{{ resource.wrapperClass }}  {% if resource.wrapperClass %}nopadding{% endif %}"{% endif %}>
+	        {% if resource.title %}
 	        <h3>{{ resource.title }}</h3>
-	        {{ resource.description|raw }}
+	        {% else %}
+	        <p></p>
+	        {% endif %}
+	        {{ resource.description|raw }} 
 	        <div class="row{% if resource.wrapperClass is not empty %} nomargin{% endif %}">
 	            {% for item in resource.images %}
-	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% endif %} ">
+	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% else %}col-md-12{% endif %} ">
 	                    <div class="image-img {% if item.class %}{{ item.class }}{% endif %}">
 	                        {% if item.picture is not empty %}
 	                            <a rel="group" href="{{ asset(item.picture.url | imagine_filter("1000x700")) }}" {% if item.title is not empty %}title="{{ item.title }}"{% endif %}>
@@ -13,7 +17,7 @@
 	                        {% endif %}
 	                        {#{{ resource.linkText }}#}
 	                    </div>
-	                    {% if item.title  %}<strong>{{ item.title }}</strong>{% endif %}
+	                    {% if item.title  %}<p>{{ item.title }}</p>{% endif %}
                         {% if item.copyrightUrl %}
                             <small class="image-copy"><a href="{{ item.copyrightUrl }}" target="_blank">
                                 {% if item.copyright  %}

@@ -212,28 +212,35 @@
 
                             <article class="main-article main-article--summary">
                                 {% if item.image %}
-                                    {% if item.imgSize == '1000' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
-                                    {% elseif item.imgSize == '300l' %}
+                                    {% if item.imgSize == '300l' %}
                                         <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
                                     {% elseif item.imgSize == '300r' %}
                                         <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
                                     {% endif %}
                                 {% endif %}
+                                
                                 <header>
                                     <time class="main-article__meta">
-                                        {{ item.date | date("d/m/Y") }}
+                                        {{ item.date | date("d.m.Y") }}
                                     </time>
                                     <h4 class="main-article__title">
                                         <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
                                     </h4>
                                 </header>
-                                {{ item.summary }}
+                                
+                                {% if item.image %}
+                                    {% if item.imgSize == '1000' %}
+                                        <img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
+                                    {% endif %}
+                                {% endif %}
+                                <p></p>
+                                <p>{{ item.summary }}</p>
                                 <p>
                                     <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
                                         Read more
                                     </a>
                                 </p>
+                                <div class="clear"></div>
                             </article>
 
                             {#<div class="news">#}
