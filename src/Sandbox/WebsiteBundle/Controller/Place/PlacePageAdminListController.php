@@ -9,6 +9,7 @@ use Kunstmaan\ArticleBundle\Controller\AbstractArticlePageAdminListController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * The AdminList controller for the PlacePage
@@ -29,7 +30,7 @@ class PlacePageAdminListController extends AbstractArticlePageAdminListControlle
      *
      * @Route("/", name="sandboxwebsitebundle_admin_place_placepage")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         return parent::doIndexAction($this->getAdminListConfigurator());
     }
@@ -41,7 +42,7 @@ class PlacePageAdminListController extends AbstractArticlePageAdminListControlle
      * @Method({"GET", "POST"})
      * @return array
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         return parent::doAddAction($this->getAdminListConfigurator());
     }
@@ -56,7 +57,7 @@ class PlacePageAdminListController extends AbstractArticlePageAdminListControlle
      *
      * @return array
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         return parent::doEditAction($this->getAdminListConfigurator(), $id);
     }
@@ -71,7 +72,7 @@ class PlacePageAdminListController extends AbstractArticlePageAdminListControlle
      *
      * @return array
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         return parent::doDeleteAction($this->getAdminListConfigurator(), $id);
     }
@@ -86,7 +87,7 @@ class PlacePageAdminListController extends AbstractArticlePageAdminListControlle
      *
      * @return array
      */
-    public function exportAction($_format)
+    public function exportAction(Request $request, $_format)
     {
         return parent::doExportAction($this->getAdminListConfigurator(), $_format);
     }

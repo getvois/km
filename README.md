@@ -42,7 +42,7 @@ Changes to kunstmaan bundles.
             'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
             'ä' => 'a',   'õ' => 'o',
         );
-        return strtr($string, $converter);
+        return strtr(strtolower($string), $converter);
     }
     
     
@@ -129,48 +129,6 @@ Changes to kunstmaan bundles.
 
      </script>
      
-     
-     
-### Change Swedish country code from **sv** to **se** and add Estonia language
-
-###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/SearchBundle/Resources/config/analyzer_languages.yml
-
-     //ADD
-     ++ ee: { analyzer: 'estonian' }
-     ++ se: { analyzer: 'swedish' }
-     
-     
-### Tagging bundle registry change
-
-###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/TaggingBundle/Controller/TagAdminListController.php
-
-    Change all routes to lowercase:
-
-    kunstmaantaggingbundle_admin_tag
-    kunstmaantaggingbundle_admin_tag_add
-    kunstmaantaggingbundle_admin_tag_edit
-    kunstmaantaggingbundle_admin_tag_delete
-    kunstmaantaggingbundle_admin_tag_autocomplete
-
-
-###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/TaggingBundle/Helper/Menu/TagMenuAdaptor.php
-
-    Change route to lowercase:
-    From:
-    $menuitem->setRoute('KunstmaanTaggingBundle_admin_tag');
-    To:
-    $menuitem->setRoute('kunstmaantaggingbundle_admin_tag');
-    
-### Tagging bundle default options fix
-
-###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/TaggingBundle/Form/TagsAdminType.php
-
-    //ADD
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults($this->getDefaultOptions([]));
-    }
-
 
 ### Option resolver bug fix
 
@@ -192,17 +150,3 @@ Changes to kunstmaan bundles.
         }
     }
     
-
-### Tag save
-
-###### File: /../vendor/fpn/doctrine-extensions-taggable/lib/DoctrineExtensions/Taggable/TagManager.php
-
-    public function saveTagging(Taggable $resource)
-    {
-
-        $oldTags = $this->getTagging($resource);
-        
-        //ADD clone
-        $newTags = clone $resource->getTags();
-        
-        $tagsToAdd = $newTags;
