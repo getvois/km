@@ -3,7 +3,7 @@
 @import url(http://fonts.googleapis.com/css?family=Noto+Serif:400,700);
 
 
-html body { 
+html body {  
     font-family: "Open Sans";
     letter-spacing: -0.3px;
 }
@@ -13,7 +13,20 @@ h1, h2, h3, h4, h5  {
 }
 .clear {
     clear:both;
+} 
+
+.nopadding, .no-padding {
+    padding: 0;
 }
+.nopadding-right {
+    padding-right: 0;
+}
+.nopadding-left {
+    padding-left: 0;  
+} 
+.nomargin, .no-margin {
+    margin: 0;
+} 
 
 /*pageparts gallery, googlemap */
 
@@ -29,8 +42,8 @@ h1, h2, h3, h4, h5  {
 	line-height: 1.8em;
 	margin-top: 10px;
 }
-.articlepage .image-img img {
-	border-radius:5px; 
+.img-left {
+	margin-right:20px;
 }
 
 .image-thumbnail-text {
@@ -42,7 +55,6 @@ h1, h2, h3, h4, h5  {
 .gallery h3, .google-map h3 {
     font-weight: 700;
 	padding: 5px 15px;
-	border-radius: 5px;
 	font-size: 22px;
 	background: #eee;
 	margin-top: 20px;
@@ -640,40 +652,6 @@ span.city-picker-close:hover {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.nopadding, .no-padding {
-    padding: 0;
-}
- 
-.nomargin, .no-margin {
-    margin: 0;
-}
 #ui-datepicker-div {
     z-index: 9999!important;
 }
@@ -784,7 +762,6 @@ label[for=ski], label[for=sun], label[for=spa] {
 .nav-tabs > li > a {border-radius:0;margin-right:0}
 /* Homepage articles */
 .view-homepage td.col-1 {width:50%;}
-article h2 {font-size: 18px;}
 .article-headaaa {top:50%;position:relative;transform:translateY(-50%)}
 /*#header-inside,*/
 .article-bg {

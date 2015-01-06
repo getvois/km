@@ -173,7 +173,7 @@
                                         {{ item.date | date("d/m/Y") }}
                                     </time>
                                     <h4 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ page.priceFrom }}</span></a>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ item.priceFrom }}</span></a>
                                     </h4>
                                 </header>
                                 {{ item.summary }}
@@ -213,24 +213,22 @@
                             <article class="main-article main-article--summary">
                                 {% if item.image %}
                                     {% if item.imgSize == '300l' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive img-left pull-left"/></a>
                                     {% elseif item.imgSize == '300r' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
                                     {% endif %}
                                 {% endif %}
                                 
                                 <header>
-                                    <time class="main-article__meta">
-                                        {{ item.date | date("d.m.Y") }}
-                                    </time>
-                                    <h4 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ page.priceFrom }}</span></a>
-                                    </h4>
+                                    <h2 class="main-article__title">
+                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ item.priceFrom }}</span></a>
+                                    </h2>
+                                    <time class="main-article__meta">{{ item.date | date("d.m.Y") }}</time>
                                 </header>
-                                
+                               
                                 {% if item.image %}
                                     {% if item.imgSize == '1000' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/></a>
                                     {% endif %}
                                 {% endif %}
                                 <p></p>

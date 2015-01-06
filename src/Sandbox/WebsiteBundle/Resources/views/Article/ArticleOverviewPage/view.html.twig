@@ -6,17 +6,35 @@
 
     {% set count = 0 %}
     {% if pagerfanta.nbResults > 0 %}
-        <ul class="article__overview--list">
+        <div class="article__overview--list">
             {% for article in pagerfanta.currentPageResults %}
-                <li class="article__overview--list-item">
+                <article class="main-article main-article--summary article__overview--list-item"> 
                     {% set articlenode = get_node_translation_for(article) %}
-                    <h4><a href="{{ articlenode.url }}">{{ article.title }}</a><span class="price-from pull-right">{{ article.priceFrom }}</span></h4>
-                    {{ article.summary }}
-                    <time>{{ article.date | date("d/m/Y")}}</time>
-                </li>
+                    {% if article.image %}
+                        {% if article.imgSize == '300l' %}
+                            <a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive img-left pull-left"/></a>
+                        {% elseif article.imgSize == '300r' %}
+                            <a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <header>
+                    	<h2><a href="{{ articlenode.url }}">{{ article.title }}</a><span class="price-from pull-right">{{ article.priceFrom }}</span></h2>
+                     	<time>{{ article.date | date("d.m.Y")}}</time>
+                    </header> 
+                    
+                    {% if article.image %}
+                        {% if article.imgSize == '1000' %}
+                            <a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/></a>
+                        {% endif %}
+                    {% endif %}
+                    <p></p>
+                    <p>{{ article.summary }}</p>
+                    <div class="clear"></div>
+                </article>
                 {% set count = count + 1 %}
             {% endfor %}
-        </ul>
+        </div>
         {% if pagerfanta.haveToPaginate() %}
             {{ pagerfanta(pagerfanta) }}
         {% endif %}

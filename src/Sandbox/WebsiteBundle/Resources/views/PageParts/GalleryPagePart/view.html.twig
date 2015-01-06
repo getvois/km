@@ -6,9 +6,9 @@
 	        <p></p>
 	        {% endif %}
 	        {{ resource.description|raw }} 
-	        <div class="row{% if resource.wrapperClass is not empty %} nomargin{% endif %}">
+	        <div class="row{% if resource.wrapperClass is not empty %}{% endif %}">
 	            {% for item in resource.images %}
-	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }}{% else %}col-md-12{% endif %} ">
+	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }} {% else %}col-md-12{% endif %} ">
 	                    <div class="image-img">
 	                        {% if item.picture is not empty %}
 	                            <a rel="group" href="{{ asset(item.picture.url | imagine_filter("1000x700")) }}" {% if item.title is not empty %}title="{{ item.title }}"{% endif %}>
@@ -36,11 +36,11 @@
 	    </div>    
 	         
 	     {% if resource.wrapperClass == "col-md-6"  %}
-	     <div class="col-md-6">
+	     <div class="col-md-6 nopadding-right">
 	     	 {% include "@SandboxWebsite/Banner/col6.html.twig" %}
 	     </div>
 	     {% elseif resource.wrapperClass == "col-md-8"  %}
-	     <div class="col-md-4">
+	     <div class="col-md-4 nopadding-right">
 	     	 {% include "@SandboxWebsite/Banner/col4.html.twig" %}
 	     </div>
 	     {% endif %} 
