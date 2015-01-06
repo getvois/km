@@ -12,7 +12,7 @@
                     {% set articlenode = get_node_translation_for(article) %}
                     <header>
                     	<h2>
-                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom }}</span></div></div></div>{% endif %}
+                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom | trans({}, 'priceFrom') }}</span></div></div></div>{% endif %}
                     		<a href="{{ articlenode.url }}">{{ article.title }}</a>
                     	</h2>
                     <div class="clear"></div>

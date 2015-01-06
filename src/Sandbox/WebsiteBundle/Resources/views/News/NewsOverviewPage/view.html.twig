@@ -10,7 +10,7 @@
             {% for article in pagerfanta.currentPageResults %}
                 <li class="article__overview--list-item">
                     {% set articlenode = get_node_translation_for(article) %}
-                    <h4><a href="{{ articlenode.url }}">{{ article.title }}</a><span class="price-from pull-right">{{ article.priceFrom }}</span></h4>
+                    <h4><a href="{{ articlenode.url }}">{{ article.title }}</a><span class="price-from pull-right">{{ article.priceFrom | trans({}, 'priceFrom') }}</span></h4>
                     {{ article.summary }}
                     <time>{{ article.date | date("d/m/Y")}}</time>
                 </li>

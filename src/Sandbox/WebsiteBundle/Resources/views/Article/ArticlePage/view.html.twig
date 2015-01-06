@@ -24,7 +24,7 @@
     <div class="articlepage">
     <header> 
     <h1>
-    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
+    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom | trans({}, 'priceFrom') }}</span></div></div></div>{% endif %}
            {{ page.title }}
     </h1>
     <div class="clear"></div>
