@@ -194,7 +194,8 @@
 
                                         <ul style="display: none;">
 
-                                            {% for node2 in node.children %}
+
+                                            {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                 {% if node2.nodeTranslation(lang) %}
                                                     {% set placePage = node2.nodeTranslation(lang).ref(em) %}
                                                     {% for h2 in  placePage.hosts %}
@@ -219,7 +220,7 @@
 
 
 
-                                                                    {% for node3 in node2.children.count %}
+                                                                    {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                                         {% if node3.nodeTranslation(lang) %}
                                                                             {% set placePage = node3.nodeTranslation(lang).ref(em) %}
                                                                             {% for h3 in placePage.hosts %}
@@ -342,13 +343,10 @@
                             {% if node.children.count > 0 %}
 
 
-
-
-
                                 <ul style="display: none;">
 
                                     {% for node2 in node.children %}
-                                        {% if node2.nodeTranslation(lang) %}
+                                        {% if node2.nodeTranslation(lang) and node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                             <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
                                                 {% if node2.children.count > 0 %}
                                                     <i class="glyphicon glyphicon-chevron-down"></i>
@@ -366,7 +364,7 @@
 
 
 
-                                                    {% for node3 in node2.children.count %}
+                                                    {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                         {% if node3.nodeTranslation(lang) %}
                                                             <ul style="display: none;">
 

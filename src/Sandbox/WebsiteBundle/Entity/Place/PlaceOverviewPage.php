@@ -200,6 +200,9 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
 
     public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [], $host)
     {
+        if($node->getRefEntityName() != 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage')
+            return;
+
         $nodeTranslation = $node->getNodeTranslation($locale);
         if($nodeTranslation && $nodeTranslation->isOnline()){
             /** @var PlaceOverviewPage $placeOverviewPage */
@@ -241,6 +244,9 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
 
     public function getSubArticles(Node $node, $locale,ObjectManager $em, &$articles = [], $host)
     {
+        if($node->getRefEntityName() != 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage')
+            return;
+
         $nodeTranslation = $node->getNodeTranslation($locale);
         if($nodeTranslation && $nodeTranslation->isOnline()){
             /** @var PlaceOverviewPage $placeOverviewPage */

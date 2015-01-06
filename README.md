@@ -40,7 +40,20 @@ Changes to kunstmaan bundles.
             'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
             'Ь' => '',    'Ы' => 'Y',   'Ъ' => '',
             'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
-            'ä' => 'a',   'õ' => 'o',
+
+            'ä' => 'a',   'á' => 'a',   'à' => 'a',
+            'å' => 'a',   'é' => 'e',   'è' => 'e',
+            'ë' => 'e',   'í' => 'i',   'ì' => 'i',
+            'ï' => 'i',   'ó' => 'o',   'ò' => 'o',
+            'ö' => 'o',   'ú' => 'u',   'ù' => 'u',
+            'ü' => 'u',   'ñ' => 'n',   'ß' => 'ss',
+            'æ' => 'ae',  'õ' => 'o',   'š' => 's',
+            'ž' => 'z',
+
+            'Ü' => 'U',   'Š' => 'S',   'Ä' => 'A',
+            'Õ' => 'O',   'Ž' => 'z',
+
+            '–' => '-',
         );
         return strtr(strtolower($string), $converter);
     }
@@ -62,7 +75,7 @@ Changes to kunstmaan bundles.
                 /* End */
                 
                 setlocale(LC_CTYPE, 'en_US.UTF8');
-                $text = iconv('utf-8', 'us-ascii//IGNORE//TRANSLIT', $text);
+                $text = iconv('utf-8', 'ISO-8859-1//IGNORE//TRANSLIT', $text);
                 setlocale(LC_CTYPE, $previouslocale);
             }
     

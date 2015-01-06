@@ -183,7 +183,7 @@
 
                         <ul style="display: none;">
 
-                            {% for node2 in node.children %}
+                            {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                 {% if node2.nodeTranslation(lang) %}
                                     <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
                                         {% if node2.children.count > 0 %}

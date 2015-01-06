@@ -25,6 +25,45 @@
                 {% for article in places %}
                     {% if host %}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
+                            {% if article.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                <li class="article__overview--list-item">
+                                    {#{{ dump(article) }}#}
+                                    {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
+                                    {#{% set articlenode = get_node_translation_for(article) %}#}
+                                    <h4><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h4>
+                                    {# 2 level #}
+                                    {% if article.node.children.count > 0 %}
+                                        <ul class="article__overview--list">
+                                            {% for node in article.node.children if node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                {% if host in node.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                                    <li class="article__overview--list-item">
+                                                        <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
+
+                                                        {# 3 level #}
+                                                        {% if node.children.count > 0 %}
+                                                            <ul class="article__overview--list">
+                                                                {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                                    {% if host in node2.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                                                        <li class="article__overview--list-item">
+                                                                            <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+
+                                    {#{{ article.summary }}#}
+                                    {#<time>{{ article.date | date("d/m/Y")}}</time>#}
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% if article.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                             <li class="article__overview--list-item">
                                 {#{{ dump(article) }}#}
                                 {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
@@ -33,23 +72,24 @@
                                 {# 2 level #}
                                 {% if article.node.children.count > 0 %}
                                     <ul class="article__overview--list">
-                                        {% for node in article.node.children%}
-                                            {% if host in node.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                        {% for node in article.node.children if node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                            {% if node.NodeTranslation(lang) %}
                                                 <li class="article__overview--list-item">
                                                     <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
 
                                                     {# 3 level #}
                                                     {% if node.children.count > 0 %}
                                                         <ul class="article__overview--list">
-                                                            {% for node2 in node.children%}
-                                                                {% if host in node2.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
-                                                                    <li class="article__overview--list-item">
-                                                                        <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
-                                                                    </li>
-                                                                {% endif %}
+                                                            {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                                <li class="article__overview--list-item">
+                                                                    <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
+
+
+                                                                </li>
                                                             {% endfor %}
                                                         </ul>
                                                     {% endif %}
+
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
@@ -60,42 +100,6 @@
                                 {#<time>{{ article.date | date("d/m/Y")}}</time>#}
                             </li>
                         {% endif %}
-                    {% else %}
-                        <li class="article__overview--list-item">
-                            {#{{ dump(article) }}#}
-                            {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
-                            {#{% set articlenode = get_node_translation_for(article) %}#}
-                            <h4><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h4>
-                            {# 2 level #}
-                            {% if article.node.children.count > 0 %}
-                                <ul class="article__overview--list">
-                                    {% for node in article.node.children%}
-                                        {% if node.NodeTranslation(lang) %}
-                                            <li class="article__overview--list-item">
-                                                <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
-
-                                                {# 3 level #}
-                                                {% if node.children.count > 0 %}
-                                                    <ul class="article__overview--list">
-                                                        {% for node2 in node.children%}
-                                                            <li class="article__overview--list-item">
-                                                                <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
-    
-
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% endif %}
-
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-
-                            {#{{ article.summary }}#}
-                            {#<time>{{ article.date | date("d/m/Y")}}</time>#}
-                        </li>
                     {% endif %}
 
 
@@ -106,6 +110,142 @@
             {#{{ pagerfanta(pagerfanta) }}#}
             {#{% endif %}#}
         {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {#{{ render_pageparts(page, 'main') }}#}
+        {% set count = 0 %}
+        {# 1 level #}
+        {% if places > 0 %}
+                {% for article in places %}
+                    {% if host %}
+                        {% if host in article.publicNodeVersion.getRef(em).hosts %}
+                            {% if article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                <h2><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h2>
+                                {#<ul class="company--list">#}
+                                {#<li class="article__overview--list-item">#}
+                                    {#{{ dump(article) }}#}
+                                    {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
+                                    {#{% set articlenode = get_node_translation_for(article) %}#}
+                                    {# 2 level #}
+                                    {% if article.node.children.count > 0 %}
+                                        <ul class="article__overview--list">
+                                            {% for node in article.node.children if node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                {% if host in node.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                                    <li class="article__overview--list-item">
+                                                        <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
+
+                                                        {# 3 level #}
+                                                        {% if node.children.count > 0 %}
+                                                            <ul class="article__overview--list">
+                                                                {% for node2 in node.children if node2.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                                    {% if host in node2.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
+                                                                        <li class="article__overview--list-item">
+                                                                            <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+
+                                    {#{{ article.summary }}#}
+                                    {#<time>{{ article.date | date("d/m/Y")}}</time>#}
+                                {#</li>#}
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% if article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                <h2><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h2>
+                                    {#<ul class="company--list">#}
+                            {#<li class="article__overview--list-item">#}
+                                {#{{ dump(article) }}#}
+                                {#{{ dump(article.publicNodeVersion.getRef(em)) }}#}
+                                {#{% set articlenode = get_node_translation_for(article) %}#}
+                                {# 2 level #}
+                                {% if article.node.children.count > 0 %}
+                                    <ul class="article__overview--list">
+                                        {% for node in article.node.children if node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                            {% if node.NodeTranslation(lang) %}
+                                                <li class="article__overview--list-item">
+                                                    <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
+
+                                                    {# 3 level #}
+                                                    {% if node.children.count > 0 %}
+                                                        <ul class="article__overview--list">
+                                                            {% for node2 in node.children if node2.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                                <li class="article__overview--list-item">
+                                                                    <h5><a href="{{ node2.NodeTranslation(lang).url }}">{{ node2.NodeTranslation(lang).title }}</a></h5>
+
+
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
+
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+
+                                {#{{ article.summary }}#}
+                                {#<time>{{ article.date | date("d/m/Y")}}</time>#}
+                            {#</li>#}
+                        {% endif %}
+                    {% endif %}
+
+
+                    {% set count = count + 1 %}
+                {% endfor %}
+            {#</ul>#}
+            {#{% if pagerfanta.haveToPaginate() %}#}
+            {#{{ pagerfanta(pagerfanta) }}#}
+            {#{% endif %}#}
+        {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
@@ -220,7 +360,9 @@
 								        <div class="to-places pull-right">
 								        <span class="glyphicon glyphicon-map-marker"></span>
 								        {% for place in item.places %}
-								            <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %} 
+                                            {% if get_node_translation_for(place) %}
+								                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}
+                                            {% endif %}
 								        {% endfor %}
 								        </div>
 								    {% endif %}

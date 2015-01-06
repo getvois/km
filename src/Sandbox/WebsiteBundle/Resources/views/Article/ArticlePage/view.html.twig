@@ -27,7 +27,9 @@
         <div class="to-places pull-right">
         <span class="glyphicon glyphicon-map-marker"></span>
         {% for place in page.places %}
-            <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %} 
+            {% if get_node_translation_for(place) %}
+                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}
+            {% endif %}
         {% endfor %}
         </div>
     {% endif %}
