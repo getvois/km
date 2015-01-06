@@ -23,6 +23,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RouteController extends Controller
 {
+
+    public function slashAction(Request $request, $path)
+    {
+        if($path[strlen($path)-1] == "/"){
+            $path = trim($path, "/");
+            return $this->redirect("http://" . $request->getHost() . $request->getBaseUrl() . "/" . $path);
+        }
+    }
+
     /**
      * @Route("{_locale}/{countryPrefix}/{path}/")
      * @param $path

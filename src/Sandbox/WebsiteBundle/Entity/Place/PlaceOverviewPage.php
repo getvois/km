@@ -210,7 +210,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
                 //get node version
                 /** @var NodeVersion $nodeVersion */
                 $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
-                $nodeVersion = $nodeVersion->getNodeTranslation()->getPublicNodeVersion();
+                $nodeVersion = ($nodeVersion)?$nodeVersion->getNodeTranslation()->getPublicNodeVersion():null;
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()
@@ -250,7 +250,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
                 //get node version
                 /** @var NodeVersion $nodeVersion */
                 $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')->getNodeVersionFor($item);
-                $nodeVersion = $nodeVersion->getNodeTranslation()->getPublicNodeVersion();
+                $nodeVersion = ($nodeVersion)?$nodeVersion->getNodeTranslation()->getPublicNodeVersion():null;
                 //check node online and lang
                 if($nodeVersion
                     && $nodeVersion->getNodeTranslation()->isOnline()

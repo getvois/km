@@ -81,14 +81,6 @@ KunstmaanTaggingBundle:
      prefix:   /{_locale}/
      requirements:
          _locale: %requiredlocales%
-
-#Router:
-#    pattern: "/visit/{path}"
-#    defaults: { _controller: "SandboxWebsiteBundle:Route:path" }
-#    prefix:   /{_locale}/
-#    requirements:
-#        path: "/visit/.+"
-#
 Router:
     path:      /{_locale}/{countryPrefix}/{path}
     defaults:  { _controller: "SandboxWebsiteBundle:Route:path" }
@@ -96,3 +88,9 @@ Router:
         _locale: %requiredlocales%
         countryPrefix: visit|jkhgh
         path: ".+"
+
+Slash:
+    pattern: "/{path}"
+    defaults: { _controller: "SandboxWebsiteBundle:Route:slash" }
+    requirements:
+        path: ".+/"
