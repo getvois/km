@@ -210,19 +210,28 @@
                 {% if articles is not null %}
                     {% if articles > 0 %}
                          
-                                
+                        <div class="articlepage">        
                         {% for item in articles %}
                             {% set articlenode = get_node_translation_for(item) %}
                             {#{{ dump(item) }}#}
-
-                            <article class="main-article main-article--summary">
-                               {% if item.priceFrom %}<div class="price-from price-from-img pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
-                            	<header>
-                                    <h2 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+							<article class="main-article main-article--summary article__overview--list-item"> 
+								<header>
+	                               {% if item.places.count > 0 %}
+								        <div class="to-places pull-right">
+								        <span class="glyphicon glyphicon-map-marker"></span>
+								        {% for place in item.places %}
+								            <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %} 
+								        {% endfor %}
+								        </div>
+								    {% endif %}
+		    
+		    						<time>{{ item.date | date("F jS H:i")}}</time>
+                            	
+                                    <h2>
+                                        {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
+                    					<a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
                                     </h2>
-                                    <time class="main-article__meta">{{ item.date | date("d.m.Y") }}</time>
-                                </header>
+                            	</header>
                                 {% if item.image %}
 		                            {% if item.imgSize == '300l' %}
 		               	 				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
@@ -257,6 +266,7 @@
                             {#</div>#}
                         {% endfor %}
                     {% endif %}
+                    </div>
                 {% else %}
                     No articles
                 {% endif %}

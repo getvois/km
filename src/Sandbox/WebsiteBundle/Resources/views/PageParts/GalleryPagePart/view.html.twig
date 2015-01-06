@@ -5,7 +5,7 @@
 	        {% else %}
 	        <p></p>
 	        {% endif %}
-	        {{ resource.description|raw }} 
+	        {{ resource.description|raw }}  
 	        <div class="row{% if resource.wrapperClass is not empty %}{% endif %}">
 	            {% for item in resource.images %}
 	                <div class="image-wrapper {% if item.wrapperClass %}{{ item.wrapperClass }} {% else %}col-md-12{% endif %} ">
@@ -32,7 +32,7 @@
 	                </div>
 	            {% endfor %}
 	        </div>
-	       
+	        
 	    </div>    
 	         
 	     {% if resource.wrapperClass == "col-md-6"  %}

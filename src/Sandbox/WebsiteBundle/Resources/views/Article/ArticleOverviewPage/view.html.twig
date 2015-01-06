@@ -6,19 +6,27 @@
 
     {% set count = 0 %}
     {% if pagerfanta.nbResults > 0 %}
-        <div class="article__overview--list">
+        <div class="articlepage">
             {% for article in pagerfanta.currentPageResults %}
                 <article class="main-article main-article--summary article__overview--list-item"> 
                     {% set articlenode = get_node_translation_for(article) %}
                     <header>
+                    	 {% if article.places.count > 0 %}
+					        <div class="to-places pull-right">
+					        <span class="glyphicon glyphicon-map-marker"></span>
+					        {% for place in article.places %}
+					            <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %} 
+					        {% endfor %}
+					        </div>
+					    {% endif %}
+					    <time>{{ article.date | date("F jS H:i")}}</time>
                     	<h2>
-                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom | trans({}, 'priceFrom') }}</span></div></div></div>{% endif %}
+                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom }}</span></div></div></div>{% endif %}
                     		<a href="{{ articlenode.url }}">{{ article.title }}</a>
                     	</h2>
                     <div class="clear"></div>
-                    <time>{{ article.date | date("d.m.Y")}}</time>
-                    </header> 
                     
+                    </header>  
                     
                     {% if article.image %} 
                     	{% if article.imgSize == '300l' %}

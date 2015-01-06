@@ -12,7 +12,7 @@
     {% else %}
         {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}
     {% endif %}
-{% endblock %}
+{% endblock %} 
 
 {% block sidebar %}
     {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
@@ -23,12 +23,21 @@
 {% block content %}
     <div class="articlepage">
     <header> 
+    {% if page.places.count > 0 %}
+        <div class="to-places pull-right">
+        <span class="glyphicon glyphicon-map-marker"></span>
+        {% for place in page.places %}
+            <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %} 
+        {% endfor %}
+        </div>
+    {% endif %}
+    <time>{{ page.date | date("F jS H:i")}}</time>
     <h1>
-    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom | trans({}, 'priceFrom') }}</span></div></div></div>{% endif %}
+    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
            {{ page.title }}
     </h1>
     <div class="clear"></div>
-    <time>{{ page.date | date("d.m.Y")}}</time>
+    
     </header> 
     
     
@@ -40,14 +49,7 @@
         {% endfor %}
         </div>
     {% endif %}
-    {% if page.places.count > 0 %}
-        <div class="to-places">
-        To:
-        {% for place in page.places %}
-            <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
-        {% endfor %}
-        </div>
-    {% endif %}
+    
     
     {% if page.image and page.imageOnlyOnPreview == false %}
     		<img src="{{ asset(page.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>

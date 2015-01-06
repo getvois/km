@@ -45,6 +45,17 @@ h1, h2, h3, h4, h5  {
 	line-height: 1.8em;
 	margin-top: 10px;
 }
+
+.to-places { 
+	font-size: 18px; 
+}
+.to-places a { 
+	text-decoration:underline;
+}
+
+time {
+	color: #999;
+}
 .img-left {
 	margin-right:20px;
 }
@@ -116,10 +127,9 @@ body .splash--green {
 .price-from {
     position:relative;
     margin-left: 20px;
-    margin-top:-5px;
+    margin-top:-12px;
 }
 .price-from-img {
-    margin-top: 0px;
     right: -5px;
 }
 .price-from-img-left {
