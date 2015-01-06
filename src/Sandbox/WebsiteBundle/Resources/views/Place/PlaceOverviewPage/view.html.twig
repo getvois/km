@@ -155,24 +155,26 @@
                 <!-- News pane -->
                 {% if news is not null %}
                     {% if news > 0 %}
+                        
+                        {% if item.image %}
+                            {% if item.imgSize == '300l' %}
+                                {% if item.priceFrom %}<div class="price-from price-from-img-left pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
+               	 				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
+                            {% elseif item.imgSize == '300r' %}
+                                {% if item.priceFrom %}<div class="price-from price-from-img pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
+                				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                            {% endif %}
+                        {% endif %}
+                                
                         {#<h2>News</h2>#}
                         {% for item in news %}
                             {% set articlenode = get_node_translation_for(item) %}
                             {#{{ dump(item) }}#}
 
                             <article class="main-article main-article--summary">
-                                {% if item.image %}
-                                    {% if item.imgSize == '1000' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
-                                    {% elseif item.imgSize == '300l' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
-                                    {% elseif item.imgSize == '300r' %}
-                                        <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
-                                    {% endif %}
-                                {% endif %}
                                 <header>
                                     <time class="main-article__meta">
-                                        {{ item.date | date("d/m/Y") }}
+                                        {{ item.date | date("d.m.Y") }}
                                     </time>
                                     <h4 class="main-article__title">
                                         <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ item.priceFrom }}</span></a>
@@ -207,26 +209,28 @@
                 <!-- Articles pane -->
                 {% if articles is not null %}
                     {% if articles > 0 %}
-                        {#<h2>News</h2>#}
+                         
+                                
                         {% for item in articles %}
                             {% set articlenode = get_node_translation_for(item) %}
                             {#{{ dump(item) }}#}
 
                             <article class="main-article main-article--summary">
-                                {% if item.image %}
-                                    {% if item.imgSize == '300l' %}
-                                        <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive img-left pull-left"/></a>
-                                    {% elseif item.imgSize == '300r' %}
-                                        <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
-                                    {% endif %}
-                                {% endif %}
-                                
-                                <header>
+                               {% if item.priceFrom %}<div class="price-from price-from-img pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
+                            	<header>
                                     <h2 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ item.priceFrom }}</span></a>
+                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
                                     </h2>
                                     <time class="main-article__meta">{{ item.date | date("d.m.Y") }}</time>
                                 </header>
+                                {% if item.image %}
+		                            {% if item.imgSize == '300l' %}
+		               	 				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
+		                            {% elseif item.imgSize == '300r' %}
+		                				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+		                            {% endif %}
+		                        {% endif %}
+                                
                                
                                 {% if item.image %}
                                     {% if item.imgSize == '1000' %}

@@ -10,18 +10,25 @@
             {% for article in pagerfanta.currentPageResults %}
                 <article class="main-article main-article--summary article__overview--list-item"> 
                     {% set articlenode = get_node_translation_for(article) %}
-                    {% if article.image %}
-                        {% if article.imgSize == '300l' %}
-                            <a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive img-left pull-left"/></a>
+                    <header>
+                    	<h2>
+                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom }}</span></div></div></div>{% endif %}
+                    		<a href="{{ articlenode.url }}">{{ article.title }}</a>
+                    	</h2>
+                    <div class="clear"></div>
+                    <time>{{ article.date | date("d.m.Y")}}</time>
+                    </header> 
+                    
+                    
+                    {% if article.image %} 
+                    	{% if article.imgSize == '300l' %}
+                       	 	<a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive img-left pull-left"/></a>
                         {% elseif article.imgSize == '300r' %}
-                            <a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
+                        	<a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
                         {% endif %}
                     {% endif %}
                     
-                    <header>
-                    	<h2><a href="{{ articlenode.url }}">{{ article.title }}</a><span class="price-from pull-right">{{ article.priceFrom }}</span></h2>
-                     	<time>{{ article.date | date("d.m.Y")}}</time>
-                    </header> 
+                    
                     
                     {% if article.image %}
                         {% if article.imgSize == '1000' %}
@@ -30,7 +37,7 @@
                     {% endif %}
                     <p></p>
                     <p>{{ article.summary }}</p>
-                    <div class="clear"></div>
+                    <div class="clear"></div> 
                 </article>
                 {% set count = count + 1 %}
             {% endfor %}

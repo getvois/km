@@ -22,9 +22,16 @@
 
 {% block content %}
     <div class="articlepage">
+    <header> 
+    <h1>
+    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
+           {{ page.title }}
+    </h1>
+    <div class="clear"></div>
+    <time>{{ page.date | date("d.m.Y")}}</time>
+    </header> 
     
-    <h1>{{ page.title }}<span class="price-from pull-right">{{ page.priceFrom }}</span></h1>
-     
+    
     {% if page.fromPlaces.count > 0 %}
         <div class="from-places">
         From:
@@ -43,7 +50,7 @@
     {% endif %}
     
     {% if page.image and page.imageOnlyOnPreview == false %}
-            <img src="{{ asset(page.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
+    		<img src="{{ asset(page.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
             <p></p>
     {% endif %}
                   
