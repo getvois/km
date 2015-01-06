@@ -49,6 +49,8 @@ class HostAdminType extends AbstractType
                 return $er->getByLang($locale);
             }
         ]);
+
+        $builder->add('locale');
     }
 
     /**
