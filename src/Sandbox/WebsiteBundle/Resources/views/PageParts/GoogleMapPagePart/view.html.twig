@@ -64,7 +64,7 @@
 	                            {% set desc = desc ~ "<p>" ~ item.content | raw ~ "</p></div>']," %}
 	                    {% endfor %}
 	
-	                    {{ desc | trim(',') | nl2br | raw}}
+	                    {{ desc | trim(',')  | raw| nl2br}}
 	                ];
 	
 	                // Display multiple markers on a map
