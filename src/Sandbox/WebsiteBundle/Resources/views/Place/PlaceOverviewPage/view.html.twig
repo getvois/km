@@ -34,7 +34,7 @@
                                     {# 2 level #}
                                     {% if article.node.children.count > 0 %}
                                         <ul class="article__overview--list">
-                                            {% for node in article.node.children if node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                            {% for node in article.node.children if node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" and node.NodeTranslation(lang) %}
                                                 {% if host in node.NodeTranslation(lang).publicNodeVersion.getRef(em).hosts %}
                                                     <li class="article__overview--list-item">
                                                         <h5><a href="{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
