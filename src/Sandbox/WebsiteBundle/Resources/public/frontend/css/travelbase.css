@@ -279,6 +279,187 @@ label[for=amount]{
 }
 
 
+
+
+
+/* TRIP */
+.trip {
+    -moz-user-select: none;
+    border-color: rgba(143, 143, 143, 0.05) rgba(143, 143, 143, 0.15) #fff;
+    border-left: 1px solid rgba(143, 143, 143, 0.15);
+    border-right: 1px solid rgba(143, 143, 143, 0.15);
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    margin-bottom: -1px;
+    overflow: auto;
+    padding: 13px 16px;
+}
+.trip:first-child {
+    border-top: 1px solid rgba(143, 143, 143, 0.26) !important;
+}
+.trip:last-child {
+    border-bottom: 1px solid rgba(143, 143, 143, 0.26) !important;
+}
+.trip:hover {
+    background-color: rgba(33, 7, 100, 0.1);
+}
+.trip > div {
+    min-height: 0 !important;
+}
+.trip-duration {
+    color: rgb(139, 139, 139);
+    font-size: 15px;
+    margin: 13px 0 0;
+    text-align: right;
+}
+.trip-path {
+    /*margin-left: 32px;*/
+}
+.trip-path-point {
+    display: inline-block;
+    text-align: center;
+    width: 70px;
+}
+.trip-path-point-airport {
+    font-family: "Open Sans",sans-serif;
+    font-weight: 600;
+}
+.trip-path-point-airport-demp {
+    font-size: 12px;
+    width: 60px;
+}
+.trip:hover .trip-path-point-airport-demp > .trip-path-point-time {
+    height: 12px;
+    opacity: 1;
+}
+.trip-path-point-airport-demp > .trip-path-point-time {
+    height: 0;
+    opacity: 0;
+}
+.trip:not(.selected-trip) .trip-path-point-airport-demp > .trip-path-point-time {
+    line-height: 0;
+}
+.trip:hover:not(.selected-trip) .trip-path-point-airport-demp > .trip-path-point-time {
+    line-height: inherit;
+}
+.trip-path-point-time {
+    color: rgba(21, 80, 73, 0.86);
+    font-family: "Open Sans",sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+.trip-path-spacer {
+    display: inline-block;
+    padding: 7px 0 0;
+    vertical-align: top;
+}
+.trip-path-spacer-label {
+    font-size: 12px;
+    height: 8px;
+    margin-left: 1px;
+    margin-top: 26px;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    vertical-align: top;
+}
+.trip:hover .trip-path-spacer-label {
+    opacity: 1;
+}
+.trip-path-spacer-arrow-wrapper {
+    display: table;
+    margin: 5px 0 0;
+    position: relative;
+}
+.trip-path-spacer-line {
+    display: table-cell;
+    height: 14px;
+    opacity: 0.2;
+    overflow: hidden;
+    word-break: break-all;
+}
+.trip-path-spacer-line > div {
+    border-bottom: 1px solid rgb(104, 104, 104);
+    height: 15px;
+}
+.trip-path-spacer-arrow-layover > .trip-path-spacer-line > div {
+    border-bottom: 1px dashed rgb(104, 104, 104);
+}
+.trip-path-spacer-arrow {
+    display: table-cell;
+    font-size: 10px;
+    height: 14px;
+    opacity: 0.4;
+    vertical-align: middle;
+    width: 1px;
+}
+.trip-path-spacer-arrow:before {
+    content: "▶";
+}
+.trip-cost {
+    text-align: center;
+}
+.trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p {
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+}
+.trip:hover .trip-btn-cost {
+    display: block;
+}
+.trip:hover p {
+    display: none;
+}
+
+
+.trip-cost > p {
+    color: #468847;
+    padding: 10px 0 0;
+}
+.trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close {
+    display: none;
+    height: 40px;
+}
+
+
+.airline {
+    display: inline-block;
+    height: 16px;
+    margin: 1px 0 0;
+    opacity: 0.6;
+    width: 18px;
+}
+
+
+.travelbase_items.travelbase_items_sp td {
+    padding: 0 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.travelbase_items .price{
+    font-size: 20px;
+    font-weight: bold;
+    color: #468847;
+    padding: 10px 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* old needs refactoring */
 
 

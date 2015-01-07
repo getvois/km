@@ -30,6 +30,7 @@ class DefaultController extends Controller
     /**
      * @Route("/api-filter/{body}")
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function filterAction(Request $request, $body)
     {
@@ -70,22 +71,38 @@ class DefaultController extends Controller
 
             $table = "";
             if($body){
-                $table = '<table><tr>' .
-                  '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
-                  //'<th><a href="#" data-field="company">Company</a></th>' .
-                  '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
-                  '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
-                  '<th><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></th>' .
-                  //'<th><a href="#" data-field="info">Info</a></th>' .
-                  '<th><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></th>' .
-                  '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
-                  '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
+
+                if(in_array(4, $filter->type)){//flights only(skypicker)
+                    $table = '<table><tr>' .
+                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
+                        '<th>Dur./Stops</th>' .
+                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
+//                        '<th>Time</th>' .
+                        '<th></th>' .
+                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
+//                        '<th>Arrival</th>' .
+                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>';
+
+                }else{
+                    $table = '<table><tr>' .
+                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
+                        //'<th><a href="#" data-field="company">Company</a></th>' .
+                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
+                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
+                        '<th><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></th>' .
+                        //'<th><a href="#" data-field="info">Info</a></th>' .
+                        '<th><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></th>' .
+                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
+                        '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
+                }
+
+
             }
 
             $data = $result->items;
 
             foreach ($data as $item) {
-                $table .= $this->itemToRow($item);
+                $table .= $this->itemToRow($item, $filter);
             }
 
             $table .= '<script>$(".my-popover").popover();</script><script></script>';
@@ -110,7 +127,7 @@ class DefaultController extends Controller
 
     private $prevDate = "";
     private $dateCount = 0;
-    private function itemToRow($item){
+    private function itemToRow($item, $filter){
 
         if(!$item->info) $item->info = "";
         if(!$item->duration) $item->duration = "";
@@ -125,7 +142,7 @@ class DefaultController extends Controller
             $hotel = 'Hotel with 1 night stay only';
         }
 
-        $date = substr($item->date, 8,2). "." .substr($item->date, 5,2). "." . substr($item->date, 2,2);
+        $date = substr($item->dDate, 8,2). "." .substr($item->dDate, 5,2). "." . substr($item->dDate, 2,2);
 
         $class = '';
         if($this->prevDate == '')
@@ -157,17 +174,59 @@ class DefaultController extends Controller
         }
     }
 
-        return "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
-        "<td>" . $date . "</td>" .
-        //"<td>" + $company + "</td>" +
-        "<td>" . $item->departure->cityNameFi . "</td>" .
-        "<td>" . $item->destination->cityNameFi . "</td>" .
-        "<td><a href='#' onclick='return false;' class='my-popover' data-toggle='popover' title='".$hotel."' data-content='".$item->info."' >" . $hotel . "</a></td>" .
-        //"<td>" + $item.info + "</td>" +
-        "<td>" . $item->duration . "</td>" .
-        "<td>" . round($item->price) . "</td>" .
-        "<td>".$lastCol."</td>" .
-        "</tr>";
+        if(in_array(4, $filter->type)) {//flights only(skypicker)
+
+
+            $aDate = "";
+            if($item->aDate != "-0001-11-30"){
+
+                $aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
+            }
+
+            $dTime = "";
+            if($item->dTime != "00:00"){
+                $dTime = $item->dTime;
+            }
+
+            $stops = "";
+            if($stops > 0){
+                $stops = $item->stops . " stops";
+            }
+
+            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
+                "<td>" . $date . "</td>" .
+                "<td><strong>" . $item->flyDuration . "<br/>" . $stops . "</strong></td>" .
+                "<td><strong>" . $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span></td>" .
+                "<td style='width:100%'>
+                
+                <div class='trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init' style='width: 100%;'>
+                                        <span class='trip-path-spacer-line'>
+                                            <div></div>
+                                        </span>
+                                        <span class='trip-path-spacer-arrow'></span>
+                                    </div>
+                
+                </td>" .
+                "<td><strong>" . $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span></td>" .
+                "<td class='price'>" . round($item->price) . "</td>" .
+                "</tr>";
+        }else{
+            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
+                "<td>" . $date . "</td>" .
+                //"<td>" + $company + "</td>" +
+                "<td>" . $item->departure->cityNameFi . "</td>" .
+                "<td>" . $item->destination->cityNameFi . "</td>" .
+                "<td><a href='#' onclick='return false;' class='my-popover' data-toggle='popover' title='".$hotel."' data-content='".$item->info."' >" . $hotel . "</a></td>" .
+                //"<td>" + $item.info + "</td>" +
+                "<td>" . $item->duration . "</td>" .
+                "<td>" . round($item->price) . "</td>" .
+                "<td>".$lastCol."</td>" .
+                "</tr>";
+        }
+
+
+
+        return $row;
     }
 
 
