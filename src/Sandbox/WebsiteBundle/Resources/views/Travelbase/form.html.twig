@@ -84,7 +84,14 @@
 
                     <div id="slider-range"></div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-2">
+                    <p style="position: relative">
+                        <label for="stopover"></label>
+                        <input type="text" id="stopover" readonly>
+                    </p>
+                    <div id="slider-range-stopover"></div>
+                </div>
+                <div class="col-md-8">
                     <div class="field-six nopadding options-row">
                         <div style="display: none;" class="option-div options">
                             {{ render(controller('SandboxWebsiteBundle:Dropdown:companySelect')) }}

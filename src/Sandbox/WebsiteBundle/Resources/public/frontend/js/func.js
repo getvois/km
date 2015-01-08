@@ -90,6 +90,7 @@ function getFilter(container){
 
 
     var $slider = $("#slider-range");
+    var $sliderStopover = $("#slider-range-stopover");
 
     var $filter = {
         departure_country: $departure_country,
@@ -100,6 +101,8 @@ function getFilter(container){
             min: $slider.slider( "values", 0 ),
             max: $slider.slider( "values", 1 )
         },
+        stopoverfrom:	$sliderStopover.slider( "values", 0 )/60 + ":00",
+        stopoverto:	$sliderStopover.slider( "values", 1 )/60 + ":00",
         destination_country: $destination_country,
         destination_city: $destination_city,
         limit: 10,

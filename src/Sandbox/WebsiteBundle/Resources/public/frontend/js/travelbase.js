@@ -42,6 +42,27 @@ $(document).ready(function() {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    // RANGE SLIDER(PRICE SLIDER)
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    var $sliderStopover = $("#slider-range-stopover");
+    $sliderStopover.slider({
+        range: true,
+        min: 60,
+        max: 1440,
+        step: 60,
+        values: [ 60, 1440 ],
+        slide: function(e, ui) {
+            var hoursF = Math.floor(ui.values[0] / 60);
+            var hoursT = Math.floor(ui.values[1] / 60);
+            $('#stopover').val(hoursF+":00 - " + hoursT+':00');
+        }
+    });
+    $( "#stopover" ).val($sliderStopover.slider( "values", 0 )/60 + ":00 - " + Math.floor($sliderStopover.slider( "values", 1 )/60) + ":00" );
+
+    //$slider.on( "slidechange", formChange );
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
     // CLOSE BUTTON
