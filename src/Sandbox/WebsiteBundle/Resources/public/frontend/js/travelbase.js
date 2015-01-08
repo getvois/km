@@ -446,13 +446,13 @@ $(document).ready(function() {
                 var $data = JSON.parse(this.responseText);
 
                 for(var i = 0; i< $data.length; i++){
-                    var stops = $data[i].route.length - 1 ;
+                    //var stops = $data[i].route.length - 1 ;
 
                     $row +=
                         '<div class="trip row">' +
-                        '    <div class="col-xs-2 trip-duration">'+$data[i].dDate+'</div>' +
+                        '    <div class="col-xs-1 trip-duration">'+$data[i].dDate+'</div>' +
 
-                        '    <div class="col-xs-8 trip-path">';
+                        '    <div class="col-xs-9 trip-path">';
 
                     for(var j=0; j<$data[i].route.length; j++){
                         var duration = ($data[i].route[j].aTimeStamp - $data[i].route[j].dTimeStamp) / 60 ;//minutes
