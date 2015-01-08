@@ -13,10 +13,10 @@ $(document).ready(function() {
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", new Date() );
     $("#edit-date-start-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
         $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
-        formChange();
+        //formChange();
     } );
     $("#edit-date-end-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
-        formChange();
+        //formChange();
     } );
 
 
@@ -38,7 +38,7 @@ $(document).ready(function() {
     });
     $( "#amount" ).val( "$" + $slider.slider( "values", 0 ) + " - $" + $slider.slider( "values", 1 ) );
 
-    $slider.on( "slidechange", formChange );
+    //$slider.on( "slidechange", formChange );
     ////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -722,17 +722,22 @@ $(document).ready(function() {
     /////////////////////////////////////////////////////////////////////////////////
 
 
-    $form.find(':input').change(formChange);
+    //$form.find(':input').change(formChange);
 
-    $city_picker.find('.city-list').find(':input').change(formChange);
+    //$city_picker.find('.city-list').find(':input').change(formChange);
     //////////////////////////////////////////////////////////////////////////////
     //submit the form
     //$form.find(':input').eq(0).change();
     //////////////////////////////////////////////////////////////////////////////
-    getTable();
-    setTimeout(function () {
-        getTable(".travelbase_items_sp");
-    }, 1000);
+
+    $("#form-submit").click(function (e) {
+        e.preventDefault();
+        formChange();
+    }).click();
+    //getTable();
+    //setTimeout(function () {
+    //    getTable(".travelbase_items_sp");
+    //}, 1000);
 
 });
 
@@ -842,6 +847,7 @@ function skyPickerImport(){
 }
 
 function getTable(container, reimport){
+    $("#form-submit").addClass('disabled');
     if(!container) container = ".travelbase_items:visible";
     var type = 1;
     if(reimport === false) type = 2;
@@ -869,6 +875,8 @@ function getTable(container, reimport){
             //$("#edit-companies").change();
             return false;
         });
+
+        $("#form-submit").removeClass('disabled');
     });
 }
 
