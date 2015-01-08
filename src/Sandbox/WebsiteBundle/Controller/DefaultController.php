@@ -193,7 +193,7 @@ class DefaultController extends Controller
                 $stops = $item->stops . " stops";
             }
 
-            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
+            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' data-from='".$item->departure->airportCode."' data-to='".$item->destination->airportCode."' >" .
                 "<td>" . $date . "</td>" .
                 "<td><strong>" . $item->flyDuration . "<br/>" . $stops . "</strong></td>" .
                 "<td><strong>" . $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span></td>" .

@@ -423,7 +423,7 @@ $(document).ready(function() {
 
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
         if($(this).next().hasClass('skypicker-dropdown')){
-            $(this).next().slideToggle();
+            $(this).next().slideToggle().remove();
             return;
         }
 
@@ -431,32 +431,19 @@ $(document).ready(function() {
 
         var $id = $(this).data('itemid');
         var $filter = getFilter();
+
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "http://api.travel.markmedia.fi/api/skypicker.fetch/" + $id);
+        xhr.open('POST', "http://api.travel.markmedia.fi/api/skypicker.fetch/" + $(this).data('from') + "/" + $(this).data('to'));
         //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
 
                 var $row = '<tr class="skypicker-dropdown"><td colspan="6">';
 
-
                 var $data = JSON.parse(this.responseText);
 
                 for(var i = 0; i< $data.length; i++){
                     var stops = $data[i].route.length - 1 ;
-
-
-                    //$row += '<tr data-flightid="'+$data[i].flight_id+'" class="skypicker-route-details-toggle"><td>'+$data[i].dDate+'</td>';
-                    //$row += '<td><strong>'+$data[i].fly_duration + '<br/>' + stops  +' stops</strong></td>';
-                    //$row += '<td><strong>'+$data[i].from.cityNameEn+'</strong> '+$data[i].dTime+'</td>';
-                    //$row += '<td></td>';
-                    //$row += '<td><strong>'+$data[i].to.cityNameEn +'</strong></td>';
-                    //$row += '<td>'+$data[i].aTime+" ("+$data[i].aDate+')</td>';
-                    //$row += '<td><a class="book-form" href="'+$data[i].deep_link+'">'+$data[i].price+'</a></td>';
-                    //$row += '</tr>';
-                    //
-                    //$row += '<tr class="skypicker-route-details" style="display: none;"><td colspan="4">';
-                    //
 
                     $row +=
                         '<div class="trip row">' +
@@ -537,78 +524,8 @@ $(document).ready(function() {
                                 '        </div>';
                         }
 
-                        //$row += '<tr><td>departure: '+$data[i].route[j].dTime+'<br/>arrival: '+$data[i].route[j].aTime+'</td>';
-                        //$row += '<td>'+ $data[i].route[j].airline  +'<br/>'+duration+'</td>';
-                        //$row += '<td>'+ $data[i].route[j].cityFrom  +'<br/>'+$data[i].route[j].cityTo+'</td>';
-                        //$row += '</tr>'
                     }
 
-                    //
-                    //$row +=
-                    //    '<div class="trip-path-point trip-path-point-airport-demp">' +
-                    //    '            <div class="trip-path-point-airport">SEA</div>' +
-                    //    '            <div class="trip-path-point-time">1:20pm</div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-spacer">' +
-                    //    '            <div class="trip-path-spacer-label"> 2h 10m</div>' +
-                    //    '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init trip-path-spacer-arrow-layover" style="width: 43.9288px;">' +
-                    //    '                                        <span class="trip-path-spacer-line">' +
-                    //    '                                            <div></div>' +
-                    //    '                                        </span>' +
-                    //    '                <span class="trip-path-spacer-arrow" style="display: none;"></span>' +
-                    //    '            </div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-point trip-path-point-airport-demp">' +
-                    //    '            <div class="trip-path-point-airport">SEA</div>' +
-                    //    '            <div class="trip-path-point-time">3:30pm</div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-spacer">' +
-                    //    '            <div class="trip-path-spacer-label"><span data-original-title="Icelandair" data-toggle="tooltip" class="airline" style="background: url(&quot;https://skiplagged.com/img/airlines/FI.png&quot;) no-repeat scroll 0% 0% transparent;"></span> 7h 15m</div>' +
-                    //    '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 146.993px;">' +
-                    //    '                                        <span class="trip-path-spacer-line">' +
-                    //    '                                            <div></div>' +
-                    //    '                                        </span>' +
-                    //    '                <span class="trip-path-spacer-arrow"></span>' +
-                    //    '            </div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-point trip-path-point-airport-demp">' +
-                    //    '            <div class="trip-path-point-airport">KEF</div>' +
-                    //    '            <div class="trip-path-point-time">6:45am</div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-spacer">' +
-                    //    '            <div class="trip-path-spacer-label"> 55m</div>' +
-                    //    '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init trip-path-spacer-arrow-layover" style="width: 18.5853px;">' +
-                    //    '                                        <span class="trip-path-spacer-line">' +
-                    //    '                                            <div></div>' +
-                    //    '                                        </span>' +
-                    //    '                <span class="trip-path-spacer-arrow" style="display: none;"></span>' +
-                    //    '            </div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-point trip-path-point-airport-demp">' +
-                    //    '            <div class="trip-path-point-airport">KEF</div>' +
-                    //    '            <div class="trip-path-point-time">7:40am</div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-spacer">' +
-                    //    '            <div class="trip-path-spacer-label"><span data-original-title="Icelandair" data-toggle="tooltip" class="airline" style="background: url(&quot;https://skiplagged.com/img/airlines/FI.png&quot;) no-repeat scroll 0% 0% transparent;"></span> 3h</div>' +
-                    //    '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 60.8245px;">' +
-                    //    '                                        <span class="trip-path-spacer-line">' +
-                    //    '                                            <div></div>' +
-                    //    '                                        </span>' +
-                    //    '                <span class="trip-path-spacer-arrow"></span>' +
-                    //    '            </div>' +
-                    //    '        </div>';
-                    //$row +=
-                    //    '<div class="trip-path-point">' +
-                    //    '            <div class="trip-path-point-airport">AMS</div>' +
-                    //    '            <div class="trip-path-point-time trip-path-point-time-emp">11:40am</div>' +
-                    //    '        </div></div>';
                     $row +=
                         '    </div><div class="col-xs-2 trip-cost text-success">' +
                         '        <p>€'+$data[i].price+'</p>' +
@@ -617,69 +534,9 @@ $(document).ready(function() {
                         '    </div>' +
                         '</div>';
 
-
-
-
-                    //for(var j=0; j<$data[i].route.length; j++){
-                    //    var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
-                    //    if(duration > 60){
-                    //        var $hours = Math.floor(duration / 60 );//hours
-                    //        var $mins = duration - $hours*60;
-                    //        duration = $hours  + "h " + $mins + 'min';
-                    //    }else{
-                    //        duration += "min";
-                    //    }
-                    //
-                    //    $row += '<tr><td>departure: '+$data[i].route[j].dTime+'<br/>arrival: '+$data[i].route[j].aTime+'</td>';
-                    //    $row += '<td>'+ $data[i].route[j].airline  +'<br/>'+duration+'</td>';
-                    //    $row += '<td>'+ $data[i].route[j].cityFrom  +'<br/>'+$data[i].route[j].cityTo+'</td>';
-                    //    $row += '</tr>'
-                    //}
-                    //$row += '</td></tr>';
                 }
 
-                $row += '</td>';
-
-
-
-
-
-                    //$row += '<table class="table">';
-
-
-
-                //for(var i = 0; i< $data.length; i++){
-                //    var stops = $data[i].route.length - 1 ;
-                //
-                //
-                //    $row += '<tr data-flightid="'+$data[i].flight_id+'" class="skypicker-route-details-toggle"><td>departure: '+$data[i].dTime+'<br/>arrival: '+$data[i].aTime+'</td>';
-                //    $row += '<td>'+ stops  +' Stops<br/>'+$data[i].fly_duration+'</td>';
-                //    $row += '<td>'+$data[i].from.cityNameEn+'<br/>'+$data[i].to.cityNameEn +'</td>';
-                //    $row += '<td><a class="book-form" href="'+$data[i].deep_link+'">'+$data[i].price+'</a></td>';
-                //    $row += '</tr>';
-                //
-                //    $row += '<tr class="skypicker-route-details" style="display: none;"><td colspan="4"><table class="table">';
-                //
-                //    for(var j=0; j<$data[i].route.length; j++){
-                //        var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
-                //        if(duration > 60){
-                //            var $hours = Math.floor(duration / 60 );//hours
-                //            var $mins = duration - $hours*60;
-                //            duration = $hours  + "h " + $mins + 'min';
-                //        }else{
-                //            duration += "min";
-                //        }
-                //
-                //        $row += '<tr><td>departure: '+$data[i].route[j].dTime+'<br/>arrival: '+$data[i].route[j].aTime+'</td>';
-                //        $row += '<td>'+ $data[i].route[j].airline  +'<br/>'+duration+'</td>';
-                //        $row += '<td>'+ $data[i].route[j].cityFrom  +'<br/>'+$data[i].route[j].cityTo+'</td>';
-                //        $row += '</tr>'
-                //    }
-                //    $row += '</table></td></tr>';
-                //}
-
-                $row += '</tr>';
-
+                $row += '</td></tr>';
 
                 $tr.after($row);
             }
