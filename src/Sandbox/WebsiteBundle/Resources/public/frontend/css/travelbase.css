@@ -49,17 +49,30 @@ h1, h2, h3, h4, h5  {
 .to-places { 
 	font-size: 18px; 
 }
-.to-places a { 
+.to-places a, .tags-block-article a, .link-pp a { 
 	text-decoration:underline;
 }
-
-time {
+.tags-block-article {
+	color: #ccc;
+	margin-bottom: 10px;
+}
+time, .tags-block-article a {
 	color: #999;
+}
+.link-pp  {
+	height: 45px;
+	margin-bottom: 25px;
+	padding-top: 7px;
+	padding-left: 7px;
+	background: #eee;
+	margin-left: -5px;
+}
+.link-pp span {
+	color: #337ab7;
 }
 .img-left {
 	margin-right:20px;
 }
-
 .image-thumbnail-text {
     margin-top: 10px;
 }

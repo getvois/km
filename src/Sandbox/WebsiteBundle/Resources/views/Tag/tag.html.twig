@@ -56,29 +56,57 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="articles">
 
-                <!-- Articles pane -->
+               <!-- Articles pane -->
                 {% if articles is not null %}
                     {% if articles > 0 %}
-                        {#<h2>News</h2>#}
+                         
+                        <div class="articlepage">        
                         {% for item in articles %}
                             {% set articlenode = get_node_translation_for(item) %}
                             {#{{ dump(item) }}#}
-
-                            <article class="main-article main-article--summary">
-                                <header>
-                                    <time class="main-article__meta">
-                                        {{ item.date | date("d/m/Y") }}
-                                    </time>
-                                    <h4 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
-                                    </h4>
-                                </header>
-                                {{ item.summary }}
+							<article class="main-article main-article--summary article__overview--list-item"> 
+								<header>
+	                               {% if item.places.count > 0 %}
+								        <div class="to-places pull-right">
+								        <span class="glyphicon glyphicon-map-marker"></span>
+								        {% for place in item.places %}
+                                            {% if get_node_translation_for(place) %}
+								                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}
+                                            {% endif %}
+								        {% endfor %}
+								        </div>
+								    {% endif %}
+		    
+		    						<time>{{ item.date | date("F jS H:i")}}</time>
+                            	
+                                    <h2>
+                                        {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
+                    					<a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+                                    </h2>
+                                    
+                            	</header>
+                                {% if item.image %}
+		                            {% if item.imgSize == '300l' %}
+		               	 				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
+		                            {% elseif item.imgSize == '300r' %}
+		                				<img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+		                            {% endif %}
+		                        {% endif %}
+                                
+                               
+                                {% if item.image %}
+                                    {% if item.imgSize == '1000' %}
+                                        <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/></a>
+                                    {% endif %}
+                                {% endif %}
+                                <p></p>
+                                <p>{{ item.summary }}</p>
                                 <p>
                                     <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
                                         Read more
                                     </a>
                                 </p>
+                                <div class="clear"></div>
                             </article>
 
                             {#<div class="news">#}
@@ -91,6 +119,7 @@
                             {#</div>#}
                         {% endfor %}
                     {% endif %}
+                    </div>
                 {% else %}
                     No articles
                 {% endif %}
