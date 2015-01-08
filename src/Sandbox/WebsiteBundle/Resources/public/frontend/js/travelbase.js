@@ -427,6 +427,9 @@ $(document).ready(function() {
             return;
         }
 
+        //show loading
+        $('.loading').show();
+
         var $tr = $(this);
 
         var $id = $(this).data('itemid');
@@ -539,6 +542,9 @@ $(document).ready(function() {
                 $row += '</td></tr>';
 
                 $tr.after($row);
+
+                //hide loading
+                $('.loading').hide();
             }
         };
         xhr.send(JSON.stringify($filter));

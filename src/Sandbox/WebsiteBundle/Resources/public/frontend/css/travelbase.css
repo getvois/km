@@ -445,7 +445,14 @@ label[for=amount]{
     padding: 10px 0 0;
 }
 
-
+.loading {
+    background-color: rgba(255, 255, 255, 0.8);
+    display: none;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
 
 
 

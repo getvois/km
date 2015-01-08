@@ -68,12 +68,13 @@ class DefaultController extends Controller
 
             $field = $filter->orderField;//sort field
 
+            $loading = "<span class='loading'></span>";
 
             $table = "";
             if($body){
-
+                $table = $loading;
                 if(in_array(4, $filter->type)){//flights only(skypicker)
-                    $table = '<table><tr>' .
+                    $table .= '<table><tr>' .
                         '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
                         '<th>Dur./Stops</th>' .
                         '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
@@ -84,7 +85,7 @@ class DefaultController extends Controller
                         '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>';
 
                 }else{
-                    $table = '<table><tr>' .
+                    $table .= '<table><tr>' .
                         '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
                         //'<th><a href="#" data-field="company">Company</a></th>' .
                         '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
