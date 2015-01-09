@@ -7,6 +7,8 @@ use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Helper\NodeMenu;
 use Kunstmaan\TaggingBundle\Entity\Tag;
 use Kunstmaan\TaggingBundle\Entity\Tagging;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,13 +53,19 @@ class TagController extends Controller
                 $node = $em->getRepository('KunstmaanNodeBundle:Node')
                     ->getNodeFor($page);
 
+                $translation = $node->getNodeTranslation($request->getLocale());
+                if(!$translation) continue;
+
+                /** @var ArticlePage $page */
+                $page = $translation->getPublicNodeVersion()->getRef($em);
+
                 if(!$node->isDeleted()){
                     if($host){
                         //check host
                         if($page->getHosts()->contains($host))
-                            $articles[] = $page;
+                            $articles[$page->getId()] = $page;
                     }else{
-                        $articles[] = $page;
+                        $articles[$page->getId()] = $page;
                     }
                 }
             }
@@ -69,13 +77,19 @@ class TagController extends Controller
                 $node = $em->getRepository('KunstmaanNodeBundle:Node')
                     ->getNodeFor($page);
 
+                $translation = $node->getNodeTranslation($request->getLocale());
+                if(!$translation) continue;
+
+                /** @var NewsPage $page */
+                $page = $translation->getPublicNodeVersion()->getRef($em);
+
                 if(!$node->isDeleted()){
                     if($host){
                         //check host
                         if($page->getHosts()->contains($host))
-                            $news[] = $page;
+                            $news[$page->getId()] = $page;
                     }else{
-                        $news[] = $page;
+                        $news[$page->getId()] = $page;
                     }
                 }
             }
