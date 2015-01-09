@@ -77,7 +77,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
 //              '300r' => '300x right',
 //            ]]
 //        );
-        $builder->add('imgSize', 'checkbox', ['label' => "Large img"]);
+        $builder->add('imgSize', 'checkbox', ['label' => "Large img", 'required' => false]);
 
         $builder->add('priceFrom');
 
