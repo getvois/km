@@ -23,7 +23,7 @@
         {% if places > 0 %}
             <ul class="article__overview--list">
                 {% for article in places %}
-                    {% if host %}
+                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage" %}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
                             {% if article.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                 <li class="article__overview--list-item">
