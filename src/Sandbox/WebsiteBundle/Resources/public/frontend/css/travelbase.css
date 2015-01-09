@@ -27,17 +27,19 @@ h1, h2, h3, h4, h5  {
 .nomargin, .no-margin {
     margin: 0;
 } 
-
+.col-md-offset-0_5 {
+    margin-left: 5%;
+} 
 
 /*pageparts gallery, googlemap */
 
 .articlepage {
 	position:relative;
 }
-.articlepage h1, .articlepage h2, .articlepage  h4, .articlepage h5 {
+.articlepage h1, .articlepage h2, .articlepage h3, .articlepage  h4, .articlepage h5 {
     line-height: 1.3em; 
 }
-.articlepage h3 {
+.articlepageinside h3 {
 	line-height: 1.6em; 
 }
 .articlepage p {

@@ -281,33 +281,21 @@
 
 
     <div role="tabpanel">
-
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#news" aria-controls="home" role="tab" data-toggle="tab">News</a></li>
-            <li role="presentation"><a href="#articles" aria-controls="profile" role="tab" data-toggle="tab">Articles</a></li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="news">
-
-                <!-- News pane -->
+        <div class="newspage col-md-7">
+				<!-- News pane -->
                 {% if news is not null %}
                     {% if news > 0 %}
                         
-
-                                
-                        {#<h2>News</h2>#}
+                        <h1>Latest offers</h1>
                         {% for item in news %}
 
                             {% if item.image %}
                                 {% if item.imgSize == '300l' %}
                                     {% if item.priceFrom %}<div class="price-from price-from-img-left pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
-                                    <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
+                                    <img width="150" src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
                                 {% elseif item.imgSize == '300r' %}
                                     {% if item.priceFrom %}<div class="price-from price-from-img pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
-                                    <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                    <img width="150" src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
                                 {% endif %}
                             {% endif %}
 
@@ -330,30 +318,18 @@
                                     </a>
                                 </p>
                             </article>
-
-                            {#<div class="news">#}
-                            {#<h4 class="title">#}
-                            {#<a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }} <span class="date">{{ item.date | date("d/m/Y") }}</span></a>#}
-                            {#</h4>#}
-                            {#<p class="summary">#}
-                            {#{{ item.summary }}#}
-                            {#</p>#}
-                            {#</div>#}
                         {% endfor %}
+                        
                     {% endif %}
                 {% else %}
                     No news
                 {% endif %}
-
-
-            </div>
-            <div role="tabpanel" class="tab-pane" id="articles">
-
+                </div>
+                <div class="articlepage col-md-5">  
                 <!-- Articles pane -->
                 {% if articles is not null %}
                     {% if articles > 0 %}
-                         
-                        <div class="articlepage">        
+						<h1>Articles</h1>    
                         {% for item in articles %}
                             {% set articlenode = get_node_translation_for(item) %}
                             {#{{ dump(item) }}#}
@@ -372,10 +348,10 @@
 		    
 		    						<time>{{ item.date | date("F jS H:i")}}</time>
                             	
-                                    <h2>
+                                    <h3>
                                         {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
                     					<a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
-                                    </h2>
+                                    </h3>
                             	</header>
                                 {% if item.image %}
 		                            {% if item.imgSize == '300l' %}
@@ -411,13 +387,13 @@
                             {#</div>#}
                         {% endfor %}
                     {% endif %}
-                    </div>
                 {% else %}
                     No articles
                 {% endif %}
-
-            </div>
-        </div>
+                </div>
+				
+				
+				
 
     </div>
 

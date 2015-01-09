@@ -231,8 +231,8 @@
 {% endblock %}
 
 <div class="row">
-    <div class="col-md-7 col-md-offset-1">
-
+    <div class="col-md-9 col-md-offset-0_5">
+		
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
@@ -273,23 +273,21 @@
                 </div>
             </div>
         </section>
-
-        <!-- Main -->
-        <main role="main">
-            {% block content %}{% endblock %}
-        </main>
-
-
+		
+		 <!-- Main -->
+	        <main role="main">
+	            {% block content %}{% endblock %}
+	        </main>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
 
         {% block sidebar %}
 
         {% endblock %}
 
-        {% block top10 %}
-            {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
-        {% endblock %}
+       	{% block top10 %}
+	            		{{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
+	       		 	{% endblock %}
     </div>
 </div>
 
