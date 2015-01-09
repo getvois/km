@@ -130,16 +130,16 @@ function getFilter(container){
 function loadMore(){
     var $filter = getFilter();
 
-    var $tr = $(".travelbase_items:visible").find("tr");
+    var $tr = $(".travelbase_items:visible").find("> div > div");
     if($tr.length > 1){//1 because of header
         $filter.offset = $tr.length - 1 ;
     }
 
     $.post('/app_dev.php/api-filter/0', JSON.stringify($filter), function (responce) {
-        var $table = $(".travelbase_items:visible").find('table');
+        var $table = $(".travelbase_items:visible").find('> div');
         $table.append(responce.html);
 
-        if($table.find('tr').length - 1 >= responce.total){
+        if($table.find('> div').length - 1 >= responce.total){
             //hide load more btn
             $("#loadMore").hide();
         }

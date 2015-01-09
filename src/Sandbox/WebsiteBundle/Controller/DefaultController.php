@@ -76,13 +76,13 @@ class DefaultController extends Controller
                 if(in_array(4, $filter->type)){//flights only(skypicker)
 
                     $table .= '<div>
-                            <div class="row">
-                                <div class="col-xs-2"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
-                                <div class="col-xs-2">Dur./Stops</div>
-                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
-                                <div class="col-xs-2"> </div>
-                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
-                                <div class="col-xs-2"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                            <div class="row table-header">
+                                <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
+                                <div class="col-xs-1">Dur./Stops</div>
+                                <div class="col-xs-3"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
+                                <div class="col-xs-3"> </div>
+                                <div class="col-xs-3"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
                             </div>
 
                             ';
@@ -98,7 +98,7 @@ class DefaultController extends Controller
                 }else{
 
                     $table .= '<div>
-                            <div class="row">
+                            <div class="row table-header">
                                 <div class="col-xs-2"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
                                 <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
                                 <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
@@ -220,10 +220,10 @@ class DefaultController extends Controller
             }
 
             $row = '<div class="row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
-                        <div class="col-xs-2">'.$date.'</div>
-                        <div class="col-xs-2"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
-                        <div class="col-xs-2"><strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'</div>
-                        <div class="col-xs-2">
+                        <div class="col-xs-1">'.$date.'</div>
+                        <div class="col-xs-1"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
+                        <div class="col-xs-3"><strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'</div>
+                        <div class="col-xs-3">
 
                             <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                 <span class="trip-path-spacer-line">
@@ -234,8 +234,8 @@ class DefaultController extends Controller
 
 
                         </div>
-                        <div class="col-xs-2"><strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'</div>
-                        <div class="col-xs-2 price">' . round($item->price) . '</div>
+                        <div class="col-xs-3"><strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'</div>
+                        <div class="col-xs-1 price">' . round($item->price) . '</div>
                     </div>';
 
 //            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' data-from='".$item->departure->airportCode."' data-to='".$item->destination->airportCode."' >" .

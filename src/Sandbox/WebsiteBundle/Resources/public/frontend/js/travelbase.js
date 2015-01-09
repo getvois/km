@@ -881,7 +881,7 @@ function getTable(container, reimport){
         if(responce.total > 0 && $travelbase_items.data('badge'))
             $($travelbase_items.data('badge')).text(responce.total);
 
-        $travelbase_items.find('th a').click(function(){
+        $travelbase_items.find('.table-header a').click(function(){
             var $field = $(this).data('field');
             var $form = $('#travelbase-form');
             $form.find('input[name="order_field"]').val($field);
