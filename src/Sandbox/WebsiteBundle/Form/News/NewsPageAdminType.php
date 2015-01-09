@@ -70,13 +70,14 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             'mediatype' => 'image',
             'required' => false,
           ));
-        $builder->add('imgSize', 'choice', [
-            'choices' => [
-              '1000' => '1000x',
-              '300l' => '300x left',
-              '300r' => '300x right',
-            ]]
-        );
+//        $builder->add('imgSize', 'choice', [
+//            'choices' => [
+//              '1000' => '1000x',
+//              '300l' => '300x left',
+//              '300r' => '300x right',
+//            ]]
+//        );
+        $builder->add('imgSize', 'checkbox', ['label' => "Large img"]);
 
         $builder->add('priceFrom');
 

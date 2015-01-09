@@ -10,8 +10,10 @@ $(document).ready(function() {
 
 
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
-    $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", new Date() );
-    $("#edit-date-start-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
+    var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
+    $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate",  new Date() );
+    $datepickerFrom.datepicker('setDate', new Date());
+    $datepickerFrom.datepicker( "option", "onSelect", function (date) {
         $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
         //formChange();
     } );
@@ -472,8 +474,8 @@ $(document).ready(function() {
                     $row +=
                         '<div class="trip row">' +
                         '    <div class="col-xs-1 trip-duration">'+$data[i].dDate+'</div>' +
-
-                        '    <div class="col-xs-9 trip-path">';
+                        '    <div class="col-xs-1 trip-duration">' + $data[i].fly_duration +'</div>' +
+                        '    <div class="col-xs-8 trip-path">';
 
                     for(var j=0; j<$data[i].route.length; j++){
                         var duration = ($data[i].route[j].aTimeStamp - $data[i].route[j].dTimeStamp) / 60 ;//minutes
@@ -877,6 +879,14 @@ function getTable(container, reimport){
     $.post('/app_dev.php/api-filter/' + type, JSON.stringify($filter), function (responce) {
         var $travelbase_items = $(container);
         $travelbase_items.html(responce.html);
+
+        if(container == '.travelbase_items_sp'){
+            var $skypicker = $(".skypicker-toggle");
+            if($skypicker.length == 1){
+                $skypicker.click();
+                $skypicker.hide();
+            }
+        }
 
         if(responce.total > 0 && $travelbase_items.data('badge'))
             $($travelbase_items.data('badge')).text(responce.total);

@@ -201,12 +201,16 @@ class DefaultController extends Controller
     }
 
         if(in_array(4, $filter->type)) {//flights only(skypicker)
-
-
             $aDate = "";
             if($item->aDate != "-0001-11-30"){
+                if($item->aDate != $item->dDate){
+                    $aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
 
-                $aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
+                }else{
+                    $aDate = $item->aTime;
+
+                }
+
             }
 
             $dTime = "";
@@ -219,11 +223,11 @@ class DefaultController extends Controller
                 $stops = $item->stops . " stops";
             }
 
-            $row = '<div class="row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
-                        <div class="col-xs-1">'.$date.'</div>
-                        <div class="col-xs-1"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
-                        <div class="col-xs-3"><strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'</div>
-                        <div class="col-xs-3">
+            $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
+                        <div class="col-xs-1 trip-duration">'.$date.'</div>
+                        <div class="col-xs-1 trip-duration"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
+                        <div class="col-xs-3 trip-field"><strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'</div>
+                        <div class="col-xs-3 trip-field">
 
                             <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                 <span class="trip-path-spacer-line">
@@ -234,7 +238,7 @@ class DefaultController extends Controller
 
 
                         </div>
-                        <div class="col-xs-3"><strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'</div>
+                        <div class="col-xs-3 trip-field"><strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'</div>
                         <div class="col-xs-1 price">' . round($item->price) . '</div>
                     </div>';
 

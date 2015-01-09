@@ -51,6 +51,7 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
 
     /**
      * @param Media $image
+     * @return $this
      */
     public function setImage($image)
     {
@@ -62,7 +63,7 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
     /**
      * @var string
      *
-     * @ORM\Column(name="img_size", type="string", length=255, nullable=true)
+     * @ORM\Column(name="img_size", type="boolean", nullable=true)
      */
     private $imgSize;
 
@@ -76,6 +77,7 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
 
     /**
      * @param string $imgSize
+     * @return $this
      */
     public function setImgSize($imgSize)
     {

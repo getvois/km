@@ -331,6 +331,9 @@ label[for=amount]{
 .trip-path {
     /*margin-left: 32px;*/
 }
+.trip-field {
+    margin-top: 13px;
+}
 .trip-path-point {
     display: inline-block;
     text-align: center;
