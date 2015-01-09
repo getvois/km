@@ -564,7 +564,16 @@ $(document).ready(function() {
 
                 $row += '</div></div>';
 
+                if($data.length > 10){
+                    //add load more button
+                    $row += "<div class='row'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
+                }
+
                 $tr.after($row);
+
+                //hide all trips and show only first ten
+                $(".skypicker-dropdown .trip").hide();
+                $(".skypicker-dropdown .trip:lt(10)").show();
 
                 //hide loading
                 $('.loading').hide();
@@ -575,6 +584,16 @@ $(document).ready(function() {
     });
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //SKYPICKER show more trips
+    $(".travelbase_items_sp").on('click', '.sp-show-more', function (e) {
+        e.preventDefault();
+        var $dropDown = $(this).closest(".travelbase_items_sp").find(".skypicker-dropdown");
+        $dropDown.find(".trip:hidden:lt(10)").show();
+        if($dropDown.find(".trip:hidden").length == 0){
+            $(this).hide();
+        }
+    });
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //SKYPICKER show route details
