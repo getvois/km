@@ -92,6 +92,9 @@ function getFilter(container){
     var $slider = $("#slider-range");
     var $sliderStopover = $("#slider-range-stopover");
 
+    var $directFlight = 0;
+    if($("#directFlight").is(":checked")) $directFlight = 1;
+
     var $filter = {
         departure_country: $departure_country,
         departure: $departure,
@@ -105,6 +108,7 @@ function getFilter(container){
         stopoverto:	$sliderStopover.slider( "values", 1 )/60 + ":00",
         destination_country: $destination_country,
         destination_city: $destination_city,
+        directFlights: $directFlight,
         limit: 10,
         offset: 0,
         orderField: $field,

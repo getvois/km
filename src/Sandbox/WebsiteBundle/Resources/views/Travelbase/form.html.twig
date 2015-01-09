@@ -71,8 +71,9 @@
                 </div>
             </div>
 
-
+            {# ROW 2 #}
             <div class="row">
+                {# COL 1 #}
                 <div class="col-md-2">
                     <p style="position: relative">
                         <label for="amount">
@@ -84,6 +85,7 @@
 
                     <div id="slider-range"></div>
                 </div>
+                {# COL 2 #}
                 <div class="col-md-2">
                     <p style="position: relative">
                         <label for="stopover"></label>
@@ -91,7 +93,16 @@
                     </p>
                     <div id="slider-range-stopover"></div>
                 </div>
-                <div class="col-md-8">
+                {# COL 3 #}
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <label>
+                            <input id="directFlight" type="checkbox"> Direct flights only
+                        </label>
+                    </div>
+                </div>
+                {# COL 4 #}
+                <div class="col-md-6">
                     <div class="field-six nopadding options-row">
                         <div style="display: none;" class="option-div options">
                             {{ render(controller('SandboxWebsiteBundle:Dropdown:companySelect')) }}

@@ -469,12 +469,14 @@ $(document).ready(function() {
                 var $data = JSON.parse(this.responseText);
 
                 for(var i = 0; i< $data.length; i++){
-                    //var stops = $data[i].route.length - 1 ;
+                    var stops = $data[i].route.length - 1 ;
+                    if(stops == 0) stops = "";
+                    else stops += " stops";
 
                     $row +=
                         '<div class="trip row">' +
                         '    <div class="col-xs-1 trip-duration">'+$data[i].dDate+'</div>' +
-                        '    <div class="col-xs-1 trip-duration">' + $data[i].fly_duration +'</div>' +
+                        '    <div class="col-xs-1 trip-duration">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '    <div class="col-xs-8 trip-path">';
 
                     for(var j=0; j<$data[i].route.length; j++){
