@@ -307,7 +307,7 @@ label[for=amount]{
     border-width: 1px;
     cursor: pointer;
     margin-bottom: -1px;
-    overflow: auto;
+    overflow: hidden;
     padding: 13px 16px;
 }
 .trip:first-child {
@@ -396,7 +396,7 @@ label[for=amount]{
 }
 .trip-path-spacer-line > div {
     border-bottom: 1px solid rgb(104, 104, 104);
-    height: 15px;
+    height: 9px;
 }
 .trip-path-spacer-arrow-layover > .trip-path-spacer-line > div {
     border-bottom: 1px dashed rgb(104, 104, 104);

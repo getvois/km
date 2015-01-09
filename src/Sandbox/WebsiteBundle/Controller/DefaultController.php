@@ -74,27 +74,52 @@ class DefaultController extends Controller
             if($body){
                 $table = $loading;
                 if(in_array(4, $filter->type)){//flights only(skypicker)
-                    $table .= '<table><tr>' .
-                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
-                        '<th>Dur./Stops</th>' .
-                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
-//                        '<th>Time</th>' .
-                        '<th></th>' .
-                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
-//                        '<th>Arrival</th>' .
-                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>';
+
+                    $table .= '<div>
+                            <div class="row">
+                                <div class="col-xs-2"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
+                                <div class="col-xs-2">Dur./Stops</div>
+                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
+                                <div class="col-xs-2"> </div>
+                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                            </div>
+
+                            ';
+
+//                    $table .= '<table><tr>' .
+//                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
+//                        '<th>Dur./Stops</th>' .
+//                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
+//                        '<th></th>' .
+//                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
+//                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>';
 
                 }else{
-                    $table .= '<table><tr>' .
-                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
-                        //'<th><a href="#" data-field="company">Company</a></th>' .
-                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
-                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
-                        '<th><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></th>' .
-                        //'<th><a href="#" data-field="info">Info</a></th>' .
-                        '<th><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></th>' .
-                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
-                        '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
+
+                    $table .= '<div>
+                            <div class="row">
+                                <div class="col-xs-2"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></div>
+                            </div>
+
+                            ';
+
+//                    $table .= '<table><tr>' .
+//                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
+//                        //'<th><a href="#" data-field="company">Company</a></th>' .
+//                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
+//                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
+//                        '<th><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></th>' .
+//                        //'<th><a href="#" data-field="info">Info</a></th>' .
+//                        '<th><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></th>' .
+//                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
+//                        '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
                 }
 
 
@@ -106,10 +131,10 @@ class DefaultController extends Controller
                 $table .= $this->itemToRow($item, $filter);
             }
 
-            $table .= '<script>$(".my-popover").popover();</script><script></script>';
+            $table .= '<script>$(".my-popover").popover();</script>';
 
             if($body)
-                $table .= '</table>';
+                $table .= '</div>';
 
             if($body && $result->total > count($data))//add load more button
                 $table .= '<button id="loadMore" onclick="loadMore()"><span class="fa fa-angle-double-down"></span></button>';
@@ -194,35 +219,65 @@ class DefaultController extends Controller
                 $stops = $item->stops . " stops";
             }
 
-            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' data-from='".$item->departure->airportCode."' data-to='".$item->destination->airportCode."' >" .
-                "<td>" . $date . "</td>" .
-                "<td><strong>" . $item->flyDuration . "<br/>" . $stops . "</strong></td>" .
-                "<td><strong>" . $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span></td>" .
-                "<td style='width:100%'>
-                
-                <div class='trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init' style='width: 100%;'>
-                                        <span class='trip-path-spacer-line'>
-                                            <div></div>
-                                        </span>
-                                        <span class='trip-path-spacer-arrow'></span>
-                                    </div>
-                
-                </td>" .
-                "<td><strong>" . $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span></td>" .
-                "<td class='price'>" . round($item->price) . "</td>" .
-                "</tr>";
+            $row = '<div class="row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
+                        <div class="col-xs-2">'.$date.'</div>
+                        <div class="col-xs-2"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
+                        <div class="col-xs-2"><strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'</div>
+                        <div class="col-xs-2">
+
+                            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
+                                <span class="trip-path-spacer-line">
+                                    <div></div>
+                                </span>
+                                <span class="trip-path-spacer-arrow"></span>
+                            </div>
+
+
+                        </div>
+                        <div class="col-xs-2"><strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'</div>
+                        <div class="col-xs-2 price">' . round($item->price) . '</div>
+                    </div>';
+
+//            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' data-from='".$item->departure->airportCode."' data-to='".$item->destination->airportCode."' >" .
+//                "<td>" . $date . "</td>" .
+//                "<td><strong>" . $item->flyDuration . "<br/>" . $stops . "</strong></td>" .
+//                "<td><strong>" . $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span></td>" .
+//                "<td style='width:100%'>
+//
+//                <div class='trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init' style='width: 100%;'>
+//                                        <span class='trip-path-spacer-line'>
+//                                            <div></div>
+//                                        </span>
+//                                        <span class='trip-path-spacer-arrow'></span>
+//                                    </div>
+//
+//                </td>" .
+//                "<td><strong>" . $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span></td>" .
+//                "<td class='price'>" . round($item->price) . "</td>" .
+//                "</tr>";
         }else{
-            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
-                "<td>" . $date . "</td>" .
-                //"<td>" + $company + "</td>" +
-                "<td>" . $item->departure->cityNameFi . "</td>" .
-                "<td>" . $item->destination->cityNameFi . "</td>" .
-                "<td><a href='#' onclick='return false;' class='my-popover' data-toggle='popover' title='".$hotel."' data-content='".$item->info."' >" . $hotel . "</a></td>" .
-                //"<td>" + $item.info + "</td>" +
-                "<td>" . $item->duration . "</td>" .
-                "<td>" . round($item->price) . "</td>" .
-                "<td>".$lastCol."</td>" .
-                "</tr>";
+
+            $row = '<div class="row '.$class.'" data-itemid="'. $item->id .'">
+                        <div class="col-xs-2">'.$date.'</div>
+                        <div class="col-xs-2">'. $item->departure->cityNameFi .'</div>
+                        <div class="col-xs-2">'. $item->destination->cityNameFi .'</div>
+                        <div class="col-xs-2"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" >' . $hotel . '</a></div>
+                        <div class="col-xs-2">'. $item->duration .'</div>
+                        <div class="col-xs-1">'.round($item->price).'</div>
+                        <div class="col-xs-1">'.$lastCol.'</div>
+                    </div>';
+
+//            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
+//                "<td>" . $date . "</td>" .
+//                //"<td>" + $company + "</td>" +
+//                "<td>" . $item->departure->cityNameFi . "</td>" .
+//                "<td>" . $item->destination->cityNameFi . "</td>" .
+//                "<td><a href='#' onclick='return false;' class='my-popover' data-toggle='popover' title='".$hotel."' data-content='".$item->info."' >" . $hotel . "</a></td>" .
+//                //"<td>" + $item.info + "</td>" +
+//                "<td>" . $item->duration . "</td>" .
+//                "<td>" . round($item->price) . "</td>" .
+//                "<td>".$lastCol."</td>" .
+//                "</tr>";
         }
 
 

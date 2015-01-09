@@ -462,7 +462,7 @@ $(document).ready(function() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
 
-                var $row = '<tr class="skypicker-dropdown"><td colspan="6">';
+                var $row = '<div class="row skypicker-dropdown"><div class="col-xs-12">';
 
                 var $data = JSON.parse(this.responseText);
 
@@ -560,7 +560,7 @@ $(document).ready(function() {
 
                 }
 
-                $row += '</td></tr>';
+                $row += '</div></div>';
 
                 $tr.after($row);
 
