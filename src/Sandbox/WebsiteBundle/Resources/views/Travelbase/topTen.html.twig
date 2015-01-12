@@ -1,18 +1,19 @@
 {% if pages is defined and pages is not null%}
-<h3>Top 10</h3>
+{#<h3>Top 10</h3>#}
 <div role="tabpanel">
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#top-ten-all" aria-controls="home" role="tab" data-toggle="tab">All</a></li>
-        <li role="presentation"><a href="#top-ten-ski" aria-controls="profile" role="tab" data-toggle="tab">Ski</a></li>
-        <li role="presentation"><a href="#top-ten-spa" aria-controls="messages" role="tab" data-toggle="tab">Spa</a></li>
-        <li role="presentation"><a href="#top-ten-sun" aria-controls="settings" role="tab" data-toggle="tab">Sun</a></li>
-    </ul>
+    {#<ul class="nav nav-tabs" role="tablist">#}
+        {#<li role="presentation" class="active"><a href="#top-ten-all" aria-controls="home" role="tab" data-toggle="tab">All</a></li>#}
+        {#<li role="presentation"><a href="#top-ten-ski" aria-controls="profile" role="tab" data-toggle="tab">Ski</a></li>#}
+        {#<li role="presentation"><a href="#top-ten-spa" aria-controls="messages" role="tab" data-toggle="tab">Spa</a></li>#}
+        {#<li role="presentation"><a href="#top-ten-sun" aria-controls="settings" role="tab" data-toggle="tab">Sun</a></li>#}
+    {#</ul>#}
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="top-ten-all">
+        <div role="tabpanel" class="tab-pane active" id="top-ten-all" style="margin-top: 50px">
+            <div><h3>Top 10</h3></div>
             {% for p in pages %}
                 <div>
                     <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
