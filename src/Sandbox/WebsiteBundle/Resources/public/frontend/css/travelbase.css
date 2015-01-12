@@ -511,7 +511,7 @@ label[for=amount]{
 }
 
 #travelbase_tabs li a{
-    background-color: #fff;
+    /*background-color: #fff;*/
 }
 #travelbase_tabs li.active a{
     background-color: transparent;
