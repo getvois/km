@@ -18,36 +18,75 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}<span class="price-from pull-right">{{ page.priceFrom }}</span></h1>
 
-    {% if page.places.count > 0 %}
-        <div class="from-places">
-            From:
-            {% for place in page.places %}
-                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% if page.fromPlaces.count > 0 %}
-        <div class="to-places">
-            To:
-            {% for place in page.fromPlaces %}
-                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% if page.companies.count > 0 %}
-        <div class="companies">
-            Airlines:
-            {% for place in page.companies %}
-                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {{ render_pageparts(page, 'main') }}
 
-    {% if page.link %}
-        <div><a target="_blank" href="{{ page.link }}">{{ page.link }}</a></div>
-    {% endif %}
-    {#{% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}#}
+	<div class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<header> 
+			    {% if page.places.count > 0 %}
+			        <div class="to-places pull-right">
+			        <span class="glyphicon glyphicon-map-marker"></span>
+			        {% for place in page.places %}
+			            {% if get_node_translation_for(place) %}
+			                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}
+			            {% endif %}
+			        {% endfor %}
+			        </div>
+			    {% endif %}
+			    <time>{{ page.date | date("F jS H:i")}}</time>
+			    <h1>
+			    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
+			        {{ page.title }}
+			    </h1>
+			    {% include '@SandboxWebsite/Tag/tagblock.article.html.twig' with { 'tags': page.tags } %}
+			    </header> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="{% if page.imgSize %}col-md-12{% else %}col-md-9{% endif %}">
+		    {% if page.fromPlaces.count > 0 %}
+		        <div class="from-places">
+		        From:
+		        {% for place in page.fromPlaces %}
+		        <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
+		        {% endfor %}
+		        </div> 
+		    {% endif %}
+		    <p></p>
+		    {% if render_pageparts(page, 'main') == null %}
+		     	{{ page.summary }}
+		    {% else %}
+		    	{{ render_pageparts(page, 'main') }}
+			{% endif %}
+			
+		    {% if page.link %}
+		        <div><a target="_blank" href="{{ page.link }}">{{ page.link }}</a></div>
+		    {% endif %}
+		    
+		    {% if page.companies.count > 0 %}
+		        <div class="companies-block">
+		            <span class="glyphicon glyphicon-globe"></span>&nbsp;
+		            {% for place in page.companies %}
+		                <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>{% if loop.last == false %}, {% endif %}
+		            {% endfor %}
+		        </div>
+		    {% endif %}
+	   		</div>
+	   		
+	    	{% if page.image %}  
+				{% if page.imgSize %}
+					<div class="col-md-12">
+						<img src="{{ asset(page.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>
+					</div>	
+				{% else %}
+			        <div class="col-md-3">
+			        	<img src="{{ asset(page.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+		   			</div>
+		   		{% endif %} 
+   			{% endif %}
+   		
+    
+    </div>
+
 {% endblock %}

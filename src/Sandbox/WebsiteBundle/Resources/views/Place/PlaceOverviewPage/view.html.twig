@@ -23,7 +23,7 @@
         {% if places > 0 %}
             <ul class="article__overview--list">
                 {% for article in places %}
-                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage" %}
+                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\content" %}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
                             {% if article.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                 <li class="article__overview--list-item">
@@ -137,7 +137,7 @@
         {# 1 level #}
         {% if places > 0 %}
                 {% for article in places %}
-                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage" %}
+                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\content" %}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
                             {% if article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                 <h2><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h2>
@@ -325,7 +325,7 @@
                     No news
                 {% endif %}
                 </div>
-                <div class="articlepage col-md-5">  
+                <div class="content col-md-5">  
                 <!-- Articles pane -->
                 {% if articles is not null %}
                     {% if articles > 0 %}
@@ -391,10 +391,6 @@
                     No articles
                 {% endif %}
                 </div>
-				
-				
-				
-
     </div>
 
 {% endblock %}

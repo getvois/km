@@ -6,7 +6,7 @@
 
     {% set count = 0 %}
     {% if pagerfanta.nbResults > 0 %}
-        <div class="articlepage">
+        <div class="content">
             {% for article in pagerfanta.currentPageResults %}
                 <article class="main-article main-article--summary article__overview--list-item"> 
                     {% set articlenode = get_node_translation_for(article) %}

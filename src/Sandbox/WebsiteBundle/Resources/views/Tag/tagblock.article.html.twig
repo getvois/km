@@ -1,6 +1,6 @@
 {% if tags is defined %}
 <div class="clear"></div>
-<div class="tags-block-article">
+<div class="tags-block">
     <span class="glyphicon glyphicon-folder-open"></span>&nbsp; 
     {% for tag in tags %}
            <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : tag.name | replace({' ': "_"}) } ) }}">{{ tag.name }}{% if loop.last == false %},{% endif %}</a>

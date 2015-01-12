@@ -33,16 +33,16 @@ h1, h2, h3, h4, h5  {
 
 /*pageparts gallery, googlemap */
 
-.articlepage {
+.content {
 	position:relative;
 }
-.articlepage h1, .articlepage h2, .articlepage h3, .articlepage  h4, .articlepage h5 {
+.content h1, .content h2, .content h3, .content  h4, .content h5 {
     line-height: 1.3em; 
 }
-.articlepageinside h3 {
+.contentinside h3 {
 	line-height: 1.6em; 
 }
-.articlepage p {
+.content p {
 	font-size: 16px; 
 	line-height: 1.8em;
 	margin-top: 10px;
@@ -51,14 +51,20 @@ h1, h2, h3, h4, h5  {
 .to-places { 
 	font-size: 18px; 
 }
-.to-places a, .tags-block-article a, .link-pp a { 
+.to-places a, .tags-block a, .link-pp a, .map-container a, .companies-block a  { 
 	text-decoration:underline;
 }
-.tags-block-article {
+.tags-block {
 	color: #ccc;
 	margin-bottom: 10px;
 }
-time, .tags-block-article a {
+
+.companies-block  {
+	margin: 10px 0;
+	font-size: 16px; 
+}
+
+time, .tags-block a {
 	color: #999;
 }
 .link-pp  {
@@ -91,9 +97,6 @@ time, .tags-block-article a {
 }
 .map-container {
     margin-top:20px;
-}
-.map-container a {
-    text-decoration:underline;
 }
 /* Bootstrap Css Map Fix*/
 .google-map-pp img { 
@@ -142,7 +145,6 @@ body .splash--green {
 .price-from {
     position:relative;
     margin-left: 20px;
-    margin-top:-12px;
 }
 .price-from-img {
     right: -5px;
