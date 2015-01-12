@@ -57,26 +57,40 @@ class DropdownController extends Controller
      */
     public function companyAction(Request $request)
     {
-        /////not implemented
         $lang = $request->getLocale();
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $node = $em->getRepository('KunstmaanNodeBundle:Node')->
-        findOneBy([
+        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
+        findBy([
             'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
             'deleted' => 0]);
 
-        while($node->getParent()->getId() != 1){//1 = home page
-            $node = $node->getParent();
+        $node = null;
+        foreach ($nodes as $node) {
+            $willDo = true;
+            while($node->getParent()->getId() != 1){//1 = home page
+                if($node->getParent()->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'){
+                    $willDo = false;
+                    break;
+                }
+                $node = $node->getParent();
+            }
+
+            if($willDo) break;
         }
+
+
+
 
         $rightNodes = [];
         //now node is company root.
-        foreach ($node->getChildren() as $node) {
-            /** @var Node $node */
-            if(!$node->isDeleted() && !$node->isHiddenFromNav()){
-                $rightNodes[] = $node;
+        if($node) {
+            foreach ($node->getChildren() as $node) {
+                /** @var Node $node */
+                if (!$node->isDeleted() && !$node->isHiddenFromNav()) {
+                    $rightNodes[] = $node;
+                }
             }
         }
 

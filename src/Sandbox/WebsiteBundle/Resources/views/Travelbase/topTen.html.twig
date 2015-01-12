@@ -13,7 +13,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="top-ten-all" style="margin-top: 50px">
-            <div><h3>Top 10</h3></div>
+            <div style="box-shadow: 0 6px 15px -10px;"><h3>Top 10</h3></div>
             {% for p in pages %}
                 <div>
                     <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
