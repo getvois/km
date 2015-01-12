@@ -476,7 +476,21 @@ label[for=amount]{
 
 
 
-
+/*DATE PICKER STUFF*/
+#edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0{
+    width: 1px;
+    height: 1px;
+    border:0;
+}
+#date-start-datepicker-holder, #date-end-datepicker-holder {
+    margin-left:7px;
+    padding: 0 1px 3px;
+    border-bottom: 1px solid #000!important;
+    border-radius: 0;
+    color: #f9f9f9;
+    font-size:15px;
+    width: 95px;
+}
 
 
 
@@ -793,11 +807,7 @@ span.city-picker-close:hover {
 #travelbase-form input.form-text, textarea.form-textarea, select {
     padding: 5px;
 }
-#travelbase-form #edit-date-end-datepicker-popup-0, #travelbase-form #edit-date-start-datepicker-popup-0 {
-    margin-left:7px;
-    padding: 0 1px 3px;
-    width:80px;
-}
+
 .form-type-select label, .form-item label {
     cursor:hand;
     cursor:pointer;
@@ -805,14 +815,7 @@ span.city-picker-close:hover {
 .form-item-date-start-date label img, .form-item-date-end-date label img {
     display:inherit;
 }
-.form-item #edit-date-start-datepicker-popup-0, .form-item #edit-date-end-datepicker-popup-0 {
-    border-bottom: 1px solid #000!important;
-    border-radius: 0;
-    color: #f9f9f9;
-    font-size:15px;
-    float: right;
-    width: 82px;
-}
+
 #travelbase-form .container-inline-date .date-padding {
     padding:0 0 0 15px;;
 }
@@ -866,9 +869,6 @@ span.city-picker-close:hover {
     display: table;
 }
 
-#travelbase-form input.date{
-    border-bottom: 1px solid #000;
-}
 .date{
     color: #f9f9f9;
     font-size: 15px;
