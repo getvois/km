@@ -493,9 +493,15 @@ label[for=amount]{
 }
 
 
+#top-ten-all > div {
+    border: 1px solid #ddd;
+    border-top: 0;
+    padding: 10px;
+}
 
-
-
+#top-ten-all {
+    box-shadow: 0 0 10px -6px;
+}
 
 
 
