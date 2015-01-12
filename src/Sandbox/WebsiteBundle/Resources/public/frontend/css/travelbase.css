@@ -510,7 +510,7 @@ label[for=amount]{
     text-shadow: 1px 1px rgba(0, 108, 80, 1);
 }
 
-#travelbase_tabs li {
+#travelbase_tabs li a{
     background-color: #fff;
 }
 #travelbase_tabs li.active a{
@@ -1152,7 +1152,8 @@ ul#form-type-switcher li {
 }
 ul#form-type-switcher li {
     margin-right: 2px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(250, 250, 250, 0.5);
+/*rgba(0, 0, 0, 0.4);*/
 }
 ul#form-type-switcher li a {
     display: inline-block;
@@ -1173,7 +1174,7 @@ ul#form-type-switcher li a.active {
     text-shadow: 1px 1px rgba(0, 108, 80, 1);
     background-color: #00BE8D;
 }
-ul#form-type-switcher li a.active:after {
+ul#form-type-switcher li.active:after {
     position: absolute;
     content: '';
     bottom: -8px;
