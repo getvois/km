@@ -30,9 +30,9 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->redirect($this->generateUrl("_slug"));
+        return $this->redirect($this->generateUrl("_slug", ['_locale' => $request->getLocale()]));
     }
 
     /**
