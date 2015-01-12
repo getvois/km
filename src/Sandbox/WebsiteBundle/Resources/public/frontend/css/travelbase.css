@@ -504,9 +504,19 @@ label[for=amount]{
 }
 
 
+#travelbase_tabs li.active{
+    background-color: #00be8d;
+    color: #fff;
+    text-shadow: 1px 1px rgba(0, 108, 80, 1);
+}
 
-
-
+#travelbase_tabs li {
+    background-color: #fff;
+}
+#travelbase_tabs li.active a{
+    background-color: transparent;
+    color: #ffffff;
+}
 /* old needs refactoring */
 
 

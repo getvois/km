@@ -1022,6 +1022,22 @@ function getTable(container, reimport){
             return false;
         });
 
+
+        if($('.travelbase_items_df').find('> div').find(">div ").length > 1){
+            $("#travelbase_tabs").find("a:eq(0)").tab("show");
+        }else if($('.travelbase_items_sp').find('> div').find(">div ").length > 1){
+            $("#travelbase_tabs").find("a:eq(1)").tab("show");
+        }
+
+        //if(responce.total == 0){
+            //check both tables
+            //$('.travelbase_items').each(function (index) {
+            //    if($(this).find('> div').find(">div ").length > 1){
+            //        $("#travelbase_tabs").find("a:eq("+index+")").tab("show");
+            //    }
+            //});
+        //}
+
         $("#form-submit").removeClass('disabled');
     });
 }
