@@ -517,6 +517,9 @@ $(document).ready(function() {
 
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
         if($(this).next().hasClass('skypicker-dropdown')){
+            if($(this).next().next().hasClass('sp-show-more-wrapper')){
+                $(this).next().next().remove();
+            }
             $(this).next().slideToggle().remove();
             return;
         }
@@ -639,7 +642,7 @@ $(document).ready(function() {
 
                 if($data.length > 10){
                     //add load more button
-                    $row += "<div class='row'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
+                    $row += "<div class='row sp-show-more-wrapper'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
                 }
 
                 $tr.after($row);
