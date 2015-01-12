@@ -38,10 +38,10 @@ class DefaultController extends Controller
 
             if($body == 1 && in_array(4, $filter->type)){
                 //import from skypicker first
-                $url = 'http://80.69.162.115/api/skypicker.import/';
+                $url = 'http://80.69.162.118/api/skypicker.import/';
                 $options = array(
                   'http' => array(
-                    'header'  => "Host: api.travel.markmedia.fi\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
+                    'header'  => "Host: api.travelwebpartner.com\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
                     'method'  => 'POST',
                     'content' => json_encode($filter),
                   ),
@@ -51,11 +51,11 @@ class DefaultController extends Controller
             }
 
 
-            $url = 'http://80.69.162.115/api/item.filter/';
+            $url = 'http://80.69.162.118/api/item.filter/';
 
             $options = array(
               'http' => array(
-                'header'  => "Host: api.travel.markmedia.fi\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
+                'header'  => "Host: api.travelwebpartner.com\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
                 'method'  => 'POST',
                 'content' => json_encode($filter),
               ),
@@ -484,7 +484,7 @@ class DefaultController extends Controller
     {
         $execTime = ini_get('max_execution_time');
         ini_set('max_execution_time', 0);
-        $url = 'http://api.travel.markmedia.fi/api/item.getAll';
+        $url = 'http://api.travelwebpartner.com/api/item.getAll';
         $data = [];//array('key1' => 'value1', 'key2' => 'value2');
 
 //        var $filter = {

@@ -1,4 +1,4 @@
-var $api_url = 'http://api.travel.markmedia.fi/api/item.filter/';
+var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
 //var $api_url = 'http://travelbase.dev/app_dev.php/api/item.filter/'; //todo kosmos remove this
 var $dpInterval = 30;
 $(document).ready(function() {
@@ -553,7 +553,7 @@ $(document).ready(function() {
         var $filter = getFilter();
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', "http://api.travel.markmedia.fi/api/skypicker.fetch/" + $(this).data('from') + "/" + $(this).data('to'));
+        xhr.open('POST', "http://api.travelwebpartner.com/api/skypicker.fetch/" + $(this).data('from') + "/" + $(this).data('to'));
         //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
@@ -969,7 +969,7 @@ function skyPickerImport(){
     });
     var $filter = getFilter();
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://api.travel.markmedia.fi/api/skypicker.import/');
+    xhr.open('POST', 'http://api.travelwebpartner.com/api/skypicker.import/');
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -1120,7 +1120,7 @@ function cityPicker($el, $selected) {
         width: '100%',
         dropdownAutoWidth: true,
         ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-            url: "http://api.travel.markmedia.fi/api/city.findByText/",
+            url: "http://api.travelwebpartner.com/api/city.findByText/",
             dataType: 'json',
             quietMillis: 250,
             data: function (term, page) {
@@ -1142,7 +1142,7 @@ function cityPicker($el, $selected) {
             id = '';
             if (id !== "") {
 //                                        id = 'estonia';
-                $.ajax("http://api.travel.markmedia.fi/api/city.findByText/?q=" + id, {
+                $.ajax("http://api.travelwebpartner.com/api/city.findByText/?q=" + id, {
                     dataType: "json"
                 }).done(function (data) {
 
