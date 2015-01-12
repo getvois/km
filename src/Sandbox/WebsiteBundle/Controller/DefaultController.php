@@ -26,15 +26,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
-
-    /**
-     * @Route("/")
-     */
-    public function indexAction(Request $request)
-    {
-        //return $this->redirect($this->generateUrl("_slug", ['_locale' => $request->getLocale(), 'url' => "/"]));
-    }
-
     /**
      * @Route("/api-filter/{body}")
      * @param Request $request
