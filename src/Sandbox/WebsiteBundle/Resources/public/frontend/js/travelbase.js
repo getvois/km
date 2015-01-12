@@ -9,12 +9,71 @@ $(document).ready(function() {
     var $city_picker = $(".city-picker");
 
 
+    var $dpInterval = 30;
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate",  new Date() );
     $datepickerFrom.datepicker('setDate', new Date());
+
+    $datepickerFrom.datepicker('option', {
+        showButtonPanel: true,
+        numberOfMonths: 2,
+        beforeShow: function (){
+            setTimeout(function() {
+
+                var $calendar = $("table.ui-datepicker-calendar");
+                $calendar.find("td > a").removeClass('ui-state-highlight');
+
+                $current = parseInt($calendar.find("td > a.ui-state-active").text());
+
+                if($dpInterval == 30){
+                    $calendar.eq(0).find("td > a").each(function () {
+                        if(parseInt($(this).text()) >= $current){
+                            $(this).addClass('ui-state-highlight');
+                        }
+                    });
+                    $calendar.eq(1).find("td > a").each(function () {
+                        if(parseInt($(this).text()) <= $current){
+                            $(this).addClass('ui-state-highlight');
+                        }
+                    });
+                }
+
+                $(".ui-datepicker-buttonpane")
+                    .html('')
+                    .append("<button class='btn btn-default dp-interval' data-interval='1'>1 day</button>" +
+                    "<button class='btn btn-default dp-interval' data-interval='30'>month</button>");
+            }, 1);
+        }
+    });
+
+    $("body").on('click', '.dp-interval', function () {
+        $dpInterval = $(this).data('interval');
+        $datepickerFrom.datepicker('setDate', $datepickerFrom.datepicker('getDate'));
+        $datepickerFrom.datepicker('hide');
+        $datepickerFrom.datepicker('show');
+    });
+
     $datepickerFrom.datepicker( "option", "onSelect", function (date) {
         $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
+
+        var $calendar = $("table.ui-datepicker-calendar");
+        $calendar.find("td > a").removeClass('ui-state-highlight');
+
+        $current = parseInt($calendar.find("td > a.ui-state-active").text());
+
+        if($dpInterval == 30){
+            $calendar.eq(0).find("td > a").each(function () {
+                if(parseInt($(this).text()) >= $current){
+                    $(this).addClass('ui-state-highlight');
+                }
+            });
+            $calendar.eq(1).find("td > a").each(function () {
+                if(parseInt($(this).text()) <= $current){
+                    $(this).addClass('ui-state-highlight');
+                }
+            });
+        }
         //formChange();
     } );
     $("#edit-date-end-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
