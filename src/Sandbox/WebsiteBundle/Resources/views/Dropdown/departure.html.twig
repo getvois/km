@@ -198,8 +198,8 @@
                                             {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                 {% if node2.nodeTranslation(lang) %}
                                                     {% set placePage = node2.nodeTranslation(lang).ref(em) %}
-                                                    {% for h2 in  placePage.hosts %}
-                                                        {% if h2.name == host %}
+                                                    {#{% for h2 in  placePage.hosts %}#}
+                                                        {#{% if h2.name == host %}#}
 
 
 
@@ -223,8 +223,8 @@
                                                                     {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                                         {% if node3.nodeTranslation(lang) %}
                                                                             {% set placePage = node3.nodeTranslation(lang).ref(em) %}
-                                                                            {% for h3 in placePage.hosts %}
-                                                                                {% if h3.name == host %}
+                                                                            {#{% for h3 in placePage.hosts %}#}
+                                                                                {#{% if h3.name == host %}#}
 
 
                                                                                     <ul style="display: none;">
@@ -274,8 +274,8 @@
 
 
 
-                                                                                {% endif %}
-                                                                            {% endfor %}
+                                                                                {#{% endif %}#}
+                                                                            {#{% endfor %}#}
 
 
                                                                         {% endif %}
@@ -295,8 +295,8 @@
 
 
 
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                        {#{% endif %}#}
+                                                    {#{% endfor %}#}
 
 
 
