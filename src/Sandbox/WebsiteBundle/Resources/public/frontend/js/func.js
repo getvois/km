@@ -120,12 +120,20 @@ function getFilter(container){
         var $ds = $date_start;
         var $dates = $ds.substr(6, 4) + "-" + $ds.substr(3,2) + "-" + $ds.substr(0,2);
         $filter.date = { start: $dates };
+
+        if($dpInterval == 30){
+            var $month = parseInt($ds.substr(3, 2)) + 1;
+            if($month.toString().length == 1) $month = "0" + $month;
+            $filter.date.end = $ds.substr(6, 4) + "-" + $month + "-" + $ds.substr(0, 2);
+        }else{
+            $filter.date.end = $dates;
+        }
     }
 
     var $date_end = $("#edit-date-end-datepicker-popup-0").val();
     if($date_end){
         var $d = $date_end;
-        $filter.date.end = $d.substr(6, 4) + "-" + $d.substr(3, 2) + "-" + $d.substr(0, 2) ;
+        $filter.date.return = $d.substr(6, 4) + "-" + $d.substr(3, 2) + "-" + $d.substr(0, 2) ;
     }
 
     return $filter;
