@@ -28,6 +28,14 @@ class DefaultController extends Controller
 {
 
     /**
+     * @Route("/")
+     */
+    public function indexAction()
+    {
+        return $this->redirect($this->generateUrl("_slug"));
+    }
+
+    /**
      * @Route("/api-filter/{body}")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
