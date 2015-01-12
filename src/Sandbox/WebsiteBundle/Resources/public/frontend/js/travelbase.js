@@ -38,8 +38,8 @@ $(document).ready(function() {
 
     function buttonPanel(){
         return "<button class='btn btn-default dp-close' >close</button>" +
-        "<button class='btn btn-default dp-interval' data-interval='1'>1 day</button>" +
-        "<button class='btn btn-default dp-interval' data-interval='30'>month</button>";
+        "<button class='btn btn-default dp-interval" + ($dpInterval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
+        "<button class='btn btn-default dp-interval " + ($dpInterval==30?" active ":"") + " ' data-interval='30'>month</button>";
     }
 
 
@@ -83,14 +83,34 @@ $(document).ready(function() {
 
         datepickerEvent();
 
+        if($dpInterval == 30){
+            $("#date-start-datepicker-holder").val(date + "/-");
+
+        }else{
+            $("#date-start-datepicker-holder").val(date);
+
+        }
+
         $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
 
 
         //formChange();
     } );
     $("#edit-date-end-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
+        $("#date-end-datepicker-holder").val(date);
         //formChange();
     } );
+
+
+    //DATE HOLDERS
+    ///////////////////////////////////////////////////////////
+    $("#date-end-datepicker-holder").focusin(function () {
+        $("#edit-date-end-datepicker-popup-0").datepicker("show");
+    });
+    $("#date-start-datepicker-holder").focusin(function () {
+        $("#edit-date-start-datepicker-popup-0").datepicker("show");
+    });
+
 
 
     cityPicker("#departure-el", '#departure-selected');
