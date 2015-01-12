@@ -32,7 +32,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->redirect($this->generateUrl("_slug", ['_locale' => $request->getLocale()]));
+        //return $this->redirect($this->generateUrl("_slug", ['_locale' => $request->getLocale(), 'url' => "/"]));
     }
 
     /**
