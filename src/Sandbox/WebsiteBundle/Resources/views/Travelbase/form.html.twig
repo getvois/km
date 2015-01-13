@@ -6,7 +6,7 @@
             <input name="order_field" value="date" type="hidden">
             <input name="order_direction" value="asc" type="hidden">
 
-            <h1>Lowcost last minute travel deals!</h1>
+            <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
 
             <div class="row">
                 {#COL 1#}
@@ -99,7 +99,7 @@
                 <div class="col-md-2">
                     <div class="checkbox">
                         <label>
-                            <input id="directFlight" type="checkbox"> Direct flights only
+                            <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
                         </label>
                     </div>
                 </div>

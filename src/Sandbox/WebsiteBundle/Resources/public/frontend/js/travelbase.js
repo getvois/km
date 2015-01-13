@@ -1,5 +1,4 @@
 var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
-//var $api_url = 'http://travelbase.dev/app_dev.php/api/item.filter/'; //todo kosmos remove this
 var $dpInterval = 30;
 $(document).ready(function() {
     //setField(); //pre fill destination field
@@ -12,7 +11,6 @@ $(document).ready(function() {
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate",  new Date() );
-    $datepickerFrom.datepicker('setDate', new Date());
 
     $datepickerFrom.datepicker('option', {
         onClose: function() {
@@ -84,7 +82,7 @@ $(document).ready(function() {
         datepickerEvent();
 
         if($dpInterval == 30){
-            $("#date-start-datepicker-holder").val(date + "/-");
+            $("#date-start-datepicker-holder").val(date + "–");
 
         }else{
             $("#date-start-datepicker-holder").val(date);
@@ -101,7 +99,9 @@ $(document).ready(function() {
         //formChange();
     } );
 
-
+    $datepickerFrom.datepicker('setDate', new Date());
+    $("#date-start-datepicker-holder").val($datepickerFrom.val() + "–");
+    $("#date-end-datepicker-holder").val("–");
     //DATE HOLDERS
     ///////////////////////////////////////////////////////////
     $("#date-end-datepicker-holder").focusin(function () {
