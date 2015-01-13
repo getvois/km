@@ -16,7 +16,7 @@ if(extension_loaded('apc') && ini_get('apc.enabled')){
 
 require_once __DIR__.'/../app/AppKernel.php';
 
-$kernel = new AppKernel('prod', false);
+$kernel = new AppKernel('prod', true);
 
 $kernel->loadClassCache();
 if (!isset($_SERVER['HTTP_SURROGATE_CAPABILITY']) || false === strpos($_SERVER['HTTP_SURROGATE_CAPABILITY'], 'ESI/1.0')) {

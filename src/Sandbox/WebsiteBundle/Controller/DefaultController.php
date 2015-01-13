@@ -124,6 +124,9 @@ class DefaultController extends Controller
 
             }
 
+            if(!$result)
+                return new JsonResponse(['total' => 0, 'html' => "<div>No items found</div>"]);
+
             $data = $result->items;
 
             foreach ($data as $item) {

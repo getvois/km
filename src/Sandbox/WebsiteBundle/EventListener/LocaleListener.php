@@ -21,6 +21,7 @@ class LocaleListener implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+
         $request = $event->getRequest();
         $host = $this->em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
@@ -42,6 +43,7 @@ class LocaleListener implements EventSubscriberInterface
 //                $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
 //            }
         }
+
 
     }
 

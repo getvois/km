@@ -47,7 +47,7 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
           'places', 'entity', [
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false, 'multiple' => true,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
-                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                    $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
                     return $er->getByLang($locale);
                 }
             ]
