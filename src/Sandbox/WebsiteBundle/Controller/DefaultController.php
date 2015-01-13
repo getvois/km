@@ -77,13 +77,12 @@ class DefaultController extends Controller
                     $table .= '<div>
                             <div class="row table-header">
                                 <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
-                                <div class="col-xs-1">Dur./Stops</div>
+                                <div class="col-xs-1">Stops</div>
                                 <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
                                 <div class="col-xs-2"> </div>
                                 <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
                                 <div class="col-xs-2"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
-                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
-                                <div class="col-xs-1"></div>
+                                <div class="col-xs-2"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
                             </div>
 
                             ';
@@ -163,10 +162,10 @@ class DefaultController extends Controller
 
         if(!$item->info) $item->info = "";
         if(!$item->duration) $item->duration = "";
-        $hotel = "Flight";
+        $hotel = "Joker hotel";
         if($item->hotel != false) $hotel= $item->hotel->name;
 
-        if($hotel == "Flight" && ($item->duration == "" || $item->duration == "1")){
+        if($hotel == "Joker hotel" && ($item->duration == "" || $item->duration == "1")){
             $item->duration = 'One way';
         }
 
@@ -233,13 +232,51 @@ class DefaultController extends Controller
                 $stops = $item->stops . " stops";
             }
             //flights only(skypicker)
+
+
+
+
+
             $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
                         <div class="col-xs-1 trip-duration">'.$date.'</div>
-                        <div class="col-xs-1 trip-duration"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
+                        <div class="col-xs-1 trip-duration"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>';
 
+            if($item->type->id == 3){
+                $row .= '<div class="col-xs-6 trip-field">
 
+                            <table>
+                                <tr>
+                                    <td width="1%">
+                                    <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'
+                                    </td>
+                                    <td style="widht: 100%">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                            <span class="trip-path-spacer-line">
+                                                <div></div>
+                                            </span>
+                                            <span class="trip-path-spacer-arrow"></span>
+                                        </div>
+                                    </td>
+                                    <td width="2%" class="nowrap">
+                                    <strong>'. $item->destination->cityNameFi . "</strong>" .'
+                                    </td>
+                                    <td style="widht: 100%">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                            <span class="trip-path-spacer-line">
+                                                <div></div>
+                                            </span>
+                                            <span class="trip-path-spacer-arrow"></span>
+                                        </div>
+                                    </td>
+                                    <td width="1%">
+                                    <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $aDate . "</span>" .'
+                                    </td>
+                                </tr>
+                            </table>
 
-                        <div class="col-xs-6 trip-field">
+                        </div>';
+            }else{
+                $row .= '<div class="col-xs-6 trip-field">
 
                             <table>
                                 <tr>
@@ -260,12 +297,14 @@ class DefaultController extends Controller
                                 </tr>
                             </table>
 
-                        </div>
+                        </div>';
+            }
 
 
+
+            $row .= '
                         <div class="col-xs-2 trip-field">'. $item->company->name . '</div>
-                        <div class="col-xs-1 price">' . round($item->price) . '</div>
-                        <div class="col-xs-1 trip-field"><a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
+                        <div class="col-xs-2 price">' . round($item->price) . ' <a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
 
                     </div>';
 
@@ -326,7 +365,7 @@ class DefaultController extends Controller
                         </div>
 
                         <div class="col-xs-2 trip-field"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" >' . $hotel . '</a></div>
-                        <div class="col-xs-1 trip-field">'. $item->duration .'</div>
+                        <div class="col-xs-1 trip-field">'. $item->duration .' days</div>
                         <div class="col-xs-1 price">'.round($item->price).'</div>
                         <div class="col-xs-1 trip-field">'.$lastCol.'</div>
                         <div class="col-xs-1 trip-field"><a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>

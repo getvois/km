@@ -2,12 +2,15 @@
 
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Sandbox\WebsiteBundle\Form\Pages\HomePageAdminType;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * HomePage
@@ -17,6 +20,35 @@ use Symfony\Component\Form\AbstractType;
  */
 class HomePage extends AbstractPage  implements HasPageTemplateInterface
 {
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        parent::service($container, $request, $context);
+
+        $locale = $request->getLocale();
+
+        $em = $container->get('doctrine.orm.entity_manager');
+
+        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')->createQueryBuilder('n')
+            ->select('n')
+            ->where('n.dateUntil > :date')
+            ->setParameter(':date', new \DateTime())
+            ->orderBy('n.date', 'desc')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+
+        $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')->createQueryBuilder('n')
+            ->select('n')
+            ->orderBy('n.date', 'desc')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+
+        $context['news'] = $news;
+        $context['articles'] = $articles;
+        $context['lang'] = $locale;
+        $context['em'] = $em;
+    }
 
     /**
      * Returns the default backend form type for this page
