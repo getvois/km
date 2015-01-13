@@ -78,10 +78,12 @@ class DefaultController extends Controller
                             <div class="row table-header">
                                 <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
                                 <div class="col-xs-1">Dur./Stops</div>
-                                <div class="col-xs-3"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
-                                <div class="col-xs-3"> </div>
-                                <div class="col-xs-3"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
+                                <div class="col-xs-2"> </div>
+                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
                                 <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                                <div class="col-xs-1"></div>
                             </div>
 
                             ';
@@ -98,13 +100,15 @@ class DefaultController extends Controller
 
                     $table .= '<div>
                             <div class="row table-header">
-                                <div class="col-xs-2"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
                                 <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
+                                <div class="col-xs-1"></div>
                                 <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
-                                <div class="col-xs-2"><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></div>
-                                <div class="col-xs-2"><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '></a></div>
+                                <div class="col-xs-1"><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></div>
                                 <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
-                                <div class="col-xs-1"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
+                                <div class="col-xs-1"></div>
                             </div>
 
                             ';
@@ -188,10 +192,10 @@ class DefaultController extends Controller
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
         //if(UrlExists("/sites/all/modules/travelbase/img/" + $item.company.name.toLowerCase() + ".png"))
-            $company = "<img src='/sites/all/modules/travelbase/img/" . strtolower($item->company->name) . ".png' alt='" . $item->company->name . "' />";
+            $company = "<img src='/sites/all/modules/travelbase/img/" . strtolower($item->company->name) . ".png' alt='" . $item->company->name . "' title='".$item->company->name."' />";
 
 
-        $lastCol = "<a href='" . $item->link . "'>" . $company . "</a>";
+        $lastCol = $company;//"<a href='" . $item->link . "'>" . $company . "</a>";
 
         if($item->company->name == 'SkyPicker'){
             $lastCol = "";
@@ -204,7 +208,7 @@ class DefaultController extends Controller
 
         if(in_array(4, $filter->type)) {//flights only(skypicker)
             $aDate = "";
-            if($item->aDate != "-0001-11-30"){
+            if($item->aDate && $item->aDate != "-0001-11-30"){
                 if($item->aDate != $item->dDate){
                     $aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
 
@@ -213,6 +217,10 @@ class DefaultController extends Controller
 
                 }
 
+            }else{
+                if(!$item->aDate && $item->duration > 0){
+                    $aDate = date('d.m.', strtotime($item->dDate) + $item->duration * 24 * 60 * 60);
+                }
             }
 
             $dTime = "";
@@ -224,24 +232,41 @@ class DefaultController extends Controller
             if($stops > 0){
                 $stops = $item->stops . " stops";
             }
-
+            //flights only(skypicker)
             $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
                         <div class="col-xs-1 trip-duration">'.$date.'</div>
                         <div class="col-xs-1 trip-duration"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>
-                        <div class="col-xs-3 trip-field"><strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'</div>
-                        <div class="col-xs-3 trip-field">
 
-                            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
-                                <span class="trip-path-spacer-line">
-                                    <div></div>
-                                </span>
-                                <span class="trip-path-spacer-arrow"></span>
-                            </div>
 
+
+                        <div class="col-xs-6 trip-field">
+
+                            <table>
+                                <tr>
+                                    <td width="1%">
+                                    <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'
+                                    </td>
+                                    <td style="widht: 100%">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                            <span class="trip-path-spacer-line">
+                                                <div></div>
+                                            </span>
+                                            <span class="trip-path-spacer-arrow"></span>
+                                        </div>
+                                    </td>
+                                    <td width="2%" class="nowrap">
+                                    <strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'
+                                    </td>
+                                </tr>
+                            </table>
 
                         </div>
-                        <div class="col-xs-3 trip-field"><strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'</div>
+
+
+                        <div class="col-xs-2 trip-field">'. $item->company->name . '</div>
                         <div class="col-xs-1 price">' . round($item->price) . '</div>
+                        <div class="col-xs-1 trip-field"><a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
+
                     </div>';
 
 //            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' data-from='".$item->departure->airportCode."' data-to='".$item->destination->airportCode."' >" .
@@ -263,14 +288,48 @@ class DefaultController extends Controller
 //                "</tr>";
         }else{
 
-            $row = '<div class="row '.$class.'" data-itemid="'. $item->id .'">
-                        <div class="col-xs-2">'.$date.'</div>
-                        <div class="col-xs-2">'. $item->departure->cityNameFi .'</div>
-                        <div class="col-xs-2">'. $item->destination->cityNameFi .'</div>
-                        <div class="col-xs-2"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" >' . $hotel . '</a></div>
-                        <div class="col-xs-2">'. $item->duration .'</div>
-                        <div class="col-xs-1">'.round($item->price).'</div>
-                        <div class="col-xs-1">'.$lastCol.'</div>
+            $row = '<div class="row trip '.$class.'" data-itemid="'. $item->id .'">
+                        <div class="col-xs-1 trip-duration">'.$date.'</div>
+
+                        <div class="col-xs-5 trip-field">
+
+                            <table>
+                                <tr>
+                                    <td width="1%">
+                                    '. $item->departure->cityNameFi .'
+                                    </td>
+                                    <td style="widht: 100%">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                            <span class="trip-path-spacer-line">
+                                                <div></div>
+                                            </span>
+                                            <span class="trip-path-spacer-arrow"></span>
+                                        </div>
+                                    </td>
+                                    <td width="2%" class="nowrap">
+                                    '. $item->destination->cityNameFi .'
+                                    </td>
+                                    <td style="widht: 100%">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                            <span class="trip-path-spacer-line">
+                                                <div></div>
+                                            </span>
+                                            <span class="trip-path-spacer-arrow"></span>
+                                        </div>
+                                    </td>
+                                    <td width="1%">
+                                    '. $item->departure->cityNameFi .'
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div class="col-xs-2 trip-field"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" >' . $hotel . '</a></div>
+                        <div class="col-xs-1 trip-field">'. $item->duration .'</div>
+                        <div class="col-xs-1 price">'.round($item->price).'</div>
+                        <div class="col-xs-1 trip-field">'.$lastCol.'</div>
+                        <div class="col-xs-1 trip-field"><a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
                     </div>';
 
 //            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .

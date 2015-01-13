@@ -225,7 +225,7 @@
 				var $cloneMe = $pullOutHere.contents(":first");
 				//
 				// make sure we're splitting an element
-				if($cloneMe.get(0).nodeType != 1) return;
+				if($cloneMe[0] != undefined && $cloneMe.get(0).nodeType != 1) return;
 
 				//
 				// clone the node with all data and events
@@ -243,7 +243,7 @@
 					// keep adding until we hit a manual break
 					$putInHere.append($clone);
 					$cloneMe.remove();
-				}else if($clone.get(0).nodeType == 1 && !$clone.hasClass(prefixTheClassName("dontend"))){
+				}else if($cloneMe[0] != undefined && $clone.get(0).nodeType == 1 && !$clone.hasClass(prefixTheClassName("dontend"))){
 					$putInHere.append($clone);
 					if($clone.is("img") && $parentColumn.height() < targetHeight + 20){
 						//

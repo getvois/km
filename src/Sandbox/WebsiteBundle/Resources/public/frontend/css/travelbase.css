@@ -417,6 +417,9 @@ label[for=amount]{
 .trip-path-spacer-arrow:before {
     content: "▶";
 }
+.trip-path-spacer-arrow-back:before {
+    content: "◄";
+}
 .trip-cost {
     text-align: center;
 }
@@ -517,6 +520,40 @@ label[for=amount]{
     background-color: transparent;
     color: #ffffff;
 }
+
+
+.trip table .trip-path-spacer-line > div {
+    border-bottom: 1px solid rgb(104, 104, 104);
+    height: 15px;
+}
+
+
+.trip table .trip-path-spacer-arrow-wrapper {
+    margin: 0 5%;
+}
+
+.nowrap{
+    white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* old needs refactoring */
 
 
