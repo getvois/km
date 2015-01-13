@@ -138,7 +138,7 @@
         {# 1 level #}
         {% if places > 0 %}
                 {% for article in places %}
-                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\content" %}
+                    {% if host and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\Content" %}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
                             {% if article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                 <h2><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h2>
