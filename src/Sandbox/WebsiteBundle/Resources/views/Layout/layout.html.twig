@@ -317,7 +317,7 @@
                     {% set activeSubnode = nodemenu.getActiveForDepth(1) %}
                     <div class="row row--padded">
                         {% for node in activeSubnode.children %}
-                            {% if not node.node.isHiddenFromNav() %}
+                            {% if not node.node.isHiddenFromNav() and loop.index < 10 %}
                                 <nav class="col-xs-12 col-sm-3 col-md-3 col--padded doormat">
                                     <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a></h5>
                                     <ul class="list-reset doormat__link-list">
