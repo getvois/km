@@ -15,7 +15,7 @@
 
 {% block sidebar %}
     <div class="">
-        {% if page.title != 'Countries' || page.title != 'Places' %}
+        {% if page.title != 'Countries' or page.title != 'Places' %}
         <h2>{{ page.title }}</h2>
         {% endif %}
         {#{#{{ render_pageparts(page, 'main') }}#}
