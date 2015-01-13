@@ -78,11 +78,11 @@ class DefaultController extends Controller
                             <div class="row table-header">
                                 <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
                                 <div class="col-xs-1">Stops</div>
-                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
-                                <div class="col-xs-2"> </div>
-                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
+                                <div class="col-xs-3"> </div>
+                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-2"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
-                                <div class="col-xs-2"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
                             </div>
 
                             ';
@@ -100,14 +100,14 @@ class DefaultController extends Controller
                     $table .= '<div>
                             <div class="row table-header">
                                 <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
-                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></div>
-                                <div class="col-xs-1"></div>
-                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-2"><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-1"><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></div>
-                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
                                 <div class="col-xs-1"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
-                                <div class="col-xs-1"></div>
+                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+
                             </div>
 
                             ';
@@ -242,7 +242,7 @@ class DefaultController extends Controller
                         <div class="col-xs-1 trip-duration"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>';
 
             if($item->type->id == 3){
-                $row .= '<div class="col-xs-6 trip-field">
+                $row .= '<div class="col-xs-7 trip-field">
 
                             <table>
                                 <tr>
@@ -276,7 +276,7 @@ class DefaultController extends Controller
 
                         </div>';
             }else{
-                $row .= '<div class="col-xs-6 trip-field">
+                $row .= '<div class="col-xs-7 trip-field">
 
                             <table>
                                 <tr>
@@ -304,7 +304,7 @@ class DefaultController extends Controller
 
             $row .= '
                         <div class="col-xs-2 trip-field">'. $item->company->name . '</div>
-                        <div class="col-xs-2 price">' . round($item->price) . ' <a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
+                        <div class="col-xs-1 price text-right">' . round($item->price) . ' <a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
 
                     </div>';
 
@@ -330,7 +330,7 @@ class DefaultController extends Controller
             $row = '<div class="row trip '.$class.'" data-itemid="'. $item->id .'">
                         <div class="col-xs-1 trip-duration">'.$date.'</div>
 
-                        <div class="col-xs-5 trip-field">
+                        <div class="col-xs-6 trip-field">
 
                             <table>
                                 <tr>
@@ -366,9 +366,8 @@ class DefaultController extends Controller
 
                         <div class="col-xs-2 trip-field"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" >' . $hotel . '</a></div>
                         <div class="col-xs-1 trip-field">'. $item->duration .' days</div>
-                        <div class="col-xs-1 price">'.round($item->price).'</div>
                         <div class="col-xs-1 trip-field">'.$lastCol.'</div>
-                        <div class="col-xs-1 trip-field"><a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
+                        <div class="col-xs-1 price text-right">'.round($item->price).' <a href="'.$item->link.'"><span class="glyphicon glyphicon-link"></span></a></div>
                     </div>';
 
 //            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
