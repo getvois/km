@@ -99,7 +99,7 @@ class NewsOverviewPage extends AbstractArticleOverviewPage
             if(($key = array_search($tag->getTag(), $tags)) !== false){
                 unset($tags[$key]);
             }else{
-                unset($preferredTags[$index]);
+                //unset($preferredTags[$index]);
             }
         }
 
