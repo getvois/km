@@ -29,7 +29,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
-                    $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
                     return $er->getByLang($locale);
                 }
             ]
@@ -38,7 +38,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
-                    $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
                     return $er->getByLang($locale);
                 }
             ]
