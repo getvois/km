@@ -411,16 +411,8 @@
 
 
 
-
-
-
-
-                                                {{ total }}
                                             {% set braker = total / 4 %}
                                             {% set counter = 0 %}
-                                                {{ total }}
-                                                -
-                                                {{ braker }}
                                                 {% if node.children|length>0 %}
                                                         {% for node2 in node.children %}
                                                             {% if counter == 0 or loop.index == 0 %}
