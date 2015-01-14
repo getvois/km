@@ -265,12 +265,13 @@ body .splash--green {
     border-radius: 15px;
     border: none;
 }
-#amount{
+#amount, #stopover{
     border:0;
     color:#fff;
     position: absolute;
 	top: 47px;
 	left: 43px;
+    background-color: rgba(252, 252, 252, 0);
 }
 label[for=amount]{
     position: absolute;
@@ -858,11 +859,6 @@ span.city-picker-close:hover {
 #travelbase-form input[type='text']{
     /*background-color: rgba(252, 252, 252, 0);*/
     /*border: 0 solid #eaeaea;*/
-}
-#stopover, #amount{
-    background-color: rgba(252, 252, 252, 0);
-    border: 0;
-
 }
 #travelbase-form .description{
     display: none;
