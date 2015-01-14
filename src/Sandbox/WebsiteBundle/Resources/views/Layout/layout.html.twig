@@ -451,11 +451,12 @@
                                                                 {% set counter = counter - 1 %}
                                                             {% endif %}
 
+                                                            {% set counter = counter + 1 %}
                                                         {% if counter == braker %}
                                                             </ul>
                                                             {% set counter = 0 %}
                                                         {% else %}
-                                                            {% set counter = counter + 1 %}
+
                                                         {% endif %}
 
                                                         {% endfor %}
