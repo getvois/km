@@ -141,6 +141,43 @@ body .splash--green {
     font:  400 45px "Yellowtail";
 }
 
+/* footer */
+.footer {
+    margin-top:20px;
+}
+.doormat__title a {
+    color: #fff;
+    font-weight:700;
+    font-family: "Open Sans";
+}
+
+/* sidebar */
+.sidebar {
+	background: #eee 
+}
+.sidebar h1 {
+	position: absolute;
+	top: -30px;
+	left:0;
+	font: bold 30px/1.3em 'Open Sans';
+	margin-bottom: 0;
+	margin-top:5px;
+	color:#000000;
+	text-shadow: 1px 1px #f9f9f9;
+	float: left;
+	padding:10px 15px 0 15px;
+	background:-moz-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+	background:-webkit-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+	background: -ms-linear-gradient(top, #f9f9f9, #eeeeee); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee'); /* IE6 & IE7 */  
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */ 
+	-pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+}	
+.sidebar .top-ten > div {
+    border-bottom: 1px solid #ddd;
+    border-top: 0;
+    padding: 10px 0;
+}	
 /* icons */
 .price-from {
     position:relative;
