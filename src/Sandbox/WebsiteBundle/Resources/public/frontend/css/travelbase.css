@@ -844,8 +844,8 @@ span.city-picker-close:hover {
     height: 1px;
 }
 #travelbase-form input[type='text']{
-    background-color: rgba(252, 252, 252, 0);
-    border: 0 solid #eaeaea;
+    /*background-color: rgba(252, 252, 252, 0);*/
+    /*border: 0 solid #eaeaea;*/
 }
 #travelbase-form .description{
     display: none;
