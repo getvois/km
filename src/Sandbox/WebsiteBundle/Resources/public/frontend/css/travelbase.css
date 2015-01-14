@@ -484,6 +484,7 @@ label[for=amount]{
     width: 1px;
     height: 1px;
     border:0;
+    background-color: transparent;
 }
 .input-group-addon{
     border: 1px solid #aaa;
