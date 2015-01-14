@@ -162,7 +162,11 @@
 
 
         {% for node in nodes %}
+
+
+
             {% if node is null %}
+                {{ loop.index }} kosmos
                 {% set class = '' %}
             {% elseif node.nodeTranslation(lang) %}
                 {% set placePage = node.nodeTranslation(lang).ref(em) %}
