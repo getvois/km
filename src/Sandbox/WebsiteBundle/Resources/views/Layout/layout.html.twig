@@ -378,6 +378,9 @@
                                         <nav class="col-xs-6 col-sm-3 col-md-3 col--padded doormat">
                                             <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a></h5>
 
+                                            <div class="row">
+
+
                                             {% set braker = node.children|length / 4 %}
                                             {{ dump(braker) }}
                                             {% set counter = 0 %}
@@ -385,7 +388,7 @@
                                                         {% for node2 in node.children %}
                                                             {{ dump(counter) }}
                                                             {% if counter == 0 or counter == braker %}
-                                                                <ul class="list-reset doormat__link-list">
+                                                                <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
                                                             {% endif %}
 
                                                             {% if not node.node.isHiddenFromNav() %}
@@ -420,6 +423,7 @@
 
                                                         {% endfor %}
                                                 {% endif %}
+                                            </div>
                                         </nav>
                                     {% endif %}
                                 {% endfor %}
