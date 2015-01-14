@@ -420,7 +420,7 @@
                                             {% set counter = 0 %}
                                                 {% if node.children|length>0 %}
                                                         {% for node2 in node.children %}
-                                                            {% if counter == 0 %}
+                                                            {% if counter == braker or loop.index == 0 %}
                                                                 <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
                                                             {% endif %}
 
