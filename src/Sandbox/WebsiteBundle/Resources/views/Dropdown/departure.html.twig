@@ -166,15 +166,12 @@
 
 
             {% if node is null %}
-                {{ loop.index }} kosmos
                 {% set class = '' %}
             {% elseif node.nodeTranslation(lang) %}
                 {% set placePage = node.nodeTranslation(lang).ref(em) %}
                 {% if host %}
                     {% for h in placePage.hosts %}
                         {% if h.name == host %}
-
-                            '{{ class }}' kosmos
 
                             <ul class="{{ class }} dontsplit">
 
