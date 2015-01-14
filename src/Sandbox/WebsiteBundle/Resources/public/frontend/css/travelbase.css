@@ -485,6 +485,10 @@ label[for=amount]{
     height: 1px;
     border:0;
 }
+.input-group-addon{
+    border: 1px solid #aaa;
+    border-right: 0;
+}
 #date-start-datepicker-holder, #date-end-datepicker-holder {
     /*margin-left:7px;*/
     border-radius: 0;
@@ -498,7 +502,7 @@ label[for=amount]{
     cursor: text;
     height: auto !important;
     overflow: hidden;
-    padding: 5px;
+    padding: 7px;
     position: relative;
 }
 
