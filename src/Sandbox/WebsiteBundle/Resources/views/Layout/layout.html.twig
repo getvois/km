@@ -392,7 +392,7 @@
                                                                     {% if host in node2.page.hosts %}
                                                                         {% set total = total + 1 %}
                                                                     {% else %}
-                                                                        {% set total = total - 1 %}
+                                                                        {#{% set total = total - 1 %}#}
                                                                     {% endif %}
                                                                 {% else %}
                                                                     {# object without hosts. print as normal#}
@@ -402,7 +402,7 @@
                                                                 {% set total = total + 1 %}
                                                             {% endif %}
                                                         {% else %}
-                                                            {% set total = total - 1 %}
+                                                            {#{% set total = total - 1 %}#}
                                                         {% endif %}
                                                     {% endfor %}
                                                 {% endif %}
