@@ -1067,7 +1067,8 @@ function cityPicker($el, $selected) {
     }
 
     function repoFormatSelection(repo) {
-        var $title = repo.countryName + "/" + repo.cityNameEn;
+        //var $title = repo.countryName + "/" + repo.cityNameEn;
+        var $title = repo.cityNameEn;
 
         if(repo.id.toString().indexOf("_") != -1){
             $title = repo.countryName;
