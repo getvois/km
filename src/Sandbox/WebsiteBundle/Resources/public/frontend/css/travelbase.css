@@ -27,8 +27,11 @@ h1, h2, h3, h4, h5  {
 .nomargin, .no-margin {
     margin: 0;
 } 
+.no  {
+    display:none;
+} 
 .col-md-offset-0_5 {
-    margin-left: 5%;
+    padding-left: 5%;
 } 
 
 /*pageparts gallery, googlemap */
@@ -176,6 +179,7 @@ body .splash--green {
 .sidebar .top-ten > div {
     border-bottom: 1px solid #ddd;
     border-top: 0;
+    margin-right: 15px;
     padding: 10px 0;
 }	
 /* icons */
