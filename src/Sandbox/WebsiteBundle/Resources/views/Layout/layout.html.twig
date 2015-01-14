@@ -281,13 +281,14 @@
     </div>
     <div class="col-md-2">
 
+        {% block top10 %}
+            {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
+        {% endblock %}
+
         {% block sidebar %}
 
         {% endblock %}
 
-       	{% block top10 %}
-	            		{{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
-	       		 	{% endblock %}
     </div>
 </div>
 
