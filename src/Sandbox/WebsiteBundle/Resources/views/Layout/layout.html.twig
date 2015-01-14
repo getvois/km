@@ -377,9 +377,15 @@
                                     {% if not node.node.isHiddenFromNav() and ( node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage")  %}
                                         <nav class="col-xs-6 col-sm-3 col-md-3 col--padded doormat">
                                             <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a></h5>
-                                            <ul class="list-reset doormat__link-list">
+
+                                            {% set braker = node.children|length / 4 %}
+                                            {% set counter = 0 %}
                                                 {% if node.children|length>0 %}
                                                         {% for node2 in node.children %}
+                                                            {% if counter == 0 or counter == braker %}
+                                                                <ul class="list-reset doormat__link-list">
+                                                            {% endif %}
+
                                                             {% if not node.node.isHiddenFromNav() %}
                                                                 {# check if host exists#}
                                                                 {% if host %}
@@ -402,9 +408,16 @@
                                                                     </li>
                                                                 {% endif %}
                                                             {% endif %}
+
+                                                        {% if counter == braker %}
+                                                            </ul>
+                                                            {% set counter = 0 %}
+                                                        {% else %}
+                                                            {% set counter = counter + 1 %}
+                                                        {% endif %}
+
                                                         {% endfor %}
                                                 {% endif %}
-                                            </ul>
                                         </nav>
                                     {% endif %}
                                 {% endfor %}
