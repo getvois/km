@@ -416,7 +416,7 @@
 
 
                                                 {{ total }}
-                                            {% set braker = round(total / 4) %}
+                                            {% set braker = total / 4 %}
                                             {% set counter = 0 %}
                                                 {{ total }}
                                                 -
@@ -462,7 +462,7 @@
                                                                 {% set counter = counter + 1 %}
                                                             {% endif %}
                                                             {#{% set counter = counter + 1 %}#}
-                                                        {% if counter == braker %}
+                                                        {% if counter >= braker %}
                                                             </ul>
                                                             {% set counter = 0 %}
                                                         {% else %}
