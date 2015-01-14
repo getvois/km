@@ -410,6 +410,7 @@
                                                                         <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
                                                                     </li>
                                                                 {% endif %}
+                                                            {% else %}
                                                                 {% set counter = counter - 1 %}
                                                             {% endif %}
 
