@@ -847,6 +847,10 @@ span.city-picker-close:hover {
     /*background-color: rgba(252, 252, 252, 0);*/
     /*border: 0 solid #eaeaea;*/
 }
+#stopover, #amount{
+    background-color: rgba(252, 252, 252, 0);
+
+}
 #travelbase-form .description{
     display: none;
 }
