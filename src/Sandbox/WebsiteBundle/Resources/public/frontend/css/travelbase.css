@@ -247,7 +247,7 @@ body .splash--green {
     position: relative;
     top: -40px;
 }
-#slider-range{
+#slider-range, #slider-range-stopover{
     border: none;
     height: 1px;
     background: #000000 none;
@@ -255,10 +255,10 @@ body .splash--green {
     margin-top: 40px;
 	margin-left: 50px;
 }
-#slider-range .ui-slider-range{
+#slider-range .ui-slider-range,#slider-range-stopover .ui-slider-range{
     background: #f8c701 none;
 }
-#slider-range .ui-slider-handle{
+#slider-range .ui-slider-handle, #slider-range-stopover .ui-slider-handle{
     top: -0.3em;
     width: 12px;
     height: 12px;
