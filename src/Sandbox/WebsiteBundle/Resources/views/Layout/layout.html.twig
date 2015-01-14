@@ -398,6 +398,8 @@
                                                                             <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
                                                                                 <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
                                                                             </li>
+                                                                        {% else %}
+                                                                            {% set counter = counter - 1 %}
                                                                         {% endif %}
                                                                     {% else %}
                                                                         {# object without hosts. print as normal#}
