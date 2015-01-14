@@ -387,7 +387,7 @@
                                                 {% if node.children|length>0 %}
                                                         {% for node2 in node.children %}
                                                             {{ dump(counter) }}
-                                                            {% if counter == 0 or counter == braker %}
+                                                            {% if counter == 0 %}
                                                                 <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
                                                             {% endif %}
 
