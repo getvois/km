@@ -148,10 +148,10 @@ $(document).ready(function() {
         slide: function(e, ui) {
             var hoursF = Math.floor(ui.values[0] / 60);
             var hoursT = Math.floor(ui.values[1] / 60);
-            $('#stopover').val(hoursF+":00h - " + hoursT+':00h');
+            $('#stopover').val(hoursF+"h - " + hoursT+'h');
         }
     });
-    $( "#stopover" ).val($sliderStopover.slider( "values", 0 )/60 + ":00h - " + Math.floor($sliderStopover.slider( "values", 1 )/60) + ":00h" );
+    $( "#stopover" ).val($sliderStopover.slider( "values", 0 )/60 + "h - " + Math.floor($sliderStopover.slider( "values", 1 )/60) + "h" );
 
     //$slider.on( "slidechange", formChange );
     ////////////////////////////////////////////////////////////////////////////////////////////
