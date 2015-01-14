@@ -420,7 +420,7 @@
                                             {% set counter = 0 %}
                                                 {% if node.children|length>0 %}
                                                         {% for node2 in node.children %}
-                                                            {% if counter == braker or loop.index == 0 %}
+                                                            {% if counter == 0 or loop.index == 0 %}
                                                                 <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
                                                             {% endif %}
 
@@ -433,25 +433,32 @@
                                                                             <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
                                                                                 <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
                                                                             </li>
+                                                                            {% set counter = counter + 1 %}
                                                                         {% else %}
-                                                                            {% set counter = counter - 1 %}
+                                                                            {#{% set counter = counter - 1 %}#}
                                                                         {% endif %}
                                                                     {% else %}
                                                                         {# object without hosts. print as normal#}
                                                                         <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
                                                                             <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
                                                                         </li>
+                                                                        {% set counter = counter + 1 %}
                                                                     {% endif %}
                                                                 {% else %}
                                                                     <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
                                                                         <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
                                                                     </li>
+                                                                    {% set counter = counter + 1 %}
                                                                 {% endif %}
                                                             {% else %}
-                                                                {% set counter = counter - 1 %}
+                                                                {#{% set counter = counter - 1 %}#}
                                                             {% endif %}
 
-                                                            {% set counter = counter + 1 %}
+
+                                                            {% if counter == 0 %}
+                                                                {% set counter = counter + 1 %}
+                                                            {% endif %}
+                                                            {#{% set counter = counter + 1 %}#}
                                                         {% if counter == braker %}
                                                             </ul>
                                                             {% set counter = 0 %}
