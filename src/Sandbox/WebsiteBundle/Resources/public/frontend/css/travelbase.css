@@ -488,7 +488,7 @@ label[for=amount]{
 #date-start-datepicker-holder, #date-end-datepicker-holder {
     margin-left:7px;
     border-radius: 0;
-    color: #f9f9f9;
+    color: #666;
     font-size:15px;
     width: 95px;
 
@@ -498,7 +498,7 @@ label[for=amount]{
     cursor: text;
     height: auto !important;
     overflow: hidden;
-    padding: 0 5px 0 0;
+    padding: 5px;
     position: relative;
 }
 
