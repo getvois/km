@@ -536,10 +536,14 @@ $(document).ready(function() {
     });
 
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
+        var $badge = $("#lowcost-badge");
+
         if($(this).next().hasClass('skypicker-dropdown')){
             if($(this).next().next().hasClass('sp-show-more-wrapper')){
                 $(this).next().next().remove();
             }
+            //remove trip count from badge
+            $badge.text(parseInt($badge.text()) - $(this).next().find('.trip').length);
             $(this).next().slideToggle().remove();
             return;
         }
@@ -670,6 +674,9 @@ $(document).ready(function() {
                 //hide all trips and show only first ten
                 $(".skypicker-dropdown .trip").hide();
                 $(".skypicker-dropdown .trip:lt(10)").show();
+
+                //add trips to badge
+                $badge.text(parseInt($badge.text()) + $data.length);
 
                 //hide loading
                 $('.loading').hide();
