@@ -486,11 +486,11 @@ label[for=amount]{
     border:0;
 }
 #date-start-datepicker-holder, #date-end-datepicker-holder {
-    margin-left:7px;
+    /*margin-left:7px;*/
     border-radius: 0;
     color: #666;
     font-size:15px;
-    width: 95px;
+    /*width: 95px;*/
 
     background-color: #fff;
     background-image: linear-gradient(to bottom, #eee 1%, #fff 15%);
