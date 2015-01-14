@@ -28,6 +28,8 @@ class DropdownController extends Controller
 
         $placeNodes = $this->getCountries($lang, $host, true, true);
 
+        var_dump($placeNodes);
+
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
 
