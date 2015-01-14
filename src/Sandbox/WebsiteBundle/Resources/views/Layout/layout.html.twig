@@ -375,7 +375,7 @@
 
                                 {% for node in activeSubnode.children %}
                                     {% if not node.node.isHiddenFromNav() and ( node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage")  %}
-                                        <nav class="col-xs-6 col-sm-3 col-md-3 col--padded doormat">
+                                        <nav class="col-xs-12 col--padded doormat">
                                             <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a></h5>
 
                                             <div class="row">
@@ -386,7 +386,7 @@
                                                 {% if node.children|length>0 %}
                                                         {% for node2 in node.children %}
                                                             {% if counter == 0 %}
-                                                                <ul class="list-reset doormat__link-list col-xs-12">
+                                                                <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
                                                             {% endif %}
 
                                                             {% if not node.node.isHiddenFromNav() %}
