@@ -33,9 +33,9 @@
                 {#</div>#}
                 {#ROW 2#}
                 <div class="col-md-2">
-                    <label for="edit-date-start-datepicker-popup-0">
-                        <img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">
-                    </label>
+                    {#<label for="edit-date-start-datepicker-popup-0">#}
+                        {#<img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">#}
+                    {#</label>#}
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
                         <input id="date-start-datepicker-holder" type="text" class="form-control">
@@ -64,10 +64,13 @@
 
                 {#ROW 4#} 
                 <div class="col-md-2">
-                    <label for="edit-date-end-datepicker-popup-0">
-                        <img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">
-                    </label>
-                    <input id="date-end-datepicker-holder" type="text">
+                    {#<label for="edit-date-end-datepicker-popup-0">#}
+                        {#<img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">#}
+                    {#</label>#}
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                        <input id="date-end-datepicker-holder" type="text" class="form-control">
+                    </div>
                     <input id="edit-date-end-datepicker-popup-0" name="date_end[date]" value="" class="date" type="text">
                 </div>
 
