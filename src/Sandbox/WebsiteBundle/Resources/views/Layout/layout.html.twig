@@ -279,7 +279,7 @@
 	            {% block content %}{% endblock %}
 	        </main>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3 sidebar">
 
         {% block top10 %}
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
@@ -296,8 +296,8 @@
 {% block footer %}
     <!-- Footer -->
     <footer role="footer" class="footer">
-        <section class="splash splash--gray-dark splash--border-top">
-            <div class="container">
+        <section class="splash splash--gray-dark">
+            <div class="container"> 
                 {% if nodemenu is defined %}
                     {% set searchPageNode = nodemenu.getNodeByInternalName('search') %}
                     {% if searchPageNode %}
@@ -479,7 +479,7 @@
                 {% endif %}
             </div>
         </section>
-        <section>
+        <section class="hidden-xs hidden-sm hidden-md hidden-lg">
             <div class="container">
                 <div class="row row--padded">
                     <div class="col-md-12">
