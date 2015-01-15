@@ -593,7 +593,11 @@ label[for=amount]{
 
 
 
-
+#s2id_departure-el{
+    padding: 0;
+    position: relative;
+    top: -1px;
+}
 
 
 
