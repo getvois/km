@@ -595,10 +595,11 @@ label[for=amount]{
 
 #s2id_departure-el, #s2id_destination-el{
     padding: 0;
+}
+#s2id_departure-el .select2-container-multi .select2-choices,#s2id_destination-el .select2-container-multi .select2-choices{
     position: relative;
     top: -1px;
 }
-
 
 
 
