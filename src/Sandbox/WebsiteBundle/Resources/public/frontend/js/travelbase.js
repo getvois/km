@@ -1233,6 +1233,7 @@ function cityPicker($el, $selected) {
 
         console.log('opening');
         $($el).prev().show();
+        $($el).prev().prev().show();
         $($el).select2('close');
         $($el).select2('open');
         $($el).prev().find('.select2-search-field').find('input').focus();
