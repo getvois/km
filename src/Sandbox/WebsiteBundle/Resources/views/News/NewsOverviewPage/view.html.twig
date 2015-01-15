@@ -15,7 +15,7 @@
 						<div class="col-md-12">
 		                    <header>
 		                    	 {% if article.places.count > 0 %}
-							        <div class="to-places pull-right">
+							        <div class="to-places ignore pull-right">
 							        <span class="glyphicon glyphicon-map-marker"></span>
 							        {% for place in article.places %}
 		                                {% if get_node_translation_for(place) %}
