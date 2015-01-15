@@ -1253,7 +1253,7 @@ function cityPicker($el, $selected) {
 
 
             setTimeout(function () {
-                if($(".select2-drop:hidden")) {
+                if($(".select2-drop:visible").length == 0) {
                     console.log('hide me');
                     $($el).prev().hide();
                     $($el).prev().prev().hide();
