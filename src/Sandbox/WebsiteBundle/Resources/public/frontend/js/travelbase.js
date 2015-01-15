@@ -1214,6 +1214,8 @@ function cityPicker($el, $selected) {
 
         if (selected.length == 0) {
             $($selected).prev().hide();
+            $($el).prev().show();
+            $($el).prev().prev().show();
         }
     });
 
@@ -1225,6 +1227,7 @@ function cityPicker($el, $selected) {
         $($selected).prev().find(".select2-search-field").css('float', 'left');
 
         $($el).prev().show();
+        $($el).prev().prev().show();
         //$($el).select2('close');
         $($el).select2('open');
         $($el).prev().find('.select2-search-field').find('input').focus();
