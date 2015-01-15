@@ -6,7 +6,7 @@
             <input name="order_field" value="date" type="hidden">
             <input name="order_direction" value="asc" type="hidden">
 
-            <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }} kosmos</h1>
+            <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
 
             <div class="row">
                 {#COL 1#}
@@ -15,9 +15,13 @@
                         {#<option value="AL">Alabama</option>#}
                         {#<option value="WY">Wyoming</option>#}
                     {#</select>#}
-                    <span class="glyphicon glyphicon-barcode"></span>
+
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                        <input id="departure-el" type="text" class="form-control">
+                    </div>
                     <select name="" id="departure-selected" multiple></select>
-                    <input type="text" id="departure-el"/>
+                    {#<input type="text" id="departure-el"/>#}
                     {#<span class="glyphicon glyphicon-search"></span>#}
                 </div>
                 {#&#123;&#35;ROW 1&#35;&#125;#}
