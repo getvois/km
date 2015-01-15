@@ -1252,13 +1252,17 @@ function cityPicker($el, $selected) {
         if ($($selected).select2('data').length > 0) {
 
 
-            if($(".select2-drop:hidden")) {
-                console.log('hide me');
-                $($el).prev().hide();
-                $($el).prev().prev().hide();
-            }else{
-                console.log('dont hide me');
-            }
+            setTimeout(function () {
+                if($(".select2-drop:hidden")) {
+                    console.log('hide me');
+                    $($el).prev().hide();
+                    $($el).prev().prev().hide();
+                }else{
+                    console.log('dont hide me');
+                }
+
+            }, 100);
+
         }
 
         $($selected).prev().find(".select2-search-choice").css('float', 'none');
