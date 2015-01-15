@@ -1244,6 +1244,7 @@ function cityPicker($el, $selected) {
         if ($($selected).select2('data').length > 0) {
             console.log('hide me');
             $($el).prev().hide();
+            $($el).prev().prev().hide();
         }
 
         $($selected).prev().find(".select2-search-choice").css('float', 'none');
