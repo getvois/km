@@ -1254,6 +1254,8 @@ function cityPicker($el, $selected) {
     $($el).on('select2-focus', function (e) {
         console.log('focus');
 
+        console.log($($selected).select2('data'));
+
         //$($selected).prev().find(".select2-search-choice").css('float', 'left');
         //$($selected).prev().find(".select2-search-field").css('float', 'left');
     });
