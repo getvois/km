@@ -163,3 +163,23 @@ Changes to kunstmaan bundles.
         }
     }
     
+
+### Host locale
+
+###### File: /km/vendor/kunstmaan/bundles-cms/src/Kunstmaan/NodeBundle/Controller/SlugController.php
+
+    public function slugAction(Request $request, $url = null, $preview = false)
+        {
+            /* @var EntityManager $em */
+            $em     = $this->getDoctrine()->getManager();
+            $locale = $request->getLocale();
+    
+            //////CUSTOM CODE
+            $host = $em->getRepository('SandboxWebsiteBundle:Host')
+              ->findOneBy(['name' => $request->getHost()]);
+    
+            if($host && !$host->getMultiLanguage()){
+                if($host->getLang() != $locale)
+                    return new RedirectResponse($this->generateUrl('_slug', ['_locale' => $host->getLang(), 'url' => $url]));
+            }
+            ///////////
