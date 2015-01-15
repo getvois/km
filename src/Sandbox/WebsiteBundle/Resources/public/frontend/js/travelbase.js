@@ -295,12 +295,16 @@ $(document).ready(function() {
                         $destination.select2('data', $data);
 
 
-                        $("#destination-el").data('selected', $data);
+                        var $deparpureEl = $("#destination-el");
+                        $deparpureEl.data('selected', $data);
                         $destination.prev().show();
 
                         $destination.prev().find(".select2-search-field").css('height', '2px');
                         $destination.prev().find(".select2-search-choice").css('float', 'left');
                         $destination.prev().find(".select2-search-field").css('float', 'left');
+
+                        $deparpureEl.prev().hide();
+                        $deparpureEl.prev().prev().hide();
                     }
                 }
             });
@@ -341,12 +345,16 @@ $(document).ready(function() {
                     $destination.select2('data', $data);
 
 
-                    $("#destination-el").data('selected', $data);
+                    var $deparpureEl = $("#destination-el");
+                    $deparpureEl.data('selected', $data);
                     $destination.prev().show();
 
                     $destination.prev().find(".select2-search-field").css('height', '2px');
                     $destination.prev().find(".select2-search-choice").css('float', 'left');
                     $destination.prev().find(".select2-search-field").css('float', 'left');
+
+                    $deparpureEl.prev().hide();
+                    $deparpureEl.prev().prev().hide();
                 }
             }
         });
@@ -398,12 +406,16 @@ $(document).ready(function() {
                     $departure.select2('data', $data);
 
 
-                    $("#departure-el").data('selected', $data);
+                    var $deparpureEl = $("#departure-el");
+                    $deparpureEl.data('selected', $data);
                     $departure.prev().show();
 
                     $departure.prev().find(".select2-search-field").css('height', '2px');
                     $departure.prev().find(".select2-search-choice").css('float', 'left');
                     $departure.prev().find(".select2-search-field").css('float', 'left');
+
+                    $deparpureEl.prev().hide();
+                    $deparpureEl.prev().prev().hide();
                 }
 
             }
