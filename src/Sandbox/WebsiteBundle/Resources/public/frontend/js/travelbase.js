@@ -258,7 +258,7 @@ $(document).ready(function() {
 
     //Pre Select current place
     //////////////////////////////////////////////////////////////////////////////////////////////
-    var $to = $('.to-places');
+    var $to = $('.to-places:not(.ignore)');
     if($to.length > 0){
         $to.find('a').each(function () {
             var $name = $(this).text();
