@@ -578,7 +578,7 @@ $(document).ready(function() {
                         '    <div class="col-xs-8 trip-path">';
 
                     for(var j=0; j<$data[i].route.length; j++){
-                        var duration = ($data[i].route[j].aTimeStamp - $data[i].route[j].dTimeStamp) / 60 ;//minutes
+                        var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
                         if(duration > 60){
                             var $hours = Math.floor(duration / 60 );//hours
                             var $mins = duration - $hours*60;
