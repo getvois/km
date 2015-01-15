@@ -1250,9 +1250,15 @@ function cityPicker($el, $selected) {
         console.log('blur');
 
         if ($($selected).select2('data').length > 0) {
-            console.log('hide me');
-            $($el).prev().hide();
-            $($el).prev().prev().hide();
+
+
+            if($(".select2-drop:hidden")) {
+                console.log('hide me');
+                $($el).prev().hide();
+                $($el).prev().prev().hide();
+            }else{
+                console.log('dont hide me');
+            }
         }
 
         $($selected).prev().find(".select2-search-choice").css('float', 'none');
