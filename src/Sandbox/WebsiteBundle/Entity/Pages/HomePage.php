@@ -47,7 +47,7 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
 
             if(!$node->isDeleted() && $translation->isOnline()){
                 $realNews[$node->getId()] = $translation->getRef($em);
-                $i++;
+                $i = count($realNews);
             }
 
             if($i >= 5) break;
@@ -73,7 +73,7 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
 
             if(!$node->isDeleted() && $translation->isOnline()){
                 $realArticles[$node->getId()] = $translation->getRef($em);
-                $i++;
+                $i = count($realArticles);
             }
 
             if($i >= 5) break;
