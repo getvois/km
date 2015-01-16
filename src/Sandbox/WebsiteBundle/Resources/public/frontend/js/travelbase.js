@@ -300,8 +300,8 @@ $(document).ready(function() {
                         $destination.prev().show();
 
                         $destination.prev().find(".select2-search-field").css('height', '2px');
-                        $destination.prev().find(".select2-search-choice").css('float', 'left');
-                        $destination.prev().find(".select2-search-field").css('float', 'left');
+                        //$destination.prev().find(".select2-search-choice").css('float', 'left');
+                        //$destination.prev().find(".select2-search-field").css('float', 'left');
 
                         $deparpureEl.prev().hide();
                         $deparpureEl.prev().prev().hide();
@@ -350,8 +350,8 @@ $(document).ready(function() {
                     $destination.prev().show();
 
                     $destination.prev().find(".select2-search-field").css('height', '2px');
-                    $destination.prev().find(".select2-search-choice").css('float', 'left');
-                    $destination.prev().find(".select2-search-field").css('float', 'left');
+                    //$destination.prev().find(".select2-search-choice").css('float', 'left');
+                    //$destination.prev().find(".select2-search-field").css('float', 'left');
 
                     $deparpureEl.prev().hide();
                     $deparpureEl.prev().prev().hide();
@@ -411,8 +411,8 @@ $(document).ready(function() {
                     $departure.prev().show();
 
                     $departure.prev().find(".select2-search-field").css('height', '2px');
-                    $departure.prev().find(".select2-search-choice").css('float', 'left');
-                    $departure.prev().find(".select2-search-field").css('float', 'left');
+                    //$departure.prev().find(".select2-search-choice").css('float', 'left');
+                    //$departure.prev().find(".select2-search-field").css('float', 'left');
 
                     $deparpureEl.prev().hide();
                     $deparpureEl.prev().prev().hide();
@@ -458,8 +458,8 @@ $(document).ready(function() {
                 $departure.prev().show();
 
                 $departure.prev().find(".select2-search-field").css('height', '2px');
-                $departure.prev().find(".select2-search-choice").css('float', 'left');
-                $departure.prev().find(".select2-search-field").css('float', 'left');
+                //$departure.prev().find(".select2-search-choice").css('float', 'left');
+                //$departure.prev().find(".select2-search-field").css('float', 'left');
 
                 $deparpureEl.prev().hide();
                 $deparpureEl.prev().prev().hide();
