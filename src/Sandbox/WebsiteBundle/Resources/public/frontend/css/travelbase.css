@@ -593,10 +593,10 @@ label[for=amount]{
 
 
 
-#s2id_departure-el, #s2id_destination-el{
+#s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
     padding: 0;
 }
-#s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices{
+#s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     position: relative;
     top: -1px;
 }

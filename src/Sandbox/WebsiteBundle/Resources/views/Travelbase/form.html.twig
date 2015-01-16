@@ -57,7 +57,11 @@
 
                 {#COL 3#}
                 <div class="col-md-3">
-                    <select name="" id="destination-selected" multiple></select>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-export"></span></div>
+                        <select name="" id="destination-selected" multiple class="form-control"></select>
+                    </div>
+                    {#<select name="" id="destination-selected" multiple></select>#}
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-import"></span></div>
                         <input id="destination-el" type="text" class="form-control">
