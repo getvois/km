@@ -9,7 +9,7 @@
 
                     <h1>Latest offers</h1>
                     {% for item in news %}
-                    {{ dump(get_node_translation_for(item)) }}
+                    {{ get_node_translation_for(item).id }}
                         {% if item.image %}
                             {% if item.imgSize == '300l' %}
                                 {% if item.priceFrom %}<div class="price-from price-from-img-left pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
