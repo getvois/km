@@ -33,9 +33,25 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
             ->where('n.dateUntil > :date')
             ->setParameter(':date', new \DateTime())
             ->orderBy('n.date', 'desc')
-            ->setMaxResults(5)
             ->getQuery()
             ->getResult();
+
+        $realNews = [];
+        $i = 0;
+        foreach ($news as $n) {
+            $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getNodeTranslationFor($n);
+            if(!$translation) continue;
+
+            if($translation->getLang() == $locale){
+                $realNews[] = $n;
+                $i++;
+            }
+
+            if($i >= 5) break;
+        }
+
+
+
 
         $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')->createQueryBuilder('n')
             ->select('n')
@@ -44,7 +60,7 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
             ->getQuery()
             ->getResult();
 
-        $context['news'] = $news;
+        $context['news'] = $realNews;
         $context['articles'] = $articles;
         $context['lang'] = $locale;
         $context['em'] = $em;
