@@ -604,6 +604,12 @@ label[for=amount]{
 
 
 
+#directFlight{
+    -webkit-appearance: checkbox;
+}
+
+
+
 
 
 
