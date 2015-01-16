@@ -42,7 +42,7 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
             $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getNodeTranslationFor($n);
             if(!$translation) continue;
 
-            if($translation->isOnline() && !$translation->getNode()->isDeleted() && $translation->getLang() == $locale){
+            if($translation->getLang() == $locale && $translation->isOnline() && !$translation->getNode()->isDeleted()){
                 $realNews[] = $n;
                 $i++;
             }
@@ -56,12 +56,25 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
         $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')->createQueryBuilder('n')
             ->select('n')
             ->orderBy('n.date', 'desc')
-            ->setMaxResults(5)
             ->getQuery()
             ->getResult();
 
+        $realArticles = [];
+        $i = 0;
+        foreach ($articles as $n) {
+            $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getNodeTranslationFor($n);
+            if(!$translation) continue;
+
+            if($translation->getLang() == $locale && $translation->isOnline() && !$translation->getNode()->isDeleted()){
+                $realArticles[] = $n;
+                $i++;
+            }
+
+            if($i >= 5) break;
+        }
+
         $context['news'] = $realNews;
-        $context['articles'] = $articles;
+        $context['articles'] = $realArticles;
         $context['lang'] = $locale;
         $context['em'] = $em;
     }
