@@ -645,7 +645,7 @@ label.directFlight-label{
 #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     min-height: 34px;
     position: relative;
-    top: 1px;
+    top: 0px;
 }
 
 
