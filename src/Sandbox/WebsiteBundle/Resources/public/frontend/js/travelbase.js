@@ -237,9 +237,9 @@ $(document).ready(function() {
         var $id = $cityPicker.attr('id');
         var $list = $("span[data-target='#"+ $id +"']");
 
-        setTimeout(function () {
-            fill_destination_country($list, $cityPicker);
-        }, 200);
+        //setTimeout(function () {
+        //    fill_destination_country($list, $cityPicker);
+        //}, 200);
     });
 
 
