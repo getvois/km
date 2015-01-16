@@ -65,11 +65,14 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
         $realArticles = [];
         $i = 0;
         foreach ($articles as $n) {
-            $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')->getNodeTranslationFor($n);
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($n);
+            if(!$node) continue;
+
+            $translation = $node->getNodeTranslation($locale);
             if(!$translation) continue;
 
-            if($translation->getLang() == $locale && $translation->isOnline() && !$translation->getNode()->isDeleted()){
-                $realArticles[] = $n;
+            if(!$node->isDeleted() && $translation->isOnline()){
+                $realArticles[$node->getId()] = $translation->getRef($em);
                 $i++;
             }
 
