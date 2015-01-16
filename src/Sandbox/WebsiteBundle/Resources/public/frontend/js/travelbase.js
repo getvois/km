@@ -1218,6 +1218,7 @@ function cityPicker($el, $selected) {
     });
 
     //$($selected).select2({width: '100%'});
+    $($selected).select2();
     $($selected).on('select2-removed', function (e) {
         var $elem = $($el);
         var selected = $elem.data('selected');
