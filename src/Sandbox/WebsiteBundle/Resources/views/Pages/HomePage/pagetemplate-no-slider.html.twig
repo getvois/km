@@ -8,7 +8,7 @@
                 {% if news > 0 %}
 
                     <h1>Latest offers</h1>
-                    {% for item in news if %}
+                    {% for item in news %}
                     {{ dump(get_node_translation_for(item)) }}
                         {% if item.image %}
                             {% if item.imgSize == '300l' %}
