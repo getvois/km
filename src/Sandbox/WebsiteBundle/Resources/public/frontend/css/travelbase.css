@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700);
+@import url(http://fonts.googleapis.com/css?family=Yellowtail:400,700);
 @import url(http://fonts.googleapis.com/css?family=Noto+Serif:400,700);
 
 
@@ -60,6 +60,7 @@ h1, h2, h3, h4, h5  {
 .tags-block {
 	color: #ccc;
 	margin-bottom: 10px;
+	margin-top:20px;
 }
 
 .companies-block  {
@@ -120,6 +121,7 @@ time, .tags-block a {
 	color: #aaa; 
 }
 
+
 main h2 {
     margin: 25px 0 15px 0;  
 }
@@ -148,15 +150,37 @@ body .splash--green {
 .footer {
     margin-top:20px;
 }
-.doormat__title a {
+.doormat__title a, .travelbase_top_menu > li a {
     color: #fff;
     font-weight:700;
     font-family: "Open Sans";
 }
 
+/* topmenu*/
+.travelbase_top_menu > li a {
+    color: #000;
+    text-decoration:underline;
+}
+/*topmenu*/
+
+.travelbase_top_menu{
+    float:right;
+    margin-right:200px;
+    /*margin: 0 5px 0;*/
+    /*padding: 0;*/
+}
+.travelbase_top_menu > li {
+    float: left;
+    list-style: outside none none;
+    margin-right: 20px;
+    /*margin-top: 10px;*/
+}
+
+
 /* sidebar */
 .sidebar {
-	background: #eee 
+	background: #eee;
+	padding-bottom:30px;
 }
 .sidebar h1 {
 	position: absolute;
@@ -315,9 +339,20 @@ body .splash--green {
     background-color: rgba(252, 252, 252, 0);
 }
 label[for=amount]{
-    position: absolute;
+    position: absolute; 
     top: 32px;
 }
+label.directFlight-label{
+	color: #fff;
+	margin-top: 30px;
+	display: block;
+}
+#form-submit {
+	height: 39px;
+	border-radius: 0;
+	padding: 8px 16px;
+}
+
 .top-img-title{
     color: #fff;
     position: absolute;
@@ -1035,6 +1070,13 @@ span.city-picker-close:hover {
     width:100%;
     z-index: 9999;
 }
+.site-logo {
+	position: absolute;
+top: 0;
+right: 2%;
+z-index: 9999;
+width: 100px;
+}
 .site-logo a {
     width:98px;
     height:140px;
@@ -1043,17 +1085,10 @@ span.city-picker-close:hover {
     display:block;
     background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 -10px;
 }
-.travelbase_top_menu{
-    float:right;
-    /*margin: 0 5px 0;*/
-    /*padding: 0;*/
+.top-img-title {
+	margin-top: 200px!important;
 }
-.travelbase_top_menu > li {
-    float: left;
-    list-style: outside none none;
-    margin-right: 20px;
-    /*margin-top: 10px;*/
-}
+ 
 /* SUBSCRIPTION BLOCK */
 .block.block-total-subscription {
 }

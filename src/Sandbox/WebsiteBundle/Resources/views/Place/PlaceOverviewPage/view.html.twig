@@ -289,40 +289,43 @@
                         
                         <h1>Latest offers</h1>
                         {% for item in news %}
-
-                            {% if item.image %}
-                                {% if item.imgSize == '300l' %}
-                                    {% if item.priceFrom %}<div class="price-from price-from-img-left pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
-                                    <img width="150" src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-left"/>
-                                {% elseif item.imgSize == '300r' %}
-                                    {% if item.priceFrom %}<div class="price-from price-from-img pull-right"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div>{% endif %}
-                                    <img width="150" src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
-                                {% endif %}
-                            {% endif %}
-
+						<article class="main-article main-article--summary">	
+                        
+				   			
+				   		
                             {% set articlenode = get_node_translation_for(item) %}
                             {#{{ dump(item) }}#}
-
-                            <article class="main-article main-article--summary">
                                 <header>
                                     <time class="main-article__meta">
                                         {{ item.date | date("d.m.Y") }}
                                     </time>
                                     <h4 class="main-article__title">
-                                        <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}<span class="price-from pull-right">{{ item.priceFrom }}</span></a>
+                                        {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }}</span></div></div></div>{% endif %}
+			        					<a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
                                     </h4>
                                 </header>
+                                {% if item.image %}<div class="row">{% endif %}
+                                <div class="{% if item.imgSize %}col-md-12{% else %}col-md-9{% endif %}">
                                 {{ item.summary }}
                                 <p>
                                     <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
                                         Read more
                                     </a>
-                                </p>
-                            </article>
+                                </p>  
+                                {% if item.image %}  
+                                </div>
+						        <div class="col-md-3">
+						        	<br />
+						        	<a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
+					   			</div>
+			   					{% endif %}
+                                {% if item.image %}</div>{% endif %}
+                             
+                        </article>  
                         {% endfor %}
                         
                     {% endif %}
-                {% else %}
+                {% else %} 
                     No news
                 {% endif %}
                 </div>
