@@ -607,6 +607,9 @@ label[for=amount]{
     width: calc(100% - 38px);
 }
 
+#s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
+    min-height: 34px;
+}
 
 
 #directFlight{
