@@ -601,6 +601,11 @@ label[for=amount]{
     top: -1px;
 }
 
+#s2id_departure-selected, #s2id_destination-selected{
+    margin-left: 38px;
+    width: 90%;
+    width: calc(100% - 38px);
+}
 
 
 
