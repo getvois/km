@@ -30,7 +30,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
                     if(array_key_exists('REQUEST_URI', $_SERVER)){
-                        $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                        $locale = (substr(str_replace("app_dev.php/", "", $_SERVER['REQUEST_URI']), 1, 2));//get locale from url(not the best way)
                     }
                     else if (array_key_exists('PATH_INFO', $_SERVER)){
                         $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
@@ -48,7 +48,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
                     if(array_key_exists('REQUEST_URI', $_SERVER)){
-                        $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                        $locale = (substr(str_replace("app_dev.php/", "", $_SERVER['REQUEST_URI']), 1, 2));//get locale from url(not the best way)
                     }
                     else if (array_key_exists('PATH_INFO', $_SERVER)){
                         $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
@@ -80,13 +80,9 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             'query_builder' => function(CompanyOverviewPageRepository $er) {
                 if(array_key_exists('REQUEST_URI', $_SERVER)){
                     $locale = (substr(str_replace("app_dev.php/", "", $_SERVER['REQUEST_URI']), 1, 2));//get locale from url(not the best way)
-                    var_dump('REQUEST_URI');
-                    var_dump($locale);
                 }
                 else if (array_key_exists('PATH_INFO', $_SERVER)){
                     $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
-                    var_dump('PATH_INFO');
-                    var_dump($_SERVER['PATH_INFO']);
                 }
                 else{
                     $locale = 'en';
