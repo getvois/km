@@ -30,7 +30,16 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
-                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                    if(array_key_exists('REQUEST_URI', $_SERVER)){
+                        $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                    }
+                    else if (array_key_exists('PATH_INFO', $_SERVER)){
+                        $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                    }
+                    else{
+                        $locale = 'en';
+                    }
+                    //$locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
                     return $er->getByLang($locale);
                 }
             ]
@@ -38,7 +47,16 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
-                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                    if(array_key_exists('REQUEST_URI', $_SERVER)){
+                        $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                    }
+                    else if (array_key_exists('PATH_INFO', $_SERVER)){
+                        $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                    }
+                    else{
+                        $locale = 'en';
+                    }
+                    //$locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
                     return $er->getByLang($locale);
                 }
             ]
@@ -49,7 +67,16 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
             'multiple' => true,
             'class' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', 'required' => false,
             'query_builder' => function(CompanyOverviewPageRepository $er) {
-                $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                if(array_key_exists('REQUEST_URI', $_SERVER)){
+                    $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                }
+                else if (array_key_exists('PATH_INFO', $_SERVER)){
+                    $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
+                }
+                else{
+                    $locale = 'en';
+                }
+                //$locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
                 return $er->getByLang($locale);
             }
         ]);
