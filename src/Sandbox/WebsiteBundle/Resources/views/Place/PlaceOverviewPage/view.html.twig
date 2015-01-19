@@ -196,7 +196,7 @@
                                         {% for node in article.node.children if node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                             {% if node.NodeTranslation(lang) %}
                                                 <li class="article__overview--list-item">
-                                                    <h5>gfhjgh<a href="/{{ node.NodeTranslation(lang).url }}">{{ node.NodeTranslation(lang).title }}</a></h5>
+                                                    <h5><a href="{{ path('_slug', { 'url': node.NodeTranslation(lang).url }) }}">{{ node.NodeTranslation(lang).title }}</a></h5>
 
                                                     {# 3 level #}
                                                     {#{% if node.children.count > 0 %}#}
