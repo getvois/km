@@ -18,6 +18,18 @@ h1, h2, h3, h4, h5  {
 .nopadding, .no-padding {
     padding: 0;
 }
+
+.nopadding-right-top  {
+    padding-right:0;
+    padding-top:0;
+}
+.nopadding-left-top  {
+    padding-left: 0;
+    padding-top:0;
+}
+.nopadding-top  {
+    padding-top:0;
+}
 .nopadding-right {
     padding-right: 0;
 }
@@ -27,9 +39,34 @@ h1, h2, h3, h4, h5  {
 .nomargin, .no-margin {
     margin: 0;
 } 
+.nomargin-right {
+    margin-right: 0;
+} 
+.margin-top-10 {
+    margin-top: 10px;
+} 
+.margin-top-20 {
+    margin-top: 20px;
+} 
+.margin-bottom-10, .footer ul li {
+    margin-bottom: 10px;
+}
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}  
+.margin-top-bottom-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+} 
+.margin-left-10  {
+    margin-left: 10px;
+} 
 .no  {
     display:none;
 } 
+.nowrap{
+    white-space: nowrap;
+}
 .col-md-offset-0_5 {
     padding-left: 5%;
 } 
@@ -39,7 +76,7 @@ h1, h2, h3, h4, h5  {
 .content {
 	position:relative;
 }
-.content h1, .content h2, .content h3, .content  h4, .content h5 {
+.content h1, .content h2, .content h3, .content h4, article h4, .content h5,.footer ul li a {
     line-height: 1.3em; 
 }
 .contentinside h3 {
@@ -179,12 +216,11 @@ body .splash--green {
 
 /* sidebar */
 .sidebar {
-	background: #eee;
 	padding-bottom:30px;
 }
 .sidebar h1 {
 	position: absolute;
-	top: -30px;
+	top: -50px;
 	left:0;
 	font: bold 30px/1.3em 'Open Sans';
 	margin-bottom: 0;
@@ -200,12 +236,56 @@ body .splash--green {
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */ 
 	-pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
 }	
+
+.sidebar .top-ten {
+    background: #eee;
+    margin: 0 -15px;
+    padding-top:20px;
+}
 .sidebar .top-ten > div {
     border-bottom: 1px solid #ddd;
     border-top: 0;
     margin-right: 15px;
     padding: 10px 0;
 }	
+
+#top-ten-all > div {
+    border: 1px solid #ddd;
+    border-top: 0;
+    padding: 10px;
+}
+
+#top-ten-all {
+    box-shadow: 0 0 10px -6px;
+}
+
+
+#travelbase_tabs li.active{
+    background-color: #00be8d;
+    color: #fff;
+    text-shadow: 1px 1px rgba(0, 108, 80, 1);
+}
+
+#travelbase_tabs li a{
+    /*background-color: #fff;*/
+}
+#travelbase_tabs li.active a{
+    background-color: transparent;
+    color: #ffffff;
+}
+
+
+.trip table .trip-path-spacer-line > div {
+    border-bottom: 1px solid rgb(104, 104, 104);
+    height: 15px;
+}
+
+
+.trip table .trip-path-spacer-arrow-wrapper {
+    margin: 0 5%;
+}
+
+
 /* icons */
 .price-from {
     position:relative;
@@ -576,58 +656,23 @@ label.directFlight-label{
 
     background-color: #fff;
     background-image: linear-gradient(to bottom, #eee 1%, #fff 15%);
-    border: 1px solid #aaa;
+    border: 2px solid #aaa;
     cursor: text;
     height: auto !important;
     overflow: hidden;
-    padding: 7px;
+    padding: 7px 7px 6px ;
     position: relative;
 }
 
 
-#top-ten-all > div {
-    border: 1px solid #ddd;
-    border-top: 0;
-    padding: 10px;
+
+
+/* select 2 fields*/
+
+.col-md-3 .input-group-addon {
+    height: 37px;
+    border-right: -1px;
 }
-
-#top-ten-all {
-    box-shadow: 0 0 10px -6px;
-}
-
-
-#travelbase_tabs li.active{
-    background-color: #00be8d;
-    color: #fff;
-    text-shadow: 1px 1px rgba(0, 108, 80, 1);
-}
-
-#travelbase_tabs li a{
-    /*background-color: #fff;*/
-}
-#travelbase_tabs li.active a{
-    background-color: transparent;
-    color: #ffffff;
-}
-
-
-.trip table .trip-path-spacer-line > div {
-    border-bottom: 1px solid rgb(104, 104, 104);
-    height: 15px;
-}
-
-
-.trip table .trip-path-spacer-arrow-wrapper {
-    margin: 0 5%;
-}
-
-.nowrap{
-    white-space: nowrap;
-}
-
-
-
-
 #s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
     padding: 0;
 }
@@ -643,19 +688,20 @@ label.directFlight-label{
 }
 
 #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
-    min-height: 34px;
+    min-height: 38px;
     position: relative;
     top: 0px;
 }
-
+ 
 
 #directFlight{
     -webkit-appearance: checkbox;
     color: #ffffff;
 }
 
-
-
+.select2-container-multi .select2-choices {
+	border-width:2px;
+}
 
 
 
@@ -953,10 +999,6 @@ span.city-picker-close:hover {
     display: inline-block;
     width: 1px;
     height: 1px;
-}
-#travelbase-form input[type='text']{
-    /*background-color: rgba(252, 252, 252, 0);*/
-    /*border: 0 solid #eaeaea;*/
 }
 #travelbase-form .description{
     display: none;
