@@ -42,7 +42,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\PreferredTagMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
-
+    sandboxwebsitebundle.menu.adaptor.seomodule:
+        class: Sandbox\WebsiteBundle\Helper\Menu\SeoModuleAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 
 #Listeners

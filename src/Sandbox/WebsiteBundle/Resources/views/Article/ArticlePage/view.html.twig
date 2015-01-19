@@ -19,6 +19,9 @@
 {% endblock %}
 
 {% block content %}
+
+    {% include '@SandboxWebsite/SeoModule/top.html.twig' %}
+
     <div class="content">
     <header> 
     {% if page.places.count > 0 %}
@@ -59,4 +62,10 @@
     {#{% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}#}
     
     </div>
+
+    {% include '@SandboxWebsite/SeoModule/bottom.html.twig' %}
+{% endblock %}
+
+{% block seoFooter %}
+    {% include '@SandboxWebsite/SeoModule/footer.html.twig' %}
 {% endblock %}

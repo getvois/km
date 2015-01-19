@@ -1,6 +1,9 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 {% block content %}
     <h2>{{ page.title }}</h2>
+
+    {% include '@SandboxWebsite/SeoModule/top.html.twig' %}
+
     {{ render_pageparts(page, 'main') }}
 
     {% set count = 0 %}
@@ -73,9 +76,14 @@
         {% endif %}
     {% endif %}
 
+    {% include '@SandboxWebsite/SeoModule/bottom.html.twig' %}
+
     {#{% include 'KunstmaanArticleBundle:AbstractArticleOverviewPage:view.html.twig' %}#}
 {% endblock %}
 
 {% block sidebar %}
     {% include '@SandboxWebsite/Tag/tagblock.html.twig' %}
+{% endblock %}
+{% block seoFooter %}
+    {% include '@SandboxWebsite/SeoModule/footer.html.twig' %}
 {% endblock %}

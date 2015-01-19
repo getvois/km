@@ -118,10 +118,10 @@
                                                     {#{% for node in node.children %}#}
                                                         {#{% if not node.node.isHiddenFromNav() %}#}
 
-                                                            {#{# check if host exists#}#}
+                                                            {#{# check if host exists#}
                                                             {#{% if host %}#}
                                                                 {#{% if(node.page.hosts) is defined %}#}
-                                                                    {#{# output only host based content #}#}
+                                                                    {#{# output only host based content #}
                                                                     {#{% if host in node.page.hosts %}#}
                                                                         {#<li class="navigation__item navigation__item--sublevel {% if(node.active) %}navigation__item--active{% endif %}">#}
                                                                             {#<a href="{{ path('_slug', { 'url': node.slug }) }}" class="navigation__link navigation__link--sublevel">#}
@@ -133,7 +133,7 @@
                                                                         {#</li>#}
                                                                     {#{% endif %}#}
                                                                 {#{% else %}#}
-                                                                    {#{# object without hosts. print as normal#}#}
+                                                                    {#{# object without hosts. print as normal#}
                                                                     {#<li class="navigation__item navigation__item--sublevel {% if(node.active) %}navigation__item--active{% endif %}">#}
                                                                         {#<a href="{{ path('_slug', { 'url': node.slug }) }}" class="navigation__link navigation__link--sublevel">#}
                                                                             {#{{ node.title }}#}
@@ -481,6 +481,8 @@
                     </div>
                 {% endif %}
             </div>
+
+            {% block seoFooter %}{% endblock %}
         </section>
         <section class="hidden-xs hidden-sm hidden-md hidden-lg">
             <div class="container">

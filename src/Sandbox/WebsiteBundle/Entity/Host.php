@@ -14,6 +14,14 @@ use Kunstmaan\AdminBundle\Entity\AbstractEntity;
  */
 class Host extends AbstractEntity
 {
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\SeoModule", mappedBy="hosts")
+     */
+    private $seoModules;
+
     /**
      * @var string
      *
@@ -22,6 +30,8 @@ class Host extends AbstractEntity
     private $name;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
      * @ORM\JoinTable(name="host_place",
      *      joinColumns={@ORM\JoinColumn(name="host_id", referencedColumnName="id")},
@@ -160,6 +170,7 @@ class Host extends AbstractEntity
         $this->places = new ArrayCollection();
         $this->news = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->seoModules = new ArrayCollection();
     }
 
     /**
@@ -299,5 +310,38 @@ class Host extends AbstractEntity
     public function getPreferredCountries()
     {
         return $this->preferredCountries;
+    }
+
+    /**
+     * Add seoModules
+     *
+     * @param SeoModule $seoModules
+     * @return Host
+     */
+    public function addSeoModule(SeoModule $seoModules)
+    {
+        $this->seoModules[] = $seoModules;
+
+        return $this;
+    }
+
+    /**
+     * Remove seoModules
+     *
+     * @param SeoModule $seoModules
+     */
+    public function removeSeoModule(SeoModule $seoModules)
+    {
+        $this->seoModules->removeElement($seoModules);
+    }
+
+    /**
+     * Get seoModules
+     *
+     * @return \Doctrine\Common\Collections\Collection | SeoModule[]
+     */
+    public function getSeoModules()
+    {
+        return $this->seoModules;
     }
 }

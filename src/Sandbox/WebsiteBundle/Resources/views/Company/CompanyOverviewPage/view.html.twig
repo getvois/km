@@ -88,6 +88,9 @@
 {% endblock %}
 
 {% block content %}
+
+    {% include '@SandboxWebsite/SeoModule/top.html.twig' %}
+
     <div class="container">
 
         <h2 class="company-name">{{ page.title }}</h2>
@@ -235,4 +238,8 @@
         </div>
     </div>
 
+    {% include '@SandboxWebsite/SeoModule/bottom.html.twig' %}
+{% endblock %}
+{% block seoFooter %}
+    {% include '@SandboxWebsite/SeoModule/footer.html.twig' %}
 {% endblock %}
