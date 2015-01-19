@@ -4,8 +4,13 @@ namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\NodeBundle\Entity\Node;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Form\Pages\CompanyTypePageAdminType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * CompanyTypePage
@@ -15,6 +20,29 @@ use Sandbox\WebsiteBundle\Form\Pages\CompanyTypePageAdminType;
  */
 class CompanyTypePage extends AbstractPage implements HasPageTemplateInterface
 {
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        $locale = $request->getLocale();//page language code
+        $placesLocale = [];//array of translated online nodes to return to template
+
+        /** @var NodeTranslation $nodeTranslation */
+        $nodeTranslation = $context->getArrayCopy()['nodetranslation'];
+        $nodeChildren = $nodeTranslation->getNode()->getChildren();
+
+        /** @var Node $node */
+        foreach ($nodeChildren as $node) {
+            $translation = $node->getNodeTranslation($locale);
+            if($translation && $translation->isOnline()){
+                $placesLocale[] = $translation;
+            }
+        }
+
+        $context['places'] = $placesLocale;
+        $context['lang'] = $locale;
+
+        parent::service($container, $request, $context);
+    }
+
 
     /**
      * Returns the default backend form type for this page
