@@ -383,6 +383,10 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
             array(
                 'name' => 'Place',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'
+            ),
+            array(
+                'name' => 'CompanyType',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\CompanyTypePage'
             )];
     }
 
