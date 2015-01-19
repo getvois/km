@@ -79,7 +79,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             'class' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', 'required' => false,
             'query_builder' => function(CompanyOverviewPageRepository $er) {
                 if(array_key_exists('REQUEST_URI', $_SERVER)){
-                    $locale = (substr($_SERVER['REQUEST_URI'], 1, 2));//get locale from url(not the best way)
+                    $locale = (substr(str_replace("app.dev", "", $_SERVER['REQUEST_URI']), 1, 2));//get locale from url(not the best way)
                     var_dump('REQUEST_URI');
                     var_dump($_SERVER['REQUEST_URI']);
                 }
