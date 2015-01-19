@@ -1,0 +1,73 @@
+<?php
+
+namespace Sandbox\WebsiteBundle\Entity\Pages;
+
+use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
+use Sandbox\WebsiteBundle\Form\Pages\CompanyTypePageAdminType;
+
+/**
+ * CompanyTypePage
+ *
+ * @ORM\Table(name="sb_company_type_pages")
+ * @ORM\Entity
+ */
+class CompanyTypePage extends AbstractPage implements HasPageTemplateInterface
+{
+
+    /**
+     * Returns the default backend form type for this page
+     *
+     * @return CompanyTypePageAdminType
+     */
+    public function getDefaultAdminType()
+    {
+        return new CompanyTypePageAdminType();
+    }
+
+    /**
+     * @return array
+     */
+    public function getPossibleChildTypes()
+    {
+        return array (
+            array(
+                'name' => 'CompanyTypePage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\CompanyTypePage'
+            ),
+            array(
+                'name' => 'Company',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage'
+            ),
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getPagePartAdminConfigurations()
+    {
+        return array(
+            'SandboxWebsiteBundle:home',
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPageTemplates()
+    {
+        return array('SandboxWebsiteBundle:contentpage');
+    }
+
+    /**
+     * Get the twig view.
+     *
+     * @return string
+     */
+    public function getDefaultView()
+    {
+        return 'SandboxWebsiteBundle:Pages:CompanyType/view.html.twig';
+    }
+}

@@ -42,7 +42,11 @@ class PlacesPage extends AbstractPage implements HasPageTemplateInterface
      */
     public function getPossibleChildTypes()
     {
-        return array();
+        return array(
+            array(
+                'name' => 'CompanyTypePage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\CompanyTypePage'
+            ),);
     }
 
     /**
