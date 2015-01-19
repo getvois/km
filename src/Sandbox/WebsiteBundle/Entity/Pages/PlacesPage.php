@@ -44,9 +44,10 @@ class PlacesPage extends AbstractPage implements HasPageTemplateInterface
     {
         return array(
             array(
-                'name' => 'CompanyTypePage',
-                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\CompanyTypePage'
-            ),);
+                'name' => 'Company Place',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\CompanyPlacePage'
+            ),
+        );
     }
 
     /**
@@ -144,10 +145,10 @@ class PlacesPage extends AbstractPage implements HasPageTemplateInterface
     /**
      * Add children
      *
-     * @param \Sandbox\WebsiteBundle\Entity\Pages\PlacesPage $children
+     * @param PlacesPage $children
      * @return PlacesPage
      */
-    public function addChild(\Sandbox\WebsiteBundle\Entity\Pages\PlacesPage $children)
+    public function addChild(PlacesPage $children)
     {
         $this->children[] = $children;
 
@@ -157,9 +158,9 @@ class PlacesPage extends AbstractPage implements HasPageTemplateInterface
     /**
      * Remove children
      *
-     * @param \Sandbox\WebsiteBundle\Entity\Pages\PlacesPage $children
+     * @param PlacesPage $children
      */
-    public function removeChild(\Sandbox\WebsiteBundle\Entity\Pages\PlacesPage $children)
+    public function removeChild(PlacesPage $children)
     {
         $this->children->removeElement($children);
     }
@@ -177,10 +178,10 @@ class PlacesPage extends AbstractPage implements HasPageTemplateInterface
     /**
      * Set parentPlace
      *
-     * @param \Sandbox\WebsiteBundle\Entity\Pages\PlacesPage $parentPlace
+     * @param PlacesPage $parentPlace
      * @return PlacesPage
      */
-    public function setParentPlace(\Sandbox\WebsiteBundle\Entity\Pages\PlacesPage $parentPlace = null)
+    public function setParentPlace(PlacesPage $parentPlace = null)
     {
         $this->parentPlace = $parentPlace;
 
@@ -190,7 +191,7 @@ class PlacesPage extends AbstractPage implements HasPageTemplateInterface
     /**
      * Get parentPlace
      *
-     * @return \Sandbox\WebsiteBundle\Entity\Pages\PlacesPage 
+     * @return PlacesPage
      */
     public function getParentPlace()
     {
