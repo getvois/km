@@ -478,16 +478,7 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
      */
     public function getPossibleChildTypes()
     {
-        return array(
-            array(
-                'name'  => 'Country',
-                'class' => 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage'
-            ),
-            array(
-                'name' => 'Company',
-                'class'=> 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage'
-            ),
-        );
+        return array();
     }
 
     /**
