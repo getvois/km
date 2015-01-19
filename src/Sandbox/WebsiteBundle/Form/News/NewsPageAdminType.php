@@ -81,7 +81,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 if(array_key_exists('REQUEST_URI', $_SERVER)){
                     $locale = (substr(str_replace("app.dev", "", $_SERVER['REQUEST_URI']), 1, 2));//get locale from url(not the best way)
                     var_dump('REQUEST_URI');
-                    var_dump($_SERVER['REQUEST_URI']);
+                    var_dump($locale);
                 }
                 else if (array_key_exists('PATH_INFO', $_SERVER)){
                     $locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
