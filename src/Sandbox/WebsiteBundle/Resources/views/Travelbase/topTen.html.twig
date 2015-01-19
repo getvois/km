@@ -17,7 +17,7 @@
                 <div class="row">
 
                     {% if p.image %}
-                        <div class="col-md-3">
+                        <div class="col-md-3 nopadding">
                             <img class="img-responsive" src="{{ asset(p.image.url | imagine_filter("150x")) }}" alt=""/>
                         </div>
                         <div class="col-md-9">
