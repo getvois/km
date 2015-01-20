@@ -51,3 +51,7 @@ KunstmaanUserManagementBundle:
 KunstmaanDashboardBundle:
     resource: "@KunstmaanDashboardBundle/Resources/config/routing.yml"
     prefix:   /
+
+sandboxwebsitebundle_tag:
+    resource: @SandboxWebsiteBundle/Controller/TagController.php
+    type:     annotation
