@@ -60,7 +60,7 @@
                 <div class="col-md-3">
                     <div class="input-group" style="position: absolute">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-import"></span></div>
-                        <input type="text" class="form-control" style="z-index: -1">
+                        <input type="text" class="form-control form-control-destination" style="z-index: -1">
                         {#<select name="" id="departure-selected" multiple class="form-control"></select>#}
                     </div>
 
@@ -97,7 +97,7 @@
 
                 {#COL 5#}
                 <div class="col-md-2">
-                    <a href="#" id="form-submit" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"></span> {{ 'search'| trans({}, 'frontend') }}</a>
+                    <a href="#" id="form-submit" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"></span></a>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
                     <div id="slider-range-stopover"></div>
                 </div>
                 {# COL 3 #}
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="checkbox">
                         <label class="directFlight-label">
                             <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 {# COL 4 #}
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <div class="field-six nopadding options-row">
                         <div style="display: none;" class="option-div options">
                             {{ render(controller('SandboxWebsiteBundle:Dropdown:companySelect')) }}

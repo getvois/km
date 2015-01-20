@@ -11,7 +11,7 @@
             {% if news is not null %}
                 {% if news > 0 %}
 
-                    <h1>Latest offers</h1>
+                    <h1>{{ 'latest.offers' | trans({}, 'frontend') }}</h1>
                     {% for item in news %}
 
                         {% set articlenode = get_node_translation_for(item) %}
@@ -19,30 +19,32 @@
 
                         <article class="main-article main-article--summary">
                             <header>
-                                <time class="main-article__meta">
-                                    {{ item.date | date("d.m.Y") }}
+                                {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }}</span></div></div></div>{% endif %}
+					        	<time class="main-article__meta">
+                                    {{ item.date | date("F jS H:i") }}
                                 </time>
                                 <h4 class="main-article__title">
-                                    {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }}</span></div></div></div>{% endif %}
-					        		<a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+                                   <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
                                 </h4>
                             </header>
-                            {% if item.image %}<div class="row">{% endif %}
-                                <div class="{% if item.imgSize %}col-md-12{% else %}col-md-9{% endif %}">
-	                            {{ item.summary }}
-	                            <p>
-	                                <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
-	                                    Read more
-	                                </a>
-	                            </p>
-                            {% if item.image %}  
-                            	</div>
-						        <div class="col-md-3">
-						        	<br />
+                            
+                            <div class="row">
+                                {% if item.image %}  
+						        <div class="col-md-3 nopadding-right">
 						        	<a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
 					   			</div>
-		   					{% endif %}
-                            {% if item.image %}</div>{% endif %}
+		   						{% endif %}
+		   						<div class="{% if item.image %}col-md-9{% else %}col-md-12{% endif %}">
+	                            {{ item.summary }}
+	                            </div>
+		                            <div class="col-md-12 text-right">
+		                            	<p>
+			                                <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
+			                                   {{ 'article.readmore' | trans }}
+			                                </a>
+		                            	</p>
+		                            </div>
+                            </div>
                         </article>
                     {% endfor %}
 
@@ -55,14 +57,16 @@
             <!-- Articles pane -->
             {% if articles is not null %}
                 {% if articles > 0 %}
-                    <h1>Articles</h1>
+                    <h1>{{ 'latest.articles' | trans({}, 'frontend') }}</h1>
                     {% for item in articles %}
                         {% set articlenode = get_node_translation_for(item) %}
                         {#{{ dump(item) }}#}
                         <article class="main-article main-article--summary article__overview--list-item">
                             <header>
-                                {% if item.places.count > 0 %}
-                                    <div class="to-places ignore pull-right">
+                                <time>{{ item.date | date("F jS H:i")}}</time>
+                                
+								{% if item.places.count > 0 %}
+                                    <div class="to-places ignore pull-right {% if item.places.count > 4 %}margin-top-bottom-10{% endif %}">
                                         <span class="glyphicon glyphicon-map-marker"></span>
                                         {% for place in item.places %}
                                             {% if get_node_translation_for(place) %}
@@ -71,9 +75,7 @@
                                         {% endfor %}
                                     </div>
                                 {% endif %}
-
-                                <time>{{ item.date | date("F jS H:i")}}</time>
-
+                                
                                 <h3>
                                     {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
                                     <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
@@ -95,11 +97,13 @@
                             {% endif %}
                             <p></p>
                             <p>{{ item.summary }}</p>
-                            <p>
-                                <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
-                                    Read more
-                                </a>
-                            </p>
+                            <div class="row">
+                            	<div class="col-md-12 text-right">
+	                                <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary">
+	                                    {{ 'article.readmore' | trans }}
+	                                </a>
+	                            </div>
+                            </div>
                             <div class="clear"></div>
                         </article>
 

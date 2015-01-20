@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         {#{{ websitetitle | trans }}#}
-        {% block title %}{% if page is defined and nodemenu.getActiveForDepth(2) is not null %} - {{ get_title_for(page) }}{% endif %}{% endblock %}</title>
+        {% block title %}{% if page is defined and nodemenu.getActiveForDepth(2) is not null %} {{ get_title_for(page) }}{% endif %}{% endblock %}</title>
     {% if page is defined %}
         {{ render_seo_metadata_for(page) }}
     {% endif %}
@@ -186,7 +186,7 @@
 
             <h3 class="top-img-title">{% block topImgTitle %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}{% endblock %}</h3>
             <div class=" splash__container">
-                <div class="row row--padded-large">
+                <div class="row nomargin">
                     <div class="site-logo">
                         <a href="/"></a>
                     </div>
@@ -233,7 +233,7 @@
     </header>
 {% endblock %}
 
-<div class="row">
+<div class="row nomargin-right">
     <div class="col-md-9 col-md-offset-0_5">
 		
         <!-- Travelbase -->
@@ -300,11 +300,11 @@
     <!-- Footer -->
     <footer role="footer" class="footer">
         <section class="splash splash--gray-dark">
-            <div class="container"> 
+            <div class="row nomargin">  
                 {% if nodemenu is defined %}
                     {% set searchPageNode = nodemenu.getNodeByInternalName('search') %}
                     {% if searchPageNode %}
-                        <div class="row row--padded hidden-md hidden-lg">
+                        <div class="row hidden-md hidden-lg">
                             <div class="col-xs-12 col-sm-5 col-sm-offset-7">
                                 <form method="get" action="{{ path('_slug', { 'url': searchPageNode.slug }) }}" class="searchbox">
                                     <div class="searchbox-box">
@@ -319,7 +319,7 @@
                     {% endif %}
 
                     {% set activeSubnode = nodemenu.getActiveForDepth(1) %}
-                    <div class="row row--padded">
+                    <div class="col-md-11 col-md-offset-0_5 margin-top-20">
                         {% for node in activeSubnode.children %}
                             {% if not node.node.isHiddenFromNav() and ( node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Article\\ArticleOverviewPage" or node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage")  %}
                                 <nav class="col-xs-12 col-sm-3 col-md-3 col--padded doormat">
@@ -375,7 +375,7 @@
                         <nav class="col-xs-12 col-sm-6 col-md-6 col--padded doormat">
                             <img src="{{ asset("bundles/sandboxwebsite/img/general/world_map.png") }}" alt="World map" class="img-reponsive"/>
 
-                            <div class="row">
+                            <div class="row nomargin">
 
                                 {% for node in activeSubnode.children %}
                                     {% if not node.node.isHiddenFromNav() and ( node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage")  %}
@@ -480,13 +480,12 @@
 
                     </div>
                 {% endif %}
+                {% block seoFooter %}{% endblock %}
             </div>
-
-            {% block seoFooter %}{% endblock %}
         </section>
         <section class="hidden-xs hidden-sm hidden-md hidden-lg">
             <div class="container">
-                <div class="row row--padded">
+                <div class="row nomargin">
                     <div class="col-md-12">
                         <p class="pull-left">
                             &copy; {{ "now"|date("Y") }}

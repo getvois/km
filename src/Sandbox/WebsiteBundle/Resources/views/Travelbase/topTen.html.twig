@@ -1,6 +1,6 @@
 {% if pages is defined and pages is not null%}
 {#<h3>Top 10</h3>#}
-<div role="tabpanel">
+<div role="tabpanel" class="top-ten">
 
     <!-- Nav tabs -->
     {#<ul class="nav nav-tabs" role="tablist">#}
@@ -11,21 +11,20 @@
     {#</ul>#}
 
     <!-- Tab panes -->
-        <div class="tab-pane active top-ten" id="" style="margin-top: 50px">
+        <div class="tab-pane active" id="">
             <h1>Top 10</h1>
             {% for p in pages %}
-                <div class="row">
-
+                <div class="row margin-bottom-20">
                     {% if p.image %}
-                        <div class="col-md-3 nopadding">
-                            <img class="img-responsive" src="{{ asset(p.image.url | imagine_filter("150x")) }}" alt=""/>
+                        <div class="col-md-3 nopadding col-md-offset-1">
+                            <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}"><img class="img-responsive" src="{{ asset(p.image.url | imagine_filter("150x")) }}" alt=""/></a>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
                         </div>
-
+ 
                     {% else %}
-                        <div class="col-md-12">
+                        <div class="col-md-11 col-md-offset-1">
                             <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
                         </div>
                     {% endif %}
@@ -37,4 +36,4 @@
         <div role="tabpanel" class="tab-pane no" id="top-ten-sun">sun</div>
 
 </div>
-{% endif %}
+{% endif %} 
