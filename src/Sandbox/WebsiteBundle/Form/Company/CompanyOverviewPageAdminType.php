@@ -61,6 +61,11 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
                 }
             ]
         );
+
+        $builder->add('affiliateLink');
+        $builder->add('cashBackValue');
+        $builder->add('cashBackType');
+
     }
     /**
      * Sets the default options for this type.

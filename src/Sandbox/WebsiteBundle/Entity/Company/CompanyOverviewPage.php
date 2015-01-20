@@ -20,6 +20,7 @@ use Kunstmaan\ArticleBundle\Entity\AbstractArticleOverviewPage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\PagePartAdmin\AbstractPagePartAdminConfigurator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,6 +31,83 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CompanyOverviewPage extends AbstractArticleOverviewPage
 {
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="affiliate_link", type="string", length=255, nullable=true)
+     */
+    private $affiliateLink;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="cash_back_value", type="decimal", precision=8, scale=2, nullable=true)
+     */
+    private $cashBackValue;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="cash_back_type", type="string", length=3, nullable=true)
+     */
+    private $cashBackType;
+
+    /**
+     * @return string
+     */
+    public function getAffiliateLink()
+    {
+        return $this->affiliateLink;
+    }
+
+    /**
+     * @param string $affiliateLink
+     * @return $this
+     */
+    public function setAffiliateLink($affiliateLink)
+    {
+        $this->affiliateLink = $affiliateLink;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCashBackType()
+    {
+        return $this->cashBackType;
+    }
+
+    /**
+     * @param float $cashBackType
+     * @return $this
+     */
+    public function setCashBackType($cashBackType)
+    {
+        $this->cashBackType = $cashBackType;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCashBackValue()
+    {
+        return $this->cashBackValue;
+    }
+
+    /**
+     * @param float $cashBackValue
+     * @return $this
+     */
+    public function setCashBackValue($cashBackValue)
+    {
+        $this->cashBackValue = $cashBackValue;
+        return $this;
+    }
+
+
 
     /**
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Article\ArticlePage", mappedBy="companies")
