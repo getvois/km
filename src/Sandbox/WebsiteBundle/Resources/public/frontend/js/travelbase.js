@@ -588,7 +588,7 @@ $(document).ready(function() {
                     if(stops == 0) stops = "";
                     else stops += " stops";
 
-                    var $date = $data[i].dDate.slice(0, 5) + $data[i].dDate.slice(8, $data[i].dDate.length);
+                    var $date = $data[i].dDate.slice(0, 6) + $data[i].dDate.slice(8, $data[i].dDate.length);
 
                     $row +=
                         '<div class="trip row">' +
