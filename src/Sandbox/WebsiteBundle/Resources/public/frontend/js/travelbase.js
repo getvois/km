@@ -382,7 +382,7 @@ $(document).ready(function() {
                 var $departure = $("#departure-selected");
                 var $data = $departure.select2('data');
 
-                var $id = $($link).data('id');
+                var $id = $link.data('id');
 
                 var add = true;
                 if($($link).data('type') == 'country'){
@@ -402,7 +402,7 @@ $(document).ready(function() {
                 }
 
                 if(add){
-                    var $name1 = $($link).text();
+                    var $name1 = $link.text();
                     $data.push({id: $id, text: $name1, countryName: $name1, cityNameEn: $name1});
                     $departure.select2('data', $data);
 
