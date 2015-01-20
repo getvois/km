@@ -9,9 +9,14 @@
     {#</div>#}
 {#{% endif %}#}
 
+{% if ignore is not defined %}
+    {% set class = "" %}
+{% else %}
+    {% set class = "ignore" %}
+{% endif %}
 
 {% if item is defined and item.places.count > 0 %}
-    <div class="to-places pull-right">
+    <div class="to-places {{ class }} pull-right">
         <span class="glyphicon glyphicon-map-marker"></span>
         {% for place in item.places %}
             {% if get_node_translation_for(place) %}

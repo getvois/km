@@ -58,7 +58,7 @@
                         <header>
                             <time>{{ item.date | date("F jS H:i")}}</time>
 
-                            {% include '@SandboxWebsite/Layout/toplaces.html.twig' %}
+                            {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
 
                             <h3>
                                 {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
