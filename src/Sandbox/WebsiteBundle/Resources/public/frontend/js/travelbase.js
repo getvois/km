@@ -142,9 +142,9 @@ $(document).ready(function() {
     $sliderStopover.slider({
         range: true,
         min: 60,
-        max: 1440,
+        max: 2040,
         step: 60,
-        values: [ 60, 1440 ],
+        values: [ 60, 2040 ],
         slide: function(e, ui) {
             var hoursF = Math.floor(ui.values[0] / 60);
             var hoursT = Math.floor(ui.values[1] / 60);
