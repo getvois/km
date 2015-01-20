@@ -255,6 +255,8 @@
 
         {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
 
+        {% include '@SandboxWebsite/Tag/tagblock.html.twig' %}
+
         {% if preferredtags is defined %}
             <div class="tags-block">
                 <h2>Tags</h2>
