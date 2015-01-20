@@ -4,8 +4,7 @@
     <span class="glyphicon glyphicon-folder-open"></span>&nbsp; 
     {% for tag in tags %}
            <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : tag.name | replace({' ': "_"}) } ) }}">
-               {{ tag.name|trans({}, 'tag', app.request.locale) }}
-           </a>{% if loop.last == false %}, {% endif %}
+               {{ tag.name|trans({}, 'tag', app.request.locale) }}</a>{% if loop.last == false %}, {% endif %}
     {% endfor %}
 </div>
 {% endif %}
