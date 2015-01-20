@@ -31,7 +31,7 @@
             <div class="pull-right">
                 <div class="price-from price-from-img">
                     <div class="price-from-inner pull-right">
-                        <span>{{ page.priceFrom }} {% if page.priceFromLabel %}/ {{ page.priceFromLabel }}{% endif %}</span>
+                        <span>{{ page.priceFrom }} {% if page.priceFromLabel %}/ {{ page.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span>
                     </div>
                 </div>
             </div>
