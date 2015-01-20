@@ -47,7 +47,6 @@
         <div class="from-places">
         From:
         {% for place in page.fromPlaces %}
-            {{ dump(place) }}
         <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
         {% endfor %}
         </div>
