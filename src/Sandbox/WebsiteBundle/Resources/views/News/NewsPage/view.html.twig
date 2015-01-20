@@ -54,7 +54,7 @@
                     {% else %}
                         {% set type = 'country' %}
                     {% endif %}
-		        <a data-id="place.cityId" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
+		        <a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
 		        {% endfor %}
 		        </div> 
 		    {% endif %}
