@@ -1,6 +1,7 @@
 <?php
 namespace Sandbox\WebsiteBundle\EventListener;
 
+use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Event\NodeEvent;
@@ -67,25 +68,24 @@ class FormListener {
             $this->selectPlaces($originalLanguage, $page);
         }
 
+        /** @var PlaceOverviewPage $page */
         if($page instanceof PlaceOverviewPage){
+
+            $this->copyHostsToChildren($page, $nodeEvent->getNode());
+            $this->em->flush();
+
             $translations = $nodeEvent->getNode()->getNodeTranslations(true);
 
             foreach ($translations as $translation) {
-                if($originalLanguage == $translation->getLang()) continue;
+                if($originalLanguage == $translation->getLang()) {
+                    continue;
+                }
 
                 /** @var PlaceOverviewPage $pp */
                 $pp = $translation->getRef($this->em);
 
-                foreach ($pp->getHosts() as $host) {
-                    $pp->removeHost($host);
-                }
-
-                foreach ($page->getHosts() as $host) {
-                    $pp->addHost($host);
-                }
-
-                $this->em->persist($pp);
-
+                $pp->setCityId($page->getCityId());
+                $pp->setCountryCode($page->getCountryCode());
             }
 
             $this->em->flush();
@@ -114,6 +114,43 @@ class FormListener {
             }
 
             $this->em->flush();
+        }
+
+    }
+
+    private function copyHostsToChildren(PlaceOverviewPage $page, Node $node)
+    {
+        $translations = $node->getNodeTranslations(true);
+
+        //save hosts to add
+        $hosts = [];
+        foreach ($page->getHosts() as $host) {
+            $hosts[] = $host;
+        }
+
+
+        //copy host to all translations
+        foreach ($translations as $translation) {
+
+            /** @var PlaceOverviewPage $pp */
+            $pp = $translation->getRef($this->em);
+
+            if($pp instanceof PlaceOverviewPage){
+                foreach ($pp->getHosts() as $host) {
+                    $pp->removeHost($host);
+                }
+
+                foreach ($hosts as $host) {
+                    $pp->addHost($host);
+                }
+
+                $this->em->persist($pp);
+            }
+
+        }
+
+        foreach ($node->getChildren() as $child) {
+            $this->copyHostsToChildren($page, $child);
         }
 
     }
