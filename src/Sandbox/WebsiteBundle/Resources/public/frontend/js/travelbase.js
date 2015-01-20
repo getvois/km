@@ -260,7 +260,7 @@ $(document).ready(function() {
     //////////////////////////////////////////////////////////////////////////////////////////////
     var $to = $('.to-places:not(.ignore)');
     if($to.length > 0){
-        $to.find('a').each(function () {
+        $to.find('a, span').each(function () {
             var $name = $(this).text();
             //$("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
                 //if($(this).data('name') == $name){
@@ -372,7 +372,7 @@ $(document).ready(function() {
     var $from = $('.from-places');
     if($from.length > 0){
         //var $name = $from.find('a').first().text();
-        var $link = $from.find('a').first();
+        var $link = $from.find('a, span').first();
         //$("#dropdown-departure").find('.city-list').find("input[type='checkbox']").each(function () {
             //if($(this).data('name') == $name){
                 //$(this).attr('checked', true).change();
