@@ -14,7 +14,7 @@
                         <header>
                             {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }}</span></div></div></div>{% endif %}
                             <time class="main-article__meta">
-                                {{ item.date | date("F jS H:i") }}
+                                {{ item.date | localizeddate('long','short') }}
                             </time>
                             <h4 class="main-article__title">
                                 <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
@@ -56,7 +56,7 @@
                     {#{{ dump(item) }}#}
                     <article class="main-article main-article--summary article__overview--list-item">
                         <header>
-                            <time>{{ item.date | date("F jS H:i")}}</time>
+                            <time>{{ item.date| localizeddate('long','short')}}</time>
 
                             {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
 

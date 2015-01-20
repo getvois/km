@@ -25,7 +25,7 @@
     <div class="content">
     <header>
         {% include "@SandboxWebsite/Layout/toplaces.html.twig" with {"item": page} %}
-    <time>{{ page.date|localizeddate('long','short', 'et')}}</time>
+    <time>{{ page.date|localizeddate('long','short')}}</time>
     <h1>
     	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
            {{ page.title }}
