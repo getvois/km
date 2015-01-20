@@ -262,15 +262,15 @@ $(document).ready(function() {
     if($to.length > 0){
         $to.find('a').each(function () {
             var $name = $(this).text();
-            $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
-                if($(this).data('name') == $name){
-                    $(this).attr('checked', true).change();
+            //$("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
+                //if($(this).data('name') == $name){
+                    //$(this).attr('checked', true).change();
 
 
                     var $destination = $("#destination-selected");
                     var $data = $destination.select2('data');
 
-                    var $id = $(this).val();
+                    var $id = $(this).data('id');
 
                     var add = true;
                     if($(this).data('type') == 'country'){
@@ -279,10 +279,10 @@ $(document).ready(function() {
                     }else{
                         //city
                         //check parent
-                        var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
+                        //var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
 
                         for(var i = 0; i<$data.length; i++){
-                            if($data[i].id == $countryId){
+                            if($data[i].id == $id){
                                 add = false;
                                 break;
                             }
@@ -290,8 +290,8 @@ $(document).ready(function() {
                     }
 
                     if(add){
-                        var $name1 = $(this).data('name');
-                        $data.push({id: $id, text: $(this).data('name'), countryName: $name1, cityNameEn: $name1});
+                        var $name1 = $name;
+                        $data.push({id: $id, text: $name1, countryName: $name1, cityNameEn: $name1});
                         $destination.select2('data', $data);
 
 
@@ -306,9 +306,9 @@ $(document).ready(function() {
                         $deparpureEl.prev().hide();
                         $deparpureEl.prev().prev().hide();
                     }
-                }
+                //}
             });
-        });
+        //});
 
     }else{
         //Pre Select from bread crumbs
