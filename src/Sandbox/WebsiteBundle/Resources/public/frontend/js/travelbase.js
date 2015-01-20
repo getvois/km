@@ -592,7 +592,7 @@ $(document).ready(function() {
 
                     $row +=
                         '<div class="trip row">' +
-                        '    <div class="col-xs-1 trip-duration">'+$data[i].dDate+'</div>' +
+                        '    <div class="col-xs-1 trip-duration">'+$date+'</div>' +
                         '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '    <div class="col-xs-8 trip-path">';
 
