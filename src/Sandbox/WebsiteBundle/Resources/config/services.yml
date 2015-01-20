@@ -11,11 +11,6 @@ services:
         arguments: [@service_container]
         tags:
           - { name: twig.extension }
-    sandboxwebsitebundle.twigdatetimeExtension:
-        class: Sandbox\WebsiteBundle\Twig\Extension\DateTimeExtension
-        tags:
-          - { name: twig.extension }
-
 
 #Form Fields
     sandboxwebsitebundle.form.type.imagesize:
