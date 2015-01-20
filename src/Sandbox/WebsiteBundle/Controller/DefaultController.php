@@ -72,17 +72,18 @@ class DefaultController extends Controller
             $table = "";
             if($body){
                 $table = $loading;
+                $date = $this->get('translator')->trans('date', [], 'frontend');
+                $price = $this->get('translator')->trans('price', [], 'frontend');
                 if(in_array(4, $filter->type)){//flights only(skypicker)
-
                     $table .= '<div>
                             <div class="row table-header">
-                                <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
                                 <div class="col-xs-1"></div>
                                 <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-3"> </div>
                                 <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-2"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
                             </div>
 
                             ';
@@ -96,17 +97,19 @@ class DefaultController extends Controller
 //                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>';
 
                 }else{
+                    $duration = $this->get('translator')->trans('duration', [], 'frontend');
+                    $company = $this->get('translator')->trans('company', [], 'frontend');
 
                     $table .= '<div>
                             <div class="row table-header">
-                                <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
                                 <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-2"></div>
                                 <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-2"><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-1"><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></div>
-                                <div class="col-xs-1"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
-                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>' . $duration .'</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>' . $company .'</a></div>
+                                <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
 
                             </div>
 
