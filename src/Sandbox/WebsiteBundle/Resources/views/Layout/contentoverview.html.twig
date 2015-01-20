@@ -17,14 +17,14 @@
                                 {{ item.date | localizeddate('long','short', app.request.locale) }}
                             </time>
                             <h4 class="main-article__title">
-                                <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+                                <a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
                             </h4>
                         </header>
 
                         <div class="row">
                             {% if item.image %}
                                 <div class="col-md-3 nopadding-right">
-                                    <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
+                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
                                 </div>
                             {% endif %}
                             <div class="{% if item.image %}col-md-9{% else %}col-md-12{% endif %}">
@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-md-12 text-right">
                                 <p>
-                                    <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary main-article__readmore">
+                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary main-article__readmore">
                                         {{ 'article.readmore' | trans }}
                                     </a>
                                 </p>
@@ -62,7 +62,7 @@
 
                             <h3>
                                 {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
-                                <a href="/{{ lang }}/{{ articlenode.url }}">{{ item.title }}</a>
+                                <a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
                             </h3>
                         </header>
                         {% if item.image %}
@@ -76,14 +76,14 @@
 
                         {% if item.image %}
                             {% if item.imgSize == '1000' %}
-                                <a href="/{{ lang }}/{{ articlenode.url }}"><img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/></a>
+                                <a href="{{ path("_slug", {'url':articlenode.url}) }}"><img src="{{ asset(item.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/></a>
                             {% endif %}
                         {% endif %}
                         <p></p>
                         <p>{{ item.summary }}</p>
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <a href="/{{ lang }}/{{ articlenode.url }}" class="btn btn-primary">
+                                <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary">
                                     {{ 'article.readmore' | trans }}
                                 </a>
                             </div>
