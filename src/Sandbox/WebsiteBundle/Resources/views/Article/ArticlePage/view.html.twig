@@ -27,7 +27,15 @@
         {% include "@SandboxWebsite/Layout/toplaces.html.twig" with {"item": page} %}
     <time>{{ page.date|localizeddate('long','short', app.request.locale)}}</time>
     <h1>
-    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
+        {% if page.priceFrom %}
+            <div class="pull-right">
+                <div class="price-from price-from-img">
+                    <div class="price-from-inner pull-right">
+                        <span>{{ page.priceFrom }} {% if page.priceFromLabel %}/ {{ page.priceFromLabel }}{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
            {{ page.title }}
     </h1>
     {% include '@SandboxWebsite/Tag/tagblock.article.html.twig' with { 'tags': page.tags } %}
