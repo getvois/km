@@ -22,7 +22,7 @@ class TagController extends Controller
      * @param $tag
      * @return array
      */
-    public function tagAction(Request $request, $tag)
+    public function tagAction(Request $request, $tag, $_locale = null)
     {
         $tag = str_replace("_", ' ', $tag);
 
