@@ -23,34 +23,8 @@
 	<div class="content">
 		<div class="row">
 			<div class="col-md-12">
-				<header> 
-			    {% if page.places.count > 0 %}
-			        <div class="to-places pull-right">
-			        <span class="glyphicon glyphicon-map-marker"></span>
-			        {% for place in page.places %}
-			            {% if get_node_translation_for(place) %}
-                            {% if get_node_for(place).level > 2 %}
-                                {% set type = 'city' %}
-                            {% else %}
-                                {% set type = 'country' %}
-                            {% endif %}
-
-
-                            {% if host %}
-                                {% if place.hosts.contains(host) %}
-                                    <a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}
-                                {% else %}
-                                    <span data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}">{{ place.title }}</span> {% if loop.last == false %}/{% endif %}
-                                {% endif %}
-                            {% else %}
-                                <a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}
-                            {% endif %}
-
-
-			            {% endif %}
-			        {% endfor %}
-			        </div>
-			    {% endif %}
+				<header>
+                    {% include "@SandboxWebsite/Layout/toplaces.html.twig" with {"item": page} %}
 			    <time>{{ page.date | date("F jS H:i")}}</time>
 			    <h1>
 			    	{% if page.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ page.priceFrom }}</span></div></div></div>{% endif %}
