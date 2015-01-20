@@ -77,11 +77,11 @@ class DefaultController extends Controller
                     $table .= '<div>
                             <div class="row table-header">
                                 <div class="col-xs-1"><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></div>
-                                <div class="col-xs-1">Stops</div>
+                                <div class="col-xs-1"></div>
                                 <div class="col-xs-2"><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-3"> </div>
                                 <div class="col-xs-2"><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-2"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Company</a></div>
+                                <div class="col-xs-2"><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '></a></div>
                                 <div class="col-xs-1"><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></div>
                             </div>
 
