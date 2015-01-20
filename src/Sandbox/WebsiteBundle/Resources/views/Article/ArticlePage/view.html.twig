@@ -31,18 +31,9 @@
            {{ page.title }}
     </h1>
     {% include '@SandboxWebsite/Tag/tagblock.article.html.twig' with { 'tags': page.tags } %}
-    </header> 
+    </header>
     
-    
-    {% if page.fromPlaces.count > 0 %}
-        <div class="from-places">
-        From:
-        {% for place in page.fromPlaces %}
-        <a href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
-        {% endfor %}
-        </div>
-    {% endif %}
-    
+    {% include '@SandboxWebsite/Layout/fromplaces.html.twig' %}
     
     {% if page.image and page.imageOnlyOnPreview == false %}
     		<img src="{{ asset(page.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/>

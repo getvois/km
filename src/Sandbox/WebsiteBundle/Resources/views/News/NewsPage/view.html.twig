@@ -44,19 +44,7 @@
 		</div>
 		<div class="row">
 			<div class="{% if page.imgSize %}col-md-12{% else %}col-md-9{% endif %}">
-		    {% if page.fromPlaces.count > 0 %}
-		        <div class="from-places">
-		        From:
-		        {% for place in page.fromPlaces %}
-                    {% if get_node_for(place).level > 2 %}
-                        {% set type = 'city' %}
-                    {% else %}
-                        {% set type = 'country' %}
-                    {% endif %}
-		        <a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
-		        {% endfor %}
-		        </div> 
-		    {% endif %}
+		    {% include '@SandboxWebsite/Layout/fromplaces.html.twig' %}
 		    <p></p>
 		    {% if render_pageparts(page, 'main') == null %}
 		     	{{ page.summary }}
