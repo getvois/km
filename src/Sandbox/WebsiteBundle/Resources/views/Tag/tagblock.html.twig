@@ -4,7 +4,7 @@
     <h2>Tags</h2>
     {% for tag in tags %}
         <div>
-            <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : tag.name | replace({' ': "_"}) } ) }}">{{ tag.name }}</a>
+            <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : tag.name | replace({' ': "_"}) } ) }}">{{ tag.name|trans({}, 'tag', app.request.locale) }}</a>
         </div>
     {% endfor %}
 </div>
@@ -16,7 +16,7 @@
     {% for pt in preferredtags %}
         {% if pt.tag is not null %}
             <div class="{{ pt.class }}">
-                <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : pt.tag.name | replace({' ': "_"}) } ) }}">{{ pt.tag.name }}</a>
+                <a href="{{ path('sandbox_website_tag_tag', {"_locale": app.request.locale, 'tag' : pt.tag.name | replace({' ': "_"}) } ) }}">{{ pt.tag.name|trans({}, 'tag', app.request.locale) }}</a>
             </div>
         {% endif %}
     {% endfor %}
