@@ -371,26 +371,27 @@ $(document).ready(function() {
     //Pre Select departure
     var $from = $('.from-places');
     if($from.length > 0){
-        var $name = $from.find('a').first().text();
-        $("#dropdown-departure").find('.city-list').find("input[type='checkbox']").each(function () {
-            if($(this).data('name') == $name){
-                $(this).attr('checked', true).change();
+        //var $name = $from.find('a').first().text();
+        var $link = $from.find('a').first();
+        //$("#dropdown-departure").find('.city-list').find("input[type='checkbox']").each(function () {
+            //if($(this).data('name') == $name){
+                //$(this).attr('checked', true).change();
 
 
 
                 var $departure = $("#departure-selected");
                 var $data = $departure.select2('data');
 
-                var $id = $(this).val();
+                var $id = $($link).data('id');
 
                 var add = true;
-                if($(this).data('type') == 'country'){
+                if($($link).data('type') == 'country'){
                     //country
                     $id += "_";
                 }else{
                     //city
                     //check parent
-                    var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
+                    //var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
 
                     for(var i = 0; i<$data.length; i++){
                         if($data[i].id == $countryId){
@@ -401,8 +402,8 @@ $(document).ready(function() {
                 }
 
                 if(add){
-                    var $name1 = $(this).data('name');
-                    $data.push({id: $id, text: $(this).data('name'), countryName: $name1, cityNameEn: $name1});
+                    var $name1 = $($link).text();
+                    $data.push({id: $id, text: $name1, countryName: $name1, cityNameEn: $name1});
                     $departure.select2('data', $data);
 
 
@@ -418,8 +419,8 @@ $(document).ready(function() {
                     $deparpureEl.prev().prev().hide();
                 }
 
-            }
-        });
+            //}
+        //});
     }else{
         //Pre Select from preferred countries
         $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
