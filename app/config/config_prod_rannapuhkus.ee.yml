@@ -1,0 +1,11 @@
+imports:
+    - { resource: config.yml }
+
+parameters:
+    locale: ee
+    defaultlocale: ee
+    multilanguage: false
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing.singlelang.yml"
