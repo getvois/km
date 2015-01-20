@@ -58,3 +58,7 @@ sandboxwebsitebundle_tag:
 
 KunstmaanTaggingBundle:
      resource: "@KunstmaanTaggingBundle/Resources/config/routing.yml"
+
+sandbox_website:
+     resource: "@SandboxWebsiteBundle/Resources/config/routing.singlelang.yml"
+     prefix:   /
