@@ -20,7 +20,7 @@ class DateTimeExtension extends Twig_Extension
         if ($d instanceof \DateTime) {
             $d = $d->getTimestamp();
         }
-
+        setlocale(LC_TIME, "ru_RU");
         return strftime($format, $d);
     }
 
