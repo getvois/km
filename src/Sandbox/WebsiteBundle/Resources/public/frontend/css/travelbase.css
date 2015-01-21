@@ -276,7 +276,7 @@ body .splash--green {
 
 
 .trip table .trip-path-spacer-line > div {
-    border-bottom: 1px solid rgb(104, 104, 104);
+    /*border-bottom: 1px solid rgb(104, 104, 104);*/
     height: 15px;
 }
 
@@ -532,6 +532,7 @@ label.directFlight-label{
     /*display: inline-block;*/
     padding: 7px 0 0;
     vertical-align: top;
+    position: relative;
 }
 .trip-path-spacer-label {
     font-size: 12px;
@@ -542,6 +543,8 @@ label.directFlight-label{
     position: absolute;
     text-align: center;
     vertical-align: top;
+    display: block;
+    width: 100%;
 }
 .trip:hover .trip-path-spacer-label {
     opacity: 1;
