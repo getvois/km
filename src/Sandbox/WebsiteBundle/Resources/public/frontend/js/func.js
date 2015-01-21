@@ -153,7 +153,7 @@ function loadMore(){
 
         if($table.find('> div').length - 1 >= responce.total){
             //hide load more btn
-            $("#loadMore").hide();
+            $("button[id=loadMore]:visible").hide();
         }
     });
 
