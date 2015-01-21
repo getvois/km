@@ -596,6 +596,8 @@ $(document).ready(function() {
                         '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '    <div class="col-xs-8 trip-path">';
 
+                    $row += '<table><tr>';
+
                     for(var j=0; j<$data[i].route.length; j++){
                         var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
                         if(duration >= 60){
@@ -619,32 +621,32 @@ $(document).ready(function() {
                             $time = $data[i].route[j-1].aTime + " --- " + $data[i].route[j].dTime
                         }
 
+
+
                         $row +=
-                            '<div class="trip-path-point">' +
+                            '<td width="1%"><div class="trip-path-point">' +
                             '            <div class="trip-path-point-airport">'+$data[i].route[j].flyFrom+'</div>' + //cityFrom
-                            '            <div class="trip-path-point-time">'+$data[i].route[j].dTime+
-
-                            '</div>' +
-                            '        </div>';
+                            '            <div class="trip-path-point-time">'+$data[i].route[j].dTime+ '</div>' +
+                            '</div></td>';
 
                         $row +=
-                            '<div class="trip-path-spacer">' +
+                            '<td><div class="trip-path-spacer">' +
                             '            <div class="trip-path-spacer-label"><span data-original-title="'+$data[i].route[j].airline+'" data-toggle="tooltip" class="airline" style="background: url(&quot;/bundles/sandboxwebsite/img/airlines/'+$data[i].route[j].airline+'.gif&quot;) no-repeat scroll 0% 0% transparent;"></span>'+duration+'</div>' +
-                            '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 55px;">' +
+                            '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">' +
                             '                                        <span class="trip-path-spacer-line">' +
                             '                                            <div></div>' +
                             '                                        </span>' +
                             '                <span class="trip-path-spacer-arrow"></span>' +
                             '            </div>' +
-                            '        </div>';
+                            '        </div></td>';
 
                         $row +=
-                            '<div class="trip-path-point">' +
+                            '<td width="1%"><div class="trip-path-point">' +
                             '            <div class="trip-path-point-airport">'+$data[i].route[j].flyTo+'</div>' + //cityTo
                             '            <div class="trip-path-point-time">'+$data[i].route[j].aTime+
 
                             '</div>' +
-                            '        </div>';
+                            '        </div></td>';
 
                         if($data[i].route[j+1]){//if has more put spacer
 
@@ -658,18 +660,20 @@ $(document).ready(function() {
                             }
 
                             $row +=
-                                '<div class="trip-path-spacer">' +
+                                '<td><div class="trip-path-spacer">' +
                                 '            <div class="trip-path-spacer-label">'+durationWait+'</div>' +
-                                '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init trip-path-spacer-arrow-layover" style="width: 30px;">' +
+                                '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init trip-path-spacer-arrow-layover" style="width: 100%;">' +
                                 '                                        <span class="trip-path-spacer-line">' +
                                 '                                            <div></div>' +
                                 '                                        </span>' +
                                 '                <span class="trip-path-spacer-arrow" style="display: none;"></span>' +
                                 '            </div>' +
-                                '        </div>';
+                                '        </div></td>';
                         }
 
                     }
+
+                    $row += '</tr></table>';
 
                     $row +=
                         '    </div><div class="col-xs-2 trip-cost text-success">' +

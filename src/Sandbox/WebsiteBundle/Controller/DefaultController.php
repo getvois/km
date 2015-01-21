@@ -235,11 +235,6 @@ class DefaultController extends Controller
                 $stops = $item->stops . " stops";
             }
             //flights only(skypicker)
-
-
-
-
-
             $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
                         <div class="col-xs-1 trip-duration">'.$date.'</div>
                         <div class="col-xs-1 trip-duration nowrap"><strong>'. $item->flyDuration . "<br/>" . $stops .'</strong></div>';
@@ -252,7 +247,7 @@ class DefaultController extends Controller
                                     <td width="1%">
                                     <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'
                                     </td>
-                                    <td style="widht: 100%">
+                                    <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
@@ -263,7 +258,7 @@ class DefaultController extends Controller
                                     <td width="2%" class="nowrap">
                                     <strong>'. $item->destination->cityNameFi . "</strong>" .'
                                     </td>
-                                    <td style="widht: 100%">
+                                    <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
@@ -286,7 +281,7 @@ class DefaultController extends Controller
                                     <td width="1%">
                                     <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'
                                     </td>
-                                    <td style="widht: 100%">
+                                    <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
