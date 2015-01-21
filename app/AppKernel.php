@@ -67,10 +67,9 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $host = $_SERVER['HTTP_HOST'];
-        if(file_exists(__DIR__.'/config/config_'.$this->getEnvironment().'_' . $host . '.yml')){
-            $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'_' . $host . '.yml');
+        if(file_exists(__DIR__.'/config/config_'.$this->getEnvironment(). '.yml')){
+            $loader->load(__DIR__.'/config/config_'.$this->getEnvironment(). '.yml');
         }else
-            $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+            $loader->load(__DIR__.'/config/config_prod.yml');
     }
 }
