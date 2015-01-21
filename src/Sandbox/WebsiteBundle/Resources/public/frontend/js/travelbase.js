@@ -593,7 +593,6 @@ $(document).ready(function() {
                     $row +=
                         '<div class="trip row">' +
                         '    <div class="col-xs-1 trip-duration">'+$date+'</div>' +
-                        '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '    <div class="col-xs-8 trip-path">';
 
                     $row += '<table><tr>';
@@ -676,7 +675,9 @@ $(document).ready(function() {
                     $row += '</tr></table>';
 
                     $row +=
-                        '    </div><div class="col-xs-2 trip-cost text-success">' +
+                        '    </div>' +
+                        '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
+                        '<div class="col-xs-2 trip-cost text-success">' +
                         '        <p>€'+$data[i].price+'</p>' +
                         '        <button class="btn btn-info trip-btn-cost">€'+$data[i].price+'</button>' +
                         '        <button class="btn btn-danger trip-btn-close">close</button>' +

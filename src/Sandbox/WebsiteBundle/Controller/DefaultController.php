@@ -239,15 +239,16 @@ class DefaultController extends Controller
             $duration = $item->flyDuration;
             if($item->type->id == 4)
             {
-                $duration = "Direct";
+                //$duration = "Direct";
             }
 
             $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
-                        <div class="col-xs-1 trip-duration">'.$date.'</div>
-                        <div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
+                        <div class="col-xs-1 trip-duration">'.$date.'</div>';
+
+            //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
 
             if($item->type->id == 3){
-                $row .= '<div class="col-xs-7 trip-field">
+                $row .= '<div class="col-xs-8 trip-field">
 
                             <table>
                                 <tr>
@@ -281,7 +282,7 @@ class DefaultController extends Controller
 
                         </div>';
             }else{
-                $row .= '<div class="col-xs-7 trip-field">
+                $row .= '<div class="col-xs-8 trip-field">
 
                             <table>
                                 <tr>
