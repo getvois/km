@@ -1074,8 +1074,19 @@ function getTable(container, reimport){
 
 
 function cityPicker($el, $selected) {
+
+    var $lang = $("body").data('lang');
+    if($lang == 'ee') $lang = 'et';
+
+    $lang = $lang.charAt(0).toUpperCase() + $lang.slice(1);
+
+    var $locale = $lang;
+    if($locale == "En") $locale = "";
+    if($locale == "Et") $locale = "Ee";
+
+
     function repoFormatResult(repo) {
-        var $title = repo.cityNameEn;
+        var $title = repo['cityName' + $lang];
         if(repo.airportNameEn){
             $title += "("+repo.airportNameEn+", "+repo.airportCode+")";
         }else{
@@ -1085,8 +1096,7 @@ function cityPicker($el, $selected) {
         $title = '<div class="col-xs-10 col-xs-offset-2">' + $title +'</div>';
 
         if(repo.id.toString().indexOf("_") != -1){
-
-            $title = '<div class="col-xs-12"><strong>' + repo.countryName +'</strong></div>';
+            $title = '<div class="col-xs-12"><strong>' + repo['countryName' + $locale] +'</strong></div>';
         }
 
         var markup = '<div class="row">' + $title;
@@ -1098,10 +1108,10 @@ function cityPicker($el, $selected) {
 
     function repoFormatSelection(repo) {
         //var $title = repo.countryName + "/" + repo.cityNameEn;
-        var $title = repo.cityNameEn;
+        var $title = repo['cityName' + $lang];
 
         if(repo.id.toString().indexOf("_") != -1){
-            $title = repo.countryName;
+            $title = repo['countryName' + $locale];
         }
         repo.text = $title;
         var $data = $($selected).select2('data');

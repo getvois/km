@@ -49,7 +49,7 @@
 
 
 </head>
-<body {% block extra_body_attributes %}{% endblock %}>
+<body {% block extra_body_attributes %}{% endblock %} data-lang="{{ app.request.locale }}">
 <script src="{{ asset('bundles/sandboxwebsite/frontend/js/jquery-2.1.1.min.js') }}"></script>
 
 {% include 'SandboxWebsiteBundle:Layout:_googletagmanager.html.twig' %}
