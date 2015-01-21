@@ -239,7 +239,7 @@ class DefaultController extends Controller
             $duration = $item->flyDuration;
             if($item->type->id == 4)
             {
-                $duration = "Direct flight";
+                $duration = "Direct";
             }
 
             $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
