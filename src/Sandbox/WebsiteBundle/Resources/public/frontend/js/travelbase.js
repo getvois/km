@@ -1021,7 +1021,7 @@ function getTable(container, reimport){
         var $travelbase_items = $(container);
         $travelbase_items.html(responce.html);
 
-        if(container == '.travelbase_items_sp'){
+        if($(container).hasClass('travelbase_items_sp')){
             var $skypicker = $(".skypicker-toggle");
             if($skypicker.length == 1){
                 $skypicker.click();
