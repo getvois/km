@@ -1053,7 +1053,7 @@ function getTable(container, reimport){
         });
 
         if(container == ".travelbase_items_sp"){
-            if($(".travelbase_items:visible").find("> div").length == 1){
+            if($(".travelbase_items:visible").find("> div").find(">div ").length == 1){
                 if($('.travelbase_items_df').find('> div').find(">div ").length > 1){
                     $("#travelbase_tabs").find("a:eq(0)").tab("show");
                 }else if($('.travelbase_items_sp').find('> div').find(">div ").length > 1){
