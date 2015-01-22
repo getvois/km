@@ -334,7 +334,7 @@ $(document).ready(function() {
         $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").each(function () {
 
             var $departure = $("#departure-dataholder");
-
+            var $data = $departure.dataHolder('data');
             var $id = $(this).val();
 
             var add = true;
