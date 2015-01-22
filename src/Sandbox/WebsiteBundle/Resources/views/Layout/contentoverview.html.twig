@@ -12,7 +12,7 @@
 
                     <article class="main-article main-article--summary">
                         <header>
-                            {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }}</span></div></div></div>{% endif %}
+                            {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }} {% if item.priceFromLabel %}/ {{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
                             <time class="main-article__meta">
                                 {{ item.date | localizeddate('long','short', app.request.locale) }}
                             </time>
