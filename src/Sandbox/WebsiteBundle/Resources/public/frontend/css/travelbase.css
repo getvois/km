@@ -221,6 +221,46 @@ body .splash--green {
     vertical-align: middle;
 }
 
+/* place holder */
+.placeholder{
+    background-color: white;
+    padding: 5px;
+    border: 2px solid #aaa;
+}
+
+.placeholder-item{
+    background-clip: padding-box;
+    background-color: #e4e4e4;
+    background-image: linear-gradient(to bottom, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+    box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    color: #333;
+    cursor: default;
+    line-height: 13px;
+    margin: 3px 0 3px 5px;
+    padding: 3px 5px 3px 18px;
+    position: relative;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.placeholder-item .placeholder-item-remove{
+    background: url("/bundles/sandboxwebsite/frontend/js/select2/select2.png") no-repeat scroll right top rgba(0, 0, 0, 0);
+    display: block;
+    font-size: 1px;
+    height: 13px;
+    outline: medium none;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 12px;
+}
+.placeholder-item .placeholder-item-remove:hover {
+    background-position: right -11px;
+}
+
+
 /* sidebar */
 .sidebar {
 	padding-bottom:30px;
