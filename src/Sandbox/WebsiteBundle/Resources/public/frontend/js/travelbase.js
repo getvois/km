@@ -1034,7 +1034,7 @@ function getTable(container, reimport){
             }
         }
 
-        if(responce.total > 0 && $travelbase_items.data('badge'))
+        //if(responce.total > 0 && $travelbase_items.data('badge'))
             $($travelbase_items.data('badge')).text(responce.total);
 
         $travelbase_items.find('.table-header a').click(function(){
