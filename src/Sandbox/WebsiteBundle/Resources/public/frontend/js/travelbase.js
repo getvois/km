@@ -347,7 +347,7 @@ $(document).ready(function() {
                 var $countryId = $(this).closest('ul.city-near').find('input').first().val() + "_";
 
                 for(var i = 0; i<$data.length; i++){
-                    if($data[i].id == $countryId){
+                    if($data[i] == $countryId){
                         add = false;
                         break;
                     }
