@@ -1,7 +1,7 @@
 <section id="travelbase_tabs" class="">
         <ul id="form-type-switcher" class="tabs nav nav-tabs">
-            <li class="active"><a href="#hot-offers" data-toggle="tab" class="">&nbsp; {{ 'flights.hotel' | trans({}, 'frontend') }} &nbsp;<span id="hot-offers-badge" class="badge"></span></a></li>
-            <li class=""><a href="#lowcost" data-toggle="tab" data-type="flightHotel">&nbsp; {{ 'only.flights' | trans({}, 'frontend') }} &nbsp;<span id="lowcost-badge" class="badge"></span></a></li>
+            <li class="active"><a href="#hot-offers" data-toggle="tab" class="">&nbsp; {{ 'flights.hotel' | trans({}, 'frontend') }} &nbsp;<span id="hot-offers-badge" class="badge"></span><span id="hot-offers-badge-loading" class="badge spinner"></span></a></li>
+            <li class=""><a href="#lowcost" data-toggle="tab" data-type="flightHotel">&nbsp; {{ 'only.flights' | trans({}, 'frontend') }} &nbsp;<span id="lowcost-badge" class="badge"></span><span id="lowcost-badge-loading" class="badge spinner"></span></a></li>
             {#<li class=""><a href="#hotels" data-toggle="tab" data-type="hotels">&nbsp; {{ 'hotels' | trans({}, 'frontend') }} &nbsp;</a></li>#}
             {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="hotels">&nbsp; {{ 'car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
         </ul>

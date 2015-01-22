@@ -214,6 +214,13 @@ body .splash--green {
 }
 
 
+.badge.spinner{
+    min-height: 18px;
+    min-width: 18px;
+    position: relative;
+    vertical-align: middle;
+}
+
 /* sidebar */
 .sidebar {
 	padding-bottom:30px;

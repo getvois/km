@@ -566,7 +566,30 @@ $(document).ready(function() {
         }
 
         //show loading
-        $('.loading').show();
+        var $loading = $('.loading');
+        $loading.show();
+        var opts = {
+            lines: 15, // The number of lines to draw
+            length: 26, // The length of each line
+            width: 2, // The line thickness
+            radius: 36, // The radius of the inner circle
+            corners: 0, // Corner roundness (0..1)
+            rotate: 40, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb or array of colors
+            speed: 1, // Rounds per second
+            trail: 66, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '50%', // Top position relative to parent
+            left: '50%' // Left position relative to parent
+        };
+        var spinner = new Spinner(opts).spin($loading[1]);
+
+
+
 
         var $tr = $(this);
 
@@ -703,6 +726,7 @@ $(document).ready(function() {
                 $badge.text(parseInt($badge.text()) + $data.length);
 
                 //hide loading
+                spinner.stop();
                 $('.loading').hide();
             }
         };
@@ -1022,8 +1046,39 @@ function getTable(container, reimport){
     if(reimport === false) type = 2;
 
     var $filter = getFilter(container);
+
+    var $travelbase_items = $(container);
+    //start loading
+    var $badgeLoading = $($travelbase_items.data('badge') + "-loading");
+
+
+    var opts = {
+        lines: 11, // The number of lines to draw
+        length: 4, // The length of each line
+        width: 2, // The line thickness
+        radius: 1, // The radius of the inner circle
+        corners: 0, // Corner roundness (0..1)
+        rotate: 40, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#fff', // #rgb or #rrggbb or array of colors
+        speed: 1, // Rounds per second
+        trail: 66, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '50%', // Top position relative to parent
+        left: '50%' // Left position relative to parent
+    };
+
+    $($travelbase_items.data('badge')).hide();
+    var spinner = new Spinner(opts).spin($badgeLoading[0]);
+
+
+
+
     $.post('/app_dev.php/api-filter/' + type, JSON.stringify($filter), function (responce) {
-        var $travelbase_items = $(container);
+
         $travelbase_items.html(responce.html);
 
         if($(container).hasClass('travelbase_items_sp')){
@@ -1034,8 +1089,9 @@ function getTable(container, reimport){
             }
         }
 
+        spinner.stop();
         //if(responce.total > 0 && $travelbase_items.data('badge'))
-            $($travelbase_items.data('badge')).text(responce.total);
+            $($travelbase_items.data('badge')).show().text(responce.total);
 
         $travelbase_items.find('.table-header a').click(function(){
             var $field = $(this).data('field');
