@@ -179,8 +179,9 @@ body .splash--green {
 #travelbase-form h1 {
     color: #f8c701;
     text-shadow:1px 1px #454545;
-    margin: 35px 10px 30px;
-    font:  400 45px "Yellowtail";
+    margin: 35px 0 30px;
+    font:  700 35px "Open Sans";
+    letter-spacing:-1px;
 }
 
 /* footer */
@@ -193,26 +194,73 @@ body .splash--green {
     font-family: "Open Sans";
 }
 
-/* topmenu*/
-.travelbase_top_menu > li a {
-    color: #000;
-    text-decoration:underline;
-}
+
+
 /*topmenu*/
 
+.site-logo {
+	position: absolute;
+	top: 0;
+	right: 3%;
+	z-index: 9999;
+	width: 100px;
+}
+.site-logo a {
+    width:101px;
+    height:140px;
+    position: absolute;
+    z-index: 99;
+    display:block;
+    background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 -10px;
+}
+.site-topmenu {
+    position: absolute;
+    top:150px;
+    top:0;
+    right:0;
+    padding-right:2%;
+    padding-top: 140px;
+    padding-left: 50px;
+	z-index: 98;
+	height: 380px;
+    text-align:center;
+    background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(255,255,255,0.6) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(255,255,255,0.6))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.6) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.6) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.6) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.6) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0087e0fd', endColorstr='#80ffffff',GradientType=1 ); /* IE6-9 */
+
+}
 .travelbase_top_menu{
-    float:right;
-    margin-right:200px;
-    /*margin: 0 5px 0;*/
-    /*padding: 0;*/
+	margin:0;
+	padding:0; 
+	
 }
 .travelbase_top_menu > li {
-    float: left;
     list-style: outside none none;
-    margin-right: 20px;
-    /*margin-top: 10px;*/
+    margin-bottom: 5px;
+}
+.travelbase_top_menu > li a {
+    color: #111;
+    font-size:16px;
+    text-decoration:underline;
+}
+#travelbase-form > div {
+    margin-top:30px;
 }
 
+.top-img-title{
+    color: #fff;
+    position: absolute;
+    right: 220px;
+    font-size:12px;
+    text-decoration:underline;
+    font-style:italic;
+    top: 20px;
+    z-index: 1;
+}
 
 .badge.spinner{
     min-height: 18px;
@@ -480,16 +528,6 @@ label.directFlight-label{
 	padding: 8px 16px;
 }
 
-.top-img-title{
-    color: #fff;
-    position: absolute;
-    right: 50px;
-    font-size:12px;
-    text-decoration:underline;
-    font-style:italic;
-    top: 83px;
-    z-index: 1;
-}
 
 .select2-container-multi .select2-choices li{
     display: inline-block;
@@ -1158,33 +1196,7 @@ span.city-picker-close:hover {
     margin: 0;
     display: flex;
 }
-/* TOP MENU */
-.site-topmenu {
-    position: absolute;
-    top:40px;
-    color: #ffffff;
-    width:100%;
-    z-index: 9999;
-}
-.site-logo {
-	position: absolute;
-top: 0;
-right: 2%;
-z-index: 9999;
-width: 100px;
-}
-.site-logo a {
-    width:98px;
-    height:140px;
-    position: absolute;
-    right:5%;
-    display:block;
-    background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 -10px;
-}
-.top-img-title {
-	margin-top: 200px!important;
-}
- 
+
 /* SUBSCRIPTION BLOCK */
 .block.block-total-subscription {
 }
