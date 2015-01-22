@@ -201,7 +201,7 @@ body .splash--green {
 .site-logo {
 	position: absolute;
 	top: 0;
-	right: 3%;
+	right: 4%;
 	z-index: 9999;
 	width: 100px;
 }
@@ -218,12 +218,11 @@ body .splash--green {
     top:150px;
     top:0;
     right:0;
-    padding-right:2%;
+    padding-right:4.3%;
     padding-top: 140px;
-    padding-left: 50px;
+    padding-left: 100px;
 	z-index: 98;
 	height: 380px;
-    text-align:center;
     background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(255,255,255,0.6) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(255,255,255,0.6))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.6) 100%); /* Chrome10+,Safari5.1+ */
@@ -241,9 +240,14 @@ body .splash--green {
 .travelbase_top_menu > li {
     list-style: outside none none;
     margin-bottom: 5px;
+    -webkit-transform: rotate(352deg);
+	-moz-transform: rotate(352deg);
+	-o-transform: rotate(352deg);
+	writing-mode: lr-tb;
 }
 .travelbase_top_menu > li a {
     color: #111;
+    font-style:italic;
     font-size:16px;
     text-decoration:underline;
 }
