@@ -336,15 +336,31 @@ $(document).ready(function() {
             var $departure = $("#departure-dataholder");
 
             var $id = $(this).val();
+
+            var add = true;
             if($(this).data('type') == 'country'){
                 //country
                 $id += "_";
+            }else{
+                //city
+                //check parent
+                var $countryId = $(this).closest('ul.city-near').find('input').first().val() + "_";
+
+                for(var i = 0; i<$data.length; i++){
+                    if($data[i].id == $countryId){
+                        add = false;
+                        break;
+                    }
+                }
             }
 
-            $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
+            if(add){
+                $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
 
-            var $deparpureEl = $("#departure-el");
-            $deparpureEl.data('selected', $departure.dataHolder('data'));
+                var $deparpureEl = $("#departure-el");
+                $deparpureEl.data('selected', $departure.dataHolder('data'));
+            }
+
         });
     }
 
