@@ -61,7 +61,7 @@
                             {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
 
                             <h3>
-                                {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }}</span></div></div></div>{% endif %}
+                                {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }} {% if item.priceFromLabel %}/ {{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
                                 <a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
                             </h3>
                         </header>
