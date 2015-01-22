@@ -261,53 +261,22 @@ $(document).ready(function() {
     if($to.length > 0){
         $to.find('a, span:not(.glyphicon)').each(function () {
             var $name = $(this).text();
-            //$("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
-                //if($(this).data('name') == $name){
-                    //$(this).attr('checked', true).change();
 
+            var $destination = $("#destination-dataholder");
 
-                    var $destination = $("#destination-selected");
-                    var $data = $destination.select2('data');
+            var $id = $(this).data('id');
+            if($(this).data('type') == 'country'){
+                //country
+                $id += "_";
+            }
 
-                    var $id = $(this).data('id');
+            $destination.dataHolder('add', {id: $id, text: $name});
 
-                    var add = true;
-                    if($(this).data('type') == 'country'){
-                        //country
-                        $id += "_";
-                    }else{
-                        //city
-                        //check parent
-                        //var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
+            var $deparpureEl = $("#destination-el");
+            $deparpureEl.data('selected', $destination.dataHolder('data'));
 
-                        for(var i = 0; i<$data.length; i++){
-                            if($data[i].id == $id){
-                                add = false;
-                                break;
-                            }
-                        }
-                    }
+        });
 
-                    if(add){
-                        var $name1 = $name;
-                        $data.push({id: $id, text: $name1, countryName: $name1, cityNameEn: $name1});
-                        $destination.select2('data', $data);
-
-
-                        var $deparpureEl = $("#destination-el");
-                        $deparpureEl.data('selected', $data);
-                        $destination.prev().show();
-
-                        $destination.prev().find(".select2-search-field").css('height', '2px');
-                        $destination.prev().find(".select2-search-choice").css('float', 'none');
-                        $destination.prev().find(".select2-search-field").css('float', 'none');
-
-                        $deparpureEl.prev().hide();
-                        $deparpureEl.prev().prev().hide();
-                    }
-                //}
-            });
-        //});
 
     }else{
         //Pre Select from bread crumbs
@@ -316,45 +285,18 @@ $(document).ready(function() {
             if($(this).data('name') == $place){
                 $(this).attr('checked', true).change();
 
-                var $destination = $("#destination-selected");
-                var $data = $destination.select2('data');
+                var $destination = $("#destination-dataholder");
 
                 var $id = $(this).val();
-
-                var add = true;
                 if($(this).data('type') == 'country'){
                     //country
                     $id += "_";
-                }else{
-                    //city
-                    //check parent
-                    var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
-
-                    for(var i = 0; i<$data.length; i++){
-                        if($data[i].id == $countryId){
-                            add = false;
-                            break;
-                        }
-                    }
                 }
 
-                if(add){
-                    var $name1 = $(this).data('name');
-                    $data.push({id: $id, text: $(this).data('name'), countryName: $name1, cityNameEn: $name1});
-                    $destination.select2('data', $data);
+                $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
 
-
-                    var $deparpureEl = $("#destination-el");
-                    $deparpureEl.data('selected', $data);
-                    $destination.prev().show();
-
-                    $destination.prev().find(".select2-search-field").css('height', '2px');
-                    $destination.prev().find(".select2-search-choice").css('float', 'none');
-                    $destination.prev().find(".select2-search-field").css('float', 'none');
-
-                    $deparpureEl.prev().hide();
-                    $deparpureEl.prev().prev().hide();
-                }
+                var $deparpureEl = $("#destination-el");
+                $deparpureEl.data('selected', $data);
             }
         });
     }
