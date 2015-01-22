@@ -16,7 +16,23 @@
             $(this).data('data', []);
 
             $(this).addClass('placeholder');
+            $(this).addClass('placeholder-collapse');
             $(this).hide();
+            $(this).prev().hide();
+
+            //toggle select2
+            var holder = $(this);
+            $(this).prev().click(function () {
+                holder.toggleClass('placeholder-collapse');
+                if(!holder.hasClass('placeholder-collapse')){
+                    holder.css('display', 'table');
+                }else{
+                    holder.css('display', 'table-cell');
+
+                }
+                $(holder.data('target')).prev().slideToggle();
+                $(holder.data('target')).prev().prev().slideToggle();
+            });
 
             $(this).on('click', '.placeholder-item-remove', function () {
                 var $itemToRemove = $(this).closest(".placeholder-item");
@@ -32,8 +48,12 @@
 
                 $holder.data('data', $newData);
 
-                if($newData.length == 0)
+                if($newData.length == 0) {
                     $holder.slideUp();
+                    $holder.prev().hide();
+                    $($holder.data('target')).prev().slideDown();
+                    $($holder.data('target')).prev().prev().slideDown();
+                }
 
                 options.afterRemove.call($holder);//call back
             });
@@ -66,7 +86,12 @@
             }
             $(this).data('data', $data);
 
-            if($data.length > 0) $(this).slideDown();
+            if($data.length > 0) {
+                $(this).slideDown();
+                $(this).prev().slideDown();
+                $($(this).data('target')).prev().slideUp();
+                $($(this).data('target')).prev().prev().hide();
+            }
 
             return this;
         },

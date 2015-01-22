@@ -12,17 +12,20 @@
                 {#COL 1#}
                 <div class="col-md-3">
 
-                    <div class="dataholder" id="departure-dataholder" data-target="#departure-el"></div>
-
-                    <div class="input-group" style="position: absolute">
+                    <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-export"></span></div>
-                        <input type="text" class="form-control" style="z-index: -1">
-                        {#<select name="" id="departure-selected" multiple class="form-control"></select>#}
+                        <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
                     </div>
+
+
+                    {#<div class="input-group" style="position: absolute">#}
+                        {#<div class="input-group-addon"><span class="glyphicon glyphicon-export"></span></div>#}
+                        {#<input type="text" class="form-control" style="z-index: -1">#}
+                    {#</div>#}
 
                     {#<select name="" id="departure-selected" multiple></select>#}
                     <div class="input-group">
-                        <div class="input-group-addon" style="visibility: hidden"><span class="glyphicon glyphicon-export"></span></div>
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-export"></span></div>
                         <input id="departure-el" type="text" class="form-control">
                     </div>
                     {#<input type="text" id="departure-el"/>#}
@@ -46,17 +49,19 @@
                 {#COL 3#}
                 <div class="col-md-3">
 
-                    <div class="dataholder" id="destination-dataholder" data-target="#destination-el"></div>
-
-                    <div class="input-group" style="position: absolute">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-import"></span></div>
-                        <input type="text" class="form-control form-control-destination" style="z-index: -1">
-                        {#<select name="" id="departure-selected" multiple class="form-control"></select>#}
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-export"></span></div>
+                        <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
                     </div>
+
+                    {#<div class="input-group" style="position: absolute">#}
+                        {#<div class="input-group-addon"><span class="glyphicon glyphicon-import"></span></div>#}
+                        {#<input type="text" class="form-control form-control-destination" style="z-index: -1">#}
+                    {#</div>#}
 
                     {#<select name="" id="destination-selected" multiple></select>#}
                     <div class="input-group">
-                        <div class="input-group-addon" style="visibility: hidden;"><span class="glyphicon glyphicon-import"></span></div>
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-import"></span></div>
                         <input id="destination-el" type="text" class="form-control">
                     </div>
                     {#<input type="text" id="destination-el"/>#}

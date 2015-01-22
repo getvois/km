@@ -278,8 +278,12 @@ body .splash--green {
     background-color: white;
     padding: 5px;
     border: 2px solid #aaa;
-}
 
+}
+.placeholder-collapse{
+    overflow: hidden;
+    /*white-space: nowrap;*/
+}
 .placeholder-item{
     background-clip: padding-box;
     background-color: #e4e4e4;
