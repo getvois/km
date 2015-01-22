@@ -296,7 +296,7 @@ $(document).ready(function() {
                 $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
 
                 var $deparpureEl = $("#destination-el");
-                $deparpureEl.data('selected', $data);
+                $deparpureEl.data('selected', $destination.dataHolder('data'));
             }
         });
     }
@@ -312,101 +312,39 @@ $(document).ready(function() {
     //Pre Select departure
     var $from = $('.from-places');
     if($from.length > 0){
-        //var $name = $from.find('a').first().text();
         var $link = $from.find('a, span').first();
-        //$("#dropdown-departure").find('.city-list').find("input[type='checkbox']").each(function () {
-            //if($(this).data('name') == $name){
-                //$(this).attr('checked', true).change();
+
+        var $departure = $("#departure-dataholder");
+
+        var $id = $link.data('id');
+        if($($link).data('type') == 'country'){
+            //country
+            $id += "_";
+        }
+        var $name1 = $link.text();
+        $departure.dataHolder('add', {id: $id, text: $name1});
 
 
+        var $deparpureEl = $("#departure-el");
+        $deparpureEl.data('selected', $departure.dataHolder('data'));
 
-                var $departure = $("#departure-selected");
-                var $data = $departure.select2('data');
-
-                var $id = $link.data('id');
-
-                var add = true;
-                if($($link).data('type') == 'country'){
-                    //country
-                    $id += "_";
-                }else{
-                    //city
-                    //check parent
-                    //var $countryId = $(this).closest('ul').closest('ul').find('input').first().val() + "_";
-
-                    for(var i = 0; i<$data.length; i++){
-                        if($data[i].id == $countryId){
-                            add = false;
-                            break;
-                        }
-                    }
-                }
-
-                if(add){
-                    var $name1 = $link.text();
-                    $data.push({id: $id, text: $name1, countryName: $name1, cityNameEn: $name1});
-                    $departure.select2('data', $data);
-
-
-                    var $deparpureEl = $("#departure-el");
-                    $deparpureEl.data('selected', $data);
-                    $departure.prev().show();
-
-                    $departure.prev().find(".select2-search-field").css('height', '2px');
-                    $departure.prev().find(".select2-search-choice").css('float', 'none');
-                    $departure.prev().find(".select2-search-field").css('float', 'none');
-
-                    $deparpureEl.prev().hide();
-                    $deparpureEl.prev().prev().hide();
-                }
-
-            //}
-        //});
     }else{
         //Pre Select from preferred countries
         $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
         $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").each(function () {
 
-            var $departure = $("#departure-selected");
-            var $data = $departure.select2('data');
+            var $departure = $("#departure-dataholder");
 
             var $id = $(this).val();
-
-            var add = true;
             if($(this).data('type') == 'country'){
                 //country
                 $id += "_";
-            }else{
-                //city
-                //check parent
-                var $countryId = $(this).closest('ul.city-near').find('input').first().val() + "_";
-
-                for(var i = 0; i<$data.length; i++){
-                    if($data[i].id == $countryId){
-                        add = false;
-                        break;
-                    }
-                }
             }
 
-            if(add){
-                var $name = $(this).data('name');
-                $data.push({id: $id, text: $(this).data('name'), countryName: $name, cityNameEn: $name});
-                $departure.select2('data', $data);
+            $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
 
-
-                var $deparpureEl = $("#departure-el");
-                $deparpureEl.data('selected', $data);
-                $departure.prev().show();
-
-                $departure.prev().find(".select2-search-field").css('height', '2px');
-                $departure.prev().find(".select2-search-choice").css('float', 'none');
-                $departure.prev().find(".select2-search-field").css('float', 'none');
-
-                $deparpureEl.prev().hide();
-                $deparpureEl.prev().prev().hide();
-            }
-
+            var $deparpureEl = $("#departure-el");
+            $deparpureEl.data('selected', $departure.dataHolder('data'));
         });
     }
 
