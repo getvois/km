@@ -113,9 +113,8 @@ $(document).ready(function() {
 
 
 
-    cityPicker("#departure-el", '#departure-selected');
-    cityPicker("#destination-el", '#destination-selected');
-
+    cityPicker("#departure-el", "#departure-dataholder");
+    cityPicker("#destination-el", '#destination-dataholder');
     // RANGE SLIDER(PRICE SLIDER)
     ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1135,7 +1134,16 @@ function getTable(container, reimport){
 }
 
 
-function cityPicker($el, $selected) {
+function cityPicker($el, $holder) {
+
+    $($holder).dataHolder({
+        afterRemove: function () {
+            var $data = this.dataHolder('data');
+            var $elem = $(this.data('target'));
+            $elem.data('selected', $data);
+            $elem.select2("val", "");
+        }
+    });
 
     var $lang = $("body").data('lang');
     if($lang == 'ee') $lang = 'et';
@@ -1176,14 +1184,8 @@ function cityPicker($el, $selected) {
             $title = repo['countryName' + $locale];
         }
         repo.text = $title;
-        var $data = $($selected).select2('data');
-        $data.push(repo);
-        $($selected).select2('data', $data);
-        $($selected).prev().find(".select2-search-field").css('height', '2px');
-        $($selected).prev().find(".select2-search-choice").css('float', 'none');
-        $($selected).prev().find(".select2-search-field").css('float', 'none');
-        $($selected).prev().find(".select2-search-field").css('overflow', 'hidden');
-        //$("#departure-selected").prev().find(".select2-search-field").hide();
+
+        $($holder).dataHolder('add', repo);
 
         return $title;
     }
@@ -1228,9 +1230,6 @@ function cityPicker($el, $selected) {
         }
         return $finalData;
     }
-
-
-
 
     $($el).select2({
         placeholder: "Search for a place",
@@ -1288,87 +1287,4 @@ function cityPicker($el, $selected) {
         $elem.select2("val", "");
     });
 
-    $($el).on("select2-selecting", function (e) {
-        $($selected).prev().css('display', 'block');
-    });
-
-    //$($selected).select2({width: '100%'});
-    $($selected).select2();
-    $($selected).on('select2-removed', function (e) {
-        var $elem = $($el);
-        var selected = $elem.data('selected');
-
-        var index = selected.indexOf(e.val.toString());
-        if (index > -1) {
-            selected.splice(index, 1);
-        }
-        $elem.data('selected', selected);
-
-        if (selected.length == 0) {
-            $($selected).prev().hide();
-            $($el).prev().show();
-            $($el).prev().prev().show();
-        }
-    });
-
-    $($selected).on('select2-focus', function (e) {
-        e.preventDefault();
-        console.log('focus');
-        $($selected).prev().find(".select2-search-field").css('height', '2px');
-        $($selected).prev().find(".select2-search-choice").css('float', 'left');
-        $($selected).prev().find(".select2-search-field").css('float', 'left');
-
-        $($el).prev().show();
-        $($el).prev().prev().show();
-        //$($el).select2('close');
-        $($el).select2('open');
-        $($el).prev().find('.select2-search-field').find('input').focus();
-
-    });
-
-    $($selected).on('select2-opening', function (e) {
-        e.preventDefault();
-        $($selected).select2('close');
-
-        console.log('opening');
-        $($el).prev().show();
-        $($el).prev().prev().show();
-        $($el).select2('close');
-        $($el).select2('open');
-        $($el).prev().find('.select2-search-field').find('input').focus();
-    });
-
-    $($el).on('select2-blur', function (e) {
-        console.log('blur');
-
-        if ($($selected).select2('data').length > 0) {
-
-
-            setTimeout(function () {
-                if($(".select2-drop:visible").length == 0) {
-                    console.log('hide me');
-                    $($el).prev().hide();
-                    $($el).prev().prev().hide();
-                }else{
-                    console.log('dont hide me');
-                }
-
-            }, 100);
-
-        }
-
-        $($selected).prev().find(".select2-search-choice").css('float', 'none');
-        $($selected).prev().find(".select2-search-field").css('float', 'none');
-
-    });
-
-    $($el).on('select2-focus', function (e) {
-        console.log('focus');
-
-
-        //$($selected).prev().find(".select2-search-choice").css('float', 'left');
-        //$($selected).prev().find(".select2-search-field").css('float', 'left');
-    });
-
-    $($selected).prev().hide();
 }
