@@ -1043,10 +1043,11 @@ function getTable(container, reimport){
             $form.find('input[name="order_field"]').val($field);
 
             var $direction = $form.find('input[name="order_direction"]');
-            var  $directionVal = "";
-            if($direction.val() == 'asc') $directionVal = 'desc';
-            else $directionVal = 'asc';
+            var  $directionVal = $(this).data('order');
+            //if($(this).data('order') == 'asc') $directionVal = 'desc';
+            //else $directionVal = 'asc';
 
+            //$(this).data('order', $directionVal);
             $direction.val($directionVal);
             getTable(null, false);
             //$("#edit-companies").change();
