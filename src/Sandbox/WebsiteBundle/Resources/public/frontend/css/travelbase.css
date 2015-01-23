@@ -272,11 +272,16 @@ body .splash--green {
     vertical-align: middle;
 }
 
+
+#date-start-datepicker-holder, #date-end-datepicker-holder, .placeholder, .select2-container-multi .select2-choices {
+	border: 2px solid #777;
+    border-radius: 2px;
+}
+
 /* place holder */
 .placeholder{
     background-color: white;
     padding: 5px;
-    border: 2px solid #aaa;
     min-height: 41px;
     padding-left: 35px;
     height: auto;
@@ -287,24 +292,17 @@ body .splash--green {
     white-space: nowrap;
 }
 .placeholder-item{
-    background-clip: padding-box;
-    background-color: #e4e4e4;
-    background-image: linear-gradient(to bottom, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
-    border: 1px solid #aaaaaa;
-    border-radius: 3px;
-    box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
     color: #333;
     cursor: default;
     line-height: 13px;
     margin: 3px 0 3px 5px;
-    padding: 3px 5px 3px 18px;
+    padding: 3px 0 3px 18px;
     position: relative;
     white-space: nowrap;
     display: inline-block;
 }
 
 .placeholder-item .placeholder-item-remove{
-    background: url("/bundles/sandboxwebsite/frontend/js/select2/select2.png") no-repeat scroll right top rgba(0, 0, 0, 0);
     display: block;
     font-size: 1px;
     height: 13px;
@@ -314,6 +312,26 @@ body .splash--green {
     top: 3px;
     width: 12px;
 }
+
+.placeholder-item a.placeholder-item-remove{
+    cursor:pointer;
+    color: #999;
+    font-size: 21px;
+    display: inline-block;
+    line-height: 0px;
+    padding: 7px 3px 0 0;       
+}
+
+.placeholder-item a.placeholder-item-remove:before {
+    content: "×";
+}
+
+.placeholder-item a.placeholder-item-remove:hover{
+    text-decoration:none;
+    color:#ddd;     
+}
+
+
 .placeholder-item .placeholder-item-remove:hover {
     background-position: right -11px;
 }
@@ -341,7 +359,7 @@ div.travelbase-input-addon{
     width: calc(100% - 42px);
 }
 .travelbase-icon-from{
-    background-position: 0 -14px;
+    background-position: 0 -8px;
 }
 .travelbase-icon-to{
     background-position: 0 -47px;
@@ -769,18 +787,15 @@ label.directFlight-label{
 }
 #date-start-datepicker-holder, #date-end-datepicker-holder {
     /*margin-left:7px;*/
-    border-radius: 0;
     color: #666;
     font-size:15px;
     /*width: 95px;*/
-
     background-color: #fff;
     background-image: linear-gradient(to bottom, #eee 1%, #fff 15%);
-    border: 2px solid #aaa;
     cursor: text;
     height: auto !important;
     overflow: hidden;
-    padding-top: 7px;
+    padding-top: 9px;
     padding-bottom: 6px;
     position: relative;
 }
@@ -800,6 +815,7 @@ label.directFlight-label{
 #s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     position: relative;
     top: -1px;
+    padding-top: 3px;
 }
 
 #s2id_departure-selected, #s2id_destination-selected{
@@ -889,13 +905,12 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 }
 .travelbase_items #loadMore span {
     font-size: 33px;
-    background: rgba(0, 231, 172, 1);
+    background: rgba(236, 217, 27, 0.9);
     border: 1px solid #bbb;
     width: 38px;
     height: 38px;
     padding-top: 3px;
     color: #00BE8D;
-    border-radius: 35px;
 }
 .travelbase_items #loadMore span:before {
     text-shadow: 1px 1px 1px #aaa;
@@ -1437,7 +1452,7 @@ ul#form-type-switcher li {
 }
 ul#form-type-switcher li {
     margin-right: 2px;
-    background-color: rgba(254, 210, 35, 0.9); 
+    background-color: rgba(236, 217, 27, 0.9); 
 }
 ul#form-type-switcher li a {
     display: inline-block;
