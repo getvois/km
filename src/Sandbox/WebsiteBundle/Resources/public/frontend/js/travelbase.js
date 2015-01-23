@@ -1054,12 +1054,12 @@ function cityPicker($el, $holder) {
     function repoFormatResult(repo) {
         var $title = repo['cityName' + $lang];
         if(repo.airportNameEn){
-            $title += "("+repo.airportNameEn+", "+repo.airportCode+")";
+            $title += " (<span class='text-muted'>"+repo.airportNameEn+", "+repo.airportCode+"</span>)";
         }else{
-            $title += "("+repo.airportCode+")";
+            $title += " (<span class='text-muted'>"+repo.airportCode+"</span>)";
         }
 
-        $title = '<div class="col-xs-10 col-xs-offset-2">' + $title +'</div>';
+        $title = '<div class="col-xs-11 col-xs-offset-1">' + $title +'</div>';
 
         if(repo.id.toString().indexOf("_") != -1){
             $title = '<div class="col-xs-12"><strong>' + repo['countryName' + $locale] +'</strong></div>';
