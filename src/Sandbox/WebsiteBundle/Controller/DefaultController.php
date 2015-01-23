@@ -213,7 +213,7 @@ class DefaultController extends Controller
     }
         if(date('Y', strtotime($date)) == date("Y")){
             //$date = date('d.m', strtotime($date));
-            setlocale(LC_TIME, "et_ET");
+            setlocale(LC_TIME, "et_EE");
             $date = strftime('%d.%m. %a', strtotime($date));
         }else{
             $date = date('d.m.Y', strtotime($date));
