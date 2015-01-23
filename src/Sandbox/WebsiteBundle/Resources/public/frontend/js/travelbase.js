@@ -1133,20 +1133,42 @@ function cityPicker($el, $holder) {
         multiple: true,
         width: '100%',
         dropdownAutoWidth: true,
-        ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-            url: "http://api.travelwebpartner.com/api/city.findByText/",
-            dataType: 'json',
-            quietMillis: 250,
-            data: function (term, page) {
-                return {
-                    q: term // search term
-                };
-            },
-            results: function (data, page) { // parse the results into the format expected by Select2.
-                return {results: convertData(data)};
-            },
-            cache: true
+        cacheDataSource: [],
+        query: function(query) {
+            self = this;
+            var key = query.term;
+            var cachedData = self.cacheDataSource[key];
+
+            if(cachedData) {
+                query.callback({results: cachedData});
+                return;
+            } else {
+                $.ajax({
+                    url: 'http://api.travelwebpartner.com/api/city.findByText/',
+                    data: { q : query.term },
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(data) {
+                        self.cacheDataSource[key] = convertData(data);
+                        query.callback({results: convertData(data)});
+                    }
+                })
+            }
         },
+        //ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+        //    url: "http://api.travelwebpartner.com/api/city.findByText/",
+        //    dataType: 'json',
+        //    quietMillis: 250,
+        //    cache: true,
+        //    data: function (term, page) {
+        //        return {
+        //            q: term // search term
+        //        };
+        //    },
+        //    results: function (data, page) { // parse the results into the format expected by Select2.
+        //        return {results: convertData(data)};
+        //    }
+        //},
         initSelection: function (element, callback) {
             // the input tag has a value attribute preloaded that points to a preselected repository's id
             // this function resolves that id attribute to an object that select2 can render
@@ -1183,4 +1205,8 @@ function cityPicker($el, $holder) {
         $elem.select2("val", "");
     });
 
+
+    $($el).on('select2-blur', function () {
+        //console.log('blur');
+    });
 }
