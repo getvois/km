@@ -19,10 +19,21 @@
             $(this).addClass('placeholder-collapse');
             $(this).hide();
             $(this).prev().hide();
-
-            //toggle select2
             var holder = $(this);
+            $(this).click(function (e) {
+                if($(e.target).hasClass('placeholder')){
+                    holder.prev().click();
+                }
+            });
+
+            $(this).find('.placeholder-item').click(function (e) {
+                console.log('123');
+                e.stopPropagation();
+            });
+            //toggle select2
+
             $(this).prev().click(function (e) {
+                e.stopPropagation();
                 e.preventDefault();
                 holder.toggleClass('placeholder-collapse');
                 if(!holder.hasClass('placeholder-collapse')){
