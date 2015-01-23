@@ -211,6 +211,12 @@ class DefaultController extends Controller
             if($i < count($item->airline) - 1) $lastCol .= " ";
         }
     }
+        if(date('Y', strtotime($date)) == date("Y")){
+            //$date = date('d.m', strtotime($date));
+            $date = strftime('%d.%m. %a', strtotime($date));
+        }else{
+            $date = date('d.m.Y', strtotime($date));
+        }
 
         if(in_array(4, $filter->type)) {//flights only(skypicker)
             $aDate = "";
@@ -374,7 +380,7 @@ class DefaultController extends Controller
 
                         </div>
 
-                        <div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" ><span class="glyphicon glyphicon-home"></span></a></div>
+                        <div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" ><span class="glyphicon glyphicon-home"></span></a></div>
                         <div class="col-xs-1 trip-field">'. $item->duration .' days</div>
                         <div class="col-xs-2 trip-field">'.$lastCol.'</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
