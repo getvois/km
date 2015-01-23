@@ -314,7 +314,7 @@ class DefaultController extends Controller
 
             $row .= '
                         <div class="col-xs-2 trip-field">'. $item->company->name . '</div>
-                        <div class="col-xs-1 price text-right">' . round($item->price) . ' <a href="'.$item->link.'"><span class="glyphicon glyphicon-expand"></span></a></div>
+                        <div class="col-xs-1 price text-right trip-cost"><p>€' . round($item->price) . '</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">€' . round($item->price) . '</a></div>
 
                     </div>';
 
@@ -377,7 +377,7 @@ class DefaultController extends Controller
                         <div class="col-xs-2 trip-field"><a href="#" onclick="return false;" class="my-popover" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" >' . $hotel . '</a></div>
                         <div class="col-xs-1 trip-field">'. $item->duration .' days</div>
                         <div class="col-xs-1 trip-field">'.$lastCol.'</div>
-                        <div class="col-xs-1 price text-right">'.round($item->price).' <a href="'.$item->link.'"><span class="glyphicon glyphicon-expand"></span></a></div>
+                        <div class="col-xs-1 price text-right trip-cost"><p>€' . round($item->price) . '</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">€' . round($item->price) . '</a></div>
                     </div>';
 
 //            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
