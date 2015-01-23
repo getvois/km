@@ -11,6 +11,11 @@ services:
         arguments: [@service_container]
         tags:
           - { name: twig.extension }
+    sandboxwebsitebundle.datelocaleExtension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\DatelocaleExtension
+        arguments: [@service_container]
+        tags:
+          - { name: twig.extension }
 
 #Form Fields
     sandboxwebsitebundle.form.type.imagesize:
