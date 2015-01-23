@@ -380,7 +380,7 @@ class DefaultController extends Controller
 
                         </div>
 
-                        <div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" ><span class="glyphicon glyphicon-home"></span></a></div>
+                        <div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" ><span class="fa fa-building-o"></span></a></div>
                         <div class="col-xs-1 trip-field">'. $item->duration .' days</div>
                         <div class="col-xs-2 trip-field">'.$lastCol.'</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
@@ -974,6 +974,6 @@ class DefaultController extends Controller
         elseif($locale == 'ru')
             setlocale(LC_TIME, 'ru_RU', 'Russian_Russia', 'Russian');
 
-        return strftime($locale . '%d.%m. %a', strtotime($date));
+        return strftime('%d.%m. %a', strtotime($date));
     }
 }
