@@ -596,8 +596,8 @@ $(document).ready(function() {
                         '    </div>' +
                         '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '<div class="col-xs-2 trip-cost text-success">' +
-                        '        <p>€'+$data[i].price+'</p>' +
-                        '        <button class="btn btn-info trip-btn-cost">€'+$data[i].price+'</button>' +
+                        '        <p>'+$data[i].price+'€</p>' +
+                        '        <button class="btn btn-info trip-btn-cost">'+$data[i].price+'€</button>' +
                         '        <button class="btn btn-danger trip-btn-close">close</button>' +
                         '    </div>' +
                         '</div>';

@@ -609,7 +609,7 @@ label.directFlight-label{
     border-width: 1px;
     cursor: pointer;
     margin-bottom: -1px;
-    overflow: hidden;
+    overflow: visible;
     padding: 13px 16px;
 }
 .trip:first-child {
@@ -749,7 +749,9 @@ label.directFlight-label{
     display: none;
     height: 40px;
 }
-
+.popover-title {
+    white-space: nowrap;
+}
 
 .airline {
     display: inline-block;
