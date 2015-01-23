@@ -324,9 +324,12 @@ div.travelbase-input-addon{
     border: medium none;
     position: absolute;
     width: 40px;
+    padding: 6px 8px;
     z-index: 10;
 }
-
+.travelbase-input{
+    padding-left: 42px;
+}
 .travelbase-icon{
     top: 1px;
     background-image: url("/bundles/sandboxwebsite/img/icons/search-icons.png");
@@ -344,10 +347,10 @@ div.travelbase-input-addon{
     background-position: 0 -47px;
 }
 .travelbase-icon-date-from{
-    background-position: 0 -14px;
+    background-position: 0 -82px;
 }
 .travelbase-icon-date-to{
-    background-position: 0 -14px;
+    background-position: 0 -118px;
 }
 
 
@@ -777,7 +780,8 @@ label.directFlight-label{
     cursor: text;
     height: auto !important;
     overflow: hidden;
-    padding: 7px 7px 6px ;
+    padding-top: 7px;
+    padding-bottom: 6px;
     position: relative;
 }
 
@@ -788,7 +792,7 @@ label.directFlight-label{
 
 .col-md-3 .input-group-addon {
     height: 37px;
-    border-right: -1px;
+    border-right: 0px;
 }
 #s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
     padding: 0;
