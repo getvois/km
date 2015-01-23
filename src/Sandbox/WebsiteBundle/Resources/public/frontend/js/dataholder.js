@@ -27,7 +27,6 @@
             });
 
             $(this).find('.placeholder-item').click(function (e) {
-                console.log('123');
                 e.stopPropagation();
             });
             //toggle select2
@@ -40,10 +39,13 @@
                     $(holder.data('target')).prev().slideDown();
                     $(holder.data('target')).prev().prev().slideDown();
 
-                    $(holder.data('target')).prev().find('input').focus();
+
+                    $(holder.data('target')).prev().find('input').focus().css('padding-left', '5px');
                 }else{
                     $(holder.data('target')).prev().slideUp();
                     $(holder.data('target')).prev().prev().slideUp();
+                    $(holder.data('target')).prev().find('input').css('padding-left', '42px');
+
                 }
 
             });
@@ -68,6 +70,7 @@
                     $holder.prev().hide();
                     $($holder.data('target')).prev().slideDown();
                     $($holder.data('target')).prev().prev().slideDown();
+                    $($holder.data('target')).prev().find('input').css('padding-left', '42px');
                 }
 
                 options.afterRemove.call($holder);//call back

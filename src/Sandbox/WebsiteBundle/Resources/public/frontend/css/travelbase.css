@@ -354,6 +354,13 @@ div.travelbase-input-addon{
     width: 27px;
     height: 28px;
 }
+
+.travelbase-icon-to-top{
+    left: 15px;
+    position: absolute;
+    top: 0;
+}
+
 .select2-container-multi .select2-choices .select2-search-field input{
     padding-left: 42px;
     width: calc(100% - 42px);
