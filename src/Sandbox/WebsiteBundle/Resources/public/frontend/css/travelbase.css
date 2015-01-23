@@ -803,7 +803,7 @@ label.directFlight-label{
     height: auto !important;
     overflow: hidden;
     padding-top: 9px;
-    padding-bottom: 6px;
+    padding-bottom: 7px;
     position: relative;
 }
 
@@ -818,11 +818,12 @@ label.directFlight-label{
 }
 #s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
     padding: 0;
+    border: 0;
 }
 #s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     position: relative;
-    top: -1px;
     padding-top: 3px;
+    padding-bottom: 2px;
 }
 
 #s2id_departure-selected, #s2id_destination-selected{
