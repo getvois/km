@@ -328,13 +328,27 @@ div.travelbase-input-addon{
 }
 
 .travelbase-icon{
-    top: 8px;
+    top: 1px;
+    background-image: url("/bundles/sandboxwebsite/img/icons/search-icons.png");
+    width: 27px;
+    height: 28px;
 }
 .select2-container-multi .select2-choices .select2-search-field input{
-    padding-left: 35px;
-    width: calc(100% - 35px);
+    padding-left: 42px;
+    width: calc(100% - 42px);
 }
-
+.travelbase-icon-from{
+    background-position: 0 -14px;
+}
+.travelbase-icon-to{
+    background-position: 0 -47px;
+}
+.travelbase-icon-date-from{
+    background-position: 0 -14px;
+}
+.travelbase-icon-date-to{
+    background-position: 0 -14px;
+}
 
 
 /* sidebar */
