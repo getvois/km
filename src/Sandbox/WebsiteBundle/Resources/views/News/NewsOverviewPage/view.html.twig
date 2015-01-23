@@ -19,7 +19,7 @@
 
                                 {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'item' : article, 'ignore' : 1} %}
 
-							    <time>{{ article.date | localizeddate('long', 'short', app.request.locale)}}</time>
+							    <time>{{ article.date | datelocale}}</time>
 		                    	<h2>
 		                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom }} {% if article.priceFromLabel %}/ {{ article.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
 		                    		<a href="{{ articlenode.url }}">{{ article.title }}</a>
