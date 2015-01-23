@@ -957,6 +957,8 @@ class DefaultController extends Controller
      */
     private function getDate($date, $locale)
     {
+        var_dump($locale);
+
         setlocale(LC_TIME, "");//reset locale
 
         if($locale == 'ee')
