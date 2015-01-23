@@ -626,9 +626,10 @@ label.directFlight-label{
 }
 .trip-duration {
     color: rgb(139, 139, 139);
-    font-size: 15px;
-    margin: 13px 0 0;
-    text-align: right;
+    font-size: 13px;
+    font-weight:bold;
+    padding: 0;
+	margin: 17px 0 0;
 }
 .trip-path {
     /*margin-left: 32px;*/
