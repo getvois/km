@@ -278,11 +278,13 @@ body .splash--green {
     padding: 5px;
     border: 2px solid #aaa;
     min-height: 41px;
+    padding-left: 35px;
+    height: auto;
 
 }
 .placeholder-collapse{
     overflow: hidden;
-    /*white-space: nowrap;*/
+    white-space: nowrap;
 }
 .placeholder-item{
     background-clip: padding-box;
@@ -315,6 +317,24 @@ body .splash--green {
 .placeholder-item .placeholder-item-remove:hover {
     background-position: right -11px;
 }
+
+
+div.travelbase-input-addon{
+    background-color: transparent;
+    border: medium none;
+    position: absolute;
+    width: 40px;
+    z-index: 10;
+}
+
+.travelbase-icon{
+    top: 8px;
+}
+.select2-container-multi .select2-choices .select2-search-field input{
+    padding-left: 35px;
+    width: calc(100% - 35px);
+}
+
 
 
 /* sidebar */

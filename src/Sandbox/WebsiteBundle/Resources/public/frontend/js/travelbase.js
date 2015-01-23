@@ -1217,7 +1217,6 @@ function cityPicker($el, $holder) {
             //holder.toggleClass('placeholder-collapse');
             if(!holder.hasClass('placeholder-collapse')){
                 holder.addClass('placeholder-collapse');
-                holder.css('display', 'table-cell');
             }
         }
     });
