@@ -140,7 +140,7 @@ class DefaultController extends Controller
             $data = $result->items;
 
             foreach ($data as $item) {
-                $table .= $this->itemToRow($item, $filter);
+                $table .= $this->itemToRow($item, $filter, $request);
             }
 
             $table .= '<script>$(".my-popover").popover();</script>';
@@ -165,7 +165,7 @@ class DefaultController extends Controller
 
     private $prevDate = "";
     private $dateCount = 0;
-    private function itemToRow($item, $filter){
+    private function itemToRow($item, $filter, Request $request){
 
         if(!$item->info) $item->info = "";
         if(!$item->duration) $item->duration = "";
@@ -213,8 +213,7 @@ class DefaultController extends Controller
     }
         if(date('Y', strtotime($date)) == date("Y")){
             //$date = date('d.m', strtotime($date));
-            setlocale(LC_TIME, "et_EE");
-            $date = strftime('%d.%m. %a', strtotime($date));
+            $date = $this->getDate($date, $request->getLocale());
         }else{
             $date = date('d.m.Y', strtotime($date));
         }
@@ -949,5 +948,32 @@ class DefaultController extends Controller
         }
 
         return $title;
+    }
+
+    /**
+     * @param $date
+     * @param $locale
+     * @return string
+     */
+    private function getDate($date, $locale)
+    {
+        setlocale(LC_TIME, "");//reset locale
+
+        if($locale == 'ee')
+            setlocale(LC_TIME, 'et_EE', 'Estonian_Estonia', 'Estonian');
+        elseif($locale == 'en')
+            setlocale(LC_TIME, 'en', 'English_Australia', 'English');
+        elseif($locale == 'fi')
+            setlocale(LC_TIME, 'fi_FI', 'Finnish_Finland', 'Finnish');
+        elseif($locale == 'fr')
+            setlocale(LC_TIME, 'fr_FR', 'French', 'French_France');
+        elseif($locale == 'de')
+            setlocale(LC_TIME, 'de_DE', 'German', 'German_Germany');
+        elseif($locale == 'se')
+            setlocale(LC_TIME, 'sv_SE', 'Swedish_Sweden', 'Swedish');
+        elseif($locale == 'ru')
+            setlocale(LC_TIME, 'ru_RU', 'Russian_Russia', 'Russian');
+
+        return strftime('%d.%m. %a', strtotime($date));
     }
 }

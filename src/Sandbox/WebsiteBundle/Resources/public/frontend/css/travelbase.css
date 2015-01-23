@@ -4,10 +4,10 @@
 
 
 html body {  
-    font-family: "Open Sans";
+    font-family: "Open Sans",serif;
 }
 h1, h2, h3, h4, h5  {
-    font-family: "Noto Serif";
+    font-family: "Noto Serif",serif;
 	letter-spacing: -0.3px;
 }
 .clear {
@@ -169,9 +169,8 @@ body .splash--green {
     background-color: transparent;
 }
 .mainbg{
-    background-image: url('http://ku.markmedia.fi/sites/default/files/images/mainbg2.jpg');
     height: 380px;
-    background-position: center center;
+    background: url('http://ku.markmedia.fi/sites/default/files/images/mainbg2.jpg') center center;
     background-size: cover;
     position: relative;
 }
@@ -190,7 +189,7 @@ body .splash--green {
 .doormat__title a, .travelbase_top_menu > li a {
     color: #fff;
     font-weight:700;
-    font-family: "Open Sans";
+    font-family: "Open Sans",serif;
 }
 
 
@@ -210,11 +209,11 @@ body .splash--green {
     position: absolute;
     z-index: 99;
     display:block;
+    /*noinspection CssUnknownTarget*/
     background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 -10px;
 }
 .site-topmenu {
     position: absolute;
-    top:150px;
     top:0;
     right:0;
     padding-right:4.3%;
@@ -350,6 +349,7 @@ div.travelbase-input-addon{
 }
 .travelbase-icon{
     top: 1px;
+    /*noinspection CssUnknownTarget*/
     background-image: url("/bundles/sandboxwebsite/img/icons/search-icons.png");
     width: 27px;
     height: 28px;
@@ -1473,7 +1473,6 @@ ul#form-type-switcher li {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ECBA1C', endColorstr='#F4BF17'); /* IE6 & IE7 */  
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2E022', endColorstr='#F4BF17')"; /* IE8+ */ 
 	-pie-background:linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
-    background-color: rgba(, 1); 
 }
 ul#form-type-switcher li a {
     display: inline-block;
