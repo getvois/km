@@ -39,7 +39,8 @@
 
             });
 
-            $(this).on('click', '.placeholder-item-remove', function () {
+            $(this).on('click', '.placeholder-item-remove', function (e) {
+                e.preventDefault();
                 var $itemToRemove = $(this).closest(".placeholder-item");
                 var $holder = $itemToRemove.parent();
                 $itemToRemove.remove();
