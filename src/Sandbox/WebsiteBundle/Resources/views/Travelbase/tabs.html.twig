@@ -2,8 +2,9 @@
         <ul id="form-type-switcher" class="tabs nav nav-tabs">
             <li class="active"><a href="#hot-offers" data-toggle="tab" class="">&nbsp; {{ 'flights.hotel' | trans({}, 'frontend') }} &nbsp;<span id="hot-offers-badge" class="badge"></span><span id="hot-offers-badge-loading" class="badge spinner"></span></a></li>
             <li class=""><a href="#lowcost" data-toggle="tab" data-type="flightHotel">&nbsp; {{ 'only.flights' | trans({}, 'frontend') }} &nbsp;<span id="lowcost-badge" class="badge"></span><span id="lowcost-badge-loading" class="badge spinner"></span></a></li>
-            {#<li class=""><a href="#hotels" data-toggle="tab" data-type="hotels">&nbsp; {{ 'hotels' | trans({}, 'frontend') }} &nbsp;</a></li>#}
-            {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="hotels">&nbsp; {{ 'car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
+            <li class=""><a href="#hotels" data-toggle="tab" data-type="hotels">&nbsp; {{ 'Hotels' | trans({}, 'frontend') }} &nbsp;</a></li>
+            <li class=""><a href="#ferries" data-toggle="tab" data-type="ferries">&nbsp; {{ 'Ferries' | trans({}, 'frontend') }} &nbsp;</a></li>
+            {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
         </ul>
 
     <div class="tab-content">
@@ -15,8 +16,15 @@
                 <div class="travelbase_items travelbase_items_sp" data-filter-type="[4, 3]" data-badge="#lowcost-badge"></div>
                 <div class="progressbar"></div>
             </div>
-        {#<div class="tab-pane" id="hotels">hotels</div>#}
-        {#<div class="tab-pane" id="car-rent">car-rent</div>#}
+        <div class="tab-pane" id="hotels">
+			<br /><br /><script type='text/javascript' src='http://www.hotelscombined.ee/SearchBox/255530'></script>
+		</div>
+        <div class="tab-pane" id="ferries">
+			<table cellpadding="0" width="240" cellspacing="0" border="0" ><tr><td height="170" align="right" valign="top"><iframe height="170" width="290" src="http://www.aferry.co.uk/AFRYminiengine.asp?currency=GBP&HomeURL=&language=&routes=&route1=&route2=&route3=&route4=&background=&popup=&selectwidth=280&refercode=AFUK&multi=Y" frameborder="no"></iframe></td></tr></table>
+		</div>
+        {#<div class="tab-pane" id="car-rent">
+
+		</div>#}
         </div>
 </section>
 

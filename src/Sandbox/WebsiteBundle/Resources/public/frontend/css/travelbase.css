@@ -5,7 +5,6 @@
 
 html body {  
     font-family: "Open Sans";
-    letter-spacing: -0.3px;
 }
 h1, h2, h3, h4, h5  {
     font-family: "Noto Serif";
@@ -364,21 +363,6 @@ body .splash--green {
 }
 
 
-#travelbase_tabs li.active{
-    background-color: #00be8d;
-    color: #fff;
-    text-shadow: 1px 1px rgba(0, 108, 80, 1);
-}
-
-#travelbase_tabs li a{
-    /*background-color: #fff;*/
-}
-#travelbase_tabs li.active a{
-    background-color: transparent;
-    color: #ffffff;
-}
-
-
 .trip table .trip-path-spacer-line > div {
     /*border-bottom: 1px solid rgb(104, 104, 104);*/
     height: 15px;
@@ -720,7 +704,7 @@ label.directFlight-label{
 .travelbase_items .price{
     font-size: 20px;
     font-weight: bold;
-    color: #468847;
+    color: #333;
     padding: 10px 0 0;
 }
 
@@ -1415,29 +1399,53 @@ ul#form-type-switcher li {
 }
 ul#form-type-switcher li {
     margin-right: 2px;
-    background-color: rgba(250, 250, 250, 0.9);
-/*rgba(0, 0, 0, 0.4);*/
+    background-color: rgba(254, 210, 35, 0.9); 
 }
 ul#form-type-switcher li a {
     display: inline-block;
     line-height: 40px;
-    padding: 0;
+    padding: 0 5px 5px 5px;
     border: 0;
-    height: 40px;
-    font-size: 14px;
-    color:rgba(0, 231, 171, 1);
+    height: 40px; 
+    font-size: 15px;
+    color:#6C590B;
+    text-shadow: 1px 1px #FEDE5C;
     position: relative;
     font-weight: bold;
 }
+ul#form-type-switcher li .badge {
+    background:none;
+    color: #9F8311;
+    border:1px solid #9F8311;
+    border-radius:15px;
+}
+#travelbase_tabs li.active .badge {
+    color: #B79613;
+    border:1px solid #B79613;
+}
+	
 ul#form-type-switcher li a:hover {
-    text-decoration:none;
+	background-color: rgba(238, 208, 87, 0.9); 
+	text-decoration:none;
 }
-ul#form-type-switcher li a.active {
-    color: #FFF;
-    text-shadow: 1px 1px rgba(0, 108, 80, 1);
-    background-color: #00BE8D;
+
+
+ul#form-type-switcher  li.active, ul#form-type-switcher  li.active:hover, ul#form-type-switcher  li.active:focus{
+    background:-moz-linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
+	background:-webkit-linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
+	background: -ms-linear-gradient(top, #dddddd, #ffffff); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff'); /* IE6 & IE7 */  
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff')"; /* IE8+ */ 
+	-pie-background:linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
 }
-ul#form-type-switcher li.active:after {
+
+#travelbase_tabs li.active a, ul#form-type-switcher  li.active a:hover, ul#form-type-switcher  li.active a:focus{
+    background-color: transparent;
+    color: #000;
+    text-shadow: 1px 1px #f9f9f9;
+}
+
+ul#form-type-switcheeeeeer li.active:after {
     position: absolute;
     content: '';
     bottom: -8px;
