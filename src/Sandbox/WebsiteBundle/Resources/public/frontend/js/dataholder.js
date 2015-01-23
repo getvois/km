@@ -29,6 +29,8 @@
                     holder.css('display', 'table');
                     $(holder.data('target')).prev().slideDown();
                     $(holder.data('target')).prev().prev().slideDown();
+
+                    $(holder.data('target')).prev().find('input').focus();
                 }else{
                     holder.css('display', 'table-cell');
                     $(holder.data('target')).prev().slideUp();

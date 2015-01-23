@@ -1140,7 +1140,7 @@ function cityPicker($el, $holder) {
             var cachedData = self.cacheDataSource[key];
 
             if(cachedData) {
-                query.callback({results: cachedData});
+                query.callback({results: convertData(cachedData)});
                 return;
             } else {
                 $.ajax({
@@ -1149,7 +1149,7 @@ function cityPicker($el, $holder) {
                     dataType: 'json',
                     type: 'GET',
                     success: function(data) {
-                        self.cacheDataSource[key] = convertData(data);
+                        self.cacheDataSource[key] = data;
                         query.callback({results: convertData(data)});
                     }
                 })
@@ -1208,5 +1208,17 @@ function cityPicker($el, $holder) {
 
     $($el).on('select2-blur', function () {
         //console.log('blur');
+        if($($holder).dataHolder('data').length > 0){
+            //console.log('hide me');
+            $($el).prev().slideUp();
+            $($el).prev().prev().slideUp();
+
+            var holder = $($holder);
+            //holder.toggleClass('placeholder-collapse');
+            if(!holder.hasClass('placeholder-collapse')){
+                holder.addClass('placeholder-collapse');
+                holder.css('display', 'table-cell');
+            }
+        }
     });
 }
