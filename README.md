@@ -183,24 +183,3 @@ Changes to kunstmaan bundles.
                     return new RedirectResponse($this->generateUrl('_slug', ['_locale' => $host->getLang(), 'url' => $url]));
             }
             ///////////
-
-### Date locale
-
-###### File: /../vendor/twig/extensions/lib/Twig/Extensions/Extension/Intl.php
-
-    function twig_localized_date_filter(Twig_Environment $env, $date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null, $timezone = null, $format = null)
-    {
-        ////ADD THIS LINE
-        if($locale == 'ee') $locale = 'et';
-        
-        $date = twig_date_converter($env, $date, $timezone);
-    
-        $formatValues = array(
-            'none'   => IntlDateFormatter::NONE,
-            'short'  => IntlDateFormatter::SHORT,
-            'medium' => IntlDateFormatter::MEDIUM,
-            'long'   => IntlDateFormatter::LONG,
-            'full'   => IntlDateFormatter::FULL,
-        );
-        
-        
