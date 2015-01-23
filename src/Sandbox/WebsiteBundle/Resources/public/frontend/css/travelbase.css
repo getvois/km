@@ -222,13 +222,13 @@ body .splash--green {
     padding-left: 280px;
 	z-index: 98;
 	height: 380px;
-    background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(255,255,255,0.9) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(255,255,255,0.9))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.9) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.9) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.9) 100%); /* IE10+ */
-	background: linear-gradient(to right,  rgba(135,224,253,0) 0%,rgba(255,255,255,0.9) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0087e0fd', endColorstr='#80ffffff',GradientType=1 ); /* IE6-9 */
+    background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(197,220,245,0.9) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(197,220,245,0.9))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87E0F3', endColorstr='#C5DCF5',GradientType=1 ); /* IE6-9 */
 
 }
 .travelbase_top_menu{
@@ -262,7 +262,7 @@ body .splash--green {
     text-decoration:underline;
     font-style:italic;
     top: 20px;
-    z-index: 1;
+    z-index: 106;
 }
 
 .badge.spinner{
@@ -274,7 +274,7 @@ body .splash--green {
 
 
 #date-start-datepicker-holder, #date-end-datepicker-holder, .placeholder, .select2-container-multi .select2-choices {
-	border: 2px solid #777;
+	border: 2px solid #555;
     border-radius: 2px;
 }
 
@@ -385,6 +385,7 @@ div.travelbase-input-addon{
 }
 .sidebar h1 {
 	position: absolute;
+	z-index: 105;
 	top: -50px;
 	left:0;
 	font: bold 30px/1.3em 'Open Sans';
@@ -578,7 +579,9 @@ label.directFlight-label{
 	display: block;
 }
 #form-submit {
-	height: 39px;
+	height: 40px;
+	position: absolute;
+	z-index: 200;
 	border-radius: 2px;
 	padding: 8px 16px;
 }
