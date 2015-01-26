@@ -79,21 +79,19 @@ class DefaultController extends Controller
                 $date = $this->get('translator')->trans('date', [], 'frontend');
                 $price = $this->get('translator')->trans('price', [], 'frontend');
 
-                $table .= '<div class="row table-header">';
-                $table .= '<div class="col-sm-3">';
+                $table .= '<div class="row table-header sort-controls">';
+                $table .= '<div class="col-md-6">';
                 $table .= '<div class="btn-group" role="group" aria-label="...">
-                              <div class="btn btn-default disabled">' .$date. '</div>
-                              <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="date" data-order="asc"><span class="glyphicon glyphicon-sort-by-attributes"></span></a></div>
-                              <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='asc')?"active":"") . '"><a href="#" data-field="date" data-order="desc"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a></div>
-                            </div>';
-                $table .= '</div>';
-                $table .= '<div class="col-sm-3">';
-                $table .= '<div class="btn-group" role="group" aria-label="...">
-                              <div class="btn btn-default disabled">' .$price. '</div>
-                              <div class="btn btn-default ' . (($field=='price' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="price" data-order="asc"><span class="glyphicon glyphicon-sort-by-attributes"></span></a></div>
-                              <div class="btn btn-default ' . (($field=='price' && $fieldOrder=='asc')?"active":"") . '"><a href="#" data-field="price" data-order="desc"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a></div>
-                            </div>';
-                $table .= '</div>';
+	                             <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="date" data-order="asc"><span class="glyphicon glyphicon-arrow-down"></span></a></div>
+	                             <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='asc')?"active":"") . '"><a href="#" data-field="date" data-order="desc"><span class="glyphicon glyphicon-arrow-up"></span></a></div>
+	                           </div>
+                           </div>
+                           <div class="col-xs-1 nopadding pull-right">';
+	            $table .= '<div class="btn-group" role="group" aria-label="...">
+	                              <div class="btn btn-default ' . (($field=='price' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="price" data-order="asc"><span class="glyphicon glyphicon-arrow-down"></span></a></div>
+	                              <div class="btn btn-default ' . (($field=='price' && $fieldOrder=='asc')?"active":"") . '"><a href="#" data-field="price" data-order="desc"><span class="glyphicon glyphicon-arrow-up"></span></a></div>
+	                            </div>
+                           </div>';
                 $table .= '</div>';
 
 

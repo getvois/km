@@ -790,12 +790,31 @@ label.directFlight-label{
     z-index: 1;
 }
 
+/* result table header */
+.sort-controls .btn-group  {
+}
+
+.sort-controls .sort-date, .sort-controls .sort-price {
+	text-transform:capitalize;
+}
+.sort-controls .btn {
+	padding: 2px 5px 1px 5px;
+	
+}
+.sort-controls .btn .glyphicon {
+	color:#888;
+}
+.sort-controls .active .glyphicon {
+	color:#676767;
+}
+
 .travelbase_items .glyphicon-plus, .travelbase_items .glyphicon-minus{
 	font-size:9px;
 }
 .travelbase_items .glyphicon-star {
 	font-size:11px;
 }
+
 
 /*DATE PICKER STUFF*/
 #edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0{
