@@ -78,7 +78,7 @@ class DefaultController extends Controller
                 $table = $loading;
                 $date = $this->get('translator')->trans('date', [], 'frontend');
                 $price = $this->get('translator')->trans('price', [], 'frontend');
-
+				$days_short = $this->get('translator')->trans('days.short', [], 'frontend');
 
                 $table .= '<div class="row table-header">';
                 $table .= '<div class="col-sm-3">';
@@ -382,7 +382,7 @@ class DefaultController extends Controller
                         </div>';
 
             if($item->hotel) {
-                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . '" ><span class="fa fa-building-o"></span>';
+                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . '" ><span class="fa fa-plus-square-o"></span> ';
 
                 //stars
                 for($i = 0; $i<floor($item->hotel->stars); $i++){
@@ -396,10 +396,10 @@ class DefaultController extends Controller
                 $row .= '</a></div>';
             }
             else {
-                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . '" ><span class="fa fa-building-o"></span></a></div>';
+                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . '" ><span class="fa fa-plus-square-o"></span></a></div>';
             }
 
-                        $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' days</div>
+                        $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
                         <div class="col-xs-2 trip-field">'.$lastCol.'</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
                     </div>';
