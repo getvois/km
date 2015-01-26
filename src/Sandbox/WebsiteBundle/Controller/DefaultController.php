@@ -8,6 +8,7 @@ use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
+use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Form\BookingForm;
 use Sandbox\WebsiteBundle\Entity\Form\Passenger;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -196,7 +197,8 @@ class DefaultController extends Controller
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
         //if(UrlExists("/sites/all/modules/travelbase/img/" + $item.company.name.toLowerCase() + ".png"))
-            $company = "<img src='/sites/all/modules/travelbase/img/" . strtolower($item->company->name) . ".png' alt='" . $item->company->name . "' title='".$item->company->name."' />";
+            //$company = "<img src='/sites/all/modules/travelbase/img/" . strtolower($item->company->name) . ".png' alt='" . $item->company->name . "' title='".$item->company->name."' />";
+            $company = "<div class='company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
 
 
         $lastCol = $company;//"<a href='" . $item->link . "'>" . $company . "</a>";
