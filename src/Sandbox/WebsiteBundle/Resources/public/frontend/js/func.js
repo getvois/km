@@ -102,13 +102,13 @@ function getFilter(container){
 function loadMore(){
     var $filter = getFilter();
 
-    var $tr = $(".travelbase_items:visible").find("> div > div");
+    var $tr = $(".travelbase_items:visible").find("> div > div ");
     if($tr.length > 1){//1 because of header
         $filter.offset = $tr.length - 1 ;
     }
 
     $.post('/app_dev.php/api-filter/0', JSON.stringify($filter), function (responce) {
-        var $table = $(".travelbase_items:visible").find('> div');
+        var $table = $(".travelbase_items:visible").find('> div ');
         $table.append(responce.html);
 
         if($table.find('> div').length - 1 >= responce.total){
