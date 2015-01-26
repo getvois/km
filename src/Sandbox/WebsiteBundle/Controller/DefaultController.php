@@ -78,7 +78,6 @@ class DefaultController extends Controller
                 $table = $loading;
                 $date = $this->get('translator')->trans('date', [], 'frontend');
                 $price = $this->get('translator')->trans('price', [], 'frontend');
-				$days_short = $this->get('translator')->trans('days.short', [], 'frontend');
 
                 $table .= '<div class="row table-header">';
                 $table .= '<div class="col-sm-3">';
@@ -166,6 +165,7 @@ class DefaultController extends Controller
     private $prevDate = "";
     private $dateCount = 0;
     private function itemToRow($item, $filter, Request $request){
+        $days_short = $this->get('translator')->trans('days.short', [], 'frontend');
 
         if(!$item->info) $item->info = "";
         if(!$item->duration) $item->duration = "";
