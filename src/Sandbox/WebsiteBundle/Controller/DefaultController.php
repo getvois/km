@@ -78,58 +78,58 @@ class DefaultController extends Controller
                 $table = $loading;
                 $date = $this->get('translator')->trans('date', [], 'frontend');
                 $price = $this->get('translator')->trans('price', [], 'frontend');
-                if(in_array(4, $filter->type)){//flights only(skypicker)
-                    $table .= '<div>
-                            <div class="row table-header">
-                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'date')?$fieldOrder:"asc") . '" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
-                                <div class="col-xs-1"></div>
-                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'departure')?$fieldOrder:"asc") . '" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-3"> </div>
-                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'destination')?$fieldOrder:"asc") . '" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'company')?$fieldOrder:"asc") . '" data-field="company" '. (($field == 'company')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'price')?$fieldOrder:"asc") . '" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
-                            </div>
 
-                            ';
 
-//                    $table .= '<table><tr>' .
-//                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
-//                        '<th>Dur./Stops</th>' .
-//                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
-//                        '<th></th>' .
-//                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
-//                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>';
+                $table .= '<div class="row table-header">';
+                $table .= '<div class="col-sm-3">';
+                $table .= '<div class="btn-group" role="group" aria-label="...">
+                              <div class="btn btn-default disabled">' .$date. '</div>
+                              <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="date" data-order="asc"><span class="glyphicon glyphicon-sort-by-attributes"></span></a></div>
+                              <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='asc')?"active":"") . '"><a href="#" data-field="date" data-order="desc"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a></div>
+                            </div>';
+                $table .= '</div>';
+                $table .= '<div class="col-sm-3">';
+                $table .= '<div class="btn-group" role="group" aria-label="...">
+                              <div class="btn btn-default disabled">' .$price. '</div>
+                              <div class="btn btn-default ' . (($field=='price' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="price" data-order="asc"><span class="glyphicon glyphicon-sort-by-attributes"></span></a></div>
+                              <div class="btn btn-default ' . (($field=='price' && $fieldOrder=='asc')?"active":"") . '"><a href="#" data-field="price" data-order="desc"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a></div>
+                            </div>';
+                $table .= '</div>';
+                $table .= '</div>';
 
-                }else{
-                    $duration = $this->get('translator')->trans('duration', [], 'frontend');
-                    $company = $this->get('translator')->trans('company', [], 'frontend');
 
-                    $table .= '<div>
-                            <div class="row table-header">
-                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'date')?$fieldOrder:"asc") . '" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
-                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'departure')?$fieldOrder:"asc") . '" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-2"></div>
-                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'destination')?$fieldOrder:"asc") . '" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'hotel')?$fieldOrder:"asc") . '" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '></a></div>
-                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'duration')?$fieldOrder:"asc") . '" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>' . $duration .'</a></div>
-                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'company')?$fieldOrder:"asc") . '" data-field="company" '. (($field == 'company')?'class="active"':"") . '>' . $company .'</a></div>
-                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'price')?$fieldOrder:"asc") . '" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
-
-                            </div>
-
-                            ';
-
-//                    $table .= '<table><tr>' .
-//                        '<th><a href="#" data-field="date" '. (($field == 'date')?'class="active"':"") . '>Date</a></th>' .
-//                        //'<th><a href="#" data-field="company">Company</a></th>' .
-//                        '<th><a href="#" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '>From</a></th>' .
-//                        '<th><a href="#" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '>To</a></th>' .
-//                        '<th><a href="#" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '>Info</a></th>' .
-//                        //'<th><a href="#" data-field="info">Info</a></th>' .
-//                        '<th><a href="#" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>Duration</a></th>' .
-//                        '<th><a href="#" data-field="price" '. (($field == 'price')?'class="active"':"") . '>Price</a></th>' .
-//                        '<th><a href="#" data-field="company" '. (($field == 'company')?'class="active"':"") . '>Link</a></th></tr>';
-                }
+//                if(in_array(4, $filter->type)){//flights only(skypicker)
+//                    $table .= '<div>
+//                            <div class="row table-header">
+//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'date')?$fieldOrder:"asc") . '" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
+//                                <div class="col-xs-1"></div>
+//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'departure')?$fieldOrder:"asc") . '" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
+//                                <div class="col-xs-3"> </div>
+//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'destination')?$fieldOrder:"asc") . '" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
+//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'company')?$fieldOrder:"asc") . '" data-field="company" '. (($field == 'company')?'class="active"':"") . '></a></div>
+//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'price')?$fieldOrder:"asc") . '" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
+//                            </div>
+//
+//                            ';
+//                }else{
+//                    $duration = $this->get('translator')->trans('duration', [], 'frontend');
+//                    $company = $this->get('translator')->trans('company', [], 'frontend');
+//
+//                    $table .= '<div>
+//                            <div class="row table-header">
+//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'date')?$fieldOrder:"asc") . '" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
+//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'departure')?$fieldOrder:"asc") . '" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
+//                                <div class="col-xs-2"></div>
+//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'destination')?$fieldOrder:"asc") . '" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
+//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'hotel')?$fieldOrder:"asc") . '" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '></a></div>
+//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'duration')?$fieldOrder:"asc") . '" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>' . $duration .'</a></div>
+//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'company')?$fieldOrder:"asc") . '" data-field="company" '. (($field == 'company')?'class="active"':"") . '>' . $company .'</a></div>
+//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'price')?$fieldOrder:"asc") . '" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
+//
+//                            </div>
+//
+//                            ';
+//                }
 
 
             }
@@ -378,10 +378,27 @@ class DefaultController extends Controller
                                 </tr>
                             </table>
 
-                        </div>
+                        </div>';
 
-                        <div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="'.$hotel.'" data-content="'.$item->info.'" ><span class="fa fa-building-o"></span></a></div>
-                        <div class="col-xs-1 trip-field">'. $item->duration .' days</div>
+            if($item->hotel) {
+                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . '" ><span class="fa fa-building-o"></span>';
+
+                //stars
+                for($i = 0; $i<floor($item->hotel->stars); $i++){
+                    $row .= '<span class="glyphicon glyphicon-star"></span>';
+                }
+
+                if($item->hotel->stars - floor($item->hotel->stars) > 0){
+                    $row .= '<span class="glyphicon glyphicon-plus"></span>';
+                }
+
+                $row .= '</a></div>';
+            }
+            else {
+                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . '" ><span class="fa fa-building-o"></span></a></div>';
+            }
+
+                        $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' days</div>
                         <div class="col-xs-2 trip-field">'.$lastCol.'</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
                     </div>';
