@@ -231,7 +231,8 @@ class DefaultController extends Controller
 
             }else{
                 if(!$item->aDate && $item->duration > 0){
-                    $aDate = date('d.m.', strtotime($item->dDate) + $item->duration * 24 * 60 * 60);
+                    $aDate = date('d.m.Y', strtotime($item->dDate) + $item->duration * 24 * 60 * 60);
+                    $aDate = $this->getDate($aDate, $request->getLocale());
                 }
             }
 
@@ -320,7 +321,7 @@ class DefaultController extends Controller
 
             $row .= '
                         <div class="col-xs-2 trip-field">'. $item->company->name . '</div>
-                        <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
+                        <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
 
                     </div>';
 
@@ -400,7 +401,7 @@ class DefaultController extends Controller
 
                         $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' days</div>
                         <div class="col-xs-2 trip-field">'.$lastCol.'</div>
-                        <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
+                        <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
                     </div>';
 
 //            $row = "<tr class='" . $class . "' data-itemid='". $item->id ."' >" .
