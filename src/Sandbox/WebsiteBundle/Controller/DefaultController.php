@@ -39,7 +39,7 @@ class DefaultController extends Controller
 
             if($body == 1 && in_array(4, $filter->type)){
                 //import from skypicker first
-                $url = 'http://80.69.162.118/api/skypicker.import/';
+                $url = 'http://api.travelwebpartner.com/api/skypicker.import/';
                 $options = array(
                   'http' => array(
                     'header'  => "Host: api.travelwebpartner.com\r\nConnection: close\r\nContent-type: application/x-www-form-urlencoded\r\n",
@@ -52,7 +52,7 @@ class DefaultController extends Controller
             }
 
 
-            $url = 'http://80.69.162.118/api/item.filter/';
+            $url = 'http://api.travelwebpartner.com/api/item.filter/';
 
             $options = array(
               'http' => array(
