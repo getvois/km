@@ -602,26 +602,50 @@ label.directFlight-label{
 
 
 
+/* result table header */
+.sort-controls .btn-group  {
+}
+
+.sort-controls .sort-date, .sort-controls .sort-price {
+	text-transform:capitalize;
+}
+.sort-controls .btn {
+	padding: 2px 5px 1px 5px;
+	
+}
+.sort-controls .btn .glyphicon {
+	color:#888;
+}
+.sort-controls .active .glyphicon {
+	color:#676767;
+}
+
+.travelbase_items .glyphicon-plus, .travelbase_items .glyphicon-minus{
+	font-size:9px;
+	color:#2aabd2;
+}
+.travelbase_items .glyphicon-plus:before{
+	position:relative;
+	top:-1px;
+}
+.travelbase_items .glyphicon-star {
+	font-size:11px;
+	color:#2aabd2;
+}
 
 
-/* TRIP */
+/* TRIP Result table */
 .trip {
     -moz-user-select: none;
-    border-color: rgba(143, 143, 143, 0.05) rgba(143, 143, 143, 0.15) #fff;
-    border-left: 1px solid rgba(143, 143, 143, 0.15);
-    border-right: 1px solid rgba(143, 143, 143, 0.15);
-    border-style: solid;
-    border-width: 1px;
+    border: none;
     cursor: pointer;
     margin-bottom: -1px;
     overflow: visible;
     padding: 13px 16px;
 }
 .trip:first-child {
-    border-top: 1px solid rgba(143, 143, 143, 0.26) !important;
 }
 .trip:last-child {
-    border-bottom: 1px solid rgba(143, 143, 143, 0.26) !important;
 }
 .trip:hover {
     background-color: rgba(33, 7, 100, 0.1);
@@ -635,6 +659,26 @@ label.directFlight-label{
     font-weight:bold;
     padding: 0;
 	margin: 17px 0 0;
+}
+
+.trip .company  {
+    height: 20px;
+    width:100%;
+    background-image:url("/bundles/sandboxwebsite/img/general/comp-sprite.png");
+    background-position:0 0;
+    background-repeat:no-repeat;
+}
+.trip .company-tjareborg  {
+    background-position:0 -25px;
+}
+.trip .company-finnmatkat  {
+    background-position:0 -50px;
+}
+.trip .company-fritidsresor  {
+    background-position:0 -75px;
+}
+.trip .company-apollo  {
+    background-position:0 -100px;
 }
 .trip-path {
     /*margin-left: 32px;*/
@@ -790,30 +834,6 @@ label.directFlight-label{
     z-index: 1;
 }
 
-/* result table header */
-.sort-controls .btn-group  {
-}
-
-.sort-controls .sort-date, .sort-controls .sort-price {
-	text-transform:capitalize;
-}
-.sort-controls .btn {
-	padding: 2px 5px 1px 5px;
-	
-}
-.sort-controls .btn .glyphicon {
-	color:#888;
-}
-.sort-controls .active .glyphicon {
-	color:#676767;
-}
-
-.travelbase_items .glyphicon-plus, .travelbase_items .glyphicon-minus{
-	font-size:9px;
-}
-.travelbase_items .glyphicon-star {
-	font-size:11px;
-}
 
 
 /*DATE PICKER STUFF*/
