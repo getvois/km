@@ -722,7 +722,7 @@ $(document).ready(function() {
             $cityList.find('i').show();
             $cityList.find("ul").show();
             $cityList.find("li").show();
-            $cityList.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+            $cityList.find('i').removeClass('fa-angle-up').addClass('fa-angle-down');
             $("li.parent-list ul").hide();
         } else {
             $cityList.find('i').hide();
@@ -887,7 +887,7 @@ function cityFilter(){
         $cityList.find('ul, li').show();
         $cityList.find("li.parent-list ul").hide();
         $cityList.find('.no-cities').hide();
-        $cityList.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        $cityList.find('i').removeClass('fa-angle-up').addClass('fa-angle-down');
 
         //check text filter
         $(this).closest('.city-filters').find(".city-search").keyup();

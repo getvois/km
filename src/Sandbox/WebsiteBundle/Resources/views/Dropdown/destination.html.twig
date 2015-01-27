@@ -1,8 +1,8 @@
 <div style="margin-top: -99999px" class="city-picker" id="dropdown-destination">
     <div class="city-filters">
-        <h1 class="form-item-header">Destination header</h1>
+        <h1 class="form-item-header">{{ 'dropdown.destinations.header' | trans }}</h1>
 
-        <div class="form-item-desc">Destination description</div>
+        <div class="form-item-desc">{{ 'dropdown.destinations.description' | trans }}</div>
         <input data-type="Sun" name="sun" class="city-type-btn" id="sun" type="checkbox"><label
                 for="sun">Sun</label>
         <input data-type="Ski" name="ski" class="city-type-btn" id="ski" type="checkbox"><label
@@ -16,14 +16,14 @@
             All</label>
     </div>
 <div class="city-list">
-<div class="no-cities" style="display: none">Nothing found</div>
+<div class="no-cities" style="display: none">{{ 'nothing.found' | trans }}</div>
 <span class="city-picker-close glyphicon glyphicon-remove"></span>
 
 
     {% include "@SandboxWebsite/Dropdown/citylist.html.twig" %}
 
 </div>
-</div>
+</div> 
 
 
 

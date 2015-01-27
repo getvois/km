@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     $("li.parent-list ul").hide(); //hide the child lists
     $("li.parent-list i").click(function () {
-        $(this).toggleClass('glyphicon-chevron-down glyphicon-chevron-up'); // toggle the font-awesome icon class on click
+        $(this).toggleClass('fa fa-angle-down fa fa-angle-up'); // toggle the font-awesome icon class on click
         $(this).parent().find("ul").toggle(); // toggle the visibility of the child list on click
 
         //body top margin

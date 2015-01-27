@@ -13,7 +13,6 @@ h1, h2, h3, h4, h5  {
 .clear {
     clear:both;
 } 
-
 .nopadding, .no-padding {
     padding: 0;
 }
@@ -680,6 +679,18 @@ label.directFlight-label{
 .trip .company-apollo  {
     background-position:0 -100px;
 }
+.trip .company-nazar  {
+    background-position:0 -125px;
+}
+.trip .company-detur  {
+    background-position:0 -150px;
+}
+.trip .company-aurinko  {
+    background-position:0 -175px;
+}
+.trip .company-norwegian  {
+    background-position:0 -200px;
+}
 .trip-path {
     /*margin-left: 32px;*/
 }
@@ -905,12 +916,73 @@ label.directFlight-label{
 
 
 
+/* City picker list */
+.city-picker{
+    background: #fff;
+    box-shadow: none;
+    padding: 30px 30px 30px 5%;
+    position: absolute;
+    left:0;
+    right: 0;
+    top: 0;
+    z-index: 99999;
+}
+.city-picker ul{
+    margin:0 0 7px 0;
+    padding: 0;
+    font-size:16px;
+}
+.city-picker ul li i.fa{
+    font-size: 20px;
+    cursor:pointer;
+    cursor:hand;
+}
 
+.city-picker li{
+    list-style-type: none;
+    padding-left:19px;
+}
+.city-picker li.parent-list {
+    padding-left:0;
+}
+.city-picker-container{
+    display: inline-block;
+    /*margin-top: -10px;*/
+    /*float: right;*/
+}
+span.city-picker-close {
+    color: #eaeaea;
+    font-size: 36px;
+    position: absolute;
+    z-index:99999;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+span.city-picker-close:hover {
+    color: #cccccc;
+}
+.city-picker input[type="checkbox"] {
+    display:none;
+}
+.city-picker input[type="checkbox"] + label {
+    cursor: pointer;
+    font-weight: normal;
+    margin-right:3px;
+    margin-left:3px;
+    padding: 5px 3px;
+}
+.city-picker input[type="checkbox"]:checked + label {
+    background-color: #ddd;
+    border-radius: 3px;
+    box-shadow: none;
+}
+.city-divider li{
+    line-height: 1px;
+}
 
-
-
-
-
+.city-picker h1.form-item-header {margin:0!important;color:#333!important;font:700 35px "Open Sans";}
+.city-picker .form-item-desc {margin:5px 0 10px 0;color:#333;font-size:18px;}
 /* old needs refactoring */
 
 
@@ -1062,73 +1134,7 @@ a.top-link img {
     color: #777;
     font-weight:normal;
 }
-/* City picker list */
-.city-picker {
-    /*margin: 20px!important;*/
-    /*overflow-y:scroll;*/
-    /*height:300px;*/
-}
-.city-picker{
-    background: rgba(255,255,255,0.98);
-    box-shadow: none;
-    padding: 30px;
-    /*margin: 30px;*/
-    position: absolute;
-    left:0;
-    right: 0;
-    top: 0;
-    /*margin-top: -9999px;*/
-    z-index: 99999;
-    /*height:323px;*/
-    /*overflow-y:scroll;*/
-    box-sizing: padding-box;
-}
-.city-picker ul{
-    margin:0;
-}
-.city-picker li{
-    list-style-type: none;
-    padding-left:19px;
-}
-.city-picker li.parent-list {
-    padding-left:0;
-}
 
-.city-picker-container{
-    display: inline-block;
-    /*margin-top: -10px;*/
-    /*float: right;*/
-}
-span.city-picker-close {
-    color: #eaeaea;
-    font-size: 36px;
-    position: absolute;
-    z-index:99999;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-}
-span.city-picker-close:hover {
-    color: #cccccc;
-}
-.city-picker input[type="checkbox"] {
-    display:none;
-}
-.city-picker input[type="checkbox"] + label {
-    cursor: pointer;
-    font-weight: normal;
-    margin-right:3px;
-    margin-left:3px;
-    padding: 5px 3px;
-}
-.city-picker input[type="checkbox"]:checked + label {
-    background-color: #ddd;
-    border-radius: 3px;
-    box-shadow: none;
-}
-.city-divider li{
-    line-height: 1px;
-}
 /* Travelbase search form style */
 #travelbase-form .field-one, #travelbase-form .field-two, #travelbase-form .field-three, #travelbase-form .field-four, #travelbase-form .field-five, #travelbase-form .field-six {
     display:inline-block;
@@ -1359,8 +1365,8 @@ span.city-picker-close:hover {
     z-index: 9999!important;
 }
 /* Form popup lists */
-h1.form-item-header {margin:0!important;color:#333!important;font-size:22px!important;}
-.form-item-desc {margin:0 0 10px 0;color:#333;font-size:16px;font-style:italic}
+
+
 .no-cities {
     padding: 10px;
     margin: 10px 0;
