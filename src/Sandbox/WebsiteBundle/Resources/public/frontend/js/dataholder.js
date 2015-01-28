@@ -86,7 +86,6 @@
             if(options.unique){
 
                 if(typeof data === 'object'){
-                    console.log(data);
                     //check if does not exist in data
                     if ($data.indexOf(data.id) == -1) {
                         $data.push(data.id.toString());
