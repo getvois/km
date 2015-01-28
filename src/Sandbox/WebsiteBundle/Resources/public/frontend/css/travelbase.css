@@ -257,17 +257,18 @@ body .splash--green {
     margin-top:30px;
 }
 
-.top-img-title{
-    color: #fff;
+.top-img-title {
     position: absolute;
     right: 220px;
-    font-size:12px;
-    text-decoration:underline;
-    font-style:italic;
     top: 20px;
     z-index: 106;
 }
-
+.top-img-title a {
+	color: #fff;
+	font-size:12px;
+    text-decoration:underline;
+    font-family: 'Open Sans', serif;
+}
 .badge.spinner{
     min-height: 18px;
     min-width: 18px;
@@ -953,7 +954,10 @@ label.directFlight-label{
     margin:10px 0;
     
 }
-.city-picker ul li ul li, .city-picker li.parent-list li.parent-list ul li{
+.city-picker ul li ul li {
+    padding:0 0 5px 35px;
+}
+.city-picker li.parent-list li.parent-list ul li{
     padding:0 0 5px 35px;
 }
 .city-picker li.parent-list {
