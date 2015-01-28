@@ -68,21 +68,37 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var NodeVersion[] $nodeVersions */
-        $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-            ->createQueryBuilder('v')
-            ->select('v')
-            ->leftJoin('v.nodeTranslation', 't')
-            ->where('t.lang like :lang')
+        $nodeVersions = $em->createQuery(
+            "-- noinspection SqlDialectInspection
+            SELECT v
+              FROM KunstmaanNodeBundle:NodeVersion v
+              JOIN v.nodeTranslation t
+              WHERE t.lang like :lang
+              AND t.online = 1
+              AND (v.refEntityName like :news OR v.refEntityName like :article)
+              AND v.type like 'public'
+              ORDER BY v.created"
+        )
             ->setParameter(':lang', $lang)
-            ->andWhere('t.online = 1')
-            ->andWhere('v.refEntityName like :news')
             ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
-            ->orWhere('v.refEntityName like :article')
             ->setParameter('article', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\Article\\\\ArticlePage")
-            ->andWhere('v.type like \'public\'')
-            ->orderBy('v.created')
-            ->getQuery()
             ->getResult();
+
+//        $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+//            ->createQueryBuilder('v')
+//            ->select('v')
+//            ->leftJoin('v.nodeTranslation', 't')
+//            ->where('t.lang like :lang')
+//            ->setParameter(':lang', $lang)
+//            ->andWhere('t.online = 1')
+//            ->andWhere('v.refEntityName like :news')
+//            ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
+//            ->orWhere('v.refEntityName like :article')
+//            ->setParameter('article', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\Article\\\\ArticlePage")
+//            ->andWhere('v.type like \'public\'')
+//            ->orderBy('v.created')
+//            ->getQuery()
+//            ->getResult();
 
         if(!$nodeVersions) return [];
 
