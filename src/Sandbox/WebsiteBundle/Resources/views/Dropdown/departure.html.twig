@@ -1,15 +1,18 @@
 <div style="margin-top: -99999px" class="city-picker" id="dropdown-departure">
-    <div class="city-filters">
-        <h1 class="form-item-header">Destination header</h1>
-
-        <div class="form-item-desc">Destination description</div>
-        <input name="city-search" class="city-search" type="text"><label for="city-search"></label>
-        <input id="806880" class="all" name="check-all" type="checkbox"><label
+    <div class="city-filters row">
+        <div class="col-md-8">
+        	<h1 class="form-item-header">{{ 'dropdown.destinations.header' |trans({}, 'frontend') }}</h1>
+        	<div class="form-item-desc">{{ 'dropdown.destinations.description' |trans({}, 'frontend') }}</div>
+        </div>
+        <div class="col-md-4"> 
+        	<input name="city-search" class="city-search" type="text"><label for="city-search"></label>
+        	<input id="806880" class="all" name="check-all" type="checkbox"><label
                 style="display: inline-block;"
-                class="check-all" for="806880">Un-Check All</label>
+                class="check-all no" for="806880"></label>
+        </div> 
     </div>
     <div class="city-list row">
-        <div class="no-cities" style="display: none">Nothing found</div>
+        <div class="no-cities" style="display: none">{{ 'no.destinations.found' | trans }}</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
         <div class="columnize col-sm-10">
             {% set class = 'city-near' %}
