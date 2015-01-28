@@ -218,12 +218,12 @@
                                                             {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
                                                             <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
 
-                                                            {{ dump(node2.children.count) }}
                                                             {% if node2.children.count > 0 %}
 
 
 
                                                                 {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                                    {{ dump(node3.refEntityName) }}
                                                                     {% if node3.nodeTranslation(lang) %}
                                                                         {% set placePage = node3.nodeTranslation(lang).ref(em) %}
                                                                         {#{% for h3 in placePage.hosts %}#}
