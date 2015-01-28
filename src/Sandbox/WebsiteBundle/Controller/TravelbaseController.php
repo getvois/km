@@ -92,7 +92,7 @@ class TravelbaseController extends Controller
         $pages = [];
         foreach ($nodeVersions as $nodeVersion) {
             $nodeTranslation = $nodeVersion->getNodeTranslation();
-            if($nodeTranslation && $nodeTranslation->isOnline() && $nodeTranslation->getLang() == $lang && $nodeTranslation->getNode()->isDeleted() == false){
+            if($nodeTranslation && $nodeTranslation->getNode()->isDeleted() == false){
                 /** @var IHostable $page */
                 $page = $nodeVersion->getRef($em);
 
