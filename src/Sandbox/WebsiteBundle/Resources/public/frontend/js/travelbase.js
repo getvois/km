@@ -357,6 +357,8 @@ $(document).ready(function() {
             if(add){
                 $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
 
+                console.log({id: $id, text: $(this).data('name')});
+
                 var $deparpureEl = $("#departure-el");
                 $deparpureEl.data('selected', $departure.dataHolder('data'));
             }
