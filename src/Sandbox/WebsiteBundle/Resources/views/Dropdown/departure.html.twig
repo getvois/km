@@ -24,7 +24,7 @@
 
             {#<li {% if node.children.count > 0 %}class="parent-list"{% endif %}>#}
             {#{% if node.children.count > 0 %}#}
-            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
+            {#<i class="fa fa-angle-down"></i>#}
             {#{% else %}#}
             {#<span></span>#}
             {#{% endif %}#}
@@ -48,7 +48,7 @@
             {#{% if node2.nodeTranslation(lang) %}#}
             {#<li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>#}
             {#{% if node2.children.count > 0 %}#}
-            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
+            {#<i class="fa fa-angle-down"></i>#}
             {#{% endif %}#}
 
             {#&#123;&#35;{% set placePage = node2.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
@@ -69,7 +69,7 @@
 
             {#<li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>#}
             {#{% if node3.children.count > 0 %}#}
-            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
+            {#<i class="fa fa-angle-down"></i>#}
             {#{% endif %}#}
 
             {#&#123;&#35;{% set placePage = node3.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
@@ -175,7 +175,7 @@
 
                                     <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
                                         {% if node.children.count > 0 %}
-                                            <i class="glyphicon glyphicon-chevron-down"></i>
+                                            <i class="fa fa-angle-down"></i>
                                         {% endif %}
 
                                         {% set rand1 = random(9999) %}
@@ -204,7 +204,7 @@
 
                                                         <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
                                                             {% if node2.children.count > 0 %}
-                                                                <i class="glyphicon glyphicon-chevron-down"></i>
+                                                                <i class="fa fa-angle-down"></i>
                                                             {% endif %}
 
 
@@ -230,7 +230,7 @@
 
                                                                             <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
                                                                                 {% if node3.children.count > 0 %}
-                                                                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                                                                    <i class="fa fa-angle-down"></i>
                                                                                 {% endif %}
 
 
@@ -329,7 +329,7 @@
 
                             <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
                                 {% if node.children.count > 0 %}
-                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                    <i class="fa fa-angle-down"></i>
                                 {% endif %}
 
                                 {#{% set rand1 = random(9999) %}#}
@@ -348,7 +348,7 @@
                                             {% if node2.nodeTranslation(lang) and node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                 <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
                                                     {% if node2.children.count > 0 %}
-                                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                                        <i class="fa fa-angle-down"></i>
                                                     {% endif %}
 
                                                     {#{% set placePage = node2.nodeTranslation(lang).ref(em) %}#}
@@ -369,7 +369,7 @@
 
                                                                     <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
                                                                         {% if node3.children.count > 0 %}
-                                                                            <i class="glyphicon glyphicon-chevron-down"></i>
+                                                                            <i class="fa fa-angle-down"></i>
                                                                         {% endif %}
 
                                                                         {#{% set placePage = node3.nodeTranslation(lang).ref(em) %}#}
