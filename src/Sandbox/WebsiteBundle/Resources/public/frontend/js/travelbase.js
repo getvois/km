@@ -306,7 +306,7 @@ $(document).ready(function() {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    $(".city-list").columnize({lastNeverTallest: true});
+    $(".city-list .columnize").columnize({lastNeverTallest: true});
 
 
     //Pre Select departure

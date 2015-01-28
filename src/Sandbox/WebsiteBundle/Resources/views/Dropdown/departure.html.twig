@@ -8,109 +8,94 @@
                 style="display: inline-block;"
                 class="check-all" for="806880">Un-Check All</label>
     </div>
-    <div class="city-list">
+    <div class="city-list row">
         <div class="no-cities" style="display: none">Nothing found</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
-
-        {% set class = 'city-near' %}
-        {#{% for node in nodes %}#}
+        <div class="columnize col-sm-9">
+            {% set class = 'city-near' %}
+            {#{% for node in nodes %}#}
             {#{% if node is null %}#}
-                {#{% set class = '' %}#}
+            {#{% set class = '' %}#}
             {#{% elseif node.nodeTranslation(lang) %}#}
-                {##}
-                {##}
-                {#&#123;&#35;{% set placePage = node.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
-                    {#<ul class="{{ class }} dontsplit">#}
+            {##}
+            {##}
+            {#&#123;&#35;{% set placePage = node.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
+            {#<ul class="{{ class }} dontsplit">#}
 
-                        {#<li {% if node.children.count > 0 %}class="parent-list"{% endif %}>#}
-                            {#{% if node.children.count > 0 %}#}
-                                {#<i class="glyphicon glyphicon-chevron-down"></i>#}
-                            {#{% else %}#}
-                                    {#<span></span>#}
-                            {#{% endif %}#}
+            {#<li {% if node.children.count > 0 %}class="parent-list"{% endif %}>#}
+            {#{% if node.children.count > 0 %}#}
+            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
+            {#{% else %}#}
+            {#<span></span>#}
+            {#{% endif %}#}
 
-                            {#&#123;&#35;{% set rand1 = random(9999) %}&#35;&#125;#}
-                            {#&#123;&#35;{% set rand2 = random(9999) %}&#35;&#125;#}
-                            {#&#123;&#35;<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">&#35;&#125;#}
-                            {#&#123;&#35;<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>&#35;&#125;#}
-                            {#&#123;&#35;<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>&#35;&#125;#}
-                            {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>#}
+            {#&#123;&#35;{% set rand1 = random(9999) %}&#35;&#125;#}
+            {#&#123;&#35;{% set rand2 = random(9999) %}&#35;&#125;#}
+            {#&#123;&#35;<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">&#35;&#125;#}
+            {#&#123;&#35;<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>&#35;&#125;#}
+            {#&#123;&#35;<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>&#35;&#125;#}
+            {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>#}
 
-                            {#{% if node.children.count > 0 %}#}
-
-
-
-
-
-                                {#<ul style="display: none;">#}
-
-                                    {#{% for node2 in node.children %}#}
-                                        {#{% if node2.nodeTranslation(lang) %}#}
-                                            {#<li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>#}
-                                                {#{% if node2.children.count > 0 %}#}
-                                                    {#<i class="glyphicon glyphicon-chevron-down"></i>#}
-                                                {#{% endif %}#}
-
-                                                {#&#123;&#35;{% set placePage = node2.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
-                                                {#&#123;&#35;{% set rand1 = random(9999) %}&#35;&#125;#}
-                                                {#&#123;&#35;{% set rand2 = random(9999) %}&#35;&#125;#}
-                                                {#&#123;&#35;<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">&#35;&#125;#}
-                                                {#&#123;&#35;<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>&#35;&#125;#}
-                                                {#&#123;&#35;<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>&#35;&#125;#}
-                                                {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>#}
-
-                                                {#{% if node2.children.count > 0 %}#}
-
-
-
-                                                    {#{% for node3 in node2.children.count %}#}
-                                                        {#{% if node3.nodeTranslation(lang) %}#}
-                                                            {#<ul style="display: none;">#}
-
-                                                                {#<li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>#}
-                                                                    {#{% if node3.children.count > 0 %}#}
-                                                                        {#<i class="glyphicon glyphicon-chevron-down"></i>#}
-                                                                    {#{% endif %}#}
-
-                                                                    {#&#123;&#35;{% set placePage = node3.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
-                                                                    {#&#123;&#35;{% set rand1 = random(9999) %}&#35;&#125;#}
-                                                                    {#&#123;&#35;{% set rand2 = random(9999) %}&#35;&#125;#}
-                                                                    {#&#123;&#35;<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">&#35;&#125;#}
-                                                                    {#&#123;&#35;<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>&#35;&#125;#}
-                                                                    {#&#123;&#35;<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>&#35;&#125;#}
-                                                                    {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>#}
-
-                                                                    {#{% if node3.children.count > 0 %}#}
+            {#{% if node.children.count > 0 %}#}
 
 
 
 
 
+            {#<ul style="display: none;">#}
 
-                                                                        {#<ul style="display: none;">#}
-                                                                            {#<li>#}
-                                                                                {#<input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">#}
-                                                                                {#<label for="city4159859117">Riga</label>#}
-                                                                                {#<a href="{{ path('_slug', { 'url': placePage.url }) }}">#}
-                                                                                    {#<span class="fa fa-book"></span>#}
-                                                                                {#</a>#}
-                                                                            {#</li>#}
-                                                                        {#</ul>#}
+            {#{% for node2 in node.children %}#}
+            {#{% if node2.nodeTranslation(lang) %}#}
+            {#<li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>#}
+            {#{% if node2.children.count > 0 %}#}
+            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
+            {#{% endif %}#}
+
+            {#&#123;&#35;{% set placePage = node2.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
+            {#&#123;&#35;{% set rand1 = random(9999) %}&#35;&#125;#}
+            {#&#123;&#35;{% set rand2 = random(9999) %}&#35;&#125;#}
+            {#&#123;&#35;<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">&#35;&#125;#}
+            {#&#123;&#35;<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>&#35;&#125;#}
+            {#&#123;&#35;<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>&#35;&#125;#}
+            {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>#}
+
+            {#{% if node2.children.count > 0 %}#}
+
+
+
+            {#{% for node3 in node2.children.count %}#}
+            {#{% if node3.nodeTranslation(lang) %}#}
+            {#<ul style="display: none;">#}
+
+            {#<li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>#}
+            {#{% if node3.children.count > 0 %}#}
+            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
+            {#{% endif %}#}
+
+            {#&#123;&#35;{% set placePage = node3.nodeTranslation(lang).ref(em) %}&#35;&#125;#}
+            {#&#123;&#35;{% set rand1 = random(9999) %}&#35;&#125;#}
+            {#&#123;&#35;{% set rand2 = random(9999) %}&#35;&#125;#}
+            {#&#123;&#35;<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">&#35;&#125;#}
+            {#&#123;&#35;<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>&#35;&#125;#}
+            {#&#123;&#35;<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>&#35;&#125;#}
+            {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>#}
+
+            {#{% if node3.children.count > 0 %}#}
 
 
 
 
 
 
-
-
-                                                                    {#{% endif %}#}
-
-
-                                                                {#</li>#}
-                                                            {#</ul>#}
-                                                        {#{% endif %}#}
-                                                    {#{% endfor %}#}
+            {#<ul style="display: none;">#}
+            {#<li>#}
+            {#<input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">#}
+            {#<label for="city4159859117">Riga</label>#}
+            {#<a href="{{ path('_slug', { 'url': placePage.url }) }}">#}
+            {#<span class="fa fa-book"></span>#}
+            {#</a>#}
+            {#</li>#}
+            {#</ul>#}
 
 
 
@@ -119,33 +104,48 @@
 
 
 
-                                                {#{% endif %}#}
+            {#{% endif %}#}
 
 
-                                            {#</li>#}
-                                        {#{% endif %}#}
-                                    {#{% endfor %}#}
-
-                                {#</ul>#}
-
-
+            {#</li>#}
+            {#</ul>#}
+            {#{% endif %}#}
+            {#{% endfor %}#}
 
 
 
-                            {#{% endif %}#}
 
 
-                        {#</li>#}
-                    {#</ul>#}
 
-                {##}
-                {##}
-                {##}
+
+
+            {#{% endif %}#}
+
+
+            {#</li>#}
+            {#{% endif %}#}
+            {#{% endfor %}#}
+
+            {#</ul>#}
+
+
+
+
+
+            {#{% endif %}#}
+
+
+            {#</li>#}
+            {#</ul>#}
+
+            {##}
+            {##}
+            {##}
             {#{% endif %}#}
 
             {##}
             {##}
-        {#{% endfor %}#}
+            {#{% endfor %}#}
 
 
 
@@ -159,258 +159,126 @@
 
 
 
-        {% for node in nodes %}
+            {% for node in nodes %}
 
 
 
-            {% if node is null %}
-                {% set class = '' %}
-            {% elseif node.nodeTranslation(lang) %}
-                {% set placePage = node.nodeTranslation(lang).ref(em) %}
-                {% if host %}
-                    {% for h in placePage.hosts %}
-                        {% if h.name == host %}
+                {% if node is null %}
+                    {% set class = '' %}
+                {% elseif node.nodeTranslation(lang) %}
+                    {% set placePage = node.nodeTranslation(lang).ref(em) %}
+                    {% if host %}
+                        {% for h in placePage.hosts %}
+                            {% if h.name == host %}
 
-                            <ul class="{{ class }} dontsplit">
+                                <ul class="{{ class }} dontsplit">
 
-                                <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
-                                    {% if node.children.count > 0 %}
-                                        <i class="glyphicon glyphicon-chevron-down"></i>
-                                    {% endif %}
+                                    <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
+                                        {% if node.children.count > 0 %}
+                                            <i class="glyphicon glyphicon-chevron-down"></i>
+                                        {% endif %}
 
-                                    {% set rand1 = random(9999) %}
-                                    {% set rand2 = random(9999) %}
-                                    <input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">
-                                    {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
-                                    {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                    <a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
+                                        {% set rand1 = random(9999) %}
+                                        {% set rand2 = random(9999) %}
+                                        <input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">
+                                        {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
+                                        {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
+                                        <a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
 
-                                    {% if node.children.count > 0 %}
-
-
+                                        {% if node.children.count > 0 %}
 
 
 
-                                        <ul style="display: none;">
 
 
-                                            {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
-                                                {% if node2.nodeTranslation(lang) %}
-                                                    {% set placePage = node2.nodeTranslation(lang).ref(em) %}
-                                                    {#{% for h2 in  placePage.hosts %}#}
+                                            <ul style="display: none;">
+
+
+                                                {% for node2 in node.children if node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                    {% if node2.nodeTranslation(lang) %}
+                                                        {% set placePage = node2.nodeTranslation(lang).ref(em) %}
+                                                        {#{% for h2 in  placePage.hosts %}#}
                                                         {#{% if h2.name == host %}#}
 
 
 
-                                                            <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
-                                                                {% if node2.children.count > 0 %}
-                                                                    <i class="glyphicon glyphicon-chevron-down"></i>
-                                                                {% endif %}
+                                                        <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
+                                                            {% if node2.children.count > 0 %}
+                                                                <i class="glyphicon glyphicon-chevron-down"></i>
+                                                            {% endif %}
 
 
-                                                                {% set rand1 = random(9999) %}
-                                                                {% set rand2 = random(9999) %}
-                                                                <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
-                                                                {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>#}
-                                                                {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                                                <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
+                                                            {% set rand1 = random(9999) %}
+                                                            {% set rand2 = random(9999) %}
+                                                            <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
+                                                            {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>#}
+                                                            {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
+                                                            <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
 
-                                                                {% if node2.children.count > 0 %}
+                                                            {% if node2.children.count > 0 %}
 
 
 
-                                                                    {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
-                                                                        {% if node3.nodeTranslation(lang) %}
-                                                                            {% set placePage = node3.nodeTranslation(lang).ref(em) %}
-                                                                            {#{% for h3 in placePage.hosts %}#}
-                                                                                {#{% if h3.name == host %}#}
+                                                                {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                                    {% if node3.nodeTranslation(lang) %}
+                                                                        {% set placePage = node3.nodeTranslation(lang).ref(em) %}
+                                                                        {#{% for h3 in placePage.hosts %}#}
+                                                                        {#{% if h3.name == host %}#}
+
+
+                                                                        <ul style="display: none;">
+
+                                                                            <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
+                                                                                {% if node3.children.count > 0 %}
+                                                                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                                                                {% endif %}
+
+
+                                                                                {% set rand1 = random(9999) %}
+                                                                                {% set rand2 = random(9999) %}
+                                                                                <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">
+                                                                                {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>#}
+                                                                                {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
+                                                                                <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>
+
+                                                                                {% if node3.children.count > 0 %}
+
+
+
+
 
 
                                                                                     <ul style="display: none;">
-
-                                                                                        <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
-                                                                                            {% if node3.children.count > 0 %}
-                                                                                                <i class="glyphicon glyphicon-chevron-down"></i>
-                                                                                            {% endif %}
-
-
-                                                                                            {% set rand1 = random(9999) %}
-                                                                                            {% set rand2 = random(9999) %}
-                                                                                            <input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">
-                                                                                            {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>#}
-                                                                                            {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                                                                            <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>
-
-                                                                                            {% if node3.children.count > 0 %}
-
-
-
-
-
-
-                                                                                                <ul style="display: none;">
-                                                                                                    <li>
-                                                                                                        <input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">
-                                                                                                        <label for="city4159859117">Riga</label>
-                                                                                                        <a href="{{ path('_slug', { 'url': placePage.url }) }}">
-                                                                                                            <span class="fa fa-book"></span>
-                                                                                                        </a>
-                                                                                                    </li>
-                                                                                                </ul>
-
-
-
-
-
-
-
-
-                                                                                            {% endif %}
-
-
+                                                                                        <li>
+                                                                                            <input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">
+                                                                                            <label for="city4159859117">Riga</label>
+                                                                                            <a href="{{ path('_slug', { 'url': placePage.url }) }}">
+                                                                                                <span class="fa fa-book"></span>
+                                                                                            </a>
                                                                                         </li>
                                                                                     </ul>
 
 
 
-                                                                                {#{% endif %}#}
-                                                                            {#{% endfor %}#}
-
-
-                                                                        {% endif %}
-                                                                    {% endfor %}
 
 
 
 
 
+                                                                                {% endif %}
 
 
-
-                                                                {% endif %}
-
-
-                                                            </li>
-
-
-
-                                                        {#{% endif %}#}
-                                                    {#{% endfor %}#}
-
-
-
-                                                {% endif %}
-                                            {% endfor %}
-
-                                        </ul>
-
-
-
-
-
-                                    {% endif %}
-
-
-                                </li>
-                            </ul>
-
-
-
-
-
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-
-
-
-
-                    <ul class="{{ class }}">
-
-                        <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
-                            {% if node.children.count > 0 %}
-                                <i class="glyphicon glyphicon-chevron-down"></i>
-                            {% endif %}
-
-                            {#{% set rand1 = random(9999) %}#}
-                            {#{% set rand2 = random(9999) %}#}
-                            {#<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">#}
-                            {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
-                            {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                            <a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
-
-                            {% if node.children.count > 0 %}
-
-
-                                <ul style="display: none;">
-
-                                    {% for node2 in node.children %}
-                                        {% if node2.nodeTranslation(lang) and node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
-                                            <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
-                                                {% if node2.children.count > 0 %}
-                                                    <i class="glyphicon glyphicon-chevron-down"></i>
-                                                {% endif %}
-
-                                                {#{% set placePage = node2.nodeTranslation(lang).ref(em) %}#}
-                                                {#{% set rand1 = random(9999) %}#}
-                                                {#{% set rand2 = random(9999) %}#}
-                                                {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">#}
-                                                {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>#}
-                                                {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                                <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
-
-                                                {% if node2.children.count > 0 %}
-
-
-
-                                                    {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
-                                                        {% if node3.nodeTranslation(lang) %}
-                                                            <ul style="display: none;">
-
-                                                                <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
-                                                                    {% if node3.children.count > 0 %}
-                                                                        <i class="glyphicon glyphicon-chevron-down"></i>
-                                                                    {% endif %}
-
-                                                                    {#{% set placePage = node3.nodeTranslation(lang).ref(em) %}#}
-                                                                    {#{% set rand1 = random(9999) %}#}
-                                                                    {#{% set rand2 = random(9999) %}#}
-                                                                    {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">#}
-                                                                    {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>#}
-                                                                    {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                                                    <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>
-
-                                                                    {% if node3.children.count > 0 %}
-
-
-
-
-
-
-                                                                        <ul style="display: none;">
-                                                                            <li>
-                                                                                <input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">
-                                                                                <label for="city4159859117">Riga</label>
-                                                                                <a href="{{ path('_slug', { 'url': placePage.url }) }}">
-                                                                                    <span class="fa fa-book"></span>
-                                                                                </a>
                                                                             </li>
                                                                         </ul>
 
 
 
-
-
-
+                                                                        {#{% endif %}#}
+                                                                        {#{% endfor %}#}
 
 
                                                                     {% endif %}
-
-
-                                                                </li>
-                                                            </ul>
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                                {% endfor %}
 
 
 
@@ -419,13 +287,31 @@
 
 
 
-                                                {% endif %}
+                                                            {% endif %}
 
 
-                                            </li>
+                                                        </li>
+
+
+
+                                                        {#{% endif %}#}
+                                                        {#{% endfor %}#}
+
+
+
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </ul>
+
+
+
+
+
                                         {% endif %}
-                                    {% endfor %}
 
+
+                                    </li>
                                 </ul>
 
 
@@ -433,22 +319,137 @@
 
 
                             {% endif %}
+                        {% endfor %}
+                    {% else %}
 
 
-                        </li>
-                    </ul>
+
+
+                        <ul class="{{ class }}">
+
+                            <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
+                                {% if node.children.count > 0 %}
+                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                {% endif %}
+
+                                {#{% set rand1 = random(9999) %}#}
+                                {#{% set rand2 = random(9999) %}#}
+                                {#<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">#}
+                                {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
+                                {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
+                                <a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
+
+                                {% if node.children.count > 0 %}
+
+
+                                    <ul style="display: none;">
+
+                                        {% for node2 in node.children %}
+                                            {% if node2.nodeTranslation(lang) and node2.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                <li {% if node2.children.count > 0 %}class="parent-list"{% endif %}>
+                                                    {% if node2.children.count > 0 %}
+                                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                                    {% endif %}
+
+                                                    {#{% set placePage = node2.nodeTranslation(lang).ref(em) %}#}
+                                                    {#{% set rand1 = random(9999) %}#}
+                                                    {#{% set rand2 = random(9999) %}#}
+                                                    {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">#}
+                                                    {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>#}
+                                                    {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
+                                                    <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
+
+                                                    {% if node2.children.count > 0 %}
+
+
+
+                                                        {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                                            {% if node3.nodeTranslation(lang) %}
+                                                                <ul style="display: none;">
+
+                                                                    <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
+                                                                        {% if node3.children.count > 0 %}
+                                                                            <i class="glyphicon glyphicon-chevron-down"></i>
+                                                                        {% endif %}
+
+                                                                        {#{% set placePage = node3.nodeTranslation(lang).ref(em) %}#}
+                                                                        {#{% set rand1 = random(9999) %}#}
+                                                                        {#{% set rand2 = random(9999) %}#}
+                                                                        {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">#}
+                                                                        {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>#}
+                                                                        {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
+                                                                        <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>
+
+                                                                        {% if node3.children.count > 0 %}
+
+
+
+
+
+
+                                                                            <ul style="display: none;">
+                                                                                <li>
+                                                                                    <input id="city4159859117" name="city4159" value="4159" data-name="Riga" data-depth="1" data-type="city" data-city-type="[&quot;Spa&quot;]" type="checkbox">
+                                                                                    <label for="city4159859117">Riga</label>
+                                                                                    <a href="{{ path('_slug', { 'url': placePage.url }) }}">
+                                                                                        <span class="fa fa-book"></span>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+
+
+
+
+
+
+
+
+                                                                        {% endif %}
+
+
+                                                                    </li>
+                                                                </ul>
+                                                            {% endif %}
+                                                        {% endfor %}
+
+
+
+
+
+
+
+
+                                                    {% endif %}
+
+
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </ul>
+
+
+
+
+
+                                {% endif %}
+
+
+                            </li>
+                        </ul>
+                    {% endif %}
+
+
+
+
+
+
                 {% endif %}
 
+            {% endfor %}
 
-
-
-
-
-            {% endif %}
-
-        {% endfor %}
-
-        {% include '@SandboxWebsite/Dropdown/fromcities.html.twig' %}
+            {% include '@SandboxWebsite/Dropdown/fromcities.html.twig' %}
+        </div>
 
     </div>
 </div>
