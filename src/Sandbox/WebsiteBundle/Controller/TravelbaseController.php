@@ -88,7 +88,6 @@ class TravelbaseController extends Controller
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        var_dump($host->getName());
         $pages = [];
         foreach ($nodeVersions as $nodeVersion) {
             $nodeTranslation = $nodeVersion->getNodeTranslation();
@@ -98,8 +97,10 @@ class TravelbaseController extends Controller
 
                 //check host
                 if($host){
-                    if($page->getHosts()->contains($host))
+                    var_dump($nodeTranslation->getNode()->getId());
+                    if($page->getHosts()->contains($host)) {
                         $pages[$nodeTranslation->getNode()->getId()] = $page;
+                    }
                 }else{
                     $pages[$nodeTranslation->getNode()->getId()] = $page;
                 }
