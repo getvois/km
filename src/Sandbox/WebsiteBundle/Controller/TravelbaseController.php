@@ -83,27 +83,12 @@ class TravelbaseController extends Controller
             ->setParameter('article', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\Article\\\\ArticlePage")
             ->getResult();
 
-//        $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-//            ->createQueryBuilder('v')
-//            ->select('v')
-//            ->leftJoin('v.nodeTranslation', 't')
-//            ->where('t.lang like :lang')
-//            ->setParameter(':lang', $lang)
-//            ->andWhere('t.online = 1')
-//            ->andWhere('v.refEntityName like :news')
-//            ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
-//            ->orWhere('v.refEntityName like :article')
-//            ->setParameter('article', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\Article\\\\ArticlePage")
-//            ->andWhere('v.type like \'public\'')
-//            ->orderBy('v.created')
-//            ->getQuery()
-//            ->getResult();
-
         if(!$nodeVersions) return [];
 
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
+        var_dump($host->getName());
         $pages = [];
         foreach ($nodeVersions as $nodeVersion) {
             $nodeTranslation = $nodeVersion->getNodeTranslation();
