@@ -349,7 +349,7 @@ div.travelbase-input-addon{
     z-index: 10;
 }
 .travelbase-input{
-    padding-left: 42px;
+    padding: 6px 10px 6px 38px;
 }
 .travelbase-icon{
     top: 1px;
@@ -938,13 +938,31 @@ label.directFlight-label{
     cursor:hand;
 }
 
+#dropdown-company .city-list ul li{
+    padding-left:0px;
+}
+#dropdown-company .city-list ul li a.company-list-title {
+    font-weight:bold;
+    font-size:22px;
+}
 .city-picker li{
     list-style-type: none;
     padding-left:19px;
 }
+.city-picker ul li ul{
+    margin:10px 0;
+    
+}
+.city-picker ul li ul li, .city-picker li.parent-list li.parent-list ul li{
+    padding:0 0 5px 35px;
+}
 .city-picker li.parent-list {
     padding-left:0;
 }
+.city-picker li.parent-list li.parent-list{
+    padding-left:17px;
+}
+
 .city-picker-container{
     display: inline-block;
     /*margin-top: -10px;*/
