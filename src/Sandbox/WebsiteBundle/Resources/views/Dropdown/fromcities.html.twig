@@ -1,11 +1,10 @@
 {% if host and host.fromPlaces|length > 0 %}
+    <h3>{{ 'dropdown.from.header'|trans({}, 'frontend') }}</h3>
     {% for page in host.fromPlaces %}
         {% set node = get_node_for(page) %}
 
         {% if node.nodeTranslation(lang) %}
             {% set placePage = node.nodeTranslation(lang).ref(em) %}
-
-            <h3>{{ 'dropdown.from.header'|trans({}, 'frontend') }}</h3>
  
             <ul class="city-near dontsplit">
                 <li {% if node.children.count > 0 %}class="parent-list"{% endif %}>
