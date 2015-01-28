@@ -100,7 +100,8 @@ class TravelbaseController extends Controller
                     if($page->getHosts()->contains($host)) {
                         if($nodeTranslation->getNode()->getId() == "146"){
                             foreach ($page->getHosts() as $h) {
-                                var_dump($h->getName());
+                                //var_dump($h->getName());
+                                var_dump($nodeTranslation->getId());
                             }
 
                         }
