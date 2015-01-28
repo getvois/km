@@ -65,11 +65,15 @@ class TravelbaseController extends Controller
     {
         $lang = $request->getLocale();
 
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var NodeVersion[] $nodeVersions */
         $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
             ->createQueryBuilder('v')
             ->select('v')
+            ->leftJoin('v.nodeTranslation', 't')
+            ->where('t.lang like :lang')
+            ->setParameter(':lang', $lang)
             ->andWhere('v.refEntityName like :news')
             ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
             ->orWhere('v.refEntityName like :article')
