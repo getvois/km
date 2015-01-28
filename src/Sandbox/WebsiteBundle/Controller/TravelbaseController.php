@@ -90,26 +90,19 @@ class TravelbaseController extends Controller
 
         $pages = [];
         foreach ($nodeVersions as $nodeVersion) {
-            $nodeTranslation = $nodeVersion->getNodeTranslation();
+            $node = $nodeVersion->getNodeTranslation()->getNode();
+            $nodeTranslation = $node->getNodeTranslation($lang);
             if($nodeTranslation && $nodeTranslation->getNode()->isDeleted() == false){
                 /** @var IHostable $page */
-                $page = $nodeVersion->getRef($em);
+                $page = $nodeTranslation->getRef($em);
 
                 //check host
                 if($host){
                     if($page->getHosts()->contains($host)) {
-                        if($nodeTranslation->getNode()->getId() == "146"){
-                            foreach ($page->getHosts() as $h) {
-                                //var_dump($h->getName());
-                                var_dump($nodeTranslation->getId());
-                            }
-
-                        }
-                        //var_dump($nodeTranslation->getNode()->getId() . "-" .$page->getHosts()->count());
-                        $pages[$nodeTranslation->getNode()->getId()] = $page;
+                        $pages[$node->getId()] = $page;
                     }
                 }else{
-                    $pages[$nodeTranslation->getNode()->getId()] = $page;
+                    $pages[$node->getId()] = $page;
                 }
 
                 if(count($pages) == 10) break;
