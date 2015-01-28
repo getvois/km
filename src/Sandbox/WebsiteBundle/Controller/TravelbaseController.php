@@ -69,8 +69,7 @@ class TravelbaseController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var NodeVersion[] $nodeVersions */
         $nodeVersions = $em->createQuery(
-            "-- noinspection SqlDialectInspection
-            SELECT v
+            "SELECT v
               FROM KunstmaanNodeBundle:NodeVersion v
               JOIN v.nodeTranslation t
               WHERE t.lang like :lang
