@@ -222,8 +222,7 @@
 
 
 
-                                                                {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
-                                                                    {{ dump(node3.refEntityName) }}
+                                                                {% for node3 in node2.children if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                                     {% if node3.nodeTranslation(lang) %}
                                                                         {% set placePage = node3.nodeTranslation(lang).ref(em) %}
                                                                         {#{% for h3 in placePage.hosts %}#}

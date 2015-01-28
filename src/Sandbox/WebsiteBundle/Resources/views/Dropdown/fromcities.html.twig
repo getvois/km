@@ -35,7 +35,7 @@
 
                                         {% if node2.children.count > 0 %}
 
-                                            {% for node3 in node2.children.count if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                                            {% for node3 in node2.children if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                 {% if node3.nodeTranslation(lang) %}
                                                     {% set placePage = node3.nodeTranslation(lang).ref(em) %}
 
