@@ -98,7 +98,13 @@ class TravelbaseController extends Controller
                 //check host
                 if($host){
                     if($page->getHosts()->contains($host)) {
-                        var_dump($nodeTranslation->getNode()->getId() . "-" .$page->getHosts()->count());
+                        if($nodeTranslation->getNode()->getId() == "146"){
+                            foreach ($page->getHosts() as $h) {
+                                var_dump($h->getName());
+                            }
+
+                        }
+                        //var_dump($nodeTranslation->getNode()->getId() . "-" .$page->getHosts()->count());
                         $pages[$nodeTranslation->getNode()->getId()] = $page;
                     }
                 }else{
