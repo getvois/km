@@ -11,7 +11,7 @@
     <div class="city-list row">
         <div class="no-cities" style="display: none">Nothing found</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
-        <div class="columnize col-sm-9">
+        <div class="columnize col-sm-10">
             {% set class = 'city-near' %}
             {#{% for node in nodes %}#}
             {#{% if node is null %}#}
@@ -449,7 +449,7 @@
             {% endfor %}
 
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             {% include '@SandboxWebsite/Dropdown/fromcities.html.twig' %}
         </div>
     </div>
