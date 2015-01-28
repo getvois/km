@@ -14,7 +14,7 @@
     <div class="city-list row">
         <div class="no-cities" style="display: none">{{ 'no.destinations.found' | trans }}</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
-        <div class="columnize col-sm-10">
+        <div class="columnize col-sm-9">
             {% set class = 'city-near' %}
             {#{% for node in nodes %}#}
             {#{% if node is null %}#}
@@ -218,6 +218,7 @@
                                                             {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
                                                             <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
 
+                                                            {{ dump(node2.children.count) }}
                                                             {% if node2.children.count > 0 %}
 
 
@@ -452,7 +453,7 @@
             {% endfor %}
 
         </div>
-        <div class="col-sm-2 from-places">
+        <div class="col-sm-3 from-places">
             {% include '@SandboxWebsite/Dropdown/fromcities.html.twig' %}
         </div>
     </div>
