@@ -220,7 +220,7 @@
 
                                                             {% if node2.children.count > 0 %}
 
-
+                                                            <ul style="display: none;">
 
                                                                 {% for node3 in node2.children if node3.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
                                                                     {% if node3.nodeTranslation(lang) %}
@@ -229,7 +229,7 @@
                                                                         {#{% if h3.name == host %}#}
 
 
-                                                                        <ul style="display: none;">
+
 
                                                                             <li {% if node3.children.count > 0 %}class="parent-list"{% endif %}>
                                                                                 {% if node3.children.count > 0 %}
@@ -272,7 +272,7 @@
 
 
                                                                             </li>
-                                                                        </ul>
+
 
 
 
@@ -283,7 +283,7 @@
                                                                     {% endif %}
                                                                 {% endfor %}
 
-
+                                                                </ul>
 
 
 
