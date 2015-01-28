@@ -41,6 +41,17 @@ class Host extends AbstractEntity
     private $preferredCountries;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage", mappedBy="")
+     * @ORM\JoinTable(name="host_fromplace",
+     *      joinColumns={@ORM\JoinColumn(name="host_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
+     *      )
+     */
+    private $fromPlaces;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="multi_language", type="boolean", nullable=true)
@@ -343,5 +354,38 @@ class Host extends AbstractEntity
     public function getSeoModules()
     {
         return $this->seoModules;
+    }
+
+    /**
+     * Add fromPlaces
+     *
+     * @param Place\PlaceOverviewPage $fromPlaces
+     * @return Host
+     */
+    public function addFromPlace(Place\PlaceOverviewPage $fromPlaces)
+    {
+        $this->fromPlaces[] = $fromPlaces;
+
+        return $this;
+    }
+
+    /**
+     * Remove fromPlaces
+     *
+     * @param Place\PlaceOverviewPage $fromPlaces
+     */
+    public function removeFromPlace(Place\PlaceOverviewPage $fromPlaces)
+    {
+        $this->fromPlaces->removeElement($fromPlaces);
+    }
+
+    /**
+     * Get fromPlaces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFromPlaces()
+    {
+        return $this->fromPlaces;
     }
 }

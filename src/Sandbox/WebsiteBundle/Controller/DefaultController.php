@@ -34,6 +34,8 @@ class DefaultController extends Controller
      */
     public function filterAction(Request $request, $body)
     {
+        $noItemsFound = $this->get('translator')->trans('no.items.found', [], 'frontend');
+
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
@@ -133,7 +135,7 @@ class DefaultController extends Controller
             }
 
             if(!$result)
-                return new JsonResponse(['total' => 0, 'html' => "<div>No items found</div>"]);
+                return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound</div>"]);
 
             $data = $result->items;
 
@@ -151,13 +153,13 @@ class DefaultController extends Controller
 
 
             if($body && $result->total == 0){
-                $table = "<div>No items found</div>";
+                $table = "<div>$noItemsFound</div>";
             }
 
 
             return new JsonResponse(['total' => $result->total, 'html' => $table]);
         }
-        return new JsonResponse(['total' => 0, 'html' => "<div>No items found</div>"]);
+        return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound</div>"]);
     }
 
 
@@ -382,7 +384,11 @@ class DefaultController extends Controller
                         </div>';
 
             if($item->hotel) {
-                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . '" ><span class="fa fa-plus-square-o"></span> ';
+                $url = 'http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=';
+                $url .= str_replace(" ", "+", $item->hotel->name);
+                $url .= "+" . $item->destination->countryName;
+
+                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "'>" . $hotel . '</a>" ><span class="fa fa-plus-square-o"></span> ';
 
                 //stars
                 for($i = 0; $i<floor($item->hotel->stars); $i++){
