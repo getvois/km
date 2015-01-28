@@ -99,11 +99,14 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
 
         $builder->add('priceFrom');
         $builder->add('priceFromLabel', 'choice', ['choices' => [
+            '' => '',
             'day' => 'day',
             'trip' => 'trip',
             'stay' => 'stay',
             'room' => 'room',
             'one way' => 'one way',
+            'return' => 'return',
+            'off' => 'off',
         ]]);
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
