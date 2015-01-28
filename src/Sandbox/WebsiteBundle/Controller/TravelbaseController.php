@@ -74,6 +74,7 @@ class TravelbaseController extends Controller
             ->leftJoin('v.nodeTranslation', 't')
             ->where('t.lang like :lang')
             ->setParameter(':lang', $lang)
+            ->andWhere('t.online = 1')
             ->andWhere('v.refEntityName like :news')
             ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
             ->orWhere('v.refEntityName like :article')
