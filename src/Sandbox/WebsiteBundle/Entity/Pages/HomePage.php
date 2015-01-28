@@ -3,6 +3,8 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Kunstmaan\NodeBundle\Helper\RenderContext;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Form\Pages\HomePageAdminType;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +30,10 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
 
         $em = $container->get('doctrine.orm.entity_manager');
 
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
         $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')->createQueryBuilder('n')
             ->select('n')
             ->where('n.dateUntil > :date')
@@ -46,8 +52,17 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
             if(!$translation) continue;
 
             if(!$node->isDeleted() && $translation->isOnline()){
-                $realNews[$node->getId()] = $translation->getRef($em);
-                $i = count($realNews);
+                if($host){
+                    /** @var NewsPage $page */
+                    $page = $translation->getRef($em);
+                    if($page->getHosts()->contains($host)){
+                        $realNews[$node->getId()] = $page;
+                        $i = count($realNews);
+                    }
+                }else {
+                    $realNews[$node->getId()] = $translation->getRef($em);
+                    $i = count($realNews);
+                }
             }
 
             if($i >= 5) break;
@@ -72,8 +87,17 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
             if(!$translation) continue;
 
             if(!$node->isDeleted() && $translation->isOnline()){
-                $realArticles[$node->getId()] = $translation->getRef($em);
-                $i = count($realArticles);
+                if($host){
+                    /** @var ArticlePage $page */
+                    $page = $translation->getRef($em);
+                    if($page->getHosts()->contains($host)){
+                        $realArticles[$node->getId()] = $page;
+                        $i = count($realArticles);
+                    }
+                }else {
+                    $realArticles[$node->getId()] = $translation->getRef($em);
+                    $i = count($realArticles);
+                }
             }
 
             if($i >= 5) break;
