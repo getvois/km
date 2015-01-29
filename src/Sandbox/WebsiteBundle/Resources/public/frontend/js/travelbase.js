@@ -524,14 +524,30 @@ $(document).ready(function() {
                 for(var i = 0; i< $data.length; i++){
                     var $event = {
                         "id": i,
-                        "title" : $data[i].from.name + " - " + $data[i].to.name + " - " + $data[i].price,
+                        "title" : $data[i].price,
                         "url" : $data[i].deep_link,
                         "class": "event-success",
                         "start": $data[i].dTimestamp * 1000, // Milliseconds
-                        "end": $data[i].dTimestamp * 1000 // Milliseconds
+                        "end": $data[i].dTimestamp * 1000, // Milliseconds
+                        "date": $data[i].dDate
                     };
 
-                    $eventSource.push($event);
+
+                    //add only events with lowes prices
+                    var found = false;
+                    for(var k =0;k<$eventSource.length; k++){
+                        if($eventSource[k].date == $data[i].dDate){
+                            found = true;
+                            if(parseFloat($eventSource[k].title) > parseFloat($data[i].price)){
+                                $eventSource[k] = $event;
+                                break;
+                            }
+                        }
+                    }
+                    //add new events
+                    if(!found){
+                        $eventSource.push($event);
+                    }
 
                     var stops = $data[i].route.length - 1 ;
                     if(stops == 0) stops = "";

@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5  {
 	padding: 0;
 } 
 .breadcrumb li a, .breadcrumb li.active {
-	font-family: 'Open Sans';
+    font-family: 'Open Sans', serif;
 } 
 .content {
 	position:relative;
@@ -205,7 +205,12 @@ body .splash--green {
     font-family: "Open Sans",serif;
 }
 
-
+/*calendar*/
+.event-success {
+    background-color: #16aea3;
+    color: white;
+    padding: 3px;
+}
 
 /*topmenu*/
 
@@ -295,9 +300,8 @@ body .splash--green {
 /* place holder */
 .placeholder{
     background-color: white;
-    padding: 5px;
     min-height: 41px;
-    padding-left: 35px;
+    padding: 5px 5px 5px 35px;
     height: auto;
 
 }
@@ -332,7 +336,7 @@ body .splash--green {
     color: #999;
     font-size: 21px;
     display: inline-block;
-    line-height: 0px;
+    line-height: 0;
     padding: 7px 3px 0 0;       
 }
 
@@ -411,11 +415,13 @@ div.travelbase-input-addon{
 	float: left;
 	padding:10px 15px 0 15px;
 	background:-moz-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
-	background:-webkit-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+    /*noinspection CssOverwrittenProperties*/
+    background:-webkit-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
 	background: -ms-linear-gradient(top, #f9f9f9, #eeeeee); /* IE10 */ 
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee'); /* IE6 & IE7 */  
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */ 
-	-pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */
+    /*noinspection CssUnknownProperty*/
+    -pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
 }	
 
 .sidebar .top-ten {
@@ -473,12 +479,10 @@ div.travelbase-input-addon{
     padding-left: 8px;
     padding-right: 8px;
     border-radius: 0 4px 4px 0;
-    border-width:2px 2px 2px 0;
     color: #E6B800;
-    border-style: solid; 
-    border-color: #F8C600;
-    border-width: 2px 2px 2px 0;
-    font-family: "Open Sans";
+    border: 2px solid #F8C600;
+    border-left-width: 0;
+    font-family: "Open Sans", serif;
     font-size:20px;
 }
 .price-from-img-left .price-from-inner {
@@ -511,7 +515,7 @@ div.travelbase-input-addon{
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
     background: #fff; 
-    border: 2px solid #F8C600;
+    border: 2px solid;
     border-color: transparent transparent #F8C600 #F8C600;
     left: -18px;
     top: 6px;
@@ -531,7 +535,6 @@ div.travelbase-input-addon{
    background: #ff0030;
    color: #fff;
    font-size: 21px;
-   font-weight: bold;
    line-height: 1.3em;
    border: 2px dashed #fff;
    border-radius: 10px;
@@ -549,7 +552,7 @@ div.travelbase-input-addon{
 
 .right{ /* the x mark at the right */
     text-align: right;
-    margin: 0px 4px;
+    margin: 0 4px;
 }
 .top-menu-container{
     height: 0;
@@ -675,9 +678,8 @@ label.directFlight-label{
 .trip .company  {
     height: 20px;
     width:100%;
-    background-image:url("/bundles/sandboxwebsite/img/general/comp-sprite.png");
-    background-position:0 0;
-    background-repeat:no-repeat;
+    /*noinspection CssUnknownTarget*/
+    background: url("/bundles/sandboxwebsite/img/general/comp-sprite.png") no-repeat 0 0;
 }
 .trip .company-tjareborg  {
     background-position:0 -25px;
@@ -875,8 +877,7 @@ label.directFlight-label{
     color: #666;
     font-size:15px;
     /*width: 95px;*/
-    background-color: #fff;
-    background-image: linear-gradient(to bottom, #eee 1%, #fff 15%);
+    background: #fff linear-gradient(to bottom, #eee 1%, #fff 15%);
     cursor: text;
     height: auto !important;
     overflow: hidden;
@@ -892,7 +893,7 @@ label.directFlight-label{
 
 .col-md-3 .input-group-addon {
     height: 37px;
-    border-right: 0px;
+    border-right: 0;
 }
 #s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
     padding: 0;
@@ -906,14 +907,16 @@ label.directFlight-label{
 
 #s2id_departure-selected, #s2id_destination-selected{
     margin-left: 38px;
+    /*noinspection CssOverwrittenProperties*/
     width: 90%;
+    /*noinspection CssOverwrittenProperties*/
     width: calc(100% - 38px);
 }
 
 #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     min-height: 38px;
     position: relative;
-    top: 0px;
+    top: 0;
 }
  
 
@@ -946,12 +949,11 @@ label.directFlight-label{
 }
 .city-picker ul li i.fa{
     font-size: 20px;
-    cursor:pointer;
     cursor:hand;
 }
 
 #dropdown-company .city-list ul li{
-    padding-left:0px;
+    padding-left:0;
 }
 #dropdown-company .city-list ul li a.company-list-title {
     font-weight:bold;
@@ -1044,10 +1046,9 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 #block-travelbase-travelbase-search-form .ico-flight:nth-of-type(2) {padding:0;}
 .travelbase_items {
     clear:both;
-    border-width: 0;
     padding: 10px 10px 30px 10px;
     background: #fff;
-    border-style: solid;
+    border: 0 solid;
 }
 .travelbase_items table tbody tr th {
     font-weight: normal;
@@ -1116,10 +1117,12 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     float: left;
     padding:10px 15px 0 15px;
     background:-moz-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
+    /*noinspection CssOverwrittenProperties*/
     background:-webkit-linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
     background: -ms-linear-gradient(top, #f9f9f9, #eeeeee); /* IE10 */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee'); /* IE6 & IE7 */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */
+    /*noinspection CssUnknownProperty*/
     -pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
 }
 .img-text h3 {
@@ -1195,7 +1198,7 @@ a.top-link img {
 }
 .options input[type="radio"] + label:before,
 .options input[type="checkbox"] + label:before {
-    font-family: 'FontAwesome';
+    font-family: 'FontAwesome', serif;
     padding-right: 6px;
     font-size: 20px;
 }
@@ -1253,7 +1256,6 @@ a.top-link img {
 }
 
 .form-type-select label, .form-item label {
-    cursor:hand;
     cursor:pointer;
 }
 .form-item-date-start-date label img, .form-item-date-end-date label img {
@@ -1431,8 +1433,7 @@ label[for=spa], label[for=map], label[for=ski], label[for=sun] {
     border-radius: 3px;
     border: 1px solid #ccc;
     box-shadow: 0 2px #ccc;
-    background-position: 8px top;
-    background-repeat:no-repeat;
+    background: no-repeat 8px top;
 }
 .city-picker input[type="checkbox"]:checked + label[for=spa],
 .city-picker input[type="checkbox"]:checked + label[for=ski],
@@ -1508,9 +1509,7 @@ label[for=ski], label[for=sun], label[for=spa] {
 /*#header-inside,*/
 .article-bg {
     height:380px;
-    background-attachment: scroll;
-    background-position: center center;
-    background-repeat: none;
+    background: no-repeat scroll center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -1539,7 +1538,7 @@ label[for=ski], label[for=sun], label[for=spa] {
     width: 180px;
 }
 /* Search engine tabs */
-ul#form-type-switcher { padding: 0px;
+ul#form-type-switcher { padding: 0;
     margin: 0;
     text-align: center;
     border:none;
@@ -1556,11 +1555,13 @@ ul#form-type-switcher li {
     margin-right: 2px;
     
     background:-moz-linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
-	background:-webkit-linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
+    /*noinspection CssOverwrittenProperties*/
+    background:-webkit-linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
 	background: -ms-linear-gradient(top, #F2E022, #F4BF17); /* IE10 */ 
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ECBA1C', endColorstr='#F4BF17'); /* IE6 & IE7 */  
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2E022', endColorstr='#F4BF17')"; /* IE8+ */ 
-	-pie-background:linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2E022', endColorstr='#F4BF17')"; /* IE8+ */
+    /*noinspection CssUnknownProperty*/
+    -pie-background:linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
 }
 ul#form-type-switcher li a {
     display: inline-block;
@@ -1591,11 +1592,13 @@ ul#form-type-switcher li a:hover {
 
 ul#form-type-switcher  li.active, ul#form-type-switcher  li.active:hover, ul#form-type-switcher  li.active:focus{
     background:-moz-linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
-	background:-webkit-linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
+    /*noinspection CssOverwrittenProperties*/
+    background:-webkit-linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
 	background: -ms-linear-gradient(top, #dddddd, #ffffff); /* IE10 */ 
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff'); /* IE6 & IE7 */  
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff')"; /* IE8+ */ 
-	-pie-background:linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff')"; /* IE8+ */
+    /*noinspection CssUnknownProperty*/
+    -pie-background:linear-gradient(#dddddd, #ffffff) repeat scroll 0 0 transparent !important;
 }
 
 #travelbase_tabs li.active a, ul#form-type-switcher  li.active a:hover, ul#form-type-switcher  li.active a:focus{
@@ -1613,10 +1616,9 @@ ul#form-type-switcheeeeeer li.active:after {
     width: 0;
     height: 0;
     display: inline-block;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 0 solid transparent;
-    border-top: 8px solid #00BE8D;
+    border: 7px solid transparent;
+    border-top: 8px #00BE8D;
+    border-bottom-width: 0;
 }
 ul#form-type-switcher li a img {
     float: right;
