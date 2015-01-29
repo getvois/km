@@ -262,6 +262,7 @@ body .splash--green {
     right: 220px;
     top: 20px;
     z-index: 106;
+    font-size:12px;
 }
 .top-img-title a {
 	color: #fff;
