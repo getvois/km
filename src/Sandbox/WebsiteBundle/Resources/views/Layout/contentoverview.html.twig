@@ -1,10 +1,10 @@
-<div role="tabpanel">
-    <div class="newspage col-md-7">
+<div class="row content-panel">
+	<div class="newspage col-md-7">
         <!-- News pane -->
         {% if news is not null %}
             {% if news > 0 %}
 
-                <h1>{{ 'latest.offers' | trans({}, 'frontend') }}</h1>
+                <h2>{{ 'latest.offers' | trans({}, 'frontend') }}</h2>
                 {% for item in news %}
 
                     {% set articlenode = get_node_translation_for(item) %}
@@ -43,14 +43,14 @@
 
             {% endif %}
         {% else %}
-            No news
+          
         {% endif %}
     </div>
     <div class="content col-md-5">
         <!-- Articles pane -->
         {% if articles is not null %}
             {% if articles > 0 %}
-                <h1>{{ 'latest.articles' | trans({}, 'frontend') }}</h1>
+                <h2>{{ 'latest.articles' | trans({}, 'frontend') }}</h2>
                 {% for item in articles %}
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}
@@ -102,7 +102,7 @@
                 {% endfor %}
             {% endif %}
         {% else %}
-            No articles
+           
         {% endif %}
     </div>
 </div>

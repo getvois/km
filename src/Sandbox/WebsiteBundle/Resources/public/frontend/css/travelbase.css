@@ -161,6 +161,9 @@ time, .tags-block a {
 	color: #aaa; 
 }
 
+.content-panel {
+	margin-top:15px;
+}
 
 main h2 {
     margin: 25px 0 15px 0;  
