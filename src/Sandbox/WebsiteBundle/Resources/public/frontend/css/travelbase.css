@@ -71,6 +71,12 @@ h1, h2, h3, h4, h5  {
 
 /*pageparts gallery, googlemap */
 
+.breadcrumb {
+	padding: 0;
+} 
+.breadcrumb li a, .breadcrumb li.active {
+	font-family: 'Open Sans';
+} 
 .content {
 	position:relative;
 }
