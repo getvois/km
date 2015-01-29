@@ -520,7 +520,15 @@ $(document).ready(function() {
                         if(duration >= 60){
                             var $hours = Math.floor(duration / 60 );//hours
                             var $mins = duration - $hours*60;
-                            duration = $hours  + ":" + $mins + 'h';
+
+                            if($mins == 0){
+                                duration = $hours + 'h';
+                            }else if($mins < 10){
+                                duration = $hours  + ":0" + $mins + 'h';
+                            }else{
+                                duration = $hours  + ":" + $mins + 'h';
+                            }
+
                         }else{
                             duration += "min";
                         }
@@ -571,6 +579,16 @@ $(document).ready(function() {
                             if(durationWait > 60){
                                 $hours = Math.floor(durationWait / 60 );//hours
                                 $mins = durationWait - $hours*60;
+
+                                if($mins == 0){
+                                    durationWait = $hours + 'h';
+                                }else if($mins < 10){
+                                    durationWait = $hours  + ":0" + $mins + 'h';
+                                }else{
+                                    durationWait = $hours  + ":" + $mins + 'h';
+                                }
+
+
                                 durationWait = $hours  + ":" + $mins + 'h';
                             }else{
                                 durationWait += "min";
@@ -955,7 +973,7 @@ function getTable(container, reimport){
         corners: 0, // Corner roundness (0..1)
         rotate: 40, // The rotation offset
         direction: 1, // 1: clockwise, -1: counterclockwise
-        color: '#fff', // #rgb or #rrggbb or array of colors
+        color: '#000', // #rgb or #rrggbb or array of colors
         speed: 1, // Rounds per second
         trail: 66, // Afterglow percentage
         shadow: false, // Whether to render a shadow
