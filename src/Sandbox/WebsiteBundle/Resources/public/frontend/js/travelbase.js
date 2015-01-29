@@ -447,6 +447,15 @@ $(document).ready(function() {
         return false;
     });
 
+    function twoDigits(d) {
+        if(0 <= d && d < 10) return "0" + d.toString();
+        if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+        return d.toString();
+    }
+    Date.prototype.toMysqlFormat = function() {
+        return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate());// + " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+    };
+
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
         var $badge = $("#lowcost-badge");
 
@@ -497,19 +506,44 @@ $(document).ready(function() {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
 
-                var $row = '<div class="row skypicker-dropdown"><div class="col-xs-12">';
+                var $eventSource = [];
+
+                var $row = '<div class="row skypicker-dropdown">' +
+                        '<div class="row">' +
+                            '<div class="col-md-6">' +
+                                '<div class="btn-group">\n    <button class="btn btn-primary calendar-navigate" data-calendar-nav="prev">&lt;&lt; Prev</button>\n    <button class="btn calendar-navigate" data-calendar-nav="today">Today</button>\n    <button class="btn btn-primary calendar-navigate" data-calendar-nav="next">Next &gt;&gt;</button>\n</div>\n<div class="calendar"></div>' +
+                            '</div>' +
+                            //'<div class="col-md-6">' +
+                            //    '<div class="calendar"></div>' +
+                            //'</div>' +
+                        '</div>' +
+                    '<div class="col-xs-12">';
 
                 var $data = JSON.parse(this.responseText);
 
                 for(var i = 0; i< $data.length; i++){
+                    var $event = {
+                        "id": i,
+                        "title" : $data[i].from.name + " - " + $data[i].to.name + " - " + $data[i].price,
+                        "url" : $data[i].deep_link,
+                        "class": "event-success",
+                        "start": $data[i].dTimestamp * 1000, // Milliseconds
+                        "end": $data[i].dTimestamp * 1000 // Milliseconds
+                    };
+
+                    $eventSource.push($event);
+
                     var stops = $data[i].route.length - 1 ;
                     if(stops == 0) stops = "";
                     else stops += " stops";
 
                     var $date = $data[i].dDate.slice(0, 6) + $data[i].dDate.slice(8, $data[i].dDate.length);
 
+
+                    var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
+
                     $row +=
-                        '<div class="trip row">' +
+                        '<div class="trip row" data-date="'+ $mysqlDate +'">' +
                         '    <div class="col-xs-1 trip-duration">'+$date+'</div>' +
                         '    <div class="col-xs-8 trip-path">';
 
@@ -624,22 +658,44 @@ $(document).ready(function() {
 
                 $row += '</div></div>';
 
-                if($data.length > 10){
-                    //add load more button
-                    $row += "<div class='row sp-show-more-wrapper'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
-                }
+                //if($data.length > 10){
+                //    //add load more button
+                //    $row += "<div class='row sp-show-more-wrapper'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
+                //}
 
                 $tr.after($row);
 
                 //hide all trips and show only first ten
                 $(".skypicker-dropdown .trip").hide();
-                $(".skypicker-dropdown .trip:lt(10)").show();
+                //$(".skypicker-dropdown .trip:lt(10)").show();
 
                 //add trips to badge
                 $badge.text(parseInt($badge.text()) + $data.length);
 
                 //hide loading
                 spinner.stop();
+
+
+                var calendar = $(".calendar").calendar(
+                    {
+                        tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
+                        events_source: $eventSource
+                    });
+
+                $(".calendar-navigate").click(function () {
+                    calendar.navigate($(this).data('calendar-nav'));
+                });
+
+                $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
+                    var $date = $(this).children('[data-cal-date]').data('cal-date');
+
+                    $(".skypicker-dropdown .trip").hide().each(function () {
+                        if($(this).data('date') == $date){
+                            $(this).slideDown('fast');
+                        }
+                    });
+                });
+
                 $('.loading').hide();
             }
         };

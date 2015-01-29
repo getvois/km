@@ -937,16 +937,17 @@ if(!String.prototype.formatNum) {
 
 		$('*[data-toggle="tooltip"]').tooltip({container: 'body'});
 
-		$('*[data-cal-date]').click(function() {
-			var view = $(this).data('cal-view');
-			self.options.day = $(this).data('cal-date');
-			self.view(view);
-		});
-		$('.cal-cell').dblclick(function() {
-			var view = $('[data-cal-date]', this).data('cal-view');
-			self.options.day = $('[data-cal-date]', this).data('cal-date');
-			self.view(view);
-		});
+		//DISABLE TIME VIEW
+		//$('*[data-cal-date]').click(function() {
+		//	var view = $(this).data('cal-view');
+		//	self.options.day = $(this).data('cal-date');
+		//	self.view(view);
+		//});
+		//$('.cal-cell').dblclick(function() {
+		//	var view = $('[data-cal-date]', this).data('cal-view');
+		//	self.options.day = $('[data-cal-date]', this).data('cal-date');
+		//	self.view(view);
+		//});
 
 		this['_update_' + this.options.view]();
 
@@ -1100,9 +1101,10 @@ if(!String.prototype.formatNum) {
 				downbox.hide();
 			})
 			.on('click', function(event) {
+				console.log('slide down');
 				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
-				showEventsList(event, downbox, slider, self);
+				//showEventsList(event, downbox, slider, self);
 			})
 		;
 
@@ -1114,7 +1116,8 @@ if(!String.prototype.formatNum) {
 		this._loadTemplate('events-list');
 
 		downbox.click(function(event) {
-			showEventsList(event, $(this), slider, self);
+			console.log('slide down');
+			//showEventsList(event, $(this), slider, self);
 		});
 	};
 
@@ -1154,6 +1157,7 @@ if(!String.prototype.formatNum) {
 			$('#cal-slide-tick').addClass('tick' + tick_position).show();
 			slider.slideDown('fast', function() {
 				$('body').one('click', function() {
+					console.log('slide up');
 					slider.slideUp('fast');
 					self.activecell = 0;
 				});
