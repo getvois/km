@@ -611,11 +611,12 @@ label.directFlight-label{
 	text-transform:capitalize;
 }
 .sort-controls .btn {
-	padding: 2px 5px 1px 5px;
+	padding: 0;
 	
 }
 .sort-controls .btn .glyphicon {
 	color:#888;
+	padding: 2px 5px 1px 5px;
 }
 .sort-controls .active .glyphicon {
 	color:#676767;
