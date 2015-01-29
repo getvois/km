@@ -259,7 +259,7 @@ body .splash--green {
     -webkit-transform: rotate(352deg);
 	-moz-transform: rotate(352deg);
 	-o-transform: rotate(352deg);
-	writing-mode: lr-tb;
+	/*writing-mode: lr-tb;*/
 }
 .travelbase_top_menu > li a {
     color: #111;
