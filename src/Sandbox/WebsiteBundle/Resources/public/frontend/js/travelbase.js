@@ -47,7 +47,7 @@ $(document).ready(function() {
             var $calendar = $("table.ui-datepicker-calendar");
             $calendar.find("td > a").removeClass('ui-state-highlight');
 
-            $current = parseInt($calendar.find("td > a.ui-state-active").text());
+            $current = parseInt($calendar.find("td > a.ui-state-active").eq(0).text());
             $currentMonth = $calendar.find("td > a.ui-state-active").parent().data('month');
 
             if($dpInterval == 30){
