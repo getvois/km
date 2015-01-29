@@ -321,7 +321,7 @@ class DefaultController extends Controller
 
 
             $row .= '
-                        <div class="col-xs-2 trip-field">'. $item->company->name . '</div>
+                        <div class="col-xs-2 trip-field nopadding">'. $item->company->name . '</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
 
                     </div>';
@@ -387,7 +387,7 @@ class DefaultController extends Controller
                 $url .= str_replace(" ", "+", $item->hotel->name);
                 $url .= "+" . $item->destination->countryName;
 
-                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "'>" . $hotel . '</a>" ><span class="fa fa-plus-square-o"></span> ';
+                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" ><span class="fa fa-plus-square-o"></span> ';
 
                 //stars
                 for($i = 0; $i<floor($item->hotel->stars); $i++){
