@@ -181,14 +181,14 @@ class DefaultController extends Controller
             $hotel = 'Hotel with 1 night stay only';
         }
 
-        $date = substr($item->dDate, 8,2). "." .substr($item->dDate, 5,2). "." . substr($item->dDate, 2,2);
+        $date = $item->dDate;
 
         $class = '';
         if($this->prevDate == '')
             $this->prevDate = $date;
         $this->dateCount++;
         if($this->prevDate != $date) {
-            $prevDate = $date;
+            $this->prevDate = $date;
             if($this->dateCount > 5)
                 $class = 'day-sep';
             $this->dateCount = 0;
@@ -214,7 +214,6 @@ class DefaultController extends Controller
         }
     }
         if(date('Y', strtotime($date)) == date("Y")){
-            //$date = date('d.m', strtotime($date));
             $date = $this->getDate($date, $request->getLocale());
         }else{
             $date = date('d.m.Y', strtotime($date));
