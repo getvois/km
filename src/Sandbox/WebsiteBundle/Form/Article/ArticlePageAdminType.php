@@ -6,6 +6,7 @@ use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
 use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
 use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -30,6 +31,8 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 'multiple' => true,
                 'class' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage', 'required' => false,
                 'query_builder' => function(PlaceOverviewPageRepository $er) {
+                    $request = Request::createFromGlobals();
+                    var_dump($request->getLocale());
                     if(array_key_exists('REQUEST_URI', $_SERVER)){
                         $locale = (substr(str_replace("app_dev.php/", "", $_SERVER['REQUEST_URI']), 1, 2));//get locale from url(not the best way)
                     }
