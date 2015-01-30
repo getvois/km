@@ -378,7 +378,7 @@ $(document).ready(function() {
         var $container = $(this).closest('tr');
 
         if(!$container.next().hasClass('form')){
-            $.get('/app_dev.php/book-form/', function (responce) {
+            $.get('/book-form/', function (responce) {
                 $container.after("<tr class='form'><td colspan='4'>"+ responce +"</td></tr>");
             });
         }else{
@@ -422,7 +422,7 @@ $(document).ready(function() {
 
                 var price = responce.flights_price;
 
-                $.getJSON('/app_dev.php/book-form/?price='+price+"&flights="+$flightId+"&"+$form.serialize(), function (postData) {
+                $.getJSON('/book-form/?price='+price+"&flights="+$flightId+"&"+$form.serialize(), function (postData) {
                     console.log(postData);
 
                     if(postData.error){
@@ -1060,7 +1060,7 @@ function getTable(container, reimport){
 
 
 
-    $.post('/app_dev.php/api-filter/' + type, JSON.stringify($filter), function (responce) {
+    $.post('/api-filter/' + type, JSON.stringify($filter), function (responce) {
 
         $travelbase_items.html(responce.html);
 
