@@ -55,6 +55,9 @@ function getFilter(container){
     var $directFlight = 0;
     if($("#directFlight").is(":checked")) $directFlight = 1;
 
+    var $sameDay = 0;
+    if($("#sameDay").is(":checked")) $sameDay = 1;
+
     var $filter = {
         departure_country: $departure_country,
         departure: $departure,
@@ -69,6 +72,7 @@ function getFilter(container){
         destination_country: $destination_country,
         destination_city: $destination_city,
         directFlights: $directFlight,
+        sameDay: $sameDay,
         limit: 10,
         offset: 0,
         orderField: $field,
