@@ -312,15 +312,15 @@ class TravelbaseController extends Controller
     {
         foreach ($node->getChildren() as $child) {
             /** @var $child Node */
-            //if($child->isDeleted()) continue;
+            if($child->isDeleted()) continue;
 
             if($child->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'){
                 //check in host
                 $translation = $child->getNodeTranslation($lang);
                 if(!$translation){
-                    //continue;
+                    continue;
                 }
-                //if(!$translation->isOnline()) continue;
+                if(!$translation->isOnline()) continue;
                 $place = $translation->getRef($em);
                 if($place->getId() == $aPlace->getId()){
                     return $place;
@@ -328,6 +328,6 @@ class TravelbaseController extends Controller
                 $this->checkChildren($aPlace, $child, $lang, $em);
             }
         }
-        //return null;
+        return null;
     }
 }
