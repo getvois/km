@@ -321,7 +321,7 @@ class DefaultController extends Controller
 
 
             $row .= '
-                        <div class="col-xs-2 trip-field nopadding">'. $item->company->name . '</div>
+                        <div class="col-xs-2 trip-field nopadding">'. $lastCol . '</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
 
                     </div>';
