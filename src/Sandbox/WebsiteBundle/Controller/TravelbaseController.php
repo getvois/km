@@ -286,30 +286,29 @@ class TravelbaseController extends Controller
                 //url
                 return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 2]);
             }else{
-                //check place children
+                //check host place children
                 $em = $this->getDoctrine()->getManager();
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
 
-                if(!$node){//should not happen
-                    //span
-                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 3]);
+                foreach ($host->getFromPlaces() as $fromPlace) {
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($fromPlace);
+                    if(!$node){//should not happen
+                        //span
+                        return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 3]);
+                    }
+                    $url = $this->checkChildren($place, $node, $request->getLocale(), $em);
+
+                    if($url)
+                        //url
+                        return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 5]);
                 }
 
-                $url = $this->checkChildren($host, $node, $request->getLocale(), $em);
-
-                if(!$url){
-                    //span
-                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 9]);
-                }
-
-                //url
-                return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 5]);
+                return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 9]);
             }
         }
     }
 
 
-    private function checkChildren(Host $host, Node $node, $lang, $em)
+    private function checkChildren(AbstractPage $aPlace, Node $node, $lang, $em)
     {
         foreach ($node->getChildren() as $child) {
             /** @var $child Node */
@@ -323,10 +322,10 @@ class TravelbaseController extends Controller
                 }
                 //if(!$translation->isOnline()) continue;
                 $place = $translation->getRef($em);
-                if($host->getFromPlaces()->contains($place)){
+                if($place->getId() == $aPlace->getId()){
                     return $place;
                 }
-                $this->checkChildren($host, $child, $lang, $em);
+                $this->checkChildren($aPlace, $child, $lang, $em);
             }
         }
         //return null;
