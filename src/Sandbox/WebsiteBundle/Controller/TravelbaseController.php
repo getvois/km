@@ -329,6 +329,6 @@ class TravelbaseController extends Controller
                 $this->checkChildren($host, $child, $lang, $em);
             }
         }
-        return null;
+        //return null;
     }
 }
