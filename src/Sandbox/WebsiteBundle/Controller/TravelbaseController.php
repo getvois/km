@@ -299,7 +299,7 @@ class TravelbaseController extends Controller
 
                 if(!$url){
                     //span
-                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 4]);
+                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => ($node->getRefEntityName())]);
                 }
 
                 //url
