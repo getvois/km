@@ -280,11 +280,11 @@ class TravelbaseController extends Controller
         /** @var $place IHostable */
         if($place->getHosts()->contains($host)){
             //url
-            return $this->render('@SandboxWebsite/Layout/fromplacelink.html.twig', ['place' => $place, 'qwe' => 1]);
+            return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 1]);
         }else{
             if($host->getFromPlaces()->contains($place)){
                 //url
-                return $this->render('@SandboxWebsite/Layout/fromplacelink.html.twig', ['place' => $place, 'qwe' => 2]);
+                return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 2]);
             }else{
                 //check place children
                 $em = $this->getDoctrine()->getManager();
@@ -292,18 +292,18 @@ class TravelbaseController extends Controller
 
                 if(!$node){//should not happen
                     //span
-                    return $this->render('@SandboxWebsite/Layout/fromplacespan.html.twig', ['place' => $place, 'qwe' => 3]);
+                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 3]);
                 }
 
                 $url = $this->checkChildren($host, $node, $request->getLocale(), $em);
 
                 if(!$url){
                     //span
-                    return $this->render('@SandboxWebsite/Layout/fromplacespan.html.twig', ['place' => $place, 'qwe' => 4]);
+                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 4]);
                 }
 
                 //url
-                return $this->render('@SandboxWebsite/Layout/fromplacelink.html.twig', ['place' => $place, 'qwe' => 5]);
+                return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 5]);
             }
         }
     }
