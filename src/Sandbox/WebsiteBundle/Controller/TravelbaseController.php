@@ -6,7 +6,9 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\IHostable;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -67,6 +69,86 @@ class TravelbaseController extends Controller
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+
+
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')->createQueryBuilder('n')
+            ->select('n')
+            //->where('n.dateUntil > :date')
+            //->setParameter(':date', new \DateTime())
+            ->orderBy('n.date', 'desc')
+            ->getQuery()
+            ->getResult();
+
+        $realNews = [];
+        $i = 0;
+        foreach ($news as $n) {
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($n);
+            if(!$node) continue;
+
+            $translation = $node->getNodeTranslation($lang);
+            if(!$translation) continue;
+
+            if(!$node->isDeleted() && $translation->isOnline()){
+                if($host){
+                    /** @var NewsPage $page */
+                    $page = $translation->getRef($em);
+                    if($page->getHosts()->contains($host)){
+                        $realNews[$node->getId()] = $page;
+                        $i = count($realNews);
+                    }
+                }else {
+                    $realNews[$node->getId()] = $translation->getRef($em);
+                    $i = count($realNews);
+                }
+            }
+
+            if($i >= 5) break;
+        }
+
+
+
+
+        $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')->createQueryBuilder('n')
+            ->select('n')
+            ->orderBy('n.date', 'desc')
+            ->getQuery()
+            ->getResult();
+
+        $realArticles = [];
+        $i = 0;
+        foreach ($articles as $n) {
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($n);
+            if(!$node) continue;
+
+            $translation = $node->getNodeTranslation($lang);
+            if(!$translation) continue;
+
+            if(!$node->isDeleted() && $translation->isOnline()){
+                if($host){
+                    /** @var ArticlePage $page */
+                    $page = $translation->getRef($em);
+                    if($page->getHosts()->contains($host)){
+                        $realArticles[$node->getId()] = $page;
+                        $i = count($realArticles);
+                    }
+                }else {
+                    $realArticles[$node->getId()] = $translation->getRef($em);
+                    $i = count($realArticles);
+                }
+            }
+
+            if($i >= 5) break;
+        }
+
+        $pages = array_merge($realNews, $realArticles);
+
+        return ['pages' => $pages];
+
+
         /** @var NodeVersion[] $nodeVersions */
         $nodeVersions = $em->createQuery(
             "SELECT v
