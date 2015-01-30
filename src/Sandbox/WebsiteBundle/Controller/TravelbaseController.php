@@ -299,7 +299,7 @@ class TravelbaseController extends Controller
 
                 if(!$url){
                     //span
-                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => ($node->getRefEntityName())]);
+                    return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => ($node->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage')]);
                 }
 
                 //url
@@ -315,7 +315,7 @@ class TravelbaseController extends Controller
             /** @var $child Node */
             if($child->isDeleted()) continue;
 
-            if($child->getRefEntityName() == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage"){
+            if($child->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'){
                 //check in host
                 $translation = $child->getNodeTranslation($lang);
                 if(!$translation){
