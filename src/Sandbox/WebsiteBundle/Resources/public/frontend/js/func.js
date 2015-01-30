@@ -86,9 +86,13 @@ function getFilter(container){
         $filter.date = { start: $dates };
 
         if($dpInterval == 30){
-            var $month = parseInt($ds.substr(3, 2)) + 1;
-            if($month.toString().length == 1) $month = "0" + $month;
-            $filter.date.end = $ds.substr(6, 4) + "-" + $month + "-" + $ds.substr(0, 2);
+
+            var $date = new Date($dates);
+            $date.setMonth($date.getMonth() + 1);
+            $filter.date.end = $date.toMysqlFormat();
+            //var $month = parseInt($ds.substr(3, 2)) + 1;
+            //if($month.toString().length == 1) $month = "0" + $month;
+            //$filter.date.end = $ds.substr(6, 4) + "-" + $month + "-" + $ds.substr(0, 2);
         }else{
             $filter.date.end = $dates;
         }
@@ -102,6 +106,10 @@ function getFilter(container){
 
     return $filter;
 }
+
+Date.prototype.toMysqlFormat = function() {
+    return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate());// + " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+};
 
 function loadMore(){
     var $filter = getFilter();
