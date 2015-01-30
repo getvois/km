@@ -268,7 +268,7 @@ body .splash--green {
     text-decoration:underline;
 }
 #travelbase-form > div {
-    margin-top:30px;
+    margin-top:55px;
 }
 
 .top-img-title {
@@ -566,7 +566,7 @@ div.travelbase-input-addon{
     height: 1px;
     background: #000000 none;
     width: 70%;
-    margin-top: 40px;
+    margin-top: 20px;
 	margin-left: 50px;
 }
 #slider-range .ui-slider-range,#slider-range-stopover .ui-slider-range{
@@ -579,20 +579,28 @@ div.travelbase-input-addon{
     border-radius: 15px;
     border: none;
 }
+#slider-range-stopover .ui-slider-handle{
+	background: #ccc;
+	border: 1px solid #888;
+}
+
 #amount, #stopover{
     border:0;
     color:#fff;
     position: absolute;
-	top: 47px;
+	top: 27px;
 	left: 43px;
     background-color: rgba(252, 252, 252, 0);
 }
+#stopover{
+    color:#000;
+}
 label[for=amount]{
     position: absolute; 
-    top: 32px;
+    top: 12px;
 }
 label.directFlight-label{
-	color: #fff;
+	color: #000;
 	margin-top: 30px;
 	display: block;
 }
