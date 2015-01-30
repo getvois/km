@@ -1,6 +1,6 @@
 {% if host is defined and host is not null %}
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 text-muted">
             {% if host.seoModules|length  > 0 %}
                 {% for seoModule in host.seoModules %}
                     {% if seoModule.lang == app.request.locale
