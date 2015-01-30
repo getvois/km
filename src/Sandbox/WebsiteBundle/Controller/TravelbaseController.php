@@ -156,52 +156,6 @@ class TravelbaseController extends Controller
         });
 
         return ['pages' => $pages];
-
-
-        /** @var NodeVersion[] $nodeVersions */
-        $nodeVersions = $em->createQuery(
-            "SELECT v
-              FROM KunstmaanNodeBundle:NodeVersion v
-              JOIN v.nodeTranslation t
-              WHERE t.lang like :lang
-              AND t.online = 1
-              AND (v.refEntityName like :news OR v.refEntityName like :article)
-              AND v.type like 'public'
-              ORDER BY v.created"
-        )
-            ->setParameter(':lang', $lang)
-            ->setParameter('news', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsPage")
-            ->setParameter('article', "Sandbox\\\\WebsiteBundle\\\\Entity\\\\Article\\\\ArticlePage")
-            ->getResult();
-
-        if(!$nodeVersions) return [];
-
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
-
-        $pages = [];
-        foreach ($nodeVersions as $nodeVersion) {
-            $node = $nodeVersion->getNodeTranslation()->getNode();
-            $nodeTranslation = $node->getNodeTranslation($lang);
-            if($nodeTranslation && $nodeTranslation->getNode()->isDeleted() == false){
-                /** @var IHostable $page */
-                $page = $nodeTranslation->getRef($em);
-
-                //check host
-                if($host){
-                    if($page->getHosts()->contains($host)) {
-                        $pages[$node->getId()] = $page;
-                    }
-                }else{
-                    $pages[$node->getId()] = $page;
-                }
-
-                if(count($pages) == 10) break;
-            }
-        }
-
-
-        return ['pages' => $pages];
     }
 
 
