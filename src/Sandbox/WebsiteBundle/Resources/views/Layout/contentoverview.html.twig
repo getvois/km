@@ -4,7 +4,7 @@
         {% if news is not null %}
             {% if news > 0 %}
 
-                <h2>{{ 'latest.offers' | trans({}, 'frontend') }}</h2>
+                <h2 class="topheader">{{ 'latest.offers' | trans({}, 'frontend') }}</h2>
                 {% for item in news %}
 
                     {% set articlenode = get_node_translation_for(item) %}
@@ -50,7 +50,7 @@
         <!-- Articles pane -->
         {% if articles is not null %}
             {% if articles > 0 %}
-                <h2>{{ 'latest.articles' | trans({}, 'frontend') }}</h2>
+                <h2 class="topheader">{{ 'latest.articles' | trans({}, 'frontend') }}</h2>
                 {% for item in articles %}
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}
