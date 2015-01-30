@@ -57,6 +57,16 @@ class TravelbaseController extends Controller
     }
 
 
+    private static function cmp($a, $b)
+    {
+        /** @var $a ArticlePage */
+        /** @var $b ArticlePage */
+        if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
+            return 0;
+        }
+        return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? -1 : 1;
+    }
+
     /**
      * @param Request $request
      *
@@ -146,18 +156,7 @@ class TravelbaseController extends Controller
 
         $pages = array_merge($realNews, $realArticles);
 
-
-        function cmp($a, $b)
-        {
-            /** @var $a ArticlePage */
-            /** @var $b ArticlePage */
-            if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
-                return 0;
-            }
-            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? -1 : 1;
-        }
-
-        usort($pages, "cmp");
+        usort($pages, ["TravelbaseController", "cmp"]);
 
         return ['pages' => $pages];
 
