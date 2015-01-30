@@ -10,14 +10,7 @@
 
 
             {% if host %}
-
                 {{ render(controller('SandboxWebsiteBundle:Travelbase:placeInHost', {'place': place, 'host': host})) }}
-
-                {#{% if place.hosts.contains(host) or host.fromPlaces.contains(place) %}#}
-                    {#<a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>#}
-                {#{% else %}#}
-                    {#<span data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" >{{ place.title }}</span>#}
-                {#{% endif %}#}
             {% else %}
                 <a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug}) }}">{{ place.title }}</a>
             {% endif %}
