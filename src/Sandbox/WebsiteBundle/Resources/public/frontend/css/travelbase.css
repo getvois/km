@@ -610,7 +610,6 @@ label.directFlight-label,  label.sameDay-label {
 	display: block;
 }
 
-
 #directFlight, #sameDay {
     -webkit-appearance: checkbox;
     color: #ffffff;
@@ -632,7 +631,6 @@ label.directFlight-label,  label.sameDay-label {
 .select2-container-multi .select2-choices {
     white-space: nowrap;
 }
-
 
 
 /* result table header */
@@ -697,7 +695,8 @@ label.directFlight-label,  label.sameDay-label {
 
 .trip .company  {
     height: 20px;
-    width:100%;
+    width:100px;
+    display: inline-block;
     /*noinspection CssUnknownTarget*/
     background: url("/bundles/sandboxwebsite/img/general/comp-sprite.png") no-repeat 0 0;
 }
@@ -858,7 +857,7 @@ label.directFlight-label,  label.sameDay-label {
 
 
 .travelbase_items.travelbase_items_sp td {
-    padding: 0 10px;
+    padding: 0 10px 0 0;
     text-align: left;
     white-space: nowrap;
 }
@@ -1078,6 +1077,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 .travelbase_items table tbody tr td {
     line-height: 200%;
     font-size:13px;
+    white-space: nowrap;
 }
 .travelbase_items #loadMore {
     left: 50%;

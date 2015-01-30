@@ -255,17 +255,21 @@ class DefaultController extends Controller
             }
 
             $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
-                        <div class="col-xs-1 trip-duration">'.$date.'</div>';
+                    ';
 
             //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
 
             if($item->type->id == 3){
-                $row .= '<div class="col-xs-8 trip-field">
+                $row .= '<div class="col-xs-9 nopadding trip-field">
 
                             <table>
                                 <tr>
                                     <td width="1%">
-                                    <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'
+                                    <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
+                                    if ($dTime){
+                                    $row .= '<span class="text-muted"> ' . $dTime . '</span>&nbsp; &nbsp;'; 
+                                    }
+                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>" .'
                                     </td>
                                     <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
@@ -275,8 +279,8 @@ class DefaultController extends Controller
                                             <span class="trip-path-spacer-arrow"></span>
                                         </div>
                                     </td>
-                                    <td width="2%" class="nowrap">
-                                    <strong>'. $item->destination->cityNameFi . "</strong>" .'
+                                    <td width="1%" class="nowrap">
+                                    <strong>'. $item->destination->cityNameFi . "&nbsp; <span class='text-muted'> " . $aDate . "</span></strong>" .'
                                     </td>
                                     <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
@@ -287,19 +291,23 @@ class DefaultController extends Controller
                                         </div>
                                     </td>
                                     <td width="1%">
-                                    <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $aDate . "</span>" .'
+                                    <strong>'. $item->departure->cityNameFi . "</strong> &nbsp;" .'
                                     </td>
                                 </tr>
                             </table>
 
                         </div>';
             }else{
-                $row .= '<div class="col-xs-8 trip-field">
+                $row .= '<div class="col-xs-9 nopadding trip-field">
 
                             <table>
                                 <tr>
                                     <td width="1%">
-                                    <strong>'. $item->departure->cityNameFi . "</strong> <span class='text-muted'> " . $dTime . "</span>" .'
+                                    <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
+                                    if ($dTime){
+                                    $row .= '<span class="text-muted"> ' . $dTime . '</span>&nbsp; &nbsp;'; 
+                                    }
+                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>" .'
                                     </td>
                                     <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
@@ -309,8 +317,8 @@ class DefaultController extends Controller
                                             <span class="trip-path-spacer-arrow"></span>
                                         </div>
                                     </td>
-                                    <td width="2%" class="nowrap">
-                                    <strong>'. $item->destination->cityNameFi . "</strong><span class='text-muted'> " . $aDate . "</span>" .'
+                                    <td width="1%" class="nowrap">
+                                    <span class="text-muted">' . $aDate . ' </span>&nbsp; <strong>'. $item->destination->cityNameFi . "</strong>" .'
                                     </td>
                                 </tr>
                             </table>
@@ -321,7 +329,7 @@ class DefaultController extends Controller
 
 
             $row .= '
-                        <div class="col-xs-2 trip-field nopadding">'. $lastCol . '</div>
+                        <div class="col-xs-2 trip-field text-center nopadding">'. $lastCol . '</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
 
                     </div>';
@@ -346,14 +354,13 @@ class DefaultController extends Controller
         }else{
 
             $row = '<div class="row trip '.$class.'" data-itemid="'. $item->id .'">
-                        <div class="col-xs-1 trip-duration">'.$date.'</div>
 
-                        <div class="col-xs-6 trip-field">
+                        <div class="col-xs-7 nopadding trip-field">
 
                             <table>
                                 <tr>
                                     <td width="1%">
-                                    <strong>'. $item->departure->cityNameFi .'</strong>
+                                    <strong><span class="text-muted">'.$date.'</span> &nbsp;&nbsp;'. $item->departure->cityNameFi .'</strong>
                                     </td>
                                     <td style="widht: 100%">
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
@@ -405,7 +412,7 @@ class DefaultController extends Controller
             }
 
                         $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
-                        <div class="col-xs-2 trip-field">'.$lastCol.'</div>
+                        <div class="col-xs-2 trip-field text-center">'.$lastCol.'</div>
                         <div class="col-xs-1 price text-right trip-cost"><p>' . round($item->price) . '€</p> <a target="_blank" href="'.$item->link.'" class="btn btn-info trip-btn-cost">' . round($item->price) . '€</a></div>
                     </div>';
 
