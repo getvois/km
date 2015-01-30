@@ -56,17 +56,6 @@ class TravelbaseController extends Controller
         return ['pages' => $pages];
     }
 
-
-    private static function cmp($a, $b)
-    {
-        /** @var $a ArticlePage */
-        /** @var $b ArticlePage */
-        if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
-            return 0;
-        }
-        return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? -1 : 1;
-    }
-
     /**
      * @param Request $request
      *
@@ -163,7 +152,7 @@ class TravelbaseController extends Controller
             if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
                 return 0;
             }
-            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? -1 : 1;
+            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? 1 : -1;
         });
 
         return ['pages' => $pages];
