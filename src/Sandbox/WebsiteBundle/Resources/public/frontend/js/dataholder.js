@@ -21,9 +21,9 @@
             $(this).prev().hide();
             var holder = $(this);
             $(this).click(function (e) {
-                if($(e.target).hasClass('placeholder')){
+                //if($(e.target).hasClass('placeholder')){
                     holder.prev().click();
-                }
+                //}
             });
 
             $(this).find('.placeholder-item').click(function (e) {
