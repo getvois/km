@@ -28,7 +28,7 @@
 
 
                 {% if host %}
-                    {{ render(controller('SandboxWebsiteBundle:Travelbase:placeInHost', {'place': place, 'host': host})) }} {% if loop.last == false %}/{% endif %}
+                    {#{{ render(controller('SandboxWebsiteBundle:Travelbase:placeInHost', {'place': place, 'host': host})) }} {% if loop.last == false %}/{% endif %}#}
                     {#{% if place.hosts.contains(host) %}#}
                         {#<a data-id="{{ place.cityId }}" data-type="{{ type }}" data-lvl="{{ get_node_for(place).level }}" href="{{ path("_slug", { 'url' : get_node_translation_for(place).fullSlug }) }}">{{ place.title }}</a> {% if loop.last == false %}/{% endif %}#}
                     {#{% else %}#}
