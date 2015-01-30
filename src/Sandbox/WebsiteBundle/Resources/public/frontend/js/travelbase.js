@@ -522,6 +522,13 @@ $(document).ready(function() {
                 var $data = JSON.parse(this.responseText);
 
                 for(var i = 0; i< $data.length; i++){
+
+                    if($filter.sameDay == 1){
+                        if($data[i].dDate != $data[i].aDate){
+                            continue;
+                        }
+                    }
+
                     var $event = {
                         "id": i,
                         "title" : $data[i].price,
