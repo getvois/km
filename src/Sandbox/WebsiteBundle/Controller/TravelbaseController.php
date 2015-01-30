@@ -156,7 +156,15 @@ class TravelbaseController extends Controller
 
         $pages = array_merge($realNews, $realArticles);
 
-        usort($pages, ["TravelbaseController", "cmp"]);
+        usort($pages, function ($a, $b)
+        {
+            /** @var $a ArticlePage */
+            /** @var $b ArticlePage */
+            if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
+                return 0;
+            }
+            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? -1 : 1;
+        });
 
         return ['pages' => $pages];
 
