@@ -36,8 +36,8 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
 
         $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')->createQueryBuilder('n')
             ->select('n')
-            ->where('n.dateUntil > :date')
-            ->setParameter(':date', new \DateTime())
+            //->where('n.dateUntil > :date')
+            //->setParameter(':date', new \DateTime())
             ->orderBy('n.date', 'desc')
             ->getQuery()
             ->getResult();
