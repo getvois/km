@@ -280,11 +280,11 @@ class TravelbaseController extends Controller
         /** @var $place IHostable */
         if($place->getHosts()->contains($host)){
             //url
-            return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 1]);
+            return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place]);
         }else{
             if($host->getFromPlaces()->contains($place)){
                 //url
-                return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 2]);
+                return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place]);
             }else{
                 //check host place children
                 $em = $this->getDoctrine()->getManager();
@@ -293,16 +293,16 @@ class TravelbaseController extends Controller
                     $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($fromPlace);
                     if(!$node){//should not happen
                         //span
-                        return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 3]);
+                        return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place]);
                     }
                     $url = $this->checkChildren($place, $node, $request->getLocale(), $em);
 
                     if($url)
                         //url
-                        return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place, 'qwe' => 5]);
+                        return $this->render('@SandboxWebsite/Layout/toplacelink.html.twig', ['place' => $place]);
                 }
 
-                return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place, 'qwe' => 9]);
+                return $this->render('@SandboxWebsite/Layout/toplacespan.html.twig', ['place' => $place]);
             }
         }
     }
