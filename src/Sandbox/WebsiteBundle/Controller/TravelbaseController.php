@@ -4,9 +4,11 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
+use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
@@ -264,5 +266,69 @@ class TravelbaseController extends Controller
         if(!$translation) return null;
 
         return $lang . '/' . $translation->getFullSlug();
+    }
+
+
+    /**
+     * @param AbstractPage $place
+     * @param Host $host
+     *
+     * @return array
+     */
+    public function placeInHostAction(Request $request, AbstractPage $place, Host $host)
+    {
+        /** @var $place IHostable */
+        if($place->getHosts()->contains($host)){
+            //url
+            return $this->render('@SandboxWebsite/Layout/fromplacelink.html.twig', ['place' => $place]);
+        }else{
+            if($host->getFromPlaces()->contains($place)){
+                //url
+                return $this->render('@SandboxWebsite/Layout/fromplacelink.html.twig', ['place' => $place]);
+            }else{
+                //check place children
+                $em = $this->getDoctrine()->getManager();
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+
+                if(!$node){//should not happen
+                    //span
+                    return $this->render('@SandboxWebsite/Layout/fromplacespan.html.twig', ['place' => $place]);
+                }
+
+                $url = $this->checkChildren($host, $node, $request->getLocale(), $em);
+
+                if(!$url){
+                    //span
+                    return $this->render('@SandboxWebsite/Layout/fromplacespan.html.twig', ['place' => $place]);
+                }
+
+                //url
+                return $this->render('@SandboxWebsite/Layout/fromplacelink.html.twig', ['place' => $place]);
+            }
+        }
+    }
+
+
+    private function checkChildren(Host $host, Node $node, $lang, $em)
+    {
+        foreach ($node->getChildren() as $child) {
+            /** @var $child Node */
+            if($child->isDeleted()) continue;
+
+            if($child->getRefEntityName() == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage"){
+                //check in host
+                $translation = $child->getNodeTranslation($lang);
+                if(!$translation){
+                    continue;
+                }
+                if(!$translation->isOnline()) continue;
+                $place = $translation->getRef($em);
+                if($host->getFromPlaces()->contains($place)){
+                    return $place;
+                }
+                $this->checkChildren($host, $child, $lang, $em);
+            }
+        }
+        return null;
     }
 }
