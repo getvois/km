@@ -207,7 +207,7 @@ class DefaultController extends Controller
 
 
         if($translation){
-            $url = $this->generateUrl("_slug", ['url' => $translation->getSlug(), '_locale' => $request->getLocale()]);
+            $url = $this->generateUrl("_slug", ['url' => $translation->getFullSlug(), '_locale' => $request->getLocale()]);
             $company = "<a href='$url' >$company</a>";
         }
 
