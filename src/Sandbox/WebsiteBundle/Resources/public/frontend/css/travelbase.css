@@ -604,11 +604,18 @@ label[for=amount]{
     position: absolute; 
     top: 12px;
 }
-label.directFlight-label{
+label.directFlight-label,  label.sameDay-label {
 	color: #000;
 	margin-top: 30px;
 	display: block;
 }
+
+
+#directFlight, #sameDay {
+    -webkit-appearance: checkbox;
+    color: #ffffff;
+}
+
 #form-submit {
 	height: 40px;
 	position: absolute;
@@ -932,12 +939,6 @@ label.directFlight-label{
     top: 0;
 }
  
-
-#directFlight{
-    -webkit-appearance: checkbox;
-    color: #ffffff;
-}
-
 .select2-container-multi .select2-choices {
 	border-width:2px;
 }
