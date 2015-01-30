@@ -198,9 +198,18 @@ class DefaultController extends Controller
 
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
-        //if(UrlExists("/sites/all/modules/travelbase/img/" + $item.company.name.toLowerCase() + ".png"))
-            //$company = "<img src='/sites/all/modules/travelbase/img/" . strtolower($item->company->name) . ".png' alt='" . $item->company->name . "' title='".$item->company->name."' />";
-            $company = "<div class='company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
+        $em = $this->getDoctrine()->getManager();
+        $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+            ->findOneBy(['title' => $item->company->name, 'lang' => $request->getLocale(), 'online' => 1],
+            ['created' => 'desc']);
+
+        $company = "<div class='company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
+
+
+        if($translation){
+            $url = $this->generateUrl("_slug", ['url' => $translation->getSlug(), '_locale' => $request->getLocale()]);
+            $company = "<a href='$url' >$company</a>";
+        }
 
 
         $lastCol = $company;//"<a href='" . $item->link . "'>" . $company . "</a>";
