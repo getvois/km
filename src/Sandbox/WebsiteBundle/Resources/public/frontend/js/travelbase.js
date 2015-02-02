@@ -12,7 +12,7 @@ $(document).ready(function() {
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate",  new Date() );
 
-    $datepickerFrom.datepicker('option', {
+    $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker('option', {
         onClose: function() {
             $(this).data('datepicker').inline = false;
         },
