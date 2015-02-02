@@ -12,6 +12,9 @@ function getFilter(container){
         $type = $dataFilter;
     }
 
+    if($("#flyOneWay").is(":checked")) $type = [4];
+    if($("#flyWithReturn").is(":checked")) $type = [3];
+
     var $form = $('#travelbase-form');
 
     var $field = $form.find('input[name="order_field"]').val();
