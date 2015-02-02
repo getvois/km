@@ -95,6 +95,7 @@ $(document).ready(function() {
         //formChange();
     } );
     $("#edit-date-end-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
+        $("#flyOneWay").attr('checked', false);
         $("#date-end-datepicker-holder").val(date);
         //formChange();
     } );
