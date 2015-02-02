@@ -232,7 +232,8 @@ class DefaultController extends Controller
             $aDate = "";
             if($item->aDate && $item->aDate != "-0001-11-30"){
                 if($item->aDate != $item->dDate){
-                    $aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
+                    //$aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
+                    $aDate = $item->aTime . " (+1)";
 
                 }else{
                     $aDate = $item->aTime;
