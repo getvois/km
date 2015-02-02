@@ -714,7 +714,8 @@ $(document).ready(function() {
                     });
 
                 $(".calendar-navigate").click(function () {
-                    calendar.navigate($(this).data('calendar-nav'));
+                    $(this).closest('.btn-group').next().navigate($(this).data('calendar-nav'));
+                    //calendar.navigate($(this).data('calendar-nav'));
                 });
 
                 $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
