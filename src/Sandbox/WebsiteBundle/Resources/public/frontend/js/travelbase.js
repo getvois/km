@@ -503,11 +503,11 @@ $(document).ready(function() {
                         '<div class="row">' +
                             '<div class="col-md-6">' +
                                 '<div class="btn-group">' +
-                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
-                    '<button class="btn calendar-navigate" data-calendar-nav="today">Today</button>' +
-                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
+                    '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
+                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">Next &gt;&gt;</button>' +
                     '</div>' +
-                    '<div class="calendar"></div>' +
+                    '<div class="calendar calendar-1"></div>' +
                             '</div>';
 
 
@@ -516,11 +516,11 @@ $(document).ready(function() {
                 if($date_end){
                     $row += '<div class="col-md-6">' +
                     '<div class="btn-group">' +
-                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
-                    '<button class="btn calendar-navigate" data-calendar-nav="today">Today</button>' +
-                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
+                    '<button class="btn calendar-navigate-2" data-calendar-nav="today">Today</button>' +
+                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="next">Next &gt;&gt;</button>' +
                     '</div>' +
-                    '<div class="calendar"></div>' +
+                    '<div class="calendar calendar-2"></div>' +
                     '</div>';
                 }
 
@@ -707,15 +707,24 @@ $(document).ready(function() {
                 spinner.stop();
 
 
-                var calendar = $(".calendar").calendar(
+                var calendar1 = $(".calendar-1").calendar(
                     {
                         tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
                         events_source: $eventSource
                     });
 
-                $(".calendar-navigate").click(function () {
-                    $(this).closest('.btn-group').next().navigate($(this).data('calendar-nav'));
-                    //calendar.navigate($(this).data('calendar-nav'));
+
+                var calendar2 = $(".calendar-2").calendar(
+                    {
+                        tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
+                        events_source: $eventSource
+                    });
+
+                $(".calendar-navigate-1").click(function () {
+                    calendar1.navigate($(this).data('calendar-nav'));
+                });
+                $(".calendar-navigate-2").click(function () {
+                    calendar2.navigate($(this).data('calendar-nav'));
                 });
 
                 $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
