@@ -502,13 +502,30 @@ $(document).ready(function() {
                 var $row = '<div class="row skypicker-dropdown">' +
                         '<div class="row">' +
                             '<div class="col-md-6">' +
-                                '<div class="btn-group">\n    <button class="btn btn-primary calendar-navigate" data-calendar-nav="prev">&lt;&lt; Prev</button>\n    <button class="btn calendar-navigate" data-calendar-nav="today">Today</button>\n    <button class="btn btn-primary calendar-navigate" data-calendar-nav="next">Next &gt;&gt;</button>\n</div>\n<div class="calendar"></div>' +
-                            '</div>' +
-                            //'<div class="col-md-6">' +
-                            //    '<div class="calendar"></div>' +
-                            //'</div>' +
-                        '</div>' +
-                    '<div class="col-xs-12">';
+                                '<div class="btn-group">' +
+                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
+                    '<button class="btn calendar-navigate" data-calendar-nav="today">Today</button>' +
+                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                    '</div>' +
+                    '<div class="calendar"></div>' +
+                            '</div>';
+
+
+
+                var $date_end = $("#edit-date-end-datepicker-popup-0").val();
+                if($date_end){
+                    $row += '<div class="col-md-6">' +
+                    '<div class="btn-group">' +
+                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
+                    '<button class="btn calendar-navigate" data-calendar-nav="today">Today</button>' +
+                    '<button class="btn btn-primary calendar-navigate" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                    '</div>' +
+                    '<div class="calendar"></div>' +
+                    '</div>';
+                }
+
+                $row += '</div>' +
+                '<div class="col-xs-12">';
 
                 var $data = JSON.parse(this.responseText);
 
