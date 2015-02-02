@@ -275,11 +275,11 @@ class DefaultController extends Controller
                                 <tr>
                                     <td width="1%">
                                     <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
+                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>";
                                     if ($dTime){
-                                    $row .= '<span class="text-muted"> ' . $dTime . '</span>&nbsp; &nbsp;'; 
+                                    $row .= '&nbsp;<span class="text-muted"> ' . $dTime . '</span>'; 
                                     }
-                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>" .'
-                                    </td>
+                                    $row .= '</td>
                                     <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
@@ -314,10 +314,10 @@ class DefaultController extends Controller
                                     <td width="1%">
                                     <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
                                     if ($dTime){
-                                    $row .= '<span class="text-muted"> ' . $dTime . '</span>&nbsp; &nbsp;'; 
+                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>";
+									$row .= '&nbsp;<span class="text-muted"> ' . $dTime . '</span>'; 
                                     }
-                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>" .'
-                                    </td>
+                                    $row .= '</td>
                                     <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">

@@ -610,7 +610,7 @@ label.directFlight-label,  label.sameDay-label {
 	display: block;
 }
 
-#directFlight, #sameDay {
+#directFlight, #sameDay, #flyOneWay, #flyWithReturn {
     -webkit-appearance: checkbox;
     color: #ffffff;
 }
