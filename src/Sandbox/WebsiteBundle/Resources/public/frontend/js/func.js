@@ -12,8 +12,17 @@ function getFilter(container){
         $type = $dataFilter;
     }
 
-    if($("#flyOneWay").is(":checked")) $type = [4];
-    if($("#flyWithReturn").is(":checked")) $type = [3];
+    if($(container).hasClass('travelbase_items_sp')){
+        var $flyOneWay = $("#flyOneWay");
+        var $flyWithReturn = $("#flyWithReturn");
+
+        if($flyOneWay.is(":checked")) $type = [4];
+        if($flyWithReturn.is(":checked")) $type = [3];
+
+        if($flyOneWay.is(":checked") && $flyWithReturn.is(":checked")) $type = [3, 4];
+    }
+
+
 
     var $form = $('#travelbase-form');
 
