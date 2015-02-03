@@ -653,8 +653,7 @@ $(document).ready(function() {
 
                     var $eventSource = [];
 
-                    var $row = '<div class="row skypicker-dropdown">';
-                    $row += '<div class="col-xs-12">';
+                    var $row = '';
 
                     var $data = JSON.parse(this.responseText);
 
@@ -724,14 +723,12 @@ $(document).ready(function() {
 
                     }
 
-                    $row += '</div></div>';
-
                     //if($data.length > 10){
                     //    //add load more button
                     //    $row += "<div class='row sp-show-more-wrapper'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
                     //}
 
-                    $tr.after($row);
+                    $tr.next('.skypicker-dropdown').find("> .col-xs-12").append($row);
 
                     //hide all trips and show only first ten
                     $(".skypicker-dropdown .trip").hide();
