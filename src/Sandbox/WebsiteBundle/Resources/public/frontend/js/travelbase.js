@@ -751,7 +751,7 @@ $(document).ready(function() {
                             onAfterViewLoad: function(view) {
                                 $('.calendar-header-2').text(this.getTitle());
                             },
-                            day: (new Date($data[0].dTimestamp * 1000)).toMysqlFormat()
+                            day: (new Date($data[Math.round($data.length/2)].dTimestamp * 1000)).toMysqlFormat()
                         });
 
                     $(".calendar-navigate-2").click(function () {
