@@ -624,18 +624,8 @@ $(document).ready(function() {
                         events_source: $eventSource
                     });
 
-
-                var calendar2 = $(".calendar-2").calendar(
-                    {
-                        tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
-                        events_source: $eventSource
-                    });
-
                 $(".calendar-navigate-1").click(function () {
                     calendar1.navigate($(this).data('calendar-nav'));
-                });
-                $(".calendar-navigate-2").click(function () {
-                    calendar2.navigate($(this).data('calendar-nav'));
                 });
 
                 $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
@@ -652,6 +642,143 @@ $(document).ready(function() {
             }
         };
         xhr.send(JSON.stringify($filter));
+
+
+        if($type == 3){
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open('POST', "http://api.travelwebpartner.com/api/skypicker.fetch/" + $(this).data('to') + "/" + $(this).data('from'));
+            //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhr2.onreadystatechange = function () {
+                if (this.readyState == 4) {
+
+                    var $eventSource = [];
+
+                    var $row = '<div class="row skypicker-dropdown">' +
+                        '<div class="row">' +
+                        '<div class="col-md-6">' +
+                        '<div class="btn-group">' +
+                        '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
+                        '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
+                        '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                        '</div>' +
+                        '<div class="calendar calendar-1"></div>' +
+                        '</div>';
+
+                    $row += '</div>' +
+                    '<div class="col-xs-12">';
+
+                    var $data = JSON.parse(this.responseText);
+
+                    for(var i = 0; i< $data.length; i++){
+
+                        if($filter.sameDay == 1){
+                            if($data[i].dDate != $data[i].aDate){
+                                continue;
+                            }
+                        }
+
+                        var $event = {
+                            "id": i,
+                            "title" : $data[i].price,
+                            "url" : $data[i].deep_link,
+                            "class": "event-return",
+                            "start": $data[i].dTimestamp * 1000, // Milliseconds
+                            "end": $data[i].dTimestamp * 1000, // Milliseconds
+                            "date": $data[i].dDate
+                        };
+
+
+                        //add only events with lowes prices
+                        var found = false;
+                        for(var k =0;k<$eventSource.length; k++){
+                            if($eventSource[k].date == $data[i].dDate){
+                                found = true;
+                                if(parseFloat($eventSource[k].title) > parseFloat($data[i].price)){
+                                    $eventSource[k] = $event;
+                                    break;
+                                }
+                            }
+                        }
+                        //add new events
+                        if(!found){
+                            $eventSource.push($event);
+                        }
+
+                        var stops = $data[i].route.length - 1 ;
+                        if(stops == 0) stops = "";
+                        else stops += " stops";
+
+                        var $date = $data[i].dDate.slice(0, 6) + $data[i].dDate.slice(8, $data[i].dDate.length);
+
+                        var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
+
+                        $row +=
+                            '<div class="trip row" data-date="'+ $mysqlDate +'">' +
+                            '    <div class="col-xs-1 trip-duration">'+$date+'</div>' +
+                            '    <div class="col-xs-8 trip-path">';
+
+                        $row += '<table><tr>';
+
+                        $row += itemsToHtml($data, i);
+
+                        $row += '</tr></table>';
+
+                        $row +=
+                            '    </div>' +
+                            '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
+                            '<div class="col-xs-2 trip-cost text-success">' +
+                            '        <p>'+$data[i].price+'€</p>' +
+                            '        <button class="btn btn-info trip-btn-cost">'+$data[i].price+'€</button>' +
+                            '        <button class="btn btn-danger trip-btn-close">close</button>' +
+                            '    </div>' +
+                            '</div>';
+
+                    }
+
+                    $row += '</div></div>';
+
+                    //if($data.length > 10){
+                    //    //add load more button
+                    //    $row += "<div class='row sp-show-more-wrapper'><a class='btn btn-default sp-show-more col-xs-12' href='#'>Show more</a></div>";
+                    //}
+
+                    $tr.after($row);
+
+                    //hide all trips and show only first ten
+                    $(".skypicker-dropdown .trip").hide();
+                    //$(".skypicker-dropdown .trip:lt(10)").show();
+
+                    //add trips to badge
+                    $badge.text(parseInt($badge.text()) + $data.length);
+
+                    //hide loading
+                    spinner.stop();
+
+                    var calendar2 = $(".calendar-2").calendar(
+                        {
+                            tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
+                            events_source: $eventSource
+                        });
+
+                    $(".calendar-navigate-2").click(function () {
+                        calendar2.navigate($(this).data('calendar-nav'));
+                    });
+
+                    $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
+                        var $date = $(this).children('[data-cal-date]').data('cal-date');
+
+                        $(".skypicker-dropdown .trip").hide().each(function () {
+                            if($(this).data('date') == $date){
+                                $(this).slideDown('fast');
+                            }
+                        });
+                    });
+
+                    $('.loading').hide();
+                }
+            };
+            xhr2.send(JSON.stringify($filter));
+        }
 
     });
     ////////////////////////////////////////////////////////////////////////////////////////////////
