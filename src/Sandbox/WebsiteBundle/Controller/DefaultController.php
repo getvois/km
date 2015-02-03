@@ -39,7 +39,7 @@ class DefaultController extends Controller
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
-            if($body == 1 && in_array(4, $filter->type)){
+            if($body == 1 && (in_array(4, $filter->type) || in_array(3, $filter->type))){
                 //import from skypicker first
                 $url = 'http://api.travelwebpartner.com/api/skypicker.import/';
                 $options = array(
@@ -228,7 +228,7 @@ class DefaultController extends Controller
             $date = date('d.m.Y', strtotime($date));
         }
 
-        if(in_array(4, $filter->type)) {//flights only(skypicker)
+        if(in_array(4, $filter->type) || in_array(3, $filter->type)) {//flights only(skypicker)
             $aDate = "";
             if($item->aDate && $item->aDate != "-0001-11-30"){
                 if($item->aDate != $item->dDate){
