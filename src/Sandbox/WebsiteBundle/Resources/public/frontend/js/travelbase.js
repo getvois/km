@@ -516,7 +516,7 @@ $(document).ready(function() {
 
 
                 var $date_end = $("#edit-date-end-datepicker-popup-0").val();
-                if($date_end){
+                if($date_end && $type == 3){
                     $row += '<div class="col-md-6">' +
                     '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
@@ -576,7 +576,7 @@ $(document).ready(function() {
                     var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
 
                     $row +=
-                        '<div class="trip row" data-date="'+ $mysqlDate +'">' +
+                        '<div class="trip row" data-date="'+ $mysqlDate +'" data-direction="to">' +
                         '    <div class="col-xs-1 trip-duration">'+$date+'</div>' +
                         '    <div class="col-xs-8 trip-path">';
 
@@ -628,11 +628,11 @@ $(document).ready(function() {
                     calendar1.navigate($(this).data('calendar-nav'));
                 });
 
-                $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
+                $('.skypicker-dropdown').on('click', '.calendar-1 .cal-month-day, .calendar-1 .cal-year-box .span3', function () {
                     var $date = $(this).children('[data-cal-date]').data('cal-date');
 
                     $(".skypicker-dropdown .trip").hide().each(function () {
-                        if($(this).data('date') == $date){
+                        if($(this).data('date') == $date && $(this).data('direction') == 'to'){
                             $(this).slideDown('fast');
                         }
                     });
@@ -701,7 +701,7 @@ $(document).ready(function() {
                         var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
 
                         $row +=
-                            '<div class="trip row" data-date="'+ $mysqlDate +'">' +
+                            '<div class="trip row" data-date="'+ $mysqlDate +'" data-direction="from">' +
                             '    <div class="col-xs-1 trip-duration">'+$date+'</div>' +
                             '    <div class="col-xs-8 trip-path">';
 
@@ -750,11 +750,11 @@ $(document).ready(function() {
                         calendar2.navigate($(this).data('calendar-nav'));
                     });
 
-                    $('.skypicker-dropdown').on('click', '.cal-month-day, .cal-year-box .span3', function () {
+                    $('.skypicker-dropdown').on('click', '.calendar-2 .cal-month-day, .calendar-2 .cal-year-box .span3', function () {
                         var $date = $(this).children('[data-cal-date]').data('cal-date');
 
                         $(".skypicker-dropdown .trip").hide().each(function () {
-                            if($(this).data('date') == $date){
+                            if($(this).data('date') == $date && $(this).data('direction') == 'from'){
                                 $(this).slideDown('fast');
                             }
                         });
