@@ -289,9 +289,20 @@ class DefaultController extends Controller
                                             <span class="trip-path-spacer-arrow"></span>
                                         </div>
                                     </td>
-                                    <td width="1%" class="nowrap">
-                                    <strong>'. $item->destination->cityNameFi . "&nbsp; <span class='text-muted'> " . $aDate . "</span></strong>" .'
-                                    </td>
+
+                                    <td width="1%" class="nowrap">';
+
+                if($item->company->name == 'SkyPicker'){
+                    $row .= '<span> ' . $aDate . '</span>
+                    <strong>'. $item->destination->cityNameFi . "&nbsp;
+                        <span class='text-muted'> " . $item->rdDate . "</span>
+                    </strong>";
+
+                }else{
+                    $row .= '<strong>'. $item->destination->cityNameFi . "&nbsp; <span class='text-muted'> " . $aDate . "</span></strong>";
+                }
+
+                                    $row .= '</td>
                                     <td>
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
@@ -300,9 +311,17 @@ class DefaultController extends Controller
                                             <span class="trip-path-spacer-arrow"></span>
                                         </div>
                                     </td>
-                                    <td width="1%">
-                                    <strong>'. $item->departure->cityNameFi . "</strong> &nbsp;" .'
-                                    </td>
+                                    <td width="1%">';
+
+                if($item->company->name == 'SkyPicker'){
+                    $row .= '<span class="text-muted"> ' . $item->raTime . '</span>
+                    <strong>'. $item->departure->cityNameFi . "&nbsp;</strong>";
+
+                }else{
+                    $row .= '<strong>'. $item->departure->cityNameFi . "</strong> &nbsp;";
+                }
+
+                                    $row .= '</td>
                                 </tr>
                             </table>
 
