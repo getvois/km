@@ -624,7 +624,8 @@ $(document).ready(function() {
                         events_source: $eventSource,
                         onAfterViewLoad: function(view) {
                             $('.calendar-header-1').text(this.getTitle());
-                        }
+                        },
+                        day: (new Date($data[0].dTimestamp * 1000)).toMysqlFormat()
                     });
 
                 $(".calendar-navigate-1").click(function () {
@@ -749,7 +750,8 @@ $(document).ready(function() {
                             events_source: $eventSource,
                             onAfterViewLoad: function(view) {
                                 $('.calendar-header-2').text(this.getTitle());
-                            }
+                            },
+                            day: (new Date($data[0].dTimestamp * 1000)).toMysqlFormat()
                         });
 
                     $(".calendar-navigate-2").click(function () {
