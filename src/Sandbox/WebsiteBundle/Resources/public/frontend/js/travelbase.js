@@ -653,19 +653,9 @@ $(document).ready(function() {
 
                     var $eventSource = [];
 
-                    var $row = '<div class="row skypicker-dropdown">' +
-                        '<div class="row">' +
-                        '<div class="col-md-6">' +
-                        '<div class="btn-group">' +
-                        '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
-                        '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
-                        '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">Next &gt;&gt;</button>' +
-                        '</div>' +
-                        '<div class="calendar calendar-1"></div>' +
-                        '</div>';
+                    var $row = '<div class="row skypicker-dropdown">';
 
-                    $row += '</div>' +
-                    '<div class="col-xs-12">';
+                    $row += '<div class="col-xs-12">';
 
                     var $data = JSON.parse(this.responseText);
 
