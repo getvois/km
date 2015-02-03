@@ -1223,7 +1223,7 @@ function getTable(container, reimport){
             var $skypicker = $(".skypicker-toggle");
             if($(container).find('.trip').length == 1 && $skypicker.length == 1){
                 $skypicker.click();
-                $skypicker.hide();
+                //$skypicker.hide();
             }
         }
 
