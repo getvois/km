@@ -451,6 +451,8 @@ $(document).ready(function() {
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
         var $badge = $("#lowcost-badge");
 
+        var $type = $(this).data('type'); //4 == oneway, 3 == with return
+
         if($(this).next().hasClass('skypicker-dropdown')){
             if($(this).next().next().hasClass('sp-show-more-wrapper')){
                 $(this).next().next().remove();
@@ -571,7 +573,6 @@ $(document).ready(function() {
 
                     var $date = $data[i].dDate.slice(0, 6) + $data[i].dDate.slice(8, $data[i].dDate.length);
 
-
                     var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
 
                     $row +=
@@ -581,98 +582,7 @@ $(document).ready(function() {
 
                     $row += '<table><tr>';
 
-                    for(var j=0; j<$data[i].route.length; j++){
-                        var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
-                        if(duration >= 60){
-                            var $hours = Math.floor(duration / 60 );//hours
-                            var $mins = duration - $hours*60;
-
-                            if($mins == 0){
-                                duration = $hours + 'h';
-                            }else if($mins < 10){
-                                duration = $hours  + ":0" + $mins + 'h';
-                            }else{
-                                duration = $hours  + ":" + $mins + 'h';
-                            }
-
-                        }else{
-                            duration += "min";
-                        }
-
-
-                        var $time = "";
-
-                        if(j == 0){
-                            $time = $data[i].route[j].dTime;
-                        }
-                        else if (j == $data[i].route.length-1){
-                            $time = $data[i].route[j].aTime;
-                        }
-                        else if($data[i].route[j+1]) {//if has more put next depart time
-                            $time = $data[i].route[j-1].aTime + " --- " + $data[i].route[j].dTime
-                        }
-
-
-
-                        $row +=
-                            '<td width="1%"><div class="trip-path-point">' +
-                            '            <div class="trip-path-point-airport">'+$data[i].route[j].flyFrom+'</div>' + //cityFrom
-                            '            <div class="trip-path-point-time">'+$data[i].route[j].dTime+ '</div>' +
-                            '</div></td>';
-
-                        $row +=
-                            '<td><div class="trip-path-spacer">' +
-                            '            <div class="trip-path-spacer-label"><span data-original-title="'+$data[i].route[j].airline+'" data-toggle="tooltip" class="airline" style="background: url(&quot;/bundles/sandboxwebsite/img/airlines/'+$data[i].route[j].airline+'.gif&quot;) no-repeat scroll 0% 0% transparent;"></span>'+duration+'</div>' +
-                            '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">' +
-                            '                                        <span class="trip-path-spacer-line">' +
-                            '                                            <div></div>' +
-                            '                                        </span>' +
-                            '                <span class="trip-path-spacer-arrow"></span>' +
-                            '            </div>' +
-                            '        </div></td>';
-
-                        $row +=
-                            '<td width="1%"><div class="trip-path-point">' +
-                            '            <div class="trip-path-point-airport">'+$data[i].route[j].flyTo+'</div>' + //cityTo
-                            '            <div class="trip-path-point-time">'+$data[i].route[j].aTime+
-
-                            '</div>' +
-                            '        </div></td>';
-
-                        if($data[i].route[j+1]){//if has more put spacer
-
-                            var durationWait = ( $data[i].route[j+1].dTimeStamp - $data[i].route[j].aTimeStamp) / 60 ;//minutes
-                            if(durationWait > 60){
-                                $hours = Math.floor(durationWait / 60 );//hours
-                                $mins = durationWait - $hours*60;
-
-                                if($mins == 0){
-                                    durationWait = $hours + 'h';
-                                }else if($mins < 10){
-                                    durationWait = $hours  + ":0" + $mins + 'h';
-                                }else{
-                                    durationWait = $hours  + ":" + $mins + 'h';
-                                }
-
-
-                                durationWait = $hours  + ":" + $mins + 'h';
-                            }else{
-                                durationWait += "min";
-                            }
-
-                            $row +=
-                                '<td><div class="trip-path-spacer">' +
-                                '            <div class="trip-path-spacer-label">'+durationWait+'</div>' +
-                                '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init trip-path-spacer-arrow-layover" style="width: 100%;">' +
-                                '                                        <span class="trip-path-spacer-line">' +
-                                '                                            <div></div>' +
-                                '                                        </span>' +
-                                '                <span class="trip-path-spacer-arrow" style="display: none;"></span>' +
-                                '            </div>' +
-                                '        </div></td>';
-                        }
-
-                    }
+                    $row += itemsToHtml($data);
 
                     $row += '</tr></table>';
 
@@ -745,6 +655,106 @@ $(document).ready(function() {
 
     });
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    function itemsToHtml($data){
+        var $row = '';
+        for(var j=0; j<$data[i].route.length; j++){
+            var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
+            if(duration >= 60){
+                var $hours = Math.floor(duration / 60 );//hours
+                var $mins = duration - $hours*60;
+
+                if($mins == 0){
+                    duration = $hours + 'h';
+                }else if($mins < 10){
+                    duration = $hours  + ":0" + $mins + 'h';
+                }else{
+                    duration = $hours  + ":" + $mins + 'h';
+                }
+
+            }else{
+                duration += "min";
+            }
+
+
+            var $time = "";
+
+            if(j == 0){
+                $time = $data[i].route[j].dTime;
+            }
+            else if (j == $data[i].route.length-1){
+                $time = $data[i].route[j].aTime;
+            }
+            else if($data[i].route[j+1]) {//if has more put next depart time
+                $time = $data[i].route[j-1].aTime + " --- " + $data[i].route[j].dTime
+            }
+
+
+
+            $row +=
+                '<td width="1%"><div class="trip-path-point">' +
+                '            <div class="trip-path-point-airport">'+$data[i].route[j].flyFrom+'</div>' + //cityFrom
+                '            <div class="trip-path-point-time">'+$data[i].route[j].dTime+ '</div>' +
+                '</div></td>';
+
+            $row +=
+                '<td><div class="trip-path-spacer">' +
+                '            <div class="trip-path-spacer-label"><span data-original-title="'+$data[i].route[j].airline+'" data-toggle="tooltip" class="airline" style="background: url(&quot;/bundles/sandboxwebsite/img/airlines/'+$data[i].route[j].airline+'.gif&quot;) no-repeat scroll 0% 0% transparent;"></span>'+duration+'</div>' +
+                '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">' +
+                '                                        <span class="trip-path-spacer-line">' +
+                '                                            <div></div>' +
+                '                                        </span>' +
+                '                <span class="trip-path-spacer-arrow"></span>' +
+                '            </div>' +
+                '        </div></td>';
+
+            $row +=
+                '<td width="1%"><div class="trip-path-point">' +
+                '            <div class="trip-path-point-airport">'+$data[i].route[j].flyTo+'</div>' + //cityTo
+                '            <div class="trip-path-point-time">'+$data[i].route[j].aTime+
+
+                '</div>' +
+                '        </div></td>';
+
+            if($data[i].route[j+1]){//if has more put spacer
+
+                var durationWait = ( $data[i].route[j+1].dTimeStamp - $data[i].route[j].aTimeStamp) / 60 ;//minutes
+                if(durationWait > 60){
+                    $hours = Math.floor(durationWait / 60 );//hours
+                    $mins = durationWait - $hours*60;
+
+                    if($mins == 0){
+                        durationWait = $hours + 'h';
+                    }else if($mins < 10){
+                        durationWait = $hours  + ":0" + $mins + 'h';
+                    }else{
+                        durationWait = $hours  + ":" + $mins + 'h';
+                    }
+
+
+                    durationWait = $hours  + ":" + $mins + 'h';
+                }else{
+                    durationWait += "min";
+                }
+
+                $row +=
+                    '<td><div class="trip-path-spacer">' +
+                    '            <div class="trip-path-spacer-label">'+durationWait+'</div>' +
+                    '            <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init trip-path-spacer-arrow-layover" style="width: 100%;">' +
+                    '                                        <span class="trip-path-spacer-line">' +
+                    '                                            <div></div>' +
+                    '                                        </span>' +
+                    '                <span class="trip-path-spacer-arrow" style="display: none;"></span>' +
+                    '            </div>' +
+                    '        </div></td>';
+            }
+
+        }
+
+        return $row;
+    }
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //SKYPICKER show more trips
