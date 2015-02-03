@@ -765,6 +765,19 @@ $(document).ready(function() {
             };
 
             setTimeout(function () {
+
+                //change filter dates
+
+                var $date_end = $("#edit-date-end-datepicker-popup-0").val();
+                if($date_end){
+                    var $d = $date_end;
+                    $filter.date.start = $d.substr(6, 4) + "-" + $d.substr(3, 2) + "-" + $d.substr(0, 2) ;
+                }
+                var $date = new Date($filter.date.start);
+                $date.setMonth($date.getMonth() + 1);
+                $filter.date.end = $date.toMysqlFormat();
+
+                $filter.date.return = null;
                 xhr2.send(JSON.stringify($filter));
             }, 500);
 
