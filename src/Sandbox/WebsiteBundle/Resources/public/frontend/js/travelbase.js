@@ -582,7 +582,7 @@ $(document).ready(function() {
 
                     $row += '<table><tr>';
 
-                    $row += itemsToHtml($data);
+                    $row += itemsToHtml($data, i);
 
                     $row += '</tr></table>';
 
@@ -657,7 +657,7 @@ $(document).ready(function() {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    function itemsToHtml($data){
+    function itemsToHtml($data, i){
         var $row = '';
         for(var j=0; j<$data[i].route.length; j++){
             var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
