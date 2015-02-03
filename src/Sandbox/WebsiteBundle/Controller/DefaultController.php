@@ -363,9 +363,14 @@ class DefaultController extends Controller
 //                "</tr>";
         }else{
 
-            $row = '<div class="row trip '.$class.'" data-itemid="'. $item->id .'">
+            if($item->company->name == 'SkyPicker'){
+                $row = '<div class=" trip row '.$class.'" data-type="'. $item->type->id .'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
+                    ';
+            }else{
+                $row = '<div class="row trip '.$class.'" data-itemid="'. $item->id .'">';
+            }
 
-                        <div class="col-xs-7 nopadding trip-field">
+            $row .= '<div class="col-xs-7 nopadding trip-field">
 
                             <table>
                                 <tr>
