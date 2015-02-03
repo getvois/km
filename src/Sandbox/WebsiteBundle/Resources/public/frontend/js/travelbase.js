@@ -787,7 +787,7 @@ $(document).ready(function() {
 
                 $filter.date.return = null;
                 xhr2.send(JSON.stringify($filter));
-            }, 500);
+            }, 1000);
 
         }
 
