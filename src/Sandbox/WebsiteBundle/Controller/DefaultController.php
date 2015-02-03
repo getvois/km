@@ -293,9 +293,16 @@ class DefaultController extends Controller
                                     <td width="1%" class="nowrap">';
 
                 if($item->company->name == 'SkyPicker'){
+
+                    if(date('Y', strtotime($item->rdDate)) == date("Y")){
+                        $rdate = $this->getDate($item->rdDate, $request->getLocale());
+                    }else{
+                        $rdate = date('d.m.Y', strtotime($item->rdDate));
+                    }
+
                     $row .= '<span> ' . $aDate . '</span>
                     <strong>'. $item->destination->cityNameFi . "&nbsp;
-                        <span class='text-muted'> " . $item->rdDate . "</span>
+                        <span class='text-muted'> " . $rdate . "</span>
                     </strong>";
 
                 }else{
