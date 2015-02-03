@@ -264,7 +264,7 @@ class DefaultController extends Controller
                 //$duration = "Direct";
             }
 
-            $row = '<div class=" trip row '.$class.'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
+            $row = '<div class=" trip row '.$class.'" data-type="'. $item->type->id .'" data-itemid="'. $item->id .'" data-from="'.$item->departure->airportCode.'" data-to="'.$item->destination->airportCode.'">
                     ';
 
             //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
