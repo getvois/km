@@ -504,7 +504,7 @@ $(document).ready(function() {
 
                 var $row = '<div class="row skypicker-dropdown">' +
                         '<div class="row">' +
-                            '<div class="col-md-6">' +
+                            '<div class="col-md-6"><div class="calendar-header-1"></div>' +
                                 '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
                     '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
@@ -517,7 +517,7 @@ $(document).ready(function() {
 
                 var $date_end = $("#edit-date-end-datepicker-popup-0").val();
                 if($date_end && $type == 3){
-                    $row += '<div class="col-md-6">' +
+                    $row += '<div class="col-md-6"><div class="calendar-header-2"></div>' +
                     '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
                     '<button class="btn calendar-navigate-2" data-calendar-nav="today">Today</button>' +
@@ -621,7 +621,10 @@ $(document).ready(function() {
                 var calendar1 = $(".calendar-1").calendar(
                     {
                         tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
-                        events_source: $eventSource
+                        events_source: $eventSource,
+                        onAfterViewLoad: function(view) {
+                            $('.calendar-header-2').text(this.getTitle());
+                        }
                     });
 
                 $(".calendar-navigate-1").click(function () {
@@ -743,7 +746,10 @@ $(document).ready(function() {
                     var calendar2 = $(".calendar-2").calendar(
                         {
                             tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
-                            events_source: $eventSource
+                            events_source: $eventSource,
+                            onAfterViewLoad: function(view) {
+                                $('.calendar-header-2').text(this.getTitle());
+                            }
                         });
 
                     $(".calendar-navigate-2").click(function () {
