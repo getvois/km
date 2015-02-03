@@ -623,7 +623,7 @@ $(document).ready(function() {
                         tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
                         events_source: $eventSource,
                         onAfterViewLoad: function(view) {
-                            $('.calendar-header-2').text(this.getTitle());
+                            $('.calendar-header-1').text(this.getTitle());
                         }
                     });
 
