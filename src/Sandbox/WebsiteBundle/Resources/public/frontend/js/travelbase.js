@@ -763,7 +763,11 @@ $(document).ready(function() {
                     $('.loading').hide();
                 }
             };
-            xhr2.send(JSON.stringify($filter));
+
+            setTimeout(function () {
+                xhr2.send(JSON.stringify($filter));
+            }, 500);
+
         }
 
     });
