@@ -300,6 +300,8 @@ class DefaultController extends Controller
                         $rdate = date('d.m.Y', strtotime($item->rdDate));
                     }
 
+                    if($rdate == '01.01.1970') $rdate = "";
+
                     $row .= '<span> ' . $aDate . '</span>
                     <strong>'. $item->destination->cityNameFi . "&nbsp;
                         <span class='text-muted'> " . $rdate . "</span>
