@@ -654,7 +654,6 @@ $(document).ready(function() {
                     var $eventSource = [];
 
                     var $row = '<div class="row skypicker-dropdown">';
-
                     $row += '<div class="col-xs-12">';
 
                     var $data = JSON.parse(this.responseText);
