@@ -65,7 +65,7 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
                 }
             }
 
-            if($i >= 5) break;
+            if($i >= 10) break;
         }
 
 

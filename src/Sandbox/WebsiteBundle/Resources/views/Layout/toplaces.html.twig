@@ -1,5 +1,5 @@
 {#{% if item is defined and item.places.count > 0 %}#}
-    {#<div class="to-places ignore pull-right {% if item.places.count > 4 %}margin-top-bottom-10{% endif %}">#}
+    {#<div class="to-places ignore {% if item.places.count > 4 %}margin-top-bottom-10{% endif %}">#}
         {#<span class="glyphicon glyphicon-map-marker"></span>#}
         {#{% for place in item.places %}#}
             {#{% if get_node_translation_for(place) %}#}

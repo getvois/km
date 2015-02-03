@@ -13,6 +13,9 @@ h1, h2, h3, h4, h5  {
 .clear {
     clear:both;
 } 
+.clearright {
+    clear:right;
+} 
 .nopadding, .no-padding {
     padding: 0;
 }
@@ -98,6 +101,16 @@ h1, h2, h3, h4, h5  {
 .to-places a, .tags-block a, .link-pp a, .map-container a, .companies-block a { 
 	text-decoration:underline;
 }
+
+.news-panel .to-places { 
+	font-size: 15px; 
+	margin-bottom:10px;
+}
+
+.news-panel h3 a { 
+	font-size: 20px; 
+}
+
 .travelbase_items .my-popover { 
 	text-decoration:none;
 }
@@ -709,7 +722,7 @@ label.directFlight-label,  label.sameDay-label {
 .trip .company-fritidsresor  {
     background-position:0 -75px;
 }
-.trip .company-apollo  {
+.trip .company-apollo, .trip .company-apollomatkat  {
     background-position:0 -100px;
 }
 .trip .company-nazar  {
@@ -723,6 +736,15 @@ label.directFlight-label,  label.sameDay-label {
 }
 .trip .company-norwegian  {
     background-position:0 -200px;
+}
+.trip .company-startourdk, .trip .company-startour, .trip .company-startourno {
+    background-position:0 -225px;
+}
+.trip .company-spies, .trip .company-spiesdk {
+    background-position:0 -250px;
+}
+.trip .company-ving, .trip .company-vingse, .trip .company-vingno {
+    background-position:0 -275px;
 }
 .trip-path {
     /*margin-left: 32px;*/

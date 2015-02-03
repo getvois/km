@@ -1,5 +1,5 @@
-<div class="row content-panel">
-	<div class="newspage col-md-7">
+<div class="row content content-panel">
+	<div class="news-panel col-md-7">
         <!-- News pane -->
         {% if news is not null %}
             {% if news > 0 %}
@@ -11,14 +11,19 @@
                     {#{{ dump(item) }}#}
 
                     <article class="main-article main-article--summary">
+                        
                         <header>
-                            {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }} {% if item.priceFromLabel %}/ {{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
                             <time class="main-article__meta">
                                 {{ item.date | datelocale}}
-                            </time>
-                            <h4 class="main-article__title">
-                                <a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
-                            </h4>
+                        	</time>
+                        	
+                        	{% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
+                        	
+                        	<h3 class="main-article__title">
+                                {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span style="font-size:16px;">{{ item.priceFrom }} {% if item.priceFromLabel %}/ {{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
+                           		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
+                            </h3>
+                            
                         </header>
 
                         <div class="row">
@@ -29,13 +34,13 @@
                             {% endif %}
                             <div class="{% if item.image %}col-md-9{% else %}col-md-12{% endif %}">
                                 {{ item.summary }}
-                            </div>
-                            <div class="col-md-12 text-right">
-                                <p>
+                                 <div class="row">
+		                        	<div class="col-md-12">
                                     <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary main-article__readmore">
                                         {{ 'article.readmore' | trans }}
                                     </a>
-                                </p>
+                                </div>
+                       			</div> 
                             </div>
                         </div>
                     </article>
