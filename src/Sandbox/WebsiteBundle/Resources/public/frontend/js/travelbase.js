@@ -32,8 +32,7 @@ $(document).ready(function() {
     });
 
     $body.on('click', '.dp-close', function () {
-        var $dp = $('#ui-datepicker-div');
-        $dp.datepicker('hide');
+        $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker('hide');
     });
 
     function buttonPanel(){
