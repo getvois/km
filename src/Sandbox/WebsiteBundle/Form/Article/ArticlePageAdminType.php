@@ -28,7 +28,8 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         $builder
             //->add('author')
             ->add('fromPlaces', 'place')
-            ->add('places', 'place')->add('topImage')
+            ->add('places', 'place')
+            ->add('topImage')
         ->add('hosts', 'entity', ['empty_data'  => null, 'class' => 'Sandbox\WebsiteBundle\Entity\Host', 'required' => false, 'multiple' => true]);
 
         $builder->add('companies', 'entity', [
