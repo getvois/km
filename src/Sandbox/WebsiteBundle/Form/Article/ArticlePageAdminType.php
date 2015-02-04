@@ -24,7 +24,17 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
+        $builder->add(
+            'date',
+            'datetime',
+            array(
+                'required' => true,
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'date_format' => 'dd/MM/yyyy',
+                'label_attr' => ['style' => 'font-weight:bold;']
+            )
+        );
         $builder
             //->add('author')
             ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
