@@ -29,6 +29,10 @@ services:
         class: Sandbox\WebsiteBundle\Form\Type\PlaceType
         tags:
             - { name: form.type, alias: place }
+    sandboxwebsitebundle.form.type.company:
+        class: Sandbox\WebsiteBundle\Form\Type\CompanyType
+        tags:
+            - { name: form.type, alias: company }
 #Menu items
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor
