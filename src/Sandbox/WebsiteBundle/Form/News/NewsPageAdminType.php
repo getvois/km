@@ -28,7 +28,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
         ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
         //->add('translate') //slugpart error on translated language; no page parts copied
-        ->add('topImage', ['label_attr' => ['style' => 'font-weight:bold;']])
+        ->add('topImage', 'entity', ['label_attr' => ['style' => 'font-weight:bold;']])
         ->add('hosts', ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('dateUntil', 'date',
             array(
