@@ -25,7 +25,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         parent::buildForm($builder, $options);
 
         $builder//->add('author')
-        ->add('fromPlaces', 'place')
+        ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
         ->add('places', 'place')
         //->add('translate') //slugpart error on translated language; no page parts copied
         ->add('topImage')
