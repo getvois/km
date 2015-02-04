@@ -30,7 +30,8 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'required' => true,
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
-                'date_format' => 'dd/MM/yyyy'
+                'date_format' => 'dd/MM/yyyy',
+                'label_attr' => ['style' => 'font-weight:bold;']
             )
         );
         $builder//->add('author')
