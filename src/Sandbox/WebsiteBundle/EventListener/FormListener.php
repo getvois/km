@@ -6,6 +6,8 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Event\NodeEvent;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
+use Kunstmaan\TaggingBundle\Entity\Tagging;
+use Kunstmaan\TaggingBundle\Repository\TagRepository;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\ICompany;
 use Sandbox\WebsiteBundle\Entity\ICopyFields;
@@ -140,23 +142,18 @@ class FormListener {
 
         //copy tags to all translations
         if($page instanceof Taggable){
-            //todo kosmos needs something serious
-//            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
-//
-//            foreach ($translations as $translation) {
-//                if($originalLanguage == $translation->getLang()) continue;
-//                /** @var Taggable $pp */
-//                $pp = $translation->getRef($this->em);
-//
-//                foreach ($pp->getTags() as $tag) {
-//                    $pp->tag($tag);
-//                }
-//                foreach ($page->getCompanies() as $tag) {
-//                    $pp->addHost($tag);
-//                }
-//                $this->em->persist($pp);
-//            }
-//            $this->em->flush();
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            /** @var TagRepository $repo */
+            $repo = $this->em->getRepository('KunstmaanTaggingBundle:Tag');
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+                /** @var Taggable $pp */
+                $pp = $translation->getRef($this->em);
+
+                $repo->copyTags($page, $pp);
+            }
         }
 
         //copy common fields to all translations
