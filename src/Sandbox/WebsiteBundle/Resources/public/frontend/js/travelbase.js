@@ -25,28 +25,27 @@ $(document).ready(function() {
 
     var $body = $("body");
     $body.on('click', '.dp-interval', function () {
+        $target = $($(this).data('target'));
         $dpInterval = $(this).data('interval');
-        $datepickerFrom.datepicker('setDate', $datepickerFrom.datepicker('getDate'));
-        $datepickerTo.datepicker('setDate', $datepickerFrom.datepicker('getDate'));
-        $datepickerFrom.datepicker('hide');
-        $datepickerTo.datepicker('hide');
-        $datepickerFrom.datepicker('show');
+        $target.datepicker('setDate', $target.datepicker('getDate'));
+        $target.datepicker('hide');
+        $target.datepicker('show');
     });
 
     $body.on('click', '.dp-close', function () {
-        $datepickerFrom.datepicker('hide');
-        $datepickerTo.datepicker('hide');
+        $target = $($(this).data('target'));
+        $target.datepicker('hide');
     });
 
-    function buttonPanel(){
-        return "<button class='btn btn-default dp-close' >close</button>" +
-        "<button class='btn btn-default dp-interval" + ($dpInterval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
-        "<button class='btn btn-default dp-interval " + ($dpInterval==30?" active ":"") + " ' data-interval='30'>month</button>";
+    function buttonPanel($id){
+        return "<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
+        "<button data-target='" + $id + "' class='btn btn-default dp-interval" + ($dpInterval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
+        "<button data-target='" + $id + "' class='btn btn-default dp-interval " + ($dpInterval==30?" active ":"") + " ' data-interval='30'>month</button>";
     }
 
 
     function datepickerEvent(e){
-        console.log(e);
+        var $id = "#" + $(e).attr('id');
         setTimeout(function() {
 
             var $calendar = $("table.ui-datepicker-calendar");
@@ -80,7 +79,7 @@ $(document).ready(function() {
 
             $(".ui-datepicker-buttonpane")
                 .html('')
-                .append(buttonPanel());
+                .append(buttonPanel($id));
         }, 1);
     }
 
