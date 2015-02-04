@@ -57,14 +57,16 @@ $(document).ready(function() {
                     }
                 });
                 $calendar.eq(1).find("td > a").each(function () {
-                    console.log($current + ":" + $currentMonth);
-                    if($(this).parent().data('month') == $currentMonth){
-                        if(parseInt($(this).text()) >= $current){
-                            $(this).addClass('ui-state-highlight');
-                        }
-                    }else{
-                        if(parseInt($(this).text()) <= $current){
-                            $(this).addClass('ui-state-highlight');
+                    //console.log($current + ":" + $currentMonth);
+                    if($currentMonth != undefined) {
+                        if ($(this).parent().data('month') == $currentMonth) {
+                            if (parseInt($(this).text()) >= $current) {
+                                $(this).addClass('ui-state-highlight');
+                            }
+                        } else {
+                            if (parseInt($(this).text()) <= $current) {
+                                $(this).addClass('ui-state-highlight');
+                            }
                         }
                     }
                 });
