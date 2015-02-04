@@ -26,26 +26,26 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
 
         $builder//->add('author')
         ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
-        ->add('places', 'place')
+        ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
         //->add('translate') //slugpart error on translated language; no page parts copied
-        ->add('topImage')
-        ->add('hosts');
-        $builder->add(
-            'dateUntil',
-            'date',
+        ->add('topImage', ['label_attr' => ['style' => 'font-weight:bold;']])
+        ->add('hosts', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('dateUntil', 'date',
             array(
                 'required' => false,
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy'
+                'format' => 'dd/MM/yyyy',
+                'label_attr' => ['style' => 'font-weight:bold;']
             )
         );
         $builder->add('link');
-        $builder->add('companies', 'company');
+        $builder->add('companies', 'company', ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('image', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
             'mediatype' => 'image',
             'required' => false,
+            'label_attr' => ['style' => 'font-weight:bold;']
           ));
 //        $builder->add('imgSize', 'choice', [
 //            'choices' => [
@@ -54,10 +54,14 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
 //              '300r' => '300x right',
 //            ]]
 //        );
-        $builder->add('imgSize', 'checkbox', ['label' => "Large img", 'required' => false]);
+        $builder->add('imgSize', 'checkbox', [
+            'label' => "Large img",
+            'required' => false,
+            'label_attr' => ['style' => 'font-weight:bold;']
+        ]);
 
         $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'priceFromLabel');
+        $builder->add('priceFromLabel', 'priceFromLabel', ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
