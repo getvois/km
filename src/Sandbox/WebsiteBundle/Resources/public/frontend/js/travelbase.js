@@ -26,9 +26,10 @@ $(document).ready(function() {
     var $body = $("body");
     $body.on('click', '.dp-interval', function () {
         $dpInterval = $(this).data('interval');
-        var $dp = $('#ui-datepicker-div');
         $datepickerFrom.datepicker('setDate', $datepickerFrom.datepicker('getDate'));
+        $datepickerTo.datepicker('setDate', $datepickerFrom.datepicker('getDate'));
         $datepickerFrom.datepicker('hide');
+        $datepickerTo.datepicker('hide');
         $datepickerFrom.datepicker('show');
     });
 
@@ -44,7 +45,8 @@ $(document).ready(function() {
     }
 
 
-    function datepickerEvent(){
+    function datepickerEvent(e){
+        console.log(e);
         setTimeout(function() {
 
             var $calendar = $("table.ui-datepicker-calendar");
