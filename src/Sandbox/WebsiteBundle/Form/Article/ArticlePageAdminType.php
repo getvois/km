@@ -25,6 +25,10 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
         $builder->add('pageTitle', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+
+        $builder->add('priceFrom', null, ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFromLabel', 'priceFromLabel');
+
         $builder->add(
             'date',
             'datetime',
@@ -67,8 +71,6 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
 
         $builder->add('imageOnlyOnPreview');
 
-        $builder->add('priceFrom', null, ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
-        $builder->add('priceFromLabel', 'priceFromLabel');
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 
