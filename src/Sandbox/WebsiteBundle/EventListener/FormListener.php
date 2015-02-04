@@ -5,7 +5,9 @@ use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Event\NodeEvent;
+use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\ICompany;
+use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -92,6 +94,7 @@ class FormListener {
 
         }
 
+        //copy companies to all translations
         if($page instanceof ICompany){
             $translations = $nodeEvent->getNode()->getNodeTranslations(true);
 
@@ -104,18 +107,55 @@ class FormListener {
                 foreach ($pp->getCompanies() as $company) {
                     $pp->removeCompany($company);
                 }
-
                 foreach ($page->getCompanies() as $company) {
                     $pp->addCompany($company);
                 }
-
                 $this->em->persist($pp);
-
             }
-
             $this->em->flush();
         }
 
+        //copy hosts to all translations
+        if($page instanceof IHostable){
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var IHostable $pp */
+                $pp = $translation->getRef($this->em);
+
+                foreach ($pp->getHosts() as $host) {
+                    $pp->removeHost($host);
+                }
+                foreach ($page->getCompanies() as $host) {
+                    $pp->addHost($host);
+                }
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
+        //copy tags to all translations
+        if($page instanceof Taggable){
+            //todo kosmos needs something serious
+//            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+//
+//            foreach ($translations as $translation) {
+//                if($originalLanguage == $translation->getLang()) continue;
+//                /** @var Taggable $pp */
+//                $pp = $translation->getRef($this->em);
+//
+//                foreach ($pp->getTags() as $tag) {
+//                    $pp->tag($tag);
+//                }
+//                foreach ($page->getCompanies() as $tag) {
+//                    $pp->addHost($tag);
+//                }
+//                $this->em->persist($pp);
+//            }
+//            $this->em->flush();
+        }
     }
 
     private function copyHostsToChildren(PlaceOverviewPage $page, Node $node)

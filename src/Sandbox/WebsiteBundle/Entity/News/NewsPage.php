@@ -5,17 +5,16 @@ namespace Sandbox\WebsiteBundle\Entity\News;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use DoctrineExtensions\Taggable\Doctrine;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\ICompany;
+use Sandbox\WebsiteBundle\Entity\ICopyFields;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
-use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Entity\TPriceFrom;
 use Sandbox\WebsiteBundle\Form\News\NewsPageAdminType;
@@ -27,7 +26,7 @@ use Symfony\Component\Form\AbstractType;
  * @ORM\Table(name="sb_news_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany
+class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany, ICopyFields
 {
     use TPriceFrom;
 
