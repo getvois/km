@@ -27,17 +27,26 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
 
         $builder
             //->add('author')
-            ->add('fromPlaces', 'place')
-            ->add('places', 'place')
-            ->add('topImage')
-        ->add('hosts', 'entity', ['empty_data'  => null, 'class' => 'Sandbox\WebsiteBundle\Entity\Host', 'required' => false, 'multiple' => true]);
+            ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
+            ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
+            ->add('topImage', 'entity', [
+                'class' => 'Sandbox\WebsiteBundle\Entity\TopImage',
+                'label_attr' => ['style' => 'font-weight:bold;'
+                ]])
+        ->add('hosts', 'entity', [
+            'empty_data'  => null,
+            'class' => 'Sandbox\WebsiteBundle\Entity\Host',
+            'required' => false, 'multiple' => true,
+            'label_attr' => ['style' => 'font-weight:bold;']
+        ]);
 
-        $builder->add('companies', 'company');
+        $builder->add('companies', 'company', ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('image', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
             'mediatype' => 'image',
             'required' => false,
+            'label_attr' => ['style' => 'font-weight:bold;']
           ));
 
         $builder->add('imgSize', 'choice', [
@@ -45,8 +54,9 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 '1000' => '1000x',
                 '300l' => '300x left',
                 '300r' => '300x right',
-            ]]
-        );
+            ],
+            'label_attr' => ['style' => 'font-weight:bold;']
+        ]);
 
         $builder->add('imageOnlyOnPreview');
 
