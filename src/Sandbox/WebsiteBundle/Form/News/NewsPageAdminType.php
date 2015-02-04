@@ -37,6 +37,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
         //->add('translate') //slugpart error on translated language; no page parts copied
         ->add('topImage', 'entity', [
+            'required' => false,
             'class' => 'Sandbox\WebsiteBundle\Entity\TopImage',
             'label_attr' => ['style' => 'font-weight:bold;'
             ]])
@@ -75,7 +76,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         ]);
 
         $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'priceFromLabel', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFromLabel', 'priceFromLabel', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('tags', 'kunstmaan_taggingbundle_tags', ['label_attr' => ['style' => 'font-weight:bold;']]);
     }

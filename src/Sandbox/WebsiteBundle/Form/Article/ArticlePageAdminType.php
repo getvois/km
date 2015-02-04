@@ -37,6 +37,7 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
             ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
             ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
             ->add('topImage', 'entity', [
+                'required' => false,
                 'class' => 'Sandbox\WebsiteBundle\Entity\TopImage',
                 'label_attr' => ['style' => 'font-weight:bold;'
                 ]])
@@ -68,7 +69,7 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         $builder->add('imageOnlyOnPreview', 'checkbox', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'priceFromLabel', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFromLabel', 'priceFromLabel', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('tags', 'kunstmaan_taggingbundle_tags', ['label_attr' => ['style' => 'font-weight:bold;']]);
     }
 
