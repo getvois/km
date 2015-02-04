@@ -18,7 +18,9 @@ class PriceFromLabel extends AbstractType {
             'one way' => 'one way',
             'return' => 'return',
             'off' => 'off',
-        ]]);
+        ],
+            'required' => false,
+        ]);
     }
 
     public function getParent()
