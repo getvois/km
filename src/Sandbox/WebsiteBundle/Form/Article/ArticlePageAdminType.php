@@ -20,7 +20,11 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        //parent::buildForm($builder, $options);
+        $builder->add('id', 'hidden');
+        $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
+        $builder->add('pageTitle', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add(
             'date',
             'datetime',
@@ -29,32 +33,28 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
                 'date_format' => 'dd/MM/yyyy',
-                'label_attr' => ['style' => 'font-weight:bold;']
             )
         );
         $builder
             //->add('author')
-            ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
-            ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
+            ->add('fromPlaces', 'place')
+            ->add('places', 'place')
             ->add('topImage', 'entity', [
                 'required' => false,
                 'class' => 'Sandbox\WebsiteBundle\Entity\TopImage',
-                'label_attr' => ['style' => 'font-weight:bold;'
-                ]])
+                ])
         ->add('hosts', 'entity', [
             'empty_data'  => null,
             'class' => 'Sandbox\WebsiteBundle\Entity\Host',
             'required' => false, 'multiple' => true,
-            'label_attr' => ['style' => 'font-weight:bold;']
         ]);
 
-        $builder->add('companies', 'company', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('companies', 'company');
 
         $builder->add('image', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
             'mediatype' => 'image',
             'required' => false,
-            'label_attr' => ['style' => 'font-weight:bold;']
           ));
 
         $builder->add('imgSize', 'choice', [
@@ -63,14 +63,13 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 '300l' => '300x left',
                 '300r' => '300x right',
             ],
-            'label_attr' => ['style' => 'font-weight:bold;']
         ]);
 
-        $builder->add('imageOnlyOnPreview', 'checkbox', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('imageOnlyOnPreview');
 
-        $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'priceFromLabel', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
-        $builder->add('tags', 'kunstmaan_taggingbundle_tags', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFrom', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFromLabel', 'priceFromLabel');
+        $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 
     /**
