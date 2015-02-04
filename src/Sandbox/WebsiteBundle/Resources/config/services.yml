@@ -25,6 +25,10 @@ services:
         tags:
             - { name: form.type, alias: image_size }
 
+    sandboxwebsitebundle.form.type.place:
+        class: Sandbox\WebsiteBundle\Form\Type\PlaceType
+        tags:
+            - { name: form.type, alias: place }
 #Menu items
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor
