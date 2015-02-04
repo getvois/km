@@ -44,13 +44,8 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         ->add('fromPlaces', 'place')
         ->add('places', 'place')
         //->add('translate') //slugpart error on translated language; no page parts copied
-        ->add('topImage', 'entity', [
-            'required' => false,
-            'class' => 'Sandbox\WebsiteBundle\Entity\TopImage',
-            ])
-        ->add('hosts', 'entity', [
-            'class' => 'Sandbox\WebsiteBundle\Entity\Host',
-            ]);
+        ->add('topImage')
+        ->add('hosts');
         $builder->add('dateUntil', 'date',
             array(
                 'required' => false,
