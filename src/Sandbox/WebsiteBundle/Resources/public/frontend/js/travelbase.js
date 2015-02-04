@@ -10,6 +10,7 @@ $(document).ready(function() {
 
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
+    var $datepickerTo = $("#edit-date-end-datepicker-popup-0");
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate",  new Date() );
 
     $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker('option', {
@@ -32,7 +33,8 @@ $(document).ready(function() {
     });
 
     $body.on('click', '.dp-close', function () {
-        $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker('hide');
+        $datepickerFrom.datepicker('hide');
+        $datepickerTo.datepicker('hide');
     });
 
     function buttonPanel(){
@@ -98,7 +100,7 @@ $(document).ready(function() {
 
         //formChange();
     } );
-    $("#edit-date-end-datepicker-popup-0").datepicker( "option", "onSelect", function (date) {
+    $datepickerTo.datepicker( "option", "onSelect", function (date) {
         $("#flyOneWay").attr('checked', false);
         $("#date-end-datepicker-holder").val(date);
         //formChange();
