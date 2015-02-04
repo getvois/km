@@ -69,7 +69,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         $builder->add('priceFrom');
         $builder->add('priceFromLabel', 'priceFromLabel', ['label_attr' => ['style' => 'font-weight:bold;']]);
 
-        $builder->add('tags', 'kunstmaan_taggingbundle_tags');
+        $builder->add('tags', 'kunstmaan_taggingbundle_tags', ['label_attr' => ['style' => 'font-weight:bold;']]);
     }
 
     /**
