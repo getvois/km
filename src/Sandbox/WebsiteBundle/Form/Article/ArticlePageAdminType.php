@@ -68,10 +68,10 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
             'label_attr' => ['style' => 'font-weight:bold;']
         ]);
 
-        $builder->add('imageOnlyOnPreview');
+        $builder->add('imageOnlyOnPreview', 'checkbox', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'priceFromLabel');
+        $builder->add('priceFromLabel', 'priceFromLabel', ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('tags', 'kunstmaan_taggingbundle_tags', ['label_attr' => ['style' => 'font-weight:bold;']]);
     }
 
