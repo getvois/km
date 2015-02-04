@@ -20,7 +20,11 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        //parent::buildForm($builder, $options);
+        $builder->add('id', 'hidden');
+        $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
+        $builder->add('pageTitle', null ,['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add(
             'date',
             'datetime',
@@ -29,38 +33,33 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
                 'date_format' => 'dd/MM/yyyy',
-                'label_attr' => ['style' => 'font-weight:bold;']
             )
         );
         $builder//->add('author')
-        ->add('fromPlaces', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
-        ->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']])
+        ->add('fromPlaces', 'place')
+        ->add('places', 'place')
         //->add('translate') //slugpart error on translated language; no page parts copied
         ->add('topImage', 'entity', [
             'required' => false,
             'class' => 'Sandbox\WebsiteBundle\Entity\TopImage',
-            'label_attr' => ['style' => 'font-weight:bold;'
-            ]])
+            ])
         ->add('hosts', 'entity', [
             'class' => 'Sandbox\WebsiteBundle\Entity\Host',
-            'label_attr' => ['style' => 'font-weight:bold;'
-            ]]);
+            ]);
         $builder->add('dateUntil', 'date',
             array(
                 'required' => false,
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'label_attr' => ['style' => 'font-weight:bold;']
             )
         );
-        $builder->add('link');
-        $builder->add('companies', 'company', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('link', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('companies', 'company');
 
         $builder->add('image', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
             'mediatype' => 'image',
             'required' => false,
-            'label_attr' => ['style' => 'font-weight:bold;']
           ));
 //        $builder->add('imgSize', 'choice', [
 //            'choices' => [
@@ -72,13 +71,12 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         $builder->add('imgSize', 'checkbox', [
             'label' => "Large img",
             'required' => false,
-            'label_attr' => ['style' => 'font-weight:bold;']
         ]);
 
-        $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'priceFromLabel', ['required' => false, 'label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFrom', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFromLabel', 'priceFromLabel');
 
-        $builder->add('tags', 'kunstmaan_taggingbundle_tags', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
 
     /**
