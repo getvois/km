@@ -40,10 +40,6 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'date_format' => 'dd/MM/yyyy',
             )
         );
-        $builder->add('fromPlaces', 'place');
-        $builder->add('places', 'place');
-        $builder->add('topImage');
-        $builder->add('hosts');
         $builder->add('dateUntil', 'date',
             array(
                 'required' => false,
@@ -51,7 +47,14 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'format' => 'dd/MM/yyyy',
             )
         );
+        $builder->add('fromPlaces', 'place');
+        $builder->add('places', 'place');
         $builder->add('companies', 'company');
+        $builder->add('tags', 'kunstmaan_taggingbundle_tags');
+
+        $builder->add('topImage');
+
+
 
         $builder->add('image', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
@@ -70,7 +73,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             'required' => false,
         ]);
 
-        $builder->add('tags', 'kunstmaan_taggingbundle_tags');
+        $builder->add('hosts');
     }
 
     /**
