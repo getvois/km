@@ -305,7 +305,7 @@ class DefaultController extends Controller
                     $row .= '<span> ' . $aDate . '</span>
                     <strong>'. $item->destination->cityNameFi . "&nbsp;
                         <span class='text-muted'> " . $rdate . "</span>
-                    </strong>";
+                    </strong><span class='text-muted'> " . $item->rdTime . "</span>";
 
                 }else{
                     $row .= '<strong>'. $item->destination->cityNameFi . "&nbsp; <span class='text-muted'> " . $aDate . "</span></strong>";
