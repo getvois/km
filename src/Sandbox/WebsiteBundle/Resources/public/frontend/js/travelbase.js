@@ -1,5 +1,6 @@
 var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
 var $dpInterval = 30;
+var $dpReturnInterval = 30;
 $(document).ready(function() {
     //setField(); //pre fill destination field
     var $form = $("#travelbase-form");
@@ -26,7 +27,13 @@ $(document).ready(function() {
     var $body = $("body");
     $body.on('click', '.dp-interval', function () {
         $target = $($(this).data('target'));
-        $dpInterval = $(this).data('interval');
+
+        if($(this).data('target') == '#edit-date-start-datepicker-popup-0'){
+            $dpInterval = $(this).data('interval');
+        }else{
+            $dpReturnInterval = $(this).data('interval');
+        }
+
         $target.datepicker('setDate', $target.datepicker('getDate'));
         $target.datepicker('hide');
         $target.datepicker('show');
@@ -38,14 +45,29 @@ $(document).ready(function() {
     });
 
     function buttonPanel($id){
+        var interval = 0;
+        if($id == '#edit-date-start-datepicker-popup-0'){
+            interval = $dpInterval;
+        }else{
+            interval = $dpReturnInterval;
+        }
+
         return "<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
-        "<button data-target='" + $id + "' class='btn btn-default dp-interval" + ($dpInterval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
-        "<button data-target='" + $id + "' class='btn btn-default dp-interval " + ($dpInterval==30?" active ":"") + " ' data-interval='30'>month</button>";
+        "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
+        "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval==30?" active ":"") + " ' data-interval='30'>month</button>";
     }
 
 
     function datepickerEvent(e){
         var $id = "#" + $(e).attr('id');
+
+        var interval = 0;
+        if($id == '#edit-date-start-datepicker-popup-0'){
+            interval = $dpInterval;
+        }else{
+            interval = $dpReturnInterval;
+        }
+
         setTimeout(function() {
 
             var $calendar = $("table.ui-datepicker-calendar");
@@ -54,7 +76,7 @@ $(document).ready(function() {
             $current = parseInt($calendar.find("td > a.ui-state-active").eq(0).text());
             $currentMonth = $calendar.find("td > a.ui-state-active").parent().data('month');
 
-            if($dpInterval == 30){
+            if(interval == 30){
                 $calendar.eq(0).find("td > a").each(function () {
                     if(parseInt($(this).text()) >= $current && $(this).parent().data('month') >= $currentMonth){
                         $(this).addClass('ui-state-highlight');
