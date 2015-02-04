@@ -6,7 +6,9 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Kunstmaan\NodeBundle\Event\NodeEvent;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\ICompany;
+use Sandbox\WebsiteBundle\Entity\ICopyFields;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
@@ -155,6 +157,63 @@ class FormListener {
 //                $this->em->persist($pp);
 //            }
 //            $this->em->flush();
+        }
+
+        //copy common fields to all translations
+        if($page instanceof ICopyFields){
+            /** @var $page ICopyFields */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var ICopyFields $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setDate($page->getDate());
+                $pp->setImage($page->getImage());
+                $pp->setTopImage($page->getTopImage());
+                $pp->setPriceFromLabel($page->getPriceFromLabel());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
+        if($page instanceof ArticlePage){
+            /** @var $page ArticlePage */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var ArticlePage $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setImgSize($page->getImgSize());
+                $pp->setImageOnlyOnPreview($page->isImageOnlyOnPreview());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
+        if($page instanceof NewsPage){
+            /** @var $page NewsPage */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var NewsPage $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setDateUntil($page->getDateUntil());
+                $pp->setImgSize($page->getImgSize());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
         }
     }
 
