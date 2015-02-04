@@ -25,13 +25,15 @@ $(document).ready(function() {
     var $body = $("body");
     $body.on('click', '.dp-interval', function () {
         $dpInterval = $(this).data('interval');
+        var $dp = $('#ui-datepicker-div');
         $datepickerFrom.datepicker('setDate', $datepickerFrom.datepicker('getDate'));
         $datepickerFrom.datepicker('hide');
         $datepickerFrom.datepicker('show');
     });
 
     $body.on('click', '.dp-close', function () {
-        $datepickerFrom.datepicker('hide');
+        var $dp = $('#ui-datepicker-div');
+        $dp.datepicker('hide');
     });
 
     function buttonPanel(){
