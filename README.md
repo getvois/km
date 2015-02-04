@@ -81,67 +81,6 @@ Changes to kunstmaan bundles.
     
             .....
         }
-        
-        
-        
-### Admin places multi select in news and articles as Jquery [select2](http://ivaynberg.github.io/select2/)
-
-###### File: /../vendor/kunstmaan/bundles-cms/src/Kunstmaan/AdminBundle/Resources/views/Default/layout.html.twig
-
-    <!--=========== CSS ===========-->
-    
-    //ADD THIS LINE
-    
-    <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/frontend/js/select2/select2.css") }}"/>
-    <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/css/style.css") }}"/>
-    
-    //END
-    
-    <!--Combine-->
-    {% stylesheets
-        "@KunstmaanAdminBundle/Resources/public/scss/style.scss"
-        "@KunstmaanAdminBundle/Resources/public/js/chosen/chosen.css"
-        filter="scss"
-    %}
-
-
-    .................
-    .........
-
-    <!--Extra-->
-    {% block extrajavascript %}{% endblock %}
-
-    //ADD THIS LINE.
-
-    <script src="{{ asset("bundles/sandboxwebsite/frontend/js/select2/select2.min.js") }}"></script>
-
-    //END
-
-    <!--CKEDITOR-->
-    <script>
-    {% include "KunstmaanAdminBundle:Default:ckeditor.js.twig" %}
-        jQuery(document).ready(function(){
-            jQuery('textarea.rich_editor').each(function(item){
-               ......
-            });
-
-
-            //ADD THIS LINES
-
-            jQuery("#form_main_fromPlaces").select2();
-            jQuery("#form_main_places").select2();
-            jQuery("#form_main_place").select2();
-            jQuery("#form_main_companies").select2();
-            
-            //END
-            
-        });
-
-        {% include "KunstmaanAdminBundle:Default:_js_footer.html.twig" %}
-
-
-     </script>
-     
 
 ### Option resolver bug fix
 
