@@ -3,8 +3,6 @@
 namespace Sandbox\WebsiteBundle\Form\News;
 
 use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
-use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
-use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
