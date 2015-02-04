@@ -39,12 +39,10 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
                 'date_format' => 'dd/MM/yyyy',
             )
         );
-        $builder
-            //->add('author')
-            ->add('fromPlaces', 'place')
-            ->add('places', 'place')
-            ->add('topImage')
-        ->add('hosts');
+        $builder->add('fromPlaces', 'place');
+        $builder->add('places', 'place');
+        $builder->add('topImage');
+        $builder->add('hosts');
 
         $builder->add('companies', 'company');
 
