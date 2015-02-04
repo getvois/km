@@ -3,10 +3,7 @@
 namespace Sandbox\WebsiteBundle\Form\Article;
 
 use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
-use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
-use Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
