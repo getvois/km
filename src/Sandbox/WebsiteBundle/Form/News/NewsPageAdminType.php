@@ -25,6 +25,11 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
         $builder->add('pageTitle', null ,['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+
+        $builder->add('link', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFrom', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFromLabel', 'priceFromLabel');
+
         $builder->add(
             'date',
             'datetime',
@@ -53,7 +58,6 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
                 'format' => 'dd/MM/yyyy',
             )
         );
-        $builder->add('link', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('companies', 'company');
 
         $builder->add('image', 'media', array(
@@ -72,9 +76,6 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
             'label' => "Large img",
             'required' => false,
         ]);
-
-        $builder->add('priceFrom', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
-        $builder->add('priceFromLabel', 'priceFromLabel');
 
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }
