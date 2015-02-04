@@ -57,16 +57,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         $builder->add('imgSize', 'checkbox', ['label' => "Large img", 'required' => false]);
 
         $builder->add('priceFrom');
-        $builder->add('priceFromLabel', 'choice', ['choices' => [
-            '' => '',
-            'day' => 'day',
-            'trip' => 'trip',
-            'stay' => 'stay',
-            'room' => 'room',
-            'one way' => 'one way',
-            'return' => 'return',
-            'off' => 'off', 
-        ]]);
+        $builder->add('priceFromLabel', 'priceFromLabel');
 
         $builder->add('tags', 'kunstmaan_taggingbundle_tags');
     }

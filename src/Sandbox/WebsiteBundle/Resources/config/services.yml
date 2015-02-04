@@ -33,6 +33,10 @@ services:
         class: Sandbox\WebsiteBundle\Form\Type\CompanyType
         tags:
             - { name: form.type, alias: company }
+    sandboxwebsitebundle.form.type.pricefromlabel:
+        class: Sandbox\WebsiteBundle\Form\Type\PriceFromLabel
+        tags:
+            - { name: form.type, alias: priceFromLabel }
 #Menu items
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor
