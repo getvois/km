@@ -27,8 +27,8 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('link', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
-        $builder->add('priceFrom', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
-        $builder->add('priceFromLabel', 'priceFromLabel');
+        $builder->add('priceFromLabel', 'priceFromLabel', ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('priceFrom');
 
         $builder->add(
             'date',
