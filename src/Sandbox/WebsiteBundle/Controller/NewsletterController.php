@@ -35,6 +35,7 @@ class NewsletterController extends Controller
                 $output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
             } else {
                 //
+                $output .= imap_qprint("Body: ".imap_body($inbox, $mail, FT_PEEK));
             }
             echo $output;
             $output = '';
