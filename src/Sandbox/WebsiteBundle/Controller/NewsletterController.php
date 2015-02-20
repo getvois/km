@@ -15,7 +15,7 @@ class NewsletterController extends Controller
     {
         $user = 'mika.mendesee@gmail.com';
         $password = 'qwerty121284';
-        $mailbox = "{imap.gmail.com:993/imap/ssl}";
+        $mailbox = "{imap.gmail.com:993/imap/ssl/novalidate-cert}";
         $mbx = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
         $ck = imap_check($mbx);
         $mails = imap_fetch_overview($mbx,"1:5");
