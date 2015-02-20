@@ -31,13 +31,16 @@ class NewsletterController extends Controller
             $output .= "From: ".$headerInfo->fromaddress.'<br/>';
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
-            var_dump($emailStructure);
-            if(!isset($emailStructure->parts)) {
-                $output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
-            } else {
-                //
-                $output .= imap_qprint("Body: ".imap_body($inbox, $mail, FT_PEEK));
+
+            if($emailStructure->type === 1){//multipart
+                $output .= imap_fetchbody($inbox, $mail, '2', FT_PEEK);
             }
+            //var_dump($emailStructure);
+//            if(!isset($emailStructure->parts)) {
+//                $output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
+//            } else {
+//                $output .= imap_qprint("Body: ".imap_body($inbox, $mail, FT_PEEK));
+//            }
             echo $output;
             $output = '';
 
