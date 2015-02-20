@@ -19,6 +19,9 @@ class NewsletterController extends Controller
         $mbx = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
         $ck = imap_check($mbx);
         $mails = imap_fetch_overview($mbx,"1:5");
+
+        var_dump($ck);
+        var_dump($mails);
         return $this->render('');
     }
 }
