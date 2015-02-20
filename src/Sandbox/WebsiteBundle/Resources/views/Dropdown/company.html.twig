@@ -37,7 +37,7 @@
                         {#<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">#}
                         {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
                         {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                        <a class="company-list-title" href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
+                        <a class="company-list-title" href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }} {{ node.id }}</a>
 
                         {% if node.children.count > 0 %}
 
