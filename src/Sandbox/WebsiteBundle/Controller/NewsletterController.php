@@ -23,6 +23,7 @@ class NewsletterController extends Controller
 
         $output = '';
 
+        $i = 0;
         foreach($emails as $mail) {
             $headerInfo = imap_headerinfo($inbox,$mail);
             $output .= "Subject: ".$headerInfo->subject.'<br/>';
@@ -49,7 +50,11 @@ class NewsletterController extends Controller
             echo $output;
             $output = '';
 
-            break;
+            if($i >= 2) {
+                break;
+            }
+
+            $i++;
         }
 
         // colse the connection
