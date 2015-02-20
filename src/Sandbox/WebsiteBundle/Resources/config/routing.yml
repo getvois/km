@@ -1,3 +1,7 @@
+sandboxwebsitebundle_newsletter:
+    resource: "@SandboxWebsiteBundle/Controller/NewsletterController.php"
+    type:     annotation
+
 sandboxwebsitebundle_default:
     resource: "@SandboxWebsiteBundle/Controller/DefaultController.php"
     type:     annotation
