@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
+use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
@@ -22,6 +23,39 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ContentPage extends AbstractPage  implements HasPageTemplateInterface
 {
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
+     * })
+     */
+    private $picture;
+
+    /**
+     * Set picture
+     *
+     * @param Media $picture
+     * @return ContentPage
+     */
+    public function setPicture(Media $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return Media
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
 
     /**
      * Returns the default backend form type for this page

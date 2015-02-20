@@ -99,7 +99,7 @@ class DropdownController extends Controller
 //        findBy([
 //                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
 //                'deleted' => 0]);
-
+        /** @var Node[] $companies */
         $companies = [];
 
 //        foreach ($nodes as $node) {
