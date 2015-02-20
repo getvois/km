@@ -38,9 +38,9 @@
                         {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
                         {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
                         {% if node.nodeTranslation(lang).ref(em) and node.nodeTranslation(lang).ref(em).picture %}
-                            <img src="{{ asset(node.nodeTranslation(lang).ref(em).picture.url) }}" alt=""/>
+                            <div><img src="{{ asset(node.nodeTranslation(lang).ref(em).picture.url) }}" alt="" class="img-responsive"/></div>
                         {% endif %}
-                        <a class="company-list-title" href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }} {{ node.id }}</a>
+                        <a class="company-list-title" href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
 
                         {% if node.children.count > 0 %}
 
