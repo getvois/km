@@ -30,15 +30,17 @@ class NewsletterController extends Controller
             $output .= "Date: ".$headerInfo->date.'<br/>';
             $output .= "From: ".$headerInfo->fromaddress.'<br/>';
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
-            $emailStructure = imap_fetchstructure($inbox,$mail);
-            if(!isset($emailStructure->parts)) {
-                $output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
-            } else {
+            //$emailStructure = imap_fetchstructure($inbox,$mail);
+            //if(!isset($emailStructure->parts)) {
+                //$output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
+            //} else {
                 //
                 $output .= imap_qprint("Body: ".imap_body($inbox, $mail, FT_PEEK));
-            }
+            //}
             echo $output;
             $output = '';
+
+            break;
         }
 
         // colse the connection
