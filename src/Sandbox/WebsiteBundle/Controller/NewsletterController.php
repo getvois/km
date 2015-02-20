@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class NewsletterController extends Controller
 {
@@ -16,12 +17,33 @@ class NewsletterController extends Controller
         $user = 'mika.mendesee@gmail.com';
         $password = 'qwerty121284';
         $mailbox = "{imap.gmail.com:993/imap/ssl}INBOX";
-        $mbx = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
-        $ck = imap_check($mbx);
-        $mails = imap_fetch_overview($mbx,"1:5");
+        $inbox = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
 
-        var_dump($ck);
-        var_dump($mails);
-        return $this->render('');
+        $emails = imap_search($inbox,'UNSEEN');
+
+        $output = '';
+
+        foreach($emails as $mail) {
+            $headerInfo = imap_headerinfo($inbox,$mail);
+            $output .= $headerInfo->subject.'<br/>';
+            $output .= $headerInfo->toaddress.'<br/>';
+            $output .= $headerInfo->date.'<br/>';
+            $output .= $headerInfo->fromaddress.'<br/>';
+            $output .= $headerInfo->reply_toaddress.'<br/>';
+            $emailStructure = imap_fetchstructure($inbox,$mail);
+            if(!isset($emailStructure->parts)) {
+                $output .= imap_body($inbox, $mail, FT_PEEK);
+            } else {
+                //
+            }
+            echo $output;
+            $output = '';
+        }
+
+        // colse the connection
+        imap_expunge($inbox);
+        imap_close($inbox);
+
+        return new Response("");
     }
 }
