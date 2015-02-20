@@ -33,7 +33,12 @@ class NewsletterController extends Controller
             $emailStructure = imap_fetchstructure($inbox,$mail);
 
             if($emailStructure->type === 1){//multipart
-                $output .= imap_qprint(imap_fetchbody($inbox, $mail, '2', FT_PEEK));
+                foreach ($emailStructure->parts as $key => $part) {
+                    if($part->subtype == 'HTML'){
+                        $output .= imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
+                        break;
+                    }
+                }
             }
             //var_dump($emailStructure);
 //            if(!isset($emailStructure->parts)) {
