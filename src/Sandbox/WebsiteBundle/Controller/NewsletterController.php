@@ -25,14 +25,14 @@ class NewsletterController extends Controller
 
         foreach($emails as $mail) {
             $headerInfo = imap_headerinfo($inbox,$mail);
-            $output .= $headerInfo->subject.'<br/>';
-            $output .= $headerInfo->toaddress.'<br/>';
-            $output .= $headerInfo->date.'<br/>';
-            $output .= $headerInfo->fromaddress.'<br/>';
-            $output .= $headerInfo->reply_toaddress.'<br/>';
+            $output .= "Subject: ".$headerInfo->subject.'<br/>';
+            $output .= "To: ".$headerInfo->toaddress.'<br/>';
+            $output .= "Date: ".$headerInfo->date.'<br/>';
+            $output .= "From: ".$headerInfo->fromaddress.'<br/>';
+            $output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
             if(!isset($emailStructure->parts)) {
-                $output .= imap_body($inbox, $mail, FT_PEEK);
+                $output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
             } else {
                 //
             }
