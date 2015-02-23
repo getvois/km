@@ -68,8 +68,8 @@ class NewsletterController extends Controller
                         foreach ($patterns as $pattern) {
                             for($j = 0; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
-                                && $paragraphs->eq($j)->children()->count() < 2
                                 ){
+                                    var_dump($paragraphs->eq($j)->children()->count());
                                     $delete = $paragraphs->eq($j)->html();
                                     $body = str_replace($delete, '', $body);
                                 }
