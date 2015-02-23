@@ -70,6 +70,7 @@ class NewsletterController extends Controller
                             '/uudiskirjast loobuda/',
                             '/ei näe (pilte|uudiskirja)/',
                             '/This email was sent to/',
+                            '/Eemalda e-mail nimekirjast/'
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
