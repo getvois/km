@@ -109,6 +109,8 @@ class NewsletterController extends Controller
                     }
                 }
 
+                /** @var EntityManager $em */
+                $em = $this->getDoctrine()->getManager();
 
                 //save to news
                 $newsPage = new NewsPage();
@@ -121,16 +123,22 @@ class NewsletterController extends Controller
                     $translation->setSlug(Slugifier::slugify($page->getTitle()));
                 });
 
+                $newsParent = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->findOneBy([
+                        'refEntityName' => "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsOverviewPage",
+                        'deleted' => 0,
+                        'hiddenFromNav' => 0
+                    ]);
+
                 $options = array(
-                    'parent' => null,
+                    'parent' => $newsParent,
                     'set_online' => true,
                     'hidden_from_nav' => false,
                     'creator' => 'Admin'
                 );
                 $pageCreator->createPage($newsPage, $translations, $options);
 
-                /** @var EntityManager $em */
-                $em = $this->getDoctrine()->getManager();
+
                 $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($newsPage);
 
                 $pageparts = array();
