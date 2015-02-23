@@ -116,7 +116,7 @@ class NewsletterController extends Controller
                 $newsPage = new NewsPage();
                 $newsPage->setTitle($subject);
                 $newsPage->setPageTitle($subject);
-                $newsPage->setHmtl($body);
+                $newsPage->setHtml($body);
 
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {

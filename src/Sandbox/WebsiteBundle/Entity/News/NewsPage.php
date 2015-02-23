@@ -35,22 +35,22 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
      *
      * @ORM\Column(name="html", type="text", nullable=true)
      */
-    protected $hmtl;
+    protected $html;
 
     /**
      * @return string
      */
-    public function getHmtl()
+    public function getHtml()
     {
-        return $this->hmtl;
+        return $this->html;
     }
 
     /**
-     * @param string $hmtl
+     * @param string $html
      */
-    public function setHmtl($hmtl)
+    public function setHtml($html)
     {
-        $this->hmtl = $hmtl;
+        $this->html = $html;
     }
 
     /**
