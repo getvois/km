@@ -38,7 +38,7 @@ class NewsletterController extends Controller
 
             $elements = imap_mime_header_decode(imap_utf8($headerInfo->subject));
             var_dump($elements);
-            $subject = $elements[0]->text;//iconv_mime_decode($elements[0]->text,0,"UTF-8");
+            $subject = utf8_encode($elements[0]->text);//iconv_mime_decode($elements[0]->text,0,"UTF-8");
             $output .= "Subject: ". $subject .'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
             //$output .= "Date: ".$headerInfo->date.'<br/>';
@@ -49,7 +49,7 @@ class NewsletterController extends Controller
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
-                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
+                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));//FT_PEEK
 
                         $crawler = new Crawler($body);
                         $body = $crawler->html();
