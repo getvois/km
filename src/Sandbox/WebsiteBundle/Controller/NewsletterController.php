@@ -27,6 +27,9 @@ class NewsletterController extends Controller
         $i = 0;
         foreach($emails as $mail) {
             $headerInfo = imap_headerinfo($inbox,$mail);
+
+            if($headerInfo->fromaddress == 'Lux Express') continue;
+
             $output .= "Subject: ".$headerInfo->subject.'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
             $output .= "Date: ".$headerInfo->date.'<br/>';
@@ -66,7 +69,7 @@ class NewsletterController extends Controller
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
-                            for($j = 0; $j<$paragraphs->count(); $j++){
+                            for($j = 1; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
