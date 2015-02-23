@@ -32,7 +32,7 @@ class TopImageAdminListConfigurator extends AbstractDoctrineORMAdminListConfigur
     {
         $this->addField('title', 'Title', true);
         $this->addField('external', 'External', true);
-        $this->addField('place', 'Place', true);
+        $this->addField('places', 'Place', false);
         $this->addField('picture', 'Image', false, 'SandboxWebsiteBundle:AdminList\TopImage:picture.html.twig');
     }
 
