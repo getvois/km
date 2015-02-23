@@ -40,6 +40,7 @@ class NewsletterController extends Controller
                         $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
 
                         $crawler = new Crawler($body);
+                        //hoteli veb
                         $delete = $crawler->filter('.newsletter_hidden');//->first();
                             if($delete->count() > 0){
                                 $delete = $delete->first()->html();
@@ -50,11 +51,21 @@ class NewsletterController extends Controller
                                 for($j = 2; $j<$tds->count(); $j++){
                                     if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
                                         $delete = $tds->eq($j)->html();
-                                        var_dump($j . ' ' . $delete);
                                         $body = str_replace($delete, '', $body);
                                     }
                                 }
                             }
+
+                        //tallink
+                        $paragraphs = $crawler->filter('p');
+                        for($j = 2; $j<$paragraphs->count(); $j++){
+                            if(preg_match('/Kui Sa ei soovi enam uudiskirja saada/', $paragraphs->eq($j)->text())){
+                                $delete = $paragraphs->eq($j)->html();
+                                $body = str_replace($delete, '', $body);
+                            }
+                        }
+
+
 
                         $output .= '<br/><br/><br/><br/>body' . $body;
                         break;
