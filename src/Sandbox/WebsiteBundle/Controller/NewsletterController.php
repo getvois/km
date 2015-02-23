@@ -74,8 +74,9 @@ class NewsletterController extends Controller
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
-                                    var_dump(strlen($delete));
-                                    $body = str_replace($delete, '', $body);
+                                    if(strlen($delete) < 1000) {
+                                        $body = str_replace($delete, '', $body);
+                                    }
                                 }
                             }
                         }
