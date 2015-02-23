@@ -44,7 +44,7 @@ class NewsletterController extends Controller
                             if($delete->count() > 0){
                                 var_dump(44444444444444);
                                 $delete = $delete->first()->html();
-                                $delete = str_replace('', '&auml;', $delete);
+                                $delete = str_replace('ä', '&auml;', $delete);
                                 $body = str_replace($delete, '', $body);
                             }
 
