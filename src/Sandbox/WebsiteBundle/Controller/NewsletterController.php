@@ -66,11 +66,11 @@ class NewsletterController extends Controller
                         $patterns = [
                             '/Kui soovid uudiskirja/',
                             '/Kui (Sa|Te) ei (soovi|näe)/',
-                            '/uudiskirjast loobuda/'
+                            '/uudiskirjast loobuda/',
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
-                            for($j = 1; $j<$paragraphs->count(); $j++){
+                            for($j = 0; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
