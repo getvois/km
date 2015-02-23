@@ -47,7 +47,7 @@ class NewsletterController extends Controller
                                 $body = str_replace($delete, '', $body);
 
                                 $tds = $crawler->filter("td");
-                                for($i = 0; $i<$tds->count(); $i++){
+                                for($i = 2; $i<$tds->count(); $i++){
                                     if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($i)->text())){
                                         $delete = $tds->eq($i)->html();
                                         var_dump($i . ' ' . $delete);
