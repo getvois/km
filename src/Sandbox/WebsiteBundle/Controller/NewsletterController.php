@@ -127,6 +127,7 @@ class NewsletterController extends Controller
                 $newsPage->setPriceFromLabel('newsletter');
 
 
+                //company name rules
                 $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
                 $company = trim($company, " \t\n\r\0\x0B.");
                 $company = explode(".", $company)[0];
