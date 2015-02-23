@@ -239,8 +239,8 @@ class TravelbaseController extends Controller
 
         if(!$image) return "";
 
-        $place = $image->getPlace();
-
+        $place = $image->getPlaces();
+        $place = $place->first();
         if(!$place){
             return null;
         }
