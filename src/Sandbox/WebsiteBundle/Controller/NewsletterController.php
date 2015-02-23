@@ -37,7 +37,7 @@ class NewsletterController extends Controller
             if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
             $elements = imap_mime_header_decode($headerInfo->subject);
-            $subject = iconv_mime_decode($elements[0]->text,0,"UTF-8");
+            $subject = iconv_mime_decode($elements[0]->text,0,"ISO-8859-1");
             $output .= "Subject: ". $subject .'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
             //$output .= "Date: ".$headerInfo->date.'<br/>';
