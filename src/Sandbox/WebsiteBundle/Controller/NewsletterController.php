@@ -117,6 +117,7 @@ class NewsletterController extends Controller
                 $newsPage->setTitle($subject);
                 $newsPage->setPageTitle($subject);
                 $newsPage->setHtml($body);
+                $newsPage->setPriceFromLabel('newsletter');
 
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
