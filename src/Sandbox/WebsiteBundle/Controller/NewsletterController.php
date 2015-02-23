@@ -70,7 +70,7 @@ class NewsletterController extends Controller
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
-                            for($j = 83; $j<$paragraphs->count(); $j++){
+                            for($j = 1; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
@@ -86,7 +86,7 @@ class NewsletterController extends Controller
                         //estravel
                         $delete = $crawler->filter('.adminText');//->first();
                         if($delete->count() > 0){
-                            $body = $crawler->html();
+                            //$body = $crawler->html();
                             $delete = $delete->first()->html();
                             $body = str_replace($delete, '', $body);
                         }
