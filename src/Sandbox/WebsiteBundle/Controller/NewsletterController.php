@@ -48,13 +48,13 @@ class NewsletterController extends Controller
                                 //$delete = str_replace('ä', '&auml;', $delete);
                                 $body = str_replace($delete, '', $body);
 
-//                                $tds = $crawler->filter("td");
-//                                for($j = 2; $j<$tds->count(); $j++){//body in td
-//                                    if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
-//                                        $delete = $tds->eq($j)->html();
-//                                        $body = str_replace($delete, '', $body);
-//                                    }
-//                                }
+                                $tds = $crawler->filter("td");
+                                for($j = 2; $j<$tds->count(); $j++){//body in td
+                                    if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
+                                        $delete = $tds->eq($j)->html();
+                                        $body = str_replace($delete, '', $body);
+                                    }
+                                }
                             }
 
                         //tallink
@@ -66,10 +66,9 @@ class NewsletterController extends Controller
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
-                            for($j = 2; $j<$paragraphs->count(); $j++){
+                            for($j = 0; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
-                                    var_dump($paragraphs->eq($j)->children()->count());
                                     $delete = $paragraphs->eq($j)->html();
                                     $body = str_replace($delete, '', $body);
                                 }
