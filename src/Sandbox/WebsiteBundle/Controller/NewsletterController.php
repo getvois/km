@@ -117,6 +117,8 @@ class NewsletterController extends Controller
                 var_dump($subject);
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
+
+                    var_dump($page->getTitle());
                     $translation->setTitle($page->getTitle());
                     //$translation->setSlug(Slugifier::slugify($page->getTitle()));
                 });
