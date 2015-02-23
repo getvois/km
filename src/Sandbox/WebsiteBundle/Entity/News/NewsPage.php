@@ -31,6 +31,29 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
     use TPriceFrom;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="html", type="text", nullable=true)
+     */
+    protected $hmtl;
+
+    /**
+     * @return string
+     */
+    public function getHmtl()
+    {
+        return $this->hmtl;
+    }
+
+    /**
+     * @param string $hmtl
+     */
+    public function setHmtl($hmtl)
+    {
+        $this->hmtl = $hmtl;
+    }
+
+    /**
      * @var Media
      *
      * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")

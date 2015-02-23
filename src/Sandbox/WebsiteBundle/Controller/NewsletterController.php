@@ -44,7 +44,7 @@ class NewsletterController extends Controller
             $output .= 'From: "'.$headerInfo->fromaddress.'"<br/>';
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
-
+            $body = '';
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
@@ -116,6 +116,7 @@ class NewsletterController extends Controller
                 $newsPage = new NewsPage();
                 $newsPage->setTitle($subject);
                 $newsPage->setPageTitle($subject);
+                $newsPage->setHmtl($body);
 
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
@@ -139,16 +140,16 @@ class NewsletterController extends Controller
                 $pageCreator->createPage($newsPage, $translations, $options);
 
 
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($newsPage);
+//                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($newsPage);
+//
+//                $pageparts = array();
+//                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
+//                    array(
+//                        'setContent' => $body
+//                    )
+//                );
 
-                $pageparts = array();
-                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
-                    array(
-                        'setContent' => $body
-                    )
-                );
-
-                $pagePartCreator->addPagePartsToPage($node, $pageparts, 'ee');
+                //$pagePartCreator->addPagePartsToPage($node, $pageparts, 'ee');
             }
             //var_dump($emailStructure);
 //            if(!isset($emailStructure->parts)) {
