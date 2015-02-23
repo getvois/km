@@ -70,6 +70,7 @@ class NewsletterController extends Controller
                         //estravel
                         $delete = $crawler->filter('.adminText');//->first();
                         if($delete->count() > 0){
+                            $body = $crawler->html();
                             $delete = $delete->first()->html();
                             $body = str_replace($delete, '', $body);
                         }
