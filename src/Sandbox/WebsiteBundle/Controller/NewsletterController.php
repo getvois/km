@@ -126,6 +126,23 @@ class NewsletterController extends Controller
                 $newsPage->setHtml($body);
                 $newsPage->setPriceFromLabel('newsletter');
 
+
+                $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
+                $company = trim($company);
+
+                $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                    ->findOneBy(['title' => $company]);
+                if($companyPage) {
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
+                    if($node){
+                        $translation = $node->getNodeTranslation('ee', true);
+                        if($translation){
+                            $newsPage->addCompany($translation->getRef($em));
+                        }
+                    }
+                }
+
+
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
                     $translation->setTitle($page->getTitle());
