@@ -47,24 +47,35 @@ class NewsletterController extends Controller
                                 $delete = str_replace('ä', '&auml;', $delete);
                                 $body = str_replace($delete, '', $body);
 
-                                $tds = $crawler->filter("td");
-                                for($j = 2; $j<$tds->count(); $j++){
-                                    if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
-                                        $delete = $tds->eq($j)->html();
-                                        $body = str_replace($delete, '', $body);
-                                    }
-                                }
+//                                $tds = $crawler->filter("td");
+//                                for($j = 2; $j<$tds->count(); $j++){
+//                                    if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
+//                                        $delete = $tds->eq($j)->html();
+//                                        $body = str_replace($delete, '', $body);
+//                                    }
+//                                }
                             }
 
                         //tallink
                         $paragraphs = $crawler->filter('p, td, div');
-                        for($j = 0; $j<$paragraphs->count(); $j++){
-                            if(preg_match('/Kui (Sa|Te) ei (soovi|näe)/', $paragraphs->eq($j)->text())){
-                                $body = $crawler->html();
-                                $delete = $paragraphs->eq($j)->html();
-                                $body = str_replace($delete, '', $body);
+
+                        $patterns = [
+                            '/Kui (Sa|Te) ei (soovi|näe)/',
+                            '/Kui soovid uudiskirja/',
+                            '/Ei soovi rohkem kirju saada?/',
+                        ];
+
+                        foreach ($patterns as $pattern) {
+                            for($j = 0; $j<$paragraphs->count(); $j++){
+                                if(preg_match($pattern, $paragraphs->eq($j)->text())){
+                                    $body = $crawler->html();
+                                    $delete = $paragraphs->eq($j)->html();
+                                    $body = str_replace($delete, '', $body);
+                                }
                             }
                         }
+
+
 
 
                         //estravel
