@@ -42,8 +42,8 @@ class NewsletterController extends Controller
                         $crawler = new Crawler($body);
                         $delete = $crawler->filter('.newsletter_hidden');//->first();
                             if($delete->count() > 0){
+                                var_dump(44444444444444);
                                 $delete = $delete->first()->html();
-
                                 $body = str_replace($delete, '', $body);
                             }
 
