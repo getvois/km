@@ -64,8 +64,8 @@ class NewsletterController extends Controller
                         $paragraphs = $crawler->filter('p, td, div');
 
                         $patterns = [
-                            '/Kui (Sa|Te) ei (soovi|näe)/',
                             '/Kui soovid uudiskirja/',
+                            '/Kui (Sa|Te) ei (soovi|näe)/',
                             '/uudiskirjast loobuda/'
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
