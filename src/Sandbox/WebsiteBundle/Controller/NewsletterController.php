@@ -31,6 +31,8 @@ class NewsletterController extends Controller
             if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
             if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
+            var_dump($headerInfo);
+
             $output .= "Subject: ".$headerInfo->subject.'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
             $output .= "Date: ".$headerInfo->date.'<br/>';
@@ -112,7 +114,7 @@ class NewsletterController extends Controller
             $output = '';
 
             if($i >= 6) {
-                //break;
+                break;
             }
 
             $i++;
