@@ -62,6 +62,7 @@ class NewsletterController extends Controller
                             if(preg_match('/Kui Sa ei soovi enam uudiskirja saada/', $paragraphs->eq($j)->text())){
                                 $delete = $paragraphs->eq($j)->html();
 
+                                $delete = str_replace('&', '&amp', $delete);
                                 var_dump($delete);
                                 $body = str_replace($delete, '', $body);
                             }
