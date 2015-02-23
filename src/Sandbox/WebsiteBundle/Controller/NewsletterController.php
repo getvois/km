@@ -2,6 +2,9 @@
 
 namespace Sandbox\WebsiteBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
@@ -15,6 +18,8 @@ class NewsletterController extends Controller
      */
     public function indexAction()
     {
+        $pageCreator = $this->container->get('kunstmaan_node.page_creator_service');
+        $pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
         $user = 'mika.mendesee@gmail.com';
         $password = 'qwerty121284';
         $mailbox = "{imap.gmail.com:993/imap/ssl}INBOX";
@@ -32,10 +37,10 @@ class NewsletterController extends Controller
             if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
             $elements = imap_mime_header_decode($headerInfo->subject);
-
-            $output .= "Subject: ".$elements[0]->text.'<br/>';
+            $subject = $elements[0]->text;
+            $output .= "Subject: ". $subject .'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
-            $output .= "Date: ".$headerInfo->date.'<br/>';
+            //$output .= "Date: ".$headerInfo->date.'<br/>';
             $output .= 'From: "'.$headerInfo->fromaddress.'"<br/>';
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
@@ -99,10 +104,42 @@ class NewsletterController extends Controller
                         }
 
 
-                        $output .= '<br/><br/><br/><br/>body' . $body;
+                        $output .= $body;
                         break;
                     }
                 }
+
+
+                //save to news
+                $newsPage = new NewsPage();
+                $newsPage->setTitle($subject);
+
+                $translations = array();
+                $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
+                    $translation->setTitle($page->getTitle());
+                    $translation->setSlug(Slugifier::slugify($page->getTitle()));
+                });
+
+                $options = array(
+                    'parent' => null,
+                    'set_online' => true,
+                    'hidden_from_nav' => false,
+                    'creator' => 'Admin'
+                );
+                $pageCreator->createPage($newsPage, $translations, $options);
+
+                /** @var EntityManager $em */
+                $em = $this->getDoctrine()->getManager();
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($newsPage);
+
+                $pageparts = array();
+                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
+                    array(
+                        'setContent' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+                    )
+                );
+
+                $pagePartCreator->addPagePartsToPage($node, $pageparts, 'ee');
             }
             //var_dump($emailStructure);
 //            if(!isset($emailStructure->parts)) {
@@ -113,7 +150,7 @@ class NewsletterController extends Controller
             echo $output;
             $output = '';
 
-            if($i >= 6) {
+            if($i >= 0) {
                 break;
             }
 
