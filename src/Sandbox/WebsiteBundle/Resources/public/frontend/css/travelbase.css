@@ -233,38 +233,39 @@ body .splash--green {
 }
 
 /*topmenu*/
-
+.site-logo, .site-logo a {
+	 width:135px;
+	 right:3%;
+} 
 .site-logo {
 	position: absolute;
 	top: 0;
-	right: 4%;
 	z-index: 9999;
-	width: 100px;
 }
 .site-logo a {
-    width:101px;
-    height:140px;
+    height:57px;
+    top:30px;
     position: absolute;
     z-index: 99;
     display:block;
     /*noinspection CssUnknownTarget*/
-    background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 -10px;
+    background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 0;
 }
 .site-topmenu {
     position: absolute;
     top:0;
     right:0;
-    padding-right:4.3%;
-    padding-top: 140px;
+    padding-right:3.6%;
+    padding-top: 115px;
     padding-left: 280px;
 	z-index: 98;
 	height: 380px;
-    background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(197,220,245,0.9) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(197,220,245,0.9))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* IE10+ */
-	background: linear-gradient(to right,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.9) 100%); /* W3C */
+    background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(197,220,245,0.8) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(197,220,245,0.8))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87E0F3', endColorstr='#C5DCF5',GradientType=1 ); /* IE6-9 */
 
 }
@@ -276,10 +277,11 @@ body .splash--green {
 .travelbase_top_menu > li {
     list-style: outside none none;
     margin-bottom: 5px;
-    -webkit-transform: rotate(352deg);
+    text-align:right;
+    /*-webkit-transform: rotate(352deg);
 	-moz-transform: rotate(352deg);
 	-o-transform: rotate(352deg);
-	/*writing-mode: lr-tb;*/
+	writing-mode: lr-tb;*/
 }
 .travelbase_top_menu > li a {
     color: #111;
@@ -293,8 +295,8 @@ body .splash--green {
 
 .top-img-title {
     position: absolute;
-    right: 220px;
-    top: 20px;
+    right: 230px;
+    top: 30px;
     z-index: 106;
     font-size:12px;
 }
@@ -730,8 +732,8 @@ label.directFlight-label,  label.sameDay-label {
 .trip .company-nazar  {
     background-position:0 -125px;
 }
-.trip .company-detur  {
-    background-position:0 -150px;
+.trip .company-detur, .trip .company-deturse, .trip .company-deturno, .trip .company-deturfi  {
+    background-position:0 -150px; 
 }
 .trip .company-aurinko  {
     background-position:0 -175px;
