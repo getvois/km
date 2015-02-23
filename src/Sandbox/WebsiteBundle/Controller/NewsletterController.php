@@ -52,6 +52,12 @@ class NewsletterController extends Controller
 
                         $crawler = new Crawler($body);
                         $body = $crawler->html();
+
+                        $styles = $crawler->filter("style");
+                        for($j = 0 ; $j< $styles->count(); $j++){
+                            $body = str_replace($styles->eq($j)->html(), '', $body);
+                        }
+
                         //hoteli veb
                         $delete = $crawler->filter('.newsletter_hidden');//->first();
                             if($delete->count() > 0){
