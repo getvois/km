@@ -47,7 +47,7 @@
 		    {% include '@SandboxWebsite/Layout/fromplaces.html.twig' %}
 		    <p></p>
 
-                <p><iframe onload="resizeIframe(this)">{{ page.html|raw }}</iframe></p>
+                <p>{{ page.html|raw }}</p>
 
 		    {% if render_pageparts(page, 'main') == null %}
 		     	{{ page.summary }}
