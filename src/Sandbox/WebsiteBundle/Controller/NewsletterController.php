@@ -113,14 +113,15 @@ class NewsletterController extends Controller
                 //save to news
                 $newsPage = new NewsPage();
                 $newsPage->setTitle($subject);
+                $newsPage->setPageTitle($subject);
 
-                var_dump($subject);
+                var_dump($newsPage->getTitle());
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
 
                     var_dump($page->getTitle());
                     $translation->setTitle($page->getTitle());
-                    $translation->setSlug('123131');
+                    $translation->setSlug(Slugifier::slugify($page->getTitle()));
                 });
 
                 $options = array(
