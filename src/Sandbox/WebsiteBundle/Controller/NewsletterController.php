@@ -36,7 +36,7 @@ class NewsletterController extends Controller
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
-                        $output .= imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
+                        $output .= '<br/><br/><br/><br/>body' . imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
                         break;
                     }
                 }
@@ -50,7 +50,7 @@ class NewsletterController extends Controller
             echo $output;
             $output = '';
 
-            if($i >= 2) {
+            if($i >= 4) {
                 break;
             }
 
