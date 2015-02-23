@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
 class NewsletterController extends Controller
@@ -36,7 +37,15 @@ class NewsletterController extends Controller
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
-                        $output .= '<br/><br/><br/><br/>body' . imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
+                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
+
+                        $crawler = new Crawler($body);
+                        $delete = $crawler->filter('.newsletter_hidden')->first()->html();
+
+                        var_dump($delete);
+
+
+                        $output .= '<br/><br/><br/><br/>body' . $body;
                         break;
                     }
                 }
