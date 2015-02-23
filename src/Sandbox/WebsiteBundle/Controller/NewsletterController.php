@@ -58,8 +58,8 @@ class NewsletterController extends Controller
 
                         //tallink
                         $paragraphs = $crawler->filter('p, td, div');
-                        for($j = 2; $j<$paragraphs->count(); $j++){
-                            if(preg_match('/Kui (Sa|Te) ei (soovi|n&auml;e)/', $paragraphs->eq($j)->text())){
+                        for($j = 0; $j<$paragraphs->count(); $j++){
+                            if(preg_match('/Kui (Sa|Te) ei (soovi|näe)/', $paragraphs->eq($j)->text())){
                                 $body = $crawler->html();
                                 $delete = $paragraphs->eq($j)->html();
                                 $body = str_replace($delete, '', $body);
