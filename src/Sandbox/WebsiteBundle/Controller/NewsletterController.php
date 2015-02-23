@@ -33,7 +33,7 @@ class NewsletterController extends Controller
             $output .= "Subject: ".$headerInfo->subject.'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
             $output .= "Date: ".$headerInfo->date.'<br/>';
-            $output .= "From: ".$headerInfo->fromaddress.'<br/>';
+            $output .= 'From: "'.$headerInfo->fromaddress.'"<br/>';
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
 
@@ -74,7 +74,7 @@ class NewsletterController extends Controller
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
-                                    var_dump($delete);
+                                    var_dump($j . ' ' .$delete);
                                     $body = str_replace($delete, '', $body);
                                 }
                             }
