@@ -66,6 +66,7 @@ class NewsletterController extends Controller
                         $patterns = [
                             '/Kui (Sa|Te) ei (soovi|näe)/',
                             '/Kui soovid uudiskirja/',
+                            '/uudiskirjast loobuda/'
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
