@@ -28,7 +28,7 @@ class NewsletterController extends Controller
         foreach($emails as $mail) {
             $headerInfo = imap_headerinfo($inbox,$mail);
 
-            if($headerInfo->fromaddress == 'Lux Express ') continue;
+            if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
 
             $output .= "Subject: ".$headerInfo->subject.'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
@@ -108,7 +108,7 @@ class NewsletterController extends Controller
             $output = '';
 
             if($i >= 6) {
-                break;
+                //break;
             }
 
             $i++;
