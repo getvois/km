@@ -70,7 +70,7 @@ class NewsletterController extends Controller
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
-                            for($j = 1; $j<$paragraphs->count(); $j++){
+                            for($j = 3; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
