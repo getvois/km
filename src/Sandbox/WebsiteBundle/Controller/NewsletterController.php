@@ -120,7 +120,7 @@ class NewsletterController extends Controller
 
                     var_dump($page->getTitle());
                     $translation->setTitle($page->getTitle());
-                    //$translation->setSlug(Slugifier::slugify($page->getTitle()));
+                    $translation->setSlug('123131');
                 });
 
                 $options = array(
