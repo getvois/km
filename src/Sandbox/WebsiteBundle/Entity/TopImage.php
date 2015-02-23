@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\AdminBundle\Entity\AbstractEntity;
 use Kunstmaan\MediaBundle\Entity\Media;
@@ -29,11 +30,9 @@ class TopImage extends AbstractEntity
     private $external;
 
     /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
-     */
-    private $place;
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     **/
+    private $places;
 
 
     /**
@@ -141,34 +140,60 @@ class TopImage extends AbstractEntity
         return $this->external;
     }
 
-
-    /**
-     * Set place
-     *
-     * @param Place\PlaceOverviewPage $place
-     * @return TopImage
-     */
-    public function setPlace(Place\PlaceOverviewPage $place = null)
-    {
-        $this->place = $place;
-
-        return $this;
-    }
-
-    /**
-     * Get place
-     *
-     * @return Place\PlaceOverviewPage
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
-
     public function __toString()
     {
         return $this->title;
     }
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->places = new ArrayCollection();
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Add places
+     *
+     * @param Place\PlaceOverviewPage $places
+     * @return TopImage
+     */
+    public function addPlace(Place\PlaceOverviewPage $places)
+    {
+        $this->places[] = $places;
+
+        return $this;
+    }
+
+    /**
+     * Remove places
+     *
+     * @param Place\PlaceOverviewPage $places
+     */
+    public function removePlace(Place\PlaceOverviewPage $places)
+    {
+        $this->places->removeElement($places);
+    }
+
+    /**
+     * Get places
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
 }

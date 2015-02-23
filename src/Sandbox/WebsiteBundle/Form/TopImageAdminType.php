@@ -27,7 +27,7 @@ class TopImageAdminType extends AbstractType
     {
         $builder->add('title');
         $builder->add('external');
-        $builder->add('place', 'place');
+        $builder->add('places', 'place');
         $builder->add(
             'picture',
             'media',
