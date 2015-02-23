@@ -42,7 +42,7 @@ class NewsletterController extends Controller
                         $crawler = new Crawler($body);
                         $delete = $crawler->filter('.newsletter_hidden')->first();
                             if($delete){
-                                $delete->parents()->first()->html();
+                                $delete = $delete->parents()->first()->html();
                             }
 
 
