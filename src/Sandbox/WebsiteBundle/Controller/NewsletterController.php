@@ -40,6 +40,7 @@ class NewsletterController extends Controller
                         $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
 
                         $crawler = new Crawler($body);
+                        $body = $crawler->html();
                         //hoteli veb
                         $delete = $crawler->filter('.newsletter_hidden');//->first();
                             if($delete->count() > 0){
@@ -63,7 +64,6 @@ class NewsletterController extends Controller
                             '/Kui (Sa|Te) ei (soovi|näe)/',
                             '/Kui soovid uudiskirja/',
                         ];
-                        $body = $crawler->html();
                         foreach ($patterns as $pattern) {
                             for($j = 0; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())){
