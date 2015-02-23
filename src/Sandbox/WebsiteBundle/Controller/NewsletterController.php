@@ -60,7 +60,7 @@ class NewsletterController extends Controller
                         $paragraphs = $crawler->filter('p');
                         for($j = 2; $j<$paragraphs->count(); $j++){
                             if(preg_match('/Kui Sa ei soovi enam uudiskirja saada/', $paragraphs->eq($j)->text())){
-                                $crawler->detach($paragraphs->eq($j)->current());
+                                $crawler->detach($paragraphs->eq($j)->getNode(0));
                                 $body = $crawler->html();
 //                                $delete = $paragraphs->eq($j)->html();
 //
