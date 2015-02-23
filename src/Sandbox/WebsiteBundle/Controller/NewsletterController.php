@@ -29,6 +29,7 @@ class NewsletterController extends Controller
             $headerInfo = imap_headerinfo($inbox,$mail);
 
             if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
+            if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
             $output .= "Subject: ".$headerInfo->subject.'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
@@ -67,6 +68,8 @@ class NewsletterController extends Controller
                             '/Kui soovid uudiskirja/',
                             '/Kui (Sa|Te) ei (soovi|näe)/',
                             '/uudiskirjast loobuda/',
+                            '/ei näe (pilte|uudiskirja)/',
+                            '/This email was sent to/',
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
