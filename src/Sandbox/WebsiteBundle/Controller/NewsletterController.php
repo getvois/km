@@ -128,10 +128,25 @@ class NewsletterController extends Controller
 
 
                 $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
-                $company = trim($company);
+                $company = trim($company, " \t\n\r\0\x0B.");
+                $company = explode(".", $company)[0];
+                $companyPage = null;
+                if(count(explode(" ", $company)) > 2){
+                    $parts = explode(" ", $company);
+                    $company = $parts[0] . " " . $parts[1];
+                    $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                        ->findOneBy(['title' => $company]);
+                    if(!$companyPage){
+                        $company = $parts[1] . " " . $parts[2];
+                        $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                            ->findOneBy(['title' => $company]);
+                    }
+                }
 
-                $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-                    ->findOneBy(['title' => $company]);
+                if(!$companyPage) {
+                    $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                        ->findOneBy(['title' => $company]);
+                }
                 if($companyPage) {
                     $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
                     if($node){
