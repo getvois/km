@@ -48,7 +48,7 @@ class NewsletterController extends Controller
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
-                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
+                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
 
                         $crawler = new Crawler($body);
                         $body = $crawler->html();
