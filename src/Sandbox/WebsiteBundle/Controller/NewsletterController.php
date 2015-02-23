@@ -50,7 +50,7 @@ class NewsletterController extends Controller
             echo $output;
             $output = '';
 
-            if($i >= 4) {
+            if($i >= 6) {
                 break;
             }
 
