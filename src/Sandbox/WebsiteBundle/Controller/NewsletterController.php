@@ -65,7 +65,7 @@ class NewsletterController extends Controller
                             '/Kui soovid uudiskirja/',
                         ];
                         foreach ($patterns as $pattern) {
-                            for($j = 0; $j<$paragraphs->count(); $j++){
+                            for($j = 2; $j<$paragraphs->count(); $j++){
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())){
                                     $delete = $paragraphs->eq($j)->html();
                                     $body = str_replace($delete, '', $body);
