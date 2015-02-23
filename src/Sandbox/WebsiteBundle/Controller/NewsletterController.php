@@ -55,10 +55,6 @@ class NewsletterController extends Controller
                                 }
                             }
 
-
-                        var_dump($delete);
-
-
                         $output .= '<br/><br/><br/><br/>body' . $body;
                         break;
                     }
