@@ -125,7 +125,7 @@ class NewsletterController extends Controller
 
                 $newsParent = $em->getRepository('KunstmaanNodeBundle:Node')
                     ->findOneBy([
-                        'refEntityName' => "Sandbox\\\\WebsiteBundle\\\\Entity\\\\News\\\\NewsOverviewPage",
+                        'refEntityName' => "Sandbox\\WebsiteBundle\\Entity\\News\\NewsOverviewPage",
                         'deleted' => 0,
                         'hiddenFromNav' => 0
                     ]);
