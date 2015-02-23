@@ -40,9 +40,9 @@ class NewsletterController extends Controller
                         $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));
 
                         $crawler = new Crawler($body);
-                        $delete = $crawler->filter('.newsletter_hidden')->first();
-                            if($delete){
-                                $delete = $delete->parents()->first()->html();
+                        $delete = $crawler->filter('.newsletter_hidden');//->first();
+                            if($delete->count() > 0){
+                                $delete = $delete->first()->html();
                             }
 
 
