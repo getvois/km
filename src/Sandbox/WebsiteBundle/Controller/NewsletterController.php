@@ -38,7 +38,7 @@ class NewsletterController extends Controller
 
             $elements = imap_mime_header_decode($headerInfo->subject);
             var_dump($elements);
-            $subject = htmlspecialchars($elements[0]->text, ENT_QUOTES, 'ISO-8859-1');
+            $subject = htmlspecialchars($elements[0]->text, ENT_QUOTES, 'UTF-8');
             $output .= "Subject: ". $subject .'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
             //$output .= "Date: ".$headerInfo->date.'<br/>';
