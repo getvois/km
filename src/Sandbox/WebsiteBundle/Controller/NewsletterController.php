@@ -63,7 +63,7 @@ class NewsletterController extends Controller
                                 $delete = $paragraphs->eq($j)->html();
 
                                 $delete = str_replace('&', '&amp;', $delete);
-                                var_dump($delete);
+                                var_dump(htmlspecialchars($delete));
                                 $body = str_replace($delete, '', $body);
                             }
                         }
