@@ -42,10 +42,17 @@ class NewsletterController extends Controller
                         $crawler = new Crawler($body);
                         $delete = $crawler->filter('.newsletter_hidden');//->first();
                             if($delete->count() > 0){
-                                var_dump(44444444444444);
                                 $delete = $delete->first()->html();
                                 $delete = str_replace('ä', '&auml;', $delete);
                                 $body = str_replace($delete, '', $body);
+
+                                $tds = $crawler->filter("td");
+                                for($i = 0; $i<$tds->count(); $i++){
+                                    if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($i)->text())){
+                                        $delete = $tds->eq($i)->html();
+                                        $body = str_replace($delete, '', $body);
+                                    }
+                                }
                             }
 
 
