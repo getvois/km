@@ -62,19 +62,17 @@ class NewsletterController extends Controller
                             if(preg_match('/Kui Sa ei soovi enam uudiskirja saada/', $paragraphs->eq($j)->text())){
                                 $body = $crawler->html();
                                 $delete = $paragraphs->eq($j)->html();
-
-                                //                                                                                                       <strong>Palume sellele kirjale mitte vastata.</strong><br /> <br /> K&auml;esolev kiri on saadetud aadressile: mika.mendesee@gmail.com.<br /> <br /> Tallink Grupp AS, Sadama 5/7, 10111 Tallinn<br /> <br /> <a id="unsubscribe" target="_blank" style="color: #004a98; text-decoration: underline" href="http://links.mkt1434.com/servlet/OneClickOptOutServlet?m=47910560&r=MTI1MzI0MjE0MTAxS0&b=0&j=NjAzOTU1MjM4S0&mt=1&rt=0" name="unsubscribe">Kui Sa ei soovi enam uudiskirja saada, kliki siia.</a>
-                                //<p style="font-size: 11px; font-family: Arial, Helvetica, sans-serif; color: #4a4a4a; margin-top: 0px"><strong>Palume sellele kirjale mitte vastata.</strong><br /> <br /> K&auml;esolev kiri on saadetud aadressile: mika.mendesee@gmail.com.<br /> <br /> Tallink Grupp AS, Sadama 5/7, 10111 Tallinn<br /> <br /> <a id="unsubscribe" target="_blank" style="color: #004a98; text-decoration: underline" href="http://links.mkt1434.com/servlet/OneClickOptOutServlet?m=47910560&r=MTI1MzI0MjE0MTAxS0&b=0&j=NjAzOTU1MjM4S0&mt=1&rt=0" name="unsubscribe">Kui Sa ei soovi enam uudiskirja saada, kliki siia.</a></p>
-                                //var_dump(htmlspecialchars($body));
-                                //$delete = str_replace('&', '&amp;', $delete);
-                                //$delete = str_replace('&amp;', '&', $delete);
-                                //$delete = str_replace('<br>', '<br /> ', $delete);
-                                //$delete = str_replace('ä', '&auml;', $delete);
-                                //var_dump(htmlspecialchars($delete));
                                 $body = str_replace($delete, '', $body);
                             }
                         }
 
+
+                        //estravel
+                        $delete = $crawler->filter('.adminText');//->first();
+                        if($delete->count() > 0){
+                            $delete = $delete->first()->html();
+                            $body = str_replace($delete, '', $body);
+                        }
 
 
                         $output .= '<br/><br/><br/><br/>body' . $body;
