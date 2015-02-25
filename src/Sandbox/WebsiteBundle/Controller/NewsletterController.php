@@ -3,6 +3,9 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Kunstmaan\NodeBundle\Entity\HasNodeInterface;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\TranslatorBundle\Model\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -50,7 +53,7 @@ class NewsletterController extends Controller
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
-                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1,FT_PEEK));//FT_PEEK
+                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
 
                         $crawler = new Crawler($body);
                         $body = $crawler->html();
@@ -176,6 +179,8 @@ class NewsletterController extends Controller
 
                 $translations = array();
                 $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
+                    /** @var NodeTranslation $translation */
+                    /** @var HasNodeInterface $page */
                     $translation->setTitle($page->getTitle());
                     $translation->setSlug(Slugifier::slugify($page->getTitle()));
                 });
