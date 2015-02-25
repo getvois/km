@@ -74,9 +74,10 @@ class NewsletterController extends Controller
                             $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
 
                             if($part->encoding == 3){
-                                $body = utf8_encode(base64_decode($body));
+                                $body = (base64_decode($body));
                             }
                             $body = (imap_qprint($body));
+                            echo $body;
                             break;
                         }
                     }
@@ -86,7 +87,7 @@ class NewsletterController extends Controller
             if($body){
                 $crawler = new Crawler($body);
                 $body = $crawler->html();
-
+                echo $body;
                 $styles = $crawler->filter("style");
                 for($j = 0 ; $j< $styles->count(); $j++){
                     $body = str_replace($styles->eq($j)->html(), '', $body);
