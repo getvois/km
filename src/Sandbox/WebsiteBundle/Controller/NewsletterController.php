@@ -113,6 +113,8 @@ class NewsletterController extends Controller
                     '/gmail.com/',
                     '/Hei Mika/',
                     '/Kui emaili ei kuvata/',
+                    '/Uudiskirjast lahkumiseks/',
+                    '/uudiskiri ei avane/',
                     //'/Ei soovi rohkem kirju saada?/',
                 ];
                 foreach ($patterns as $pattern) {
