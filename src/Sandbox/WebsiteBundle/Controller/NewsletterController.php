@@ -74,15 +74,9 @@ class NewsletterController extends Controller
                             $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
 
                             if($part->encoding == 3){
-                                echo base64_decode($body);
-                                echo "<br><br><br><br>";
-                                echo imap_qprint(base64_decode($body));
-                                echo "<br><br><br><br>";
-                                echo imap_base64($body);
-                                echo "<br><br><br><br>";
-                                echo imap_qprint(imap_base64($body));
-
+                                $body = base64_decode($body);
                             }
+                            imap_qprint($body);
                             break;
                         }
                     }
