@@ -63,8 +63,8 @@ class NewsletterController extends Controller
             }elseif($emailStructure->type === 1) {//multipart
 
                 if($emailStructure->ifsubtype &&  $emailStructure->subtype == 'ALTERNATIVE'){
-                    //$body = imap_qprint(imap_body($inbox, $mail));
-                    $body = (imap_fetchbody($inbox, $mail, ''));
+                    $body = (imap_body($inbox, $mail));
+                    //$body = (imap_fetchbody($inbox, $mail, ''));
                 }else {
                     foreach ($emailStructure->parts as $key => $part) {
                         if ($part->subtype == 'HTML') {
