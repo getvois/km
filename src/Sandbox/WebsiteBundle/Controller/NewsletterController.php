@@ -172,7 +172,9 @@ class NewsletterController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $elements = imap_mime_header_decode($headerInfo->fromaddress);
-        $company = $elements[0]->text;
+        $company = utf8_encode($elements[0]->text);
+
+        var_dump($company);
 
         //company name rules
         $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $company);
