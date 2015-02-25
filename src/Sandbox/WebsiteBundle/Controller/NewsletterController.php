@@ -153,7 +153,7 @@ class NewsletterController extends Controller
         $em = $this->getDoctrine()->getManager();
         //company name rules
         $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
-        $company = trim($company, " \t\n\r\0\x0B.");
+        $company = trim($company, " \t\n\r\0\x0B.\"");
         $company = explode(".", $company)[0];
         $companyPage = null;
         if (count(explode(" ", $company)) > 2) {
