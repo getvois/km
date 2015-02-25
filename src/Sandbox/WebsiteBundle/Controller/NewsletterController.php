@@ -7,8 +7,11 @@ use Kunstmaan\NodeBundle\Entity\HasNodeInterface;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\TranslatorBundle\Model\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyPage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
+use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
@@ -22,8 +25,7 @@ class NewsletterController extends Controller
      */
     public function indexAction()
     {
-        $pageCreator = $this->container->get('kunstmaan_node.page_creator_service');
-        $pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
+        //$pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
         $user = 'mika.mendesee@gmail.com';
         $password = 'qwerty121284';
         $mailbox = "{imap.gmail.com:993/imap/ssl}INBOX";
@@ -63,7 +65,7 @@ class NewsletterController extends Controller
                             $body = str_replace($styles->eq($j)->html(), '', $body);
                         }
 
-                        //hoteli veb
+                        //hotelli veb
                         $delete = $crawler->filter('.newsletter_hidden');//->first();
                             if($delete->count() > 0){
                                 $delete = $delete->first()->html();
@@ -120,104 +122,10 @@ class NewsletterController extends Controller
                     }
                 }
 
-                /** @var EntityManager $em */
-                $em = $this->getDoctrine()->getManager();
-
-                //save to news
-                $newsPage = new NewsPage();
-                $newsPage->setTitle($subject);
-                $newsPage->setPageTitle($subject);
-                $newsPage->setHtml($body);
-                $newsPage->setPriceFromLabel('newsletter');
+                $this->makePage($headerInfo, $subject, $body);
 
 
-                //company name rules
-                $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
-                $company = trim($company, " \t\n\r\0\x0B.");
-                $company = explode(".", $company)[0];
-                $companyPage = null;
-                if(count(explode(" ", $company)) > 2){
-                    $parts = explode(" ", $company);
-                    $company = $parts[0] . " " . $parts[1];
-                    $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-                        ->findOneBy(['title' => $company]);
-                    if(!$companyPage){
-                        $company = $parts[1] . " " . $parts[2];
-                        $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-                            ->findOneBy(['title' => $company]);
-                    }
-                }
-
-                if(!$companyPage) {
-                    $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-                        ->findOneBy(['title' => $company]);
-                }
-                if($companyPage) {
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
-                    if($node){
-                        $translation = $node->getNodeTranslation('ee', true);
-                        if($translation){
-                            $newsPage->addCompany($translation->getRef($em));
-                        }
-                    }
-                }
-
-
-                //city rules
-                /** @var PlaceOverviewPage[] $places */
-                $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-                    ->findActiveOverviewPages();
-
-                $crawler = new Crawler($body);
-                $html = $crawler->html();
-                foreach ($places as $place) {
-                    if(preg_match("/".str_replace("/", " ", $place->getTitle())."/", $html)){
-                        $newsPage->addPlace($place);
-                    }
-                }
-
-
-                $translations = array();
-                $translations[] = array('language' => 'ee', 'callback' => function($page, $translation, $seo) {
-                    /** @var NodeTranslation $translation */
-                    /** @var HasNodeInterface $page */
-                    $translation->setTitle($page->getTitle());
-                    $translation->setSlug(Slugifier::slugify($page->getTitle()));
-                });
-
-                $newsParent = $em->getRepository('KunstmaanNodeBundle:Node')
-                    ->findOneBy([
-                        'refEntityName' => "Sandbox\\WebsiteBundle\\Entity\\News\\NewsOverviewPage",
-                        'deleted' => 0,
-                        'hiddenFromNav' => 0
-                    ]);
-
-                $options = array(
-                    'parent' => $newsParent,
-                    'set_online' => true,
-                    'hidden_from_nav' => false,
-                    'creator' => 'Admin'
-                );
-                $pageCreator->createPage($newsPage, $translations, $options);
-
-
-//                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($newsPage);
-//
-//                $pageparts = array();
-//                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
-//                    array(
-//                        'setContent' => $body
-//                    )
-//                );
-
-                //$pagePartCreator->addPagePartsToPage($node, $pageparts, 'ee');
             }
-            //var_dump($emailStructure);
-//            if(!isset($emailStructure->parts)) {
-//                $output .= "Body: ".imap_body($inbox, $mail, FT_PEEK);
-//            } else {
-//                $output .= imap_qprint("Body: ".imap_body($inbox, $mail, FT_PEEK));
-//            }
             echo $output;
             $output = '';
 
@@ -233,6 +141,139 @@ class NewsletterController extends Controller
         imap_close($inbox);
 
         return new Response("");
+    }
+
+    /**
+     * @param $newsPage
+     * @param $headerInfo
+     */
+    private function setCompany(NewsPage $newsPage, $headerInfo)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        //company name rules
+        $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
+        $company = trim($company, " \t\n\r\0\x0B.");
+        $company = explode(".", $company)[0];
+        $companyPage = null;
+        if (count(explode(" ", $company)) > 2) {
+            $parts = explode(" ", $company);
+            $company = $parts[0] . " " . $parts[1];
+            $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                ->findOneBy(['title' => $company]);
+            if (!$companyPage) {
+                $company = $parts[1] . " " . $parts[2];
+                $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                    ->findOneBy(['title' => $company]);
+            }
+        }
+
+        if (!$companyPage) {
+            $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                ->findOneBy(['title' => $company]);
+        }
+        if ($companyPage) {
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
+            if ($node) {
+                $translation = $node->getNodeTranslation('ee', true);
+                if ($translation) {
+                    /** @noinspection PhpParamsInspection */
+                    $newsPage->addCompany($translation->getRef($em));
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $newsPage
+     * @param $body
+     * @return Crawler
+     */
+    private function setPlace(NewsPage $newsPage, $body)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        //city rules
+        /** @var PlaceOverviewPage[] $places */
+        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->findActiveOverviewPages();
+
+        $crawler = new Crawler($body);
+        $html = $crawler->html();
+        foreach ($places as $place) {
+            if (preg_match("/" . str_replace("/", " ", $place->getTitle()) . "/", $html)) {
+                $newsPage->addPlace($place);
+            }
+        }
+    }
+
+    /**
+     * @param $headerInfo
+     * @param $subject
+     * @param $body
+     */
+    private function makePage($headerInfo, $subject, $body)
+    {
+        $pageCreator = $this->container->get('kunstmaan_node.page_creator_service');
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        //save to news
+        $newsPage = new NewsPage();
+        $newsPage->setTitle($subject);
+        $newsPage->setPageTitle($subject);
+        $newsPage->setHtml($body);
+        $newsPage->setPriceFromLabel('newsletter');
+
+        $this->setCompany($newsPage, $headerInfo);
+        $this->setPlace($newsPage, $body);
+
+        if($newsPage->getCompanies()->count() > 0){
+            $month = strftime("%B", strtotime($headerInfo->date));
+            /** @var CompanyOverviewPage $company */
+            $company = $newsPage->getCompanies()->first();
+            $name = $company->getTitle();
+            $summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
+            $newsPage->setSummary($summary);
+        }
+
+
+        $translations = array();
+        /** @noinspection PhpUnusedParameterInspection */
+        $translations[] = array('language' => 'ee', 'callback' => function ($page, $translation, $seo) {
+            /** @var NodeTranslation $translation */
+            /** @var HasNodeInterface $page */
+            $translation->setTitle($page->getTitle());
+            $translation->setSlug(Slugifier::slugify($page->getTitle()));
+        });
+
+        $newsParent = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->findOneBy([
+                'refEntityName' => "Sandbox\\WebsiteBundle\\Entity\\News\\NewsOverviewPage",
+                'deleted' => 0,
+                'hiddenFromNav' => 0
+            ]);
+
+        $options = array(
+            'parent' => $newsParent,
+            'set_online' => true,
+            'hidden_from_nav' => false,
+            'creator' => 'Admin'
+        );
+        $pageCreator->createPage($newsPage, $translations, $options);
+
+
+//                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($newsPage);
+//
+//                $pageparts = array();
+//                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
+//                    array(
+//                        'setContent' => $body
+//                    )
+//                );
+
+        //$pagePartCreator->addPagePartsToPage($node, $pageparts, 'ee');
     }
 }
 
