@@ -235,7 +235,7 @@ class NewsletterController extends Controller
             $name = $company->getTitle();
 
 
-            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.' kampaaniad leiad siin.';
+            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.' praegused kampaaniad leiad siit.';
             //$summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
             $newsPage->setSummary($summary);
         }
