@@ -71,8 +71,7 @@ class NewsletterController extends Controller
 //                }else {
                     foreach ($emailStructure->parts as $key => $part) {
                         if ($part->subtype == 'HTML') {
-                            var_dump(imap_fetchbody($inbox, $mail, 1));
-                            var_dump(imap_fetchbody($inbox, $mail, 2));
+                            var_dump(imap_fetchbody($inbox, $mail, 0));
                             $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
                             break;
                         }
