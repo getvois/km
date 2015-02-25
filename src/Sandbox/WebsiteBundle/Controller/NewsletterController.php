@@ -11,9 +11,9 @@ use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyPage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
-use Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -229,13 +229,13 @@ class NewsletterController extends Controller
         $this->setPlace($newsPage, $body);
 
         if($newsPage->getCompanies()->count() > 0){
-            $month = strftime("%B", strtotime($headerInfo->date));
+            $month = $this->getMonth($headerInfo->date, 'ee');
             /** @var CompanyOverviewPage $company */
             $company = $newsPage->getCompanies()->first();
             $name = $company->getTitle();
 
 
-            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.' praegused kampaaniad leiad siit.';
+            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.' praegused kehtivad sooduskampaaniad leiad siit.';
             //$summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
             $newsPage->setSummary($summary);
         }
@@ -276,6 +276,33 @@ class NewsletterController extends Controller
 //                );
 
         //$pagePartCreator->addPagePartsToPage($node, $pageparts, 'ee');
+    }
+
+    /**
+     * @param $date
+     * @param $locale
+     * @return string
+     */
+    private function getMonth($date, $locale)
+    {
+        setlocale(LC_TIME, "");//reset locale
+
+        if($locale == 'ee')
+            setlocale(LC_TIME, 'et_EE', 'Estonian_Estonia', 'Estonian');
+        elseif($locale == 'en')
+            setlocale(LC_TIME, 'en', 'English_Australia', 'English');
+        elseif($locale == 'fi')
+            setlocale(LC_TIME, 'fi_FI', 'Finnish_Finland', 'Finnish');
+        elseif($locale == 'fr')
+            setlocale(LC_TIME, 'fr_FR', 'French', 'French_France');
+        elseif($locale == 'de')
+            setlocale(LC_TIME, 'de_DE', 'German', 'German_Germany');
+        elseif($locale == 'se')
+            setlocale(LC_TIME, 'sv_SE', 'Swedish_Sweden', 'Swedish');
+        elseif($locale == 'ru')
+            setlocale(LC_TIME, 'ru_RU', 'Russian_Russia', 'Russian');
+
+        return strftime('%B', strtotime($date));
     }
 }
 
