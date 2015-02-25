@@ -95,6 +95,7 @@ class NewsletterController extends Controller
                             '/This email was sent to/',
                             '/Eemalda e-mail nimekirjast/',
                             '/software by/',
+                            '/Mail bow/',
                             '/gmail.com/',
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
