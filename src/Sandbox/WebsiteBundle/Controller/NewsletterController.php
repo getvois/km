@@ -55,6 +55,7 @@ class NewsletterController extends Controller
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
             $body = '';
+            var_dump($emailStructure);
             if($emailStructure->type === 0){
                 $body = imap_qprint(imap_body($inbox, $mail));
             }elseif($emailStructure->type === 1) {//multipart
