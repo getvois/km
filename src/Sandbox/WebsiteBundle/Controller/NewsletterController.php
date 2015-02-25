@@ -170,8 +170,12 @@ class NewsletterController extends Controller
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+
+        $elements = imap_mime_header_decode($headerInfo->fromaddress);
+        $company = $elements[0]->text;
+
         //company name rules
-        $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
+        $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $company);
 
         if(preg_match('/Viking Club/', $company)){
             $company = 'Vikingline';
@@ -206,8 +210,6 @@ class NewsletterController extends Controller
             $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                 ->findOneBy(['title' => $company]);
         }
-
-        var_dump(imap_mime_header_decode($company));
 
         if ($companyPage) {
             $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
