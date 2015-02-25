@@ -207,6 +207,8 @@ class NewsletterController extends Controller
                 ->findOneBy(['title' => $company]);
         }
 
+        var_dump($company);
+
         if ($companyPage) {
             $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
             if ($node) {
