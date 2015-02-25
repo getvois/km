@@ -62,20 +62,21 @@ class NewsletterController extends Controller
                 $body = imap_qprint(imap_body($inbox, $mail));
             }elseif($emailStructure->type === 1) {//multipart
 
-                if($emailStructure->ifsubtype &&  $emailStructure->subtype == 'ALTERNATIVE'){
-                    //$body = imap_base64(imap_body($inbox, $mail));
-                    echo "<pre>";
-                    var_dump(imap_body($inbox, $mail));
-                    echo "</pre>";
-                    $body = imap_base64(imap_fetchbody($inbox, $mail, 2));
-                }else {
+//                if($emailStructure->ifsubtype &&  $emailStructure->subtype == 'ALTERNATIVE'){
+//                    //$body = imap_base64(imap_body($inbox, $mail));
+//                    echo "<pre>";
+//                    var_dump(imap_body($inbox, $mail));
+//                    echo "</pre>";
+//                    $body = imap_base64(imap_fetchbody($inbox, $mail, 2));
+//                }else {
                     foreach ($emailStructure->parts as $key => $part) {
                         if ($part->subtype == 'HTML') {
+                            var_dump(imap_fetchbody($inbox, $mail, ""));
                             $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
                             break;
                         }
                     }
-                }
+//                }
             }
 
             if($body){
