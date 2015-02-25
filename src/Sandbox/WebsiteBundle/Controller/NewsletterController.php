@@ -93,7 +93,8 @@ class NewsletterController extends Controller
                             '/uudiskirjast loobuda/',
                             '/ei näe (pilte|uudiskirja)/',
                             '/This email was sent to/',
-                            '/Eemalda e-mail nimekirjast/'
+                            '/Eemalda e-mail nimekirjast/',
+                            'software by',
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
