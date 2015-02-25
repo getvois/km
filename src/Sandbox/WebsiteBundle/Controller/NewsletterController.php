@@ -102,7 +102,7 @@ class NewsletterController extends Controller
                 $paragraphs = $crawler->filter('p, td, div');
 
                 $patterns = [
-                    '/Kui soovid uudiskirja/',
+                    '/Kui soovi(d|te) uudiskirja/',
                     '/Kui (Sa|Te) ei (soovi|näe)/',
                     '/uudiskirjast loobuda/',
                     '/ei näe (pilte|uudiskirja)/',
@@ -112,6 +112,7 @@ class NewsletterController extends Controller
                     '/Mailbow/',
                     '/gmail.com/',
                     '/Hei Mika/',
+                    '/Kui emaili ei kuvata/',
                     //'/Ei soovi rohkem kirju saada?/',
                 ];
                 foreach ($patterns as $pattern) {
