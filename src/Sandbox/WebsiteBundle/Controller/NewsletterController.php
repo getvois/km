@@ -74,9 +74,9 @@ class NewsletterController extends Controller
                             $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
 
                             if($part->encoding == 3){
-                                $body = base64_decode($body);
+                                $body = utf8_encode(base64_decode($body));
                             }
-                            $body = utf8_encode(imap_qprint($body));
+                            $body = (imap_qprint($body));
                             break;
                         }
                     }
