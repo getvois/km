@@ -161,16 +161,19 @@ class NewsletterController extends Controller
             $company = $parts[0] . " " . $parts[1];
             $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                 ->findOneBy(['title' => $company]);
+            var_dump($company);
             if (!$companyPage) {
                 $company = $parts[1] . " " . $parts[2];
                 $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                     ->findOneBy(['title' => $company]);
+                var_dump($company);
             }
         }
 
         if (!$companyPage) {
             $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                 ->findOneBy(['title' => $company]);
+            var_dump($company);
         }
         if ($companyPage) {
             $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
