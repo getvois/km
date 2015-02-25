@@ -44,10 +44,10 @@
                                     </a>
                                 </div>
                             {% elseif item.companies|length > 0 %}
-                                {% if item.companies.eq(0).logo %}
+                                {% if item.companies[0].logo %}
                                     <div class="col-md-3 nopadding-right">
                                         <a href="{{ path("_slug", {'url':articlenode.url}) }}">
-                                            <img src="{{ asset(item.companies.eq(0).logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                            <img src="{{ asset(item.companies[0].logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
                                         </a>
                                     </div>
                                 {% endif %}
