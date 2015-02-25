@@ -55,20 +55,12 @@ class NewsletterController extends Controller
             //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
             $emailStructure = imap_fetchstructure($inbox,$mail);
             $body = '';
-            echo "<pre>";
-            var_dump($emailStructure);
-            echo "</pre>";
+//            echo "<pre>";
+//            var_dump($emailStructure);
+//            echo "</pre>";
             if($emailStructure->type === 0){
                 $body = imap_qprint(imap_body($inbox, $mail));
             }elseif($emailStructure->type === 1) {//multipart
-
-//                if($emailStructure->ifsubtype &&  $emailStructure->subtype == 'ALTERNATIVE'){
-//                    //$body = imap_base64(imap_body($inbox, $mail));
-//                    echo "<pre>";
-//                    var_dump(imap_body($inbox, $mail));
-//                    echo "</pre>";
-//                    $body = imap_base64(imap_fetchbody($inbox, $mail, 2));
-//                }else {
                     foreach ($emailStructure->parts as $key => $part) {
                         if ($part->subtype == 'HTML') {
                             $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
@@ -77,17 +69,14 @@ class NewsletterController extends Controller
                                 $body = utf8_decode(base64_decode($body));
                             }
                             $body = (imap_qprint($body));
-                            echo $body;
                             break;
                         }
                     }
-//                }
             }
 
             if($body){
                 $crawler = new Crawler($body);
                 $body = $crawler->html();
-                echo $body;
                 $styles = $crawler->filter("style");
                 for($j = 0 ; $j< $styles->count(); $j++){
                     $body = str_replace($styles->eq($j)->html(), '', $body);
