@@ -76,7 +76,7 @@ class NewsletterController extends Controller
                             if($part->encoding == 3){
                                 $body = base64_decode($body);
                             }
-                            imap_qprint($body);
+                            $body = imap_qprint($body);
                             break;
                         }
                     }
