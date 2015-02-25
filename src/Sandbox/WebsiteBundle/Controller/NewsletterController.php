@@ -94,7 +94,8 @@ class NewsletterController extends Controller
                             '/ei näe (pilte|uudiskirja)/',
                             '/This email was sent to/',
                             '/Eemalda e-mail nimekirjast/',
-                            'software by',
+                            '/software by/',
+                            '/gmail.com/',
                             //'/Ei soovi rohkem kirju saada?/',
                         ];
                         foreach ($patterns as $pattern) {
