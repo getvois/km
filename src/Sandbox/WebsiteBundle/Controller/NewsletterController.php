@@ -39,7 +39,7 @@ class NewsletterController extends Controller
         foreach($emails as $mail) {
             $headerInfo = imap_headerinfo($inbox,$mail);
 
-            //if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
+            if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
             //if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
             $elements = imap_mime_header_decode($headerInfo->subject);
