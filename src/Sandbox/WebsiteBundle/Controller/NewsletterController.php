@@ -57,86 +57,81 @@ class NewsletterController extends Controller
             $body = '';
             if($emailStructure->type === 0){
                 $body = imap_qprint(imap_body($inbox, $mail));
-                echo $body;
-            }
-
-            if($emailStructure->type === 1){//multipart
+            }elseif($emailStructure->type === 1) {//multipart
                 foreach ($emailStructure->parts as $key => $part) {
-                    if($part->subtype == 'HTML'){
+                    if ($part->subtype == 'HTML') {
                         $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
-
-                        $crawler = new Crawler($body);
-                        $body = $crawler->html();
-
-                        $styles = $crawler->filter("style");
-                        for($j = 0 ; $j< $styles->count(); $j++){
-                            $body = str_replace($styles->eq($j)->html(), '', $body);
-                        }
-
-                        //hotelli veb
-                        $delete = $crawler->filter('.newsletter_hidden');//->first();
-                            if($delete->count() > 0){
-                                $delete = $delete->first()->html();
-                                //$delete = str_replace('ä', '&auml;', $delete);
-                                $body = str_replace($delete, '', $body);
-
-                                $tds = $crawler->filter("td");
-                                for($j = 2; $j<$tds->count(); $j++){//body in td
-                                    if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
-                                        $delete = $tds->eq($j)->html();
-                                        $body = str_replace($delete, '', $body);
-                                    }
-                                }
-                            }
-
-                        //tallink
-                        $paragraphs = $crawler->filter('p, td, div');
-
-                        $patterns = [
-                            '/Kui soovid uudiskirja/',
-                            '/Kui (Sa|Te) ei (soovi|näe)/',
-                            '/uudiskirjast loobuda/',
-                            '/ei näe (pilte|uudiskirja)/',
-                            '/This email was sent to/',
-                            '/Eemalda e-mail nimekirjast/',
-                            '/software by/',
-                            '/Mailbow/',
-                            '/gmail.com/',
-                            //'/Ei soovi rohkem kirju saada?/',
-                        ];
-                        foreach ($patterns as $pattern) {
-                            for($j = 1; $j<$paragraphs->count(); $j++){
-                                if(preg_match($pattern, $paragraphs->eq($j)->text())
-                                ){
-                                    $delete = $paragraphs->eq($j)->html();
-                                    if(strlen($delete) < 1300) {
-                                        $body = str_replace($delete, '', $body);
-                                    }
-                                }
-                            }
-                        }
-
-
-
-
-                        //estravel
-                        $delete = $crawler->filter('.adminText');//->first();
-                        if($delete->count() > 0){
-                            //$body = $crawler->html();
-                            $delete = $delete->first()->html();
-                            $body = str_replace($delete, '', $body);
-                        }
-
-
-                        $output .= $body;
                         break;
                     }
                 }
-
-                $this->makePage($headerInfo, $subject, $body);
-
-
             }
+
+            if($body){
+                $crawler = new Crawler($body);
+                $body = $crawler->html();
+
+                $styles = $crawler->filter("style");
+                for($j = 0 ; $j< $styles->count(); $j++){
+                    $body = str_replace($styles->eq($j)->html(), '', $body);
+                }
+
+                //hotelli veb
+                $delete = $crawler->filter('.newsletter_hidden');//->first();
+                if($delete->count() > 0){
+                    $delete = $delete->first()->html();
+                    //$delete = str_replace('ä', '&auml;', $delete);
+                    $body = str_replace($delete, '', $body);
+
+                    $tds = $crawler->filter("td");
+                    for($j = 2; $j<$tds->count(); $j++){//body in td
+                        if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
+                            $delete = $tds->eq($j)->html();
+                            $body = str_replace($delete, '', $body);
+                        }
+                    }
+                }
+
+                //tallink
+                $paragraphs = $crawler->filter('p, td, div');
+
+                $patterns = [
+                    '/Kui soovid uudiskirja/',
+                    '/Kui (Sa|Te) ei (soovi|näe)/',
+                    '/uudiskirjast loobuda/',
+                    '/ei näe (pilte|uudiskirja)/',
+                    '/This email was sent to/',
+                    '/Eemalda e-mail nimekirjast/',
+                    '/software by/',
+                    '/Mailbow/',
+                    '/gmail.com/',
+                    '/Hei Mika/',
+                    //'/Ei soovi rohkem kirju saada?/',
+                ];
+                foreach ($patterns as $pattern) {
+                    for($j = 1; $j<$paragraphs->count(); $j++){
+                        if(preg_match($pattern, $paragraphs->eq($j)->text())
+                        ){
+                            $delete = $paragraphs->eq($j)->html();
+                            if(strlen($delete) < 1300) {
+                                $body = str_replace($delete, '', $body);
+                            }
+                        }
+                    }
+                }
+
+                //estravel
+                $delete = $crawler->filter('.adminText');//->first();
+                if($delete->count() > 0){
+                    //$body = $crawler->html();
+                    $delete = $delete->first()->html();
+                    $body = str_replace($delete, '', $body);
+                }
+
+
+                $output .= $body;
+                $this->makePage($headerInfo, $subject, $body);
+            }
+
             echo $output;
             $output = '';
 
