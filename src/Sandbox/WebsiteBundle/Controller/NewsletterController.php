@@ -10,6 +10,7 @@ use Kunstmaan\TranslatorBundle\Model\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyPage;
+use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -240,7 +241,9 @@ class NewsletterController extends Controller
         $newsPage->setPageTitle($subject);
         $newsPage->setHtml($body);
         $newsPage->setPriceFromLabel('newsletter');
+        $newsPage->setDate(new \DateTime($headerInfo->date));
 
+        $this->setHosts($newsPage);
         $this->setCompany($newsPage, $headerInfo);
         $this->setPlace($newsPage, $body);
 
@@ -319,6 +322,23 @@ class NewsletterController extends Controller
             setlocale(LC_TIME, 'ru_RU', 'Russian_Russia', 'Russian');
 
         return strftime('%B', strtotime($date));
+    }
+
+    /**
+     * @param $newsPage
+     */
+    private function setHosts(NewsPage $newsPage)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Host[] $hosts */
+        $hosts = $em->getRepository('SandboxWebsiteBundle:Host')->findAll();
+        foreach ($hosts as $host) {
+            if (preg_match('/.ee/', $host->getName())) {
+                $newsPage->addHost($host);
+            }
+        }
     }
 }
 
