@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
@@ -49,7 +50,7 @@ class NewsletterController extends Controller
             if($emailStructure->type === 1){//multipart
                 foreach ($emailStructure->parts as $key => $part) {
                     if($part->subtype == 'HTML'){
-                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
+                        $body = imap_qprint(imap_fetchbody($inbox, $mail, $key + 1,FT_PEEK));//FT_PEEK
 
                         $crawler = new Crawler($body);
                         $body = $crawler->html();
@@ -155,6 +156,20 @@ class NewsletterController extends Controller
                         if($translation){
                             $newsPage->addCompany($translation->getRef($em));
                         }
+                    }
+                }
+
+
+                //city rules
+                /** @var PlaceOverviewPage[] $places */
+                $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                    ->findActiveOverviewPages();
+
+                $crawler = new Crawler($body);
+                $html = $crawler->html();
+                foreach ($places as $place) {
+                    if(preg_match("/".$place->getTitle()."/", $html)){
+                        $newsPage->addPlace($place);
                     }
                 }
 
