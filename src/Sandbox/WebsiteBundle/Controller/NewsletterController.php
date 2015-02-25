@@ -131,7 +131,7 @@ class NewsletterController extends Controller
             $output = '';
 
             if($i >= 0) {
-                //break;
+                break;
             }
 
             $i++;
