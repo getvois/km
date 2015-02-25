@@ -65,7 +65,7 @@ class NewsletterController extends Controller
                 if($emailStructure->ifsubtype &&  $emailStructure->subtype == 'ALTERNATIVE'){
                     //$body = imap_base64(imap_body($inbox, $mail));
                     echo "<pre>";
-                    var_dump(imap_base64(imap_body($inbox, $mail)));
+                    var_dump(imap_body($inbox, $mail));
                     echo "</pre>";
                     $body = imap_base64(imap_fetchbody($inbox, $mail, 2));
                 }else {
