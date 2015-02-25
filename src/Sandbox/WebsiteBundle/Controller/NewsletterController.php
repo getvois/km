@@ -9,13 +9,11 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\TranslatorBundle\Model\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
-use Sandbox\WebsiteBundle\Entity\Company\CompanyPage;
 use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -154,10 +152,17 @@ class NewsletterController extends Controller
      */
     private function setCompany(NewsPage $newsPage, $headerInfo)
     {
+
+
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         //company name rules
         $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $headerInfo->fromaddress);
+
+        if(preg_match('/Viking Club/', $company)){
+            $company = 'Vikingline';
+        }
+
         $company = trim($company, " \t\n\r\0\x0B.\"");
         $company = explode(".", $company)[0];
         $companyPage = null;
@@ -258,7 +263,7 @@ class NewsletterController extends Controller
             $name = $company->getTitle();
 
 
-            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.'i pakkumised ja soodustused ning '.$name.'i praegused kehtivad sooduskampaaniad leiad siit.';
+            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.'i pakkumised ja soodustused ning '.$name.'i kehtivad sooduskampaaniad leiad siit.';
             //$summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
             $newsPage->setSummary($summary);
         }

@@ -39,8 +39,18 @@
                         <div class="row">
                             {% if item.image %}
                                 <div class="col-md-3 nopadding-right">
-                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}"><img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
+                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
+                                        <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                    </a>
                                 </div>
+                            {% elseif item.companies|length > 0 %}
+                                {% if item.companies.eq(0).logo %}
+                                    <div class="col-md-3 nopadding-right">
+                                        <a href="{{ path("_slug", {'url':articlenode.url}) }}">
+                                            <img src="{{ asset(item.companies.eq(0).logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                        </a>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                             <div class="{% if item.image %}col-md-9{% else %}col-md-12{% endif %}">
                                 {{ item.summary }}
