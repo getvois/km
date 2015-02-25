@@ -1673,3 +1673,11 @@ aside.aside-first {
 aside.aside-second {
     float: right;
 }
+
+/*newsletter*/
+.dot-brdr-bottom.main-offer-block {
+    background-color: white;
+}
+.headerContent {
+    background-color: white;
+}
