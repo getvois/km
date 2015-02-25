@@ -168,7 +168,7 @@ class NewsletterController extends Controller
                 $crawler = new Crawler($body);
                 $html = $crawler->html();
                 foreach ($places as $place) {
-                    if(preg_match("/".$place->getTitle()."/", $html)){
+                    if(preg_match("/".str_replace("/", " ", $place->getTitle())."/", $html)){
                         $newsPage->addPlace($place);
                     }
                 }
