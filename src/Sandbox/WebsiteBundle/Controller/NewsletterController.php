@@ -162,6 +162,9 @@ class NewsletterController extends Controller
         if(preg_match('/Viking Club/', $company)){
             $company = 'Vikingline';
         }
+        if(preg_match('/GoAdventure/', $company)){
+            $company = 'GoAdventure';
+        }
 
         $company = trim($company, " \t\n\r\0\x0B.\"");
         $company = explode(".", $company)[0];
