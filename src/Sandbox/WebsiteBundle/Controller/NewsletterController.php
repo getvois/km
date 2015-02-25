@@ -43,7 +43,6 @@ class NewsletterController extends Controller
             if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
             $elements = imap_mime_header_decode($headerInfo->subject);
-            var_dump($elements);
             $subject = utf8_encode($elements[0]->text);//iconv_mime_decode($elements[0]->text,0,"UTF-8");
             $output .= "Subject: ". $subject .'<br/>';
             //$output .= "To: ".$headerInfo->toaddress.'<br/>';
@@ -161,19 +160,16 @@ class NewsletterController extends Controller
             $company = $parts[0] . " " . $parts[1];
             $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                 ->findOneBy(['title' => $company]);
-            var_dump($company);
             if (!$companyPage) {
                 $company = $parts[1] . " " . $parts[2];
                 $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                     ->findOneBy(['title' => $company]);
-                var_dump($company);
             }
         }
 
         if (!$companyPage) {
             $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                 ->findOneBy(['title' => $company]);
-            var_dump($company);
         }
         if ($companyPage) {
             $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
@@ -237,7 +233,10 @@ class NewsletterController extends Controller
             /** @var CompanyOverviewPage $company */
             $company = $newsPage->getCompanies()->first();
             $name = $company->getTitle();
-            $summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
+
+
+            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.' kampaaniad leiad siin.';
+            //$summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
             $newsPage->setSummary($summary);
         }
 
