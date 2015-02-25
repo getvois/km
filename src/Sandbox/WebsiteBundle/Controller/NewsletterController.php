@@ -56,7 +56,7 @@ class NewsletterController extends Controller
             $emailStructure = imap_fetchstructure($inbox,$mail);
             $body = '';
             if($emailStructure->type === 0){
-                $body = imap_body($inbox, $mail);
+                $body = imap_qprint(imap_body($inbox, $mail));
                 echo $body;
             }
 
