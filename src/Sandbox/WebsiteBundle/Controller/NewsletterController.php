@@ -39,8 +39,8 @@ class NewsletterController extends Controller
         foreach($emails as $mail) {
             $headerInfo = imap_headerinfo($inbox,$mail);
 
-            if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
-            if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
+            //if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
+            //if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
 
             $elements = imap_mime_header_decode($headerInfo->subject);
             $subject = '';
@@ -171,6 +171,7 @@ class NewsletterController extends Controller
 
         $company = trim($company, " \t\n\r\0\x0B.\"");
         $company = explode(".", $company)[0];
+        $cleanCompany = $company;
         $companyPage = null;
         if (count(explode(" ", $company)) > 2) {
             $parts = explode(" ", $company);
@@ -188,6 +189,13 @@ class NewsletterController extends Controller
             $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
                 ->findOneBy(['title' => $company]);
         }
+
+        if(!$companyPage){
+            $company = preg_replace('/[ ]+/', '', $cleanCompany);
+            $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                ->findOneBy(['title' => $company]);
+        }
+
         if ($companyPage) {
             $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($companyPage);
             if ($node) {
