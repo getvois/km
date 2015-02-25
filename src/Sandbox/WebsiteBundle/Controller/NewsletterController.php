@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\HasNodeInterface;
+use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\TranslatorBundle\Model\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
@@ -199,9 +200,24 @@ class NewsletterController extends Controller
 
         $crawler = new Crawler($body);
         $html = $crawler->html();
+        /** @var Node[] $add */
+        $add = [];
         foreach ($places as $place) {
             if (preg_match("/" . str_replace("/", " ", $place->getTitle()) . "/", $html)) {
-                $newsPage->addPlace($place);
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+                if($node){
+                    $add[$node->getId()] = $node;
+                }
+            }
+        }
+
+        foreach ($add as $node) {
+            $translation = $node->getNodeTranslation('ee', true);
+            if ($translation) {
+                $place = $translation->getRef($em);
+                if ($place) {
+                    $newsPage->addPlace($place);
+                }
             }
         }
     }
@@ -235,7 +251,7 @@ class NewsletterController extends Controller
             $name = $company->getTitle();
 
 
-            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.' praegused kehtivad sooduskampaaniad leiad siit.';
+            $summary = 'Hilisemad uudised firmalt '.$name.' - '.$month.' pakkumised ja soodustused ning '.$name.'i praegused kehtivad sooduskampaaniad leiad siit.';
             //$summary = 'Latest newsletter from '.$name.'. Check out '.$name.' '.$month.' offers and discounts here.';
             $newsPage->setSummary($summary);
         }
