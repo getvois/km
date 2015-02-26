@@ -255,6 +255,7 @@ class NewsletterController extends Controller
         foreach ($add as $node) {
             $translation = $node->getNodeTranslation('ee', true);
             if ($translation) {
+                /** @var PlaceOverviewPage $place */
                 $place = $translation->getRef($em);
                 if ($place) {
                     $newsPage->addPlace($place);

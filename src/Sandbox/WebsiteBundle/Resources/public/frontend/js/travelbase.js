@@ -9,6 +9,7 @@ $(document).ready(function() {
     });
     var $city_picker = $(".city-picker");
 
+
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
     var $datepickerTo = $("#edit-date-end-datepicker-popup-0");
@@ -53,8 +54,8 @@ $(document).ready(function() {
         }
 
         return "<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
-        "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
-        "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval==30?" active ":"") + " ' data-interval='30'>month</button>";
+            "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
+            "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval==30?" active ":"") + " ' data-interval='30'>month</button>";
     }
 
 
@@ -108,7 +109,7 @@ $(document).ready(function() {
     $datepickerFrom.datepicker( "option", "onSelect", function (date) {
         $(this).data('datepicker').inline = true;
 
-        datepickerEvent();
+        datepickerEvent(this);
 
         if($dpInterval == 30){
             $("#date-start-datepicker-holder").val(date + "–");
@@ -124,6 +125,8 @@ $(document).ready(function() {
         //formChange();
     } );
     $datepickerTo.datepicker( "option", "onSelect", function (date) {
+        $(this).data('datepicker').inline = true;
+        datepickerEvent(this);
         $("#flyOneWay").attr('checked', false);
         $("#date-end-datepicker-holder").val(date);
         //formChange();
@@ -135,10 +138,10 @@ $(document).ready(function() {
     //DATE HOLDERS
     ///////////////////////////////////////////////////////////
     $("#date-end-datepicker-holder").focusin(function () {
-        $("#edit-date-end-datepicker-popup-0").datepicker("show");
+        $datepickerTo.datepicker("show");
     });
     $("#date-start-datepicker-holder").focusin(function () {
-        $("#edit-date-start-datepicker-popup-0").datepicker("show");
+        $datepickerFrom.datepicker("show");
     });
 
 
