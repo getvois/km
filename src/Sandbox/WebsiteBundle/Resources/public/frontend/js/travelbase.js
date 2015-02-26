@@ -1118,6 +1118,10 @@ $(document).ready(function() {
         e.preventDefault();
         formChange();
     }).click();
+
+    $("#flyWithReturn, #flyOneWay, #sameDay, #directFlight").change(function () {
+        formChange();
+    });
     //getTable();
     //setTimeout(function () {
     //    getTable(".travelbase_items_sp");
