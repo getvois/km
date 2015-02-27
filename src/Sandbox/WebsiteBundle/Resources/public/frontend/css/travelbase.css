@@ -235,8 +235,8 @@ body .splash--green {
 
 /*topmenu*/
 .site-logo, .site-logo a {
-	 width:135px;
-	 right:3%;
+	 width:202px;
+	 right:0;
 } 
 .site-logo {
 	position: absolute;
@@ -244,7 +244,7 @@ body .splash--green {
 	z-index: 9999;
 }
 .site-logo a {
-    height:57px;
+    height:86px;
     top:30px;
     position: absolute;
     z-index: 99;
@@ -256,8 +256,8 @@ body .splash--green {
     position: absolute;
     top:0;
     right:0;
-    padding-right:3.6%;
-    padding-top: 115px;
+    padding-right:4%;
+    padding-top: 135px;
     padding-left: 280px;
 	z-index: 98;
 	height: 380px;
@@ -712,7 +712,7 @@ label.directFlight-label,  label.sameDay-label {
 }
 
 .trip .company  {
-    height: 20px;
+    height:25px;
     width:100px;
     display: inline-block;
     /*noinspection CssUnknownTarget*/
@@ -751,6 +751,31 @@ label.directFlight-label,  label.sameDay-label {
 .trip .company-ving, .trip .company-vingse, .trip .company-vingno {
     background-position:0 -275px;
 }
+
+.trip .company-novatours {
+    background-position:0 -300px;
+}
+
+.trip .company-airtours {
+    background-position:0 -325px;
+}
+
+.trip .company-turkietresor {
+    background-position:0 -350px;
+}
+
+.trip .company-bravotours {
+    background-position:0 -400px;
+}
+
+.trip .company-solresor {
+    background-position:0 -425px;
+}
+
+.trip .company-amisol {
+    background-position:0 -450px;
+}
+
 .trip-path {
     /*margin-left: 32px;*/
 }
