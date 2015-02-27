@@ -672,11 +672,11 @@ $(document).ready(function() {
 
                     var modal = $("#sp-modal");
                     modal.modal('show');
-                    modal.find(".modal-content").html("");
+                    modal.find("#modal-content").html("");
                     $(".skypicker-dropdown .trip").hide().each(function () {
                         if($(this).data('date') == $date && $(this).data('direction') == 'to'){
 
-                            modal.find(".modal-content").append($(this));
+                            modal.find("#modal-content").append($(this));
                             //$(this).slideDown('fast');
                         }
                     });
@@ -804,11 +804,11 @@ $(document).ready(function() {
 
                         var modal = $("#sp-modal");
                         modal.modal('show');
-                        modal.find(".modal-content").html("");
+                        modal.find("#modal-content").html("");
 
                         $(".skypicker-dropdown .trip").hide().each(function () {
                             if($(this).data('date') == $date && $(this).data('direction') == 'from'){
-                                modal.find(".modal-content").append($(this));
+                                modal.find("#modal-content").append($(this));
                                 //$(this).slideDown('fast');
                             }
                         });
