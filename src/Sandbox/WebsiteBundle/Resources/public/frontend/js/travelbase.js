@@ -680,6 +680,7 @@ $(document).ready(function() {
                             //$(this).slideDown('fast');
                         }
                     });
+                    modal.find(".trip").show();
                 });
 
                 $('.loading').hide();
