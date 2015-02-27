@@ -13,9 +13,10 @@ $(document).ready(function() {
     $(".date").datepicker({ dateFormat: "dd.mm.yy" });
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
     var $datepickerTo = $("#edit-date-end-datepicker-popup-0");
-    $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker( "option", "minDate",  new Date() );
+    var $datepickers = $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0");
+    $datepickers.datepicker( "option", "minDate",  new Date() );
 
-    $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0").datepicker('option', {
+    $datepickers.datepicker('option', {
         onClose: function() {
             $(this).data('datepicker').inline = false;
         },
@@ -27,7 +28,7 @@ $(document).ready(function() {
 
     var $body = $("body");
     $body.on('click', '.dp-interval', function () {
-        $target = $($(this).data('target'));
+        var $target = $($(this).data('target'));
 
         if($(this).data('target') == '#edit-date-start-datepicker-popup-0'){
             $dpInterval = $(this).data('interval');
@@ -41,7 +42,7 @@ $(document).ready(function() {
     });
 
     $body.on('click', '.dp-close', function () {
-        $target = $($(this).data('target'));
+        var $target = $($(this).data('target'));
         $target.datepicker('hide');
     });
 
@@ -74,8 +75,9 @@ $(document).ready(function() {
             var $calendar = $("table.ui-datepicker-calendar");
             $calendar.find("td > a").removeClass('ui-state-highlight');
 
-            $current = parseInt($calendar.find("td > a.ui-state-active").eq(0).text());
-            $currentMonth = $calendar.find("td > a.ui-state-active").parent().data('month');
+            var $current = parseInt($calendar.find("td > a.ui-state-active").eq(0).text());
+            //noinspection JSValidateTypes
+            var $currentMonth = $calendar.find("td > a.ui-state-active").parent().data('month');
 
             if(interval == 30){
                 $calendar.eq(0).find("td > a").each(function () {
@@ -133,14 +135,16 @@ $(document).ready(function() {
     } );
 
     $datepickerFrom.datepicker('setDate', new Date());
-    $("#date-start-datepicker-holder").val($datepickerFrom.val() + "–");
-    $("#date-end-datepicker-holder").val("–");
+    var $holderFrom = $("#date-start-datepicker-holder");
+    $holderFrom.val($datepickerFrom.val() + "–");
+    var $holderTo = $("#date-end-datepicker-holder");
+    $holderTo.val("–");
     //DATE HOLDERS
     ///////////////////////////////////////////////////////////
-    $("#date-end-datepicker-holder").focusin(function () {
+    $holderTo.focusin(function () {
         $datepickerTo.datepicker("show");
     });
-    $("#date-start-datepicker-holder").focusin(function () {
+    $holderFrom.focusin(function () {
         $datepickerFrom.datepicker("show");
     });
 
@@ -244,8 +248,9 @@ $(document).ready(function() {
 
     /////////////////////////////////////////////
     //PRE SELECT COMPANY
+    var $edit = $("#edit-companies");
     if($(".company-name").length > 0){
-        $("#edit-companies option").each(function () {
+        $edit.find("option").each(function () {
             if($(this).text().toLowerCase() == $(".company-name").text().toLowerCase()){
                 $(this).attr('selected', true);
             }
@@ -253,7 +258,7 @@ $(document).ready(function() {
     }
 
 
-    $("#edit-companies").select2({placeholder: "Companies"});
+    $edit.select2({placeholder: "Companies"});
 
     $city_picker.find(".check-all").hide();
     $city_picker.find('input[type=checkbox]').change(function () {
@@ -265,9 +270,9 @@ $(document).ready(function() {
             $(this).closest(".city-picker").find(".check-all").hide();
         }
 
-        var $cityPicker = $(this).closest(".city-picker");
-        var $id = $cityPicker.attr('id');
-        var $list = $("span[data-target='#"+ $id +"']");
+        //var $cityPicker = $(this).closest(".city-picker");
+        //var $id = $cityPicker.attr('id');
+        //var $list = $("span[data-target='#"+ $id +"']");
 
         //setTimeout(function () {
         //    fill_destination_country($list, $cityPicker);
@@ -363,8 +368,9 @@ $(document).ready(function() {
 
     }else{
         //Pre Select from preferred countries
-        $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
-        $("#dropdown-departure").find('.city-list').find(".city-near").find("input[type='checkbox']").each(function () {
+        var $dropdown = $("#dropdown-departure");
+        $dropdown.find('.city-list').find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
+        $dropdown.find('.city-list').find(".city-near").find("input[type='checkbox']").each(function () {
 
             var $departure = $("#departure-dataholder");
             var $data = $departure.dataHolder('data');
@@ -449,10 +455,13 @@ $(document).ready(function() {
         });
 
         $.getJSON("https://api.skypicker.com/api/v0.1/check_flights?flights="+$flightId+"&pnum="+$pnum+"&bnum="+$bnum+"&partner=picky", function (responce) {
+            //noinspection JSUnresolvedVariable
             console.log(responce.flights_checked + " " + !responce.flights_invalid);
+            //noinspection JSUnresolvedVariable
             if(responce.flights_checked && !responce.flights_invalid){
                 //can book
 
+                //noinspection JSUnresolvedVariable
                 var price = responce.flights_price;
 
                 $.getJSON('/book-form/?price='+price+"&flights="+$flightId+"&"+$form.serialize(), function (postData) {
@@ -575,6 +584,7 @@ $(document).ready(function() {
                         }
                     }
 
+                    //noinspection JSUnresolvedVariable
                     var $event = {
                         "id": i,
                         "title" : $data[i].price,
@@ -589,6 +599,7 @@ $(document).ready(function() {
                     //add only events with lowes prices
                     var found = false;
                     for(var k =0;k<$eventSource.length; k++){
+                        //noinspection JSUnresolvedVariable
                         if($eventSource[k].date == $data[i].dDate){
                             found = true;
                             if(parseFloat($eventSource[k].title) > parseFloat($data[i].price)){
@@ -602,12 +613,15 @@ $(document).ready(function() {
                         $eventSource.push($event);
                     }
 
+                    //noinspection JSUnresolvedVariable
                     var stops = $data[i].route.length - 1 ;
                     if(stops == 0) stops = "";
                     else stops += " stops";
 
+                    //noinspection JSUnresolvedVariable
                     var $date = $data[i].dDate.slice(0, 6) + $data[i].dDate.slice(8, $data[i].dDate.length);
 
+                    //noinspection JSUnresolvedVariable
                     var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
 
                     $row +=
@@ -621,6 +635,7 @@ $(document).ready(function() {
 
                     $row += '</tr></table>';
 
+                    //noinspection JSUnresolvedVariable
                     $row +=
                         '    </div>' +
                         '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
@@ -653,6 +668,7 @@ $(document).ready(function() {
                 spinner.stop();
 
 
+                //noinspection JSUnresolvedVariable
                 var calendar1 = $(".calendar-1").calendar(
                     {
                         tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
@@ -705,11 +721,13 @@ $(document).ready(function() {
                     for(var i = 0; i< $data.length; i++){
 
                         if($filter.sameDay == 1){
+                            //noinspection JSUnresolvedVariable
                             if($data[i].dDate != $data[i].aDate){
                                 continue;
                             }
                         }
 
+                        //noinspection JSUnresolvedVariable
                         var $event = {
                             "id": i,
                             "title" : $data[i].price,
@@ -724,6 +742,7 @@ $(document).ready(function() {
                         //add only events with lowes prices
                         var found = false;
                         for(var k =0;k<$eventSource.length; k++){
+                            //noinspection JSUnresolvedVariable
                             if($eventSource[k].date == $data[i].dDate){
                                 found = true;
                                 if(parseFloat($eventSource[k].title) > parseFloat($data[i].price)){
@@ -737,12 +756,15 @@ $(document).ready(function() {
                             $eventSource.push($event);
                         }
 
+                        //noinspection JSUnresolvedVariable
                         var stops = $data[i].route.length - 1 ;
                         if(stops == 0) stops = "";
                         else stops += " stops";
 
+                        //noinspection JSUnresolvedVariable
                         var $date = $data[i].dDate.slice(0, 6) + $data[i].dDate.slice(8, $data[i].dDate.length);
 
+                        //noinspection JSUnresolvedVariable
                         var $mysqlDate = (new Date($data[i].dTimestamp * 1000)).toMysqlFormat();
 
                         $row +=
@@ -756,6 +778,7 @@ $(document).ready(function() {
 
                         $row += '</tr></table>';
 
+                        //noinspection JSUnresolvedVariable
                         $row +=
                             '    </div>' +
                             '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
@@ -844,7 +867,9 @@ $(document).ready(function() {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     function itemsToHtml($data, i){
         var $row = '';
+        //noinspection JSUnresolvedVariable
         for(var j=0; j<$data[i].route.length; j++){
+            //noinspection JSUnresolvedVariable
             var duration = ($data[i].route[j].aTimeUTC - $data[i].route[j].dTimeUTC) / 60 ;//minutes
             if(duration >= 60){
                 var $hours = Math.floor(duration / 60 );//hours
@@ -866,23 +891,28 @@ $(document).ready(function() {
             var $time = "";
 
             if(j == 0){
+                //noinspection JSUnresolvedVariable
                 $time = $data[i].route[j].dTime;
             }
             else if (j == $data[i].route.length-1){
+                //noinspection JSUnresolvedVariable
                 $time = $data[i].route[j].aTime;
             }
             else if($data[i].route[j+1]) {//if has more put next depart time
+                //noinspection JSUnresolvedVariable
                 $time = $data[i].route[j-1].aTime + " --- " + $data[i].route[j].dTime
             }
 
 
 
+            //noinspection JSUnresolvedVariable
             $row +=
                 '<td width="1%"><div class="trip-path-point">' +
                 '            <div class="trip-path-point-airport">'+$data[i].route[j].flyFrom+'</div>' + //cityFrom
                 '            <div class="trip-path-point-time">'+$data[i].route[j].dTime+ '</div>' +
                 '</div></td>';
 
+            //noinspection JSUnresolvedVariable
             $row +=
                 '<td><div class="trip-path-spacer">' +
                 '            <div class="trip-path-spacer-label"><span data-original-title="'+$data[i].route[j].airline+'" data-toggle="tooltip" class="airline" style="background: url(&quot;/bundles/sandboxwebsite/img/airlines/'+$data[i].route[j].airline+'.gif&quot;) no-repeat scroll 0% 0% transparent;"></span>'+duration+'</div>' +
@@ -894,6 +924,7 @@ $(document).ready(function() {
                 '            </div>' +
                 '        </div></td>';
 
+            //noinspection JSUnresolvedVariable
             $row +=
                 '<td width="1%"><div class="trip-path-point">' +
                 '            <div class="trip-path-point-airport">'+$data[i].route[j].flyTo+'</div>' + //cityTo
@@ -902,8 +933,10 @@ $(document).ready(function() {
                 '</div>' +
                 '        </div></td>';
 
+            //noinspection JSUnresolvedVariable
             if($data[i].route[j+1]){//if has more put spacer
 
+                //noinspection JSUnresolvedVariable
                 var durationWait = ( $data[i].route[j+1].dTimeStamp - $data[i].route[j].aTimeStamp) / 60 ;//minutes
                 if(durationWait > 60){
                     $hours = Math.floor(durationWait / 60 );//hours
@@ -1217,6 +1250,7 @@ function cityFilter(){
     //$cityPicker.css("margin-top", -1 * ($height));
 }
 
+//noinspection JSUnusedLocalSymbols
 function formChange(e){
     getTable('.travelbase_items_df');
     setTimeout(function () {
@@ -1226,6 +1260,7 @@ function formChange(e){
     //skyPickerImport();
 }
 
+//noinspection JSUnusedGlobalSymbols
 function skyPickerImport(){
     var $progressbar = $(".progressbar");
     $progressbar.show();
@@ -1285,6 +1320,30 @@ function getTable(container, reimport){
     var spinner = new Spinner(opts).spin($badgeLoading[0]);
 
 
+    //show loading
+    var $loading = $('.loading');
+    $loading.show();
+    var opts2 = {
+        lines: 15, // The number of lines to draw
+        length: 26, // The length of each line
+        width: 2, // The line thickness
+        radius: 36, // The radius of the inner circle
+        corners: 0, // Corner roundness (0..1)
+        rotate: 40, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#000', // #rgb or #rrggbb or array of colors
+        speed: 1, // Rounds per second
+        trail: 66, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '50%', // Top position relative to parent
+        left: '50%' // Left position relative to parent
+    };
+    var spinner2 = new Spinner(opts2).spin($loading[1]);
+
+
 
 
     $.post('/api-filter/' + type, JSON.stringify($filter), function (responce) {
@@ -1341,6 +1400,10 @@ function getTable(container, reimport){
         //}
 
         $("#form-submit").removeClass('disabled');
+
+        //hide loading
+        spinner.stop();
+        $loading.hide();
     });
 }
 
@@ -1368,9 +1431,12 @@ function cityPicker($el, $holder) {
 
     function repoFormatResult(repo) {
         var $title = repo['cityName' + $lang];
+        //noinspection JSUnresolvedVariable
         if(repo.airportNameEn){
+            //noinspection JSUnresolvedVariable
             $title += " <span class='text-muted'>("+repo.airportNameEn+", "+repo.airportCode+")</span>";
         }else{
+            //noinspection JSUnresolvedVariable
             $title += " <span class='text-muted'>("+repo.airportCode+")</span>";
         }
 
@@ -1450,6 +1516,7 @@ function cityPicker($el, $holder) {
         dropdownAutoWidth: true,
         cacheDataSource: [],
         query: function(query) {
+            //noinspection JSUndeclaredVariable
             self = this;
             var key = query.term;
             var cachedData = self.cacheDataSource[key];
