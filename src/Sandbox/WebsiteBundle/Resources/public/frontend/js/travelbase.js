@@ -1402,7 +1402,7 @@ function getTable(container, reimport){
         $("#form-submit").removeClass('disabled');
 
         //hide loading
-        spinner.stop();
+        spinner2.stop();
         $loading.hide();
     });
 }
