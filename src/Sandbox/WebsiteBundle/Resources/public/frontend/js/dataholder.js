@@ -36,14 +36,14 @@
                 e.preventDefault();
                 holder.toggleClass('placeholder-collapse');
                 if(!holder.hasClass('placeholder-collapse')){
-                    $(holder.data('target')).prev().slideDown();
-                    $(holder.data('target')).prev().prev().slideDown();
+                    $(holder.data('target')).prev().show();//.slideDown();
+                    $(holder.data('target')).prev().prev().show();//.slideDown();
 
 
                     $(holder.data('target')).prev().find('input').focus().css('padding-left', '5px');
                 }else{
-                    $(holder.data('target')).prev().slideUp();
-                    $(holder.data('target')).prev().prev().slideUp();
+                    $(holder.data('target')).prev().hide();//.slideUp();
+                    $(holder.data('target')).prev().prev().hide();//.slideUp();
                     $(holder.data('target')).prev().find('input').css('padding-left', '42px');
 
                 }
@@ -66,10 +66,10 @@
                 $holder.data('data', $newData);
 
                 if($newData.length == 0) {
-                    $holder.slideUp();
+                    $holder.hide();//.slideUp();
                     $holder.prev().hide();
-                    $($holder.data('target')).prev().slideDown();
-                    $($holder.data('target')).prev().prev().slideDown();
+                    $($holder.data('target')).prev().show();//.slideDown();
+                    $($holder.data('target')).prev().prev().show();//.slideDown();
                     $($holder.data('target')).prev().find('input').css('padding-left', '42px');
                 }
 
@@ -106,9 +106,9 @@
 
             if($data.length > 0) {
                 $(this).addClass('placeholder-collapse');
-                $(this).slideDown();
-                $(this).prev().slideDown();
-                $($(this).data('target')).prev().slideUp();
+                $(this).show();//.slideDown();
+                $(this).prev().show();//.slideDown();
+                $($(this).data('target')).prev().hide();//.slideUp();
                 $($(this).data('target')).prev().prev().hide();
             }
 
