@@ -481,6 +481,9 @@ $(document).ready(function() {
     });
 
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
+        //close other opened calendar
+        $(".skypicker-dropdown").remove();
+
         var $badge = $("#lowcost-badge");
 
         var $type = $(this).data('type'); //4 == oneway, 3 == with return
