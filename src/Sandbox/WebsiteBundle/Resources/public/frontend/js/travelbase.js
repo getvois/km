@@ -802,11 +802,17 @@ $(document).ready(function() {
                     $('.skypicker-dropdown').on('click', '.calendar-2 .cal-month-day, .calendar-2 .cal-year-box .span3', function () {
                         var $date = $(this).children('[data-cal-date]').data('cal-date');
 
+                        var modal = $("#sp-modal");
+                        modal.modal('show');
+                        modal.find(".modal-content").html("");
+
                         $(".skypicker-dropdown .trip").hide().each(function () {
                             if($(this).data('date') == $date && $(this).data('direction') == 'from'){
-                                $(this).slideDown('fast');
+                                modal.find(".modal-content").append($(this));
+                                //$(this).slideDown('fast');
                             }
                         });
+                        modal.find(".trip").show();
                     });
 
                     $('.loading').hide();
