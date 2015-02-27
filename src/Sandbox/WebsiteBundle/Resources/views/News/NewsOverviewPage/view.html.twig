@@ -21,7 +21,19 @@
 
 							    <time>{{ article.date | datelocale}}</time>
 		                    	<h2>
-		                    		{% if article.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ article.priceFrom }} {% if article.priceFromLabel %}/ {{ article.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
+		                    		
+		                    		{% if article.priceFromLabel or article.priceFrom %}
+                                    <div class="pull-right">
+                                    <div class="price-from price-from-img">
+                                        <div class="price-from-inner pull-right">
+                                            <span style="font-size:16px;">
+                                               {% if article.priceFrom %} {{ article.priceFrom }}  {% endif %} {% if article.priceFrom and article.priceFromLabel %}/{% endif %} {% if article.priceFromLabel %}{{ article.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                	{% endif %}
+		                    		
 		                    		<a href="{{ articlenode.url }}">{{ article.title }}</a>
 		                    	</h2>
 		                    <div class="clear"></div>
@@ -29,29 +41,41 @@
 			       		</div>
 					</div>
 					<div class="row">
-						{% if article.image %}  
-							{% if article.imgSize %}
-							{% else %}
-						        <div class="col-md-3">
-						        	<a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/></a>
-					   			</div>
-					   		{% endif %} 
-			   			{% endif %}
+				   		
+				   		
 				   			
-				   		<div class="{% if article.imgSize %}col-md-12{% else %}col-md-9{% endif %}">
+				   		<div class="{% if article.image or article.companies[0].logo %}col-md-10{% else %}col-md-12{% endif %}">
 							<p></p>
 		                    <p>{{ article.summary }}</p>
+		                    <div class="row">
+		                        	<div class="col-md-12">
+	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary main-article__readmore">
+	                                        {{ 'article.readmore' | trans }}
+	                                    </a>
+                                	</div>
+                       			</div>
 		                    <div class="clear"></div> 
 						</div>		
 							
-		                {% if article.image %}  
-							{% if article.imgSize %}
-								<div class="col-md-12">
-									<a href="{{ articlenode.url }}"><img src="{{ asset(article.image.url | imagine_filter("1000x")) }}" alt="" class="img-responsive"/></a>
-								</div>	
-					   		{% endif %} 
-			   			{% endif %}  
-   			
+   						
+				   		{% if article.image %}
+                                <div class="col-md-2 nopadding-right">
+                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
+                                        <img src="{{ asset(article.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                    </a> 
+                                </div>
+                            {% elseif article.companies|length > 0 %}
+                                {% if article.companies[0].logo %}
+                                    <div class="col-md-2 nopadding-right">
+                                       <br /> <a href="{{ path("_slug", {'url':articlenode.url}) }}">
+                                            <img src="{{ asset(article.companies[0].logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                        {% endif %}
+				   		
+				   		
+				   		
    					</div>
                     
                 </article>

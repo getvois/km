@@ -342,8 +342,8 @@ class DefaultController extends Controller
                                 <tr>
                                     <td width="1%">
                                     <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
-                                    if ($dTime){
                                     $row .= '<strong>' . $item->departure->cityNameFi . " </strong>";
+                                    if ($dTime){
 									$row .= '&nbsp;<span class="text-muted"> ' . $dTime . '</span>'; 
                                     }
                                     $row .= '</td>
