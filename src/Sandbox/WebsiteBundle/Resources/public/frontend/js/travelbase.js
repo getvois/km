@@ -1320,9 +1320,6 @@ function getTable(container, reimport){
     var spinner = new Spinner(opts).spin($badgeLoading[0]);
 
 
-    //show loading
-    var $loading = $('.loading');
-    $loading.show();
     var opts2 = {
         lines: 15, // The number of lines to draw
         length: 26, // The length of each line
@@ -1341,10 +1338,18 @@ function getTable(container, reimport){
         top: '50%', // Top position relative to parent
         left: '50%' // Left position relative to parent
     };
-    var spinner2 = new Spinner(opts2).spin($loading[1]);
+    var spinner2 = null;
 
-
-
+    //show loading
+    var $loading = $('.loading');
+    if($(container).hasClass('travelbase_items_sp')){
+        spinner2 = new Spinner(opts2).spin($loading[1]);
+        $loading = $loading[1];
+    }else{
+        spinner2 = new Spinner(opts2).spin($loading[0]);
+        $loading = $loading[0];
+    }
+    $loading.show();
 
     $.post('/api-filter/' + type, JSON.stringify($filter), function (responce) {
 
