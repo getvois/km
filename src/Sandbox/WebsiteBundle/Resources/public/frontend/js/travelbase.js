@@ -147,6 +147,12 @@ $(document).ready(function() {
     $holderFrom.focusin(function () {
         $datepickerFrom.datepicker("show");
     });
+    $(".travelbase-icon-date-to").click(function () {
+        $datepickerTo.datepicker("show");
+    });
+    $(".travelbase-icon-date-from").click(function () {
+        $datepickerFrom.datepicker("show");
+    });
 
 
 
