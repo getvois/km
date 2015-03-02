@@ -59,6 +59,9 @@ class NewsPageRepository extends AbstractArticlePageRepository
 
         $query .= " LEFT JOIN kuma_media ON article.image_id = kuma_media.id";
 
+        $query .= " LEFT JOIN sb_news_place_overview ON article.id = sb_news_place_overview.newspage_id";
+        $query .= " LEFT JOIN sb_place_overviewpages ON  sb_place_overviewpages.id = sb_news_place_overview.placeoverviewpage_id";
+
         if($host) {
             $query .= " INNER JOIN sb_host_news ON article.id = sb_host_news.newspage_id";
             $query .= " INNER JOIN sb_host ON sb_host_news.host_id = sb_host.id";
