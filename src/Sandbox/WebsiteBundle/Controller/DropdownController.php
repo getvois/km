@@ -91,7 +91,7 @@ class DropdownController extends Controller
             $rightNodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
 
             foreach ($rightNodes as $node) {
-                if($node->getNodeTranslation($lang) && !$node->getNodeTranslation($lang)->isOnline()) continue;
+                if(!$node->getNodeTranslation($lang) || !$node->getNodeTranslation($lang)->isOnline()) continue;
                 $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
 
                 /** @var Node $node */
