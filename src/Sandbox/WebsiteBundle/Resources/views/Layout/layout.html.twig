@@ -238,6 +238,7 @@
     <div class="col-md-9 col-md-offset-0_5">
 		
         <!-- Travelbase -->
+        {# 0 queries #}
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
         {% for flashMessage in app.session.flashbag.get('info') %}
@@ -286,6 +287,7 @@
     <div class="col-md-3 sidebar">
 
         {% block top10 %}
+            {# 4 queries#}
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
         {% endblock %}
 
@@ -299,9 +301,10 @@
 
 {% block footer %}
     <!-- Footer -->
+    {#112 queries#}
     <footer role="footer" class="footer">
         <section class="splash splash--gray-dark">
-            <div class="row nomargin">  
+            <div class="row nomargin">
                 {% if nodemenu is defined %}
                     {% set searchPageNode = nodemenu.getNodeByInternalName('search') %}
                     {% if searchPageNode %}

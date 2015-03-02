@@ -1420,6 +1420,7 @@ function getTable(container, reimport){
 
 
 function cityPicker($el, $holder) {
+    $($el).removeClass('hide');
 
     $($holder).dataHolder({
         afterRemove: function () {
