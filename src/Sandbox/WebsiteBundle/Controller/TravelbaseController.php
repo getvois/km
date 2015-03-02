@@ -148,8 +148,6 @@ class TravelbaseController extends Controller
         $realArticles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
             ->getArticles($lang, 0, 5, $host);
 
-        echo count($realNews) . " " . count( $realArticles);
-
         $pages = array_merge($realNews, $realArticles);
 
         usort($pages, function ($a, $b)
