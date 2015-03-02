@@ -1349,12 +1349,13 @@ function getTable(container, reimport){
     //show loading
     var $loading = $('.loading');
     if($(container).hasClass('travelbase_items_sp')){
+        spinner2 = new Spinner(opts2).spin($loading[1]);
         $loading = $($loading[1]);
     }else{
+        spinner2 = new Spinner(opts2).spin($loading[0]);
         $loading = $($loading[0]);
     }
     $loading.show();
-    spinner2 = new Spinner(opts2).spin($loading);
 
     $.post('/api-filter/' + type, JSON.stringify($filter), function (responce) {
 
