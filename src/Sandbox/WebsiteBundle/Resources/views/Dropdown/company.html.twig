@@ -8,144 +8,119 @@
         <div class="no-cities" style="display: none">Nothing found</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
 
-        {#{% for company in companies%}#}
-            {#<ul class="dontsplit">#}
-                {#<li><a href="{{ path('_slug', { 'url': get_node_translation_for(company).fullSlug }) }}">{{ company.title }}</a></li>#}
-            {#</ul>#}
+
+        {% for company in companies %}
+            <ul class="dontsplit">
+                <li>
+                    {% if company['children']|length == 0 %}
+                        <span></span>
+                    {% endif %}
+
+                    {% if company['parent'].nodeTranslation(lang).ref(em) and company['parent'].nodeTranslation(lang).ref(em).picture %}
+                        <div><img src="{{ asset(company['parent'].nodeTranslation(lang).ref(em).picture.url) }}" alt="" class="img-responsive"/></div>
+                    {% endif %}
+
+                    <a class="company-list-title" href="{{ path('_slug', { 'url': company['parent'].nodeTranslation(lang).url }) }}">{{ company['parent'].nodeTranslation(lang).title }}</a>
+
+                    {% if company['children']|length > 0 %}
+                        <ul style="">
+                            {% for node2 in company['children'] if node2.nodeTranslation(lang) is not null %}
+                                <li>
+                                    <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                </li>
+            </ul>
+        {% endfor %}
+
+        {#{% for node in nodes %}#}
+            {#{% if node is null %}#}
+            {#{% elseif node.nodeTranslation(lang) %}#}
+
+                {#<ul class="dontsplit">#}
+
+                    {#<li {% if node.children.count > 0 %}class=""{% endif %}>#}
+                        {#{% if node.children.count > 0 %}#}
+                        {#{% else %}#}
+                            {#<span></span>#}
+                        {#{% endif %}#}
+
+                        {#{% if node.nodeTranslation(lang).ref(em) and node.nodeTranslation(lang).ref(em).picture %}#}
+                            {#<div><img src="{{ asset(node.nodeTranslation(lang).ref(em).picture.url) }}" alt="" class="img-responsive"/></div>#}
+                        {#{% endif %}#}
+                        {#<a class="company-list-title" href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>#}
+
+                        {#{% if node.children.count > 0 %}#}
+
+                            {#<ul style="">#}
+
+                                {#{% for node2 in node.children %}#}
+                                    {#{% if node2.nodeTranslation(lang) %}#}
+                                        {#<li {% if node2.children.count > 0 %}class=""{% endif %}>#}
+                                            {#{% if node2.children.count > 0 %}#}
+                                            {#{% endif %}#}
+
+                                            {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>#}
+
+                                            {#{% if node2.children.count > 0 %}#}
+
+                                                {#{% for node3 in node2.children.count %}#}
+                                                    {#{% if node3.nodeTranslation(lang) %}#}
+                                                        {#<ul style="">#}
+
+                                                            {#<li {% if node3.children.count > 0 %}class=""{% endif %}>#}
+                                                                {#{% if node3.children.count > 0 %}#}
+                                                                {#{% endif %}#}
+
+                                                                {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>#}
+
+                                                                {#{% if node3.children.count > 0 %}#}
+
+
+                                                                    {#<ul style="display: none;">#}
+                                                                        {#<li>#}
+                                                                            {#<input id="city4159859117" name="city4159"#}
+                                                                                   {#value="4159" data-name="Riga"#}
+                                                                                   {#data-depth="1" data-type="city"#}
+                                                                                   {#data-city-type="[&quot;Spa&quot;]"#}
+                                                                                   {#type="checkbox">#}
+                                                                            {#<label for="city4159859117">Riga</label>#}
+                                                                            {#<a href="{{ path('_slug', { 'url': placePage.url }) }}">#}
+                                                                                {#<span class="fa fa-book"></span>#}
+                                                                            {#</a>#}
+                                                                        {#</li>#}
+                                                                    {#</ul>#}
+
+                                                                {#{% endif %}#}
+
+                                                            {#</li>#}
+                                                        {#</ul>#}
+                                                    {#{% endif %}#}
+                                                {#{% endfor %}#}
+
+                        {#{% endif %}#}
+
+                    {#</li>#}
+                {#{% endif %}#}
+            {#{% endfor %}#}
+
+        {#</ul>#}
+
+
+        {#{% endif %}#}
+
+
+        {#</li>#}
+        {#</ul>#}
+
+        {#{% endif %}#}
+
+
+
         {#{% endfor %}#}
-
-
-
-
-        {% for node in nodes %}
-            {% if node is null %}
-            {% elseif node.nodeTranslation(lang) %}
-
-
-                {#{% set placePage = node.nodeTranslation(lang).ref(em) %}#}
-                <ul class="dontsplit">
-
-                    <li {% if node.children.count > 0 %}class=""{% endif %}>
-                        {% if node.children.count > 0 %}
-                            {#<i class="glyphicon glyphicon-chevron-down"></i>#}
-                        {% else %}
-                            <span></span>
-                        {% endif %}
-
-                        {#{% set rand1 = random(9999) %}#}
-                        {#{% set rand2 = random(9999) %}#}
-                        {#<input id="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="country{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node.nodeTranslation(lang).title }}" data-depth="0" data-type="country" data-city-type="[]" type="checkbox">#}
-                        {#<label for="country{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node.nodeTranslation(lang).title }}</label>#}
-                        {#<a href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                        {% if node.nodeTranslation(lang).ref(em) and node.nodeTranslation(lang).ref(em).picture %}
-                            <div><img src="{{ asset(node.nodeTranslation(lang).ref(em).picture.url) }}" alt="" class="img-responsive"/></div>
-                        {% endif %}
-                        <a class="company-list-title" href="{{ path('_slug', { 'url': node.nodeTranslation(lang).url }) }}">{{ node.nodeTranslation(lang).title }}</a>
-
-                        {% if node.children.count > 0 %}
-
-
-
-
-
-                            <ul style="">
-
-                                {% for node2 in node.children %}
-                                    {% if node2.nodeTranslation(lang) %}
-                                        <li {% if node2.children.count > 0 %}class=""{% endif %}>
-                                            {% if node2.children.count > 0 %}
-                                                {#<i class="glyphicon glyphicon-chevron-down"></i>#}
-                                            {% endif %}
-
-                                            {#{% set placePage = node2.nodeTranslation(lang).ref(em) %}#}
-                                            {#{% set rand1 = random(9999) %}#}
-                                            {#{% set rand2 = random(9999) %}#}
-                                            {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node2.nodeTranslation(lang).title }}" data-depth="1" data-type="city" data-city-type="[]" type="checkbox">#}
-                                            {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node2.nodeTranslation(lang).title }}</label>#}
-                                            {#<a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                            <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
-
-                                            {% if node2.children.count > 0 %}
-
-
-
-                                                {% for node3 in node2.children.count %}
-                                                    {% if node3.nodeTranslation(lang) %}
-                                                        <ul style="">
-
-                                                            <li {% if node3.children.count > 0 %}class=""{% endif %}>
-                                                                {% if node3.children.count > 0 %}
-                                                                    {#<i class="glyphicon glyphicon-chevron-down"></i>#}
-                                                                {% endif %}
-
-                                                                {#{% set placePage = node3.nodeTranslation(lang).ref(em) %}#}
-                                                                {#{% set rand1 = random(9999) %}#}
-                                                                {#{% set rand2 = random(9999) %}#}
-                                                                {#<input id="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}" name="city{{ placePage.cityid }}" class="parent" value="{{ placePage.cityid }}" data-name="{{ node3.nodeTranslation(lang).title }}" data-depth="2" data-type="city" data-city-type="[]" type="checkbox">#}
-                                                                {#<label for="city{{ placePage.cityid }}{{ rand1 }}{{ rand2 }}">{{ node3.nodeTranslation(lang).title }}</label>#}
-                                                                {#<a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}"><span class="fa fa-book"></span></a>#}
-                                                                <a href="{{ path('_slug', { 'url': node3.nodeTranslation(lang).url }) }}">{{ node3.nodeTranslation(lang).title }}</a>
-
-                                                                {% if node3.children.count > 0 %}
-
-
-
-
-
-
-                                                                    <ul style="display: none;">
-                                                                        <li>
-                                                                            <input id="city4159859117" name="city4159"
-                                                                                   value="4159" data-name="Riga"
-                                                                                   data-depth="1" data-type="city"
-                                                                                   data-city-type="[&quot;Spa&quot;]"
-                                                                                   type="checkbox">
-                                                                            <label for="city4159859117">Riga</label>
-                                                                            <a href="{{ path('_slug', { 'url': placePage.url }) }}">
-                                                                                <span class="fa fa-book"></span>
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-
-
-
-
-
-
-
-
-                                                                {% endif %}
-
-
-                                                            </li>
-                                                        </ul>
-                                                    {% endif %}
-                                                {% endfor %}
-
-
-
-
-        {% endif %}
-
-
-        </li>
-        {% endif %}
-        {% endfor %}
-
-        </ul>
-
-
-        {% endif %}
-
-
-        </li>
-        </ul>
-
-        {% endif %}
-
-
-
-        {% endfor %}
 
     </div>
     </div>

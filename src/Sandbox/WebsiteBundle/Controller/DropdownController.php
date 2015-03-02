@@ -81,21 +81,25 @@ class DropdownController extends Controller
 //            if($willDo) break;
 //        }
 
+
+
         $rightNodes = [];
+        $companyNodes = [];
         //now node is company root.
         if($node) {
             $acl = $this->container->get('kunstmaan_admin.acl.helper');
             $rightNodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
 
-//            foreach ($node->getChildren() as $node) {
-//                /** @var Node $node */
-//                if (!$node->isHiddenFromNav()) {
-//                    $rightNodes[] = $node;
-//                }
-//            }
+            foreach ($rightNodes as $node) {
+                if(!$node->getNodeTranslation($lang)->isOnline()) continue;
+                $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
+
+                /** @var Node $node */
+                    $companyNodes[] = ['parent' =>$node, 'children' => $nodes];
+            }
         }
 
-        return [ 'nodes' => $rightNodes, 'lang' => $lang, 'em' => $em];
+        return [ 'nodes' => $rightNodes, 'companies' => $companyNodes, 'lang' => $lang, 'em' => $em];
     }
     /**
      * @return array

@@ -17,6 +17,13 @@ services:
         tags:
           - { name: twig.extension }
 
+    sandboxwebsitebundle.subnodesextension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\GetSubNodesExtension
+        arguments: ["@doctrine.orm.entity_manager", "@kunstmaan_admin.acl.helper"]
+        tags:
+            - { name: twig.extension }
+
+
 #Form Fields
     sandboxwebsitebundle.form.type.imagesize:
         class: Sandbox\WebsiteBundle\Form\Type\ImageSizeType
