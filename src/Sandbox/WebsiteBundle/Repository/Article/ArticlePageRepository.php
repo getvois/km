@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Repository\Article;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Kunstmaan\ArticleBundle\Repository\AbstractArticlePageRepository;
+use Sandbox\WebsiteBundle\Entity\Host;
 
 /**
  * Repository class for the ArticlePage
@@ -21,9 +22,9 @@ class ArticlePageRepository extends AbstractArticlePageRepository
      *
      * @return array
      */
-    public function getArticles($lang = null, $offset = null, $limit = null)
+    public function getArticles($lang = null, $offset = null, $limit = null, $host = null)
     {
-        $q = $this->getArticlesQuery($lang, $offset, $limit);
+        $q = $this->getArticlesQuery($lang, $offset, $limit, $host);
 
         return $q->getResult();
     }
@@ -37,7 +38,7 @@ class ArticlePageRepository extends AbstractArticlePageRepository
      *
      * @return Query
      */
-    public function getArticlesQuery($lang = null, $offset, $limit)
+    public function getArticlesQuery($lang = null, $offset, $limit, $host = null)
     {
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('Sandbox\WebsiteBundle\Entity\Article\ArticlePage', 'qp');
@@ -52,6 +53,12 @@ class ArticlePageRepository extends AbstractArticlePageRepository
         $query .= " kuma_node_translations nt ON nt.public_node_version_id = nv.id and nt.id = nv.node_translation_id";
         $query .= " INNER JOIN";
         $query .= " kuma_nodes n ON n.id = nt.node_id";
+
+        if($host) {
+            $query .= " INNER JOIN sb_host_news ON article.id = sb_host_news.newspage_id";
+            $query .= " INNER JOIN sb_host ON sb_host_news.host_id = sb_host.id";
+        }
+
         $query .= " WHERE";
         $query .= " n.deleted = 0";
         $query .= " AND";
@@ -62,6 +69,12 @@ class ArticlePageRepository extends AbstractArticlePageRepository
             $query .= " AND";
             $query .= " nt.lang = ? ";
         }
+
+        /** @var Host $host */
+        if($host){
+            $query .= " AND sb_host.name = '". $host->getName() ."'";
+        }
+
         $query .= " ORDER BY article.date DESC";
         if($limit){
             $query .= " LIMIT ?";

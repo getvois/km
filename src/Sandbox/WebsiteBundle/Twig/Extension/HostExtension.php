@@ -8,6 +8,7 @@ use Twig_Extension;
 class HostExtension extends Twig_Extension {
 
     protected $container;
+    private static $host;
 
     public function __construct(ContainerInterface $container)
     {
@@ -16,11 +17,14 @@ class HostExtension extends Twig_Extension {
 
     public function getGlobals()
     {
-        // Retrieve the Request object form the container and get the hostname
-        $hostname = $this->container->get('request')->getHost();
-        $host = $this->container->get('doctrine.orm.entity_manager')->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $hostname]);
-        return array('host' => $host);
+        if(!self::$host){
+            // Retrieve the Request object form the container and get the hostname
+            $hostname = $this->container->get('request')->getHost();
+            self::$host = $this->container->get('doctrine.orm.entity_manager')->getRepository('SandboxWebsiteBundle:Host')
+                ->findOneBy(['name' => $hostname]);
+        }
+
+        return array('host' => self::$host);
     }
 
 
