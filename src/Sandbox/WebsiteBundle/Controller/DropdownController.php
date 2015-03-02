@@ -27,7 +27,6 @@ class DropdownController extends Controller
             ->findOneBy(['name' => $request->getHost()]);
 
         $placeNodes = $this->getCountries($lang, $host, true, true);
-
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
 
@@ -46,7 +45,6 @@ class DropdownController extends Controller
             ->findOneBy(['name' => $request->getHost()]);
 
         $placeNodes = $this->getCountries($lang, $host);
-
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
     }
 
@@ -62,54 +60,42 @@ class DropdownController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-        findBy([
-            'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
-            'deleted' => 0]);
+            getNodesByInternalName('companies', $lang);
 
-        $node = null;
-        foreach ($nodes as $node) {
-            $willDo = true;
-            while($node->getParent()->getId() != 1){//1 = home page
-                if($node->getParent()->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'){
-                    $willDo = false;
-                    break;
-                }
-                $node = $node->getParent();
-            }
+        $node = $nodes?$nodes[0]:null;
+//        findBy([
+//            'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
+//            'deleted' => 0]);
 
-            if($willDo) break;
-        }
-
-
-
+//        $node = null;
+//        foreach ($nodes as $node) {
+//            $willDo = true;
+//            while($node->getParent()->getId() != 1){//1 = home page
+//                if($node->getParent()->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'){
+//                    $willDo = false;
+//                    break;
+//                }
+//                $node = $node->getParent();
+//            }
+//
+//            if($willDo) break;
+//        }
 
         $rightNodes = [];
         //now node is company root.
         if($node) {
-            foreach ($node->getChildren() as $node) {
-                /** @var Node $node */
-                if (!$node->isDeleted() && !$node->isHiddenFromNav()) {
-                    $rightNodes[] = $node;
-                }
-            }
+            $acl = $this->container->get('kunstmaan_admin.acl.helper');
+            $rightNodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
+
+//            foreach ($node->getChildren() as $node) {
+//                /** @var Node $node */
+//                if (!$node->isHiddenFromNav()) {
+//                    $rightNodes[] = $node;
+//                }
+//            }
         }
 
-
-//        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-//        findBy([
-//                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
-//                'deleted' => 0]);
-        /** @var Node[] $companies */
-        $companies = [];
-
-//        foreach ($nodes as $node) {
-//            $translation = $node->getNodeTranslation($lang);
-//            if($translation && $translation->isOnline()) {
-//                $companies[] = $translation->getRef($em);
-//            }
-//        }
-
-        return ['companies' => $companies, 'nodes' => $rightNodes, 'lang' => $lang, 'em' => $em];
+        return [ 'nodes' => $rightNodes, 'lang' => $lang, 'em' => $em];
     }
     /**
      * @return array
@@ -153,29 +139,30 @@ class DropdownController extends Controller
                     'deleted' => 0
                 ]);
 
-
-        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-        findBy(['parent' => $countryRootNode,
-                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
-                'deleted' => 0]);
-
-        /** @var Node[] $placeNodes */
-        $placeNodes = [];
-
-        $nodeIds = [];
-        foreach ($nodes as $node) {
-            $translation = $node->getNodeTranslation($lang);
-            if($translation)
-                $nodeIds[] = $translation->getRef($em)->getId();
-        }
+//        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
+//        findBy(['parent' => $countryRootNode,
+//                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
+//                'deleted' => 0]);
+//
+//        /** @var Node[] $placeNodes */
+//        $placeNodes = [];
+//
+//        $nodeIds = [];
+//        foreach ($nodes as $node) {
+//            $translation = $node->getNodeTranslation($lang);
+//            if($translation)
+//                $nodeIds[] = $translation->getRef($em)->getId();
+//        }
 
         /** @var PlaceOverviewPage[] $placeOverviewPages */
-        $placeOverviewPages = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->createQueryBuilder('n')
-            ->where('n.id IN(:ids)')
-            ->setParameter(':ids', $nodeIds)
-            ->orderBy('n.title')
-            ->getQuery()
-            ->getResult();
+        $placeOverviewPages = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getActiveOverviewPages($lang, $host, $countryRootNode->getId());
+//        $placeOverviewPages = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->createQueryBuilder('n')
+//            ->where('n.id IN(:ids)')
+//            ->setParameter(':ids', $nodeIds)
+//            ->orderBy('n.title')
+//            ->getQuery()
+//            ->getResult();
 
 
         /** @var PlaceOverviewPage[] $preferred */
