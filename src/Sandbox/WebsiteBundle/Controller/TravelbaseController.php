@@ -71,8 +71,6 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-
-
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
@@ -149,6 +147,8 @@ class TravelbaseController extends Controller
             ->getArticles($lang, 0, 5, $host);
         $realArticles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
             ->getArticles($lang, 0, 5, $host);
+
+        echo count($realNews) . " " . count( $realArticles);
 
         $pages = array_merge($realNews, $realArticles);
 
