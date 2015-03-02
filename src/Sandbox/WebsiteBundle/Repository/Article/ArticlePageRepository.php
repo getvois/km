@@ -60,8 +60,8 @@ class ArticlePageRepository extends AbstractArticlePageRepository
         //$query .= " LEFT JOIN sb_place_overviewpages ON  sb_place_overviewpages.id = sb_article_place_overview.placeoverviewpage_id";
 
         if($host) {
-            $query .= " INNER JOIN sb_host_news ON article.id = sb_host_news.newspage_id";
-            $query .= " INNER JOIN sb_host ON sb_host_news.host_id = sb_host.id";
+            $query .= " INNER JOIN sb_host_article ON article.id = sb_host_article.articlepage_id";
+            $query .= " INNER JOIN sb_host ON sb_host_article.host_id = sb_host.id";
         }
 
         $query .= " WHERE";
