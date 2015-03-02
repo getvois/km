@@ -115,7 +115,6 @@
             return this;
         },
         afterRemove: function(callback){
-            console.log(this);
             options.afterRemove = callback;
         },
         data: function(){

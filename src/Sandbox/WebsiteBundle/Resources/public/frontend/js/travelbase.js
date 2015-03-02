@@ -1597,8 +1597,8 @@ function cityPicker($el, $holder) {
         //console.log('blur');
         if($($holder).dataHolder('data').length > 0){
             //console.log('hide me');
-            $($el).prev().slideUp();
-            $($el).prev().prev().slideUp();
+            $($el).prev().hide();//slideUp();
+            $($el).prev().prev().hide();//slideUp();
 
             var holder = $($holder);
             //holder.toggleClass('placeholder-collapse');
