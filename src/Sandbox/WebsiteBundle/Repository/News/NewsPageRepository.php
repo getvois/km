@@ -54,10 +54,10 @@ class NewsPageRepository extends AbstractArticlePageRepository
         $query .= " INNER JOIN";
         $query .= " kuma_nodes n ON n.id = nt.node_id";
 
-        $query .= " INNER JOIN companies_news ON article.id = companies_news.newspage_id";
-        $query .= " INNER JOIN sb_company_overviewpages ON sb_company_overviewpages.id = companies_news.companyoverviewpage_id";
+        $query .= " LEFT JOIN companies_news ON article.id = companies_news.newspage_id";
+        $query .= " LEFT JOIN sb_company_overviewpages ON sb_company_overviewpages.id = companies_news.companyoverviewpage_id";
 
-        $query .= " INNER JOIN kuma_media ON article.image_id = kuma_media.id";
+        $query .= " LEFT JOIN kuma_media ON article.image_id = kuma_media.id";
 
         if($host) {
             $query .= " INNER JOIN sb_host_news ON article.id = sb_host_news.newspage_id";
