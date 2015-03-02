@@ -156,6 +156,9 @@ class TravelbaseController extends Controller
             return new Response("<a href='".$image->getExternal()."'>" . $image->getTitle() . "</a>");
         }
 
+        if(is_numeric($image->getTitle()))
+            return new Response("");
+
         return new Response($image->getTitle());
     }
 
