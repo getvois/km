@@ -135,7 +135,7 @@ class DefaultController extends Controller
             }
 
             if(!$result)
-                return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound</div>"]);
+                return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound$loading</div>"]);
 
             $data = $result->items;
 
@@ -153,13 +153,13 @@ class DefaultController extends Controller
 
 
             if($body && $result->total == 0){
-                $table = "<div>$noItemsFound</div>";
+                $table = "<div>$noItemsFound$loading</div>";
             }
 
 
             return new JsonResponse(['total' => $result->total, 'html' => $table]);
         }
-        return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound</div>"]);
+        return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound$loading</div>"]);
     }
 
 
