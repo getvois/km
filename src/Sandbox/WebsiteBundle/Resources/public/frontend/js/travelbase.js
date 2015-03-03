@@ -703,7 +703,7 @@ $(document).ready(function() {
                     $(".skypicker-dropdown .trip").hide().each(function () {
                         if($(this).data('date') == $date && $(this).data('direction') == 'to'){
 
-                            modal.find("#modal-content").append($(this));
+                            modal.find("#modal-content").append($(this).clone());
                             //$(this).slideDown('fast');
                         }
                     });
@@ -842,7 +842,7 @@ $(document).ready(function() {
 
                         $(".skypicker-dropdown .trip").hide().each(function () {
                             if($(this).data('date') == $date && $(this).data('direction') == 'from'){
-                                modal.find("#modal-content").append($(this));
+                                modal.find("#modal-content").append($(this).clone());
                                 //$(this).slideDown('fast');
                             }
                         });
