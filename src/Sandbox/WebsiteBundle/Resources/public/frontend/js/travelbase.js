@@ -696,6 +696,9 @@ $(document).ready(function() {
                         day: (new Date($data[0].dTimestamp * 1000)).toMysqlFormat()
                     });
 
+                calendar1.setLanguage($lang);
+                calendar1.view();
+
                 $(".calendar-navigate-1").click(function () {
                     calendar1.navigate($(this).data('calendar-nav'));
                 });
@@ -834,6 +837,9 @@ $(document).ready(function() {
                             },
                             day: (new Date($data[Math.round($data.length/2)].dTimestamp * 1000)).toMysqlFormat()
                         });
+
+                    calendar2.setLanguage($lang);
+                    calendar2.view();
 
                     $(".calendar-navigate-2").click(function () {
                         calendar2.navigate($(this).data('calendar-nav'));
