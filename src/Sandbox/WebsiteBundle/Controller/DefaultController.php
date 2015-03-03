@@ -40,8 +40,7 @@ class DefaultController extends Controller
         $loading = "<span class='loading'>
             <div class='loading-container'>
                 <h3 class='loading-message'>
-                    Please wait, we're finding great fares for you...
-                    Our robots are scouring the web for the best deals!
+                    $loadingMessage
                 </h3>
             </div>
         </span>";
