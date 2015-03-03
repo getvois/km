@@ -928,6 +928,7 @@ label.directFlight-label,  label.sameDay-label {
     position: absolute;
     width: 100%;
     z-index: 1;
+    min-height: 400px;
 }
 .loading-message{
     text-align: center;
