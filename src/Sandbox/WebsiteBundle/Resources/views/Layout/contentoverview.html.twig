@@ -11,56 +11,59 @@
                     {#{{ dump(item) }}#}
 
                        	<header>  
-	                       	<time class="main-article__meta pull-right">
+	                       	<time class="main-article__meta">
 	                            {{ item.date | datelocale('long', 'none')}} 
 	                    	</time> 
-	                        <h3 class="main-article__title">
-	                       		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
-	                        </h3>
 			            </header>
 			             
                     	<article class="main-article main-article--summary main-news--summary">
                      		   
-                        
+                         <h3 class="main-article__title">
+	                       		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
+	                        </h3>
                         	  {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
                        
                          
                         
                         {% if item.priceFromLabel or item.priceFrom %}
                                 <div class="pull-right">
-                                <div class="price-from price-from-img">
-                                    <div class="price-from-inner pull-right">
-                                        <span style="font-size:16px;">
-                                           {% if item.priceFrom %} {{ item.priceFrom }}  {% endif %} {% if item.priceFrom and item.priceFromLabel %}/{% endif %} {% if item.priceFromLabel %}{{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}
-                                        </span>
-                                    </div>
-                                </div>
+                                	<div class="price-from price-from-img">
+                                		<div class="price-from-line"></div> 
+	                                    <div class="price-from-inner pull-right">
+	                                        <span style="font-size:16px;">
+	                                           {% if item.priceFrom %} {{ item.priceFrom }}  {% endif %} {% if item.priceFrom and item.priceFromLabel %}/{% endif %} {% if item.priceFromLabel %}{{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}
+	                                        </span>
+	                                    </div>
+	                                </div>
                                 </div>
                             {% endif %}
               
                         <div class="row">
                           
-                            <div class="{% if item.image or item.companies[0].logo %}col-md-12{% else %}col-md-12{% endif %}">
+                            <div class="col-md-12">
                              
                               <div class="row">
-		                        	<div class="col-md-9">
-	                                  
+		                        	<div class="{% if item.image or item.companies[0].logo %}col-md-9{% else %}col-md-12{% endif %}">
 			                            <p>{{ item.summary }}</p>
 	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary main-article__readmore">
 	                                        {{ 'article.readmore' | trans }}
 	                                    </a>
                                 	</div>
-                                	<div class="col-md-3">
+                                	
                              
 		                            {% if item.image %}
-		                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
-		                                      <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
-		                                    </a> 
+	                                    <div class="col-md-3">
+	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
+	                                     	 <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+	                                    	</a> 
+	                                    </div>
 		                            {% elseif item.companies|length > 0 %}
 		                                {% if item.companies[0].logo %}
-		                                        <a href="{{ path("_slug", {'url':articlenode.url}) }}">
-		                                            <img src="{{ asset(item.companies[0].logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
-		                                        </a>
+		                                <div class="col-md-3">
+	                                        <a href="{{ path("_slug", {'url':articlenode.url}) }}">
+	                                            <img src="{{ asset(item.companies[0].logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+	                                        </a>
+	                                    </div>
 		                                {% endif %}
 		                            {% endif %}
                             		 </div>

@@ -486,6 +486,17 @@ div.travelbase-input-addon{
     position:absolute;
     margin-left: 20px;
 }
+.price-from-line { 
+	position:absolute;
+	border-top:2px solid #F8C600;
+	width:25px;
+	-webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+    transform: rotate(15deg);
+    left: -28px;
+	z-index: 9;
+	top: 18px;
+}
 .price-from-img {
     right: -5px;
     top: -23px;
@@ -569,13 +580,16 @@ div.travelbase-input-addon{
 
 /*style min*/
 
-.main-news--summary { /* the circle on the left */
+.main-news--summary {
     position: relative;
     border-bottom: none;
     border-top: 2px solid #F8C600;
     padding-bottom: 30px;
+    padding: 1.5em 0;
 }
-
+.main-article__readmore { 
+    margin-top: 0;
+}
 
 .right{ /* the x mark at the right */
     text-align: right;
