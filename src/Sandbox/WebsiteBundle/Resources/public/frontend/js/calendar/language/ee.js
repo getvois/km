@@ -7,103 +7,72 @@ if(!window.calendar_languages) {
 // First letters: the language code (lower case). See http://www.loc.gov/standards/iso639-2/php/code_list.php
 // Last letters: the Country code (upper case). See http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm
 window.calendar_languages['ee'] = {
-    error_noview: 'Kalenteri: {0} näkymää ei löytynyt',
-    error_dateformat: 'Kalenteri: väärä päivämääräformaatti {0}. Oikea formaatti on "yyyy-mm-dd"',
-    error_loadurl: 'Kalenteri: Tapahtuman osoitetta ei ole asetettu',
-    error_where: 'Kalenteri: Väärä navigointisuunta {0}. Suunta voi olla vain "seuraava" tai "edellinen" or "tänään"',
-    error_timedevide: 'Kalenteri: Aikajaon tulee olla alle 60 ja kokonaisluku, kuten 10, 15, 30',
+	error_noview:     'Kalender: Šabloon kujul {0} ei ole leitud.',
+	error_dateformat: 'Kalender: vale kuupäeva formaat {0}. Peab olema kas  "now" või "yyyy-mm-dd"',
+	error_loadurl:    'Kalender: URL ei ole määratud sündmuste laadimiseks.',
+	error_where:      'Kalender: vale navigatsioon {0}. Võib ainult "next", "prev" või "today"',
+	error_timedevide: 'Kalender: Aja jagamise parameeter peab jagama 60 täisarvuga. Näiteks 10, 15, 30',
 
-    no_events_in_day: 'Ei tapahtumia.',
+	title_year:  '{0}',
+	title_month: '{0} {1}',
+	title_week:  '{0} aasta nädal {1}',
+	title_day:   '{0}, {1} {2} {3}',
 
-    // {0} will be replaced with the year (example: 2013)
-    title_year: '{0}',
-    // {0} will be replaced with the month name (example: September)
-    // {1} will be replaced with the year (example: 2013)
-    title_month: '{0} {1}',
-    // {0} will be replaced with the week number (example: 37)
-    // {1} will be replaced with the year (example: 2013)
-    title_week: 'viikko {0}/{1}',
-    // {0} will be replaced with the weekday name (example: Thursday)
-    // {1} will be replaced with the day of the month (example: 12)
-    // {2} will be replaced with the month name (example: September)
-    // {3} will be replaced with the year (example: 2013)
-    title_day: '{0} {1} {2}, {3}',
+	week:        'Nädal {0}',
+	all_day:     'Terve päev',
+	time:        'Aeg',
+	events:      'Sündmused',
+	before_time: 'Lõppevad enne aja vööndi',
+	after_time:  'Lõppevad peale aja vööndi',
 
-    week:'Week',
-    all_day:     'Kaikki päivät',
-    time:        'Aika',
-    events:      'Tapahtumat',
-    before_time: 'Loppu ennen aikajanaa',
-    after_time:  'Alkaa aikajanan jälkeen',
+	m0:  'Jaanuar',
+	m1:  'Veebruar',
+	m2:  'Märts',
+	m3:  'Aprill',
+	m4:  'Mai',
+	m5:  'Juuni',
+	m6:  'Juuli',
+	m7:  'August',
+	m8:  'September',
+	m9:  'Oktoober',
+	m10: 'November',
+	m11: 'Detsember',
 
-    m0: 'jaanuar',
-    m1: 'veebruar',
-    m2: 'märts',
-    m3: 'april',
-    m4: 'mai',
-    m5: 'juuni',
-    m6: 'juuli',
-    m7: 'august',
-    m8: 'syyskuu',
-    m9: 'lokakuu',
-    m10: 'marraskuu',
-    m11: 'joulukuu',
+	ms0:  'Jan',
+	ms1:  'Veeb',
+	ms2:  'Mär',
+	ms3:  'Apr',
+	ms4:  'Mai',
+	ms5:  'Juuni',
+	ms6:  'Juuli',
+	ms7:  'Aug',
+	ms8:  'Sept',
+	ms9:  'Okt',
+	ms10: 'Nov',
+	ms11: 'Dets',
 
-    ms0: 'tammi',
-    ms1: 'helmi',
-    ms2: 'maalis',
-    ms3: 'huhti',
-    ms4: 'touko',
-    ms5: 'kesä',
-    ms6: 'heinä',
-    ms7: 'elo',
-    ms8: 'syys',
-    ms9: 'loka',
-    ms10: 'marras',
-    ms11: 'joulu',
+	d0: 'Pühapäev',
+	d1: 'Esmaspäev',
+	d2: 'Teisipäev',
+	d3: 'Kolmapäev',
+	d4: 'Neljapäev',
+	d5: 'Reede',
+	d6: 'Laupäev',
 
-    d0: 'sunnunta',
-    d1: 'maanantai',
-    d2: 'tiistai',
-    d3: 'keskiviikko',
-    d4: 'torstai',
-    d5: 'perjantai',
-    d6: 'lauantai',
+	first_day: 1,
 
-    // Which is the first day of the week (2 for sunday, 1 for monday)
-    first_day: 1,
-
-    // The list of the holidays.
-    // Each holiday has a date definition and a name (in your language)
-    // For instance:
-    // holidays: {
-    //  'date': 'name',
-    //  'date': 'name',
-    //  ...
-    //   'date': 'name' //No ending comma for the last holiday
-    // }
-    // The format of the date may be one of the following:
-    // # For a holiday recurring every year in the same day: 'dd-mm' (dd is the day of the month, mm is the month). For example: '25-12'.
-    // # For a holiday that exists only in one specific year: 'dd-mm-yyyy' (dd is the day of the month, mm is the month, yyyy is the year). For example: '31-01-2013'
-    // # For Easter: use simply 'easter'
-    // # For holidays that are based on the Easter date: 'easter+offset in days'.
-    //   Some examples:
-    //   - 'easter-2' is Good Friday (2 days before Easter)
-    //   - 'easter+1' is Easter Monday (1 day after Easter)
-    //   - 'easter+39' is the Ascension Day
-    //   - 'easter+49' is Pentecost
-    // # For holidays that are on a specific weekday after the beginning of a month: 'mm+n*w', where 'mm' is the month, 'n' is the ordinal position, 'w' is the weekday being 0: Sunday, 1: Monday, ..., 6: Saturnday
-    //   For example:
-    //   - Second (2) Monday (1) in October (10): '10+2*1'
-    // # For holidays that are on a specific weekday before the ending of a month: 'mm-n*w', where 'mm' is the month, 'n' is the ordinal position, 'w' is the weekday being 0: Sunday, 1: Monday, ..., 6: Saturnday
-    //   For example:
-    //   - Last (1) Saturnday (6) in Match (03): '03-1*6'
-    //   - Last (1) Monday (1) in May (05): '05-1*1'
-    // # You can also specify a holiday that lasts more than one day. To do that use the format 'start>end' where 'start' and 'end' are specified as above.
-    //   For example:
-    //   - From 1 January to 6 January: '01-01>06-01'
-    //   - Easter and the day after Easter: 'easter>easter+1'
-    //   Limitations: currently the multi-day holydays can't cross an year. So, for example, you can't specify a range as '30-12>01-01'; as a workaround you can specify two distinct holidays (for instance '30-12>31-12' and '01-01'). 
-    holidays: {
-    }
+	holidays: {
+		'01-01':       'Uusaasta',
+		'24-02':       'Eesti Vabariigi aastapäev',
+		'03-04':       'Suur reede',
+		'05-04':       'Ülestõusmispühade 1. püha',
+		'01-05':       'Kevadpüha',
+		'24-05':       'Nelipühade 1. püha',
+		'23-06':       'Võidupüha',
+		'24-06':       'Jaanipäev',
+		'20-08':       'Taasiseseisvumispäev',
+		'24-12':       'Jõululaupäev',
+		'25-12':       'Esimene jõulupüha',
+		'26-12':       'Teine jõulupüha'
+	}
 };

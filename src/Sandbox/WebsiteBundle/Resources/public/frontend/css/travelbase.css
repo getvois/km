@@ -131,7 +131,7 @@ body{background-color: #ffffff !important;}
 }
 
 time, .tags-block a {
-	color: #999;
+	color: #999; 
 }
 .link-pp  {
 	height: 45px;
@@ -483,11 +483,12 @@ div.travelbase-input-addon{
 
 /* icons */
 .price-from {
-    position:relative;
+    position:absolute;
     margin-left: 20px;
 }
 .price-from-img {
     right: -5px;
+    top: -23px;
 }
 .price-from-img-left {
     left: -5px;
@@ -497,11 +498,11 @@ div.travelbase-input-addon{
     position:relative;
     width: auto;
     display: inline-block;
-    height: 50px;
-    line-height: 45px;
+    height: 43px;
+    line-height: 36px;
     padding-left: 8px;
     padding-right: 8px;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0;
     color: #E6B800;
     border: 2px solid #F8C600;
     border-left-width: 0;
@@ -520,7 +521,7 @@ div.travelbase-input-addon{
     border: 2px solid #F8C600;
     background-color: #fff;
     left: -10px;
-	top: 20px;
+	top: 16px;
     z-index: 2;
 }
 .price-from-img-left:after {
@@ -531,8 +532,8 @@ div.travelbase-input-addon{
 .price-from:before{ /* the arrow on left side positioned using left property */
     position: absolute;
     content: '';
-    height: 38px; 
-    width: 38px;
+    height: 33px; 
+    width: 33px;
     border-radius:5px;
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
@@ -540,8 +541,8 @@ div.travelbase-input-addon{
     background: #fff; 
     border: 2px solid;
     border-color: transparent transparent #F8C600 #F8C600;
-    left: -18px;
-    top: 6px;
+    left: -16px;
+    top: 5px;
 }
 .price-from-img-left:before {
 	-webkit-transform: rotate(135deg);
@@ -568,8 +569,11 @@ div.travelbase-input-addon{
 
 /*style min*/
 
-.main-article--summary { /* the circle on the left */
+.main-news--summary { /* the circle on the left */
     position: relative;
+    border-bottom: none;
+    border-top: 2px solid #F8C600;
+    padding-bottom: 30px;
 }
 
 
@@ -965,10 +969,10 @@ label.directFlight-label,  label.sameDay-label {
 .datepicker-clear-icon{
     position: absolute;
     right: -9px;
-    top: -12px;
+    top: -9px;
     z-index: 100;
     border-radius: 12px;
-    font-size: 25px;
+    font-size: 22px;
     background-color: #ffffff;
 }
 
@@ -1096,13 +1100,20 @@ span.city-picker-close:hover {
 
 .city-picker h1.form-item-header {margin:0!important;color:#333!important;font:700 35px "Open Sans";}
 .city-picker .form-item-desc {margin:5px 0 10px 0;color:#333;font-size:18px;}
+
+/* SP MODAL */
+#sp-modal #modal-content {padding:50px;}
+
+@media (min-width: 992px) {
+.modal-lg {width: 85%;}
+}
+
+
+
+
+
+
 /* old needs refactoring */
-
-
-
-
-
-
 
 .select2-input {
     min-width: 100px !important;

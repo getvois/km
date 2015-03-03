@@ -10,42 +10,42 @@
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}
 
-                    <article class="main-article main-article--summary">
+                       	<header>  
+	                       	<time class="main-article__meta pull-right">
+	                            {{ item.date | datelocale('long', 'none')}} 
+	                    	</time> 
+	                        <h3 class="main-article__title">
+	                       		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
+	                        </h3>
+			            </header>
+			             
+                    	<article class="main-article main-article--summary main-news--summary">
+                     		   
                         
-                        <header>
-                           
-                        	 {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
-                        	
-                        	 <time class="main-article__meta">
-                                {{ item.date | datelocale}}
-                        	</time>
-                        	
-                            <h3 class="main-article__title">
-                               
-                           		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
-                            </h3>
-                        </header>
-
+                        	  {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
+                       
+                         
+                        
+                        {% if item.priceFromLabel or item.priceFrom %}
+                                <div class="pull-right">
+                                <div class="price-from price-from-img">
+                                    <div class="price-from-inner pull-right">
+                                        <span style="font-size:16px;">
+                                           {% if item.priceFrom %} {{ item.priceFrom }}  {% endif %} {% if item.priceFrom and item.priceFromLabel %}/{% endif %} {% if item.priceFromLabel %}{{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endif %}
+              
                         <div class="row">
                           
                             <div class="{% if item.image or item.companies[0].logo %}col-md-12{% else %}col-md-12{% endif %}">
-                              
-                              {% if item.priceFromLabel or item.priceFrom %}
-                                    <div class="pull-right">
-                                    <div class="price-from price-from-img">
-                                        <div class="price-from-inner pull-right">
-                                            <span style="font-size:16px;">
-                                               {% if item.priceFrom %} {{ item.priceFrom }}  {% endif %} {% if item.priceFrom and item.priceFromLabel %}/{% endif %} {% if item.priceFromLabel %}{{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    </div>
-                                {% endif %}
-                             
-                             {{ item.summary }} 
                              
                               <div class="row">
 		                        	<div class="col-md-9">
+	                                  
+			                            <p>{{ item.summary }}</p>
 	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary main-article__readmore">
 	                                        {{ 'article.readmore' | trans }}
 	                                    </a>
@@ -54,7 +54,7 @@
                              
 		                            {% if item.image %}
 		                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
-		                                        <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
+		                                      <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
 		                                    </a> 
 		                            {% elseif item.companies|length > 0 %}
 		                                {% if item.companies[0].logo %}
@@ -83,7 +83,7 @@
                     {#{{ dump(item) }}#}
                     <article class="main-article main-article--summary article__overview--list-item">
                         <header>
-                            <time>{{ item.date| datelocale}}</time>
+                            <time class="pull-right">{{ item.date| datelocale}}</time>
 
                             {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
 
