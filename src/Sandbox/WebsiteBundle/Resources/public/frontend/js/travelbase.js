@@ -128,12 +128,15 @@ $(document).ready(function() {
 
         //formChange();
     } );
+    var $datepickerClearIcon = $(".datepicker-clear-icon");
+
     $datepickerTo.datepicker( "option", "onSelect", function (date) {
         $(this).data('datepicker').inline = true;
         datepickerEvent(this);
         $("#flyOneWay").attr('checked', false);
         $("#date-end-datepicker-holder").val(date);
         //formChange();
+        $datepickerClearIcon.show();
     } );
 
     $datepickerFrom.datepicker('setDate', new Date());
@@ -141,6 +144,8 @@ $(document).ready(function() {
     $holderFrom.val($datepickerFrom.val() + "–");
     var $holderTo = $("#date-end-datepicker-holder");
     $holderTo.val("–");
+    $datepickerClearIcon.hide();
+    $datepickerClearIcon.removeClass('hide');
     //DATE HOLDERS
     ///////////////////////////////////////////////////////////
     $holderTo.focusin(function () {
@@ -156,9 +161,10 @@ $(document).ready(function() {
         $datepickerFrom.datepicker("show");
     });
 
-    $(".datepicker-clear-icon").click(function () {
+    $datepickerClearIcon.click(function () {
         $datepickerTo.val("");
         $holderTo.val("–");
+        $datepickerClearIcon.hide();
     });
 
 
