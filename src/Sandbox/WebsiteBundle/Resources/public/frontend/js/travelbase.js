@@ -499,6 +499,11 @@ $(document).ready(function() {
         //close other opened calendar
         $(".skypicker-dropdown").remove();
 
+        //scroll to item
+        $('html, body').animate({
+            scrollTop: $(this).offset().top
+        }, 1000);
+
         var $badge = $("#lowcost-badge");
 
         var $type = $(this).data('type'); //4 == oneway, 3 == with return
@@ -1620,7 +1625,8 @@ function cityPicker($el, $holder) {
 function fixDiv() {
     var $cache = $('.loading-container:visible');
     var $width = $cache.parent().width();
-    if ($(window).scrollTop() > 350) {
+    var $height = $cache.parent().height();
+    if ($(window).scrollTop() > 350 && $(window).scrollTop() < $height) {
         $cache.css({
             'position': 'fixed',
             'top': '50px',
