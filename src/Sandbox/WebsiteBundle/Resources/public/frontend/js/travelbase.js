@@ -2,6 +2,9 @@ var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
 var $dpInterval = 30;
 var $dpReturnInterval = 30;
 $(document).ready(function() {
+    var $body = $("body");
+    var $lang = $body.data('lang');
+
     //setField(); //pre fill destination field
     var $form = $("#travelbase-form");
     $form.submit(function () {
@@ -10,7 +13,7 @@ $(document).ready(function() {
     var $city_picker = $(".city-picker");
 
 
-    $(".date").datepicker({ dateFormat: "dd.mm.yy" });
+    $(".date").datepicker({ dateFormat: "dd.mm.yy" }, $.datepicker.regional[$lang]);
     var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
     var $datepickerTo = $("#edit-date-end-datepicker-popup-0");
     var $datepickers = $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0");
@@ -26,7 +29,6 @@ $(document).ready(function() {
         beforeShow: datepickerEvent
     });
 
-    var $body = $("body");
     $body.on('click', '.dp-interval', function () {
         var $target = $($(this).data('target'));
 
@@ -158,7 +160,6 @@ $(document).ready(function() {
         $datepickerTo.val("");
         $holderTo.val("–");
     });
-
 
 
     cityPicker("#departure-el", "#departure-dataholder");
