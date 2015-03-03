@@ -1341,7 +1341,7 @@ function getTable(container, reimport){
         hwaccel: false, // Whether to use hardware acceleration
         className: 'spinner', // The CSS class to assign to the spinner
         zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: '50%', // Top position relative to parent
+        top: '200px', // Top position relative to parent
         left: '50%' // Left position relative to parent
     };
     var spinner2 = null;
@@ -1350,10 +1350,10 @@ function getTable(container, reimport){
     var $loading = $('.loading');
     console.log($(container));
     if($(container).hasClass('travelbase_items_sp')){
-        spinner2 = new Spinner(opts2).spin($loading[1]);
+        spinner2 = new Spinner(opts2).spin($loading.eq(1).find('.loading-container')[0]);
         $loading = $($loading[1]);
     }else{
-        spinner2 = new Spinner(opts2).spin($loading[0]);
+        spinner2 = new Spinner(opts2).spin($loading.eq(0).find('.loading-container')[0]);
         $loading = $($loading[0]);
     }
     $loading.show();
@@ -1616,3 +1616,24 @@ function cityPicker($el, $holder) {
         }
     });
 }
+
+function fixDiv() {
+    var $cache = $('.loading-container:visible');
+    var $width = $cache.parent().width();
+    if ($(window).scrollTop() > 350) {
+        $cache.css({
+            'position': 'fixed',
+            'top': '50px',
+            'width' : $width
+        });
+    }
+    else {
+        $cache.css({
+            'position': 'relative',
+            'top': 'auto',
+            'width' : 'auto'
+        });
+    }
+}
+$(window).scroll(fixDiv);
+fixDiv();

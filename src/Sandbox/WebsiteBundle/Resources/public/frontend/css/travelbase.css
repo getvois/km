@@ -929,7 +929,11 @@ label.directFlight-label,  label.sameDay-label {
     width: 100%;
     z-index: 1;
 }
-
+.loading-message{
+    text-align: center;
+    margin: 20px;
+    margin-top: 45px;
+}
 
 
 /*DATE PICKER STUFF*/

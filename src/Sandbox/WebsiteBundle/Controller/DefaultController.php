@@ -30,12 +30,31 @@ class DefaultController extends Controller
     /**
      * @Route("/api-filter/{body}")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @param $body
+     * @return JsonResponse
      */
     public function filterAction(Request $request, $body)
     {
         $noItemsFound = $this->get('translator')->trans('no.items.found', [], 'frontend');
+        $loadingMessage = $this->get('translator')->trans('loading.message', [], 'frontend');
+        $loading = "<span class='loading'>
+            <div class='loading-container'>
+                <h3 class='loading-message'>
+                    Please wait, we're finding great fares for you...
+                    Our robots are scouring the web for the best deals!
+                </h3>
+            </div>
+        </span>";
 
+        /**
+         *
+        Пожалуйста, подождите. Мы ищем лучшие цены для вас...
+        Наши роботы ищут цены на сайтах авиакомпаний и агентов!
+
+
+        Please wait, we're finding great fares for you...
+        Our robots are scouring the web for the best deals!
+         */
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
@@ -52,7 +71,6 @@ class DefaultController extends Controller
                 $context  = stream_context_create($options);
                 file_get_contents($url, false, $context);
             }
-
 
             $url = 'http://api.travelwebpartner.com/api/item.filter/';
 
@@ -74,13 +92,11 @@ class DefaultController extends Controller
             if($fieldOrder == 'asc') $fieldOrder = 'desc';
             else $fieldOrder = 'asc';
 
-            $loading = "<span class='loading'></span>";
-
             $table = "";
             if($body){
                 $table = $loading;
-                $date = $this->get('translator')->trans('date', [], 'frontend');
-                $price = $this->get('translator')->trans('price', [], 'frontend');
+                //$date = $this->get('translator')->trans('date', [], 'frontend');
+                //$price = $this->get('translator')->trans('price', [], 'frontend');
 
                 $table .= '<div><div class="row table-header sort-controls">';
                 $table .= '<div class="col-md-6">';
@@ -199,6 +215,7 @@ class DefaultController extends Controller
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
         $em = $this->getDoctrine()->getManager();
+        /** @var NodeTranslation $translation */
         $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
             ->findOneBy(['title' => $item->company->name, 'lang' => $request->getLocale(), 'online' => 1],
             ['created' => 'desc']);
@@ -207,6 +224,7 @@ class DefaultController extends Controller
 
 
         if($translation){
+            /** @noinspection Symfony2PhpRouteMissingInspection */
             $url = $this->generateUrl("_slug", ['url' => $translation->getFullSlug(), '_locale' => $request->getLocale()]);
             $company = "<a href='$url' >$company</a>";
         }
@@ -252,13 +270,14 @@ class DefaultController extends Controller
                 $dTime = $item->dTime;
             }
 
-            $stops = "";
-            if($stops > 0){
-                $stops = $item->stops . " stops";
-            }
+            //$stops = "";
+            //if($stops > 0){
+            //    $stops = $item->stops . " stops";
+            //}
+
             //flights only(skypicker)
 
-            $duration = $item->flyDuration;
+            //$duration = $item->flyDuration;
             if($item->type->id == 4)
             {
                 //$duration = "Direct";
@@ -405,7 +424,7 @@ class DefaultController extends Controller
                                     <td width="1%">
                                     <strong><span class="text-muted">'.$date.'</span> &nbsp;&nbsp;'. $item->departure->cityNameFi .'</strong>
                                     </td>
-                                    <td style="widht: 100%">
+                                    <td style="width: 100%">
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
@@ -416,7 +435,7 @@ class DefaultController extends Controller
                                     <td width="2%" class="nowrap">
                                     <strong>'. $item->destination->cityNameFi .'</strong>
                                     </td>
-                                    <td style="widht: 100%">
+                                    <td style="width: 100%">
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
@@ -825,6 +844,8 @@ class DefaultController extends Controller
      */
     private function checkPermission(Node $node, $permission)
     {
+        /** @noinspection YamlDeprecatedClasses */
+        /** @noinspection PhpDeprecationInspection */
         if (false === $this->get('security.context')->isGranted($permission, $node)) {
             throw new AccessDeniedException();
         }
@@ -843,6 +864,7 @@ class DefaultController extends Controller
 
         $locale = 'en';
 
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('KunstmaanAdminBundle:User')->find(1);
