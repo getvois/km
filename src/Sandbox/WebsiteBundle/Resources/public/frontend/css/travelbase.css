@@ -962,7 +962,15 @@ label.directFlight-label,  label.sameDay-label {
     position: relative;
 }
 
-
+.datepicker-clear-icon{
+    position: absolute;
+    right: -9px;
+    top: -9px;
+    z-index: 100;
+    border-radius: 12px;
+    font-size: 22px;
+    background-color: #ffffff;
+}
 
 
 /* select 2 fields*/

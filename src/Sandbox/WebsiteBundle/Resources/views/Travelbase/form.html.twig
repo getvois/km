@@ -20,7 +20,7 @@
                         <input id="departure-el" type="text" class="form-control hide">
                     </div>
                 </div>
-                {#ROW 2#}
+                {#COL 2#}
                 <div class="col-md-2">
                     <div>
                         <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-date-from"></span></div>
@@ -39,12 +39,10 @@
                         <input id="destination-el" type="text" class="form-control hide">
                     </div>
                 </div>
-                {#ROW 4#} 
+                {#COL 4#}
                 <div class="col-md-2">
-                    {#<label for="edit-date-end-datepicker-popup-0">#}
-                        {#<img src="http://ku.markmedia.fi/sites/default/files/images/i-cal.png">#}
-                    {#</label>#}
-                    <div>
+                    <div style="position: relative">
+                        <span class="glyphicon glyphicon-remove-circle datepicker-clear-icon"></span>
                         <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-date-to"></span></div>
                         <input id="date-end-datepicker-holder" type="text" class="form-control travelbase-input">
                     </div>

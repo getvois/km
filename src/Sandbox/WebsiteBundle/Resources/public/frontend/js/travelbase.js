@@ -154,6 +154,11 @@ $(document).ready(function() {
         $datepickerFrom.datepicker("show");
     });
 
+    $(".datepicker-clear-icon").click(function () {
+        $datepickerTo.val("");
+        $holderTo.val("–");
+    });
+
 
 
     cityPicker("#departure-el", "#departure-dataholder");
