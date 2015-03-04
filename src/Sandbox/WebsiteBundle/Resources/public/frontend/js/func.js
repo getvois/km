@@ -91,29 +91,25 @@ function getFilter(container){
         orderDirection: $directionVal
     };
 
-    var $date_start = $("#edit-date-start-datepicker-popup-0").val();
-    if($date_start){
-        var $ds = $date_start;
-        var $dates = $ds.substr(6, 4) + "-" + $ds.substr(3,2) + "-" + $ds.substr(0,2);
-        $filter.date = { start: $dates };
+    var $datepickFrom = $('#datepick-input-from');
+    var $datepickTo = $('#datepick-input-to');
 
-        if($dpInterval == 30){
+    var $date;
 
-            var $date = new Date($dates);
-            $date.setMonth($date.getMonth() + 1);
-            $filter.date.end = $date.toMysqlFormat();
-            //var $month = parseInt($ds.substr(3, 2)) + 1;
-            //if($month.toString().length == 1) $month = "0" + $month;
-            //$filter.date.end = $ds.substr(6, 4) + "-" + $month + "-" + $ds.substr(0, 2);
-        }else{
-            $filter.date.end = $dates;
-        }
+    var $fromDates = $datepickFrom.datepick('getDate');
+    if($fromDates.length > 0){
+        $date = new Date($fromDates[0]);
+        $filter.date = { start: $date.toMysqlFormat() };
+        $date = new Date($fromDates[1]);
+        $filter.date.end = $date.toMysqlFormat();
     }
-
-    var $date_end = $("#edit-date-end-datepicker-popup-0").val();
-    if($date_end){
-        var $d = $date_end;
-        $filter.date.return = $d.substr(6, 4) + "-" + $d.substr(3, 2) + "-" + $d.substr(0, 2) ;
+    var $toDates = $datepickTo.datepick('getDate');
+    if($toDates.length > 0){
+        $date = new Date($toDates[0]);
+        $filter.date.return = $date.toMysqlFormat();
+        //todo add return from and to here and on api side
+        //$date = new Date($toDates[1]);
+        //$filter.date.end = $date.toMysqlFormat();
     }
 
     return $filter;

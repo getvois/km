@@ -1,9 +1,114 @@
 var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
-var $dpInterval = 30;
-var $dpReturnInterval = 30;
+var $dpInterval = '1m';
+var $dpReturnInterval = '1m';
 $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
+
+
+    $(".datepick-input").datepick($.extend({
+            dateFormat: 'dd.mm.yyyy',
+            rangeSelect: true,
+            monthsToShow: 2,
+            minDate: '+1d'
+        },
+        $.datepick.regionalOptions[$lang]));
+
+    var $datepickFrom = $('#datepick-input-from');
+    var $datepickTo = $('#datepick-input-to');
+
+    var $datepickerClearIcon = $(".datepicker-clear-icon");
+    $datepickerClearIcon.hide();
+    $datepickerClearIcon.removeClass('hide');
+
+    $datepickerClearIcon.click(function () {
+        $datepickTo.datepick('clear');
+        $('#datepick-input-to-holder').val("–");
+        $datepickerClearIcon.hide();
+    });
+
+    $('#datepick-input-from-holder, #datepick-trigger-from').click(function () {
+        $datepickFrom.datepick('show');
+    });
+    $('#datepick-input-to-holder, #datepick-trigger-to').click(function () {
+        $datepickTo.datepick('show');
+    });
+
+    $datepickFrom.datepick('option', 'onSelect', function (dates) {
+        if(dates.length == 0) return;
+        var $dates = $(this).datepick('getDate');
+        var $date = new Date($dates[0]);
+
+        var pattern = /([0-9]+)\s*(d|w|m|y)?/g;
+        var matches = pattern.exec($dpInterval);
+        $.datepick.add($date, parseInt(matches[1], 10), matches[2] || 'd');
+
+        $dates[0] = new Date($dates[0]);
+        $dates[1] = $date;
+        $(this).datepick('setDate', $dates);
+
+        $datepickTo.datepick('option', 'minDate', $dates[0]);
+
+        if($dpInterval == '0d'){
+            $('#datepick-input-from-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]));
+        }else{
+            $('#datepick-input-from-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]) + " – ");
+        }
+    });
+
+    $datepickTo.datepick('option', 'onSelect', function (dates) {
+        if(dates.length == 0) return;
+        var $dates = $(this).datepick('getDate');
+        var $date = new Date($dates[0]);
+
+        var pattern = /([0-9]+)\s*(d|w|m|y)?/g;
+        var matches = pattern.exec($dpReturnInterval);
+        $.datepick.add($date, parseInt(matches[1], 10), matches[2] || 'd');
+
+        $dates[0] = new Date($dates[0]);
+        $dates[1] = $date;
+        $(this).datepick('setDate', $dates);
+
+        if($dpReturnInterval == '0d'){
+            $('#datepick-input-to-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]));
+        }else{
+            $('#datepick-input-to-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]) + " – ");
+        }
+
+        $datepickerClearIcon.show();
+    });
+
+    $datepickFrom.datepick('option', 'onShow', function (dates) {
+        var $inteval = $('.dp-interval');
+        $inteval.removeClass('active');
+        $inteval.each(function () {
+            if($(this).data('interval') == $dpInterval){
+                $(this).addClass('active');
+            }
+        });
+    });
+
+    $datepickTo.datepick('option', 'onShow', function (dates) {
+        var $inteval = $('.dp-interval');
+        $inteval.removeClass('active');
+        $inteval.each(function () {
+            if($(this).data('interval') == $dpReturnInterval){
+                $(this).addClass('active');
+            }
+        });
+    });
+
+    $datepickFrom.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
+        {picker: $.datepick.defaultRenderer.picker.
+            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-from"))}));
+
+    $datepickTo.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
+        {picker: $.datepick.defaultRenderer.picker.
+            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-to"))}));
+
+
+    $datepickFrom.datepick('setDate', ['+1d', '+1m']);
+
 
     //setField(); //pre fill destination field
     var $form = $("#travelbase-form");
@@ -13,160 +118,47 @@ $(document).ready(function() {
     var $city_picker = $(".city-picker");
 
 
-    $(".date").datepicker({ dateFormat: "dd.mm.yy" }, $.datepicker.regional[$lang]);
-    var $datepickerFrom = $("#edit-date-start-datepicker-popup-0");
-    var $datepickerTo = $("#edit-date-end-datepicker-popup-0");
-    var $datepickers = $("#edit-date-start-datepicker-popup-0, #edit-date-end-datepicker-popup-0");
-    $datepickers.datepicker( "option", "minDate",  new Date() );
-
-    $datepickers.datepicker('option', {
-        onClose: function() {
-            $(this).data('datepicker').inline = false;
-        },
-        showButtonPanel: true,
-        numberOfMonths: 2,
-        onChangeMonthYear: datepickerEvent,
-        beforeShow: datepickerEvent
-    });
-
     $body.on('click', '.dp-interval', function () {
         var $target = $($(this).data('target'));
 
-        if($(this).data('target') == '#edit-date-start-datepicker-popup-0'){
+        if($(this).data('target') == '#datepick-input-from'){
             $dpInterval = $(this).data('interval');
         }else{
             $dpReturnInterval = $(this).data('interval');
         }
 
-        $target.datepicker('setDate', $target.datepicker('getDate'));
-        $target.datepicker('hide');
-        $target.datepicker('show');
+        var $dates = $target.datepick('getDate');
+        if($dates.length == 0) return;
+        var $date = new Date($dates[0]);
+
+        var pattern = /([0-9]+)\s*(d|w|m|y)?/g;
+        var matches = pattern.exec($(this).data('interval'));
+        $.datepick.add($date, parseInt(matches[1], 10), matches[2] || 'd');
+
+        $dates[0] = new Date($dates[0]);
+        $dates[1] = $date;
+
+        $target.datepick('setDate', $dates);
     });
 
     $body.on('click', '.dp-close', function () {
         var $target = $($(this).data('target'));
-        $target.datepicker('hide');
+        $target.datepick('hide');
     });
 
     function buttonPanel($id){
         var interval = 0;
-        if($id == '#edit-date-start-datepicker-popup-0'){
+        if($id == '#datepick-input-from'){
             interval = $dpInterval;
         }else{
             interval = $dpReturnInterval;
         }
 
         return "<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
-            "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval==1?" active ":"") + "' data-interval='1'>1 day</button>" +
-            "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval==30?" active ":"") + " ' data-interval='30'>month</button>";
+            "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='0d'?" active ":"") + "' data-interval='0d'>1 day</button>" +
+            "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='7d'?" active ":"") + "' data-interval='7d'>1 week</button>" +
+            "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval=='1m'?" active ":"") + " ' data-interval='1m'>month</button>";
     }
-
-
-    function datepickerEvent(e){
-        var $id = "#" + $(e).attr('id');
-
-        var interval = 0;
-        if($id == '#edit-date-start-datepicker-popup-0'){
-            interval = $dpInterval;
-        }else{
-            interval = $dpReturnInterval;
-        }
-
-        setTimeout(function() {
-
-            var $calendar = $("table.ui-datepicker-calendar");
-            $calendar.find("td > a").removeClass('ui-state-highlight');
-
-            var $current = parseInt($calendar.find("td > a.ui-state-active").eq(0).text());
-            //noinspection JSValidateTypes
-            var $currentMonth = $calendar.find("td > a.ui-state-active").parent().data('month');
-
-            if(interval == 30){
-                $calendar.eq(0).find("td > a").each(function () {
-                    if(parseInt($(this).text()) >= $current && $(this).parent().data('month') >= $currentMonth){
-                        $(this).addClass('ui-state-highlight');
-                    }
-                });
-                $calendar.eq(1).find("td > a").each(function () {
-                    //console.log($current + ":" + $currentMonth);
-                    if($currentMonth != undefined) {
-                        if ($(this).parent().data('month') == $currentMonth) {
-                            if (parseInt($(this).text()) >= $current) {
-                                $(this).addClass('ui-state-highlight');
-                            }
-                        } else {
-                            if (parseInt($(this).text()) <= $current) {
-                                $(this).addClass('ui-state-highlight');
-                            }
-                        }
-                    }
-                });
-            }
-
-
-            $(".ui-datepicker-buttonpane")
-                .html('')
-                .append(buttonPanel($id));
-        }, 1);
-    }
-
-    $datepickerFrom.datepicker( "option", "onSelect", function (date) {
-        $(this).data('datepicker').inline = true;
-
-        datepickerEvent(this);
-
-        if($dpInterval == 30){
-            $("#date-start-datepicker-holder").val(date + "–");
-
-        }else{
-            $("#date-start-datepicker-holder").val(date);
-
-        }
-
-        $("#edit-date-end-datepicker-popup-0").datepicker( "option", "minDate", date );
-
-
-        //formChange();
-    } );
-    var $datepickerClearIcon = $(".datepicker-clear-icon");
-
-    $datepickerTo.datepicker( "option", "onSelect", function (date) {
-        $(this).data('datepicker').inline = true;
-        datepickerEvent(this);
-        $("#flyOneWay").attr('checked', false);
-        $("#date-end-datepicker-holder").val(date);
-        //formChange();
-        $datepickerClearIcon.show();
-    } );
-
-    $datepickerFrom.datepicker('setDate', new Date());
-    var $holderFrom = $("#date-start-datepicker-holder");
-    $holderFrom.val($datepickerFrom.val() + "–");
-    var $holderTo = $("#date-end-datepicker-holder");
-    $holderTo.val("–");
-    $datepickerClearIcon.hide();
-    $datepickerClearIcon.removeClass('hide');
-    //DATE HOLDERS
-    ///////////////////////////////////////////////////////////
-    $holderTo.focusin(function () {
-        $datepickerTo.datepicker("show");
-    });
-    $holderFrom.focusin(function () {
-        $datepickerFrom.datepicker("show");
-    });
-    $(".travelbase-icon-date-to").click(function () {
-        $datepickerTo.datepicker("show");
-    });
-    $(".travelbase-icon-date-from").click(function () {
-        $datepickerFrom.datepicker("show");
-    });
-
-    $datepickerClearIcon.click(function () {
-        $datepickerTo.val("");
-        $holderTo.val("–");
-        $datepickerClearIcon.hide();
-    });
-
 
     cityPicker("#departure-el", "#departure-dataholder");
     cityPicker("#destination-el", '#destination-dataholder');

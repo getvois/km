@@ -315,7 +315,7 @@ body .splash--green {
 }
 
 
-#date-start-datepicker-holder, #date-end-datepicker-holder, .placeholder, .select2-container-multi .select2-choices {
+#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
 	border: 2px solid #555;
     border-radius: 2px;
 }
@@ -956,17 +956,21 @@ label.directFlight-label,  label.sameDay-label {
 
 
 /*DATE PICKER STUFF*/
-#edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0{
+#edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0, .datepick-input{
     width: 1px;
+    padding: 0;
+    margin: 0;
+    line-height: 1px;
     height: 1px;
     border:0;
     background-color: transparent;
+    color: transparent;
 }
 .input-group-addon{
     border: 1px solid #aaa;
     border-right: 0;
 }
-#date-start-datepicker-holder, #date-end-datepicker-holder {
+#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder {
     /*margin-left:7px;*/
     color: #666;
     font-size:15px;
