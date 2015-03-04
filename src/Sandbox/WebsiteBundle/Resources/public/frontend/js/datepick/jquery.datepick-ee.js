@@ -18,7 +18,7 @@
 		nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: '',
 		currentText: 'Täna', currentStatus: '',
 		todayText: 'Täna', todayStatus: '',
-		clearText: '', clearStatus: '',
+		clearText: 'Tühista', clearStatus: '',
 		closeText: 'Sulge', closeStatus: '',
 		yearStatus: '', monthStatus: '',
 		weekText: 'Sm', weekStatus: '',

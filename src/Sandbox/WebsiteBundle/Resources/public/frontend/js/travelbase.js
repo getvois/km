@@ -100,11 +100,15 @@ $(document).ready(function() {
 
     $datepickFrom.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
         {picker: $.datepick.defaultRenderer.picker.
-            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-from"))}));
+            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-from"))
+            .replace(/\{link:today\}/, '')
+        }));
 
     $datepickTo.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
         {picker: $.datepick.defaultRenderer.picker.
-            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-to"))}));
+            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-to"))
+            .replace(/\{link:today\}/, '')
+        }));
 
 
     $datepickFrom.datepick('setDate', ['+1d', '+1m']);
@@ -141,10 +145,10 @@ $(document).ready(function() {
         $target.datepick('setDate', $dates);
     });
 
-    $body.on('click', '.dp-close', function () {
-        var $target = $($(this).data('target'));
-        $target.datepick('hide');
-    });
+    //$body.on('click', '.dp-close', function () {
+    //    var $target = $($(this).data('target'));
+    //    $target.datepick('hide');
+    //});
 
     function buttonPanel($id){
         var interval = 0;
@@ -153,9 +157,8 @@ $(document).ready(function() {
         }else{
             interval = $dpReturnInterval;
         }
-
-        return "<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
-            "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='0d'?" active ":"") + "' data-interval='0d'>1 day</button>" +
+//"<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
+        return "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='0d'?" active ":"") + "' data-interval='0d'>1 day</button>" +
             "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='7d'?" active ":"") + "' data-interval='7d'>1 week</button>" +
             "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval=='1m'?" active ":"") + " ' data-interval='1m'>month</button>";
     }
