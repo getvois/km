@@ -6,6 +6,7 @@ $(document).ready(function() {
     var $lang = $body.data('lang');
 
 
+    //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $(".datepick-input").datepick($.extend({
             dateFormat: 'dd.mm.yyyy',
             rangeSelect: true,
@@ -23,95 +24,116 @@ $(document).ready(function() {
     $datepickerClearIcon.removeClass('hide');
 
     $datepickerClearIcon.click(function () {
+        //noinspection JSUnresolvedFunction
         $datepickTo.datepick('clear');
         $('#datepick-input-to-holder').val("–");
         $datepickerClearIcon.hide();
     });
 
     $('#datepick-input-from-holder, #datepick-trigger-from').click(function () {
+        //noinspection JSUnresolvedFunction
         $datepickFrom.datepick('show');
     });
     $('#datepick-input-to-holder, #datepick-trigger-to').click(function () {
+        //noinspection JSUnresolvedFunction
         $datepickTo.datepick('show');
     });
 
+    //noinspection JSUnresolvedFunction
     $datepickFrom.datepick('option', 'onSelect', function (dates) {
         if(dates.length == 0) return;
+        //noinspection JSUnresolvedFunction
         var $dates = $(this).datepick('getDate');
         var $date = new Date($dates[0]);
 
         var pattern = /([0-9]+)\s*(d|w|m|y)?/g;
         var matches = pattern.exec($dpInterval);
+        //noinspection JSUnresolvedVariable
         $.datepick.add($date, parseInt(matches[1], 10), matches[2] || 'd');
 
         $dates[0] = new Date($dates[0]);
         $dates[1] = $date;
+        //noinspection JSUnresolvedFunction
         $(this).datepick('setDate', $dates);
 
+        //noinspection JSUnresolvedFunction
         $datepickTo.datepick('option', 'minDate', $dates[0]);
 
         if($dpInterval == '0d'){
+            //noinspection JSUnresolvedVariable
             $('#datepick-input-from-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]));
         }else{
+            //noinspection JSUnresolvedVariable
             $('#datepick-input-from-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]) + " – ");
         }
     });
 
+    //noinspection JSUnresolvedFunction
     $datepickTo.datepick('option', 'onSelect', function (dates) {
         if(dates.length == 0) return;
+        //noinspection JSUnresolvedFunction
         var $dates = $(this).datepick('getDate');
         var $date = new Date($dates[0]);
 
         var pattern = /([0-9]+)\s*(d|w|m|y)?/g;
         var matches = pattern.exec($dpReturnInterval);
+        //noinspection JSUnresolvedVariable
         $.datepick.add($date, parseInt(matches[1], 10), matches[2] || 'd');
 
         $dates[0] = new Date($dates[0]);
         $dates[1] = $date;
+        //noinspection JSUnresolvedFunction
         $(this).datepick('setDate', $dates);
 
         if($dpReturnInterval == '0d'){
+            //noinspection JSUnresolvedVariable
             $('#datepick-input-to-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]));
         }else{
+            //noinspection JSUnresolvedVariable
             $('#datepick-input-to-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]) + " – ");
         }
 
         $datepickerClearIcon.show();
     });
 
+    //noinspection JSUnresolvedFunction,JSUnusedLocalSymbols
     $datepickFrom.datepick('option', 'onShow', function (dates) {
-        var $inteval = $('.dp-interval');
-        $inteval.removeClass('active');
-        $inteval.each(function () {
+        var $interval = $('.dp-interval');
+        $interval.removeClass('active');
+        $interval.each(function () {
             if($(this).data('interval') == $dpInterval){
                 $(this).addClass('active');
             }
         });
     });
 
+    //noinspection JSUnresolvedFunction,JSUnusedLocalSymbols
     $datepickTo.datepick('option', 'onShow', function (dates) {
-        var $inteval = $('.dp-interval');
-        $inteval.removeClass('active');
-        $inteval.each(function () {
+        var $interval = $('.dp-interval');
+        $interval.removeClass('active');
+        $interval.each(function () {
             if($(this).data('interval') == $dpReturnInterval){
                 $(this).addClass('active');
             }
         });
     });
 
+    //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $datepickFrom.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
         {picker: $.datepick.defaultRenderer.picker.
-            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-from"))
-            .replace(/\{link:today\}/, '')
+            replace(/\{link:buttons}/, buttonPanel("#datepick-input-from"))
+            .replace(/\{link:today}/, '')
         }));
 
+    //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $datepickTo.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
         {picker: $.datepick.defaultRenderer.picker.
-            replace(/\{link:buttons\}/, buttonPanel("#datepick-input-to"))
-            .replace(/\{link:today\}/, '')
+            replace(/\{link:buttons}/, buttonPanel("#datepick-input-to"))
+            .replace(/\{link:today}/, '')
         }));
 
 
+    //noinspection JSUnresolvedFunction
     $datepickFrom.datepick('setDate', ['+1d', '+1m']);
 
 
@@ -132,17 +154,20 @@ $(document).ready(function() {
             $dpReturnInterval = $(this).data('interval');
         }
 
+        //noinspection JSUnresolvedFunction
         var $dates = $target.datepick('getDate');
         if($dates.length == 0) return;
         var $date = new Date($dates[0]);
 
         var pattern = /([0-9]+)\s*(d|w|m|y)?/g;
         var matches = pattern.exec($(this).data('interval'));
+        //noinspection JSUnresolvedVariable
         $.datepick.add($date, parseInt(matches[1], 10), matches[2] || 'd');
 
         $dates[0] = new Date($dates[0]);
         $dates[1] = $date;
 
+        //noinspection JSUnresolvedFunction
         $target.datepick('setDate', $dates);
     });
 
@@ -567,7 +592,7 @@ $(document).ready(function() {
 
                 var $row = '<div class="row skypicker-dropdown">' +
                         '<div class="row">' +
-                            '<div class="col-md-6"><div class="calendar-header-1"></div>' +
+                            '<div class="col-md-6"><div class="calendar-header-1"><h2>Departures</h2></div>' +
                                 '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
                     '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
@@ -581,7 +606,7 @@ $(document).ready(function() {
                 //if we have return date add second calendar
                 var $date_end = $datepickTo.datepick('getDate');
                 if($date_end.length > 0 && $type == 3){
-                    $row += '<div class="col-md-6"><div class="calendar-header-2"></div>' +
+                    $row += '<div class="col-md-6"><div class="calendar-header-2"><h2>Return</h2></div>' +
                     '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
                     '<button class="btn calendar-navigate-2" data-calendar-nav="today">Today</button>' +
@@ -616,7 +641,7 @@ $(document).ready(function() {
                     };
 
 
-                    //add only events with lowes prices
+                    //add only events with lowest prices
                     var found = false;
                     for(var k =0;k<$eventSource.length; k++){
                         //noinspection JSUnresolvedVariable
@@ -695,6 +720,16 @@ $(document).ready(function() {
                         events_source: $eventSource,
                         onAfterViewLoad: function(view) {
                             $('.calendar-header-1').text(this.getTitle());
+                            var $cheapest = null;
+                            $('.calendar-1 .events-list').each(function () {
+                                if(!$cheapest) $cheapest = $(this);
+
+                                if(parseInt($cheapest.text(), 10) > parseInt($(this).text(), 10)){
+                                    $cheapest = $(this);
+                                }
+                            });
+
+                            if($cheapest) $cheapest.parent().addClass('cal-item-cheapest');
                         },
                         day: (new Date($data[Math.floor($data.length / 2)].dTimestamp * 1000)).toMysqlFormat()
                     });
@@ -837,6 +872,16 @@ $(document).ready(function() {
                             events_source: $eventSource,
                             onAfterViewLoad: function(view) {
                                 $('.calendar-header-2').text(this.getTitle());
+                                var $cheapest = null;
+                                $('.calendar-2 .events-list').each(function () {
+                                    if(!$cheapest) $cheapest = $(this);
+
+                                    if(parseInt($cheapest.text(), 10) > parseInt($(this).text(), 10)){
+                                        $cheapest = $(this);
+                                    }
+                                });
+
+                                if($cheapest) $cheapest.parent().addClass('cal-item-cheapest');
                             },
                             day: (new Date($data[Math.floor($data.length / 2)].dTimestamp * 1000)).toMysqlFormat()
                         });
@@ -847,6 +892,7 @@ $(document).ready(function() {
                     $(".calendar-navigate-2").click(function () {
                         calendar2.navigate($(this).data('calendar-nav'));
                     });
+
 
                     $('.skypicker-dropdown').on('click', '.calendar-2 .cal-month-day, .calendar-2 .cal-year-box .span3', function () {
                         var $date = $(this).children('[data-cal-date]').data('cal-date');

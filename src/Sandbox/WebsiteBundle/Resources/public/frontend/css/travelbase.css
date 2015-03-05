@@ -247,6 +247,9 @@ body .splash--green {
     padding: 3px;
 }
 
+.cal-item-cheapest {
+    background-color: #FFEDBA;
+}
 /*topmenu*/
 .site-logo, .site-logo a {
 	 width:202px;
