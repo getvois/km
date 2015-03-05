@@ -106,10 +106,9 @@ function getFilter(container){
     var $toDates = $datepickTo.datepick('getDate');
     if($toDates.length > 0){
         $date = new Date($toDates[0]);
-        $filter.date.return = $date.toMysqlFormat();
-        //todo add return from and to here and on api side
-        //$date = new Date($toDates[1]);
-        //$filter.date.end = $date.toMysqlFormat();
+        $filter.date.returnFrom = $date.toMysqlFormat();
+        $date = new Date($toDates[1]);
+        $filter.date.returnTo = $date.toMysqlFormat();
     }
 
     return $filter;
