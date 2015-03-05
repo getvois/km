@@ -578,8 +578,9 @@ $(document).ready(function() {
 
 
 
-                var $date_end = $("#edit-date-end-datepicker-popup-0").val();
-                if($date_end && $type == 3){
+                //if we have return date add second calendar
+                var $date_end = $datepickTo.datepick('getDate');
+                if($date_end.length > 0 && $type == 3){
                     $row += '<div class="col-md-6"><div class="calendar-header-2"></div>' +
                     '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
@@ -660,7 +661,7 @@ $(document).ready(function() {
                         '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '<div class="col-xs-2 trip-cost text-success">' +
                         '        <p>'+$data[i].price+'€</p>' +
-                        '        <button class="btn btn-info trip-btn-cost">'+$data[i].price+'€</button>' +
+                        '        <a class="btn btn-info trip-btn-cost" target="_blank" href="http://api.travelwebpartner.com/away/?url=' + $data[i].deep_link + '">'+$data[i].price+'€</a>' +
                         '        <button class="btn btn-danger trip-btn-close">close</button>' +
                         '    </div>' +
                         '</div>';
@@ -695,7 +696,7 @@ $(document).ready(function() {
                         onAfterViewLoad: function(view) {
                             $('.calendar-header-1').text(this.getTitle());
                         },
-                        day: (new Date($data[0].dTimestamp * 1000)).toMysqlFormat()
+                        day: (new Date($data[Math.floor($data.length / 2)].dTimestamp * 1000)).toMysqlFormat()
                     });
 
                 calendar1.setLanguage($lang);
@@ -837,7 +838,7 @@ $(document).ready(function() {
                             onAfterViewLoad: function(view) {
                                 $('.calendar-header-2').text(this.getTitle());
                             },
-                            day: (new Date($data[Math.round($data.length/2)].dTimestamp * 1000)).toMysqlFormat()
+                            day: (new Date($data[Math.floor($data.length / 2)].dTimestamp * 1000)).toMysqlFormat()
                         });
 
                     calendar2.setLanguage($lang);
@@ -870,17 +871,25 @@ $(document).ready(function() {
             setTimeout(function () {
 
                 //change filter dates
+                //to send second request
+                //dest and dep are in link
+                //date.start = return from
+                //date.end = return to
 
-                var $date_end = $("#edit-date-end-datepicker-popup-0").val();
-                if($date_end){
-                    var $d = $date_end;
-                    $filter.date.start = $d.substr(6, 4) + "-" + $d.substr(3, 2) + "-" + $d.substr(0, 2) ;
+                var $date_end = $datepickTo.datepick('getDate');
+                if($date_end.length > 0){
+                    $filter.date.start = $.datepick.formatDate('yyyy-mm-dd', $date_end[0]);
+                    $filter.date.end = $.datepick.formatDate('yyyy-mm-dd', $date_end[1]);
+                    $filter.date.returnFrom = null;
+                    $filter.date.returnTo = null;
+                    //var $d = $date_end;
+                    //$filter.date.start = $d.substr(6, 4) + "-" + $d.substr(3, 2) + "-" + $d.substr(0, 2) ;
                 }
-                var $date = new Date($filter.date.start);
-                $date.setMonth($date.getMonth() + 1);
-                $filter.date.end = $date.toMysqlFormat();
-
-                $filter.date.return = null;
+                //var $date = new Date($filter.date.start);
+                //$date.setMonth($date.getMonth() + 1);
+                //$filter.date.end = $date.toMysqlFormat();
+                //
+                //$filter.date.return = null;
                 xhr2.send(JSON.stringify($filter));
             }, 1000);
 
