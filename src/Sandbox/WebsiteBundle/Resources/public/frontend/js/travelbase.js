@@ -592,7 +592,7 @@ $(document).ready(function() {
 
                 var $row = '<div class="row skypicker-dropdown">' +
                         '<div class="row">' +
-                            '<div class="col-md-6"><div class="calendar-header-1"><h2>Departures</h2></div>' +
+                            '<div class="col-md-6"><h2>Departures</h2><div class="calendar-header-1"></div>' +
                                 '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
                     '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
@@ -606,7 +606,7 @@ $(document).ready(function() {
                 //if we have return date add second calendar
                 var $date_end = $datepickTo.datepick('getDate');
                 if($date_end.length > 0 && $type == 3){
-                    $row += '<div class="col-md-6"><div class="calendar-header-2"><h2>Return</h2></div>' +
+                    $row += '<div class="col-md-6"><h2>Return</h2><div class="calendar-header-2"></div>' +
                     '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
                     '<button class="btn calendar-navigate-2" data-calendar-nav="today">Today</button>' +
