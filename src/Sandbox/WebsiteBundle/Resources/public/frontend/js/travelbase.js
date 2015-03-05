@@ -10,7 +10,8 @@ $(document).ready(function() {
             dateFormat: 'dd.mm.yyyy',
             rangeSelect: true,
             monthsToShow: 2,
-            minDate: '+1d'
+            minDate: '+1d',
+            changeMonth: false
         },
         $.datepick.regionalOptions[$lang]));
 
