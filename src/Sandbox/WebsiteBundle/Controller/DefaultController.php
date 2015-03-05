@@ -341,7 +341,11 @@ class DefaultController extends Controller
                                     <td width="1%">';
 
                 if($item->company->name == 'SkyPicker'){
-                    $row .= '<span class="text-muted"> ' . $item->raTime . '</span>
+                    $time = $item->raTime;
+                    if($item->raDate && $item->raDate != $item->rdDate){
+                        $time .= '(+1)';
+                    }
+                    $row .= '<span class="text-muted"> ' . $time . '</span>
                     <strong>'. $item->departure->cityNameFi . "&nbsp;</strong>";
 
                 }else{
