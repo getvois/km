@@ -138,7 +138,9 @@ time, .tags-block a {
 	padding-bottom:7px;
 	border-bottom:1px solid #ccc;
 } 
-
+.topnews:hover {
+	background:#ddd;
+} 
 .topnews .timetop {
 	font-size:13px; 
 	display: block;
