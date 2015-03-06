@@ -1,0 +1,16 @@
+<div>subscription tree</div>
+<div class="subscribe-tree">
+    <ul>
+        {% for place in places %}
+            <li id="node_{{ get_node_for(place['place']).id }}">{{ place['place'].title }}
+                {% if place['children']|length > 0 %}
+                <ul>
+                    {% for child in place['children'] %}
+                        <li id="node_{{ get_node_for(child).id }}">{{ child.title }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

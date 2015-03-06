@@ -6,6 +6,8 @@ $(document).ready(function() {
     var $lang = $body.data('lang');
 
 
+    $('.subscribe-tree').jstree();
+
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $(".datepick-input").datepick($.extend({
             dateFormat: 'dd.mm.yyyy',

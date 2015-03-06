@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.datepick.custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sandboxwebsite/frontend/js/jstree/themes/default/style.css') }}">
 
 
     <link href="{{ asset("bundles/sandboxwebsite/frontend/js/fancybox/jquery.fancybox.css") }}" rel="stylesheet" type="text/css">
@@ -295,6 +296,8 @@
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
         {% endblock %}
 
+        {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}
+
         {% block sidebar %}
 
         {% endblock %}
@@ -445,6 +448,8 @@
 <script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.plugin.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.datepick.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.datepick-' ~ app.request.locale ~ '.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/jstree/jstree.js') }}"></script>
 
 <script src="{{ asset('bundles/sandboxwebsite/frontend/js/func.js') }}"></script>
 <script src="{{ asset('bundles/sandboxwebsite/frontend/js/travelbase.js') }}"></script>

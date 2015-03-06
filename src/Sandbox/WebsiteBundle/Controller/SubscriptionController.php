@@ -286,4 +286,47 @@ class SubscriptionController extends Controller
                 , 'text/html');
         $this->get('mailer')->send($message);
     }
+
+
+    /**
+     * @param Request $request
+     * @param $page
+     * @return array
+     *
+     * @Template()
+     */
+    public function subscribeTreeAction(Request $request, $page)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $countryRootNode = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->findOneBy(
+                [
+                    'parent' => 1,
+                    'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
+                    'deleted' => 0
+                ]);
+
+        if(!$countryRootNode) throw new NotFoundHttpException('Country root node not found');
+
+        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getActiveOverviewPages($request->getLocale(), $host, $countryRootNode->getId());
+
+        $result = [];
+        foreach ($places as $place) {
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($place);
+
+            $children = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                ->getActiveOverviewPages($request->getLocale(), $host, $node->getId());
+
+            $result[] = ['place' => $place, 'children' => $children];
+        }
+
+
+        return [ 'places' => $result ];
+    }
 }
