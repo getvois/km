@@ -2,10 +2,11 @@
 <div class="row">
 
     {% set braker = places|length / 4 %}
-    {{ braker }}
     {% set counter = 0 %}
     {% for place in places %}
-        <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
+        {% if counter == 0 or loop.index == 0 %}
+            <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
+        {% endif %}
 
         <li class="doormat__list-item">
             <a href="{{ path('_slug', { 'url': get_node_translation_for(place).fullSlug }) }}" class="link--gray doormat__link">{{ place.title }}</a>
