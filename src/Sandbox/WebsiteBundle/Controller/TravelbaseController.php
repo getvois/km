@@ -267,4 +267,25 @@ class TravelbaseController extends Controller
         }
         return null;
     }
+
+
+    /**
+     * @param Request $request
+     * @param $node
+     *
+     * @Template()
+     * @return array
+     */
+    public function placesFooterAction(Request $request, $node)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getActiveOverviewPages($request->getLocale(), $host, $node->getNode()->getId());
+
+        return ['node' => $node, 'places' => $places];
+    }
 }
