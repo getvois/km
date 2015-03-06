@@ -12,9 +12,8 @@
             <a href="{{ path('_slug', { 'url': get_node_translation_for(place).fullSlug }) }}" class="link--gray doormat__link">{{ place.title }}</a>
         </li>
 
-        {% if counter == 0 %}
-            {% set counter = counter + 1 %}
-        {% endif %}
+        {% set counter = counter + 1 %}
+
         {% if counter >= braker %}
             </ul>
             {% set counter = 0 %}
