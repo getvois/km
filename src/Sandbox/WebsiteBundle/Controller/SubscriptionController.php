@@ -323,7 +323,21 @@ class SubscriptionController extends Controller
             $children = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                 ->getActiveOverviewPages($request->getLocale(), $host, $node->getId());
 
-            $result[] = ['place' => $place, 'children' => $children];
+            $subChld = [];
+            foreach ($children as $child) {
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($child);
+
+                $subChildren = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                    ->getActiveOverviewPages($request->getLocale(), $host, $node->getId());
+
+                $subChld[] = [ 'place' => $child, 'children' => $subChildren];
+            }
+
+            $result[] = [
+                'place' => $place,
+                'children' => $subChld
+            ];
         }
 
 

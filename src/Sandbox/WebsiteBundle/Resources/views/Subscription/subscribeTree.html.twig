@@ -6,7 +6,15 @@
                 {% if place['children']|length > 0 %}
                 <ul>
                     {% for child in place['children'] %}
-                        <li id="node_{{ get_node_for(child).id }}">{{ child.title }}</li>
+                        <li id="node_{{ get_node_for(child['place']).id }}">{{ child['place'].title }}
+                            {% if child['children']|length > 0 %}
+                                <ul>
+                                    {% for subchild in child['children'] %}
+                                        <li id="node_{{ get_node_for(subchild).id }}">{{ subchild.title }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
                     {% endfor %}
                 </ul>
                 {% endif %}
