@@ -569,10 +569,10 @@ $(document).ready(function() {
             hwaccel: false, // Whether to use hardware acceleration
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: '50%', // Top position relative to parent
+            top: '200px', // Top position relative to parent
             left: '50%' // Left position relative to parent
         };
-        var spinner = new Spinner(opts).spin($loading[1]);
+        var spinner = new Spinner(opts).spin($loading.eq(1).find('.loading-container')[0]);
 
 
 
@@ -1620,18 +1620,18 @@ function cityPicker($el, $holder) {
 }
 
 function fixDiv() {
-    var $cache = $('.loading-container:visible');
-    var $width = $cache.parent().width();
-    var $height = $cache.parent().height();
+    var $container = $('.loading-container:visible');
+    var $width = $container.parent().width();
+    var $height = $container.parent().height();
     if ($(window).scrollTop() > 350 && $(window).scrollTop() < $height) {
-        $cache.css({
+        $container.css({
             'position': 'fixed',
             'top': '50px',
             'width' : $width
         });
     }
     else {
-        $cache.css({
+        $container.css({
             'position': 'relative',
             'top': 'auto',
             'width' : 'auto'
