@@ -101,10 +101,10 @@ class DropdownController extends Controller
 
         return [ 'nodes' => $rightNodes, 'companies' => $companyNodes, 'lang' => $lang, 'em' => $em];
     }
+
     /**
+     * @param Request $request
      * @return array
-     *
-     * @Template()
      */
     public function companySelectAction(Request $request)
     {
@@ -112,20 +112,8 @@ class DropdownController extends Controller
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-        findBy([
-                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
-                'deleted' => 0]);
-
-        $companies = [];
-
-        foreach ($nodes as $node) {
-            if($node->getParent()->getId() == 1) continue;//exclude direct root node (Companies)
-            $translation = $node->getNodeTranslation($lang);
-            if($translation && $translation->isOnline()) {
-                $companies[] = $translation->getRef($em);
-            }
-        }
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+            ->getCompanies($lang);
 
         return ['companies' => $companies];
     }

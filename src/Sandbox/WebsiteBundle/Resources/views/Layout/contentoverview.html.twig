@@ -49,13 +49,13 @@
 	                                        {{ 'article.readmore' | trans }}
 	                                    </a>
                                 	</div>
-                                	
-                             
+
+
 		                            {% if item.image %}
 	                                    <div class="col-md-3">
 	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
 	                                     	 <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
-	                                    	</a> 
+	                                    	</a>
 	                                    </div>
 		                            {% elseif item.companies|length > 0 %}
 		                                {% if item.companies[0].logo %}
@@ -66,8 +66,9 @@
 	                                    </div>
 		                                {% endif %}
 		                            {% endif %}
-                            		 </div>
-                       			</div>
+                              </div>
+                       		</div>
+                        </div>
                     </article>
                 {% endfor %}
 
