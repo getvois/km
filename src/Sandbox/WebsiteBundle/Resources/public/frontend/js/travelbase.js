@@ -6,7 +6,12 @@ $(document).ready(function() {
     var $lang = $body.data('lang');
 
 
-    $('.subscribe-tree').jstree();
+    $('.subscribe-tree').jstree({
+        "checkbox" : {
+            "keep_selected_style" : false
+        },
+        "plugins" : [ "checkbox" ]
+    });
 
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $(".datepick-input").datepick($.extend({
