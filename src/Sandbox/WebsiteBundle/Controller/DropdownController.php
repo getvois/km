@@ -105,6 +105,8 @@ class DropdownController extends Controller
     /**
      * @param Request $request
      * @return array
+     *
+     * @Template()
      */
     public function companySelectAction(Request $request)
     {
