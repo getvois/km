@@ -13,6 +13,24 @@ $(document).ready(function() {
         "plugins" : [ "checkbox" ]
     });
 
+    $('#form_submit').closest('form').submit(function () {
+        var $selected = $('.subscribe-tree').jstree('get_selected');
+
+        var $ids = '';
+        for(var i=0; i<$selected.length; i++){
+            $ids += $selected[i].replace('node_', '');
+            if(i != $selected.length - 1 ){
+                $ids += ",";
+            }
+        }
+
+        if($ids.length == 0) return false;
+
+        $('#form_node').val($ids);
+
+        return true;
+    });
+
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $(".datepick-input").datepick($.extend({
             dateFormat: 'dd.mm.yyyy',

@@ -340,7 +340,9 @@ class SubscriptionController extends Controller
             ];
         }
 
+        $form = new SubscribeForm();
+        $form = $this->getForm($form);
 
-        return [ 'places' => $result ];
+        return [ 'places' => $result , 'form' => $form->createView() ];
     }
 }
