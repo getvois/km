@@ -296,7 +296,9 @@
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
         {% endblock %}
 
-        {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}
+        {% if page %}
+            {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}
+        {% endif %}
 
         {% block sidebar %}
 
