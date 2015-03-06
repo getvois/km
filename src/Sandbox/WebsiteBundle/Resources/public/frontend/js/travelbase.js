@@ -1072,63 +1072,6 @@ $(document).ready(function() {
     });
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-    //var $destination_country = $("#edit-destination-country");
-    //var $departureCity = $(".form-item-departure-city");
-
-
-
-
-    //$destination_country.focus(cityPickerSlideDown);
-    //$(".city-picker-list").click(cityPickerSlideDown);
-    //$("#edit-departure-city").focus(cityPickerSlideDown);
-    //$("#edit-company").focus(cityPickerSlideDown);
-    //$departureCity.next(".city-picker-list").click(cityPickerSlideDown);
-
-    //$destination_country.change();
-
-///////set destination from city taxonomy term on node page
-//    if (window.location.pathname != "/") {
-//        $(".field-name-field-city").find("a").each(function () {
-//            var $value = $(this).text();
-//            $("#edit-destination-country").parent().find(".city-picker").find("input[type='checkbox']").each(function () {
-//                if ($(this).data('name') == $value) {
-//                    $(this).attr('checked', true).change();
-//                    //$(this).closest(".form-item-destination-country").next(".city-picker-list").text($value);
-//                }
-//            });
-//        });
-//    }
-///////set departure from "from" taxonomy term on node page
-//    var $found = false;
-//    if (window.location.pathname != "/") {
-//        $(".field-name-field-from").find("a").each(function () {
-//            var $value = $(this).text();
-//            $("#edit-departure-city").parent().find(".city-picker").find("input[type='checkbox']").each(function () {
-//                if ($(this).data('name') == $value) {
-//                    $found = true;
-//                    $(this).attr('checked', true).change();
-//                    //$(this).closest(".form-item-departure-city").next(".city-picker-list").text($value);
-//                }
-//            });
-//        });
-//    }
-
-    ////check prefered countries on homepage or when notfing is found
-    //if (window.location.pathname == "/" || !$found) {
-    //    $departureCity.find(".city-near").find("input[type='checkbox']").attr('checked', true).eq(0).change();
-    //}
-
-    //$(".form-type-date-popup > div").find("label").html("<img src='/sites/default/files/images/i-cal.png'>");
-
-
     $(".city-search").keyup(function () {
         var $value = $(this).val().trim();
         var $cityList = $(this).closest(".city-picker").find('.city-list');
@@ -1200,15 +1143,6 @@ $(document).ready(function() {
     $('.city-type-btn').change(cityFilter);
 
 
-
-    //$('.travelbase_top_menu').find("a").click(function () {
-    //    var $target = $(this).data('target');
-    //    $($target).focus();
-    //    return false;
-    //});
-
-
-
     //TAXONOMY CONTENT TYPE FILTER SUBMIT ON CHANGE
     $("#block-system-main").on('change', ':input', function () {
         $(this).closest("form").find("#edit-submit-taxonomy-term").click();
@@ -1233,14 +1167,6 @@ $(document).ready(function() {
     });
     /////////////////////////////////////////////////////////////////////////////////
 
-
-    //$form.find(':input').change(formChange);
-
-    //$city_picker.find('.city-list').find(':input').change(formChange);
-    //////////////////////////////////////////////////////////////////////////////
-    //submit the form
-    //$form.find(':input').eq(0).change();
-    //////////////////////////////////////////////////////////////////////////////
 
     $("#form-submit").click(function (e) {
         e.preventDefault();
@@ -1515,13 +1441,15 @@ function cityPicker($el, $holder) {
     if($locale == "En") $locale = "";
     if($locale == "Et") $locale = "Ee";
 
+    var airportName = 'airportNameEn';
+    if($locale == "Ee") airportName = 'airportNameEt';
 
     function repoFormatResult(repo) {
         var $title = repo['cityName' + $lang];
         //noinspection JSUnresolvedVariable
         if(repo.airportNameEn){
             //noinspection JSUnresolvedVariable
-            $title += " <span class='text-muted'>("+repo.airportNameEn+", "+repo.airportCode+")</span>";
+            $title += " <span class='text-muted'>("+repo[airportName]+", "+repo.airportCode+")</span>";
         }else{
             //noinspection JSUnresolvedVariable
             $title += " <span class='text-muted'>("+repo.airportCode+")</span>";

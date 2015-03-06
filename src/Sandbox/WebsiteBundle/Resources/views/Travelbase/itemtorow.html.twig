@@ -1,0 +1,4 @@
+<div class=" trip row {{ class }}" data-type="{{ itemType }}" data-itemid="{{ item.id }}" data-from="{{ item.departure.airportCode }}" data-to="{{ item.destination.airportCode }}">
+{{ html |raw }}
+    <div class="col-xs-1 price text-right trip-cost"><p>{{ item.price|round }}€</p> <a target="_blank" href="{{ item.link }}" class="btn btn-info trip-btn-cost">{{ item.price|round }}€</a></div>
+</div>
