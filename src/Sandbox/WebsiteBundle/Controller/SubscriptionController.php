@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -297,6 +298,7 @@ class SubscriptionController extends Controller
      */
     public function subscribeTreeAction(Request $request, $page)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
