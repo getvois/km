@@ -2,7 +2,8 @@
 <div class="tree-wrapper">
     <div class="subscribe-tree">
         <ul>
-            <li id="node_0">{{ 'all.countries'|trans({}, 'frontend') }}
+            <li id="node_0" data-jstree='{"selected":true}'>
+                {{ 'all.countries'|trans({}, 'frontend') }}
                 <ul>
                     {% for place in places %}
                         <li id="node_{{ get_node_for(place['place']).id }}">{{ place['place'].title }}

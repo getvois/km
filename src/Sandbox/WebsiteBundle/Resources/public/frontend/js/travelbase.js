@@ -6,12 +6,17 @@ $(document).ready(function() {
     var $lang = $body.data('lang');
 
 
-    $('.subscribe-tree').jstree({
+    var $tree = $('.subscribe-tree');
+    $tree.jstree({
         "checkbox" : {
             "keep_selected_style" : false
         },
         "plugins" : [ "checkbox" ]
     });
+    setTimeout(function () {
+        $tree.jstree('close_all');
+    }, 500);
+
 
     $('#form_submit').closest('form').submit(function () {
         var $selected = $('.subscribe-tree').jstree('get_selected');
