@@ -487,6 +487,21 @@ div.travelbase-input-addon{
 }
 
 
+.tree-wrapper {
+    display: block;
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    background-color: #ffffff;
+}
+.subscribe-form {
+    margin-top: 30px;
+}
+
 .trip table .trip-path-spacer-line > div {
     /*border-bottom: 1px solid rgb(104, 104, 104);*/
     height: 15px;
@@ -601,7 +616,6 @@ div.travelbase-input-addon{
     position: relative;
     border-bottom: none;
     border-top: 2px solid #F8C600;
-    padding-bottom: 30px;
     padding: 1.5em 0;
 }
 .main-article__readmore { 
@@ -967,8 +981,7 @@ label.directFlight-label,  label.sameDay-label {
 }
 .loading-message{
     text-align: center;
-    margin: 20px;
-    margin-top: 45px;
+    margin: 45px 20px 20px;
 }
 
 
