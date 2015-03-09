@@ -17,6 +17,19 @@ $(document).ready(function() {
         $tree.jstree('close_all');
     }, 500);
 
+    $('.tree-toggle').click(function () {
+        if($tree.jstree('is_open', 'node_0')){
+            $tree.jstree('close_node', 'node_0');
+            $(this).removeClass('fa-chevron-up');
+            $(this).addClass('fa-chevron-down');
+        }else{
+            $tree.jstree('open_node', 'node_0');
+            $(this).addClass('fa-chevron-up');
+            $(this).removeClass('fa-chevron-down');
+        }
+
+
+    });
 
     $('#form_submit').closest('form').submit(function () {
         var $selected = $('.subscribe-tree').jstree('get_selected');
