@@ -29,7 +29,7 @@ class NewsletterController extends Controller
     {
 
         $accountFactory = new NewsLetterAccountFactory();
-        $accounts = $accountFactory->getByLocale('ee');
+        $accounts = $accountFactory->getByLocale('fi');
 
         foreach ($accounts as $account) {
             $user = $account->getUser();
