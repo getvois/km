@@ -12,6 +12,8 @@ use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
+use Sandbox\WebsiteBundle\Helper\NewsLetterAccountFactory;
+use Sandbox\WebsiteBundle\Helper\NewsLetterEmailAccount;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
@@ -25,137 +27,127 @@ class NewsletterController extends Controller
      */
     public function indexAction()
     {
-        //$pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
-        $user = 'mika.mendesee@gmail.com';
-        $password = 'qwerty121284';
-        $mailbox = "{imap.gmail.com:993/imap/ssl}INBOX";
-        $inbox = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
 
-        $emails = imap_search($inbox,'UNSEEN');
+        $accountFactory = new NewsLetterAccountFactory();
+        $accounts = $accountFactory->getByLocale('fi');
 
-        $output = '';
+        foreach ($accounts as $account) {
+            $user = $account->getUser();
+            $password = $account->getPassword();
 
-        $i = 0;
-        if($emails)
-        foreach($emails as $mail) {
-            $headerInfo = imap_headerinfo($inbox,$mail);
+            $mailbox = "{imap.gmail.com:993/imap/ssl}INBOX";
+            $inbox = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
 
-            //if($headerInfo->fromaddress == 'Lux Express <luxexpress@luxexpress.eu>') continue;
-            //if($headerInfo->fromaddress == 'Estonian Air <noreply@estonian-air.ee>') continue;
+            $emails = imap_search($inbox,'UNSEEN');
 
-            $elements = imap_mime_header_decode($headerInfo->subject);
-            $subject = '';
-            foreach ($elements as $element) {
-                $subject .= utf8_encode($element->text);
-            }
-            //$subject = utf8_encode($elements[0]->text);//iconv_mime_decode($elements[0]->text,0,"UTF-8");
-            $output .= "Subject: ". $subject .'<br/>';
-            //$output .= "To: ".$headerInfo->toaddress.'<br/>';
-            //$output .= "Date: ".$headerInfo->date.'<br/>';
-            $output .= 'From: "'.$headerInfo->fromaddress.'"<br/>';
-            //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
-            $emailStructure = imap_fetchstructure($inbox,$mail);
-            $body = '';
+            $output = '';
+
+            $i = 0;
+            if($emails)
+                foreach($emails as $mail) {
+                    $headerInfo = imap_headerinfo($inbox,$mail);
+
+                    $elements = imap_mime_header_decode($headerInfo->subject);
+                    $subject = '';
+                    foreach ($elements as $element) {
+                        $subject .= utf8_encode($element->text);
+                    }
+                    //$subject = utf8_encode($elements[0]->text);//iconv_mime_decode($elements[0]->text,0,"UTF-8");
+                    $output .= "Subject: ". $subject .'<br/>';
+                    //$output .= "To: ".$headerInfo->toaddress.'<br/>';
+                    //$output .= "Date: ".$headerInfo->date.'<br/>';
+                    $output .= 'From: "'.$headerInfo->fromaddress.'"<br/>';
+                    //$output .= "To: ".$headerInfo->reply_toaddress.'<br/>';
+                    $emailStructure = imap_fetchstructure($inbox,$mail);
+                    $body = '';
 //            echo "<pre>";
 //            var_dump($emailStructure);
 //            echo "</pre>";
-            if($emailStructure->type === 0){
-                $body = imap_qprint(imap_body($inbox, $mail));
-            }elseif($emailStructure->type === 1) {//multipart
-                    foreach ($emailStructure->parts as $key => $part) {
-                        if ($part->subtype == 'HTML') {
-                            $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
+                    if($emailStructure->type === 0){
+                        $body = imap_qprint(imap_body($inbox, $mail));
+                    }elseif($emailStructure->type === 1) {//multipart
+                        foreach ($emailStructure->parts as $key => $part) {
+                            if ($part->subtype == 'HTML') {
+                                $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
 
-                            if($part->encoding == 3){
-                                $body = utf8_decode(base64_decode($body));
+                                if($part->encoding == 3){
+                                    $body = utf8_decode(base64_decode($body));
+                                }
+                                $body = (imap_qprint($body));
+                                break;
                             }
-                            $body = (imap_qprint($body));
-                            break;
                         }
                     }
-            }
 
-            if($body){
-                $crawler = new Crawler($body);
-                $body = $crawler->html();
-                $styles = $crawler->filter("style");
-                for($j = 0 ; $j< $styles->count(); $j++){
-                    $body = str_replace($styles->eq($j)->html(), '', $body);
-                }
+                    if($body){
+                        $crawler = new Crawler($body);
+                        $body = $crawler->html();
+                        //remove all styles
+                        $styles = $crawler->filter("style");
+                        for($j = 0 ; $j< $styles->count(); $j++){
+                            $body = str_replace($styles->eq($j)->html(), '', $body);
+                        }
 
-                //hotelli veb
-                $delete = $crawler->filter('.newsletter_hidden');//->first();
-                if($delete->count() > 0){
-                    $delete = $delete->first()->html();
-                    //$delete = str_replace('ä', '&auml;', $delete);
-                    $body = str_replace($delete, '', $body);
+                        //hotelli veb
+                        $delete = $crawler->filter('.newsletter_hidden');//->first();
+                        if($delete->count() > 0){
+                            $delete = $delete->first()->html();
+                            //$delete = str_replace('ä', '&auml;', $delete);
+                            $body = str_replace($delete, '', $body);
 
-                    $tds = $crawler->filter("td");
-                    for($j = 2; $j<$tds->count(); $j++){//body in td
-                        if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
-                            $delete = $tds->eq($j)->html();
+                            $tds = $crawler->filter("td");
+                            for($j = 2; $j<$tds->count(); $j++){//body in td
+                                if(preg_match('/Ei soovi rohkem kirju saada?/', $tds->eq($j)->text())){
+                                    $delete = $tds->eq($j)->html();
+                                    $body = str_replace($delete, '', $body);
+                                }
+                            }
+                        }
+
+                        //tallink
+                        $paragraphs = $crawler->filter('p, td, div');
+
+                        $patterns = $account->getFilterPatterns();
+
+                        foreach ($patterns as $pattern) {
+                            for($j = 1; $j<$paragraphs->count(); $j++){
+                                if(preg_match($pattern, $paragraphs->eq($j)->text())
+                                ){
+                                    $delete = $paragraphs->eq($j)->html();
+                                    if(strlen($delete) < 1300) {
+                                        $body = str_replace($delete, '', $body);
+                                    }
+                                }
+                            }
+                        }
+
+                        //estravel
+                        $delete = $crawler->filter('.adminText');//->first();
+                        if($delete->count() > 0){
+                            //$body = $crawler->html();
+                            $delete = $delete->first()->html();
                             $body = str_replace($delete, '', $body);
                         }
+
+
+                        $output .= $body;
+                        $this->makePage($headerInfo, $subject, $body, $account);
                     }
-                }
 
-                //tallink
-                $paragraphs = $crawler->filter('p, td, div');
+                    echo $output;
+                    $output = '';
 
-                $patterns = [
-                    '/Kui soovi(d|te) uudiskirja/',
-                    '/Kui (Sa|Te) ei (soovi|näe)/',
-                    '/uudiskirjast loobuda/',
-                    '/ei näe (pilte|uudiskirja)/',
-                    '/This email was sent to/',
-                    '/Eemalda e-mail nimekirjast/',
-                    '/software by/',
-                    '/Mailbow/',
-                    '/gmail.com/',
-                    '/Hei Mika/',
-                    '/Kui emaili ei kuvata/',
-                    '/Uudiskirjast lahkumiseks/',
-                    '/uudiskiri ei avane/',
-                    //'/Ei soovi rohkem kirju saada?/',
-                ];
-                foreach ($patterns as $pattern) {
-                    for($j = 1; $j<$paragraphs->count(); $j++){
-                        if(preg_match($pattern, $paragraphs->eq($j)->text())
-                        ){
-                            $delete = $paragraphs->eq($j)->html();
-                            if(strlen($delete) < 1300) {
-                                $body = str_replace($delete, '', $body);
-                            }
-                        }
+                    if($i >= 0) {
+                        break;
                     }
+
+                    $i++;
                 }
 
-                //estravel
-                $delete = $crawler->filter('.adminText');//->first();
-                if($delete->count() > 0){
-                    //$body = $crawler->html();
-                    $delete = $delete->first()->html();
-                    $body = str_replace($delete, '', $body);
-                }
-
-
-                $output .= $body;
-                $this->makePage($headerInfo, $subject, $body);
-            }
-
-            echo $output;
-            $output = '';
-
-            if($i >= 0) {
-                break;
-            }
-
-            $i++;
+            // colse the connection
+            imap_expunge($inbox);
+            imap_close($inbox);
         }
-
-        // colse the connection
-        imap_expunge($inbox);
-        imap_close($inbox);
 
         return new Response("");
     }
@@ -268,8 +260,9 @@ class NewsletterController extends Controller
      * @param $headerInfo
      * @param $subject
      * @param $body
+     * @param NewsLetterEmailAccount $account
      */
-    private function makePage($headerInfo, $subject, $body)
+    private function makePage($headerInfo, $subject, $body, NewsLetterEmailAccount $account)
     {
         $pageCreator = $this->container->get('kunstmaan_node.page_creator_service');
 
@@ -284,12 +277,12 @@ class NewsletterController extends Controller
         $newsPage->setPriceFromLabel('newsletter');
         $newsPage->setDate(new \DateTime($headerInfo->date));
 
-        $this->setHosts($newsPage);
+        $this->setHosts($newsPage, $account);
         $this->setCompany($newsPage, $headerInfo);
         $this->setPlace($newsPage, $body);
 
         if($newsPage->getCompanies()->count() > 0){
-            $month = $this->getMonth($headerInfo->date, 'ee');
+            $month = $this->getMonth($headerInfo->date, $account->getLocale());
             /** @var CompanyOverviewPage $company */
             $company = $newsPage->getCompanies()->first();
             $name = $company->getTitle();
@@ -303,7 +296,7 @@ class NewsletterController extends Controller
 
         $translations = array();
         /** @noinspection PhpUnusedParameterInspection */
-        $translations[] = array('language' => 'ee', 'callback' => function ($page, $translation, $seo) {
+        $translations[] = array('language' => $account->getLocale(), 'callback' => function ($page, $translation, $seo) {
             /** @var NodeTranslation $translation */
             /** @var HasNodeInterface $page */
             $translation->setTitle($page->getTitle());
@@ -366,9 +359,10 @@ class NewsletterController extends Controller
     }
 
     /**
-     * @param $newsPage
+     * @param NewsPage $newsPage
+     * @param NewsLetterEmailAccount $account
      */
-    private function setHosts(NewsPage $newsPage)
+    private function setHosts(NewsPage $newsPage, NewsLetterEmailAccount $account)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -376,7 +370,7 @@ class NewsletterController extends Controller
         /** @var Host[] $hosts */
         $hosts = $em->getRepository('SandboxWebsiteBundle:Host')->findAll();
         foreach ($hosts as $host) {
-            if (preg_match('/.ee/', $host->getName())) {
+            if (preg_match('/.'. $account->getLocale() . '/', $host->getName())) {
                 $newsPage->addHost($host);
             }
         }
