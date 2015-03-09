@@ -1,4 +1,4 @@
-<div>subscription tree</div>
+<h3>{{ 'subscribe'|trans({}, 'frontend') }}</h3>
 <div class="tree-wrapper">
     <div class="subscribe-tree">
         <ul>
@@ -32,7 +32,6 @@
 
 
 <div class="subscribe-form">
-    <h3>Subscribe</h3>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -41,7 +40,7 @@
     <div>
         {#{{ form_label(form.email) }}#}
         {{ form_errors(form.email) }}
-        {{ form_widget(form.email, {'attr': {'placeholder': 'Email'}}) }}
+        {{ form_widget(form.email, {'attr': {'placeholder': 'email'|trans({}, 'frontend')}}) }}
     </div>
 
     <div>

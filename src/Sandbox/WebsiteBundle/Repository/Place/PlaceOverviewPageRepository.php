@@ -62,6 +62,8 @@ class PlaceOverviewPageRepository extends AbstractArticleOverviewPageRepository
             $query .= " AND n.parent_id = " . $rootId;
         }
 
+        $query .= ' ORDER BY overviewpage.title';
+
         $q = $this->_em->createNativeQuery($query, $rsm);
         $q->setParameter('entity_name',$this->getEntityName());
 
