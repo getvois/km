@@ -1,31 +1,34 @@
 <div>subscription tree</div>
-<div class="subscribe-tree">
-    <ul>
-        <li id="node_0">{{ 'all.countries'|trans({}, 'frontend') }}
-            <ul>
-                {% for place in places %}
-                    <li id="node_{{ get_node_for(place['place']).id }}">{{ place['place'].title }}
-                        {% if place['children']|length > 0 %}
-                            <ul>
-                                {% for child in place['children'] %}
-                                    <li id="node_{{ get_node_for(child['place']).id }}">{{ child['place'].title }}
-                                        {% if child['children']|length > 0 %}
-                                            <ul>
-                                                {% for subchild in child['children'] %}
-                                                    <li id="node_{{ get_node_for(subchild).id }}">{{ subchild.title }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-    </ul>
+<div class="tree-wrapper">
+    <div class="subscribe-tree">
+        <ul>
+            <li id="node_0">{{ 'all.countries'|trans({}, 'frontend') }}
+                <ul>
+                    {% for place in places %}
+                        <li id="node_{{ get_node_for(place['place']).id }}">{{ place['place'].title }}
+                            {% if place['children']|length > 0 %}
+                                <ul>
+                                    {% for child in place['children'] %}
+                                        <li id="node_{{ get_node_for(child['place']).id }}">{{ child['place'].title }}
+                                            {% if child['children']|length > 0 %}
+                                                <ul>
+                                                    {% for subchild in child['children'] %}
+                                                        <li id="node_{{ get_node_for(subchild).id }}">{{ subchild.title }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
+
 
 <div class="subscribe-form">
     <h3>Subscribe</h3>
