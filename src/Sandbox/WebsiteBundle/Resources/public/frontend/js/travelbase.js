@@ -625,6 +625,9 @@ $(document).ready(function() {
         var $id = $(this).data('itemid');
         var $filter = getFilter();
 
+        $filter.orderField = 'price';
+        $filter.orderDirection = 'asc';
+
         var xhr = new XMLHttpRequest();
         xhr.open('POST', "http://api.travelwebpartner.com/api/skypicker.fetch/" + $(this).data('from') + "/" + $(this).data('to'));
         //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
