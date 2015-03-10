@@ -640,11 +640,11 @@ $(document).ready(function() {
 
                 var $row = '<div class="row skypicker-dropdown">' +
                         '<div class="row">' +
-                            '<div class="col-md-6"><h2>Departures</h2><div class="calendar-header-1"></div>' +
+                            '<div class="col-md-6"><h2>'+ trans.departures[$lang] +'</h2><div class="calendar-header-1"></div>' +
                                 '<div class="btn-group">' +
-                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
-                    '<button class="btn calendar-navigate-1" data-calendar-nav="today">Today</button>' +
-                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
+                    '<button class="btn calendar-navigate-1" data-calendar-nav="today">' + trans.today[$lang] + '</button>' +
+                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">' + trans.next[$lang] + ' &gt;&gt;</button>' +
                     '</div>' +
                     '<div class="calendar calendar-1"></div>' +
                             '</div>';
@@ -654,11 +654,11 @@ $(document).ready(function() {
                 //if we have return date add second calendar
                 var $date_end = $datepickTo.datepick('getDate');
                 if($date_end.length > 0 && $type == 3){
-                    $row += '<div class="col-md-6"><h2>Return</h2><div class="calendar-header-2"></div>' +
+                    $row += '<div class="col-md-6"><h2>'+ trans.return[$lang] +'</h2><div class="calendar-header-2"></div>' +
                     '<div class="btn-group">' +
-                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; Prev</button>' +
-                    '<button class="btn calendar-navigate-2" data-calendar-nav="today">Today</button>' +
-                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="next">Next &gt;&gt;</button>' +
+                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
+                    '<button class="btn calendar-navigate-2" data-calendar-nav="today">' + trans.today[$lang] + '</button>' +
+                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="next">' + trans.next[$lang] + ' &gt;&gt;</button>' +
                     '</div>' +
                     '<div class="calendar calendar-2"></div>' +
                     '</div>';
@@ -1573,9 +1573,8 @@ function cityPicker($el, $holder) {
         }
         return $finalData;
     }
-
     $($el).select2({
-        placeholder: "Search for a place",
+        placeholder: window.trans.searchForPlace[$('body').data('lang')],
         minimumInputLength: 3,
         multiple: true,
         width: '100%',
