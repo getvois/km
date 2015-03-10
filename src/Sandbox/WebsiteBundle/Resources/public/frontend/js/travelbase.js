@@ -1092,7 +1092,7 @@ $(document).ready(function() {
                     '                                        <span class="trip-path-spacer-line">' +
                     '                                            <div></div>' +
                     '                                        </span>' +
-                    '                <span class="trip-path-spacer-arrow" style="display: none;"></span>' +
+                    '                <span class="trip-path-spacer-arrow"></span>' +
                     '            </div>' +
                     '        </div></td>';
             }

@@ -299,7 +299,7 @@ class DefaultController extends Controller
                                     }
                                     $row .= '</td>
                                     <td>
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
                                             </span>
@@ -331,7 +331,7 @@ class DefaultController extends Controller
 
                                     $row .= '</td>
                                     <td>
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
                                             </span>
@@ -370,7 +370,7 @@ class DefaultController extends Controller
                                     }
                                     $row .= '</td>
                                     <td>
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
                                             </span>
@@ -397,7 +397,7 @@ class DefaultController extends Controller
                                     <strong><span class="text-muted">'.$date.'</span> &nbsp;&nbsp;'. $item->departure->cityNameFi .'</strong>
                                     </td>
                                     <td style="">
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
                                             </span>
@@ -408,7 +408,7 @@ class DefaultController extends Controller
                                     <strong>'. $item->destination->cityNameFi .'</strong>
                                     </td>
                                     <td style="">
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 90%;">
+                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
                                             <span class="trip-path-spacer-line">
                                                 <div></div>
                                             </span>

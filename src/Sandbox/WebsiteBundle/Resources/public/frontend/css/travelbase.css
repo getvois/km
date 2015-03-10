@@ -521,7 +521,7 @@ div.travelbase-input-addon{
 
 
 .trip table .trip-path-spacer-arrow-wrapper {
-    margin: 0 5%;
+    margin: 0;
 }
 
 
@@ -880,7 +880,7 @@ label.directFlight-label,  label.sameDay-label {
 .trip-path-spacer {
     display: block;
     /*display: inline-block;*/
-    padding: 7px 0 0;
+    padding: 7px 6px 0;
     vertical-align: top;
     position: relative;
 }
@@ -906,7 +906,7 @@ label.directFlight-label,  label.sameDay-label {
 }
 .trip-path-spacer-line {
     display: table-cell;
-    height: 14px;
+    height: 26px;
     opacity: 0.2;
     overflow: hidden;
     word-break: break-all;
