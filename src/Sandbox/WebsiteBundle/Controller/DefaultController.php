@@ -453,7 +453,12 @@ class DefaultController extends Controller
                 $row .= '</a></div>';
             }
             else {//joker hotel?
-                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-plus-square-o"></span></a></div>';
+
+                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-plus-square-o"></span>';
+
+                $row .= ' <span class="fa fa-suitcase"></span>';
+
+                $row .= '</a></div>';
             }
 
             $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
