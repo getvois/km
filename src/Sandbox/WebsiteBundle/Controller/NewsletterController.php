@@ -35,7 +35,7 @@ class NewsletterController extends Controller
             $user = $account->getUser();
             $password = $account->getPassword();
 
-            $mailbox = "{imap.gmail.com:993/imap/ssl/novalidate-cert}INBOX";
+            $mailbox = "{imap.gmail.com:993/imap/ssl}INBOX";
             $inbox = imap_open($mailbox , $user , $password)  or die('Cannot connect to Gmail: ' . imap_last_error());
 
             $emails = imap_search($inbox,'UNSEEN');
