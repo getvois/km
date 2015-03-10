@@ -670,6 +670,7 @@ $(document).ready(function() {
                 for(var i = 0; i< $data.length; i++){
 
                     if($filter.sameDay == 1){
+                        //noinspection JSUnresolvedVariable
                         if($data[i].dDate != $data[i].aDate){
                             continue;
                         }
@@ -759,7 +760,7 @@ $(document).ready(function() {
                 spinner.stop();
 
 
-                //noinspection JSUnresolvedVariable
+                //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
                 var calendar1 = $(".calendar-1").calendar(
                     {
                         tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
@@ -912,6 +913,7 @@ $(document).ready(function() {
                     //hide loading
                     spinner.stop();
 
+                    //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
                     var calendar2 = $(".calendar-2").calendar(
                         {
                             tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
@@ -968,9 +970,12 @@ $(document).ready(function() {
                 //date.start = return from
                 //date.end = return to
 
+                //noinspection JSUnresolvedFunction
                 var $date_end = $datepickTo.datepick('getDate');
                 if($date_end.length > 0){
+                    //noinspection JSUnresolvedVariable
                     $filter.date.start = $.datepick.formatDate('yyyy-mm-dd', $date_end[0]);
+                    //noinspection JSUnresolvedVariable
                     $filter.date.end = $.datepick.formatDate('yyyy-mm-dd', $date_end[1]);
                     $filter.date.returnFrom = null;
                     $filter.date.returnTo = null;
@@ -1076,8 +1081,6 @@ $(document).ready(function() {
                         durationWait = $hours  + ":" + $mins + 'h';
                     }
 
-
-                    durationWait = $hours  + ":" + $mins + 'h';
                 }else{
                     durationWait += "min";
                 }
