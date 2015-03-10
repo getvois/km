@@ -1399,7 +1399,6 @@ function getTable(container, reimport){
 
     //show loading
     var $loading = $('.loading');
-    console.log($(container));
     if($(container).hasClass('travelbase_items_sp')){
         spinner2 = new Spinner(opts2).spin($loading.eq(1).find('.loading-container')[0]);
         $loading = $($loading[1]);

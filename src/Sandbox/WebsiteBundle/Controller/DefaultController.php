@@ -35,7 +35,8 @@ class DefaultController extends Controller
      */
     public function filterAction(Request $request, $body)
     {
-        $noItemsFound = $this->get('translator')->trans('no.items.found', [], 'frontend');
+        $noItemsFoundTitle = $this->get('translator')->trans('no.items.found.title', [], 'frontend');
+        $noItemsFoundText = $this->get('translator')->trans('no.items.found.text', [], 'frontend');
         $loadingMessage = $this->get('translator')->trans('loading.message', [], 'frontend');
         $loading = "<span class='loading'>
             <div class='loading-container'>
@@ -44,6 +45,10 @@ class DefaultController extends Controller
                 </h3>
             </div>
         </span>";
+
+
+        $noItemsFoundHTML = "<div class='text-center'><h2>$noItemsFoundTitle</h2><p>$noItemsFoundText</p>$loading</div>";
+
 
         /**
          *
@@ -150,7 +155,7 @@ class DefaultController extends Controller
             }
 
             if(!$result)
-                return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound$loading</div>"]);
+                return new JsonResponse(['total' => 0, 'html' => $noItemsFoundHTML]);
 
             $data = $result->items;
 
@@ -168,13 +173,13 @@ class DefaultController extends Controller
 
 
             if($body && $result->total == 0){
-                $table = "<div>$noItemsFound$loading</div>";
+                $table = $noItemsFoundHTML;
             }
 
 
             return new JsonResponse(['total' => $result->total, 'html' => $table]);
         }
-        return new JsonResponse(['total' => 0, 'html' => "<div>$noItemsFound$loading</div>"]);
+        return new JsonResponse(['total' => 0, 'html' => $noItemsFoundHTML]);
     }
 
 
@@ -185,10 +190,14 @@ class DefaultController extends Controller
 
         if(!$item->info) $item->info = "";
         if(!$item->duration) $item->duration = "";
-        $hotel = "Joker hotel";
+        $jokerHotel = $this->get('translator')->trans('joker.hotel', [], 'frontend');
+        $jokerHotelDescription = $this->get('translator')->trans('joker.hotel.description', [], 'frontend');
+        $hotelDescription = $this->get('translator')->trans('hotel.description', [], 'frontend');
+
+        $hotel = $jokerHotel;
         if($item->hotel != false) $hotel= $item->hotel->name;
 
-        if($hotel == "Joker hotel" && ($item->duration == "" || $item->duration == "1")){
+        if($hotel == $jokerHotel && ($item->duration == "" || $item->duration == "1")){
             $item->duration = 'One way';
         }
 
@@ -427,17 +436,20 @@ class DefaultController extends Controller
                 $url .= str_replace(" ", "+", $item->hotel->name);
                 $url .= "+" . $item->destination->countryName;
 
-                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" ><span class="fa fa-plus-square-o"></span> ';
 
                 //stars
+                $stars = '';
                 for($i = 0; $i<floor($item->hotel->stars); $i++){
-                    $row .= '<span class="glyphicon glyphicon-star"></span>';
+                    $stars .= "<span class='glyphicon glyphicon-star'></span>";
                 }
 
                 if($item->hotel->stars - floor($item->hotel->stars) > 0){
-                    $row .= '<span class="glyphicon glyphicon-plus"></span>';
+                    $stars .= "<span class='glyphicon glyphicon-plus'></span>";
                 }
 
+                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . $stars . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" ><span class="fa fa-plus-square-o"></span> ';
+
+                $row .= $stars;
                 $row .= '</a></div>';
             }
             else {
