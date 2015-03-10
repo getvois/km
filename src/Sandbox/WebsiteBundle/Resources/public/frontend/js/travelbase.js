@@ -13,8 +13,10 @@ $(document).ready(function() {
         },
         "plugins" : [ "checkbox" ]
     });
+    $tree.jstree('hide_icons');
     setTimeout(function () {
         $tree.jstree('close_all');
+
     }, 500);
 
     $('.tree-toggle').click(function () {
