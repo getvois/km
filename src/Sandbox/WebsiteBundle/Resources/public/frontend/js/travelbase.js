@@ -536,7 +536,7 @@ $(document).ready(function() {
             $bnum += parseInt($(this).val());
         });
 
-        $.getJSON("https://api.skypicker.com/api/v0.1/check_flights?flights="+$flightId+"&pnum="+$pnum+"&bnum="+$bnum+"&partner=picky", function (responce) {
+        $.getJSON("https://api.skypicker.com/api/v0.1/check_flights?flights="+$flightId+"&pnum="+$pnum+"&bnum="+$bnum+"&partner=twp", function (responce) {
             //noinspection JSUnresolvedVariable
             console.log(responce.flights_checked + " " + !responce.flights_invalid);
             //noinspection JSUnresolvedVariable
