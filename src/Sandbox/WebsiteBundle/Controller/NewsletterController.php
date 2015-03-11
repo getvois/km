@@ -120,6 +120,7 @@ class NewsletterController extends Controller
                                         echo '</pre>';
 
                                         $body = str_replace($delete, '', $body);
+                                        var_dump($body);
                                     }
                                 }
                             }
