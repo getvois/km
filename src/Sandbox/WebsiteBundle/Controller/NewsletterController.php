@@ -115,7 +115,10 @@ class NewsletterController extends Controller
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
                                     if(strlen($delete) < 3200) {
+                                        echo '<pre>';
                                         var_dump($delete);
+                                        echo '</pre>';
+
                                         $body = str_replace($delete, '', $body);
                                     }
                                 }
