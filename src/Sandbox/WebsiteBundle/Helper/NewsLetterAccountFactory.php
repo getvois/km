@@ -56,6 +56,7 @@ class NewsLetterAccountFactory {
             '/Omat/',
             '/Jos et halua/',
             '/Michael/',
+            '/Jos luet viestin/',
         ];
         $account->setFilterPatterns($patterns);
         $this->accounts[] = $account;
