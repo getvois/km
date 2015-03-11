@@ -453,16 +453,16 @@ class DefaultController extends Controller
                     $stars .= "<span class='glyphicon glyphicon-plus'></span>";
                 }
 
-                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . $stars . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' ' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" ><span class="fa fa-plus-square-o"></span> ';
+                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . $stars . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' ' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" ><span class="fa fa-suitcase"></span> ';
 
                 $row .= $stars;
                 $row .= '</a></div>';
             }
             else {//joker hotel?
 
-                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-plus-square-o"></span>';
+                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-suitcase"></span>';
 
-                $row .= ' <span class="fa fa-suitcase"></span>';
+                $row .= ' ';
 
                 $row .= '</a></div>';
             }
