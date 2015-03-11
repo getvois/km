@@ -73,7 +73,7 @@ class DefaultController extends Controller
                   ),
                 );
                 $context  = stream_context_create($options);
-                file_get_contents($url, false, $context);
+                @file_get_contents($url, false, $context);
             }
 
             $url = 'http://api.travelwebpartner.com/api/item.filter/';
@@ -86,7 +86,10 @@ class DefaultController extends Controller
               ),
             );
             $context  = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
+            $result = @file_get_contents($url, false, $context);
+
+            if(!$result)
+                return new JsonResponse(['total' => 0, 'html' => $noItemsFoundHTML]);
 
             $result = json_decode($result);
 
