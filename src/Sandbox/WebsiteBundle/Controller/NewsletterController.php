@@ -110,17 +110,12 @@ class NewsletterController extends Controller
                         $patterns = $account->getFilterPatterns();
 
                         foreach ($patterns as $pattern) {
-                            for($j = 1; $j<$paragraphs->count(); $j++){
+                            for($j = 0; $j<$paragraphs->count(); $j++){//todo kosmos: changed from 1 check ee news
                                 if(preg_match($pattern, $paragraphs->eq($j)->text())
                                 ){
                                     $delete = $paragraphs->eq($j)->html();
                                     if(strlen($delete) < 3200) {
-                                        echo '<pre>';
-                                        var_dump($delete);
-                                        echo '</pre>';
-
                                         $body = str_replace($delete, '', $body);
-                                        var_dump($body);
                                     }
                                 }
                             }
