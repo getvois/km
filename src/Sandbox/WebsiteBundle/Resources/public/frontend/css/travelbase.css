@@ -523,7 +523,12 @@ div.travelbase-input-addon{
 .trip table .trip-path-spacer-arrow-wrapper {
     margin: 0;
 }
-
+.airport-code{
+    display: none;
+}
+.trip:hover .airport-code{
+    display: inline;
+}
 
 /* icons */
 .price-from {

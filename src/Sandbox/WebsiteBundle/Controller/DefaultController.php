@@ -258,7 +258,13 @@ class DefaultController extends Controller
         }
 
         $departure = $this->getTitle($item->departure, $request->getLocale(), false);
+        if(strlen($item->departure->airportCode) < 4) $departure .= " <span class='airport-code text-muted'>" . $item->departure->airportCode . "</span>";
+
         $destination = $this->getTitle($item->destination, $request->getLocale(), false);
+        if(strlen($item->destination->airportCode) < 4) $destination = " <span class='airport-code text-muted'>" . $item->destination->airportCode . "</span> " . $destination;
+
+        $departureInverted = $this->getTitle($item->departure, $request->getLocale(), false);
+        if(strlen($item->departure->airportCode) < 4) $departureInverted = " <span class='airport-code text-muted'>" . $item->departure->airportCode . "</span> " . $departureInverted;
 
         if(in_array(4, $filter->type) || in_array(3, $filter->type)) {//flights only(skypicker)
             $aDate = "";
@@ -364,7 +370,7 @@ class DefaultController extends Controller
                     <strong>'. $departure . "&nbsp;</strong>";
 
                 }else{
-                    $row .= '<strong>'. $departure . "</strong> &nbsp;";
+                    $row .= '<strong>'. $departureInverted . "</strong> &nbsp;";
                 }
 
                                     $row .= '</td>
