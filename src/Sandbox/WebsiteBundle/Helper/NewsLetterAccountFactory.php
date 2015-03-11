@@ -41,7 +41,7 @@ class NewsLetterAccountFactory {
             '/et enää halua/',
             '/haluat tehdä muutoksia/',
             '/Osoitelähde/',
-            '/Ei kuvia',
+            '/Ei kuvia/',
             '/ei näy oikein/',
             '/Älä vastaa tähän viestiin/',
             '/Omat tiedot/',
