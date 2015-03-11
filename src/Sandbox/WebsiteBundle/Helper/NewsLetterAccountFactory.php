@@ -32,8 +32,30 @@ class NewsLetterAccountFactory {
 
         $account = new NewsLetterEmailAccount('mika.mendesfi@gmail.com', 'qwerty121285', 'fi');
         $patterns = [
+            '/Rekisteriseloste/',
+            '/lähetetty sähköpostiosoitteeseen/',
+            '/et jatkossa halua/',
+            '/Avaa uutiskirje selaimeen/',
+            '/Päivitä (yhteys|tietosi)/',
+            '/Lähetetty osoitteeseen/',
+            '/et enää halua/',
+            '/haluat tehdä muutoksia/',
             '/Osoitelähde/',
-            '/Jos et halua/'
+            '/Ei kuvia',
+            '/ei näy oikein/',
+            '/Älä vastaa tähän viestiin/',
+            '/Omat tiedot/',
+            '/Miksi minulle tulee/',
+            '/tehdä muutoksia/',
+            '/Katso selaimessa/',
+            '/uutiskirje on lähetetty/',
+            '/Hei mika/',
+            '/Osoiterekisteri/',
+            '/Jos et pysty/',
+            '/Peruuta tilaus/',
+            '/Omat/',
+            '/Jos et halua/',
+            '/Michael/',
         ];
         $account->setFilterPatterns($patterns);
         $this->accounts[] = $account;
