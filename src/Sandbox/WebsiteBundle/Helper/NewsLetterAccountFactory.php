@@ -31,7 +31,10 @@ class NewsLetterAccountFactory {
         $this->accounts[] = $account;
 
         $account = new NewsLetterEmailAccount('mika.mendesfi@gmail.com', 'qwerty121285', 'fi');
-        $patterns = [];
+        $patterns = [
+            '/Osoitelähde/',
+            '/Jos et halua/'
+        ];
         $account->setFilterPatterns($patterns);
         $this->accounts[] = $account;
         $account = new NewsLetterEmailAccount('mika.mendesse@gmail.com', 'qwerty121284', 'se');
