@@ -47,7 +47,7 @@ class DefaultController extends Controller
         </span>";
 
 
-        $noItemsFoundHTML = "<div class='text-center'><h2>$noItemsFoundTitle</h2><p>$noItemsFoundText</p>$loading</div>";
+        $noItemsFoundHTML = "$loading<div class='text-center'><h2>$noItemsFoundTitle</h2><p>$noItemsFoundText</p></div>";
 
 
         /**
