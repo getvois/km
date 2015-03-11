@@ -257,6 +257,9 @@ class DefaultController extends Controller
             $date = date('d.m.Y', strtotime($date));
         }
 
+        $departure = $this->getTitle($item->departure, $request->getLocale(), false);
+        $destination = $this->getTitle($item->destination, $request->getLocale(), false);
+
         if(in_array(4, $filter->type) || in_array(3, $filter->type)) {//flights only(skypicker)
             $aDate = "";
             if($item->aDate && $item->aDate != "-0001-11-30"){
@@ -296,8 +299,8 @@ class DefaultController extends Controller
 
             $row = '';
 
-            //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
 
+            //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
             if($item->type->id == 3){
                 $row .= '<div class="col-xs-9 nopadding trip-field">
 
@@ -305,7 +308,7 @@ class DefaultController extends Controller
                                 <tr>
                                     <td width="1%">
                                     <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
-                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>";
+                                    $row .= '<strong>' . $departure . " </strong>";
                                     if ($dTime){
                                     $row .= '&nbsp;<span class="text-muted"> ' . $dTime . '</span>'; 
                                     }
@@ -333,12 +336,12 @@ class DefaultController extends Controller
                     //$rdate = "";
                     $time = $item->rdTime;
                     $row .= '<span> ' . $aDate . '</span>
-                    <strong>'. $item->destination->cityNameFi . "&nbsp;
+                    <strong>'. $destination . "&nbsp;
                         <span class='text-muted'> " . $rdate . "</span>
                     </strong><span class='text-muted'> " . $time . "</span>";
 
                 }else{
-                    $row .= '<strong>'. $item->destination->cityNameFi . "&nbsp; <span class='text-muted'> " . $aDate . "</span></strong>";
+                    $row .= '<strong>'. $destination . "&nbsp; <span class='text-muted'> " . $aDate . "</span></strong>";
                 }
 
                                     $row .= '</td>
@@ -358,10 +361,10 @@ class DefaultController extends Controller
                         $time .= '(+1)';
                     }
                     $row .= '<span class="text-muted"> ' . $time . '</span>
-                    <strong>'. $item->departure->cityNameFi . "&nbsp;</strong>";
+                    <strong>'. $departure . "&nbsp;</strong>";
 
                 }else{
-                    $row .= '<strong>'. $item->departure->cityNameFi . "</strong> &nbsp;";
+                    $row .= '<strong>'. $departure . "</strong> &nbsp;";
                 }
 
                                     $row .= '</td>
@@ -376,7 +379,7 @@ class DefaultController extends Controller
                                 <tr>
                                     <td width="1%">
                                     <strong><span class="text-muted"> ' . $date . '</span></strong> &nbsp;&nbsp;';
-                                    $row .= '<strong>' . $item->departure->cityNameFi . " </strong>";
+                                    $row .= '<strong>' . $departure . " </strong>";
                                     if ($dTime){
 									$row .= '&nbsp;<span class="text-muted"> ' . $dTime . '</span>'; 
                                     }
@@ -390,7 +393,7 @@ class DefaultController extends Controller
                                         </div>
                                     </td>
                                     <td width="1%" class="nowrap">
-                                    <span class="text-muted"> </span>&nbsp; <strong>'. $item->destination->cityNameFi . "</strong>" .'
+                                    <span class="text-muted"> </span>&nbsp; <strong>'. $destination . "</strong>" .'
                                     </td>
                                 </tr>
                             </table>
@@ -406,7 +409,7 @@ class DefaultController extends Controller
                             <table>
                                 <tr>
                                     <td width="1%">
-                                    <strong><span class="text-muted">'.$date.'</span> &nbsp;&nbsp;'. $item->departure->cityNameFi .'</strong>
+                                    <strong><span class="text-muted">'.$date.'</span> &nbsp;&nbsp;'. $departure .'</strong>
                                     </td>
                                     <td style="">
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
@@ -417,7 +420,7 @@ class DefaultController extends Controller
                                         </div>
                                     </td>
                                     <td width="2%" class="nowrap">
-                                    <strong>'. $item->destination->cityNameFi .'</strong>
+                                    <strong>'. $destination .'</strong>
                                     </td>
                                     <td style="">
                                         <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
@@ -428,7 +431,7 @@ class DefaultController extends Controller
                                         </div>
                                     </td>
                                     <td width="1%">
-                                    <strong>'. $item->departure->cityNameFi .'</strong>
+                                    <strong>'. $departure .'</strong>
                                     </td>
                                 </tr>
                             </table>
@@ -437,7 +440,7 @@ class DefaultController extends Controller
             if($item->hotel) {
                 $url = 'http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=';
                 $url .= str_replace(" ", "+", $item->hotel->name);
-                $url .= "+" . $item->destination->countryName;
+                $url .= "+" . $destination;
 
 
                 //stars
