@@ -341,6 +341,15 @@ $(document).ready(function() {
         });
     }
 
+    $(".company-info .company-clear").click(function () {
+        //deselect all
+        $("#edit-companies").val(null).trigger("change");
+        //remove .company-info
+        $(this).closest('.company-info').remove();
+        //submit form
+        formChange();
+    });
+
 
     $edit.select2({placeholder: "Companies"});
 

@@ -23,6 +23,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    sandboxwebsitebundle.instanceofextension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\InstanceOfExtension
+        tags:
+            - { name: twig.extension }
+
 
 #Form Fields
     sandboxwebsitebundle.form.type.imagesize:

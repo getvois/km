@@ -1002,6 +1002,20 @@ label.directFlight-label,  label.sameDay-label {
 }
 
 
+.company-info{
+    font-size: 16px;
+    margin-top: 7px;
+}
+.company-info .badge{
+    font-size: inherit;
+}
+.company-info .badge:hover{
+    background-color: #999999;
+}
+.company-info .company-clear{
+    cursor: pointer;
+}
+
 /*DATE PICKER STUFF*/
 #edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0, .datepick-input{
     width: 1px;

@@ -1,67 +1,81 @@
 <section id="travelbase_tabs" class="">
-        <ul id="form-type-switcher" class="tabs nav nav-tabs">
-            <li class="active"><a href="#hot-offers" data-toggle="tab" class="">&nbsp; {{ 'flights.hotel' | trans({}, 'frontend') }} &nbsp;<span id="hot-offers-badge" class="badge"></span><span id="hot-offers-badge-loading" class="badge spinner"></span></a></li>
-            <li class=""><a href="#lowcost" data-toggle="tab" data-type="flightHotel">&nbsp; {{ 'only.flights' | trans({}, 'frontend') }} &nbsp;<span id="lowcost-badge" class="badge"></span><span id="lowcost-badge-loading" class="badge spinner"></span></a></li>
-            <li class=""><a href="#hotels" data-toggle="tab" data-type="hotels">&nbsp; {{ 'Hotels' | trans({}, 'frontend') }} &nbsp;</a></li>
-            <li class=""><a href="#ferries" data-toggle="tab" data-type="ferries">&nbsp; {{ 'Ferries' | trans({}, 'frontend') }} &nbsp;</a></li>
-            {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
-        </ul>
+    <ul id="form-type-switcher" class="tabs nav nav-tabs">
+        <li class="active"><a href="#hot-offers" data-toggle="tab" class="">&nbsp; {{ 'flights.hotel' | trans({}, 'frontend') }} &nbsp;<span id="hot-offers-badge" class="badge"></span><span id="hot-offers-badge-loading" class="badge spinner"></span></a></li>
+        <li class=""><a href="#lowcost" data-toggle="tab" data-type="flightHotel">&nbsp; {{ 'only.flights' | trans({}, 'frontend') }} &nbsp;<span id="lowcost-badge" class="badge"></span><span id="lowcost-badge-loading" class="badge spinner"></span></a></li>
+        <li class=""><a href="#hotels" data-toggle="tab" data-type="hotels">&nbsp; {{ 'Hotels' | trans({}, 'frontend') }} &nbsp;</a></li>
+        <li class=""><a href="#ferries" data-toggle="tab" data-type="ferries">&nbsp; {{ 'Ferries' | trans({}, 'frontend') }} &nbsp;</a></li>
+        {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
+    </ul>
+
+    {% if page is instanceof('Sandbox\\WebsiteBundle\\Entity\\Company\\CompanyOverviewPage') %}
+        <p class="company-info">Showing trips only for
+            <span class="badge" >{{ page.title }}
+                <span class="fa fa-times-circle company-clear"></span>
+            </span>
+            company
+        </p>
+        {#{{ page.companyId }}#}
+    {% endif %}
 
     <div class="tab-content">
+        {# TAB 1 #}
         <div class="tab-pane active" id="hot-offers">
             <div class="travelbase_items travelbase_items_df" data-filter-type="[1,2]" data-badge="#hot-offers-badge"></div>
             <div class="progressbar"></div>
         </div>
-            <div class="tab-pane" id="lowcost">
-                <div class="row">
-                    {# COL 1 #}
-                    <div class="col-md-2">
-                        <p style="position: relative; height: 0;">
-                            <label for="stopover"></label>
-                            <input type="text" id="stopover" readonly>
-                        </p>
-                        <div id="slider-range-stopover"></div>
-                    </div>
-                    {# COL 2 #}
-                    <div class="col-md-3">
-                        <div class="checkbox">
-                            <label class="directFlight-label">
-                                <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
-                            </label>
-                        </div>
-                    </div>
-                    {# COL 3 #}
-                    <div class="col-md-3">
-                        <div class="checkbox">
-                            <label class="sameDay-label">
-                                <input id="sameDay" type="checkbox"> {{ 'fly.same.day' | trans({}, 'frontend') }}
-                            </label>
-                        </div>
-                    </div>
-
-                    {# COL 3 #}
-                    <div class="col-md-2">
-                        <div class="checkbox">
-                            <label class="directFlight-label">
-                                <input id="flyOneWay" type="checkbox" checked="checked"> {{ 'fly.one.way' | trans({}, 'frontend') }}
-                            </label>
-                        </div>
-                    </div>
-                    {# COL 4 #}
-                    <div class="col-md-2">
-                        <div class="checkbox">
-                            <label class="sameDay-label">
-                                <input id="flyWithReturn" type="checkbox" checked="checked"> {{ 'fly.with.return' | trans({}, 'frontend') }}
-                            </label>
-                        </div>
+        {# TAB 2 #}
+        <div class="tab-pane" id="lowcost">
+            <div class="row">
+                {# COL 1 #}
+                <div class="col-md-2">
+                    <p style="position: relative; height: 0;">
+                        <label for="stopover"></label>
+                        <input type="text" id="stopover" readonly>
+                    </p>
+                    <div id="slider-range-stopover"></div>
+                </div>
+                {# COL 2 #}
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        <label class="directFlight-label">
+                            <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
+                        </label>
                     </div>
                 </div>
-                <div class="travelbase_items travelbase_items_sp" data-filter-type="[4, 3]" data-badge="#lowcost-badge"></div>
-                <div class="progressbar"></div>
+                {# COL 3 #}
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        <label class="sameDay-label">
+                            <input id="sameDay" type="checkbox"> {{ 'fly.same.day' | trans({}, 'frontend') }}
+                        </label>
+                    </div>
+                </div>
+
+                {# COL 3 #}
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <label class="directFlight-label">
+                            <input id="flyOneWay" type="checkbox" checked="checked"> {{ 'fly.one.way' | trans({}, 'frontend') }}
+                        </label>
+                    </div>
+                </div>
+                {# COL 4 #}
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <label class="sameDay-label">
+                            <input id="flyWithReturn" type="checkbox" checked="checked"> {{ 'fly.with.return' | trans({}, 'frontend') }}
+                        </label>
+                    </div>
+                </div>
             </div>
+            <div class="travelbase_items travelbase_items_sp" data-filter-type="[4, 3]" data-badge="#lowcost-badge"></div>
+            <div class="progressbar"></div>
+        </div>
+        {# TAB 3 #}
         <div class="tab-pane" id="hotels">
 			<br /><br /><script type='text/javascript' src='http://www.hotelscombined.ee/SearchBox/255530'></script>
 		</div>
+        {# TAB 4 #}
         <div class="tab-pane" id="ferries">
 			<table cellpadding="0" width="240" cellspacing="0" border="0" ><tr><td height="170" align="right" valign="top"><iframe height="170" width="290" src="http://www.aferry.co.uk/AFRYminiengine.asp?currency=GBP&HomeURL=&language=&routes=&route1=&route2=&route3=&route4=&background=&popup=&selectwidth=280&refercode=AFUK&multi=Y" frameborder="no"></iframe></td></tr></table>
 		</div>
