@@ -12,6 +12,7 @@ use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
+use Sandbox\WebsiteBundle\Helper\FullNode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,29 +72,45 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+        $host = $em->getRepository('SandboxWebsiteBundle:Host') //todo kosmos move host to service to minimize queries
             ->findOneBy(['name' => $request->getHost()]);
 
-        $realNews = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
-            ->getArticles($lang, 0, 5, $host);
-        $realArticles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
-            ->getArticles($lang, 0, 5, $host);
+        $news = $this->get('nodehelper')//todo kosmos images loads as proxy
+            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\News\NewsPage', $lang, 0, 5, $host, 'p.date DESC');
 
-        $pages = array_merge($realNews, $realArticles);
+        $articles = $this->get('nodehelper')
+            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage', $lang, 0, 5, $host, 'p.date DESC');
 
-        usort($pages, function ($a, $b)
+        $fullNodes = array_merge($news, $articles);
+
+        usort($fullNodes, function (FullNode $a, FullNode $b)
         {
-            /** @var $a ArticlePage */
-            /** @var $b ArticlePage */
-            if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
+            if ($a->getPage()->getDate()->getTimestamp() == $b->getPage()->getDate()->getTimestamp()) {
                 return 0;
             }
-            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? 1 : -1;
+            return ($a->getPage()->getDate()->getTimestamp() < $b->getPage()->getDate()->getTimestamp()) ? 1 : -1;
         });
 
-        return ['pages' => $pages];
-    }
 
+//        $realNews = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
+//            ->getArticles($lang, 0, 5, $host);
+//        $realArticles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+//            ->getArticles($lang, 0, 5, $host);
+//
+//        $pages = array_merge($realNews, $realArticles);
+//
+//        usort($pages, function ($a, $b)
+//        {
+//            /** @var $a ArticlePage */
+//            /** @var $b ArticlePage */
+//            if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
+//                return 0;
+//            }
+//            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? 1 : -1;
+//        });
+
+        return ['fullNodes' => $fullNodes];
+    }
 
     /**
      * Get random top image

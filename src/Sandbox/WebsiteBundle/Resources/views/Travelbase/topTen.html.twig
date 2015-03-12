@@ -1,4 +1,4 @@
-{% if pages is defined and pages is not null%}
+{% if fullNodes is defined and fullNodes is not null%}
 {#<h3>Top 10</h3>#}
 <div role="tabpanel" class="top-ten">
 
@@ -13,19 +13,19 @@
     <!-- Tab panes -->
         <div class="tab-pane active" id="">
             <h1>Top 10</h1>
-            {% for p in pages %}
+            {% for p in fullNodes %}
                 <div class="row margin-bottom-20">
-                    {% if p.image %}
+                    {% if p.page.image %}
                         <div class="col-md-3 nopadding col-md-offset-1">
-                            <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}"><img class="img-responsive" src="{{ asset(p.image.url | imagine_filter("150x")) }}" alt=""/></a>
+                            <a href="{{ path( '_slug', {'url' : p.translation.fullSlug }) }}"><img class="img-responsive" src="{{ asset(p.page.image.url | imagine_filter("150x")) }}" alt=""/></a>
                         </div>
                         <div class="col-md-8">
-                            <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
+                            <a href="{{ path( '_slug', {'url' : p.translation.fullSlug }) }}">{{ p.page.title }}</a>
                         </div>
  
                     {% else %}
                         <div class="col-md-11 col-md-offset-1">
-                            <a href="{{ path( '_slug', {'url' : get_node_translation_for(p).fullSlug }) }}">{{ get_title_for(p) }}</a>
+                            <a href="{{ path( '_slug', {'url' : p.translation.fullSlug }) }}">{{ p.page.title }}</a>
                         </div>
                     {% endif %}
                 </div>

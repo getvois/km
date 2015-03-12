@@ -34,22 +34,14 @@ AND nt.online = 1";
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
-
-        if($limit){
-            $dql .= " LIMIT :limit";
-            if($offset){
-                $dql .= " OFFSET :offset";
-            }
-        }
-
-
         $query = $this->em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
 
+
         if($limit){
-            $query->setParameter(":limit", $limit);
+            $query->setMaxResults($limit);
             if($offset){
-                $query->setParameter(":offset", $offset);
+                $query->setFirstResult($offset);
             }
         }
 
@@ -69,27 +61,30 @@ AND nt.online = 1";
      * @param null $host
      * @return FullNode[]
      */
-    public function getFullNodesWithParam($where, $params = [], $class, $lang = null, $offset = 0, $limit = null, $host = null)
+    public function getFullNodesWithParam($where, $params = [], $class, $lang = null, $offset = 0, $limit = null, $host = null, $orderBy = '')
     {
         $dql = "SELECT p, nv, nt, n
 FROM $class p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
-INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node
-WHERE n.deleted = 0
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
+
+        if($class == 'Sandbox\WebsiteBundle\Entity\News\NewsPage'
+        || $class == 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage'){
+            $dql .= ' LEFT JOIN Kunstmaan\MediaBundle\Entity\Media m WITH p.image = m.id ';
+        }
+
+        $dql .= " WHERE n.deleted = 0
 AND n.refEntityName = '$class'
 AND nt.online = 1";
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
-        $dql .= " AND " . $where;
+        if($where)
+            $dql .= " AND " . $where;
 
-        if($limit){
-            $dql .= " LIMIT :limit";
-            if($offset){
-                $dql .= " OFFSET :offset";
-            }
-        }
+        if($orderBy)
+            $dql .= " ORDER BY " . $orderBy;
 
         $query = $this->em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
@@ -99,9 +94,9 @@ AND nt.online = 1";
         }
 
         if($limit){
-            $query->setParameter(":limit", $limit);
+            $query->setMaxResults($limit);
             if($offset){
-                $query->setParameter(":offset", $offset);
+                $query->setFirstResult($offset);
             }
         }
 

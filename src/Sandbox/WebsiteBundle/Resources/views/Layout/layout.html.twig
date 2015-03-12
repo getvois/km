@@ -198,6 +198,7 @@
                     {#12 queries #}
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
                     {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
+
                     {#<h1 class="col-md-9 splash__title">#}
                         {#{% block pagetitleText %}#}
                             {#{% if page is defined %}#}
@@ -292,7 +293,7 @@
     <div class="col-md-3 sidebar">
 
         {% block top10 %}
-            {# 4 queries#}
+            {# 18 queries#}
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
         {% endblock %}
 
@@ -310,7 +311,6 @@
 
 {% block footer %}
     <!-- Footer -->
-    {#112 queries sb_place_overviewpages problem #}
     <footer role="footer" class="footer">
         <section class="splash splash--gray-dark">
             <div class="row nomargin">
