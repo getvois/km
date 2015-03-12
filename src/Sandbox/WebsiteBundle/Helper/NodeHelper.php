@@ -75,6 +75,7 @@ INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
         }
 
         $dql .= " WHERE n.deleted = 0
+        AND n.hiddenFromNav = 0
 AND n.refEntityName = '$class'
 AND nt.online = 1";
 

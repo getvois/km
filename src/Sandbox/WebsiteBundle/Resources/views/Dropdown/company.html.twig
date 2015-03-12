@@ -16,22 +16,21 @@
                         <span></span>
                     {% endif %}
 
-                    {% if company['parent'].nodeTranslation(lang).ref(em) and company['parent'].nodeTranslation(lang).ref(em).picture %}
-                        <div><img src="{{ asset(company['parent'].nodeTranslation(lang).ref(em).picture.url) }}" alt="" class="img-responsive"/></div>
+                    {% if company['parent'].page.picture %}
+                        <div><img src="{{ asset(company['parent'].page.picture.url) }}" alt="" class="img-responsive"/></div>
                     {% endif %}
 
-                    <a class="company-list-title" href="{{ path('_slug', { 'url': company['parent'].nodeTranslation(lang).url }) }}">{{ company['parent'].nodeTranslation(lang).title }}</a>
+                    <a class="company-list-title" href="{{ path('_slug', { 'url': company['parent'].translation.fullSlug }) }}">{{ company['parent'].page.title }}</a>
 
                     {% if company['children']|length > 0 %}
                         <ul style="">
-                            {% for node2 in company['children'] if node2.nodeTranslation(lang) is not null %}
+                            {% for node2 in company['children'] %}
                                 <li>
-                                    <a href="{{ path('_slug', { 'url': node2.nodeTranslation(lang).url }) }}">{{ node2.nodeTranslation(lang).title }}</a>
+                                    <a href="{{ path('_slug', { 'url': node2.translation.fullSlug }) }}">{{ node2.page.title }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
                     {% endif %}
-
                 </li>
             </ul>
         {% endfor %}

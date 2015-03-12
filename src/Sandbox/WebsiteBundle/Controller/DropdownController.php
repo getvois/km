@@ -87,19 +87,33 @@ class DropdownController extends Controller
         $companyNodes = [];
         //now node is company root.
         if($node) {
-            $acl = $this->container->get('kunstmaan_admin.acl.helper');
-            $rightNodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
 
-            foreach ($rightNodes as $node) {
-                if(!$node->getNodeTranslation($lang) || !$node->getNodeTranslation($lang)->isOnline()) continue;
-                $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
+            $companyClass = 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage';
 
-                /** @var Node $node */
-                    $companyNodes[] = ['parent' =>$node, 'children' => $nodes];
+            $class = 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage';
+
+            $fullNodes = $this->get('nodehelper')
+                ->getFullNodesWithParam('n.parent = :id', [':id' => $node->getId()], $class, $lang);
+
+            foreach ($fullNodes as $node) {
+                $children = $this->get('nodehelper')
+                    ->getFullNodesWithParam('n.parent = :id', [":id" => $node->getNode()->getId()], $companyClass, $lang);
+                $companyNodes[] = ['parent' =>$node, 'children' => $children];
             }
+
+//            $acl = $this->container->get('kunstmaan_admin.acl.helper');
+//            $rightNodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
+//
+//            foreach ($rightNodes as $node) {
+//                if(!$node->getNodeTranslation($lang) || !$node->getNodeTranslation($lang)->isOnline()) continue;
+//                $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
+//
+//                /** @var Node $node */
+//                    $companyNodes[] = ['parent' =>$node, 'children' => $nodes];
+//            }
         }
 
-        return [ 'nodes' => $rightNodes, 'companies' => $companyNodes, 'lang' => $lang, 'em' => $em];
+        return [ 'companies' => $companyNodes, 'lang' => $lang, 'em' => $em];
     }
 
     /**
