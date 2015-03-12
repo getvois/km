@@ -31,7 +31,7 @@ monolog:
 
 assetic:
     use_controller: "%use_assetic_controller%"
-    node: /usr/bin/node
+    node: /usr/local/bin/node
     filters:
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs

@@ -20,7 +20,7 @@ twig:
         #titlebgcolor: "#2997CE"
 
 assetic:
-    node: /usr/bin/node
+    node: /usr/local/bin/node
     ruby: /usr/bin/ruby
     sass: /usr/local/bin/sass
     filters:

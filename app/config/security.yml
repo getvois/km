@@ -31,8 +31,8 @@ security:
             anonymous:    true
             remember_me:
                 key:      %secret%
-                lifetime: 1604800
-                path:     /
+                lifetime: 2592000
+                path:     / 
                 domain:   ~
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
