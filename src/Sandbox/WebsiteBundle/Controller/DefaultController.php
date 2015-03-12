@@ -439,7 +439,7 @@ class DefaultController extends Controller
             if($item->hotel) {
                 $url = 'http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=';
                 $url .= str_replace(" ", "+", $item->hotel->name);
-                $url .= "+" . $destination;
+                $url .= "+" . $item->destination->countryName;
 
 
                 //stars
@@ -452,8 +452,13 @@ class DefaultController extends Controller
                     $stars .= "<span class='glyphicon glyphicon-plus'></span>";
                 }
 
-                $row .= '<div class="col-xs-1 trip-field nowrap"><a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover" title="' . $hotel . $stars . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' ' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" ><span class="fa fa-suitcase"></span> ';
+                $qwe = '<div class="col-xs-1 trip-field nowrap">
+                            <a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover"
+                            title="' . $hotel . $stars . '"
+                            data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' ' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" >
+                            <span class=\'fa fa-suitcase\'></span> ';
 
+                $row .= $qwe;
                 $row .= $stars;
                 $row .= '</a></div>';
             }
