@@ -225,21 +225,14 @@ class DefaultController extends Controller
 
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
-        $em = $this->getDoctrine()->getManager();
-        /** @var NodeTranslation $translation */
-        $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
-            ->findOneBy(['title' => $item->company->name, 'lang' => $request->getLocale(), 'online' => 1],
-            ['created' => 'desc']);
-
         $company = "<div class='company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
 
-
-        if($translation){
+        $fullNodes = $this->get('nodehelper')->getFullNodesWithParam("p.companyId = :companyId", [':companyId' => $item->company->id ], 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', $request->getLocale());
+        if($fullNodes){
             /** @noinspection Symfony2PhpRouteMissingInspection */
-            $url = $this->generateUrl("_slug", ['url' => $translation->getFullSlug(), '_locale' => $request->getLocale()]);
+            $url = $this->generateUrl("_slug", ['url' => $fullNodes[0]->getTranslation()->getFullSlug(), '_locale' => $request->getLocale()]);
             $company = "<a href='$url' >$company</a>";
         }
-
 
         $lastCol = $company;//"<a href='" . $item->link . "'>" . $company . "</a>";
 

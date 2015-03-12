@@ -28,7 +28,6 @@ class NewsPageRepository extends AbstractArticlePageRepository
 
         return $q->getResult();
     }
-
     /**
      * Returns the article query
      *
@@ -40,6 +39,19 @@ class NewsPageRepository extends AbstractArticlePageRepository
      */
     public function getArticlesQuery($lang = null, $offset, $limit, $host = null)
     {
+//        $dql = "SELECT p, nv, n, nt
+//FROM Sandbox\WebsiteBundle\Entity\News\NewsPage p
+//INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+//INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+//INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node
+//WHERE n.deleted = 0
+//AND n.refEntityName = 'Sandbox\\WebsiteBundle\\Entity\\News\\NewsPage'
+//AND nt.online = 1
+//ORDER BY p.date DESC";
+
+        //var_dump($this->_em->createQuery($dql)->getResult());
+
+
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('Sandbox\WebsiteBundle\Entity\News\NewsPage', 'qp');
 

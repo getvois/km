@@ -43,7 +43,7 @@
                             <div class="col-md-12">
                              
                               <div class="row">
-		                        	<div class="{% if item.image or item.companies[0].logo %}col-md-9{% else %}col-md-12{% endif %}">
+		                        	<div class="{% if item.image or (item.companies|length > 0 and item.companies[0].logo) %}col-md-9{% else %}col-md-12{% endif %}">
 			                            <p>{{ item.summary }}</p>
 	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary main-article__readmore">
 	                                        {{ 'article.readmore' | trans }}
