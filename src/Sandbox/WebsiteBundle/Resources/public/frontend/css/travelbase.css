@@ -135,7 +135,8 @@ time, .tags-block a {
 }
 
 .topnews {
-	padding-bottom:7px;
+	padding-bottom:15px;
+	padding-top:10px;
 	border-bottom:1px solid #ccc;
 } 
 .topnews:hover {

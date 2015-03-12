@@ -1,3 +1,4 @@
+# RedirectMatch permanent ^/app\.php/(.*) /$1
 # Use the front controller as index file. It serves as a fallback solution when
 # every other rewrite/redirect fails (e.g. in an aliased environment without
 # mod_rewrite). Additionally, this reduces the matching process for the
@@ -5,7 +6,7 @@
 # to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
 DirectoryIndex app.php
 
-<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c> 
     RewriteEngine On
 
     # Determine the RewriteBase automatically and set it as environment variable.
