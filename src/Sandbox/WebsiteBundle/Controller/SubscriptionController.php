@@ -4,8 +4,10 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
+use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
+use Kunstmaan\NodeBundle\Helper\NodeMenu;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\SubscribeForm;
@@ -211,7 +213,15 @@ class SubscriptionController extends Controller
 
         $page = $node[0]->getNodeTranslation($request->getLocale())->getRef($em);
 
-        return ['page' => $page, 'subscriptions' => $subscriptions, 'lang' => $lang, 'em' => $em];
+        //for top and bottom menu
+        $securityContext = $this->get('security.context');
+        $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');
+        $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node, PermissionMap::PERMISSION_VIEW);
+        //
+
+
+
+        return ['nodemenu' => $nodeMenu, 'page' => $page, 'subscriptions' => $subscriptions, 'lang' => $lang, 'em' => $em];
     }
 
     /**
