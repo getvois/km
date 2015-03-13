@@ -311,7 +311,7 @@ class TravelbaseController extends Controller
         $rootNode = $rootNodes[0];
 
         $articles = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $class, $request->getLocale(), 0, 10, $host, 'p.title ASC');
+            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $class, $request->getLocale(), 0, null, $host, 'p.title ASC');
 
         if(!$articles) return [];
 
