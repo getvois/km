@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
+use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -204,8 +205,13 @@ class SubscriptionController extends Controller
                 return new RedirectResponse($this->generateUrl('_slug'));
         }
 
+        /** @var Node[] $node */
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodesByInternalName('homapage', $request->getLocale());
 
-        return ['subscriptions' => $subscriptions, 'lang' => $lang, 'em' => $em];
+        $page = $node[0]->getNodeTranslation($request->getLocale())->getRef($em);
+
+        return ['page' => $page, 'subscriptions' => $subscriptions, 'lang' => $lang, 'em' => $em];
     }
 
     /**
