@@ -293,16 +293,94 @@ class TravelbaseController extends Controller
      * @Template()
      * @return array
      */
-    public function placesFooterAction(Request $request, $node)
+    public function placesFooterAction(Request $request)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-            ->getActiveOverviewPages($request->getLocale(), $host, $node->getNode()->getId());
+        //get root node parent id = 1
+        $class = 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage';
+        $rootNodes = $this->get('nodehelper')
+            ->getFullNodesWithParam('n.parent = 1', [], $class, $request->getLocale(), 0, 1, $host);
 
-        return ['node' => $node, 'places' => $places];
+        if(!$rootNodes) return [];
+
+        $rootNode = $rootNodes[0];
+
+        $articles = $this->get('nodehelper')
+            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $class, $request->getLocale(), 0, 10, $host, 'p.title ASC');
+
+        if(!$articles) return [];
+
+        return ['root' => $rootNode, 'places' => $articles];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @Template()
+     */
+    public function articleFooterAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        //get root node parent id = 1
+        //Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage
+        $class = 'Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage';
+        $rootNodes = $this->get('nodehelper')
+            ->getFullNodesWithParam('n.parent = 1', [], $class, $request->getLocale(), 0, 1, $host);
+
+        if(!$rootNodes) return [];
+
+        $rootNode = $rootNodes[0];
+
+        $articleClass = 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage';
+
+        $articles = $this->get('nodehelper')
+            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $articleClass, $request->getLocale(), 0, 10, $host, 'p.date DESC');
+
+        if(!$articles) return [];
+
+        return ['root' => $rootNode, 'articles' => $articles];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     *
+     * @Template()
+     */
+    public function companyFooterAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $host = $em->getRepository('SandboxWebsiteBundle:Host')
+            ->findOneBy(['name' => $request->getHost()]);
+
+        $class = 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage';
+
+        $rootNodes = $this->get('nodehelper')
+            ->getFullNodesWithParam('n.parent = 1 AND n.internalName = :internal', [':internal' => 'companies'], $class, $request->getLocale(), 0, 1, $host);
+
+        if(!$rootNodes) return [];
+
+        $rootNode = $rootNodes[0];
+
+        $class = 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage';
+        $companies = $this->get('nodehelper')
+            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $class, $request->getLocale(), 0, 10, $host, 'p.title ASC');
+
+        if(!$companies) return [];
+
+        return ['root' => $rootNode, 'companies' => $companies];
     }
 }

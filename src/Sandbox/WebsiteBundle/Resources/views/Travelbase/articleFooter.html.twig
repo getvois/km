@@ -1,0 +1,18 @@
+{% if root is defined %}
+    <nav class="col-xs-12 col-sm-3 col-md-3 col--padded doormat">
+        <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': root.translation.fullSlug }) }}">{{ root.page.title }}</a></h5>
+        <ul class="list-reset doormat__link-list">
+            {% for article in articles %}
+                {% if article.page.title|length > 40 %}
+                    {% set ltitle = article.page.title[:40] ~ '...' %}
+                {% else %}
+                    {% set ltitle = article.page.title %}
+                {% endif %}
+                <li class="doormat__list-item">
+                    <a href="{{ path('_slug', { 'url': article.translation.fullSlug }) }}" class="link--gray doormat__link">{{ ltitle }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}
+

@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Helper;
 
 
 use Doctrine\ORM\EntityManager;
+use Sandbox\WebsiteBundle\Entity\Host;
 
 class NodeHelper {
 
@@ -17,20 +18,39 @@ class NodeHelper {
 
     /**
      * @param $class string format: 'Sandbox\WebsiteBundle\Entity\News\NewsPage'
-     * @param $offset
+     * @param null $lang
+     * @param int $offset
      * @param $limit
      * @param null $host
+     * @return array
      */
     public function getFullNodes($class, $lang = null, $offset = 0, $limit = null, $host = null)
     {
+        if(!property_exists($class, 'hosts')) $host = null;
+
         $dql = "SELECT p, nv, nt, n
 FROM $class p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
-INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node
-WHERE n.deleted = 0
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node";
+
+        if($class == 'Sandbox\WebsiteBundle\Entity\News\NewsPage'
+            || $class == 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage'){
+            $dql .= ' LEFT JOIN Kunstmaan\MediaBundle\Entity\Media m WITH p.image = m.id ';
+        }
+
+        if($host) {
+            $dql .= ' JOIN p.hosts h ';
+        }
+
+        $dql .= "WHERE n.deleted = 0
 AND n.refEntityName = '$class'
-AND nt.online = 1";
+AND nt.online = 1 ";
+
+        /** @var Host $host */
+        if($host){
+            $dql .= " AND h.name = '". $host->getName() ."'";
+        }
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
@@ -63,6 +83,8 @@ AND nt.online = 1";
      */
     public function getFullNodesWithParam($where, $params = [], $class, $lang = null, $offset = 0, $limit = null, $host = null, $orderBy = '')
     {
+        if(!property_exists($class, 'hosts')) $host = null;
+
         $dql = "SELECT p, nv, nt, n
 FROM $class p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
@@ -74,10 +96,20 @@ INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
             $dql .= ' LEFT JOIN Kunstmaan\MediaBundle\Entity\Media m WITH p.image = m.id ';
         }
 
+        if($host) {
+            $dql .= ' JOIN p.hosts h ';
+        }
+
         $dql .= " WHERE n.deleted = 0
         AND n.hiddenFromNav = 0
 AND n.refEntityName = '$class'
 AND nt.online = 1";
+
+
+        /** @var Host $host */
+        if($host){
+            $dql .= " AND h.name = '". $host->getName() ."'";
+        }
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 

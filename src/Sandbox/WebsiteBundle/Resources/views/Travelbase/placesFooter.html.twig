@@ -1,22 +1,30 @@
-<h5 class="doormat__title"><a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a></h5>
-<div class="row">
+{% if root is defined %}
+<nav class="col-xs-12 col-sm-6 col-md-6 col--padded doormat">
+    <img src="{{ asset("bundles/sandboxwebsite/img/general/world_map.png") }}" alt="World map" class="img-reponsive"/>
+    <div class="row nomargin">
+         <nav class="col-xs-12 col--padded doormat">
+            <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': root.translation.fullSlug }) }}">{{ root.page.title }}</a></h5>
+            <div class="row">
+                {% set braker = places|length / 4 %}
+                {% set counter = 0 %}
+                {% for place in places %}
+                    {% if counter == 0 or loop.index == 0 %}
+                        <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
+                    {% endif %}
 
-    {% set braker = places|length / 4 %}
-    {% set counter = 0 %}
-    {% for place in places %}
-        {% if counter == 0 or loop.index == 0 %}
-            <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
-        {% endif %}
+                    <li class="doormat__list-item">
+                        <a href="{{ path('_slug', { 'url': place.translation.fullSlug }) }}" class="link--gray doormat__link">{{ place.page.title }}</a>
+                    </li>
 
-        <li class="doormat__list-item">
-            <a href="{{ path('_slug', { 'url': get_node_translation_for(place).fullSlug }) }}" class="link--gray doormat__link">{{ place.title }}</a>
-        </li>
+                    {% set counter = counter + 1 %}
 
-        {% set counter = counter + 1 %}
-
-        {% if counter >= braker %}
-            </ul>
-            {% set counter = 0 %}
-        {% endif %}
-    {% endfor %}
-</div>
+                    {% if counter >= braker %}
+                        </ul>
+                        {% set counter = 0 %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </nav>
+    </div>
+</nav>
+{% endif %}

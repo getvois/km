@@ -314,98 +314,11 @@
     <footer role="footer" class="footer">
         <section class="splash splash--gray-dark">
             <div class="row nomargin">
-                {% if nodemenu is defined %}
-                    {% set searchPageNode = nodemenu.getNodeByInternalName('search') %}
-                    {% if searchPageNode %}
-                        <div class="row hidden-md hidden-lg">
-                            <div class="col-xs-12 col-sm-5 col-sm-offset-7">
-                                <form method="get" action="{{ path('_slug', { 'url': searchPageNode.slug }) }}" class="searchbox">
-                                    <div class="searchbox-box">
-                                        <input type="text" name="query" id="query" value="{% if q_query is defined and q_query != '' %}{{ q_query }}{% endif %}" placeholder="search" class="searchbox__input" />
-                                        <button type="submit" id="search" class="searchbox__submit">
-                                            <i class="icon-search searchbox__submit__icon"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    {% set activeSubnode = nodemenu.getActiveForDepth(1) %}
-                    <div class="col-md-11 col-md-offset-0_5 margin-top-20">
-                        {% for node in activeSubnode.children %}
-                            {% if not node.node.isHiddenFromNav() and ( node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Article\\ArticleOverviewPage" or node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage")  %}
-                                <nav class="col-xs-12 col-sm-3 col-md-3 col--padded doormat">
-                                    <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a></h5>
-                                    <ul class="list-reset doormat__link-list">
-                                        {% if node.children|length>0 %}
-                                            {% if node.node.internalName == 'article_overview_page' %}
-                                                {% for node2 in node.children %}
-                                                    {% if loop.index < 4 %}
-                                                        {% if node2.title|length > 40 %}
-                                                            {% set ltitle = node2.title[:40] ~ '...' %}
-                                                        {% else %}
-                                                            {% set ltitle = node2.title %}
-                                                        {% endif %}
-                                                        <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
-                                                            <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ ltitle }}</a>
-                                                        </li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% else %}
-                                                {% for node2 in node.children %}
-                                                    {% if not node.node.isHiddenFromNav() and loop.index < 10%}
-                                                        {# check if host exists#}
-                                                        {% if host %}
-                                                            {% if(node2.page.hosts) is defined %}
-                                                                {# output only host based content #}
-                                                                {% if host in node2.page.hosts %}
-                                                                    <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
-                                                                        <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
-                                                                    </li>
-                                                                {% endif %}
-                                                            {% else %}
-                                                                {# object without hosts. print as normal#}
-                                                                <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
-                                                                    <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
-                                                                </li>
-                                                            {% endif %}
-                                                        {% else %}
-                                                            <li class="doormat__list-item {% if(node2.active) %}active{% endif %}">
-                                                                <a href="{{ path('_slug', { 'url': node2.slug }) }}" class="link--gray doormat__link">{{ node2.title }}</a>
-                                                            </li>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% endif %}
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        {% endfor %}
-
-
-                        <nav class="col-xs-12 col-sm-6 col-md-6 col--padded doormat">
-                            <img src="{{ asset("bundles/sandboxwebsite/img/general/world_map.png") }}" alt="World map" class="img-reponsive"/>
-
-                            <div class="row nomargin">
-
-                                {% for node in activeSubnode.children %}
-                                    {% if not node.node.isHiddenFromNav() and ( node.node.refEntityName == "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage")  %}
-                                        <nav class="col-xs-12 col--padded doormat">
-                                            {{ render(controller('SandboxWebsiteBundle:Travelbase:placesFooter', {'node' : node})) }}
-                                        </nav>
-                                    {% endif %}
-                                {% endfor %}
-
-
-                            </div>
-
-                        </nav>
-
-
-                    </div>
-                {% endif %}
+                <div class="col-md-11 col-md-offset-0_5 margin-top-20">
+                    {{ render(controller('SandboxWebsiteBundle:Travelbase:articleFooter')) }}
+                    {{ render(controller('SandboxWebsiteBundle:Travelbase:companyFooter')) }}
+                    {{ render(controller('SandboxWebsiteBundle:Travelbase:placesFooter')) }}
+                </div>
                 {% block seoFooter %}{% endblock %}
             </div>
         </section>
@@ -421,7 +334,6 @@
                             {% endif %}
                         </p>
                         <p class="pull-right created-by">
-
                         </p>
                     </div>
                 </div>
