@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Host;
@@ -20,7 +21,9 @@ use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Entity\TPriceFrom;
 use Sandbox\WebsiteBundle\Form\Article\ArticlePageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\Article\ArticlePagePagePartAdminConfigurator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Article\ArticlePageRepository")
@@ -30,6 +33,46 @@ use Symfony\Component\Form\AbstractType;
 class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany, ICopyFields
 {
     use TPriceFrom;
+
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        parent::service($container, $request, $context);
+
+        $em = $container->get('doctrine.orm.entity_manager');
+        /** @var ArticlePage $page */
+        $page = $context['page'];
+
+        $page->viewCount += 1;
+
+        $em->persist($page);
+        $em->flush();
+
+        $context['page'] = $page;
+    }
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="view_count", type="integer")
+     */
+    private $viewCount;
+
+    /**
+     * @return int
+     */
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
+
+    /**
+     * @param int $viewCount
+     */
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
+    }
 
     /**
      * @var boolean
@@ -121,6 +164,7 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
         $this->hosts = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->viewCount = 0;
     }
 
     /**
