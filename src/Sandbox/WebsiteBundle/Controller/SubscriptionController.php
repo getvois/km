@@ -207,7 +207,7 @@ class SubscriptionController extends Controller
 
         /** @var Node[] $node */
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
-            ->getNodesByInternalName('homapage', $request->getLocale());
+            ->getNodesByInternalName('homepage', $request->getLocale());
 
         $page = $node[0]->getNodeTranslation($request->getLocale())->getRef($em);
 
