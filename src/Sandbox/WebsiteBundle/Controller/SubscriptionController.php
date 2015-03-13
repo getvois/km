@@ -216,7 +216,7 @@ class SubscriptionController extends Controller
         //for top and bottom menu
         $securityContext = $this->get('security.context');
         $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');
-        $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node, PermissionMap::PERMISSION_VIEW);
+        $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node[0], PermissionMap::PERMISSION_VIEW);
         //
 
 
