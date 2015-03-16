@@ -1507,11 +1507,19 @@ function cityPicker($el, $holder) {
         var $title = repo['cityName' + $lang];
         //noinspection JSUnresolvedVariable
         if(repo.airportNameEn){
+            $title += " <span class='text-muted'>("+repo[airportName];
             //noinspection JSUnresolvedVariable
-            $title += " <span class='text-muted'>("+repo[airportName]+", "+repo.airportCode+")</span>";
+            if(repo.airportCode.length < 4) {
+                //noinspection JSUnresolvedVariable
+                $title += ", " + repo.airportCode;
+            }
+            $title += ")</span>";
         }else{
             //noinspection JSUnresolvedVariable
-            $title += " <span class='text-muted'>("+repo.airportCode+")</span>";
+            if(repo.airportCode.length < 4) {
+                //noinspection JSUnresolvedVariable
+                $title += " <span class='text-muted'>(" + repo.airportCode + ")</span>";
+            }
         }
 
         $title = '<div class="col-xs-11 col-xs-offset-1">' + $title +'</div>';
@@ -1610,20 +1618,6 @@ function cityPicker($el, $holder) {
                 })
             }
         },
-        //ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-        //    url: "http://api.travelwebpartner.com/api/city.findByText/",
-        //    dataType: 'json',
-        //    quietMillis: 250,
-        //    cache: true,
-        //    data: function (term, page) {
-        //        return {
-        //            q: term // search term
-        //        };
-        //    },
-        //    results: function (data, page) { // parse the results into the format expected by Select2.
-        //        return {results: convertData(data)};
-        //    }
-        //},
         initSelection: function (element, callback) {
             // the input tag has a value attribute preloaded that points to a preselected repository's id
             // this function resolves that id attribute to an object that select2 can render
