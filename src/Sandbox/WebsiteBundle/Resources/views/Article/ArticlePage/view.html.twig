@@ -50,10 +50,12 @@
                   
     {{ render_pageparts(page, 'main') }}
     {#{% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}#}
-    
+        {% include '@SandboxWebsite/Layout/disqus.html.twig' %}
+
     </div>
 
     {% include '@SandboxWebsite/SeoModule/bottom.html.twig' %}
+
 {% endblock %}
 
 {% block seoFooter %}
