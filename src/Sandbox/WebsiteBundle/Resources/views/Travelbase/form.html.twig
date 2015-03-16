@@ -10,34 +10,44 @@
 
             <div class="row">
                 {#COL 1#}
-                <div class="col-md-3">
-                    <div>
-                        <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                        <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
-                    </div>
-                    <div>
-                        <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                        <input id="departure-el" type="text" class="form-control hide">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div>
+                                <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
+                                <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
+                            </div>
+                            <div>
+                                <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
+                                <input id="departure-el" type="text" class="form-control hide">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a id="swich-dep-dest" href="#" class="btn btn-default">
+                                <span class="fa fa-arrows-h"></span>
+                            </a>
+                        </div>
+                        {#COL 2#}
+                        <div class="col-md-5">
+                            <div>
+                                <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
+                                <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
+                            </div>
+                            <div>
+                                <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
+                                <input id="destination-el" type="text" class="form-control hide">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {#COL 2#}
+
+                {#COL 3#}
                 <div class="col-md-2">
                     <div>
                         <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-from" class="glyphicon travelbase-icon travelbase-icon-date-from"></span></div>
                         <input id="datepick-input-from-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
                     </div>
                     <input id="datepick-input-from" type="text" class="datepick-input" value=" – "/>
-                </div>
-                {#COL 3#}
-                <div class="col-md-3">
-                    <div>
-                        <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                        <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
-                    </div>
-                    <div>
-                        <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                        <input id="destination-el" type="text" class="form-control hide">
-                    </div>
                 </div>
                 {#COL 4#}
                 <div class="col-md-2">

@@ -119,6 +119,19 @@
         },
         data: function(){
             return $(this).data('data');
+        },
+        setData: function (data) {
+            if(data.length == 0){
+                //$(this).hide();//.slideUp();
+                //$(this).prev().hide();
+                //$($(this).data('target')).prev().show();//.slideDown();
+                //$($(this).data('target')).prev().prev().show();//.slideDown();
+                //$($(this).data('target')).prev().find('input').css('padding-left', '42px');
+            }else{
+                for(var i = 0 ; i < data.length; i++){
+                    $(this).add(data[i]);
+                }
+            }
         }
     };
 

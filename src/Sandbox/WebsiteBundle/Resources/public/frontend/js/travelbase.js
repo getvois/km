@@ -236,6 +236,53 @@ $(document).ready(function() {
 
     cityPicker("#departure-el", "#departure-dataholder");
     cityPicker("#destination-el", '#destination-dataholder');
+
+
+    $('#swich-dep-dest').click(function () {
+        var $departure2 = $("#departure-dataholder");
+        var $fromdata = $departure2.data('data');
+        var $destination = $('#destination-dataholder');
+        var $todata = $destination.data('data');
+
+        $departure2.data('data', $todata);
+        $destination.data('data', $fromdata);
+
+        var $fromhtml = $departure2.html();
+        var $tohtml = $destination.html();
+
+        $departure2.html($tohtml);
+        $destination.html($fromhtml);
+
+
+        var $departure3 = $("#departure-el");
+        if($todata.length > 0){
+            $departure2.show();
+            $departure2.prev().show();
+            $departure3.prev().hide();
+            $departure3.prev().prev().hide();
+        }else{
+            $departure2.hide();
+            $departure2.prev().hide();
+            $departure3.prev().show();
+            $departure3.prev().prev().show();
+        }
+
+        var $destination2 = $("#destination-el");
+        if($fromdata.length > 0){
+            $destination.show();
+            $destination.prev().show();
+            $destination2.prev().hide();
+            $destination2.prev().prev().hide();
+        }else{
+            $destination.hide();
+            $destination.prev().hide();
+            $destination2.prev().show();
+            $destination2.prev().prev().show();
+        }
+
+        return false;
+    });
+
     // RANGE SLIDER(PRICE SLIDER)
     ////////////////////////////////////////////////////////////////////////////////////////////
 
