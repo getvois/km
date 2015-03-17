@@ -18,25 +18,25 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="app_id", type="string", length=255)
+     * @ORM\Column(name="app_id", type="string", length=255, nullable=true)
      */
     private $app_id;
     /**
      * @var string
      *
-     * @ORM\Column(name="app_secret", type="string", length=255)
+     * @ORM\Column(name="app_secret", type="string", length=255, nullable=true)
      */
     private $app_secret;
     /**
      * @var string
      *
-     * @ORM\Column(name="group_id", type="string", length=255)
+     * @ORM\Column(name="group_id", type="string", length=255, nullable=true)
      */
     private $group_id;
     /**
      * @var string
      *
-     * @ORM\Column(name="page_access_token", type="string", length=512)
+     * @ORM\Column(name="page_access_token", type="string", length=512, nullable=true)
      */
     private $page_access_token;
 
