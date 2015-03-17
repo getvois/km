@@ -62,6 +62,10 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface
     {
         return array(
             array(
+                'name' => 'ContactPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\ContactPage'
+            ),
+            array(
                 'name' => 'TagPage',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\TagPage'
             ),
