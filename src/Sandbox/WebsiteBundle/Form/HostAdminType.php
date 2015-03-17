@@ -46,6 +46,10 @@ class HostAdminType extends AbstractType
         $builder->add('fromPlaces', 'place');
 
         $builder->add('locale');
+        $builder->add('app_id');
+        $builder->add('app_secret');
+        $builder->add('group_id');
+        $builder->add('page_access_token');
     }
 
     /**

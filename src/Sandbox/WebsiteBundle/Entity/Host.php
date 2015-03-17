@@ -16,6 +16,98 @@ class Host extends AbstractEntity
 {
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="app_id", type="string", length=255)
+     */
+    private $app_id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="app_secret", type="string", length=255)
+     */
+    private $app_secret;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="group_id", type="string", length=255)
+     */
+    private $group_id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="page_access_token", type="string", length=512)
+     */
+    private $page_access_token;
+
+    /**
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->app_id;
+    }
+
+    /**
+     * @param string $app_id
+     */
+    public function setAppId($app_id)
+    {
+        $this->app_id = $app_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppSecret()
+    {
+        return $this->app_secret;
+    }
+
+    /**
+     * @param string $app_secret
+     */
+    public function setAppSecret($app_secret)
+    {
+        $this->app_secret = $app_secret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroupId()
+    {
+        return $this->group_id;
+    }
+
+    /**
+     * @param string $group_id
+     */
+    public function setGroupId($group_id)
+    {
+        $this->group_id = $group_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageAccessToken()
+    {
+        return $this->page_access_token;
+    }
+
+    /**
+     * @param string $page_access_token
+     */
+    public function setPageAccessToken($page_access_token)
+    {
+        $this->page_access_token = $page_access_token;
+    }
+
+
+
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\SeoModule", mappedBy="hosts")
