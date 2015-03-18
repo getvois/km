@@ -66,6 +66,9 @@ class ArticlePageAdminType extends AbstractArticlePageAdminType
         $builder->add('imageOnlyOnPreview');
 
         $builder->add('hosts');
+
+        $builder->add('post_on_fb', 'checkbox', ['required' => false]);
+
     }
 
     /**

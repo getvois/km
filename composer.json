@@ -30,6 +30,8 @@
         "stof/doctrine-extensions-bundle": "1.1.*@dev",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
 
+      "facebook/php-sdk-v4" : "4.0.*",
+
       "bcc/cron-manager-bundle": "v2.6"
     },
     "require-dev": {

@@ -4,8 +4,12 @@ namespace Sandbox\WebsiteBundle\EventListener;
 
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Event\NodeEvent;
+use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Subscription;
+use Sandbox\WebsiteBundle\Helper\FacebookHelper;
 use Symfony\Component\DependencyInjection\Container;
 
 class PublishListener {
@@ -33,6 +37,20 @@ class PublishListener {
             $this->sendEmails($page->getFromPlaces(), $page, $lang, $emails);
 
         }
+
+
+        if($page instanceof NewsPage || $page instanceof ArticlePage){
+            //if checkbox post on fb is checked
+            if($page->isPostOnFb()){
+                //post on fb
+                $fb = new FacebookHelper();
+                /** @var Host $host */
+                foreach ($page->getHosts() as $host) {
+                    $fb->postOnWall($page, $this->em, $host);
+                }
+            }
+        }
+
     }
 
 

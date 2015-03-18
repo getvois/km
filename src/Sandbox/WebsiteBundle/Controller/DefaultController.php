@@ -4,6 +4,9 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
+use Facebook\FacebookRequest;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookSession;
 use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
@@ -11,8 +14,10 @@ use Kunstmaan\TranslatorBundle\Entity\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Form\BookingForm;
 use Sandbox\WebsiteBundle\Entity\Form\Passenger;
+use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Booking\BookingFormType;
+use Sandbox\WebsiteBundle\Helper\FacebookHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -632,47 +637,22 @@ class DefaultController extends Controller
 
     /**
      * @Route("/test/")
-     *
+     * @param Request $request
+     * @return Response
      */
-    public function testAction()
+    public function testAction(Request $request)
     {
+
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $tags = $em->getRepository('KunstmaanTaggingBundle:Tag')
-            ->findAll();
+        /** @var NewsPage $news */
+        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
+            ->findAll()[0];
 
-        foreach ($tags as $tag) {
-            $translation = $em->getRepository('KunstmaanTranslatorBundle:Translation')
-                ->findOneBy(['domain' => 'tag', 'keyword' => $tag->getName()]);
+        $fb = new FacebookHelper();
+        $fb->postOnWall($news, $em, $request);
 
-            if(!$translation){
-                $translationId = $em->getRepository('KunstmaanTranslatorBundle:Translation')->getUniqueTranslationId();
-
-                foreach (explode('|', 'fi|en|de|fr|ru|se|ee') as $lang) {
-                    $t = new Translation();
-                    $t->setLocale($lang);
-                    $t->setDomain('tag');
-                    $t->setCreatedAt(new \DateTime());
-                    $t->setFlag(Translation::FLAG_NEW);
-                    $t->setTranslationId($translationId);
-                    $t->setKeyword($tag->getName());
-                    $t->setText($tag->getName());
-                    $em->persist($t);
-
-                }
-                $em->flush();
-                printf("<div>translated: %s</div>", $tag->getName());
-            }
-        }
-
-
-
-//        var_dump(date('H:i', 1418807117));
-//        $diff = time() - 1418807117;
-//        var_dump($diff / 60 );
-        //if($diff/60 < 60)
-
-        return new Response("");
+        return new Response();
     }
 
     /**

@@ -18,6 +18,7 @@ use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Entity\TPriceFrom;
+use Sandbox\WebsiteBundle\Entity\TSocialLinks;
 use Sandbox\WebsiteBundle\Form\News\NewsPageAdminType;
 use Sandbox\WebsiteBundle\PagePartAdmin\News\NewsPagePagePartAdminConfigurator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
 class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany, ICopyFields
 {
     use TPriceFrom;
+    use TSocialLinks;
 
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
