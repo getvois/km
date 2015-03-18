@@ -363,24 +363,16 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
+        $root = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
+            ->getRoot('companies', $request->getLocale());
 
-        $class = 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage';
+        if(!$root) return [];
 
-        $rootNodes = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = 1 AND n.internalName = :internal', [':internal' => 'companies'], $class, $request->getLocale(), 0, 1, $host);
-
-        if(!$rootNodes) return [];
-
-        $rootNode = $rootNodes[0];
-
-        $class = 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage';
-        $companies = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $class, $request->getLocale(), 0, 10, $host, 'p.title ASC');
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
+            ->getByRoot($root['id'], $request->getLocale());
 
         if(!$companies) return [];
 
-        return ['root' => $rootNode, 'companies' => $companies];
+        return ['root' => $root, 'companies' => $companies];
     }
 }

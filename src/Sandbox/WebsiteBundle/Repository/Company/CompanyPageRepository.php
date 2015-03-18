@@ -12,6 +12,57 @@ use Kunstmaan\ArticleBundle\Repository\AbstractArticlePageRepository;
 class CompanyPageRepository extends AbstractArticlePageRepository
 {
 
+    public function getRoot($internalName, $lang)
+    {
+        $dql = "SELECT n.id, p.title, nt.slug
+FROM Sandbox\WebsiteBundle\Entity\Pages\ContentPage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.internalName = :name
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\ContentPage\'
+AND nt.online = 1';
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+        $query->setParameter(':name', $internalName);
+
+        $objects = $query->getOneOrNullResult(Query::HYDRATE_ARRAY);
+
+        return $objects;
+    }
+
+
+    public function getByRoot($rootNodeId, $lang)
+    {
+        $dql = "SELECT p.title, nt.slug
+FROM Sandbox\WebsiteBundle\Entity\Pages\ContentPage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.parent = :parent
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\ContentPage\'
+AND nt.online = 1';
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+        $query->setParameter(':parent', $rootNodeId);
+
+        $objects = $query->getArrayResult();
+
+        return $objects;
+    }
+
     /**
      * Returns an array of all CompanyPages
      *

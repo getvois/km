@@ -85,7 +85,7 @@ AND nt.online = 1 ";
     {
         if(!property_exists($class, 'hosts')) $host = null;
 
-        $dql = "SELECT p, nv, nt, n
+        $dql = "SELECT p, nt, n
 FROM $class p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
