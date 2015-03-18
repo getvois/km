@@ -301,21 +301,17 @@ class TravelbaseController extends Controller
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        //get root node parent id = 1
-        $class = 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage';
-        $rootNodes = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = 1', [], $class, $request->getLocale(), 0, 1, $host);
+        $root = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getRoot($request->getLocale(), $host);
 
-        if(!$rootNodes) return [];
+        if(!$root) return [];
 
-        $rootNode = $rootNodes[0];
+        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getByRoot($root['id'], $request->getLocale(), $host);
 
-        $articles = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $class, $request->getLocale(), 0, null, $host, 'p.title ASC');
+        if(!$places) return [];
 
-        if(!$articles) return [];
-
-        return ['root' => $rootNode, 'places' => $articles];
+        return ['root' => $root, 'places' => $places];
     }
 
     /**
