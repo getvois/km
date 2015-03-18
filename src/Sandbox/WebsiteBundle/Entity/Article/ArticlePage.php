@@ -53,12 +53,12 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
     }
 
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="view_count", type="integer")
-     */
-    private $viewCount;
+//    /**
+//     * @var int
+//     *
+//     * @ORM\Column(name="view_count", type="integer")
+//     */
+//    private $viewCount;
 
     /**
      * @return int
