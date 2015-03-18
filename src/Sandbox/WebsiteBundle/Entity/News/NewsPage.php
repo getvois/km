@@ -50,12 +50,12 @@ class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, T
 
         $context['page'] = $page;
     }
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="view_count", type="integer")
-     */
-    private $viewCount;
+//    /**
+//     * @var int
+//     *
+//     * @ORM\Column(name="view_count", type="integer")
+//     */
+//    private $viewCount;
 
     /**
      * @return int
