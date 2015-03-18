@@ -87,7 +87,12 @@ PERMANENT KEY
 
                 $page = $translation->getRef($em);
 
-                $url = "http://" . $host->getName() . '/' . $translation->getFullSlug();
+                $url = "http://" . $host->getName() . '/';
+                if($host->getMultiLanguage()){
+                    $url .= $host->getLocale() . "/";
+                }
+
+                $url .= $translation->getFullSlug();
 
                 //$url = 'http://rannapuhkus.ee/blog/autohuvilised-roomustage-3-valjapaistvat-sundmust-madeiral';
 

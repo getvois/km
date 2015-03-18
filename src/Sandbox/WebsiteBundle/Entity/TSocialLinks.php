@@ -2,11 +2,14 @@
 
 namespace Sandbox\WebsiteBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
 trait TSocialLinks {
 
     /**
      * @var bool
+     *
+     * @ORM\Column(name="post_on_fb", type="boolean", nullable=true)
      */
     private $post_on_fb;
 
