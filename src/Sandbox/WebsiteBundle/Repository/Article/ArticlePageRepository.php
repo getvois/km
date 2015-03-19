@@ -12,6 +12,44 @@ use Sandbox\WebsiteBundle\Entity\Host;
  */
 class ArticlePageRepository extends AbstractArticlePageRepository
 {
+    public function getArticlePagesWithImage($lang, $host, $limit = 10)
+    {
+        $dql = "SELECT p.title, nt.slug, m.url, p.date
+FROM Sandbox\WebsiteBundle\Entity\Article\ArticlePage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node
+LEFT JOIN p.image m";
+
+        if($host) {
+            $dql .= ' JOIN p.hosts h ';
+        }
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Article\ArticlePage\'
+AND nt.online = 1';
+
+        /** @var Host $host */
+        if($host){
+            $dql .= " AND h.name = '". $host->getName() ."'";
+        }
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        $dql .= ' ORDER BY p.date DESC ';
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+
+        $query->setMaxResults($limit);
+        $objects = $query->getArrayResult();
+
+        return $objects;
+    }
+
+
+
 
     public function getRoot($lang)
     {
@@ -38,7 +76,7 @@ AND nt.online = 1';
         return $objects;
     }
 
-    public function getByRoot($rootNodeId, $lang, $host, $limit = 10)
+    public function getArticlePages($lang, $host, $limit = 10)
     {
         $dql = "SELECT n.id, p.title, nt.slug
 FROM Sandbox\WebsiteBundle\Entity\Article\ArticlePage p
@@ -51,7 +89,6 @@ INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
         }
 
         $dql .= ' WHERE n.deleted = 0
-        AND n.parent = :root
         AND n.hiddenFromNav = 0
 AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Article\ArticlePage\'
 AND nt.online = 1';
@@ -67,7 +104,6 @@ AND nt.online = 1';
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
-        $query->setParameter(':root', $rootNodeId);
 
         $query->setMaxResults($limit);
         $objects = $query->getArrayResult();

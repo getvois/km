@@ -15,17 +15,17 @@
             <h1>Top 10</h1>
             {% for p in fullNodes %}
                 <div class="row margin-bottom-20">
-                    {% if p.page.image %}
+                    {% if p.url %}
                         <div class="col-md-3 nopadding col-md-offset-1">
-                            <a href="{{ path( '_slug', {'url' : p.translation.fullSlug }) }}"><img class="img-responsive" src="{{ asset(p.page.image.url | imagine_filter("150x")) }}" alt=""/></a>
+                            <a href="{{ path( '_slug', {'url' : p.slug }) }}"><img class="img-responsive" src="{{ asset(p.url | imagine_filter("150x")) }}" alt=""/></a>
                         </div>
                         <div class="col-md-8">
-                            <a href="{{ path( '_slug', {'url' : p.translation.fullSlug }) }}">{{ p.page.title }}</a>
+                            <a href="{{ path( '_slug', {'url' : p.slug }) }}">{{ p.title }}</a>
                         </div>
  
                     {% else %}
                         <div class="col-md-11 col-md-offset-1">
-                            <a href="{{ path( '_slug', {'url' : p.translation.fullSlug }) }}">{{ p.page.title }}</a>
+                            <a href="{{ path( '_slug', {'url' : p.slug }) }}">{{ p.title }}</a>
                         </div>
                     {% endif %}
                 </div>

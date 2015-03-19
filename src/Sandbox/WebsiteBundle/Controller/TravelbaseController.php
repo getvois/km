@@ -72,42 +72,29 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $host = $em->getRepository('SandboxWebsiteBundle:Host') //todo kosmos move host to service to minimize queries
-            ->findOneBy(['name' => $request->getHost()]);
+        $host = $this->get('hosthelper')->getHost();
 
-        $news = $this->get('nodehelper')//todo kosmos images loads as proxy
-            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\News\NewsPage', $lang, 0, 5, $host, 'p.date DESC');
+        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
+            ->getNewsPagesWithImage($request->getLocale(), $host, 5);
 
-        $articles = $this->get('nodehelper')
-            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage', $lang, 0, 5, $host, 'p.date DESC');
+//        $news = $this->get('nodehelper')//todo kosmos images loads as proxy
+//            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\News\NewsPage', $lang, 0, 5, $host, 'p.date DESC');
+
+        $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            ->getArticlePagesWithImage($request->getLocale(), $host, 5);
+
+//        $articles = $this->get('nodehelper')
+//            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage', $lang, 0, 5, $host, 'p.date DESC');
 
         $fullNodes = array_merge($news, $articles);
 
-        usort($fullNodes, function (FullNode $a, FullNode $b)
+        usort($fullNodes, function ($a, $b)
         {
-            if ($a->getPage()->getDate()->getTimestamp() == $b->getPage()->getDate()->getTimestamp()) {
+            if ($a['date']->getTimestamp() == $b['date']->getTimestamp()) {
                 return 0;
             }
-            return ($a->getPage()->getDate()->getTimestamp() < $b->getPage()->getDate()->getTimestamp()) ? 1 : -1;
+            return ($a['date']->getTimestamp() < $b['date']->getTimestamp()) ? 1 : -1;
         });
-
-
-//        $realNews = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
-//            ->getArticles($lang, 0, 5, $host);
-//        $realArticles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
-//            ->getArticles($lang, 0, 5, $host);
-//
-//        $pages = array_merge($realNews, $realArticles);
-//
-//        usort($pages, function ($a, $b)
-//        {
-//            /** @var $a ArticlePage */
-//            /** @var $b ArticlePage */
-//            if ($a->getDate()->getTimestamp() == $b->getDate()->getTimestamp()) {
-//                return 0;
-//            }
-//            return ($a->getDate()->getTimestamp() < $b->getDate()->getTimestamp()) ? 1 : -1;
-//        });
 
         return ['fullNodes' => $fullNodes];
     }
@@ -331,7 +318,7 @@ class TravelbaseController extends Controller
         if(!$root) return [];
 
         $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
-            ->getByRoot($root['id'], $request->getLocale(), $host, 10);
+            ->getArticlePages($request->getLocale(), $host, 10);
 
         if(!$articles) return [];
 
