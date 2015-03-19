@@ -297,8 +297,7 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
+        $host = $this->get('hosthelper')->getHost();
 
         $root = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
             ->getRoot($request->getLocale(), $host);
@@ -324,8 +323,7 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
+        $host = $this->get('hosthelper')->getHost();
 
         $root = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
             ->getRoot($request->getLocale(), $host);
@@ -336,23 +334,6 @@ class TravelbaseController extends Controller
             ->getByRoot($root['id'], $request->getLocale(), $host, 10);
 
         if(!$articles) return [];
-
-        //get root node parent id = 1
-        //Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage
-//        $class = 'Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage';
-//        $rootNodes = $this->get('nodehelper')
-//            ->getFullNodesWithParam('n.parent = 1', [], $class, $request->getLocale(), 0, 1, $host);
-//
-//        if(!$rootNodes) return [];
-//
-//        $rootNode = $rootNodes[0];
-//
-//        $articleClass = 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage';
-//
-//        $articles = $this->get('nodehelper')
-//            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $articleClass, $request->getLocale(), 0, 10, $host, 'p.date DESC');
-//
-//        if(!$articles) return [];
 
         return ['root' => $root, 'articles' => $articles];
     }

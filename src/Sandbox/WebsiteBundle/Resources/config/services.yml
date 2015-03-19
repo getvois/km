@@ -9,6 +9,9 @@ services:
         class: Sandbox\WebsiteBundle\Helper\NodeHelper
         arguments: [@doctrine.orm.entity_manager]
 
+    hosthelper:
+        class: Sandbox\WebsiteBundle\Helper\HostHelper
+        arguments: [@doctrine.orm.entity_manager, @service_container]
 #Twig
     sandboxwebsitebundle.twigHostExtension:
         class: Sandbox\WebsiteBundle\Twig\Extension\HostExtension
