@@ -288,7 +288,6 @@ class TravelbaseController extends Controller
 
     /**
      * @param Request $request
-     * @param $node
      *
      * @Template()
      * @return array
@@ -328,24 +327,34 @@ class TravelbaseController extends Controller
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        //get root node parent id = 1
-        //Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage
-        $class = 'Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage';
-        $rootNodes = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = 1', [], $class, $request->getLocale(), 0, 1, $host);
+        $root = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            ->getRoot($request->getLocale(), $host);
 
-        if(!$rootNodes) return [];
+        if(!$root) return [];
 
-        $rootNode = $rootNodes[0];
-
-        $articleClass = 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage';
-
-        $articles = $this->get('nodehelper')
-            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $articleClass, $request->getLocale(), 0, 10, $host, 'p.date DESC');
+        $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            ->getByRoot($root['id'], $request->getLocale(), $host, 10);
 
         if(!$articles) return [];
 
-        return ['root' => $rootNode, 'articles' => $articles];
+        //get root node parent id = 1
+        //Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage
+//        $class = 'Sandbox\WebsiteBundle\Entity\Article\ArticleOverviewPage';
+//        $rootNodes = $this->get('nodehelper')
+//            ->getFullNodesWithParam('n.parent = 1', [], $class, $request->getLocale(), 0, 1, $host);
+//
+//        if(!$rootNodes) return [];
+//
+//        $rootNode = $rootNodes[0];
+//
+//        $articleClass = 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage';
+//
+//        $articles = $this->get('nodehelper')
+//            ->getFullNodesWithParam('n.parent = :parent', [':parent' => $rootNode->getNode()->getId()], $articleClass, $request->getLocale(), 0, 10, $host, 'p.date DESC');
+//
+//        if(!$articles) return [];
+
+        return ['root' => $root, 'articles' => $articles];
     }
 
     /**

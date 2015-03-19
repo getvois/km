@@ -76,7 +76,7 @@ AND nt.online = 1';
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
-        if($lang) $query->setParameter(':root', $rootNodeId);
+        $query->setParameter(':root', $rootNodeId);
 
         $objects = $query->getArrayResult();
 
