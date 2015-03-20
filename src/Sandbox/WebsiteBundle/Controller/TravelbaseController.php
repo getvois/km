@@ -67,8 +67,6 @@ class TravelbaseController extends Controller
      */
     public function topTenAction(Request $request)
     {
-        $lang = $request->getLocale();
-
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -77,22 +75,18 @@ class TravelbaseController extends Controller
         $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
             ->getNewsPagesWithImage($request->getLocale(), $host, 5);
 
-//        $news = $this->get('nodehelper')//todo kosmos images loads as proxy
-//            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\News\NewsPage', $lang, 0, 5, $host, 'p.date DESC');
-
         $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
             ->getArticlePagesWithImage($request->getLocale(), $host, 5);
-
-//        $articles = $this->get('nodehelper')
-//            ->getFullNodesWithParam('', [], 'Sandbox\WebsiteBundle\Entity\Article\ArticlePage', $lang, 0, 5, $host, 'p.date DESC');
 
         $fullNodes = array_merge($news, $articles);
 
         usort($fullNodes, function ($a, $b)
         {
+            /** @noinspection PhpUndefinedMethodInspection */
             if ($a['date']->getTimestamp() == $b['date']->getTimestamp()) {
                 return 0;
             }
+            /** @noinspection PhpUndefinedMethodInspection */
             return ($a['date']->getTimestamp() < $b['date']->getTimestamp()) ? 1 : -1;
         });
 

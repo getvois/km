@@ -23,8 +23,7 @@ class DropdownController extends Controller
         $lang = $request->getLocale();
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
+        $host = $this->get('hosthelper')->getHost();
 
         $placeNodes = $this->getCountries($lang, $host, true, true);
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
@@ -41,8 +40,7 @@ class DropdownController extends Controller
         $lang = $request->getLocale();
         /** @var ObjectManager $em */
         $em = $this->getDoctrine()->getManager();
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
+        $host = $this->get('hosthelper')->getHost();
 
         $placeNodes = $this->getCountries($lang, $host);
         return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
@@ -63,27 +61,7 @@ class DropdownController extends Controller
             getNodesByInternalName('companies', $lang);
 
         $node = $nodes?$nodes[0]:null;
-//        findBy([
-//            'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage',
-//            'deleted' => 0]);
 
-//        $node = null;
-//        foreach ($nodes as $node) {
-//            $willDo = true;
-//            while($node->getParent()->getId() != 1){//1 = home page
-//                if($node->getParent()->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage'){
-//                    $willDo = false;
-//                    break;
-//                }
-//                $node = $node->getParent();
-//            }
-//
-//            if($willDo) break;
-//        }
-
-
-
-        $rightNodes = [];
         $companyNodes = [];
         //now node is company root.
         if($node) {
@@ -101,16 +79,6 @@ class DropdownController extends Controller
                 $companyNodes[] = ['parent' =>$node, 'children' => $children];
             }
 
-//            $acl = $this->container->get('kunstmaan_admin.acl.helper');
-//            $rightNodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
-//
-//            foreach ($rightNodes as $node) {
-//                if(!$node->getNodeTranslation($lang) || !$node->getNodeTranslation($lang)->isOnline()) continue;
-//                $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->getChildNodes($node->getId(), $lang, "VIEW",  $acl);
-//
-//                /** @var Node $node */
-//                    $companyNodes[] = ['parent' =>$node, 'children' => $nodes];
-//            }
         }
 
         return [ 'companies' => $companyNodes, 'lang' => $lang, 'em' => $em];
@@ -147,31 +115,9 @@ class DropdownController extends Controller
                     'deleted' => 0
                 ]);
 
-//        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-//        findBy(['parent' => $countryRootNode,
-//                'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
-//                'deleted' => 0]);
-//
-//        /** @var Node[] $placeNodes */
-//        $placeNodes = [];
-//
-//        $nodeIds = [];
-//        foreach ($nodes as $node) {
-//            $translation = $node->getNodeTranslation($lang);
-//            if($translation)
-//                $nodeIds[] = $translation->getRef($em)->getId();
-//        }
-
         /** @var PlaceOverviewPage[] $placeOverviewPages */
         $placeOverviewPages = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
             ->getActiveOverviewPages($lang, $host, $countryRootNode->getId());
-//        $placeOverviewPages = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->createQueryBuilder('n')
-//            ->where('n.id IN(:ids)')
-//            ->setParameter(':ids', $nodeIds)
-//            ->orderBy('n.title')
-//            ->getQuery()
-//            ->getResult();
-
 
         /** @var PlaceOverviewPage[] $preferred */
         $preferred = [];
