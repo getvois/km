@@ -643,14 +643,14 @@ class DefaultController extends Controller
     public function testAction(Request $request)
     {
 
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        /** @var NewsPage $news */
-        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
-            ->findAll()[0];
-
-        $fb = new FacebookHelper();
-        $fb->postOnWall($news, $em, $request);
+//        /** @var EntityManager $em */
+//        $em = $this->getDoctrine()->getManager();
+//        /** @var NewsPage $news */
+//        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
+//            ->findAll()[0];
+//
+//        $fb = new FacebookHelper();
+//        $fb->postOnWall($news, $em, $request);
 
         return new Response();
     }

@@ -50,6 +50,8 @@ class HostAdminType extends AbstractType
         $builder->add('app_secret');
         $builder->add('group_id');
         $builder->add('page_access_token');
+        $builder->add('vk_group_id');
+        $builder->add('vk_access_token');
     }
 
     /**

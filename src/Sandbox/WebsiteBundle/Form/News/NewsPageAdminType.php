@@ -78,6 +78,7 @@ class NewsPageAdminType extends AbstractArticlePageAdminType
         $builder->add('hosts');
 
         $builder->add('post_on_fb', 'checkbox', ['required' => false]);
+        $builder->add('post_on_vk', 'checkbox', ['required' => false]);
     }
 
     /**

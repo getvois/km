@@ -18,6 +18,52 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="vk_access_token", type="string", length=255, nullable=true)
+     */
+    private $vk_access_token;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vk_group_id", type="string", length=255, nullable=true)
+     */
+    private $vk_group_id;
+
+    /**
+     * @return string
+     */
+    public function getVkAccessToken()
+    {
+        return $this->vk_access_token;
+    }
+
+    /**
+     * @param string $vk_access_token
+     */
+    public function setVkAccessToken($vk_access_token)
+    {
+        $this->vk_access_token = $vk_access_token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVkGroupId()
+    {
+        return $this->vk_group_id;
+    }
+
+    /**
+     * @param string $vk_group_id
+     */
+    public function setVkGroupId($vk_group_id)
+    {
+        $this->vk_group_id = $vk_group_id;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="app_id", type="string", length=255, nullable=true)
      */
     private $app_id;

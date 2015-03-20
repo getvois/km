@@ -10,6 +10,7 @@ use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Subscription;
 use Sandbox\WebsiteBundle\Helper\FacebookHelper;
+use Sandbox\WebsiteBundle\Helper\VkHelper;
 use Symfony\Component\DependencyInjection\Container;
 
 class PublishListener {
@@ -47,6 +48,16 @@ class PublishListener {
                 /** @var Host $host */
                 foreach ($page->getHosts() as $host) {
                     $fb->postOnWall($page, $this->em, $host);
+                }
+            }
+
+            //if checkbox post on vk is checked
+            if($page->isPostOnVk()){
+                //post on vk
+                $vk = new VkHelper();
+                /** @var Host $host */
+                foreach ($page->getHosts() as $host) {
+                    $vk->postOnWall($page, $this->em, $host);
                 }
             }
         }
