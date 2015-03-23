@@ -48,6 +48,7 @@ class AppKernel extends Kernel
             new Kunstmaan\DashboardBundle\KunstmaanDashboardBundle(),
             new Kunstmaan\TaggingBundle\KunstmaanTaggingBundle(),
             new Sandbox\WebsiteBundle\SandboxWebsiteBundle(),
+            new BCC\CronManagerBundle\BCCCronManagerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev'))) {

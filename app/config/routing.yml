@@ -1,3 +1,8 @@
+#BCCCronManager routing
+BCCCronManagerBundle:
+    resource: "@BCCCronManagerBundle/Resources/config/routing.xml"
+    prefix:   /cron-manager
+
 sandbox_website:
     resource: "@SandboxWebsiteBundle/Resources/config/routing.yml"
     prefix:   /
