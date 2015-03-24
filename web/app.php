@@ -4,14 +4,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
-if(extension_loaded('apc') && ini_get('apc.enabled')){
-    // Use APC for autoloading to improve performance.
-    // Change 'sf2' to a unique prefix in order to prevent cache key conflicts
-    // with other applications also using APC.
-    $apcLoader = new ApcClassLoader('sf2', $loader);
-    $loader->unregister();
-    $apcLoader->register(true);
-}
+//if(extension_loaded('apc') && ini_get('apc.enabled')){
+//    // Use APC for autoloading to improve performance.
+//    // Change 'sf2' to a unique prefix in order to prevent cache key conflicts
+//    // with other applications also using APC.
+//    $apcLoader = new ApcClassLoader('sf2', $loader);
+//    $loader->unregister();
+//    $apcLoader->register(true);
+//}
 
 require_once __DIR__.'/../app/AppKernel.php';
 
@@ -19,7 +19,7 @@ require_once __DIR__.'/../app/AppKernel.php';
 $environment = str_replace(".", "_", $_SERVER['HTTP_HOST']);
 $kernel = new AppKernel($environment, true);
 
-$kernel->loadClassCache();
+//$kernel->loadClassCache();
 //if (!isset($_SERVER['HTTP_SURROGATE_CAPABILITY']) || false === strpos($_SERVER['HTTP_SURROGATE_CAPABILITY'], 'ESI/1.0')) {
 //    require_once __DIR__.'/../app/AppCache.php';
 //    $kernel = new AppCache($kernel);
