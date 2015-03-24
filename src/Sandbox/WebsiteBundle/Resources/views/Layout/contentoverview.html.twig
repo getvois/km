@@ -12,8 +12,9 @@
 
                        	<header>  
 	                       	<time class="main-article__meta">
-	                            {{ item.date | datelocale('long', 'none')}} 
-	                    	</time> 
+	                            {{ item.date | datelocale('long', 'none')}}
+	                    	</time>
+                            <span class="fa fa-heartbeat"></span> {{ item.viewCount }}
 			            </header>
 			             
                     	<article class="main-article main-article--summary main-news--summary">
@@ -88,6 +89,7 @@
                     <article class="main-article main-article--summary article__overview--list-item">
                         <header>
                             <time class="pull-right">{{ item.date| datelocale}}</time>
+                            <span class="fa fa-heartbeat"></span> {{ item.viewCount }}
 
                             {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
 
