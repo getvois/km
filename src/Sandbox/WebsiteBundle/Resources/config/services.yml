@@ -81,6 +81,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\SeoModuleAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.cron:
+        class: Sandbox\WebsiteBundle\Helper\Menu\CronMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 
 #Listeners
