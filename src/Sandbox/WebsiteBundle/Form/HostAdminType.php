@@ -52,6 +52,7 @@ class HostAdminType extends AbstractType
         $builder->add('page_access_token');
         $builder->add('vk_group_id');
         $builder->add('vk_access_token');
+        $builder->add('ga_tracking_id');
     }
 
     /**

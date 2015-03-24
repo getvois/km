@@ -18,6 +18,29 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="ga_tracking_id", type="string", length=255, nullable=true)
+     */
+    private $ga_tracking_id;
+
+    /**
+     * @return string
+     */
+    public function getGaTrackingId()
+    {
+        return $this->ga_tracking_id;
+    }
+
+    /**
+     * @param string $ga_tracking_id
+     */
+    public function setGaTrackingId($ga_tracking_id)
+    {
+        $this->ga_tracking_id = $ga_tracking_id;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="vk_access_token", type="string", length=255, nullable=true)
      */
     private $vk_access_token;
