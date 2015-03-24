@@ -42,3 +42,4 @@ security:
         - { path: ^/([^/]*)/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/([^/]*)/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/([^/]*)/admin, role: ROLE_ADMIN }
+        - { path: ^/cron-manager, role: ROLE_ADMIN }

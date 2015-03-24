@@ -29,5 +29,12 @@ if (!isset($_SERVER['HTTP_SURROGATE_CAPABILITY']) || false === strpos($_SERVER['
 //Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
+$response->headers->set('Cache-Control', '');
+$response->setPrivate();
+$response->setMaxAge(0);
+$response->setSharedMaxAge(0);
+$response->headers->addCacheControlDirective('must-revalidate', true);
+$response->headers->addCacheControlDirective('no-store', true);
+
 $response->send();
 $kernel->terminate($request, $response);
