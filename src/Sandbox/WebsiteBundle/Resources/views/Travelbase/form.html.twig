@@ -7,104 +7,92 @@
             <input name="order_direction" value="asc" type="hidden">
 
             <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
+
             <div class="row">
-                <div class="col-md-6 form-col">
-                    <div class="form-table">
-                        <div class="form-table-row">
-                            {#FROM#}
-                            <div class="form-table-cell">
-                                <div>
-                                    <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                                    <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
-                                </div>
-                                <div>
-                                    <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                                    <input id="departure-el" type="text" class="form-control hide">
+                <div class="col-md-10">
+                    <div class="row">
+                        {#row 1#}
+                        <div class="col-md-8 form-col">
+                            <div class="form-table">
+                                <div class="form-table-row">
+                                    {#FROM#}
+                                    <div class="form-table-cell">
+                                        <div>
+                                            <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
+                                            <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
+                                        </div>
+                                        <div>
+                                            <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
+                                            <input id="departure-el" type="text" class="form-control hide">
+                                        </div>
+                                    </div>
+                                    {#SWITCH#}
+                                    <div class="form-table-btn-switch">
+                                        <a id="swich-dep-dest" href="#" class="btn btn-default">
+                                            <span class="fa fa-arrows-h"></span>
+                                        </a>
+                                    </div>
+                                    {#TO#}
+                                    <div class="form-table-cell">
+                                        <div>
+                                            <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
+                                            <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
+                                        </div>
+                                        <div>
+                                            <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
+                                            <input id="destination-el" type="text" class="form-control hide">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            {#SWITCH#}
-                            <div class="form-table-btn-switch">
-                                <a id="swich-dep-dest" href="#" class="btn btn-default">
-                                    <span class="fa fa-arrows-h"></span>
-                                </a>
+                        </div>
+                        {#COL 3#}
+                        <div class="col-md-2 form-col">
+                            <div>
+                                <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-from" class="glyphicon travelbase-icon travelbase-icon-date-from"></span></div>
+                                <input id="datepick-input-from-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
                             </div>
-                            {#TO#}
-                            <div class="form-table-cell">
-                                <div>
-                                    <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                                    <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
-                                </div>
-                                <div>
-                                    <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                                    <input id="destination-el" type="text" class="form-control hide">
+                            <input id="datepick-input-from" type="text" class="datepick-input" value=" – "/>
+                        </div>
+                        {#COL 4#}
+                        <div class="col-md-2 form-col">
+                            <div style="position: relative">
+                                <span class="fa fa-times-circle datepicker-clear-icon hide"></span>
+                                <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-to" class="glyphicon travelbase-icon travelbase-icon-date-to"></span></div>
+                                <input id="datepick-input-to-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
+                            </div>
+                            <input id="datepick-input-to" type="text" class="datepick-input"/>
+                        </div>
+
+                        {#COL 5#}
+                    </div>
+                    <div class="row">
+                        {#row 2#}
+                        <div class="col-md-2">
+                            <p style="position: relative">
+                                <label for="amount">
+                                    <img src="http://ku.markmedia.fi/sites/default/files/images/i-pri.png"
+                                         class="ico-price pull-left">
+                                </label>
+                                <input type="text" id="amount" readonly>
+                            </p>
+
+                            <div id="slider-range"></div>
+                        </div>
+                        {# COL 4 #}
+                        <div class="col-md-2">
+                            <div class="field-six nopadding options-row">
+                                <div style="display: none;" class="option-div options">
+                                    {{ render(controller('SandboxWebsiteBundle:Dropdown:companySelect')) }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {#COL 3#}
-                <div class="col-md-2 form-col">
-                    <div>
-                        <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-from" class="glyphicon travelbase-icon travelbase-icon-date-from"></span></div>
-                        <input id="datepick-input-from-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
-                    </div>
-                    <input id="datepick-input-from" type="text" class="datepick-input" value=" – "/>
-                </div>
-                {#COL 4#}
-                <div class="col-md-2 form-col">
-                    <div style="position: relative">
-                        <span class="fa fa-times-circle datepicker-clear-icon hide"></span>
-                        <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-to" class="glyphicon travelbase-icon travelbase-icon-date-to"></span></div>
-                        <input id="datepick-input-to-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
-                    </div>
-                    <input id="datepick-input-to" type="text" class="datepick-input"/>
-                </div>
-
-                {#COL 5#}
-                <div class="col-md-2 form-col text-center-mobile">
-                    <a href="#" id="form-submit" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"></span></a>
-                </div>
-            </div>
-
-            {# ROW 2 #}
-            <div class="row">
-                {# COL 1 #}
                 <div class="col-md-2">
-                    <p style="position: relative">
-                        <label for="amount">
-                            <img src="http://ku.markmedia.fi/sites/default/files/images/i-pri.png"
-                                 class="ico-price pull-left">
-                        </label>
-                        <input type="text" id="amount" readonly>
-                    </p>
-
-                    <div id="slider-range"></div>
-                </div>
-                {# COL 2 #}
-                {#<div class="col-md-2">#}
-                    {#<p style="position: relative; height: 0;">#}
-                        {#<label for="stopover"></label>#}
-                        {#<input type="text" id="stopover" readonly>#}
-                    {#</p>#}
-                    {#<div id="slider-range-stopover"></div>#}
-                {#</div>#}
-                {# COL 3 #}
-                {#<div class="col-md-3">#}
-                    {#<div class="checkbox">#}
-                        {#<label class="directFlight-label">#}
-                            {#<input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}#}
-                        {#</label>#}
-                    {#</div>#}
-                {#</div>#}
-                {# COL 4 #}
-                <div class="col-md-2">
-                    <div class="field-six nopadding options-row">
-                        <div style="display: none;" class="option-div options">
-                            {{ render(controller('SandboxWebsiteBundle:Dropdown:companySelect')) }}
-                        </div>
-                        {#<a href="#" class="toggle" data-target=".options">#}
-                            {#<img src="http://ku.markmedia.fi/sites/default/files/imageXs/i-plu.png" class="pull-left">#}
-                            {#&nbsp;<span class="text-underline">More options</span></a>#}
+                    {#submit#}
+                    <div class="col-md-2 form-col text-center-mobile">
+                        <a href="#" id="form-submit" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"></span></a>
                     </div>
                 </div>
             </div>
