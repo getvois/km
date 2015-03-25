@@ -457,7 +457,7 @@ class DefaultController extends Controller
                     $stars .= "<span class='glyphicon glyphicon-plus'></span>";
                 }
 
-                $qwe = '<div class="col-xs-1 trip-field nowrap">
+                $qwe = '<div class="col-xs-2 col-sm-1 trip-field nowrap">
                             <a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover"
                             title="' . $hotel . $stars . '"
                             data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' ' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" >
@@ -469,14 +469,14 @@ class DefaultController extends Controller
             }
             else {//joker hotel?
 
-                $row .= '<div class="col-xs-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-suitcase"></span>';
+                $row .= '<div class="col-xs-2 col-sm-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-suitcase"></span>';
 
                 $row .= ' ';
 
                 $row .= '</a></div>';
             }
 
-            $row .= '<div class="col-xs-2 col-sm-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
+            $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
             <div class="hidden-xs col-sm-2 trip-field text-center">'.$lastCol.'</div>';
 
         }
