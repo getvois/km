@@ -1225,7 +1225,9 @@ span.city-picker-close:hover {
         margin-bottom: 17px;
     }
 
-
+    #slider-range-stopover {
+        margin-top: 19px;
+    }
     #slider-range .ui-slider-handle, #slider-range-stopover .ui-slider-handle{
         width: 30px;
         height: 30px;
