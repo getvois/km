@@ -306,7 +306,7 @@ class DefaultController extends Controller
 
             //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
             if($item->type->id == 3){
-                $row .= '<div class="col-xs-9 nopadding trip-field">
+                $row .= '<div class="col-xs-10 col-sm-9 nopadding trip-field">
 
                             <table>
                                 <tr>
@@ -377,7 +377,7 @@ class DefaultController extends Controller
 
                         </div>';
             }else{
-                $row .= '<div class="col-xs-9 nopadding trip-field">
+                $row .= '<div class="col-xs-10 col-sm-9 nopadding trip-field">
 
                             <table>
                                 <tr>
