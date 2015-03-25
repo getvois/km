@@ -1225,9 +1225,6 @@ span.city-picker-close:hover {
         margin-bottom: 17px;
     }
 
-    #slider-range-stopover {
-        margin-top: 19px;
-    }
     #slider-range .ui-slider-handle, #slider-range-stopover .ui-slider-handle{
         width: 30px;
         height: 30px;
@@ -1238,7 +1235,9 @@ span.city-picker-close:hover {
         margin: 10px 20px;
         width: auto;
     }
-
+    #slider-range-stopover {
+        margin-top: 19px;
+    }
     label[for='amount']{
         left: -18px;
         top: 0;
