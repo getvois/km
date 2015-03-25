@@ -1,9 +1,59 @@
 <section id="travelbase_tabs" class="">
     <ul id="form-type-switcher" class="tabs nav nav-tabs">
-        <li class="active"><a href="#hot-offers" data-toggle="tab" class="">&nbsp; {{ 'flights.hotel' | trans({}, 'frontend') }} &nbsp;<span id="hot-offers-badge" class="badge"></span><span id="hot-offers-badge-loading" class="badge spinner"></span></a></li>
-        <li class=""><a href="#lowcost" data-toggle="tab" data-type="flightHotel">&nbsp; {{ 'only.flights' | trans({}, 'frontend') }} &nbsp;<span id="lowcost-badge" class="badge"></span><span id="lowcost-badge-loading" class="badge spinner"></span></a></li>
-        <li class=""><a href="#hotels" data-toggle="tab" data-type="hotels">&nbsp; {{ 'Hotels' | trans({}, 'frontend') }} &nbsp;</a></li>
-        <li class=""><a href="#ferries" data-toggle="tab" data-type="ferries">&nbsp; {{ 'Ferries' | trans({}, 'frontend') }} &nbsp;</a></li>
+        <li class="active">
+            <a href="#hot-offers" data-toggle="tab" class="">
+                &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-paper-plane"></span>
+                    <span class="fa fa-plus"></span>
+                    <span class="fa fa-bed"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'flights.hotel' | trans({}, 'frontend') }}
+                </span>
+                &nbsp;
+                <span id="hot-offers-badge" class="badge"></span>
+                <span id="hot-offers-badge-loading" class="badge spinner"></span>
+            </a>
+        </li>
+        <li class="">
+            <a href="#lowcost" data-toggle="tab" data-type="flightHotel">
+                &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-paper-plane"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'only.flights' | trans({}, 'frontend') }}
+                </span>
+                &nbsp;
+                <span id="lowcost-badge" class="badge"></span>
+                <span id="lowcost-badge-loading" class="badge spinner"></span>
+            </a>
+        </li>
+        <li class="">
+            <a href="#hotels" data-toggle="tab" data-type="hotels">
+                &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-bed"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'Hotels' | trans({}, 'frontend') }}
+                </span>
+                &nbsp;
+            </a>
+        </li>
+        <li class="">
+            <a href="#ferries" data-toggle="tab" data-type="ferries">
+                &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-ship"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'Ferries' | trans({}, 'frontend') }}
+                </span>
+                &nbsp;
+            </a>
+        </li>
         {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
     </ul>
 

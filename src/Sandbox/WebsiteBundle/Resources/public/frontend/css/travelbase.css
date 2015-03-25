@@ -692,7 +692,7 @@ label.directFlight-label,  label.sameDay-label {
 
 #form-submit {
 	height: 40px;
-	position: absolute;
+	/*position: absolute;*/
 	z-index: 200;
 	border-radius: 2px;
 	padding: 8px 16px;
@@ -1183,6 +1183,72 @@ span.city-picker-close:hover {
 @media (min-width: 992px) {
 .modal-lg {width: 85%;}
 }
+
+
+.form-table{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.form-table-row{
+    display: table-row;
+}
+.form-table-cell{
+    display: table-cell;
+    vertical-align: top;
+    width: 50%;
+    position: relative;
+}
+
+.form-table-btn-switch{
+    display: table-cell;
+    vertical-align: top;
+    padding: 3px 15px 0;
+    width: 74px;
+}
+
+
+@media (max-width: 992px){
+    .mainbg{
+        height: 500px;
+    }
+
+    #form-submit{
+        font-size: 32px;
+        height: auto;
+    }
+    .text-center-mobile{
+        text-align: center;
+    }
+
+    .form-col {
+        line-height: 0;
+        margin-bottom: 17px;
+    }
+
+
+    #slider-range .ui-slider-handle, #slider-range-stopover .ui-slider-handle{
+        width: 30px;
+        height: 30px;
+        top: -0.9em;
+    }
+    #slider-range, #slider-range-stopover{
+        height: 4px;
+        margin: 10px 20px;
+        width: auto;
+    }
+
+    label[for='amount']{
+        left: -18px;
+        top: 0;
+    }
+    #amount{
+        font-size: 21px;
+    }
+
+}
+
+
 
 
 
