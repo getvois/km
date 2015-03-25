@@ -1248,12 +1248,13 @@ span.city-picker-close:hover {
 
 @media (max-width: 992px){
     .mainbg{
-        height: 540px;
+        height: 530px;
     }
 
     #form-submit{
         font-size: 32px;
         height: auto;
+        margin-top: 30px;
     }
     .text-center-mobile{
         text-align: center;
@@ -1292,7 +1293,7 @@ span.city-picker-close:hover {
 
 @media (max-width: 650px) {
     .mainbg{
-        height: 640px;
+        height: 630px;
     }
 }
 
