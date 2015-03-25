@@ -1703,14 +1703,11 @@ function cityPicker($el, $holder) {
 
 
     $($el).on('select2-blur', function () {
-        //console.log('blur');
         if($($holder).dataHolder('data').length > 0){
-            //console.log('hide me');
             $($el).prev().hide();//slideUp();
             $($el).prev().prev().hide();//slideUp();
 
             var holder = $($holder);
-            //holder.toggleClass('placeholder-collapse');
             if(!holder.hasClass('placeholder-collapse')){
                 holder.addClass('placeholder-collapse');
             }

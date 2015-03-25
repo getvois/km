@@ -332,12 +332,6 @@ body .splash--green {
     vertical-align: middle;
 }
 
-
-#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
-	border: 2px solid #555;
-    border-radius: 2px;
-}
-
 /* place holder */
 .placeholder{
     background-color: white;
@@ -421,10 +415,6 @@ div.travelbase-input-addon{
     top: 0;
 }
 
-.select2-container-multi .select2-choices .select2-search-field input{
-    padding-left: 42px;
-    width: calc(100% - 42px);
-}
 .travelbase-icon-from{
     background-position: 0 -8px;
 }
@@ -707,16 +697,6 @@ label.directFlight-label,  label.sameDay-label {
 	border-radius: 2px;
 	padding: 8px 16px;
 }
-
-
-.select2-container-multi .select2-choices li{
-    display: inline-block;
-}
-
-.select2-container-multi .select2-choices {
-    white-space: nowrap;
-}
-
 
 /* result table header */
 .sort-controls .btn-group  {
@@ -1092,6 +1072,22 @@ label.directFlight-label,  label.sameDay-label {
 }
 
 
+.select2-container-multi .select2-choices li{
+    display: inline-block;
+}
+
+.select2-container-multi .select2-choices {
+    white-space: nowrap;
+}
+
+.select2-container-multi .select2-choices .select2-search-field input{
+    padding-left: 42px;
+    width: calc(100% - 42px);
+}
+#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
+    border: 2px solid #555;
+    border-radius: 2px;
+}
 
 /* City picker list */
 .city-picker{
@@ -1196,7 +1192,7 @@ span.city-picker-close:hover {
 /* old needs refactoring */
 
 .select2-input {
-    min-width: 100px !important;
+    /*min-width: 100px !important;*/
 }
 #block-travelbase-travelbase-image-header .content{
     position: relative;

@@ -7,39 +7,73 @@
             <input name="order_direction" value="asc" type="hidden">
 
             <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
-
             <div class="row">
-                {#COL 1#}
                 <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div>
-                                <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                                <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
+                    <div style="display: table; width: 100%; table-layout: fixed">
+                        <div style="display: table-row;">
+                            {#FROM#}
+                            <div style="display: table-cell; vertical-align: top; width: 45%">
+                                <div>
+                                    <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
+                                    <div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>
+                                </div>
+                                <div>
+                                    <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
+                                    <input id="departure-el" type="text" class="form-control hide">
+                                </div>
                             </div>
-                            <div>
-                                <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                                <input id="departure-el" type="text" class="form-control hide">
+                            {#SWITCH#}
+                            <div style="display: table-cell; vertical-align: top;padding: 3px 15px 0; width: 17%">
+                                <a id="swich-dep-dest" href="#" class="btn btn-default">
+                                    <span class="fa fa-arrows-h"></span>
+                                </a>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <a id="swich-dep-dest" href="#" class="btn btn-default">
-                                <span class="fa fa-arrows-h"></span>
-                            </a>
-                        </div>
-                        {#COL 2#}
-                        <div class="col-md-5">
-                            <div>
-                                <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                                <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
-                            </div>
-                            <div>
-                                <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                                <input id="destination-el" type="text" class="form-control hide">
+                            {#TO#}
+                            <div style="display: table-cell; vertical-align: top; width: 45%">
+                                <div>
+                                    <div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
+                                    <div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>
+                                </div>
+                                <div>
+                                    <div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
+                                    <input id="destination-el" type="text" class="form-control hide">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {#COL 1#}
+                {#<div class="col-md-6">#}
+                    {#<div class="row">#}
+                        {#<div class="col-md-5">#}
+                            {#<div>#}
+                                {#<div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>#}
+                                {#<div class="dataholder form-control" id="departure-dataholder" data-target="#departure-el"></div>#}
+                            {#</div>#}
+                            {#<div>#}
+                                {#<div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>#}
+                                {#<input id="departure-el" type="text" class="form-control hide">#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#&#123;&#35;SWITCH BUTTON&#35;&#125;#}
+                        {#<div class="col-md-2">#}
+                            {#<a id="swich-dep-dest" href="#" class="btn btn-default">#}
+                                {#<span class="fa fa-arrows-h"></span>#}
+                            {#</a>#}
+                        {#</div>#}
+                        {#&#123;&#35;COL 2&#35;&#125;#}
+                        {#<div class="col-md-5">#}
+                            {#<div>#}
+                                {#<div class="input-group-addon travelbase-input-addon"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>#}
+                                {#<div class="dataholder form-control" id="destination-dataholder" data-target="#destination-el"></div>#}
+                            {#</div>#}
+                            {#<div>#}
+                                {#<div class="input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>#}
+                                {#<input id="destination-el" type="text" class="form-control hide">#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
 
                 {#COL 3#}
                 <div class="col-md-2">
@@ -57,9 +91,7 @@
                         <input id="datepick-input-to-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
                     </div>
                     <input id="datepick-input-to" type="text" class="datepick-input"/>
-
                 </div>
-
 
                 {#COL 5#}
                 <div class="col-md-2">
