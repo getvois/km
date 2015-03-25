@@ -1207,11 +1207,6 @@ span.city-picker-close:hover {
     width: 74px;
 }
 
-@media (max-width: 400px) {
-    .mainbg{
-        height: 610px;
-    }
-}
 @media (max-width: 992px){
     .mainbg{
         height: 510px;
@@ -1252,7 +1247,11 @@ span.city-picker-close:hover {
 
 }
 
-
+@media (max-width: 400px) {
+    .mainbg{
+        height: 610px;
+    }
+}
 
 
 
