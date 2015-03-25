@@ -230,7 +230,7 @@ class DefaultController extends Controller
 
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
-        $company = "<div class='company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
+        $company = "<div class='hidden-xs company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
 
         $fullNodes = $this->get('nodehelper')->getFullNodesWithParam("p.companyId = :companyId", [':companyId' => $item->company->id ], 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', $request->getLocale());
         if($fullNodes){
