@@ -696,6 +696,7 @@ label.directFlight-label,  label.sameDay-label {
 	z-index: 200;
 	border-radius: 2px;
 	padding: 8px 16px;
+    margin-top: 0;
 }
 
 /* result table header */
