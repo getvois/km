@@ -230,7 +230,7 @@ class DefaultController extends Controller
 
         if($company == 'SkyPicker') $class .= " skypicker-toggle";
 
-        $company = "<div class='hidden-xs company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
+        $company = "<div class='company company-" . Slugifier::slugify(strtolower($item->company->name)) . "' ></div>";
 
         $fullNodes = $this->get('nodehelper')->getFullNodesWithParam("p.companyId = :companyId", [':companyId' => $item->company->id ], 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage', $request->getLocale());
         if($fullNodes){
@@ -405,7 +405,7 @@ class DefaultController extends Controller
                         </div>';
             }
 
-            $row .= '<div class="col-xs-2 trip-field text-center nopadding">'. $lastCol . '</div>';
+            $row .= '<div class="hidden-xs col-sm-2 trip-field text-center nopadding">'. $lastCol . '</div>';
 
         }else{
             $row = '';
@@ -476,8 +476,8 @@ class DefaultController extends Controller
                 $row .= '</a></div>';
             }
 
-            $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
-            <div class="col-xs-2 trip-field text-center">'.$lastCol.'</div>';
+            $row .= '<div class="col-xs-2 col-sm-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
+            <div class="hidden-xs col-sm-2 trip-field text-center">'.$lastCol.'</div>';
 
         }
 
