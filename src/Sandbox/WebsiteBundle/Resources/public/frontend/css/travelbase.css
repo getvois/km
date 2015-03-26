@@ -2,7 +2,6 @@
 @import url(http://fonts.googleapis.com/css?family=Yellowtail:400,700);
 @import url(http://fonts.googleapis.com/css?family=Noto+Serif:400,700);
 
-
 html body {  
     font-family: "Open Sans",serif;
 }
@@ -1218,6 +1217,11 @@ span.city-picker-close:hover {
 
 @media (min-width: 992px) {
 .modal-lg {width: 85%;}
+
+    .col-2_5{
+        width: 20.833333%;
+        padding-left: 2px;
+    }
 }
 
 
