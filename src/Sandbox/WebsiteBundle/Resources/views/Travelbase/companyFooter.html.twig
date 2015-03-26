@@ -9,7 +9,7 @@
                     {% set ltitle = company.title %}
                 {% endif %}
                 <li class="doormat__list-item">
-                    <a href="{{ path('_slug', { 'url': company.slug }) }}" class="link--gray doormat__link">{{ ltitle }}</a>
+                    <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ company.slug }) }}" class="link--gray doormat__link">{{ ltitle }}</a>
                 </li>
             {% endfor %}
         </ul>
