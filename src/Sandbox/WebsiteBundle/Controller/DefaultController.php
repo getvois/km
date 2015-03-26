@@ -244,13 +244,13 @@ class DefaultController extends Controller
         }
 
         $departure = $this->getTitle($item->departure, $request->getLocale(), false);
-        if(strlen($item->departure->airportCode) < 4) $departure .= " <span class='hidden-xs airport-code text-muted'>" . $item->departure->airportCode . "</span>";
+        if(strlen($item->departure->airportCode) < 4) $departure .= " <span class='airport-code text-muted'>" . $item->departure->airportCode . "</span>";
 
         $destination = $this->getTitle($item->destination, $request->getLocale(), false);
-        if(strlen($item->destination->airportCode) < 4) $destination = " <span class='hidden-xs airport-code text-muted'>" . $item->destination->airportCode . "</span> " . $destination;
+        if(strlen($item->destination->airportCode) < 4) $destination = " <span class='airport-code text-muted'>" . $item->destination->airportCode . "</span> " . $destination;
 
         $departureInverted = $this->getTitle($item->departure, $request->getLocale(), false);
-        if(strlen($item->departure->airportCode) < 4) $departureInverted = " <span class='hidden-xs airport-code text-muted'>" . $item->departure->airportCode . "</span> " . $departureInverted;
+        if(strlen($item->departure->airportCode) < 4) $departureInverted = " <span class='airport-code text-muted'>" . $item->departure->airportCode . "</span> " . $departureInverted;
 
 
         //TYPE 3,4 SECOND TAB
