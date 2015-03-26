@@ -46,7 +46,7 @@
                             {{ hotelcol|raw }}
                         </div>
                         {#dayes#}
-                        <div class="col-xs-3 col-sm-2">
+                        <div class="trip-field col-xs-3 col-sm-2">
                             {{ item.duration }} {{ days_short }}
                         </div>
                         {#price#}
@@ -62,49 +62,3 @@
         </div>
     </div>
 </div>
-
-{#<div class="col-xs-3 col-sm-1">#}
-    {#<strong><span class="text-muted">{{ date }}</span></strong>#}
-{#</div>#}
-
-{#<div class="col-xs-4 col-sm-6 nopadding trip-field">#}
-    {#<table>#}
-        {#<tr>#}
-            {#<td width="1%">#}
-                {#<strong>&nbsp;&nbsp;{{ departure|raw }}</strong>#}
-            {#</td>#}
-            {#<td style="">#}
-                {#<div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">#}
-                        {#<span class="trip-path-spacer-line">#}
-                            {#<div></div>#}
-                        {#</span>#}
-                    {#<span class="trip-path-spacer-arrow"></span>#}
-                {#</div>#}
-            {#</td>#}
-            {#<td width="2%" class="nowrap">#}
-                {#<strong>{{ destination|raw }}</strong>#}
-            {#</td>#}
-            {#<td style="">#}
-                {#<div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">#}
-                        {#<span class="trip-path-spacer-line">#}
-                            {#<div></div>#}
-                        {#</span>#}
-                    {#<span class="trip-path-spacer-arrow"></span>#}
-                {#</div>#}
-            {#</td>#}
-            {#<td width="1%">#}
-                {#<strong>{{ departure|raw }}</strong>#}
-            {#</td>#}
-        {#</tr>#}
-    {#</table>#}
-{#</div>#}
-
-{#{{ hotelcol|raw }}#}
-{#{% if item.hotel %}#}
-
-{#{% else %}#}
-
-{#{% endif %}#}
-
-{#<div class="col-xs-1 trip-field">{{ item.duration }} {{ days_short }}</div>#}
-{#<div class="hidden-xs col-sm-2 trip-field text-center">{{ lastCol }}</div>#}
