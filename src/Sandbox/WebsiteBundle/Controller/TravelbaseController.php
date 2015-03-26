@@ -72,11 +72,25 @@ class TravelbaseController extends Controller
 
         $host = $this->get('hosthelper')->getHost();
 
+        $newsRoot = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
+            ->getRoot($request->getLocale());
+
+        $articleRoot = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            ->getRoot($request->getLocale());
+
         $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
             ->getNewsPagesWithImage($request->getLocale(), $host, 5);
 
         $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
             ->getArticlePagesWithImage($request->getLocale(), $host, 5);
+
+        //fill slug
+        foreach ($news as &$n) {
+            $n['slug'] = $newsRoot['slug'] . '/' . $n['slug'];
+        }
+        foreach ($articles as &$a) {
+            $a['slug'] = $articleRoot['slug'] . '/' . $a['slug'];
+        }
 
         $fullNodes = array_merge($news, $articles);
 
