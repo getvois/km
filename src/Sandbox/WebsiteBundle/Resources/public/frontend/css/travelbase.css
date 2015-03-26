@@ -1333,6 +1333,7 @@ span.city-picker-close:hover {
     }
 }
 
+/*SMALL DEVICES ONLY*/
 @media (min-width: 768px) and (max-width: 992px) {
     .navbar-nav > li{
         float: left;
@@ -1346,6 +1347,8 @@ span.city-picker-close:hover {
         right: auto;
     }
 }
+
+/*MOBILE ONLY*/
 @media (max-width: 768px) {
     .navbar.navbar-default{
         position: absolute;
@@ -1364,6 +1367,19 @@ span.city-picker-close:hover {
     }
     .navbar-toggle{
         margin: 0;
+    }
+
+    .form-table-btn-switch{
+        display: none;
+    }
+
+    .form-table-cell {
+        display: block;
+        width: auto;
+    }
+
+    .form-table-cell:first-child {
+        margin-bottom: 17px;
     }
 }
 
