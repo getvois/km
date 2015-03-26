@@ -190,9 +190,6 @@ class DefaultController extends Controller
         return new JsonResponse(['total' => 0, 'html' => $noItemsFoundHTML]);
     }
 
-
-    private $prevDate = "";
-    private $dateCount = 0;
     private function itemToRow($item, $filter, Request $request){
         $days_short = $this->get('translator')->trans('days.short', [], 'frontend');
 
@@ -216,15 +213,6 @@ class DefaultController extends Controller
         $date = $item->dDate;
 
         $class = '';
-        if($this->prevDate == '')
-            $this->prevDate = $date;
-        $this->dateCount++;
-        if($this->prevDate != $date) {
-            $this->prevDate = $date;
-            if($this->dateCount > 5)
-                $class = 'day-sep';
-            $this->dateCount = 0;
-        }
 
         $company = $item->company->name;
 
@@ -256,19 +244,20 @@ class DefaultController extends Controller
         }
 
         $departure = $this->getTitle($item->departure, $request->getLocale(), false);
-        if(strlen($item->departure->airportCode) < 4) $departure .= " <span class='airport-code text-muted'>" . $item->departure->airportCode . "</span>";
+        if(strlen($item->departure->airportCode) < 4) $departure .= " <span class='hidden-xs airport-code text-muted'>" . $item->departure->airportCode . "</span>";
 
         $destination = $this->getTitle($item->destination, $request->getLocale(), false);
-        if(strlen($item->destination->airportCode) < 4) $destination = " <span class='airport-code text-muted'>" . $item->destination->airportCode . "</span> " . $destination;
+        if(strlen($item->destination->airportCode) < 4) $destination = " <span class='hidden-xs airport-code text-muted'>" . $item->destination->airportCode . "</span> " . $destination;
 
         $departureInverted = $this->getTitle($item->departure, $request->getLocale(), false);
-        if(strlen($item->departure->airportCode) < 4) $departureInverted = " <span class='airport-code text-muted'>" . $item->departure->airportCode . "</span> " . $departureInverted;
+        if(strlen($item->departure->airportCode) < 4) $departureInverted = " <span class='hidden-xs airport-code text-muted'>" . $item->departure->airportCode . "</span> " . $departureInverted;
 
+
+        //TYPE 3,4 SECOND TAB
         if(in_array(4, $filter->type) || in_array(3, $filter->type)) {//flights only(skypicker)
             $aDate = "";
             if($item->aDate && $item->aDate != "-0001-11-30"){
                 if($item->aDate != $item->dDate){
-                    //$aDate = $item->aTime . " (".date('d.m.', strtotime($item->aDate)).")";
                     $aDate = $item->aTime . " (+1)";
 
                 }else{
@@ -284,27 +273,7 @@ class DefaultController extends Controller
             }
 
             $dTime = "";
-//            if($item->dTime != "00:00"){
-//                $dTime = $item->dTime;
-//            }
-
-            //$stops = "";
-            //if($stops > 0){
-            //    $stops = $item->stops . " stops";
-            //}
-
-            //flights only(skypicker)
-
-            //$duration = $item->flyDuration;
-            if($item->type->id == 4)
-            {
-                //$duration = "Direct";
-            }
-
             $row = '';
-
-
-            //$row .= '<div class="col-xs-1 trip-duration nowrap"><strong>'. $duration . "<br/>" . $stops .'</strong></div>';
             if($item->type->id == 3){
                 $row .= '<div class="col-xs-10 col-sm-9 nopadding trip-field">
 
@@ -407,78 +376,52 @@ class DefaultController extends Controller
 
             $row .= '<div class="hidden-xs col-sm-2 trip-field text-center nopadding">'. $lastCol . '</div>';
 
+            $row .= '<div class="col-xs-2 col-sm-1 price text-right trip-cost"><p>'. round($item->price).'€</p> <a target="_blank" href="'. round($item->link).'" class="btn btn-info trip-btn-cost">'. round($item->price).'€</a></div>';
         }else{
+            //TYPE 1,2 FIRST TAB
             $row = '';
-            $row .= '<div class="col-xs-7 nopadding trip-field">
-                            <table>
-                                <tr>
-                                    <td width="1%">
-                                    <strong><span class="text-muted">'.$date.'</span> &nbsp;&nbsp;'. $departure .'</strong>
-                                    </td>
-                                    <td style="">
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
-                                            <span class="trip-path-spacer-line">
-                                                <div></div>
-                                            </span>
-                                            <span class="trip-path-spacer-arrow"></span>
-                                        </div>
-                                    </td>
-                                    <td width="2%" class="nowrap">
-                                    <strong>'. $destination .'</strong>
-                                    </td>
-                                    <td style="">
-                                        <div class="trip-path-spacer-arrow-wrapper trip-path-spacer-arrow-wrapper-init" style="width: 100%;">
-                                            <span class="trip-path-spacer-line">
-                                                <div></div>
-                                            </span>
-                                            <span class="trip-path-spacer-arrow"></span>
-                                        </div>
-                                    </td>
-                                    <td width="1%">
-                                    <strong>'. $departure .'</strong>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>';
+
 
             if($item->hotel) {
                 $url = 'http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss=';
                 $url .= str_replace(" ", "+", $item->hotel->name);
                 $url .= "+" . $item->destination->countryName;
 
-
                 //stars
                 $stars = '';
                 for($i = 0; $i<floor($item->hotel->stars); $i++){
                     $stars .= "<span class='glyphicon glyphicon-star'></span>";
                 }
-
                 if($item->hotel->stars - floor($item->hotel->stars) > 0){
                     $stars .= "<span class='glyphicon glyphicon-plus'></span>";
                 }
-
                 $qwe = '<div class="col-xs-2 col-sm-1 trip-field nowrap">
                             <a href="#" onclick="return false;" class="my-popover" data-html="true" data-trigger="focus" data-toggle="popover"
                             title="' . $hotel . $stars . '"
                             data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' ' . $item->info . ' ' . $item->seatsLeft . " <a href='" . $url . "' target='_blank'><img src='/bundles/sandboxwebsite/img/icons/booking-icon.png'>".'</a>" >
                             <span class=\'fa fa-suitcase\'></span> ';
 
-                $row .= $qwe;
-                $row .= $stars;
-                $row .= '</a></div>';
+                $hotelCol = $qwe;
+                $hotelCol .= $stars;
+                $hotelCol .= '</a></div>';
             }
             else {//joker hotel?
-
-                $row .= '<div class="col-xs-2 col-sm-1 trip-field"><a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" ><span class="fa fa-suitcase"></span>';
-
-                $row .= ' ';
-
-                $row .= '</a></div>';
+                $hotelCol = '<div class="col-xs-2 col-sm-1 trip-field">
+                            <a href="#" onclick="return false;" class="my-popover" data-trigger="focus" data-toggle="popover" title="' . $hotel . '" data-content="' . ($hotel==$jokerHotel?$jokerHotelDescription:$hotelDescription) . ' '  . $item->info . '" >
+                                <span class="fa fa-suitcase"></span>';
+                $hotelCol .= '</a></div>';
             }
 
-            $row .= '<div class="col-xs-1 trip-field">'. $item->duration .' ' .$days_short. '</div>
-            <div class="hidden-xs col-sm-2 trip-field text-center">'.$lastCol.'</div>';
-
+            $row .= $this->renderView('@SandboxWebsite/Travelbase/itemtorowsecondtab.html.twig',
+                [
+                    'days_short' => $days_short,
+                    'lastCol' => $lastCol,
+                    'item' => $item,
+                    'date' => $date,
+                    'departure' => $departure,
+                    'destination' => $destination,
+                    'hotelcol' => $hotelCol,
+                ]);
         }
 
         //todo kosmos move html to template
@@ -488,7 +431,6 @@ class DefaultController extends Controller
                 'itemType' => $item->type->id,
                 'class' => $class,
                 'item' => $item,
-
             ]);
     }
 
