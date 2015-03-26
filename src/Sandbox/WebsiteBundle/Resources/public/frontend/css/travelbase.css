@@ -1212,6 +1212,18 @@ span.city-picker-close:hover {
 .city-picker h1.form-item-header {margin:0!important;color:#333!important;font:700 35px "Open Sans";}
 .city-picker .form-item-desc {margin:5px 0 10px 0;color:#333;font-size:18px;}
 
+
+.mobile-day {
+    display: block;
+    font-size: 27px;
+}
+
+.mobile-date{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+
 /* SP MODAL */
 #sp-modal #modal-content {padding:50px;}
 
