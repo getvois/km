@@ -211,6 +211,16 @@ class DefaultController extends Controller
         }
 
         $date = $item->dDate;
+        $day = $item->dDate;
+        $month = $item->dDate;
+        $day = $this->getDate($day, $request->getLocale(), '%d');
+        $month = $this->getDate($month, $request->getLocale(), '%b');
+
+        if(date('Y', strtotime($date)) == date("Y")){
+            $date = $this->getDate($date, $request->getLocale());
+        }else{
+            $date = date('d.m.Y', strtotime($date));
+        }
 
         $class = '';
 
@@ -233,14 +243,8 @@ class DefaultController extends Controller
             $lastCol = "";
             for($i=0;$i<count($item->airline); $i++){
                 $lastCol .= "<img src='/bundles/sandboxwebsite/img/airlines/".$item->airline[$i].".gif' title=".$item->airline[$i]." alt=".$item->airline[$i].">" ;
-            break;
-            //if($i < count($item->airline) - 1) $lastCol .= " ";
-        }
-    }
-        if(date('Y', strtotime($date)) == date("Y")){
-            $date = $this->getDate($date, $request->getLocale());
-        }else{
-            $date = date('d.m.Y', strtotime($date));
+                break;
+            }
         }
 
         $departure = $this->getTitle($item->departure, $request->getLocale(), false);
@@ -418,6 +422,8 @@ class DefaultController extends Controller
                     'lastCol' => $lastCol,
                     'item' => $item,
                     'date' => $date,
+                    'day' => $day,
+                    'month' => $month,
                     'departure' => $departure,
                     'destination' => $destination,
                     'hotelcol' => $hotelCol,
@@ -963,7 +969,7 @@ class DefaultController extends Controller
      * @param $locale
      * @return string
      */
-    private function getDate($date, $locale)
+    private function getDate($date, $locale, $format = '%d.%m. %a')
     {
         setlocale(LC_TIME, "");//reset locale
 
@@ -982,6 +988,6 @@ class DefaultController extends Controller
         elseif($locale == 'ru')
             setlocale(LC_TIME, 'ru_RU', 'Russian_Russia', 'Russian');
 
-        return strftime('%d.%m. %a', strtotime($date));
+        return strftime($format, strtotime($date));
     }
 }
