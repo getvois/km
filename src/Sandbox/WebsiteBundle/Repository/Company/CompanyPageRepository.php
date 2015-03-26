@@ -40,11 +40,12 @@ AND nt.online = 1';
 
     public function getByRoot($rootNodeId, $lang)
     {
-        $dql = "SELECT p.title, nt.slug
+        $dql = "SELECT n.id, p.title, nt.slug, m.url
 FROM Sandbox\WebsiteBundle\Entity\Pages\ContentPage p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
-INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node
+LEFT JOIN p.picture m";
 
         $dql .= ' WHERE n.deleted = 0
         AND n.parent = :parent
@@ -54,6 +55,8 @@ AND nt.online = 1';
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
+        $dql .= " ORDER BY p.title ";
+
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
         $query->setParameter(':parent', $rootNodeId);
@@ -62,6 +65,34 @@ AND nt.online = 1';
 
         return $objects;
     }
+
+    public function getByParentIds($parentIds, $lang)
+    {
+        $dql = "SELECT IDENTITY(n.parent) as parent, n.id,  p.title, nt.slug
+FROM Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node";
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.parent IN (:parentids)
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage\'
+AND nt.online = 1';
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        $dql .= " ORDER BY p.title ";
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+        $query->setParameter(':parentids', $parentIds);
+
+        $objects = $query->getArrayResult();
+
+        return $objects;
+    }
+
 
     /**
      * Returns an array of all CompanyPages

@@ -8,7 +8,6 @@
         <div class="no-cities" style="display: none">Nothing found</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
 
-
         {% for company in companies %}
             <ul class="dontsplit">
                 <li>
@@ -16,17 +15,17 @@
                         <span></span>
                     {% endif %}
 
-                    {% if company['parent'].page.picture %}
-                        <div><img src="{{ asset(company['parent'].page.picture.url) }}" alt="" class="img-responsive"/></div>
+                    {% if company['parent'].url %}
+                        <div><img src="{{ asset(company['parent'].url) }}" alt="" class="img-responsive"/></div>
                     {% endif %}
 
-                    <a class="company-list-title" href="{{ path('_slug', { 'url': company['parent'].translation.fullSlug }) }}">{{ company['parent'].page.title }}</a>
+                    <a class="company-list-title" href="{{ path('_slug', { 'url': company['parent'].slug }) }}">{{ company['parent'].title }}</a>
 
                     {% if company['children']|length > 0 %}
                         <ul style="">
                             {% for node2 in company['children'] %}
                                 <li>
-                                    <a href="{{ path('_slug', { 'url': node2.translation.fullSlug }) }}">{{ node2.page.title }}</a>
+                                    <a href="{{ path('_slug', { 'url': node2.slug }) }}">{{ node2.title }}</a>
                                 </li>
                             {% endfor %}
                         </ul>

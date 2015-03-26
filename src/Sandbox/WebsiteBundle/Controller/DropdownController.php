@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -54,34 +55,39 @@ class DropdownController extends Controller
     public function companyAction(Request $request)
     {
         $lang = $request->getLocale();
-        /** @var ObjectManager $em */
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')->
-            getNodesByInternalName('companies', $lang);
+        $root = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
+            ->getRoot('companies', $lang);
 
-        $node = $nodes?$nodes[0]:null;
+        //company places
+        $places = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
+            ->getByRoot($root['id'], $lang);
 
-        $companyNodes = [];
-        //now node is company root.
-        if($node) {
-
-            $companyClass = 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage';
-
-            $class = 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage';
-
-            $fullNodes = $this->get('nodehelper')
-                ->getFullNodesWithParam('n.parent = :id', [':id' => $node->getId()], $class, $lang);
-
-            foreach ($fullNodes as $node) {
-                $children = $this->get('nodehelper')
-                    ->getFullNodesWithParam('n.parent = :id', [":id" => $node->getNode()->getId()], $companyClass, $lang);
-                $companyNodes[] = ['parent' =>$node, 'children' => $children];
-            }
-
+        //get all places ids
+        $placesIds = [];
+        foreach ($places as $place) {
+            $placesIds[] = $place['id'];
         }
 
-        return [ 'companies' => $companyNodes, 'lang' => $lang, 'em' => $em];
+        //get companies based on parent node id from places ids and order by parent id
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
+            ->getByParentIds($placesIds, $lang);
+
+        //bind places to companies
+        $companyNodes = [];
+        foreach ($places as $place) {
+            $children = [];
+            foreach ($companies as $company) {
+                if($company['parent'] == $place['id']){
+                    $children[] = $company;
+                }
+            }
+            $companyNodes[] = ['parent' =>$place, 'children' => $children];
+        }
+
+        return ['companies' => $companyNodes];
     }
 
     /**
