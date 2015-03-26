@@ -151,15 +151,18 @@
 	        </main>
     </div>
     <div class="col-md-3 sidebar">
-
+<img src="/bundles/sandboxwebsite/img/general/club.png" class="club-header">
+        
+        {% if page is defined %}
+            {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}
+        {% endif %}
+        
+        
         {% block top10 %}
             {# 3 queries#}
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
         {% endblock %}
 
-        {% if page is defined %}
-            {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}
-        {% endif %}
 
         {% block sidebar %}
 
