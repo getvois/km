@@ -87,7 +87,7 @@ class DropdownController extends Controller
             $companyNodes[] = ['parent' =>$place, 'children' => $children];
         }
 
-        return ['companies' => $companyNodes];
+        return ['root' => $root, 'companies' => $companyNodes];
     }
 
     /**

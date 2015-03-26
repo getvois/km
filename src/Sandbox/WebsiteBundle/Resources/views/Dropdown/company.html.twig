@@ -19,13 +19,13 @@
                         <div><img src="{{ asset(company['parent'].url) }}" alt="" class="img-responsive"/></div>
                     {% endif %}
 
-                    <a class="company-list-title" href="{{ path('_slug', { 'url': company['parent'].slug }) }}">{{ company['parent'].title }}</a>
+                    <a class="company-list-title" href="{{ path('_slug', { 'url': root.slug ~ "/" ~ company['parent'].slug }) }}">{{ company['parent'].title }}</a>
 
                     {% if company['children']|length > 0 %}
                         <ul style="">
                             {% for node2 in company['children'] %}
                                 <li>
-                                    <a href="{{ path('_slug', { 'url': node2.slug }) }}">{{ node2.title }}</a>
+                                    <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ company['parent'].slug ~ "/" ~ node2.slug }) }}">{{ node2.title }}</a>
                                 </li>
                             {% endfor %}
                         </ul>

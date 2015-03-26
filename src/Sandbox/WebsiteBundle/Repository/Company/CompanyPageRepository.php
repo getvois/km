@@ -32,7 +32,7 @@ AND nt.online = 1';
         if($lang) $query->setParameter(':lang', $lang);
         $query->setParameter(':name', $internalName);
 
-        $objects = $query->getOneOrNullResult(Query::HYDRATE_ARRAY);
+        $objects = $query->getOneOrNullResult();
 
         return $objects;
     }
@@ -61,7 +61,7 @@ AND nt.online = 1';
         if($lang) $query->setParameter(':lang', $lang);
         $query->setParameter(':parent', $rootNodeId);
 
-        $objects = $query->getArrayResult();
+        $objects = $query->getResult();
 
         return $objects;
     }
@@ -88,7 +88,7 @@ AND nt.online = 1';
         if($lang) $query->setParameter(':lang', $lang);
         $query->setParameter(':parentids', $parentIds);
 
-        $objects = $query->getArrayResult();
+        $objects = $query->getResult();
 
         return $objects;
     }
