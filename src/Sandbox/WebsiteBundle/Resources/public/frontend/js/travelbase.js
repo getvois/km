@@ -791,7 +791,7 @@ $(document).ready(function() {
                         '    <div class="col-xs-1 trip-duration nowrap">' + $data[i].fly_duration +'<br/>'+stops+'</div>' +
                         '<div class="col-xs-2 trip-cost text-success">' +
                         '        <p>'+$data[i].price+'€</p>' +
-                        '        <a class="btn btn-info trip-btn-cost" target="_blank" href="http://api.travelwebpartner.com/away/?url=' + $data[i].deep_link + '">'+$data[i].price+'€</a>' +
+                        '        <a class="btn btn-info trip-btn-cost" target="_blank" href="http://api.travelwebpartner.com/away/?url=' + $data[i].deep_link + '?partner=' + window.location.hostname + '">'+$data[i].price+'€</a>' +
                         '        <button class="btn btn-danger trip-btn-close">close</button>' +
                         '    </div>' +
                         '</div>';

@@ -380,7 +380,7 @@ class DefaultController extends Controller
 
             $row .= '<div class="hidden-xs col-sm-2 trip-field text-center nopadding">'. $lastCol . '</div>';
 
-            $row .= '<div class="col-xs-2 col-sm-1 price text-right trip-cost"><p>'. round($item->price).'€</p> <a target="_blank" href="'. round($item->link).'" class="btn btn-info trip-btn-cost">'. round($item->price).'€</a></div>';
+            $row .= '<div class="col-xs-2 col-sm-1 price text-right trip-cost"><p>'. round($item->price).'€</p> <a target="_blank" href="'. $item->link .'?partner=' . $request->getHost() . '" class="btn btn-info trip-btn-cost">'. round($item->price).'€</a></div>';
         }else{
             //TYPE 1,2 FIRST TAB
             $row = '';

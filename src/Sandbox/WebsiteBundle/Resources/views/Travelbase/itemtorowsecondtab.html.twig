@@ -64,7 +64,7 @@
                             {{ lastCol|raw }}
                         </div>
                         <div class="col-xs-5 col-sm-3">
-                            <div class="price text-right trip-cost"><p>{{ item.price|round }}€</p> <a target="_blank" href="{{ item.link }}" class="btn btn-info trip-btn-cost">{{ item.price|round }}€</a></div>
+                            <div class="price text-right trip-cost"><p>{{ item.price|round }}€</p> <a target="_blank" href="{{ item.link }}?partner={{ app.request.host }}" class="btn btn-info trip-btn-cost">{{ item.price|round }}€</a></div>
                         </div>
                     </div>
                 </div>
