@@ -1,6 +1,5 @@
 imports:
     - { resource: parameters.yml }
-    - { resource: security.yml }
     - { resource: @BCCCronManagerBundle/Resources/config/assetic.yml }
 
 framework:

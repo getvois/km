@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-
+    - { resource: security.yml }
 #framework:
 #    validation:
 #        cache: apc
