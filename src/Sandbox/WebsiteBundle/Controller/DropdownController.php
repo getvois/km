@@ -43,8 +43,77 @@ class DropdownController extends Controller
         $em = $this->getDoctrine()->getManager();
         $host = $this->get('hosthelper')->getHost();
 
-        $placeNodes = $this->getCountries($lang, $host);
-        return ['nodes' => $placeNodes, 'lang' => $lang, 'em' => $em];
+        $root = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getRoot($lang, $host);
+
+        $topPlaces = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getByRoot($root['id'], $lang, $host);
+
+        //get list of places ids
+        $topPlacesIds = [];
+        foreach ($topPlaces as $place) {
+            $topPlacesIds[] = $place['id'];
+        }
+
+        $topChildren = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getByParentIds($topPlacesIds, $lang, $host);
+
+        //get sub children ids
+        $topChildrenChildrenIds = [];
+        foreach ($topChildren as $topChildrenChild) {
+            $topChildrenChildrenIds[] = $topChildrenChild['id'];
+        }
+
+        $topChildrenChildren = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getByParentIds($topChildrenChildrenIds, $lang, $host);
+
+
+        //get sub children ids
+        $topChildrenChildrenChildrenIds = [];
+        foreach ($topChildrenChildren as $topChildrenChildrenChild) {
+            $topChildrenChildrenChildrenIds[] = $topChildrenChildrenChild['id'];
+        }
+
+        $topChildrenChildrenChildren = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+            ->getByParentIds($topChildrenChildrenIds, $lang, $host);
+
+
+        //bind children to places
+        $placesNodes = [];
+        foreach ($topPlaces as $place) {
+            $children = [];
+            foreach ($topChildren as $child) {
+                if($child['parent'] == $place['id']){
+                    //$children[] = $child;
+                    $childrenChildren = [];
+                    foreach ($topChildrenChildren as $childrenChild) {
+                        if($child['id'] == $childrenChild['parent']){
+                            //$childrenChildren[] = $childrenChild;
+                            $childrenChildrenChildren = [];
+                            foreach ($topChildrenChildrenChildren as $childrenChildrenChild) {
+                                if($childrenChild['id'] == $childrenChildrenChild['parent']){
+                                    $childrenChildrenChildren[] = $childrenChildrenChild;
+                                }
+                            }
+                            $childrenChildren[] = ['parent' =>$childrenChild, 'children' => $childrenChildrenChildren];
+                        }
+                    }
+                    $children[] = ['parent' =>$child, 'children' => $childrenChildren];
+                }
+            }
+            $placesNodes[] = ['parent' =>$place, 'children' => $children];
+        }
+
+        $topPlaces = null;
+        $topPlacesIds = null;
+        $topChildren = null;
+        $topChildrenChildrenIds = null;
+        $topChildrenChildren = null;
+        $topChildrenChildrenChildrenIds = null;
+        $topChildrenChildrenChildren = null;
+
+        //$placeNodes = [];//$this->getCountries($lang, $host);
+        return ['root' => $root, 'nodes' => $placesNodes];
     }
 
     /**

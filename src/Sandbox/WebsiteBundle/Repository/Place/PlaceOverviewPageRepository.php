@@ -47,6 +47,43 @@ AND nt.online = 1';
         return $objects;
     }
 
+
+    public function getByParentIds($parentIds, $lang, $host)
+    {
+        $dql = "SELECT IDENTITY(n.parent) as parent, n.id, p.title, nt.slug
+FROM Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node ";
+
+        if($host) {
+            $dql .= ' JOIN p.hosts h ';
+        }
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.parent IN (:parentids)
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage\'
+AND nt.online = 1';
+
+        /** @var Host $host */
+        if($host){
+            $dql .= " AND h.name = '". $host->getName() ."'";
+        }
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        $dql .= ' ORDER BY p.title ASC ';
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+        $query->setParameter(':parentids', $parentIds);
+
+        $objects = $query->getArrayResult();
+
+        return $objects;
+    }
+
     public function getByRoot($rootNodeId, $lang, $host)
     {
         $dql = "SELECT n.id, p.title, nt.slug
