@@ -289,6 +289,10 @@ class TravelbaseController extends Controller
      */
     public function placesFooterAction(Request $request)
     {
+        $root = $this->get('placeshelper')->getRoot();
+        $placesNodes = $this->get('placeshelper')->getPlaces();
+        return ['root' => $root, 'places' => $placesNodes];
+
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 

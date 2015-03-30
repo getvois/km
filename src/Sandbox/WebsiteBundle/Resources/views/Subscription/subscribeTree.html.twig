@@ -7,15 +7,15 @@
                 {{ 'all.countries'|trans({}, 'frontend') }}
                 <ul>
                     {% for place in places %}
-                        <li id="node_{{ get_node_for(place['place']).id }}">{{ place['place'].title }}
+                        <li id="node_{{ place['parent'].id }}">{{ place['parent'].title }}
                             {% if place['children']|length > 0 %}
                                 <ul>
                                     {% for child in place['children'] %}
-                                        <li id="node_{{ get_node_for(child['place']).id }}">{{ child['place'].title }}
+                                        <li id="node_{{ child['parent'].id }}">{{ child['parent'].title }}
                                             {% if child['children']|length > 0 %}
                                                 <ul>
                                                     {% for subchild in child['children'] %}
-                                                        <li id="node_{{ get_node_for(subchild).id }}">{{ subchild.title }}</li>
+                                                        <li id="node_{{ subchild.parent.id }}">{{ subchild.parent.title }}</li>
                                                     {% endfor %}
                                                 </ul>
                                             {% endif %}

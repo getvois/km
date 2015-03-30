@@ -13,7 +13,7 @@
                     {% endif %}
 
                     <li class="doormat__list-item">
-                        <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ place.slug }) }}" class="link--gray doormat__link">{{ place.title }}</a>
+                        <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ place.parent.slug }) }}" class="link--gray doormat__link">{{ place.parent.title }}</a>
                     </li>
 
                     {% set counter = counter + 1 %}

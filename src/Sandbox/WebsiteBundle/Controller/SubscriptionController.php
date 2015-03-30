@@ -314,53 +314,12 @@ class SubscriptionController extends Controller
      */
     public function subscribeTreeAction(Request $request, $page)
     {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $host = $em->getRepository('SandboxWebsiteBundle:Host')
-            ->findOneBy(['name' => $request->getHost()]);
-
-        $countryRootNode = $em->getRepository('KunstmaanNodeBundle:Node')
-            ->findOneBy(
-                [
-                    'parent' => 1,
-                    'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
-                    'deleted' => 0
-                ]);
-
-        if(!$countryRootNode) throw new NotFoundHttpException('Country root node not found');
-
-        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-            ->getActiveOverviewPages($request->getLocale(), $host, $countryRootNode->getId());
-
-        $result = [];
-        foreach ($places as $place) {
-            $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                ->getNodeFor($place);
-
-            $children = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-                ->getActiveOverviewPages($request->getLocale(), $host, $node->getId());
-
-            $subChld = [];
-            foreach ($children as $child) {
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                    ->getNodeFor($child);
-
-                $subChildren = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-                    ->getActiveOverviewPages($request->getLocale(), $host, $node->getId());
-
-                $subChld[] = [ 'place' => $child, 'children' => $subChildren];
-            }
-
-            $result[] = [
-                'place' => $place,
-                'children' => $subChld
-            ];
-        }
+        $root = $this->get('placeshelper')->getRoot();
+        $placesNodes = $this->get('placeshelper')->getPlaces();
 
         $form = new SubscribeForm();
         $form = $this->getForm($form);
 
-        return [ 'places' => $result , 'form' => $form->createView() ];
+        return ['root' => $root,  'places' => $placesNodes , 'form' => $form->createView() ];
     }
 }
