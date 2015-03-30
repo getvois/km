@@ -23,7 +23,10 @@ class DropdownController extends Controller
     public function departureAction(Request $request){
         $root = $this->get('placeshelper')->getRoot();
         $placesNodes = $this->get('placeshelper')->getPlaces();
-        return ['root' => $root, 'nodes' => $placesNodes];
+        $lang = $request->getLocale();
+        $em = $this->getDoctrine()->getManager();
+
+        return ['root' => $root, 'nodes' => $placesNodes, 'lang' => $lang, 'em' => $em];
 
         //todo kosmos implement preferred countries
 
