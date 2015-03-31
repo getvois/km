@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -176,5 +177,76 @@ class UserController extends Controller
 
         }
             return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+    }
+
+
+    /**
+     * @Route("/login-fb/{token}")
+     * @param $token
+     * @return JsonResponse
+     */
+    public function loginFBAction($token)
+    {
+        //get email by token
+        $content = file_get_contents("https://graph.facebook.com/v2.3/me?access_token=$token");
+        if(!$content)
+            return new JsonResponse(['status' => 'error', 'msg' => 'Error while fetching data']);
+
+        $data = json_decode($content);
+
+        //if some fb error(invalid token etc...)
+        if(property_exists($data, 'error')){
+            return new JsonResponse(['status' => 'error', 'msg' => $data->error->message]);
+        }
+
+        $name = $data->name;
+        $email = $data->email;
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        //check if email exists
+        /** @var User $user */
+        $user = $em->getRepository('KunstmaanAdminBundle:User')
+            ->findOneBy(['email' => $email]);
+
+        if(!$user){
+            //register user
+            $password = md5(microtime() . md5($email));
+            $application = new Application($this->get('kernel'));
+            $command = new CreateUserCommand();
+            $command->setApplication($application);
+            $command->setContainer($this->container);
+            $input = new ArrayInput(array(
+                'command'       => 'fos:user:create',
+                'username' => $email,
+                'email' => $email,
+                'password' => $password,
+                '--super-admin' => false
+            ));
+            $input->setInteractive(false);
+            $output = new NullOutput();
+            $resultCode = $command->run($input, $output);
+
+            if($resultCode === 0){
+                //get created user
+                $user = $em->getRepository('KunstmaanAdminBundle:User')
+                    ->findOneBy(['email' => $email]);
+            }else{
+                return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
+            }
+        }
+
+        //log in user
+        // Here, "main" is the name of the firewall in your security.yml
+        $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+        $this->get("security.context")->setToken($token);
+
+        // Fire the login event
+        // Logging the user in above the way we do it doesn't do this automatically
+        $event = new InteractiveLoginEvent($this->get('request'), $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+        return new JsonResponse(['status' => 'ok']);
     }
 }
