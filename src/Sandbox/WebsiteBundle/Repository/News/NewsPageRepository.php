@@ -38,7 +38,7 @@ AND nt.online = 1';
 
     public function getNewsPagesWithImage($lang, $host, $limit = 10)
     {
-        $dql = "SELECT p.title, nt.slug, m.url, p.date
+        $dql = "SELECT p.title, nt.slug, m.url, p.date, p.viewCount
 FROM Sandbox\WebsiteBundle\Entity\News\NewsPage p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation

@@ -14,7 +14,7 @@ class ArticlePageRepository extends AbstractArticlePageRepository
 {
     public function getArticlePagesWithImage($lang, $host, $limit = 10)
     {
-        $dql = "SELECT p.title, nt.slug, m.url, p.date
+        $dql = "SELECT p.title, nt.slug, m.url, p.date, , p.viewCount
 FROM Sandbox\WebsiteBundle\Entity\Article\ArticlePage p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
