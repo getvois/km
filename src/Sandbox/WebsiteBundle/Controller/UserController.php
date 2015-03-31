@@ -149,7 +149,7 @@ class UserController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Registered successfully');
 
                 //send email with password
-                $message = "Your password: $password;";
+                $message = "Your password: $password";
                 mail($email, 'Registration', $message, 'From: info@'.$request->getHost());
             }else{
                 $this->get('session')->getFlashBag()->add('error', 'Error occurred while creating user');
