@@ -1,0 +1,17 @@
+{% if app.user %}
+    <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
+{% else %}
+    <form action="{{ path('login_action') }}" method="post">
+        <div class="form-group">
+            <label for="email">{{ 'email'|trans({}, 'frontend') }}:</label>
+            <input id="email" type="text" name="email" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="password">{{ 'password'|trans({}, 'frontend') }}:</label>
+            <input id="password" type="password" name="password" class="form-control"/>
+        </div>
+
+        <p><input type="submit" class="btn btn-primary" value="{{ 'login'|trans({}, 'frontend') }}"/></p>
+    </form>
+{% endif %}

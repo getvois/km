@@ -1,0 +1,27 @@
+{% if app.user %}
+    <h2>club content</h2>
+    <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
+{% else %}
+<div class="register-form">
+        <form action="{{ path('register_action') }}" method="post">
+            <div>Hi ChefSteps,</div>
+            <span class="pull-left">I am</span>
+            <div  class="form-group pull-left">
+                <label class="sr-only" for="name">{{ 'name'|trans({}, 'frontend') }}:</label>
+                <input id="name" type="text" name="name" class="form-control"
+                       placeholder="{{ 'name'|trans({}, 'frontend') }}"/>
+            </div>
+        <span class="pull-left">and my email is</span>
+            <div class="form-group pull-left">
+                <label class="sr-only" for="email">{{ 'email'|trans({}, 'frontend') }}:</label>
+                <input id="email" type="text" name="email" class="form-control"
+                       placeholder="{{ 'email'|trans({}, 'frontend') }}"/>
+            </div>
+            <span class="pull-left">.</span>
+            <div class="clear">I want to join 210,827 others and learn how to be a better cook.</div>
+            <p>
+                <input type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
+            </p>
+        </form>
+</div>
+{% endif %}

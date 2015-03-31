@@ -72,6 +72,19 @@ body{background-color: #ffffff !important;}
     padding-left: 5%;
 }
 
+.register-form{
+    font-size: 20px;
+    line-height: 34px;
+}
+.register-form .form-control{
+    width: auto;
+}
+.register-form .form-group{
+    display: inline;
+    margin: 0 10px;
+}
+
+
 .datepicker {z-index: 1151 !important;}
 
 /*pageparts gallery, googlemap */
@@ -324,7 +337,7 @@ body .splash--green {
     text-decoration:underline;
 }
 #travelbase-form > div {
-    margin-top:0px;
+    margin-top:0;
 }
 
 .top-img-title {

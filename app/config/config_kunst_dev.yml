@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-
+    - { resource: security.yml }
 parameters:
     locale: ee
     defaultlocale: ee

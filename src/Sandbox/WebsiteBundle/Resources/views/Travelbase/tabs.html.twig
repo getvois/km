@@ -54,6 +54,18 @@
                 &nbsp;
             </a>
         </li>
+        <li class="">
+            <a href="#club" data-toggle="tab" data-type="club">
+                &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-users"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'club' | trans({}, 'frontend') }}
+                </span>
+                &nbsp;
+            </a>
+        </li>
         {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
     </ul>
 
@@ -127,6 +139,10 @@
         {# TAB 4 #}
         <div class="tab-pane" id="ferries">
 			<table cellpadding="0" width="240" cellspacing="0" border="0" ><tr><td height="170" align="right" valign="top"><iframe height="170" width="290" src="http://www.aferry.co.uk/AFRYminiengine.asp?currency=GBP&HomeURL=&language=&routes=&route1=&route2=&route3=&route4=&background=&popup=&selectwidth=280&refercode=AFUK&multi=Y" frameborder="no"></iframe></td></tr></table>
+		</div>
+        {# TAB 5 #}
+        <div class="tab-pane" id="club">
+			{% include '@SandboxWebsite/User/registerForm.html.twig' %}
 		</div>
         {#<div class="tab-pane" id="car-rent">
 

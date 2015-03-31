@@ -51,19 +51,8 @@ class DefaultController extends Controller
             </div>
         </span>";
 
-
         $noItemsFoundHTML = "$loading<div class='text-center'><h2>$noItemsFoundTitle</h2><p>$noItemsFoundText</p></div>";
 
-
-        /**
-         *
-        Пожалуйста, подождите. Мы ищем лучшие цены для вас...
-        Наши роботы ищут цены на сайтах авиакомпаний и агентов!
-
-
-        Please wait, we're finding great fares for you...
-        Our robots are scouring the web for the best deals!
-         */
         if($request->getContent()){
             $filter = json_decode($request->getContent());
 
@@ -124,41 +113,6 @@ class DefaultController extends Controller
 	                            </div>
                            </div>';
                 $table .= '</div>';
-
-
-//                if(in_array(4, $filter->type)){//flights only(skypicker)
-//                    $table .= '<div>
-//                            <div class="row table-header">
-//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'date')?$fieldOrder:"asc") . '" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
-//                                <div class="col-xs-1"></div>
-//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'departure')?$fieldOrder:"asc") . '" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
-//                                <div class="col-xs-3"> </div>
-//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'destination')?$fieldOrder:"asc") . '" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
-//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'company')?$fieldOrder:"asc") . '" data-field="company" '. (($field == 'company')?'class="active"':"") . '></a></div>
-//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'price')?$fieldOrder:"asc") . '" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
-//                            </div>
-//
-//                            ';
-//                }else{
-//                    $duration = $this->get('translator')->trans('duration', [], 'frontend');
-//                    $company = $this->get('translator')->trans('company', [], 'frontend');
-//
-//                    $table .= '<div>
-//                            <div class="row table-header">
-//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'date')?$fieldOrder:"asc") . '" data-field="date" '. (($field == 'date')?'class="active"':"") . '>' . $date .'</a></div>
-//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'departure')?$fieldOrder:"asc") . '" data-field="departure" '. (($field == 'departure')?'class="active"':"") . '></a></div>
-//                                <div class="col-xs-2"></div>
-//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'destination')?$fieldOrder:"asc") . '" data-field="destination" '. (($field == 'destination')?'class="active"':"") . '></a></div>
-//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'hotel')?$fieldOrder:"asc") . '" data-field="hotel" '. (($field == 'hotel')?'class="active"':"") . '></a></div>
-//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'duration')?$fieldOrder:"asc") . '" data-field="duration" '. (($field == 'duration')?'class="active"':"") . '>' . $duration .'</a></div>
-//                                <div class="col-xs-2"><a href="#" data-order="'. (($field == 'company')?$fieldOrder:"asc") . '" data-field="company" '. (($field == 'company')?'class="active"':"") . '>' . $company .'</a></div>
-//                                <div class="col-xs-1"><a href="#" data-order="'. (($field == 'price')?$fieldOrder:"asc") . '" data-field="price" '. (($field == 'price')?'class="active"':"") . '>' . $price .'</a></div>
-//
-//                            </div>
-//
-//                            ';
-//                }
-
 
             }
 

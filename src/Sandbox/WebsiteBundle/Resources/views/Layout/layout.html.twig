@@ -77,7 +77,6 @@
     <![endif]-->
 
     {# DROPDOWN MENU #}
-    {# 658 queries#}
     {% include "@SandboxWebsite/Travelbase/dropdown.html.twig" %}
 
     <!-- Header -->
@@ -91,7 +90,6 @@
                     <div class="site-logo">
                         <a href="/"></a>
                     </div>
-                    {#12 queries #}
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
                     {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
                 </div>
@@ -104,13 +102,10 @@
     <div class="col-md-9 col-md-offset-0_5">
 		
         <!-- Travelbase -->
-        {# 0 queries #}
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
         {% for flashMessage in app.session.flashbag.get('info') %}
-
             <div class="alert alert-info">{{ flashMessage }}</div>
-
         {% endfor %}
 
         <section class="">
@@ -146,31 +141,29 @@
         </section>
 		
 		 <!-- Main -->
-	        <main role="main">
-	            {% block content %}{% endblock %}
-	        </main>
+        <main role="main">
+            {% block content %}{% endblock %}
+        </main>
     </div>
     <div class="col-md-3 sidebar">
-<img src="/bundles/sandboxwebsite/img/general/club.png" class="club-header">
+        <img src="/bundles/sandboxwebsite/img/general/club.png" class="club-header">
         
         {% if page is defined %}
             {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}
         {% endif %}
-        
-        
+
+        {% block userlogin %}
+            {% include '@SandboxWebsite/User/loginForm.html.twig' %}
+        {% endblock %}
+
         {% block top10 %}
-            {# 3 queries#}
             {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
         {% endblock %}
 
-
-        {% block sidebar %}
-
-        {% endblock %}
+        {% block sidebar %}{% endblock %}
 		
     </div>
 </div>
-
 
 {% block footer %}
     <!-- Footer -->
@@ -208,29 +201,5 @@
 {% include '@SandboxWebsite/Layout/modal.html.twig' %}
 
 {% include 'SandboxWebsiteBundle:Layout:_js_footer.html.twig' %}
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/jquery-ui-1.11.2/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/jquery-ui-1.11.2/ui/i18n/datepicker-' ~ app.request.locale ~ '.js') }}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/select2/select2.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/spin.min.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/columnizer/jquery.columnizer.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/jquery-multiselect-tree/js/tree_multiselect.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/fancybox/jquery.fancybox.pack.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/fancybox/helpers/jquery.fancybox-thumbs.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/dataholder.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/underscore-min.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/calendar/language/' ~ app.request.locale ~ '.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/calendar/calendar.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.plugin.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.datepick.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/datepick/jquery.datepick-' ~ app.request.locale ~ '.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/jstree/jstree.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/sandboxwebsite/frontend/js/jstree/jstree.checkbox.js') }}"></script>
-
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/translations.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/func.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/travelbase.js') }}"></script>
 </body>
 </html>
