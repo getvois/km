@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Validator\Constraints\Email;
 
 class UserController extends Controller
 {
@@ -112,6 +113,24 @@ class UserController extends Controller
 
             $name = $request->request->get('name');
             $email = $request->request->get('email');
+
+            if(!$email){
+                $this->get('session')->getFlashBag()->add('error', 'Empty email');
+                return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+            }
+
+            //check email
+            $emailConstraint = new Email();
+            $errorList = $this->get('validator')->validateValue(
+                $email,
+                $emailConstraint
+            );
+
+            if (count($errorList) > 0) {
+                $this->get('session')->getFlashBag()->add('error', 'Incorrect email');
+                return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+            }
+
             $password = md5(microtime() . md5($email));
             //check if email exists
             /** @var User $user */

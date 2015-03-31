@@ -100,12 +100,15 @@
 
 <div class="row nomargin">
     <div class="col-md-9 col-md-offset-0_5">
-		
+
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
         {% for flashMessage in app.session.flashbag.get('info') %}
             <div class="alert alert-info">{{ flashMessage }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">{{ flashMessage }}</div>
         {% endfor %}
 
         <section class="">
