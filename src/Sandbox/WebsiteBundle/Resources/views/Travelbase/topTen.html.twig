@@ -12,23 +12,18 @@
 
     <!-- Tab panes -->
         <div class="tab-pane active" id="">
-            <h1>Top 10</h1>
+            <h5 class="doormat__title">Top 10</h5>
             {% for p in fullNodes %}
-                <div class="row margin-bottom-20">
-                    {% if p.url %}
-                        <div class="col-md-3 nopadding col-md-offset-1">
-                            <a href="{{ path( '_slug', {'url' : p.slug }) }}"><img class="img-responsive" src="{{ asset(p.url | imagine_filter("150x")) }}" alt=""/></a>
-                        </div>
-                        <div class="col-md-8">
-                            <a href="{{ path( '_slug', {'url' : p.slug }) }}">{{ p.title }}</a>
-                        </div>
- 
-                    {% else %}
-                        <div class="col-md-11 col-md-offset-1">
-                            <a href="{{ path( '_slug', {'url' : p.slug }) }}">{{ p.title }}</a>
-                        </div>
-                    {% endif %}
-                </div>
+               <ul class="list-reset doormat__link-list">
+                            <li class="doormat__list-item">
+		                         <header>  
+			                       	<time class="main-news__meta">
+			                            {{ p.date | datelocale('long', 'none')}}
+			                    	</time>
+		                            &nbsp; <span class="fa fa-eye"></span> {#{{ p.viewCount }}#}
+					            </header>
+                            <a class="link--gray doormat__link" href="{{ path( '_slug', {'url' : p.slug }) }}">{{ p.title }}</a></li>
+               </ul>
             {% endfor %}
         </div>
         <div role="tabpanel" class="tab-pane no" id="top-ten-ski">ski</div>

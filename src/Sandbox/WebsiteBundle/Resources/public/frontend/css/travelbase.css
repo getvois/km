@@ -263,7 +263,7 @@ body .splash--green {
 .footer {
     margin-top:20px;
 }
-.doormat__title a, .travelbase_top_menu > li a {
+.doormat__title, .doormat__title a, .travelbase_top_menu > li a {
     color: #fff;
     font-weight:700;
     font-family: "Open Sans",serif;
