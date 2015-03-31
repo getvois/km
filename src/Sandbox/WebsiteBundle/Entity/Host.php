@@ -18,6 +18,29 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="fb_block", type="text", nullable=true)
+     */
+    private $fb_block;
+
+    /**
+     * @return string
+     */
+    public function getFbBlock()
+    {
+        return $this->fb_block;
+    }
+
+    /**
+     * @param string $fb_block
+     */
+    public function setFbBlock($fb_block)
+    {
+        $this->fb_block = $fb_block;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="ga_tracking_id", type="string", length=255, nullable=true)
      */
     private $ga_tracking_id;
