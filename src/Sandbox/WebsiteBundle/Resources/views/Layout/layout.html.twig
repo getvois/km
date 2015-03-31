@@ -114,13 +114,6 @@
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
-        {% for flashMessage in app.session.flashbag.get('info') %}
-            <div class="alert alert-info">{{ flashMessage }}</div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-danger">{{ flashMessage }}</div>
-        {% endfor %}
-
         <section class="">
             <div class="row">
                 <div class="col-md-6 col--padded">
@@ -170,8 +163,12 @@
 	        {% block userlogin %}
 	            {% include '@SandboxWebsite/User/loginForm.html.twig' %}
 	        {% endblock %}
-		</div>
-		<div class="fb-page" data-href="https://www.facebook.com/rannapuhkus" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"></div>
+        </div>
+
+        {% if host %}
+            {{ host.fbBlock|raw }}
+        {% endif %}
+		{#<div class="fb-page" data-href="https://www.facebook.com/rannapuhkus" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"></div>#}
 
         {% block sidebar %}{% endblock %}
 		
