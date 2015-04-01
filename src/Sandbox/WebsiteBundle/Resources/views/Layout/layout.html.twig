@@ -156,10 +156,7 @@
         	<img src="/bundles/sandboxwebsite/img/general/club.png" class="club-header">
 	        <h3>{{ 'subscribe.now'|trans({}, 'frontend') }}</h3>
 	        <p>{{ 'subscribe.now.text'|trans({}, 'frontend') }}</p>
-	        {% if page is defined %}
-	            {#{{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree', {'page': page})) }}#}
-	        {% endif %}
-	
+
 	        {% block userlogin %}
 	            {% include '@SandboxWebsite/User/loginForm.html.twig' %}
 	        {% endblock %}

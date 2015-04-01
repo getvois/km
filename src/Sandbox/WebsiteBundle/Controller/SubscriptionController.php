@@ -306,13 +306,11 @@ class SubscriptionController extends Controller
 
 
     /**
-     * @param Request $request
-     * @param $page
      * @return array
      *
      * @Template()
      */
-    public function subscribeTreeAction(Request $request, $page)
+    public function subscribeTreeAction()
     {
         $root = $this->get('placeshelper')->getRoot();
         $placesNodes = $this->get('placeshelper')->getPlaces();

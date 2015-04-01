@@ -1,4 +1,6 @@
 {% if app.user %}
+    {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}
+
     <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
 {% else %}
     <form action="{{ path('login_action') }}" method="post">
@@ -18,7 +20,4 @@
         </p>
     </form>
 
-    {#<!--suppress XmlUnboundNsPrefix -->#}
-    {#<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">#}
-    {#</fb:login-button>#}
 {% endif %}
