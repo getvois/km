@@ -158,6 +158,17 @@ class UserController extends Controller
         if($resultCode === 0){
             //send email with password
             $message = "Your password: $password";
+
+            //log in user
+            // Here, "main" is the name of the firewall in your security.yml
+            $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+            $this->get("security.context")->setToken($token);
+
+            // Fire the login event
+            // Logging the user in above the way we do it doesn't do this automatically
+            $event = new InteractiveLoginEvent($this->get('request'), $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
             mail($email, 'Registration', $message, 'From: info@'.$request->getHost());
             return new JsonResponse(['status' => 'ok', 'msg' => 'Registered successfully']);
         }else{
