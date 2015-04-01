@@ -63,28 +63,34 @@
             fbLogin(response.authResponse.accessToken);
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
-            document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
         }
     }
 
     // This function is called when someone finishes with the Login
     // Button.  See the onlogin handler attached to it in the sample
     // code below.
-    function checkLoginState() {
-        FB.getLoginStatus(function(response) {
+//    function checkLoginState() {
+//        FB.getLoginStatus(function(response) {
+//            statusChangeCallback(response);
+//        });
+//    }
+
+    $("#fb-login-btn").click(function () {
+        FB.login(function(response) {
             statusChangeCallback(response);
+        }, {
+            scope: 'public_profile,email'
         });
-    }
+
+        return false;
+    });
 
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '1577226712516009',
+            appId      : '1577226712516009',//todo kosmos change this
             cookie     : true,  // enable cookies to allow the server to access
                                 // the session
             xfbml      : true,  // parse social plugins on this page

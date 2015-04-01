@@ -18,3 +18,21 @@
     </div>
 </div>
 {% endif %}
+<div id="info-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {#<h4 class="modal-title">{{ '??'| trans({}, 'frontend') }}</h4>#}
+            </div>
+            <div class="modal-body">
+                {% for message in app.session.flashBag.get('error') %}
+                    <div>{{ message }}</div>
+                {% endfor %}
+                {% for message in app.session.flashBag.get('info') %}
+                    <div>{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

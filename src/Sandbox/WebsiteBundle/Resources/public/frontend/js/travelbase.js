@@ -5,6 +5,22 @@ $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
 
+    $("#register-submit").closest('form').submit(function () {
+
+        $("#register-submit").addClass('disabled');
+        $.get('/register-ajax/?' + $(this).serialize(), function (responce) {
+            var $flashbag = $("#info-modal");
+            if(responce.status == 'error'){
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }else{
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }
+
+            $flashbag.modal('show');
+            $("#register-submit").removeClass('disabled');
+        });
+        return false;
+    });
 
     var $tree = $('.subscribe-tree');
     $tree.jstree({

@@ -101,6 +101,71 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/register-ajax/", name="register_ajax")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function registerAjaxAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $name = $request->query->get('name');
+        $email = $request->query->get('email');
+
+        if(!$email){
+            return new JsonResponse(['status' => 'error', 'msg' => 'Empty email']);
+        }
+
+        //check email
+        $emailConstraint = new Email();
+        $errorList = $this->get('validator')->validateValue(
+            $email,
+            $emailConstraint
+        );
+
+        if (count($errorList) > 0) {
+            return new JsonResponse(['status' => 'error', 'msg' => 'Incorrect email']);
+        }
+
+
+        $password = md5(microtime() . md5($email));
+        //check if email exists
+        /** @var User $user */
+        $user = $em->getRepository('KunstmaanAdminBundle:User')
+            ->findOneBy(['email' => $email]);
+
+        if($user){
+            return new JsonResponse(['status' => 'error', 'msg' => 'Email already exist']);
+        }
+
+        //register user
+        $application = new Application($this->get('kernel'));
+        $command = new CreateUserCommand();
+        $command->setApplication($application);
+        $command->setContainer($this->container);
+        $input = new ArrayInput(array(
+            'command'       => 'fos:user:create',
+            'username' => $email,
+            'email' => $email,
+            'password' => $password,
+            '--super-admin' => false
+        ));
+        $input->setInteractive(false);
+        $output = new NullOutput();
+        $resultCode = $command->run($input, $output);
+
+        if($resultCode === 0){
+            //send email with password
+            $message = "Your password: $password";
+            mail($email, 'Registration', $message, 'From: info@'.$request->getHost());
+            return new JsonResponse(['status' => 'ok', 'msg' => 'Registered successfully']);
+        }else{
+            return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
+        }
+    }
+
+    /**
      * @Route("/register", name="register_action")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

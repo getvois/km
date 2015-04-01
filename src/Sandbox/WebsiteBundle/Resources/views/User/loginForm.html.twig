@@ -12,8 +12,13 @@
             <input id="password" type="password" name="password" class="form-control"/>
         </div>
 
-        <p><input type="submit" class="btn btn-primary" value="{{ 'login'|trans({}, 'frontend') }}"/></p>
+        <p>
+            <input type="submit" class="btn btn-primary" value="{{ 'login'|trans({}, 'frontend') }}"/>
+            <a id="fb-login-btn" class="btn btn-primary" href="#">fb login</a>
+        </p>
     </form>
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
+
+    {#<!--suppress XmlUnboundNsPrefix -->#}
+    {#<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">#}
+    {#</fb:login-button>#}
 {% endif %}
