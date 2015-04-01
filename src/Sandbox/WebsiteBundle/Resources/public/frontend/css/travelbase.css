@@ -462,7 +462,7 @@ div.travelbase-input-addon{
 .clubbar {
   background: -webkit-linear-gradient(#F2E022, #F7EC6F) repeat scroll 0 0 transparent !important;
   padding: 20px;
-  border: 1px solid #F2E022;
+  border: 3px dashed #fff;
   margin-bottom: 20px;
   box-shadow: 3px 3px 3px #FBF4AC;
   margin-top: -40px;
@@ -493,8 +493,7 @@ div.travelbase-input-addon{
     -pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
 }	
 
-.sidebar .club-header { margin-top: -40px;
-}
+.sidebar .club-header { margin-top: 0;}
 .sidebar .top-ten {
     background: #eee;
     margin-top:80px;
