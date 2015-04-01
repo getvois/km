@@ -157,7 +157,7 @@ class UserController extends Controller
 
         if($resultCode === 0){
             //send email with password
-            $message = "Your password: $password";
+            $message = "Thank you for joining our Club\nUser email:{$user->getEmail()}\nPassword: $password";
 
             //log in user
             // Here, "main" is the name of the firewall in your security.yml
@@ -170,7 +170,7 @@ class UserController extends Controller
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
             mail($email, 'Registration', $message, 'From: info@'.$request->getHost());
-            return new JsonResponse(['status' => 'ok', 'msg' => 'Registered successfully']);
+            return new JsonResponse(['status' => 'ok', 'msg' => 'Registered successfully<br>Check your email for more details']);
         }else{
             return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
         }
