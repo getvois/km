@@ -1,6 +1,6 @@
 {% if app.user %}
     <h2>club content</h2>
-    <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
+    {{ render(controller('SandboxWebsiteBundle:Offer:index')) }}
 {% else %}
 <div class="register-form">
         <form action="{{ path('register_action') }}" method="post">

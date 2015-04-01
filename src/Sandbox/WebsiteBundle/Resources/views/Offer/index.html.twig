@@ -1,0 +1,10 @@
+{% if offers is defined %}
+    <div class="row">
+        {% for offer in offers %}
+            <div class="col-md-4">
+                <h2>{{ offer.name }}</h2>
+                <p>{{ offer.price }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
