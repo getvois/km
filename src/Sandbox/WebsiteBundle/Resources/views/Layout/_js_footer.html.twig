@@ -90,7 +90,7 @@
 
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : 1577226712516009,//todo kosmos change this
+            appId      : {% if host %}{{ host.appId }}{% else %}1577226712516009{% endif %},//,//todo kosmos change this
             cookie     : true,  // enable cookies to allow the server to access
                                 // the session
             xfbml      : true,  // parse social plugins on this page
