@@ -4,7 +4,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Command\CreateUserCommand;
-use Kunstmaan\AdminBundle\Entity\User;
+use Sandbox\WebsiteBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -49,7 +49,7 @@ class UserController extends Controller
 
             //get user
             /** @var User $user */
-            $user = $em->getRepository('KunstmaanAdminBundle:User')
+            $user = $em->getRepository('SandboxWebsiteBundle:User')
                 ->findOneBy(['email' => $email]);
 
             if(!$user){
@@ -132,7 +132,7 @@ class UserController extends Controller
         $password = md5(microtime() . md5($email));
         //check if email exists
         /** @var User $user */
-        $user = $em->getRepository('KunstmaanAdminBundle:User')
+        $user = $em->getRepository('SandboxWebsiteBundle:User')
             ->findOneBy(['email' => $email]);
 
         if($user){
@@ -156,6 +156,15 @@ class UserController extends Controller
         $resultCode = $command->run($input, $output);
 
         if($resultCode === 0){
+            //get new user
+            /** @var User $user */
+            $user = $em->getRepository('SandboxWebsiteBundle:User')
+                ->findOneBy(['email' => $email]);
+
+            $user->setName($name);
+            $em->persist($user);
+            $em->flush();
+
             //send email with password
             $message = "Thank you for joining our Club\nUser email:{$user->getEmail()}\nPassword: $password";
 
@@ -211,7 +220,7 @@ class UserController extends Controller
             $password = md5(microtime() . md5($email));
             //check if email exists
             /** @var User $user */
-            $user = $em->getRepository('KunstmaanAdminBundle:User')
+            $user = $em->getRepository('SandboxWebsiteBundle:User')
                 ->findOneBy(['email' => $email]);
 
             if($user){
@@ -236,12 +245,15 @@ class UserController extends Controller
             $resultCode = $command->run($input, $output);
 
             if($resultCode === 0){
-//                $user = $em->getRepository('KunstmaanAdminBundle:User')
-//                    ->findOneBy(['email' => $email]);
-//
-//                if($user){
-//
-//                }
+                //get new user
+                /** @var User $user */
+                $user = $em->getRepository('SandboxWebsiteBundle:User')
+                    ->findOneBy(['email' => $email]);
+
+                $user->setName($name);
+                $em->persist($user);
+                $em->flush();
+
                 $this->get('session')->getFlashBag()->add('info', 'Registered successfully');
 
                 //send email with password
@@ -283,7 +295,7 @@ class UserController extends Controller
 
         //check if email exists
         /** @var User $user */
-        $user = $em->getRepository('KunstmaanAdminBundle:User')
+        $user = $em->getRepository('SandboxWebsiteBundle:User')
             ->findOneBy(['email' => $email]);
 
         if(!$user){
@@ -305,9 +317,15 @@ class UserController extends Controller
             $resultCode = $command->run($input, $output);
 
             if($resultCode === 0){
-                //get created user
-                $user = $em->getRepository('KunstmaanAdminBundle:User')
+                //get new user
+                /** @var User $user */
+                $user = $em->getRepository('SandboxWebsiteBundle:User')
                     ->findOneBy(['email' => $email]);
+
+                $user->setName($name);
+                $em->persist($user);
+                $em->flush();
+
             }else{
                 return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
             }
