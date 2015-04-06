@@ -20,7 +20,7 @@
 			                       	<time class="main-news__meta">
 			                            {{ p.date | datelocale('long', 'none')}}
 			                    	</time>
-		                            &nbsp; <span class="fa fa-eye"></span> {#{{ p.viewCount }}#}
+		                            &nbsp; <span class="fa fa-eye"></span> {{ p.viewCount }}  
 					            </header>
                             <a class="link--gray doormat__link" href="{{ path( '_slug', {'url' : p.slug }) }}">{{ p.title }}</a></li>
                </ul>
