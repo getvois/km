@@ -162,6 +162,11 @@ class UserController extends Controller
                 ->findOneBy(['email' => $email]);
 
             $user->setName($name);
+            $user->setHost($request->getHost());
+            $host = $this->get('hosthelper')->getHost();
+            if($host){
+                $user->setLang($host->getLang());
+            }
             $em->persist($user);
             $em->flush();
 
@@ -251,6 +256,12 @@ class UserController extends Controller
                     ->findOneBy(['email' => $email]);
 
                 $user->setName($name);
+                $user->setHost($request->getHost());
+                $host = $this->get('hosthelper')->getHost();
+                if($host){
+                    $user->setLang($host->getLang());
+                }
+
                 $em->persist($user);
                 $em->flush();
 

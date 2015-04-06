@@ -5,6 +5,32 @@ $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
 
+    $("#show-club-tab").click(function () {
+        $('#club-tab').tab('show');
+    });
+
+    $("#offercountry").change(function () {
+        var $code = $(this).val();
+        if($code.length > 0){
+            $.get('http://api.travelwebpartner.com/api/city.getByCountryCode/' + $code, function (responce) {
+                if(responce.error){
+                    $("#select-city").html("");
+                    alert(responce.message)
+                }else{
+                    var $select = '<select name="offercity" id="offercity">';
+                    for(var i=0;i<responce.length;i++){
+                        $select += "<option value='"+responce[i].id+"'>" + responce[i]['cityName_' + $lang] + "</option>";
+                    }
+                    $select += "</select>";
+
+                    $("#select-city").html($select);
+                }
+            });
+        }else{
+            $("#select-city").html("");
+        }
+    });
+
     $("#register-submit").closest('form').submit(function () {
 
         $("#register-submit").addClass('disabled');

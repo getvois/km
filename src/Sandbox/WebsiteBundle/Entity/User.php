@@ -20,6 +20,18 @@ class User extends BaseUser{
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="host", type="string", nullable=true)
+     */
+    private $host;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lang", type="string", nullable=true)
+     */
+    private $lang;
 
     /**
      * @var string
@@ -50,6 +62,40 @@ class User extends BaseUser{
     {
         $this->name = $name;
     }
+
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * @param string $host
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * @param string $lang
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    }
+
+
 
     /**
      * @return string

@@ -1,10 +1,43 @@
-{% if offers is defined %}
+{% if pagerfanta is defined %}
     <div class="row">
-        {% for offer in offers %}
-            <div class="col-md-4">
+        <div class="col-md-12">
+            <p>
+                I want my trip to be
+                <label class="sr-only" for="offertype">Offer type</label>
+                <select name="offertype" id="offertype">
+                    <option value="">Any</option>
+                    {% for type in offerTypes %}
+                        <option value="{{ type.id }}">{{ type.name }}</option>
+                    {% endfor %}
+                </select>
+                to the desired destination
+                <label class="sr-only" for="offercountry">Offer country</label>
+                <select name="offercountry" id="offercountry">
+                    <option value="">Any</option>
+                    {% for type in countries %}
+                        <option value="{{ type.code }}">{{ type.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <span id="select-city"></span>
+
+                <a class="btn btn-primary" href="#" id="club-filter">Filter</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        {% for offer in pagerfanta.currentPageResults %}
+            <div class="col-md-4 offer" data-country="">
                 <h2>{{ offer.name }}</h2>
                 <p>{{ offer.price }}</p>
             </div>
         {% endfor %}
     </div>
+    {% if pagerfanta.haveToPaginate() %}
+        <div class="row">
+            <div class="col-md-12">
+                {#{{ pagerfanta(pagerfanta) }}#}
+            </div>
+        </div>
+    {% endif %}
 {% endif %}

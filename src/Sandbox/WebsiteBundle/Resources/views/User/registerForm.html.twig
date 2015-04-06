@@ -1,7 +1,7 @@
-{% if app.user %}
+<div style="position: relative">
     <h2>club content</h2>
     {{ render(controller('SandboxWebsiteBundle:Offer:index')) }}
-{% else %}
+    {% if not app.user %}
 <div class="register-form">
         <form action="{{ path('register_action') }}" method="post">
             <div>Hi Club,</div>
@@ -24,4 +24,5 @@
             </p>
         </form>
 </div>
-{% endif %}
+    {% endif %}
+</div>
