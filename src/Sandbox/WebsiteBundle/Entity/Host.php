@@ -64,6 +64,20 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="vk_app_id", type="string", length=255, nullable=true)
+     */
+    private $vk_app_id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vk_app_secret", type="string", length=255, nullable=true)
+     */
+    private $vk_app_secret;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="vk_access_token", type="string", length=255, nullable=true)
      */
     private $vk_access_token;
@@ -74,6 +88,39 @@ class Host extends AbstractEntity
      * @ORM\Column(name="vk_group_id", type="string", length=255, nullable=true)
      */
     private $vk_group_id;
+
+    /**
+     * @return string
+     */
+    public function getVkAppId()
+    {
+        return $this->vk_app_id;
+    }
+
+    /**
+     * @param string $vk_app_id
+     */
+    public function setVkAppId($vk_app_id)
+    {
+        $this->vk_app_id = $vk_app_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVkAppSecret()
+    {
+        return $this->vk_app_secret;
+    }
+
+    /**
+     * @param string $vk_app_secret
+     */
+    public function setVkAppSecret($vk_app_secret)
+    {
+        $this->vk_app_secret = $vk_app_secret;
+    }
+
 
     /**
      * @return string

@@ -54,6 +54,7 @@ class UserController extends Controller
 
             if(!$user){
                 $this->get('session')->getFlashBag()->add('error', 'Invalid username or password');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
 
@@ -74,15 +75,18 @@ class UserController extends Controller
 
                 // maybe redirect out here
                 $this->get('session')->getFlashBag()->add('info', 'Logged in successfully');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl("_slug", ["url" => ""]));
 
             } else {
                 // Password bad
                 $this->get('session')->getFlashBag()->add('error', 'Invalid username or password');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
         }
 
+        /** @noinspection Symfony2PhpRouteMissingInspection */
         return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
     }
 
@@ -97,6 +101,7 @@ class UserController extends Controller
         $this->get('security.context')->setToken($token);
         $this->get('request')->getSession()->invalidate();
 
+        /** @noinspection Symfony2PhpRouteMissingInspection */
         return $this->redirect($this->generateUrl('_slug', ['url' => '']));
     }
 
@@ -207,6 +212,7 @@ class UserController extends Controller
 
             if(!$email){
                 $this->get('session')->getFlashBag()->add('error', 'Empty email');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
 
@@ -219,6 +225,7 @@ class UserController extends Controller
 
             if (count($errorList) > 0) {
                 $this->get('session')->getFlashBag()->add('error', 'Incorrect email');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
 
@@ -275,7 +282,112 @@ class UserController extends Controller
             }
 
         }
-            return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+        /** @noinspection Symfony2PhpRouteMissingInspection */
+        return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+    }
+
+
+    /**
+     * @Route("/vk-login")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function loginVkAction(Request $request)
+    {
+        if($request->query->has('code')){
+
+            $code = $request->query->get('code');
+            $host = $this->get('hosthelper')->getHost();
+            if(!$host || !$host->getVkAppId() || !$host->getVkAppSecret()){
+                $this->get('session')->getFlashBag()->add('error', 'Invalid host or app data not set');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
+                return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+            }
+
+            $url = "https://oauth.vk.com/access_token?client_id={$host->getVkAppId()}&client_secret={$host->getVkAppSecret()}&code=$code&redirect_uri={$request->getSchemeAndHttpHost()}/app_dev.php/vk-login";
+            $content = @file_get_contents($url);
+            if($content){
+                $data = json_decode($content);
+                $access_token = $data->access_token;
+                $user_id = $data->user_id;
+                $email = $data->email;
+                $name = "";
+
+                $content = @file_get_contents("https://api.vk.com/method/users.get?user_id=$user_id&v=5.29&access_token=$access_token");
+                if($content){
+                    $userData = json_decode($content);
+                    $name = $userData->response[0]->first_name." ".$userData->response[0]->last_name;
+                }
+
+                /** @var EntityManager $em */
+                $em = $this->getDoctrine()->getManager();
+
+                //get user
+                /** @var User $user */
+                $user = $em->getRepository('SandboxWebsiteBundle:User')
+                    ->findOneBy(['email' => $email]);
+
+                if(!$user){
+                    //register new user
+                    //register user
+                    $password = md5(microtime() . md5($email));
+                    $application = new Application($this->get('kernel'));
+                    $command = new CreateUserCommand();
+                    $command->setApplication($application);
+                    $command->setContainer($this->container);
+                    $input = new ArrayInput(array(
+                        'command'       => 'fos:user:create',
+                        'username' => $email,
+                        'email' => $email,
+                        'password' => $password,
+                        '--super-admin' => false
+                    ));
+                    $input->setInteractive(false);
+                    $output = new NullOutput();
+                    $resultCode = $command->run($input, $output);
+
+                    if($resultCode === 0){
+                        //get new user
+                        /** @var User $user */
+                        $user = $em->getRepository('SandboxWebsiteBundle:User')
+                            ->findOneBy(['email' => $email]);
+
+                        $user->setName($name);
+                        $user->setHost($request->getHost());
+                        $user->setLang($host->getLang());
+                        $em->persist($user);
+                        $em->flush();
+
+                    }else{
+                        $this->get('session')->getFlashBag()->add('error', 'Error occurred while creating user');
+                        /** @noinspection Symfony2PhpRouteMissingInspection */
+                        return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
+                    }
+                }
+
+
+                // User + password match
+                // Here, "main" is the name of the firewall in your security.yml
+                $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+                $this->get("security.context")->setToken($token);
+
+                // Fire the login event
+                // Logging the user in above the way we do it doesn't do this automatically
+                $event = new InteractiveLoginEvent($request, $token);
+                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+                // maybe redirect out here
+                $this->get('session')->getFlashBag()->add('info', 'Logged in successfully');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
+                return $this->redirect($this->generateUrl("_slug", ["url" => ""]));
+            }
+
+
+
+        }
+
+        /** @noinspection Symfony2PhpRouteMissingInspection */
+        return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
     }
 
 
@@ -284,7 +396,7 @@ class UserController extends Controller
      * @param $token
      * @return JsonResponse
      */
-    public function loginFBAction($token)
+    public function loginFBAction(Request $request, $token)
     {
         //get email by token
         $content = file_get_contents("https://graph.facebook.com/v2.3/me?access_token=$token");
@@ -334,6 +446,11 @@ class UserController extends Controller
                     ->findOneBy(['email' => $email]);
 
                 $user->setName($name);
+                $user->setHost($request->getHost());
+                $host = $this->get('hosthelper')->getHost();
+                if($host){
+                    $user->setLang($host->getLang());
+                }
                 $em->persist($user);
                 $em->flush();
 

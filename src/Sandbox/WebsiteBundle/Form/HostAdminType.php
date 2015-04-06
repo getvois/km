@@ -51,6 +51,8 @@ class HostAdminType extends AbstractType
         $builder->add('fb_block');
         $builder->add('group_id');
         $builder->add('page_access_token');
+        $builder->add('vk_app_id');
+        $builder->add('vk_app_secret');
         $builder->add('vk_group_id');
         $builder->add('vk_access_token');
         $builder->add('ga_tracking_id');

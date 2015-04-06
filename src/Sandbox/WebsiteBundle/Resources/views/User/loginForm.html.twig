@@ -3,6 +3,9 @@
 
     <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
 {% else %}
+    <h3><a id="show-club-tab" href="#">{{ 'subscribe.now'|trans({}, 'frontend') }}</a></h3>
+    <p>{{ 'subscribe.now.text'|trans({}, 'frontend') }}</p>
+
     <form action="{{ path('login_action') }}" method="post">
         <div class="form-group">
             <label for="email">{{ 'email'|trans({}, 'frontend') }}:</label>
@@ -17,6 +20,15 @@
         <p>
             <input type="submit" class="btn btn-primary" value="{{ 'login'|trans({}, 'frontend') }}"/>
             <a id="fb-login-btn" class="btn btn-primary" href="#">fb login</a>
+
+            {% if host and host.vkAppId and host.vkAppSecret %}
+                <a href="#" id="vk-login-btn" class="btn btn-primary">vk login</a>
+                <script>
+                    $("#vk-login-btn").click(function () {
+                        window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/app_dev.php/vk-login&response_type=code&v=5.29&state=');
+                    });
+                </script>
+            {% endif %}
         </p>
     </form>
 
