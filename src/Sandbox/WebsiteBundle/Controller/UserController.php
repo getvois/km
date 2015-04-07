@@ -304,7 +304,7 @@ class UserController extends Controller
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
 
-            $url = "https://oauth.vk.com/access_token?client_id={$host->getVkAppId()}&client_secret={$host->getVkAppSecret()}&code=$code&redirect_uri={$request->getSchemeAndHttpHost()}/app_dev.php/vk-login";
+            $url = "https://oauth.vk.com/access_token?client_id={$host->getVkAppId()}&client_secret={$host->getVkAppSecret()}&code=$code&redirect_uri={$request->getSchemeAndHttpHost()}/vk-login";
             $content = @file_get_contents($url);
             if($content){
                 $data = json_decode($content);
@@ -470,5 +470,121 @@ class UserController extends Controller
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
         return new JsonResponse(['status' => 'ok']);
+    }
+
+
+    /**
+     * @Route("/user-edit/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function userEditAction(Request $request)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if(!$user)
+            return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
+
+        if($request->query->has('name')){
+            $name = $request->query->get('name');
+            if($name){
+                $user->setName($name);
+            }
+        }
+        if($request->query->has('country')){
+            $country = $request->query->get('country');
+            if($country){
+                $user->setCountry($country);
+            }
+        }
+        if($request->query->has('city')){
+            $city = $request->query->get('city');
+            if($city){
+                $user->setCity($city);
+            }
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return new JsonResponse(['status' => 'ok', 'msg' => 'data saved']);
+    }
+
+    /**
+     * @Route("/user-password/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function userEditPasswordAction(Request $request)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if(!$user)
+            return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
+
+        if(!$request->query->has('oldpassword') || !$request->query->get('oldpassword')){
+            return new JsonResponse(['status' => 'error', 'msg' => 'current password is empty']);
+        }
+
+        //check current password
+        $password = $request->query->get('oldpassword');
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        if (!($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt()))) {
+            return new JsonResponse(['status' => 'error', 'msg' => 'invalid password']);
+        }
+
+
+        if(!$request->query->has('newpassword') || !$request->query->get('newpassword')
+        || !$request->query->has('renewpassword') || !$request->query->get('renewpassword')
+        ){
+            return new JsonResponse(['status' => 'error', 'msg' => 'new password is empty']);
+        }
+
+        if($request->query->get('newpassword') != $request->query->get('renewpassword')){
+            return new JsonResponse(['status' => 'error', 'msg' => 'passwords does not match']);
+        }
+
+        $password = $request->query->get('newpassword');
+
+        if(strlen($password) < 8){
+            return new JsonResponse(['status' => 'error', 'msg' => 'passwords should be 8 or more characters long']);
+        }
+
+        $password = $encoder->encodePassword($password, $user->getSalt());
+
+        $user->setPassword($password);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return new JsonResponse(['status' => 'ok', 'msg' => 'password changed']);
+    }
+
+    /**
+     * @Route("/reset-password/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function resetPasswordAction(Request $request)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if(!$user)
+            return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
+
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        $rawPassword = str_split(md5(rand(0,99999)), 10)[0];
+        $password = $encoder->encodePassword($rawPassword, $user->getSalt());
+
+        $user->setPassword($password);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $message = "Your new password: " . $rawPassword;
+        mail($user->getEmail(), 'Password reset', $message, 'From: info@'.$request->getHost());
+
+        return new JsonResponse(['status' => 'ok', 'msg' => 'Password is send to your email']);
+
     }
 }

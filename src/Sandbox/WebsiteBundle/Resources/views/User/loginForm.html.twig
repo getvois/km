@@ -25,7 +25,7 @@
                 <a href="#" id="vk-login-btn" class="btn btn-primary">vk login</a>
                 <script>
                     $("#vk-login-btn").click(function () {
-                        window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/app_dev.php/vk-login&response_type=code&v=5.29&state=');
+                        window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/vk-login&response_type=code&v=5.29&state=');
                     });
                 </script>
             {% endif %}

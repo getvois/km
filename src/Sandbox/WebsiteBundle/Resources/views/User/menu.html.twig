@@ -1,0 +1,27 @@
+{% if app.user %}
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" class="active"><a href="#user-detail-edit" aria-controls="home" role="tab" data-toggle="tab">{{ 'user.edit.details'|trans({}, 'frontend') }}</a></li>
+                <li role="presentation"><a href="#user-password-edit" aria-controls="profile" role="tab" data-toggle="tab">{{ 'change.password'|trans({}, 'frontend') }}</a></li>
+                {#<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>#}
+                {#<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>#}
+            </ul>
+        </div>
+        <div class="col-md-9">
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="user-detail-edit">
+                    {% include '@SandboxWebsite/User/edit.html.twig' %}
+                </div>
+                <div role="tabpanel" class="tab-pane" id="user-password-edit">
+                    {% include '@SandboxWebsite/User/changePassword.html.twig' %}
+                </div>
+                {#<div role="tabpanel" class="tab-pane" id="messages">...</div>#}
+                {#<div role="tabpanel" class="tab-pane" id="settings">...</div>#}
+            </div>
+        </div>
+    </div>
+{% endif %}

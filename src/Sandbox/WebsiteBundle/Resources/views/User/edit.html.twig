@@ -1,0 +1,18 @@
+{% if app.user %}
+    <div class="user-edit-form">
+        <h3>{{ 'edit.user.details.title' }}</h3>
+        <form action="#">
+            <div class="form-group">
+                <input class="form-control" id="edit-name" type="text" name="name" value="{{ app.user.name }}" placeholder="{{ 'name'|trans({}, 'frontend') }}"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="edit-country" type="text" name="country" value="{{ app.user.country }}" placeholder="{{ 'country'|trans({}, 'frontend') }}"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="edit-city" type="text" name="city" value="{{ app.user.city }}" placeholder="{{ 'city'|trans({}, 'frontend') }}"/>
+            </div>
+
+            <a id="save-user-details" class="btn btn-primary" href="#">{{ 'save'|trans({}, 'frontend') }}</a>
+        </form>
+    </div>
+{% endif %}

@@ -9,6 +9,58 @@ $(document).ready(function() {
         $('#club-tab').tab('show');
     });
 
+    $("#reset-user-password").click(function () {
+        $(this).addClass('disabled');
+        $.get('/reset-password/', function (responce) {
+            var $flashbag = $("#info-modal");
+            if(responce.status == 'error'){
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }else{
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }
+
+            $flashbag.modal('show');
+            $("#reset-user-password").removeClass('disabled');
+        });
+        return false;
+    });
+
+    $("#save-user-details").click(function () {
+        var $data = $("#save-user-details").closest('form').serialize();
+
+        $(this).addClass('disabled');
+        $.get('/user-edit/?'+$data, function (responce) {
+            var $flashbag = $("#info-modal");
+            if(responce.status == 'error'){
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }else{
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }
+
+            $flashbag.modal('show');
+            $("#save-user-details").removeClass('disabled');
+        });
+        return false;
+    });
+
+    $("#save-user-password").click(function () {
+        var $data = $("#save-user-password").closest('form').serialize();
+
+        $(this).addClass('disabled');
+        $.get('/user-password/?'+$data, function (responce) {
+            var $flashbag = $("#info-modal");
+            if(responce.status == 'error'){
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }else{
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }
+
+            $flashbag.modal('show');
+            $("#save-user-password").removeClass('disabled');
+        });
+        return false;
+    });
+
     $("#offercountry").change(function () {
         var $code = $(this).val();
         if($code.length > 0){
