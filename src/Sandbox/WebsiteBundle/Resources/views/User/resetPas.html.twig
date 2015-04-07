@@ -1,0 +1,12 @@
+{% extends '@SandboxWebsite/Page/layout.html.twig' %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input class="form-control" type="email" name="email" id="reset-email" placeholder="{{ 'email'|trans({}, 'frontend') }}"/>
+                </div>
+                <a class="btn btn-primary" id="reset-password" href="#">{{ 'reset.password'|trans({}, 'frontend') }}</a>
+            </div>
+        </div>
+{% endblock %}

@@ -25,6 +25,23 @@ $(document).ready(function() {
         return false;
     });
 
+
+    $("#reset-password").click(function () {
+        $(this).addClass('disabled');
+        $.get('/password-reset/' + $("#reset-email").val(), function (responce) {
+            var $flashbag = $("#info-modal");
+            if(responce.status == 'error'){
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }else{
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }
+
+            $flashbag.modal('show');
+            $("#reset-password").removeClass('disabled');
+        });
+        return false;
+    });
+
     $("#save-user-details").click(function () {
         var $data = $("#save-user-details").closest('form').serialize();
 

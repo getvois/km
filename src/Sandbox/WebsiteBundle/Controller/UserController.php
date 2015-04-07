@@ -4,6 +4,9 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Command\CreateUserCommand;
+use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
+use Kunstmaan\NodeBundle\Entity\Node;
+use Kunstmaan\NodeBundle\Helper\NodeMenu;
 use Sandbox\WebsiteBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -586,5 +589,116 @@ class UserController extends Controller
 
         return new JsonResponse(['status' => 'ok', 'msg' => 'Password is send to your email']);
 
+    }
+
+
+    /**
+     * @Route("/user-import/")
+     * @return JsonResponse
+     */
+    public function usersFromCsvAction()
+    {
+        $emails = [];
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($emails as $email) {
+            //check if email exists
+            /** @var User $user */
+            $user = $em->getRepository('SandboxWebsiteBundle:User')
+                ->findOneBy(['email' => $email]);
+
+            if(!$user){
+                //register user
+                $password = md5(microtime() . md5($email));
+                $application = new Application($this->get('kernel'));
+                $command = new CreateUserCommand();
+                $command->setApplication($application);
+                $command->setContainer($this->container);
+                $input = new ArrayInput(array(
+                    'command'       => 'fos:user:create',
+                    'username' => $email,
+                    'email' => $email,
+                    'password' => $password,
+                    '--super-admin' => false
+                ));
+                $input->setInteractive(false);
+                $output = new NullOutput();
+                $resultCode = $command->run($input, $output);
+
+                if($resultCode === 0){
+                    //get new user
+                    /** @var User $user */
+                    $user = $em->getRepository('SandboxWebsiteBundle:User')
+                        ->findOneBy(['email' => $email]);
+
+                    //$user->setName($name);
+                    $em->persist($user);
+                    $em->flush();
+
+                }else{
+                    return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
+                }
+            }
+        }
+
+        return new JsonResponse(['status' => 'ok', 'msg' => 'done']);
+
+    }
+
+
+    /**
+     * @Route("/password-reset/{email}")
+     * @param Request $request
+     * @param $email
+     * @return JsonResponse
+     */
+    public function resetPasswordEmailAction(Request $request, $email)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var User $user */
+        $user = $em->getRepository('SandboxWebsiteBundle:User')
+            ->findOneBy(['email' => $email]);
+        if(!$user)
+            return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
+
+        $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+        $rawPassword = str_split(md5(rand(0,99999)), 10)[0];
+        $password = $encoder->encodePassword($rawPassword, $user->getSalt());
+
+        $user->setPassword($password);
+
+        $em->persist($user);
+        $em->flush();
+        $message = "Your new password: " . $rawPassword;
+        mail($user->getEmail(), 'Password reset', $message, 'From: info@'.$request->getHost());
+
+        return new JsonResponse(['status' => 'ok', 'msg' => 'Password is send to your email']);
+
+    }
+
+    /**
+     * @Route("/password-reset/")
+     * @Template()
+     */
+    public function resetPasAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Node[] $node */
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodesByInternalName('homepage', $request->getLocale());
+
+        $page = $node[0]->getNodeTranslation($request->getLocale())->getRef($em);
+
+        //for top and bottom menu
+        $securityContext = $this->get('security.context');
+        $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');
+        $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node[0], PermissionMap::PERMISSION_VIEW);
+        //
+        return ['nodemenu' => $nodeMenu, 'page' => $page];
     }
 }
