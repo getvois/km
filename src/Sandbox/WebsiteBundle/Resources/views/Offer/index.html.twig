@@ -30,6 +30,39 @@
             <div class="col-md-4 offer" data-country="">
                 <h2>{{ offer.name }}</h2>
                 <p>{{ offer.price }}</p>
+                {% if offer.image %}
+                    <img src="{{ offer.image }}"/>
+                    {% endif %}
+                {{ offer.hotel }}
+
+                <p>{{ offer.id }}</p>
+                <p>{{ offer.name }}</p>
+                <p>{{ offer.origPrice }}</p>
+                <p>{{ offer.price }}</p>
+                <p>{{ offer.priceInc }}</p>
+                <p>{{ offer.discount }}</p>
+                <p>{{ offer.description }}</p>
+                <p>{{ offer.descriptionIncl }}</p>
+                <p>{{ offer.image }}</p>
+                <p>{{ offer.withFlights }}</p>
+                <p>{{ offer.amount }}</p>
+                <p>{{ offer.hotel }}</p>
+                {% if offer.dateEnd %}
+                <p>{{ offer.dateEnd|date('d.m.Y') }}</p>
+                {% endif %}
+                {% if offer.company %}
+                <p>{{ offer.company.id }}</p>
+                <p>{{ offer.company.name }}</p>
+                {% endif %}
+                <p>{{ offer.type.name_en }}</p>
+                <p>{{ offer.country.name_en }}</p>
+
+                {% if offer.cities %}
+                    {% for city in offer.cities %}
+                <p>{{ city.cityName }}</p>
+                    {% endfor %}
+                {% endif %}
+                <p>{{ offer.hotel }}</p>
             </div>
         {% endfor %}
     </div>
