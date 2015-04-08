@@ -430,7 +430,7 @@ div.travelbase-input-addon{
     border: medium none;
     position: absolute;
     width: 40px;
-    padding: 6px 8px;
+    padding: 6px;
     z-index: 10;
 }
 .travelbase-input{
@@ -704,7 +704,7 @@ div.travelbase-input-addon{
 }
 #travelbase_tabs{
     position: relative;
-    top: -40px;
+    top: -45px;
 }
 #slider-range, #slider-range-stopover{
     border: none;
@@ -849,7 +849,7 @@ label.directFlight-label,  label.sameDay-label {
 .trip .company-detur, .trip .company-deturse, .trip .company-deturno, .trip .company-deturfi  {
     background-position:0 -150px; 
 }
-.trip .company-aurinko  {
+.trip .company-aurinkoee, .trip .company-aurinkofi {
     background-position:0 -175px;
 }
 .trip .company-norwegian  {
@@ -865,7 +865,7 @@ label.directFlight-label,  label.sameDay-label {
     background-position:0 -275px;
 }
 
-.trip .company-novatours {
+.trip .company-novatoursee, .trip .company-novatourslv {
     background-position:0 -300px;
 }
 
@@ -892,7 +892,13 @@ label.directFlight-label,  label.sameDay-label {
 .trip-path {
     /*margin-left: 32px;*/
 }
+.table-field {
+    margin-top: 10px;
+}
 .trip-field {
+    margin-top: 12px;
+}
+.date-field {
     margin-top: 13px;
 }
 .trip-path-point {
@@ -1320,11 +1326,20 @@ span.city-picker-close:hover {
 .form-table-btn-switch{
     display: table-cell;
     vertical-align: top;
-    padding: 3px 15px 0;
-    width: 74px;
+    padding: 7px 3px 0;
+    width: 50px;
 }
-
-
+.form-table-btn-switch a{
+  padding: 0 10px;
+  margin-top: 6px;
+  color: #f3f3f3;
+}
+.form-table-btn-switch a span{
+	font-size:25px;
+}
+.form-table-btn-switch a:hover{
+  color: #eee;
+}
 .navbar-nav > li {
     float: none;
 }
@@ -1477,6 +1492,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     line-height: 200%;
     font-size:13px;
     white-space: nowrap;
+    padding-right: 5px;
 }
 .travelbase_items #loadMore {
     left: 50%;
