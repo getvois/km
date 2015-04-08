@@ -54,6 +54,18 @@
                 &nbsp;
             </a>
         </li>
+        <li class="">
+            <a href="#cruises" data-toggle="tab" data-type="cruises">
+                &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-ship"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'Cruises' | trans({}, 'frontend') }}
+                </span>
+                &nbsp;
+            </a>
+        </li>
         <li class="{% if app.user %} super-active {% endif %}">
             <a href="#club" id="club-tab" data-toggle="tab" data-type="club">
                 &nbsp;
@@ -67,7 +79,7 @@
             </a>
         </li>
         {% if app.user %}
-            <li>
+            <li class="hidden">
                 <a href="#user" id="user-tab" data-toggle="tab" data-type="user">
                     &nbsp;
                 <span class="visible-xs-inline-block visible-sm-inline-block">

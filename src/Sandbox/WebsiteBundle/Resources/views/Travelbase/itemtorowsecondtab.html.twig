@@ -2,7 +2,7 @@
     <div class="row">
         <div class="no-padding col-xs-3 col-sm-1">
             {#date#}
-            <strong class="hidden-xs"><span class="text-muted">{{ date }}</span></strong>
+            <strong class="hidden-xs date-field"><span class="text-muted">{{ date }}</span></strong>
             <strong class="visible-xs mobile-date">
                 <span class="text-muted">
                     <span class="mobile-day">
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     {#trip#}
-                    <table>
+                    <table class="table-field">
                         <tr>
                             <td width="1%">
                                 <strong>{{ departure|raw }}</strong>
@@ -52,7 +52,7 @@
                     {#info#}
                     <div class="row">
                         {#hotel#}
-                        <div class="col-xs-4">
+                        <div class="col-xs-4 text-center">
                             {{ hotelcol|raw }}
                         </div>
                         {#dayes#}
@@ -60,7 +60,7 @@
                             {{ item.duration }} {{ days_short }}
                         </div>
                         {#price#}
-                        <div class="hidden-xs col-xs-4 col-sm-3">
+                        <div class="hidden-xs col-xs-4 col-sm-3 trip-field">
                             {{ lastCol|raw }}
                         </div>
                         <div class="col-xs-5 col-sm-3">
