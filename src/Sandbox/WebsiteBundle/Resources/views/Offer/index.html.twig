@@ -2,18 +2,18 @@
     <div class="row">
         <div class="col-md-12">
             <p>
-                I want my trip to be
-                <label class="sr-only" for="offertype">Offer type</label>
+                {{ 'i.want.my.trip.to.be'|trans({}, 'frontend') }}
+                <label class="sr-only" for="offertype">{{ 'offer.type'|trans({}, 'frontend') }}</label>
                 <select name="offertype" id="offertype">
-                    <option value="">Any</option>
+                    <option value="">{{ 'any'|trans({}, 'frontend') }}</option>
                     {% for type in offerTypes %}
                         <option value="{{ type.id }}">{{ type.name }}</option>
                     {% endfor %}
                 </select>
-                to the desired destination
-                <label class="sr-only" for="offercountry">Offer country</label>
+                {{ 'to.the.desired.destination'|trans({}, 'frontend') }}
+                <label class="sr-only" for="offercountry">{{ 'offer.country'|trans({}, 'frontend') }}</label>
                 <select name="offercountry" id="offercountry">
-                    <option value="">Any</option>
+                    <option value="">{{ 'any'|trans({}, 'frontend') }}</option>
                     {% for type in countries %}
                         <option value="{{ type.code }}">{{ type.name }}</option>
                     {% endfor %}
@@ -21,7 +21,7 @@
 
                 <span id="select-city"></span>
 
-                <a class="btn btn-primary" href="#" id="club-filter">Filter</a>
+                <a class="btn btn-primary" href="#" id="club-filter">{{ 'filter'|trans({}, 'frontend') }}</a>
             </p>
         </div>
     </div>
