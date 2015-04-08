@@ -202,6 +202,8 @@ $(document).ready(function() {
     var $datepickFrom = $('#datepick-input-from');
     var $datepickTo = $('#datepick-input-to');
 
+    $('#datepick-input-to-holder').val(window.trans.returnDate[$lang]);
+
     var $datepickerClearIcon = $(".datepicker-clear-icon");
     $datepickerClearIcon.hide();
     $datepickerClearIcon.removeClass('hide');
@@ -209,7 +211,7 @@ $(document).ready(function() {
     $datepickerClearIcon.click(function () {
         //noinspection JSUnresolvedFunction
         $datepickTo.datepick('clear');
-        $('#datepick-input-to-holder').val("–");
+        $('#datepick-input-to-holder').val(window.trans.returnDate[$lang]);
         $datepickerClearIcon.hide();
     });
 
