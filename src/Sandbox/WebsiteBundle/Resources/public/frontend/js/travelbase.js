@@ -372,8 +372,8 @@ $(document).ready(function() {
             "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval=='1m'?" active ":"") + " ' data-interval='1m'>month</button>";
     }
 
-    cityPicker("#departure-el", "#departure-dataholder");
-    cityPicker("#destination-el", '#destination-dataholder');
+    cityPicker("#departure-el", "#departure-dataholder", 'from');
+    cityPicker("#destination-el", '#destination-dataholder', 'to');
 
 
     $('#swich-dep-dest').click(function () {
@@ -1670,7 +1670,7 @@ function getTable(container, reimport){
 }
 
 
-function cityPicker($el, $holder) {
+function cityPicker($el, $holder, $direction) {
     $($el).removeClass('hide');
 
     $($holder).dataHolder({
@@ -1780,8 +1780,20 @@ function cityPicker($el, $holder) {
         }
         return $finalData;
     }
+
+    var $language = $('body').data('lang');
+    var $trans = window.trans.searchForPlace[$language];
+
+    if($direction){
+        if($direction == 'from'){
+            $trans = window.trans.searchFromPlace[$language];
+        }else{
+            $trans = window.trans.searchForPlace[$language];
+        }
+    }
+
     $($el).select2({
-        placeholder: window.trans.searchForPlace[$('body').data('lang')],
+        placeholder: $trans,
         minimumInputLength: 3,
         multiple: true,
         width: '100%',
