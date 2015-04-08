@@ -29,7 +29,6 @@
         {% for offer in pagerfanta.currentPageResults %}
             <div class="col-md-4 offer" data-country="">
                 <h2>{{ offer.name }}</h2>
-                <p>{{ offer.price }}</p>
                 {% if offer.image %}
                     <img src="{{ offer.image }}"/>
                     {% endif %}
@@ -42,7 +41,13 @@
                 <p>{{ offer.discount }}</p>
                 <p>{{ offer.description }}</p>
                 <p>{{ offer.descriptionIncl }}</p>
-                <p>{{ offer.withFlights }}</p>
+
+                {% if offer.withFlights  %}
+                    <span class="fa fa-circle"></span>
+                {% else %}
+                    <span class="fa fa-square"></span>
+                {% endif %}
+
                 <p>{{ offer.amount }}</p>
                 <p>{{ offer.hotel }}</p>
                 {% if offer.dateEnd %}
