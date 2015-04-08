@@ -82,9 +82,9 @@ AND nt.online = 1';
      *
      * @return array
      */
-    public function getArticles($lang = null, $offset = null, $limit = null, $host = null)
+    public function getArticles($lang = null, $offset = null, $limit = null, $host = null, $priceLabel = '')
     {
-        $q = $this->getArticlesQuery($lang, $offset, $limit, $host);
+        $q = $this->getArticlesQuery($lang, $offset, $limit, $host, $priceLabel);
 
         return $q->getResult();
     }
@@ -97,7 +97,7 @@ AND nt.online = 1';
      *
      * @return Query
      */
-    public function getArticlesQuery($lang = null, $offset, $limit, $host = null)
+    public function getArticlesQuery($lang = null, $offset, $limit, $host = null, $priceLabel = '')
     {
 //        $dql = "SELECT p, nv, n, nt
 //FROM Sandbox\WebsiteBundle\Entity\News\NewsPage p
@@ -147,7 +147,11 @@ AND nt.online = 1';
         $query .= " nt.online = 1 ";
         if ($lang) {
             $query .= " AND";
-            $query .= " nt.lang = ? ";
+            $query .= " nt.lang = :lang ";
+        }
+
+        if($priceLabel) {
+            $query .= "  AND article.price_from_label = :label";
         }
 
         /** @var Host $host */
@@ -157,29 +161,24 @@ AND nt.online = 1';
 
         $query .= " ORDER BY article.date DESC";
         if($limit){
-            $query .= " LIMIT ?";
+            $query .= " LIMIT :limit";
             if($offset){
-                $query .= " OFFSET ?";
+                $query .= " OFFSET :offset";
             }
         }
 
         $q = $this->_em->createNativeQuery($query, $rsm);
 
         if ($lang) {
-            $q->setParameter(1, $lang);
-            if($limit){
-                $q->setParameter(2, $limit);
-                if($offset){
-                    $q->setParameter(3, $offset);
-                }
-            }
-
-        } else {
-            if($limit){
-                $q->setParameter(1, $limit);
-                if($offset){
-                    $q->setParameter(2, $offset);
-                }
+            $q->setParameter(':lang', $lang);
+        }
+        if($priceLabel){
+            $q->setParameter(':label', $priceLabel);
+        }
+        if($limit){
+            $q->setParameter(':limit', $limit);
+            if($offset){
+                $q->setParameter(':offset', $offset);
             }
         }
 

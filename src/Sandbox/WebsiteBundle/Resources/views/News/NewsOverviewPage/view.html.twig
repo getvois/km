@@ -44,7 +44,7 @@
 				   		
 				   		
 				   			
-				   		<div class="{% if article.image or article.companies[0].logo %}col-md-10{% else %}col-md-12{% endif %}">
+				   		<div class="{% if article.image or (article.companies|length > 0 and article.companies[0].logo) %}col-md-10{% else %}col-md-12{% endif %}">
 							<p></p>
 		                    <p>{{ article.summary }}</p>
 		                    <div class="row">

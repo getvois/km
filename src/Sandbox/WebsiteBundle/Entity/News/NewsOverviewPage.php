@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\News;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -15,6 +16,7 @@ use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\PagePartAdmin\AbstractPagePartAdminConfigurator;
 use Sandbox\WebsiteBundle\Repository\News\NewsPageRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -48,8 +50,17 @@ class NewsOverviewPage extends AbstractArticleOverviewPage
         $em = $container->get('doctrine')->getManager();
         $repository = $this->getArticleRepository($em);
 
-        /** @var NewsPage[] $articles */
-        $articles = $repository->getArticles($request->getLocale());
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($context['page']);
+        if($node->getInternalName() == 'club'){
+            //load club news
+            /** @var NewsPage[] $articles */
+            $articles = $repository->getArticles($request->getLocale(), null, null, null, 'club');
+
+        }else{
+            //load all news
+            /** @var NewsPage[] $articles */
+            $articles = $repository->getArticles($request->getLocale());
+        }
 
         $tags = [];
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
@@ -124,6 +135,7 @@ class NewsOverviewPage extends AbstractArticleOverviewPage
      */
     public function getArticleRepository($em)
     {
+        /** @var $em EntityManager */
         return $em->getRepository('SandboxWebsiteBundle:News\NewsPage');
     }
 

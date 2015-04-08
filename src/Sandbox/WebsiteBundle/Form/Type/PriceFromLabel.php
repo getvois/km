@@ -19,6 +19,7 @@ class PriceFromLabel extends AbstractType {
             'return' => 'return',
             'off' => 'off',
             'newsletter' => 'newsletter',
+            'club' => 'club',
         ],
             'required' => false,
         ]);
