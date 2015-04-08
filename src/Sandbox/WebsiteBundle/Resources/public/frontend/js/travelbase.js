@@ -120,7 +120,9 @@ $(document).ready(function() {
                 $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
             }else{
                 $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
-                window.location = window.location;
+                setTimeout(function () {
+                    window.location = window.location;
+                }, 1000);
             }
 
             $flashbag.modal('show');
