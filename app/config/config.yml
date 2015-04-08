@@ -197,8 +197,8 @@ ekino_new_relic:
     transaction_naming_service: kunstmaan_newrelic_naming_strategy
 
 fos_user:
-    user_class: SandboxWebsiteBundle:User
-#    user_class: Sandbox\WebsiteBundle\Entity\User
+#    user_class: SandboxWebsiteBundle:User
+    user_class: Sandbox\WebsiteBundle\Entity\User
 
 parameters:
     kunstmaan_user_management.user_admin_list_configurator.class: Sandbox\WebsiteBundle\AdminList\UserAdminListConfigurator
