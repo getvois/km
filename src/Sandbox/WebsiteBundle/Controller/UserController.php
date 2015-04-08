@@ -16,8 +16,10 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Validator\Constraints\Email;
 
@@ -171,6 +173,10 @@ class UserController extends Controller
 
             $user->setName($name);
             $user->setHost($request->getHost());
+
+            $hash = md5(microtime() . $user->getEmail());
+            $user->setHash($hash);
+
             $host = $this->get('hosthelper')->getHost();
             if($host){
                 $user->setLang($host->getLang());
@@ -179,7 +185,12 @@ class UserController extends Controller
             $em->flush();
 
             //send email with password
-            $message = "Thank you for joining our Club\nUser email:{$user->getEmail()}\nPassword: $password";
+            $message = "Thank you for joining our Club\n
+            User email:{$user->getEmail()}\n
+            Password: $password
+            To activate your email follow this link:
+            {$request->getSchemeAndHttpHost()}/activate/$hash\n
+            ";
 
             //log in user
             // Here, "main" is the name of the firewall in your security.yml
@@ -196,6 +207,34 @@ class UserController extends Controller
         }else{
             return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
         }
+    }
+
+    /**
+     * @Route("/activate/{hash}")
+     * @param $hash
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function activateAction($hash)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('SandboxWebsiteBundle:User')
+            ->findOneBy(['hash' => $hash]);
+        if(!$user)
+            throw new NotFoundHttpException('User not found');
+
+        //log in user
+        // Here, "main" is the name of the firewall in your security.yml
+        $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+        $this->get("security.context")->setToken($token);
+
+        // Fire the login event
+        // Logging the user in above the way we do it doesn't do this automatically
+        $event = new InteractiveLoginEvent($this->get('request'), $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+        /** @noinspection Symfony2PhpRouteMissingInspection */
+        return $this->redirect($this->generateUrl("_slug", ['url' => 'club']));
     }
 
     /**
@@ -240,6 +279,7 @@ class UserController extends Controller
 
             if($user){
                 $this->get('session')->getFlashBag()->add('error', 'Email already exist');
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
 
@@ -576,8 +616,9 @@ class UserController extends Controller
         if(!$user)
             return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
 
+        /** @var PasswordEncoderInterface $encoder */
         $encoder = $this->get('security.encoder_factory')->getEncoder($user);
-        $rawPassword = str_split(md5(rand(0,99999)), 10)[0];
+        $rawPassword = str_split(md5(rand(0,99999)), 8)[0];
         $password = $encoder->encodePassword($rawPassword, $user->getSalt());
 
         $user->setPassword($password);

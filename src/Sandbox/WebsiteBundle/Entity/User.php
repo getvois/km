@@ -17,6 +17,13 @@ class User extends BaseUser{
     /**
      * @var string
      *
+     * @ORM\Column(name="hash", type="string", nullable=true)
+     */
+    private $hash;
+    /**
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
@@ -46,6 +53,22 @@ class User extends BaseUser{
      * @ORM\Column(name="city", type="string", nullable=true)
      */
     private $city;
+
+    /**
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param string $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    }
 
     /**
      * @return string
