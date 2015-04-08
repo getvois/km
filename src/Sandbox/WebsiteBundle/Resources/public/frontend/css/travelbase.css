@@ -545,14 +545,17 @@ div.travelbase-input-addon{
     padding:8px;
     margin-bottom:5px;
     width: 80%;
+    margin-top: 46px;
+    display: none;
 }
 .subscribe-form #form_submit {
     padding:8px;
     font-weight:bold;
+    margin-top: 46px;
 }
 
 .tree-toggle{
-    padding: 4px;
+    padding: 8px;
     position: absolute;
     right: 0;
     top: 1px;

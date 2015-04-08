@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\AdminBundle\Helper\Security\Acl\Permission\PermissionMap;
@@ -12,8 +13,10 @@ use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\SubscribeForm;
 use Sandbox\WebsiteBundle\Entity\Subscription;
+use Sandbox\WebsiteBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +30,7 @@ class SubscriptionController extends Controller
      * @Route("/subscribe/")
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
     public function subscribeAction(Request $request)
     {
@@ -48,38 +51,52 @@ class SubscriptionController extends Controller
 
                 $nodes = explode(',', $subscribeForm->getNode());
 
-                $subscribed = false;
-                $resend = false;
-                $already = false;
-                $sendEmail = null;
+                //$subscribed = false;
+                //$resend = false;
+                //$already = false;
+                //$sendEmail = null;
+
+                $em->getRepository('SandboxWebsiteBundle:Subscription')
+                    ->createQueryBuilder('s')->delete('SandboxWebsiteBundle:Subscription', 's')
+                    ->where('s.email = :email')
+                    ->setParameter(':email', $subscribeForm->getEmail())
+                    ->getQuery()->execute();
+
                 foreach ($nodes as $nodeId) {
                     //get node
                     $node = $em->getRepository('KunstmaanNodeBundle:Node')
                         ->find($nodeId);
 
                     if(!$node) continue;
+                        //->findOneBy(['email' => $subscribeForm->getEmail(), 'lang' => $lang, 'node' => $node, 'host' => $request->getHost()]);
 
-                    //check if subscription already exists
-                    /** @var Subscription $subscription */
-                    $subscription = $em->getRepository('SandboxWebsiteBundle:Subscription')
-                        ->findOneBy(['email' => $subscribeForm->getEmail(), 'lang' => $lang, 'node' => $node, 'host' => $request->getHost()]);
+//                    if($subscription){
+//                        foreach ($subscription as $s) {
+//                            $em->remove($s);
+//                            $em->flush();
+//                        }
+//                    }
 
-                    if($subscription){
-                        //if not active resend email?
-                        if(!$subscription->getActive()){
-                            //re send activation email
-                            $sendEmail = $subscription;
-
-                            $resend = true;
-
-                        }else{
-                            $already = true;
-                        }
-                    }else{
+//                    if($subscription){
+//                        //if not active resend email?
+//                        if(!$subscription->getActive()){
+//                            $subscription->setActive(true);
+//                            $em->persist($subscription);
+//                            $em->flush();
+//
+//                            //re send activation email
+//                            //$sendEmail = $subscription;
+//
+//                            //$resend = true;
+//
+//                        }else{
+//                            //$already = true;
+//                        }
+//                    }else{
                         $hash = md5(md5($request->getHost() . $subscribeForm->getEmail() . $subscribeForm->getNode() . microtime()));
                         $subscription = new Subscription();
                         $subscription->setLang($lang);
-                        $subscription->setActive(0);
+                        $subscription->setActive(1);
                         $subscription->setEmail($subscribeForm->getEmail());
                         $subscription->setNode($node);
                         $subscription->setHash($hash);
@@ -90,40 +107,42 @@ class SubscriptionController extends Controller
                         $em->flush();
 
                         //send activation email
-                        $sendEmail = $subscription;
+                        //$sendEmail = $subscription;
 
-                        $subscribed = true;
-                    }
+                        //$subscribed = true;
+                    //}
                 }
 
                 //send activation email
-                if($sendEmail)
-                    $this->sendActivationEmail($sendEmail);
+//                if($sendEmail)
+//                    $this->sendActivationEmail($sendEmail);
 
-                if(!$subscribed && $resend && !$already){//not subscribed and resend
-                    $this->get('session')->getFlashBag()->add('info', "Subscription not active");
-                    $this->get('session')->getFlashBag()->add('info', "Activation email was re send to your email.");
-                }
-                if(!$subscribed && $already && !$resend){
-                    $this->get('session')->getFlashBag()->add('info', "Already subscribed");
-                }
-
-                if($subscribed){
-                    $this->get('session')->getFlashBag()->add('info', "Subscribed successfully");
-                    $this->get('session')->getFlashBag()->add('info', "Activation is send to your email");
-                }
+//                if(!$subscribed && $resend && !$already){//not subscribed and resend
+//                    $this->get('session')->getFlashBag()->add('info', "Subscription not active");
+//                    $this->get('session')->getFlashBag()->add('info', "Activation email was re send to your email.");
+//                }
+//                if(!$subscribed && $already && !$resend){
+//                    $this->get('session')->getFlashBag()->add('info', "Already subscribed");
+//                }
+//
+//                if($subscribed){
+//                    $this->get('session')->getFlashBag()->add('info', "Subscribed successfully");
+//                    $this->get('session')->getFlashBag()->add('info', "Activation is send to your email");
+//                }
 
                 //redirect to previous page
                 $prevPage = $request->server->get('HTTP_REFERER');
 
-                return new RedirectResponse($prevPage);
+                //return new RedirectResponse($prevPage);
+                return new JsonResponse(['status' => 'ok', 'msg' => 'Data saved']);
+            }else{
+                return new JsonResponse(['status' => 'error', 'msg' => 'Invalid data']);
             }
 
         }
 
-
-
-        return new Response("hello");
+        return new JsonResponse(['status' => 'error', 'msg' => 'not post request']);
+        //return new Response("hello");
     }
 
 
@@ -312,12 +331,43 @@ class SubscriptionController extends Controller
      */
     public function subscribeTreeAction()
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        //get user subscriptions
+        $em = $this->getDoctrine()->getManager();
+        $subscriptions = $em->getRepository('SandboxWebsiteBundle:Subscription')
+            ->createQueryBuilder('s')
+            ->select('IDENTITY(s.node) as id')
+            ->where('s.email = :email')
+            ->setParameter(':email', $user->getEmail())
+            ->andWhere('s.active = 1')
+            ->getQuery()->getResult();
+
+        $ids = [];
+        if($subscriptions){
+            foreach ($subscriptions as $subscr) {
+                $ids[] = $subscr['id'];
+            }
+            $subscriptions = $ids;
+        }
+
+        if(!$subscriptions) $subscriptions = [];
+
+        $subscriptions = new ArrayCollection($subscriptions);
+
         $root = $this->get('placeshelper')->getRoot();
         $placesNodes = $this->get('placeshelper')->getPlaces();
 
         $form = new SubscribeForm();
+        $form->setEmail($user->getEmail());
         $form = $this->getForm($form);
 
-        return ['root' => $root,  'places' => $placesNodes , 'form' => $form->createView() ];
+        return [
+            'root' => $root,
+            'places' => $placesNodes ,
+            'form' => $form->createView(),
+            'subscriptions' => $subscriptions,
+        ];
     }
 }

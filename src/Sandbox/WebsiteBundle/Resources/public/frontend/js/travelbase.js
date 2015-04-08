@@ -7,6 +7,12 @@ $(document).ready(function() {
 
     $("#show-club-tab").click(function () {
         $('#club-tab').tab('show');
+        return false;
+    });
+
+    $("#open-user-tab").click(function () {
+        $('#user-tab').tab('show');
+        return false;
     });
 
     $("#reset-user-password").click(function () {
@@ -160,7 +166,20 @@ $(document).ready(function() {
 
         $('#form_node').val($ids);
 
-        return true;
+        $('#form_submit').addClass('disabled');
+        $.post('/subscribe/', $(this).serialize(), function (responce) {
+            var $flashbag = $("#info-modal");
+            if(responce.status == 'error'){
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }else{
+                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+            }
+
+            $flashbag.modal('show');
+            $('#form_submit').removeClass('disabled');
+        });
+
+        return false;
     });
 
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable

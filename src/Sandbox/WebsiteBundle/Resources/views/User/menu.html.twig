@@ -5,7 +5,7 @@
             <ul class="nav nav-pills nav-stacked" role="tablist">
                 <li role="presentation" class="active"><a href="#user-detail-edit" aria-controls="home" role="tab" data-toggle="tab">{{ 'user.edit.details'|trans({}, 'frontend') }}</a></li>
                 <li role="presentation"><a href="#user-password-edit" aria-controls="profile" role="tab" data-toggle="tab">{{ 'change.password'|trans({}, 'frontend') }}</a></li>
-                {#<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>#}
+                <li role="presentation"><a href="#subscriptions" aria-controls="messages" role="tab" data-toggle="tab">{{ 'subscriptions'|trans({}, 'frontend') }}</a></li>
                 {#<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>#}
             </ul>
         </div>
@@ -19,7 +19,9 @@
                 <div role="tabpanel" class="tab-pane" id="user-password-edit">
                     {% include '@SandboxWebsite/User/changePassword.html.twig' %}
                 </div>
-                {#<div role="tabpanel" class="tab-pane" id="messages">...</div>#}
+                <div role="tabpanel" class="tab-pane" id="subscriptions">
+                    {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}
+                </div>
                 {#<div role="tabpanel" class="tab-pane" id="settings">...</div>#}
             </div>
         </div>

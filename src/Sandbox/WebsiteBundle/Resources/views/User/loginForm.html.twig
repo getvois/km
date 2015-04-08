@@ -1,5 +1,6 @@
 {% if app.user %}
-    {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}
+    <h4><a id="open-user-tab" href="#">{{ app.user.email }}</a></h4>
+    {#{{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}#}
 
     <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
 {% else %}

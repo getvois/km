@@ -1,19 +1,37 @@
 <div class="tree-wrapper">
     <div class="subscribe-tree">
         <ul>
-            <li id="node_0" data-jstree='{"selected":true}'>
+            <li id="node_0">
                 {{ 'all.countries'|trans({}, 'frontend') }}
                 <ul>
                     {% for place in places %}
-                        <li id="node_{{ place['parent'].id }}">{{ place['parent'].title }}
+                        <li id="node_{{ place['parent'].id }}"
+                                {% if subscriptions.contains(place['parent'].id) %}
+                                    data-jstree='{"selected":true}'
+                                {% else %}
+                                    data-jstree='{"selected":false}'
+                                {% endif %}
+                                >{{ place['parent'].title }}
                             {% if place['children']|length > 0 %}
                                 <ul>
                                     {% for child in place['children'] %}
-                                        <li id="node_{{ child['parent'].id }}">{{ child['parent'].title }}
+                                        <li id="node_{{ child['parent'].id }}"
+                                        {% if subscriptions.contains(child['parent'].id) %}
+                                    data-jstree='{"selected":true}'
+                                {% else %}
+                                    data-jstree='{"selected":false}'
+                                {% endif %}
+                                        >{{ child['parent'].title }}
                                             {% if child['children']|length > 0 %}
                                                 <ul>
                                                     {% for subchild in child['children'] %}
-                                                        <li id="node_{{ subchild.parent.id }}">{{ subchild.parent.title }}</li>
+                                                        <li id="node_{{ subchild.parent.id }}"
+                                                                {% if subscriptions.contains(subchild.parent.id) %}
+                                                                    data-jstree='{"selected":true}'
+                                                                {% else %}
+                                                                    data-jstree='{"selected":false}'
+                                                                {% endif %}
+                                                                >{{ subchild.parent.title }}</li>
                                                     {% endfor %}
                                                 </ul>
                                             {% endif %}
