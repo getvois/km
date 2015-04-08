@@ -36,7 +36,7 @@ AND nt.online = 1';
         return $objects;
     }
 
-    public function getNewsPagesWithImage($lang, $host, $limit = 10)
+    public function getNewsPagesWithImage($lang, $host, $limit = 10, $sortByViewCount = false)
     {
         $dql = "SELECT p.title, nt.slug, m.url, p.date, p.viewCount
 FROM Sandbox\WebsiteBundle\Entity\News\NewsPage p
@@ -61,8 +61,12 @@ AND nt.online = 1';
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
-        $dql .= ' ORDER BY p.date DESC ';
+        if($sortByViewCount){
+            $dql .= ' ORDER BY p.viewCount DESC ';
 
+        }else{
+            $dql .= ' ORDER BY p.date DESC ';
+        }
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
 

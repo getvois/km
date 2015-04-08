@@ -79,10 +79,10 @@ class TravelbaseController extends Controller
             ->getRoot($request->getLocale());
 
         $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
-            ->getNewsPagesWithImage($request->getLocale(), $host, 5);
+            ->getNewsPagesWithImage($request->getLocale(), $host, 5, true);
 
         $articles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
-            ->getArticlePagesWithImage($request->getLocale(), $host, 5);
+            ->getArticlePagesWithImage($request->getLocale(), $host, 5, true);
 
         //fill slug
         foreach ($news as &$n) {
@@ -97,11 +97,11 @@ class TravelbaseController extends Controller
         usort($fullNodes, function ($a, $b)
         {
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($a['date']->getTimestamp() == $b['date']->getTimestamp()) {
+            if ($a['viewCount'] == $b['viewCount']) {
                 return 0;
             }
             /** @noinspection PhpUndefinedMethodInspection */
-            return ($a['date']->getTimestamp() < $b['date']->getTimestamp()) ? 1 : -1;
+            return ($a['viewCount'] < $b['viewCount']) ? 1 : -1;
         });
 
         return ['fullNodes' => $fullNodes];

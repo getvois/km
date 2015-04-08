@@ -175,7 +175,10 @@
         <section class="splash splash--gray-dark">
             <div class="row nomargin">
                 <div class="col-md-11 col-md-offset-0_5 margin-top-20">
-                    {{ render(controller('SandboxWebsiteBundle:Travelbase:articleFooter')) }}
+                    <nav class="col-xs-12 col-sm-3 col-md-3 col--padded doormat">
+                        {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
+                    </nav>
+                    {#{{ render(controller('SandboxWebsiteBundle:Travelbase:articleFooter')) }}#}
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:companyFooter')) }}
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:placesFooter')) }}
                 </div>

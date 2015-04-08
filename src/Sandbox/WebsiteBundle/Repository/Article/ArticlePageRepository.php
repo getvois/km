@@ -12,7 +12,7 @@ use Sandbox\WebsiteBundle\Entity\Host;
  */
 class ArticlePageRepository extends AbstractArticlePageRepository
 {
-    public function getArticlePagesWithImage($lang, $host, $limit = 10)
+    public function getArticlePagesWithImage($lang, $host, $limit = 10, $sortByViewCount = false)
     {
         $dql = "SELECT p.title, nt.slug, m.url, p.date, p.viewCount
 FROM Sandbox\WebsiteBundle\Entity\Article\ArticlePage p
@@ -37,7 +37,14 @@ AND nt.online = 1';
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
-        $dql .= ' ORDER BY p.date DESC ';
+        if($sortByViewCount){
+            $dql .= ' ORDER BY p.viewCount DESC ';
+
+        }else{
+            $dql .= ' ORDER BY p.date DESC ';
+
+        }
+
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);

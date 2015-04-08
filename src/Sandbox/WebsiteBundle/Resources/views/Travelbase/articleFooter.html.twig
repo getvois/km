@@ -1,28 +1,20 @@
 {% if root is defined %}
    
       <nav class="col-xs-12 col-sm-3 col-md-3 col--padded doormat">   
-        
-        {% block top10 %}
-            {{ render(controller('SandboxWebsiteBundle:Travelbase:topTen')) }}
-        {% endblock %}
-        
-        
-        
-        
-        
-        {#<h5 class="doormat__title"><a href="{{ path('_slug', { 'url': root.slug }) }}">{{ root.title }}</a></h5>#}
-        {#<ul class="list-reset doormat__link-list">#}
-            {#{% for article in articles %}#}
-                {#{% if article.title|length > 40 %}#}
-                    {#{% set ltitle = article.title[:40] ~ '...' %}#}
-                {#{% else %}#}
-                   {# {% set ltitle = article.title %}#}
-                {#{% endif %}#}
-                {#<li class="doormat__list-item">#}
-                    {#<a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ article.slug }) }}" class="link--gray doormat__link">{{ ltitle }}</a>#}
-                {#</li>#}
-           {#{% endfor %}#}
-        {#</ul>#}
+
+        <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': root.slug }) }}">{{ root.title }}</a></h5>
+        <ul class="list-reset doormat__link-list">
+            {% for article in articles %}
+                {% if article.title|length > 40 %}
+                    {% set ltitle = article.title[:40] ~ '...' %}
+                {% else %}
+                    {% set ltitle = article.title %}
+                {% endif %}
+                <li class="doormat__list-item">
+                    <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ article.slug }) }}" class="link--gray doormat__link">{{ ltitle }}</a>
+                </li>
+           {% endfor %}
+        </ul>
     </nav>
 {% endif %}
 
