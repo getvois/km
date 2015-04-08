@@ -202,6 +202,7 @@ $(document).ready(function() {
     var $datepickFrom = $('#datepick-input-from');
     var $datepickTo = $('#datepick-input-to');
 
+    $('#datepick-input-to-holder').val('');
     $('#datepick-input-to-holder').attr('placeholder', window.trans.returnDate[$lang]);
 
     var $datepickerClearIcon = $(".datepicker-clear-icon");
