@@ -1,17 +1,58 @@
 window.trans = {};
 
-window.trans.searchForPlace = {
-    en:'Search for place',
-    ee:'Search for place ee',
+
+window.trans.searchFromPlace = {
+    en:'Departure',
+    ee:'Väljumine',
     se:'Search for place se',
     de:'Search for place de',
     fr:'Search for place fr',
     ru:'Search for place ru',
     fi:'Search for place fi'
 };
+
+window.trans.searchForPlace = {
+    en:'Destination',
+    ee:'Sihtpunkt',
+    se:'Search for place se',
+    de:'Search for place de',
+    fr:'Search for place fr',
+    ru:'Search for place ru',
+    fi:'Search for place fi'
+};
+window.trans.typeMinThreeLetters = {
+    en:'Search for place',
+    ee:'Sisestage linna, riigi või lennujaama nimetus',
+    se:'Search for place se',
+    de:'Search for place de',
+    fr:'Search for place fr',
+    ru:'Введите название города, страны или аэропорта',
+    fi:'Search for place fi'
+};
+
+window.trans.popularDestinations = {
+    en:'Popular destinations',
+    ee:'Populaarseimad sihtkohad',
+    se:'Search for place se',
+    de:'Search for place de',
+    fr:'Search for place fr',
+    ru:'Search for place ru',
+    fi:'Search for place fi'
+};
+
+window.trans.returnFlight = {
+    en:'Return date',
+    ee:'Tagasilend',
+    se:'Search for place se',
+    de:'Search for place de',
+    fr:'Search for place fr',
+    ru:'Возвращение',
+    fi:'Search for place fi'
+};
+
 window.trans.prev = {
     en:'Prev',
-    ee:'Prev ee',
+    ee:'Eelmine',
     se:'Prev se',
     de:'Prev de',
     fr:'Prev fr',
@@ -20,7 +61,7 @@ window.trans.prev = {
 };
 window.trans.next = {
     en:'Next',
-    ee:'Next ee',
+    ee:'Järgmine', 
     se:'Next se',
     de:'Next de',
     fr:'Next fr',
@@ -29,7 +70,7 @@ window.trans.next = {
 };
 window.trans.today = {
     en:'Today',
-    ee:'Today ee',
+    ee:'Tänä',
     se:'Today se',
     de:'Today de',
     fr:'Today fr',
@@ -37,8 +78,8 @@ window.trans.today = {
     fi:'Today fi'
 };
 window.trans.departures = {
-    en:'Departures',
-    ee:'Departures ee',
+    en:'Departure flight',
+    ee:'Väljumine',
     se:'Departures se',
     de:'Departures de',
     fr:'Departures fr',
@@ -46,8 +87,8 @@ window.trans.departures = {
     fi:'Departures fi'
 };
 window.trans.return = {
-    en:'Return',
-    ee:'Return ee',
+    en:'Return flight',
+    ee:'Tagasilend',
     se:'Return se',
     de:'Return de',
     fr:'Return fr',
