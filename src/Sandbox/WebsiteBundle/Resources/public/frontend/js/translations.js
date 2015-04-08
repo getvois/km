@@ -86,7 +86,7 @@ window.trans.departures = {
     ru:'Departures ru',
     fi:'Departures fi'
 };
-window.trans.return = {
+window.trans.returnDate = {
     en:'Return flight',
     ee:'Tagasilend',
     se:'Return se',
