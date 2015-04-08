@@ -1,15 +1,15 @@
 <div style="position: relative">
-    <h2>club content</h2>
+    <h2>{{ 'club.header'|trans({}, 'frontend') }}</h2>
     {{ render(controller('SandboxWebsiteBundle:Offer:index')) }}
 
     {% if app.request.query.has('email') %}
         <div class="register-form">
-            <div>Welcome to the Club,</div>
-            <span class="pull-left">to view the club offers please confirm your email</span>
+            <div>{{ 'welcom.to.the.club'|trans({}, 'frontend') }},</div>
+            <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
                 <div  class="form-group pull-left">
             <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'email'|trans({}, 'frontend') }}"/>
                 </div>
-            <span class="pull-left">to receive your new account password.</span>
+            <span class="pull-left">{{ 'recieve.your.new.acc.password'|trans({}, 'frontend') }}.</span>
             <p class="clear">
                 <a class="btn btn-primary" id="reset-password" href="#">{{ 'confirm'|trans({}, 'frontend') }}</a>
             </p>
@@ -19,21 +19,21 @@
         {% if not app.user %}
             <div class="register-form">
                 <form action="{{ path('register_action') }}" method="post">
-                    <div>Welcome to the Club,</div>
-                    <span class="pull-left">I am</span>
+                    <div>{{ 'welcom.to.the.club'|trans({}, 'frontend') }},</div>
+                    <span class="pull-left">{{ 'i.am'|trans({}, 'frontend') }}</span>
                     <div  class="form-group pull-left">
                         <label class="sr-only" for="name">{{ 'name'|trans({}, 'frontend') }}:</label>
                         <input id="name" type="text" name="name" class="form-control"
                                placeholder="{{ 'name'|trans({}, 'frontend') }}"/>
                     </div>
-                    <span class="pull-left">and my email is</span>
+                    <span class="pull-left">{{ 'and.my.email.is'|trans({}, 'frontend') }}</span>
                     <div class="form-group pull-left">
                         <label class="sr-only" for="email">{{ 'email'|trans({}, 'frontend') }}:</label>
                         <input id="email" type="text" name="email" class="form-control"
                                placeholder="{{ 'email'|trans({}, 'frontend') }}"/>
                     </div>
                     <span class="pull-left">.</span>
-                    <div class="clear">I want to join 10,827 others and find the best offers.</div>
+                    <div class="clear">{{ 'i.want.to.join.others'|trans({}, 'frontend') }}.</div>
                     <p>
                         <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
                     </p>
