@@ -132,7 +132,7 @@ function loadMore(){
         $filter.offset = $tr.length - 1 ;
     }
 
-    $.post('/app_dev.php/api-filter/0', JSON.stringify($filter), function (responce) {
+    $.post('/api-filter/0', JSON.stringify($filter), function (responce) {
         var $table = $(".travelbase_items:visible").find('> div ');
         $table.append(responce.html);
 
