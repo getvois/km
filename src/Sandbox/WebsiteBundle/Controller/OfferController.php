@@ -14,6 +14,7 @@ class OfferController extends Controller
 {
     /**
      * @Template()
+     * @param Request $request
      * @return array
      */
     public function indexAction(Request $request)
@@ -73,13 +74,13 @@ class OfferController extends Controller
 
         $content = @file_get_contents('http://api.travelwebpartner.com/app_dev.php/api/offer.filter/?'.$query);
         if(!$content)
-            return new JsonResponse(['html' => '']);
+            return new JsonResponse(['html' => '', 'total' => 0]);
 
         $data = json_decode($content);
 
         $html = $this->get('templating')->render('@SandboxWebsite/Offer/fromJson.html.twig', ['data' => $data]);
 
-        return new JsonResponse(['html' => $html]);
+        return new JsonResponse(['html' => $html, 'total' => $data->total]);
     }
 
     private function getQuery(Request $request)

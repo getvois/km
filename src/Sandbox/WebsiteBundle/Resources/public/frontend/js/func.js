@@ -1,3 +1,22 @@
+function loadMoreOffers(){
+    var $container = $("#offers-container");
+    //remove load more btn
+    $container.find('.load-more-offers-button').remove();
+    var $offset = $container.find('.offer').length;
+
+    $.get('/offers.get/?offset='+$offset+'&limit=' + $offerPerPageLimit, function (responce) {
+
+        $container.append(responce.html);
+        //todo set total and loading mby
+
+        if($container.find('.offer').length < responce.total){
+            //show load more button
+            $container.append('<div class="load-more-offers-button clear"><a href="#" class="btn btn-default" onclick="return loadMoreOffers()">Load more</a></div>');
+        }
+    });
+
+    return false;
+}
 function getFilter(container){
     if(!container) container = ".travelbase_items:visible";
 

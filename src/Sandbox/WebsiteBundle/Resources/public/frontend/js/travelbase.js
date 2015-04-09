@@ -1,6 +1,7 @@
 var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
 var $dpInterval = '1m';
 var $dpReturnInterval = '1m';
+var $offerPerPageLimit = 1;
 $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
@@ -9,6 +10,17 @@ $(document).ready(function() {
     if(window.location.pathname.match(/\/club/)){
         $('#club-tab').tab('show');
     }
+
+    $.get('/offers.get/?limit=' + $offerPerPageLimit, function (responce) {
+        var $container = $("#offers-container");
+        $container.html(responce.html);
+        //todo set total and loading mby
+
+        if($container.find('.offer').length < responce.total){
+            //show load more button
+            $container.append('<div class="load-more-offers-button clear"><a href="#" class="btn btn-default" onclick="return loadMoreOffers()">Load more</a></div>');
+        }
+    });
 
     $("#show-club-tab").click(function () {
         $('#club-tab').tab('show');
