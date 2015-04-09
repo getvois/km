@@ -1,0 +1,12 @@
+{% extends '@SandboxWebsite/Email/template.html.twig' %}
+
+{% block message %}
+    <p>
+        Thank you for joining our Club<br/>
+        User email:{{ email }}
+        Password: {{ password }}
+        To activate your email follow this link:
+        {{ baseurl }}/activate/{{ hash }}
+
+    </p>
+{% endblock %}

@@ -191,14 +191,6 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            //send email with password
-            $message = "Thank you for joining our Club\n
-            User email:{$user->getEmail()}\n
-            Password: $password
-            To activate your email follow this link:
-            {$request->getSchemeAndHttpHost()}/activate/$hash\n
-            ";
-
             //log in user
             // Here, "main" is the name of the firewall in your security.yml
             $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
@@ -210,7 +202,18 @@ class UserController extends Controller
             $event = new InteractiveLoginEvent($this->get('request'), $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
-            mail($email, 'Registration', $message, 'From: info@'.$request->getHost());
+            //send email with password
+            $message = $this->get('templating')->render('@SandboxWebsite/Email/registration.html.twig',
+                [
+                    'email' => $email,
+                    'password' => $password,
+                    'hash' => $hash,
+                    'baseurl' => $request->getSchemeAndHttpHost(),
+                ]);
+            $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $headers .= 'From: info@'.$request->getHost() . "\r\n";
+            mail($email, 'Registration', $message, $headers);
+
             return new JsonResponse(['status' => 'ok', 'msg' => 'Registered successfully<br>Check your email for more details']);
         }else{
             return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
@@ -320,6 +323,8 @@ class UserController extends Controller
                     ->findOneBy(['email' => $email]);
 
                 $user->setName($name);
+                $hash = md5(microtime() . $user->getEmail());
+                $user->setHash($hash);
                 $user->setHost($request->getHost());
                 $host = $this->get('hosthelper')->getHost();
                 if($host){
@@ -332,8 +337,17 @@ class UserController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Registered successfully');
 
                 //send email with password
-                $message = "Your password: $password";
-                mail($email, 'Registration', $message, 'From: info@'.$request->getHost());
+                $message = $this->get('templating')->render('@SandboxWebsite/Email/registration.html.twig',
+                    [
+                        'email' => $email,
+                        'password' => $password,
+                        'hash' => $hash,
+                        'baseurl' => $request->getSchemeAndHttpHost(),
+                    ]);
+                $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $headers .= 'From: info@'.$request->getHost() . "\r\n";
+                mail($email, 'Registration', $message, $headers);
+
             }else{
                 $this->get('session')->getFlashBag()->add('error', 'Error occurred while creating user');
             }
@@ -647,8 +661,12 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-        $message = "Your new password: " . $rawPassword;
-        mail($user->getEmail(), 'Password reset', $message, 'From: info@'.$request->getHost());
+
+        $message = $this->get('templating')->render('@SandboxWebsite/Email/passwordReset.html.twig', ['rasPassword' => $rawPassword]);
+        //$message = "Your new password: " . $rawPassword;
+        $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'From: info@'.$request->getHost() . "\r\n";
+        mail($user->getEmail(), 'Password reset', $message, $headers);
 
         return new JsonResponse(['status' => 'ok', 'msg' => 'Password is send to your email']);
 
@@ -737,8 +755,12 @@ class UserController extends Controller
 
         $em->persist($user);
         $em->flush();
-        $message = "Your new password: " . $rawPassword;
-        mail($user->getEmail(), 'Password reset', $message, 'From: info@'.$request->getHost());
+
+        $message = $this->get('templating')->render('@SandboxWebsite/Email/passwordReset.html.twig', ['rasPassword' => $rawPassword]);
+        //$message = "Your new password: " . $rawPassword;
+        $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'From: info@'.$request->getHost() . "\r\n";
+        mail($user->getEmail(), 'Password reset', $message, $headers);
 
         return new JsonResponse(['status' => 'ok', 'msg' => 'Password is send to your email']);
 
