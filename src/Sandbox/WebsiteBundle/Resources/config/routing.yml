@@ -2,6 +2,10 @@ sandboxwebsitebundle_user:
     resource: "@SandboxWebsiteBundle/Controller/UserController.php"
     type:     annotation
 
+sandboxwebsitebundle_offers:
+    resource: "@SandboxWebsiteBundle/Controller/OfferController.php"
+    type:     annotation
+
 sandboxwebsitebundle_newsletter:
     resource: "@SandboxWebsiteBundle/Controller/NewsletterController.php"
     type:     annotation
