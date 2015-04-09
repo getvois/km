@@ -1,18 +1,49 @@
 function loadMoreOffers(){
+
+    var opts = {
+        lines: 11, // The number of lines to draw
+        length: 4, // The length of each line
+        width: 2, // The line thickness
+        radius: 1, // The radius of the inner circle
+        corners: 0, // Corner roundness (0..1)
+        rotate: 40, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#000', // #rgb or #rrggbb or array of colors
+        speed: 1, // Rounds per second
+        trail: 66, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '50%', // Top position relative to parent
+        left: '50%' // Left position relative to parent
+    };
+
+    $('#club-badge').html("");
+    var spinner = new Spinner(opts).spin($('#club-badge-loading')[0]);
+
+
+
     var $container = $("#offers-container");
     //remove load more btn
     $container.find('.load-more-offers-button').remove();
     var $offset = $container.find('.offer').length;
 
-    $.get('/offers.get/?offset='+$offset+'&limit=' + $offerPerPageLimit, function (responce) {
+    var $offerType = $('#offertype').val();
+    var $city = $('#offercity').val();
+    var $country = $('#offercountry').val();//todo kosmos not implemented on api
+
+    $.get('/offers.get/?city='+$city+'&type='+$offerType+'&offset='+$offset+'&limit=' + $offerPerPageLimit, function (responce) {
 
         $container.append(responce.html);
-        //todo set total and loading mby
+        $('#club-badge').html(responce.total);
 
         if($container.find('.offer').length < responce.total){
             //show load more button
             $container.append('<div class="load-more-offers-button clear"><a href="#" class="btn btn-default" onclick="return loadMoreOffers()">Load more</a></div>');
         }
+
+        spinner.stop();
     });
 
     return false;

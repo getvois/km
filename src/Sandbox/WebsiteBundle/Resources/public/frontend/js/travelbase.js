@@ -11,16 +11,18 @@ $(document).ready(function() {
         $('#club-tab').tab('show');
     }
 
-    $.get('/offers.get/?limit=' + $offerPerPageLimit, function (responce) {
+    $('#club-filter').click(function () {
         var $container = $("#offers-container");
-        $container.html(responce.html);
-        //todo set total and loading mby
+        $container.html("");
 
-        if($container.find('.offer').length < responce.total){
-            //show load more button
-            $container.append('<div class="load-more-offers-button clear"><a href="#" class="btn btn-default" onclick="return loadMoreOffers()">Load more</a></div>');
-        }
+        loadMoreOffers();
+        return false;
     });
+
+
+    var $container = $("#offers-container");
+    $container.html("");
+    loadMoreOffers();
 
     $("#show-club-tab").click(function () {
         $('#club-tab').tab('show');
