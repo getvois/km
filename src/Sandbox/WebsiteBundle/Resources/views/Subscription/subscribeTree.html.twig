@@ -60,6 +60,12 @@
         {{ form_errors(form.email) }}
         {{ form_widget(form.email, {'attr': {'placeholder': 'email'|trans({}, 'frontend')}}) }}
     </div>
+    <div>
+        {#{{ form_label(form.email) }}#}
+        {{ form_errors(form.subscribe) }}
+        {{ form_widget(form.subscribe) }}
+        <label for="form_subscribe">{{ 'subscribe.label'|trans({}, 'frontend') }}</label>
+    </div>
 
     <div>
         {{ form_widget(form.submit) }}

@@ -96,7 +96,11 @@ class SubscriptionController extends Controller
                         $hash = md5(md5($request->getHost() . $subscribeForm->getEmail() . $subscribeForm->getNode() . microtime()));
                         $subscription = new Subscription();
                         $subscription->setLang($lang);
-                        $subscription->setActive(1);
+                        if($subscribeForm->isSubscribe()){
+                            $subscription->setActive(1);
+                        }else{
+                            $subscription->setActive(0);
+                        }
                         $subscription->setEmail($subscribeForm->getEmail());
                         $subscription->setNode($node);
                         $subscription->setHash($hash);
@@ -301,6 +305,7 @@ class SubscriptionController extends Controller
             ->setAction($this->generateUrl('sandbox_website_subscription_subscribe'))
             ->add('node', 'hidden')
             ->add('email', 'email')
+            ->add('subscribe', 'checkbox', ['required' => false])
             ->add('submit', 'submit')
             ->getForm();
     }
@@ -361,6 +366,7 @@ class SubscriptionController extends Controller
 
         $form = new SubscribeForm();
         $form->setEmail($user->getEmail());
+        $form->setSubscribe(true);
         $form = $this->getForm($form);
 
         return [

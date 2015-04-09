@@ -553,6 +553,9 @@ div.travelbase-input-addon{
 .subscribe-form #form_submit {
     padding:8px;
     font-weight:bold;
+    margin-top: 10px;
+}
+.subscribe-form #form_subscribe {
     margin-top: 166px;
 }
 

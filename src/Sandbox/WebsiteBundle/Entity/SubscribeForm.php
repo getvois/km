@@ -13,6 +13,27 @@ class SubscribeForm {
     private $node;
 
     /**
+     * @var bool
+     */
+    private $subscribe;
+
+    /**
+     * @return boolean
+     */
+    public function isSubscribe()
+    {
+        return $this->subscribe;
+    }
+
+    /**
+     * @param boolean $subscribe
+     */
+    public function setSubscribe($subscribe)
+    {
+        $this->subscribe = $subscribe;
+    }
+
+    /**
      * @var string
      *
      * @Assert\NotBlank()
