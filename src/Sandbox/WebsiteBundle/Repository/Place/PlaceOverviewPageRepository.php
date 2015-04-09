@@ -50,7 +50,7 @@ AND nt.online = 1';
 
     public function getByParentIds($parentIds, $lang, $host)
     {
-        $dql = "SELECT IDENTITY(n.parent) as parent, n.id, p.title, nt.slug
+        $dql = "SELECT IDENTITY(n.parent) as parent, n.id, p.title, nt.slug, p.cityId
 FROM Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
@@ -86,7 +86,7 @@ AND nt.online = 1';
 
     public function getByRoot($rootNodeId, $lang, $host)
     {
-        $dql = "SELECT n.id, p.title, nt.slug
+        $dql = "SELECT n.id, p.title, nt.slug, p.cityId
 FROM Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation

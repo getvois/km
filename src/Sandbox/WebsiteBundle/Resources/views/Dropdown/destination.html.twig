@@ -30,9 +30,9 @@
 
                 {% set rand1 = random(9999) %}
                 {% set rand2 = random(9999) %}
-                <input id="country{{ country.parent.id }}{{ rand1 }}{{ rand2 }}"
-                       name="country{{ country.parent.id }}" class="parent"
-                       value="{{ country.parent.id }}"
+                <input id="country{{ country.parent.cityId }}{{ rand1 }}{{ rand2 }}"
+                       name="country{{ country.parent.cityId }}" class="parent"
+                       value="{{ country.parent.cityId }}"
                        data-name="{{ country.parent.title }}"
                        data-depth="0" data-type="country" data-city-type="[]" type="checkbox">
                 <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ country.parent.slug }) }}">{{ country.parent.title }}</a>
@@ -46,9 +46,9 @@
                             {% endif %}
                                 {% set rand1 = random(9999) %}
                                 {% set rand2 = random(9999) %}
-                                <input id="city{{ children.parent.id }}{{ rand1 }}{{ rand2 }}"
-                                       name="city{{ children.parent.id }}" class="parent"
-                                       value="{{ children.parent.id }}"
+                                <input id="city{{ children.parent.cityId }}{{ rand1 }}{{ rand2 }}"
+                                       name="city{{ children.parent.cityId }}" class="parent"
+                                       value="{{ children.parent.cityId }}"
                                        data-name="{{ children.parent.title }}"
                                        data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
                                 <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ country.parent.slug ~ "/" ~ children.parent.slug }) }}">
@@ -65,9 +65,9 @@
                                                 {% endif %}
                                                 {% set rand1 = random(9999) %}
                                                 {% set rand2 = random(9999) %}
-                                                <input id="city{{ subchildren.parent.id }}{{ rand1 }}{{ rand2 }}"
-                                                       name="city{{ subchildren.parent.id }}" class="parent"
-                                                       value="{{ subchildren.parent.id }}"
+                                                <input id="city{{ subchildren.parent.cityId }}{{ rand1 }}{{ rand2 }}"
+                                                       name="city{{ subchildren.parent.cityId }}" class="parent"
+                                                       value="{{ subchildren.parent.cityId }}"
                                                        data-name="{{ subchildren.parent.title }}"
                                                        data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
                                                 <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ country.parent.slug ~ "/" ~ children.parent.slug ~ "/" ~ subchildren.parent.slug }) }}">
