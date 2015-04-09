@@ -662,7 +662,7 @@ class UserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        $message = $this->get('templating')->render('@SandboxWebsite/Email/passwordReset.html.twig', ['rasPassword' => $rawPassword]);
+        $message = $this->get('templating')->render('@SandboxWebsite/Email/passwordReset.html.twig', ['rawPassword' => $rawPassword]);
         //$message = "Your new password: " . $rawPassword;
         $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $headers .= 'From: info@'.$request->getHost() . "\r\n";
@@ -756,7 +756,7 @@ class UserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        $message = $this->get('templating')->render('@SandboxWebsite/Email/passwordReset.html.twig', ['rasPassword' => $rawPassword]);
+        $message = $this->get('templating')->render('@SandboxWebsite/Email/passwordReset.html.twig', ['rawPassword' => $rawPassword]);
         //$message = "Your new password: " . $rawPassword;
         $headers = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $headers .= 'From: info@'.$request->getHost() . "\r\n";
