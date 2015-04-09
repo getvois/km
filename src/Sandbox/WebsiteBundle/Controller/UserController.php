@@ -12,8 +12,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\NullOutput;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Component\Console\Input\ArrayInput;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,12 +28,11 @@ use Symfony\Component\Validator\Constraints\Email;
 class UserController extends Controller
 {
     /**
-     * @param Request $request
      * @return array
      *
      * @Template()
      */
-    public function loginFormAction(Request $request)
+    public function loginFormAction()
     {
         return [];
     }
@@ -71,6 +72,7 @@ class UserController extends Controller
                 // User + password match
                 // Here, "main" is the name of the firewall in your security.yml
                 $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+                /** @noinspection YamlDeprecatedClasses */
                 $this->get("security.context")->setToken($token);
 
                 // Fire the login event
@@ -103,6 +105,7 @@ class UserController extends Controller
     {
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
         $token = new AnonymousToken($providerKey, 'anon.');
+        /** @noinspection YamlDeprecatedClasses */
         $this->get('security.context')->setToken($token);
         $this->get('request')->getSession()->invalidate();
 
@@ -129,6 +132,8 @@ class UserController extends Controller
 
         //check email
         $emailConstraint = new Email();
+        /** @noinspection YamlDeprecatedClasses */
+        /** @noinspection PhpDeprecationInspection */
         $errorList = $this->get('validator')->validateValue(
             $email,
             $emailConstraint
@@ -154,6 +159,7 @@ class UserController extends Controller
         $command = new CreateUserCommand();
         $command->setApplication($application);
         $command->setContainer($this->container);
+        /** @noinspection PhpUndefinedClassInspection */
         $input = new ArrayInput(array(
             'command'       => 'fos:user:create',
             'username' => $email,
@@ -162,6 +168,7 @@ class UserController extends Controller
             '--super-admin' => false
         ));
         $input->setInteractive(false);
+        /** @noinspection PhpUndefinedClassInspection */
         $output = new NullOutput();
         $resultCode = $command->run($input, $output);
 
@@ -195,6 +202,7 @@ class UserController extends Controller
             //log in user
             // Here, "main" is the name of the firewall in your security.yml
             $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+            /** @noinspection YamlDeprecatedClasses */
             $this->get("security.context")->setToken($token);
 
             // Fire the login event
@@ -218,6 +226,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var User $user */
         $user = $em->getRepository('SandboxWebsiteBundle:User')
             ->findOneBy(['hash' => $hash]);
         if(!$user)
@@ -226,6 +235,7 @@ class UserController extends Controller
         //log in user
         // Here, "main" is the name of the firewall in your security.yml
         $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+        /** @noinspection YamlDeprecatedClasses */
         $this->get("security.context")->setToken($token);
 
         // Fire the login event
@@ -260,6 +270,8 @@ class UserController extends Controller
 
             //check email
             $emailConstraint = new Email();
+            /** @noinspection YamlDeprecatedClasses */
+            /** @noinspection PhpDeprecationInspection */
             $errorList = $this->get('validator')->validateValue(
                 $email,
                 $emailConstraint
@@ -288,6 +300,7 @@ class UserController extends Controller
             $command = new CreateUserCommand();
             $command->setApplication($application);
             $command->setContainer($this->container);
+            /** @noinspection PhpUndefinedClassInspection */
             $input = new ArrayInput(array(
                 'command'       => 'fos:user:create',
                 'username' => $email,
@@ -296,6 +309,7 @@ class UserController extends Controller
                 '--super-admin' => false
             ));
             $input->setInteractive(false);
+            /** @noinspection PhpUndefinedClassInspection */
             $output = new NullOutput();
             $resultCode = $command->run($input, $output);
 
@@ -378,6 +392,7 @@ class UserController extends Controller
                     $command = new CreateUserCommand();
                     $command->setApplication($application);
                     $command->setContainer($this->container);
+                    /** @noinspection PhpUndefinedClassInspection */
                     $input = new ArrayInput(array(
                         'command'       => 'fos:user:create',
                         'username' => $email,
@@ -386,6 +401,7 @@ class UserController extends Controller
                         '--super-admin' => false
                     ));
                     $input->setInteractive(false);
+                    /** @noinspection PhpUndefinedClassInspection */
                     $output = new NullOutput();
                     $resultCode = $command->run($input, $output);
 
@@ -412,6 +428,7 @@ class UserController extends Controller
                 // User + password match
                 // Here, "main" is the name of the firewall in your security.yml
                 $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+                /** @noinspection YamlDeprecatedClasses */
                 $this->get("security.context")->setToken($token);
 
                 // Fire the login event
@@ -436,8 +453,10 @@ class UserController extends Controller
 
     /**
      * @Route("/login-fb/{token}")
+     * @param Request $request
      * @param $token
      * @return JsonResponse
+     * @throws \Exception
      */
     public function loginFBAction(Request $request, $token)
     {
@@ -471,6 +490,7 @@ class UserController extends Controller
             $command = new CreateUserCommand();
             $command->setApplication($application);
             $command->setContainer($this->container);
+            /** @noinspection PhpUndefinedClassInspection */
             $input = new ArrayInput(array(
                 'command'       => 'fos:user:create',
                 'username' => $email,
@@ -479,6 +499,7 @@ class UserController extends Controller
                 '--super-admin' => false
             ));
             $input->setInteractive(false);
+            /** @noinspection PhpUndefinedClassInspection */
             $output = new NullOutput();
             $resultCode = $command->run($input, $output);
 
@@ -505,6 +526,7 @@ class UserController extends Controller
         //log in user
         // Here, "main" is the name of the firewall in your security.yml
         $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+        /** @noinspection YamlDeprecatedClasses */
         $this->get("security.context")->setToken($token);
 
         // Fire the login event
@@ -656,6 +678,7 @@ class UserController extends Controller
                 $command = new CreateUserCommand();
                 $command->setApplication($application);
                 $command->setContainer($this->container);
+                /** @noinspection PhpUndefinedClassInspection */
                 $input = new ArrayInput(array(
                     'command'       => 'fos:user:create',
                     'username' => $email,
@@ -664,6 +687,7 @@ class UserController extends Controller
                     '--super-admin' => false
                 ));
                 $input->setInteractive(false);
+                /** @noinspection PhpUndefinedClassInspection */
                 $output = new NullOutput();
                 $resultCode = $command->run($input, $output);
 
@@ -723,6 +747,8 @@ class UserController extends Controller
     /**
      * @Route("/password-reset/")
      * @Template()
+     * @param Request $request
+     * @return array
      */
     public function resetPasAction(Request $request)
     {
@@ -736,6 +762,7 @@ class UserController extends Controller
         $page = $node[0]->getNodeTranslation($request->getLocale())->getRef($em);
 
         //for top and bottom menu
+        /** @noinspection YamlDeprecatedClasses */
         $securityContext = $this->get('security.context');
         $aclHelper      = $this->container->get('kunstmaan_admin.acl.helper');
         $nodeMenu       = new NodeMenu($em, $securityContext, $aclHelper, $request->getLocale(), $node[0], PermissionMap::PERMISSION_VIEW);
