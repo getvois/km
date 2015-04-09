@@ -850,7 +850,7 @@ $(document).ready(function() {
                 //if we have return date add second calendar
                 var $date_end = $datepickTo.datepick('getDate');
                 if($date_end.length > 0 && $type == 3){
-                    $row += '<div class="col-md-6"><h2>'+ trans.return[$lang] +'</h2><div class="calendar-header-2"></div>' +
+                    $row += '<div class="col-md-6"><h2>'+ trans.returnDate[$lang] +'</h2><div class="calendar-header-2"></div>' +
                     '<div class="btn-group">' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
                     '<button class="btn calendar-navigate-2" data-calendar-nav="today">' + trans.today[$lang] + '</button>' +
