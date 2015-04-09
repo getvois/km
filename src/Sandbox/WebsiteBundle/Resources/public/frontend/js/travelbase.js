@@ -202,8 +202,7 @@ $(document).ready(function() {
     var $datepickFrom = $('#datepick-input-from');
     var $datepickTo = $('#datepick-input-to');
 
-    $('#datepick-input-to-holder').val('');
-    $('#datepick-input-to-holder').attr('placeholder', window.trans.returnDate[$lang]);
+    $('#datepick-input-to-holder').attr('placeholder', window.trans.returnDate[$lang]).val('');
 
     var $datepickerClearIcon = $(".datepicker-clear-icon");
     $datepickerClearIcon.hide();
@@ -212,8 +211,7 @@ $(document).ready(function() {
     $datepickerClearIcon.click(function () {
         //noinspection JSUnresolvedFunction
         $datepickTo.datepick('clear');
-        $('#datepick-input-to-holder').val('');
-        $('#datepick-input-to-holder').attr('placeholder', window.trans.returnDate[$lang]);
+        $('#datepick-input-to-holder').attr('placeholder', window.trans.returnDate[$lang]).val('');
         $datepickerClearIcon.hide();
     });
 

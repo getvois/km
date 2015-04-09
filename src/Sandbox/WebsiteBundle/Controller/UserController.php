@@ -83,7 +83,7 @@ class UserController extends Controller
                 // maybe redirect out here
                 $this->get('session')->getFlashBag()->add('info', 'Logged in successfully');
                 /** @noinspection Symfony2PhpRouteMissingInspection */
-                return $this->redirect($this->generateUrl("_slug", ["url" => ""]));
+                return $this->redirect($this->generateUrl("_slug", ["url" => "club"]));
 
             } else {
                 // Password bad
@@ -453,7 +453,7 @@ class UserController extends Controller
                 // maybe redirect out here
                 $this->get('session')->getFlashBag()->add('info', 'Logged in successfully');
                 /** @noinspection Symfony2PhpRouteMissingInspection */
-                return $this->redirect($this->generateUrl("_slug", ["url" => ""]));
+                return $this->redirect($this->generateUrl("_slug", ["url" => "club"]));
             }
 
 
