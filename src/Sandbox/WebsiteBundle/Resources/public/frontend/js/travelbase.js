@@ -112,6 +112,7 @@ $(document).ready(function() {
                     alert(responce.message)
                 }else{
                     var $select = '<select name="offercity" id="offercity">';
+                    $select += "<option value=''>Any</option>";
                     for(var i=0;i<responce.length;i++){
                         $select += "<option value='"+responce[i].id+"'>" + responce[i]['cityName_' + $lang] + "</option>";
                     }

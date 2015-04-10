@@ -21,7 +21,7 @@ class OfferController extends Controller
     {
         $lang = $request->getLocale();
         $offerTypes = [];
-        $content = @file_get_contents('http://api.travelwebpartner.com/app_dev.php/api/offerType.getAll');
+        $content = @file_get_contents('http://api.travelwebpartner.com/api/offerType.getAll');
         if($content){
             $offerTypes = json_decode($content);
             foreach ($offerTypes as &$type) {
@@ -30,19 +30,17 @@ class OfferController extends Controller
             }
         }
 
-        $content = @file_get_contents('http://api.travelwebpartner.com/app_dev.php/api/offer.filter/');
+        $content = @file_get_contents('http://api.travelwebpartner.com/api/offer.getCountries');
         if(!$content)
             return [];
 
         $data = json_decode($content);
 
         $countries = [];
-        foreach ($data->offers as &$offer) {
-            if($offer->country){
-                $field = 'name_'.$lang;
-                $offer->country->name = $offer->country->$field;
-                $countries[$offer->country->id] = $offer->country;
-            }
+        foreach ($data as &$offer) {
+            $field = 'name_'.$lang;
+            $offer->name = $offer->$field;
+            $countries[$offer->id] = $offer;
         }
 
         return [
