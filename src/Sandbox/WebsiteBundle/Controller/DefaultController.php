@@ -154,7 +154,15 @@ class DefaultController extends Controller
         $hotelDescription = $this->get('translator')->trans('hotel.description', [], 'frontend');
 
         $hotel = $jokerHotel;
-        if($item->hotel != false) $hotel= $item->hotel->name;
+        if($item->hotel != false){
+            $hotel= $item->hotel->name;
+        }else{
+            //item type package and hotel not specified
+            if($item->type->id == 1){
+                $hotel = $this->get('translator')->trans('unspecified.hotel.title', [], 'frontend');
+                $item->info = $this->get('translator')->trans('unspecified.hotel.description', [], 'frontend');
+            }
+        }
 
         if($hotel == $jokerHotel && ($item->duration == "" || $item->duration == "1")){
             $item->duration = 'One way';
