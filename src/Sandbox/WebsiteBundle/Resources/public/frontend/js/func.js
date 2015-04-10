@@ -31,9 +31,9 @@ function loadMoreOffers(){
 
     var $offerType = $('#offertype').val();
     var $city = $('#offercity').val();
-    var $country = $('#offercountry').val();//todo kosmos not implemented on api
+    var $country = $('#offercountry').val();
 
-    $.get('/offers.get/?city='+$city+'&type='+$offerType+'&offset='+$offset+'&limit=' + $offerPerPageLimit, function (responce) {
+    $.get('/offers.get/?country='+$country+'&city='+$city+'&type='+$offerType+'&offset='+$offset+'&limit=' + $offerPerPageLimit, function (responce) {
 
         $container.append(responce.html);
         $('#club-badge').html(responce.total);

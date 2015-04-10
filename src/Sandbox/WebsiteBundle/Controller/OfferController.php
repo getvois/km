@@ -45,7 +45,7 @@ class OfferController extends Controller
             }
         }
 
-        $adapter = new ArrayAdapter($data->offers);
+        $adapter = new ArrayAdapter([]);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(9);
 
