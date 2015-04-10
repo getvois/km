@@ -1,79 +1,28 @@
-{% if pagerfanta is defined %}
-    <div class="row">
-        <div class="col-md-12">
-            <p>
-                {{ 'i.want.my.trip.to.be'|trans({}, 'frontend') }}
-                <label class="sr-only" for="offertype">{{ 'offer.type'|trans({}, 'frontend') }}</label>
-                <select name="offertype" id="offertype">
-                    <option value="">{{ 'any'|trans({}, 'frontend') }}</option>
-                    {% for type in offerTypes %}
-                        <option value="{{ type.id }}">{{ type.name }}</option>
-                    {% endfor %}
-                </select>
-                {{ 'to.the.desired.destination'|trans({}, 'frontend') }}
-                <label class="sr-only" for="offercountry">{{ 'offer.country'|trans({}, 'frontend') }}</label>
-                <select name="offercountry" id="offercountry">
-                    <option value="">{{ 'any'|trans({}, 'frontend') }}</option>
-                    {% for type in countries %}
-                        <option value="{{ type.code }}">{{ type.name }}</option>
-                    {% endfor %}
-                </select>
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            {{ 'i.want.my.trip.to.be'|trans({}, 'frontend') }}
+            <label class="sr-only" for="offertype">{{ 'offer.type'|trans({}, 'frontend') }}</label>
+            <select name="offertype" id="offertype">
+                <option value="">{{ 'any'|trans({}, 'frontend') }}</option>
+                {% for type in offerTypes %}
+                    <option value="{{ type.id }}">{{ type.name }}</option>
+                {% endfor %}
+            </select>
+            {{ 'to.the.desired.destination'|trans({}, 'frontend') }}
+            <label class="sr-only" for="offercountry">{{ 'offer.country'|trans({}, 'frontend') }}</label>
+            <select name="offercountry" id="offercountry">
+                <option value="">{{ 'any'|trans({}, 'frontend') }}</option>
+                {% for type in countries %}
+                    <option value="{{ type.code }}">{{ type.name }}</option>
+                {% endfor %}
+            </select>
 
-                <span id="select-city"></span>
+            <span id="select-city"></span>
 
-                <a class="btn btn-primary" href="#" id="club-filter">{{ 'filter'|trans({}, 'frontend') }}</a>
-            </p>
-        </div>
+            <a class="btn btn-primary" href="#" id="club-filter">{{ 'filter'|trans({}, 'frontend') }}</a>
+        </p>
     </div>
-    <div class="row" id="offers-container">
-        {% for offer in pagerfanta.currentPageResults %}
-            <div class="col-md-4 offer" data-country="">
-                <h2>{{ offer.name }}</h2>
-                {% if offer.image %}
-                    <img src="{{ offer.image }}"/>
-                    {% endif %}
-                {{ offer.hotel }}
-
-                <p>{{ offer.name }}</p>
-                <p>{{ offer.origPrice }}</p>
-                <p>{{ offer.price }}</p>
-                <p>{{ offer.priceInc }}</p>
-                <p>{{ offer.discount }}</p>
-                <p>{{ offer.description }}</p>
-                <p>{{ offer.descriptionIncl }}</p>
-
-                {% if offer.withFlights  %}
-                    <span class="fa fa-circle"></span>
-                {% else %}
-                    <span class="fa fa-square"></span>
-                {% endif %}
-
-                <p>{{ offer.amount }}</p>
-                <p>{{ offer.hotel }}</p>
-                {% if offer.dateEnd %}
-                <p>{{ offer.dateEnd|date('d.m.Y') }}</p>
-                {% endif %}
-                {% if offer.company %}
-                <p>{{ offer.company.id }}</p>
-                <p>{{ offer.company.name }}</p>
-                {% endif %}
-                <p>{{ offer.type.name_en }}</p>
-                <p>{{ offer.country.name_en }}</p>
-
-                {% if offer.cities %}
-                    {% for city in offer.cities %}
-                <p>{{ city.cityName }}</p>
-                    {% endfor %}
-                {% endif %}
-                <p>{{ offer.hotel }}</p>
-            </div>
-        {% endfor %}
-    </div>
-    {% if pagerfanta.haveToPaginate() %}
-        <div class="row">
-            <div class="col-md-12">
-                {#{{ pagerfanta(pagerfanta) }}#}
-            </div>
-        </div>
-    {% endif %}
-{% endif %}
+</div>
+<div class="row" id="offers-container">
+</div>

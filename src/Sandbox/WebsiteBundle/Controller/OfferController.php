@@ -45,18 +45,7 @@ class OfferController extends Controller
             }
         }
 
-        $adapter = new ArrayAdapter([]);
-        $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(9);
-
-        $pagenumber = $request->get('page');
-        if (!$pagenumber || $pagenumber < 1) {
-            $pagenumber = 1;
-        }
-        $pagerfanta->setCurrentPage($pagenumber);
-
         return [
-            'pagerfanta' => $pagerfanta,
             'offerTypes' => $offerTypes,
             'countries' => $countries,
         ];
