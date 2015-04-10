@@ -1,7 +1,7 @@
 var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
 var $dpInterval = '1m';
 var $dpReturnInterval = '1m';
-var $offerPerPageLimit = 1;
+var $offerPerPageLimit = 3;
 $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
