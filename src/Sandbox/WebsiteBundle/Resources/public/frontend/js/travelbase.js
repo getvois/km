@@ -106,7 +106,7 @@ $(document).ready(function() {
     $("#offercountry").change(function () {
         var $code = $(this).val();
         if($code.length > 0){
-            $.get('http://api.travelwebpartner.com/api/city.getByCountryCode/' + $code, function (responce) {
+            $.get('http://api.travelwebpartner.com/app_dev.php/api/offer.getCitiesByCountry/' + $code, function (responce) {
                 if(responce.error){
                     $("#select-city").html("");
                     alert(responce.message)
