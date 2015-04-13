@@ -28,7 +28,7 @@ class CompanyPageAdminListController extends AbstractArticlePageAdminListControl
     /**
      * The index action
      *
-     * @Route("/", name="sandboxwebsitebundle_admin_company_companypage")
+     * @Route("/", name="sandboxwebsitebundle_admin_company_companyoverviewpage")
      */
     public function indexAction(Request $request)
     {
@@ -67,7 +67,7 @@ class CompanyPageAdminListController extends AbstractArticlePageAdminListControl
      *
      * @param int $id
      *
-     * @Route("/{id}/delete", requirements={"id" = "\d+"}, name="sandboxwebsitebundle_admin_company_companypage_delete")
+     * @Route("/{id}/delete", requirements={"id" = "\d+"}, name="sandboxwebsitebundle_admin_company_companyoverviewpage_delete")
      * @Method({"GET", "POST"})
      *
      * @return array

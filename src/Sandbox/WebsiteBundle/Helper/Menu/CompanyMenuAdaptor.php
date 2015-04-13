@@ -30,7 +30,7 @@ class CompanyMenuAdaptor implements MenuAdaptorInterface
         if (!is_null($parent) && 'KunstmaanAdminBundle_modules' == $parent->getRoute()) {
             // Page
             $menuitem = new TopMenuItem($menu);
-            $menuitem->setRoute('sandboxwebsitebundle_admin_company_companypage');
+            $menuitem->setRoute('sandboxwebsitebundle_admin_company_companyoverviewpage');
             $menuitem->setInternalName('Company');
             $menuitem->setParent($parent);
             if (stripos($request->attributes->get('_route'), $menuitem->getRoute()) === 0) {

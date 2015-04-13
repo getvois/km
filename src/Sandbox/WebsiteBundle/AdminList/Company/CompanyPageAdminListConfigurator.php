@@ -11,7 +11,6 @@ use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
  */
 class CompanyPageAdminListConfigurator extends AbstractArticlePageAdminListConfigurator
 {
-
     /**
      * Return current bundle name.
      *
@@ -29,7 +28,7 @@ class CompanyPageAdminListConfigurator extends AbstractArticlePageAdminListConfi
      */
     public function getEntityName()
     {
-        return 'Company\CompanyPage';
+        return 'Company\CompanyOverviewPage';
     }
 
     /**
@@ -39,7 +38,7 @@ class CompanyPageAdminListConfigurator extends AbstractArticlePageAdminListConfi
     {
         parent::adaptQueryBuilder($queryBuilder);
 
-        $queryBuilder->setParameter('class', 'Sandbox\WebsiteBundle\Entity\Company\CompanyPage');
+        $queryBuilder->setParameter('class', 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage');
     }
 
     /**
@@ -57,5 +56,11 @@ class CompanyPageAdminListConfigurator extends AbstractArticlePageAdminListConfi
     {
         return 'SandboxWebsiteBundle:AdminList/Company/CompanyPageAdminList:list.html.twig';
     }
+
+    public function getOverviewPage()
+    {
+        return null;
+    }
+
 
 }
