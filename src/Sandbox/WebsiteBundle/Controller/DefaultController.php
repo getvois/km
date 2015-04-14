@@ -560,6 +560,8 @@ class DefaultController extends Controller
     public function testAction(Request $request)
     {
 
+        set_time_limit(0);
+
         $crawler = new Crawler(file_get_contents('http://www.hotelliveeb.ee/xml.php?type=hotel'));
 
         $hotels = $crawler->filter('hotel');
