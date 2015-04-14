@@ -2,3 +2,5 @@ name: Slider
 context: slider
 types:
     - { name: Slide, class: Sandbox\WebsiteBundle\Entity\PageParts\SlidePagePart }
+    - { name: HotelGallery, class: Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart }
+    - { name: HotelInformation, class: Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart }

@@ -16,3 +16,5 @@ types:
     - { name: News, class: Sandbox\WebsiteBundle\Entity\PageParts\NewsPagePart }
     - { name: GoogleMap, class: Sandbox\WebsiteBundle\Entity\PageParts\GoogleMapPagePart }
     - { name: Gallery, class: Sandbox\WebsiteBundle\Entity\PageParts\GalleryPagePart }
+    - { name: HotelGallery, class: Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart }
+    - { name: HotelInformation, class: Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart }

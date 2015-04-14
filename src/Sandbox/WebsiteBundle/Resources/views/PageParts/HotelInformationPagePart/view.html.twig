@@ -1,0 +1,9 @@
+<div class="hotel-information-pp">
+    <p>{{ resource.name }}</p>
+    <p>{{ resource.description|raw }}</p>
+    {% if resource.gallery %}
+        {% for image in resource.gallery.images %}
+            <img src="{{ image }}" class="img-responsive"/>
+        {% endfor %}
+    {% endif %}
+</div>

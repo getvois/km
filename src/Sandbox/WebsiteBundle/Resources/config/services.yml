@@ -88,6 +88,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\CronMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.hotelcriteria:
+        class: Sandbox\WebsiteBundle\Helper\Menu\HotelCriteriaMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 
 #Listeners

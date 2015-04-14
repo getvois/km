@@ -14,13 +14,16 @@ use Kunstmaan\TranslatorBundle\Entity\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Form\BookingForm;
 use Sandbox\WebsiteBundle\Entity\Form\Passenger;
+use Sandbox\WebsiteBundle\Entity\HotelCriteria;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Booking\BookingFormType;
 use Sandbox\WebsiteBundle\Helper\FacebookHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -555,14 +558,169 @@ class DefaultController extends Controller
     public function testAction(Request $request)
     {
 
-//        /** @var EntityManager $em */
-//        $em = $this->getDoctrine()->getManager();
-//        /** @var NewsPage $news */
-//        $news = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
-//            ->findAll()[0];
-//
-//        $fb = new FacebookHelper();
-//        $fb->postOnWall($news, $em, $request);
+        $crawler = new Crawler(file_get_contents('http://www.hotelliveeb.ee/xml.php?type=hotel'));
+
+        $hotels = $crawler->filter('hotel');
+
+        $criteriaArr = [];
+
+        for($i=0; $i<$hotels->count(); $i++){
+            $hotel = $hotels->eq($i);
+            $criterias = $hotel->filter('criteria');
+
+            if($criterias->count() > 0){
+                for($j=0; $j<$criterias->count(); $j++){
+                    $criteria = $criterias->eq($j)->text();
+
+                    $criteriaArr[$criteria] = $criteria;
+                    //var_dump($criteria);
+                }
+            }
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($criteriaArr as $criteria) {
+
+            //check if exist
+            $c = $em->getRepository('SandboxWebsiteBundle:HotelCriteria')
+                ->findOneBy(['name' => $criteria]);
+            if($c) continue;
+
+            //add new
+            $c = new HotelCriteria();
+            $c->setName($criteria);
+            $em->persist($c);
+            $em->flush();
+        }
+
+
+        //create pages
+        for($i=0; $i<$hotels->count(); $i++){
+            $hotel = $hotels->eq($i);
+            //find placeoverviewnode based on city or city_parish
+
+            $city = $hotel->filter('city');
+            if($city->count() > 0){
+                $city = $city->first()->text();
+            }else{
+                $city = $hotel->filter('city_parish');
+                if($city->count() > 0){
+                    $city = $city->first()->text();
+                }else{
+                    $city = null;
+                }
+            }
+
+            if(!$city) {
+                var_dump('city not found in xml');
+                continue;
+            }
+            //find place page
+            $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                ->findOneBy(['title' => $city]);
+            if(!$place) {
+                var_dump('place not found in db '. $city);
+                continue;
+            }
+
+            //get place page node
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+            if(!$node) {
+                var_dump('Node node found for city'. $city);
+                continue;
+            }
+
+            //create page as admin
+            $hotelPage = new HotelPage();
+            $hotelPage->setTitle($hotel->filter('name')->first()->text());
+
+            //set fields
+            $street = $hotel->filter('street');
+            if($street->count() > 0){
+                $hotelPage->setStreet($street);
+            }
+            $city = $hotel->filter('city');
+            if($city->count() > 0){
+                $hotelPage->setCity($city);
+            }
+            $city_parish = $hotel->filter('city_parish');
+            if($city_parish->count() > 0){
+                $hotelPage->setCityParish($city_parish);
+            }
+            $country = $hotel->filter('country');
+            if($country->count() > 0){
+                $hotelPage->setCountry($country);
+            }
+            $latitude = $hotel->filter('latitude');
+            if($latitude->count() > 0){
+                $hotelPage->setLatitude($latitude);
+            }
+            $longitude = $hotel->filter('longitude');
+            if($longitude->count() > 0){
+                $hotelPage->setLongitude($longitude);
+            }
+            $short_description = $hotel->filter('short_description');
+            if($short_description->count() > 0){
+                $hotelPage->setShortDescription($short_description);
+            }
+            $long_description = $hotel->filter('long_description');
+            if($long_description->count() > 0){
+                $hotelPage->setLongDescription($long_description);
+            }
+
+            $translations = array();
+
+            $langs = ['en', 'ee', 'ru', 'fi', 'se', 'fr', 'de'];
+
+            foreach ($langs as $lang) {
+                $translations[] = array('language' => $lang, 'callback' => function($page, $translation, $seo) {
+                    /** @var $page HotelPage */
+                    /** @var $translation NodeTranslation */
+                    $translation->setTitle($page->getTitle());
+                    //$translation->setSlug('satellite');
+                    $translation->setWeight(20);
+                });
+            }
+
+            $options = array(
+                'parent' => $node,
+                'set_online' => true,
+                'hidden_from_nav' => false,
+                'creator' => 'Admin'
+            );
+
+            //add criterias
+            $criterias = $hotel->filter('criteria');
+
+            if($criterias->count() > 0){
+                for($j=0; $j<$criterias->count(); $j++){
+                    $criteria = $criterias->eq($j)->text();
+
+                    $c = $em->getRepository('SandboxWebsiteBundle:HotelCriteria')
+                        ->findOneBy(['name' => $criteria]);
+
+                    if(!$c){
+                        //add new
+                        $c = new HotelCriteria();
+                        $c->setName($criteria);
+                        $em->persist($c);
+                        $em->flush();
+                    }
+
+                    $hotelPage->addCriteria($c);
+                }
+            }
+
+            $this->container->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
+
+
+
+
+        //add images and information
+        }
+
+
+
 
         return new Response();
     }

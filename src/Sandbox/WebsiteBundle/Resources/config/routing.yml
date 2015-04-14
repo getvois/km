@@ -145,3 +145,10 @@ sandboxwebsitebundle_seomodule_admin_list:
     prefix:   /{_locale}/admin/seomodule/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_hotelcriteria_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/HotelCriteriaAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/hotelcriteria/
+    requirements:
+         _locale: %requiredlocales%

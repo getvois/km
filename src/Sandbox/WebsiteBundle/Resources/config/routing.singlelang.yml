@@ -142,3 +142,7 @@ sandboxwebsitebundle_seomodule_admin_list:
     prefix:   /admin/seomodule/
     
          
+sandboxwebsitebundle_hotelcriteria_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/HotelCriteriaAdminListController.php
+    type:     annotation
+    prefix:   /admin/hotelcriteria/

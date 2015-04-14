@@ -60,6 +60,10 @@ class CompanyPlacePage extends AbstractPage implements HasPageTemplateInterface
     {
         return array(
             array(
+                'name' => 'HotelPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage'
+            ),
+            array(
                 'name' => 'CompanyType',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\CompanyTypePage'
             ),
