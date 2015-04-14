@@ -50,7 +50,7 @@ class HotelGalleryPagePart extends AbstractPagePart implements DeepCloneInterfac
      */
     public function addImage(HotelImage $contactInfo)
     {
-        $contactInfo->setImageUrl($this);
+        $contactInfo->setGalleryPagePart($this);
 
         $this->images->add($contactInfo);
     }

@@ -89,7 +89,7 @@ class HotelPage extends AbstractPage implements HasPageTemplateInterface
      *     @ORM\JoinColumn(name="hotel_page_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="hotel_criteria_id", referencedColumnName="id", unique=true)
+     *     @ORM\JoinColumn(name="hotel_criteria_id", referencedColumnName="id")
      *   }
      * )
      */

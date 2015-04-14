@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Facebook\FacebookRequest;
@@ -15,6 +16,7 @@ use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Form\BookingForm;
 use Sandbox\WebsiteBundle\Entity\Form\Passenger;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
+use Sandbox\WebsiteBundle\Entity\HotelImage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -637,35 +639,35 @@ class DefaultController extends Controller
             //set fields
             $street = $hotel->filter('street');
             if($street->count() > 0){
-                $hotelPage->setStreet($street);
+                $hotelPage->setStreet($street->first()->count());
             }
             $city = $hotel->filter('city');
             if($city->count() > 0){
-                $hotelPage->setCity($city);
+                $hotelPage->setCity($city->first()->count());
             }
             $city_parish = $hotel->filter('city_parish');
             if($city_parish->count() > 0){
-                $hotelPage->setCityParish($city_parish);
+                $hotelPage->setCityParish($city_parish->first()->count());
             }
             $country = $hotel->filter('country');
             if($country->count() > 0){
-                $hotelPage->setCountry($country);
+                $hotelPage->setCountry($country->first()->count());
             }
             $latitude = $hotel->filter('latitude');
             if($latitude->count() > 0){
-                $hotelPage->setLatitude($latitude);
+                $hotelPage->setLatitude($latitude->first()->count());
             }
             $longitude = $hotel->filter('longitude');
             if($longitude->count() > 0){
-                $hotelPage->setLongitude($longitude);
+                $hotelPage->setLongitude($longitude->first()->count());
             }
             $short_description = $hotel->filter('short_description');
             if($short_description->count() > 0){
-                $hotelPage->setShortDescription($short_description);
+                $hotelPage->setShortDescription($short_description->first()->count());
             }
             $long_description = $hotel->filter('long_description');
             if($long_description->count() > 0){
-                $hotelPage->setLongDescription($long_description);
+                $hotelPage->setLongDescription($long_description->first()->count());
             }
 
             $translations = array();
@@ -711,36 +713,79 @@ class DefaultController extends Controller
                 }
             }
 
-            $this->container->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
+            $newNode = $this->container->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
 
 
 
 
-        //add images and information
-
+            //add images and information
             // Add pageparts
+
             $pageparts = array();
-            $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\HeaderPagePart',
-                array(
-                    'setTitle' => 'Satellite (artificial)',
-                    'setNiv'   => 1
-                )
-            );
-            $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
-                array(
-                    'setContent' => '<p>A <b>satellite</b> is an object that orbits another object. In space, satellites may be made by man, or they may be natural. The moon is a natural satellite that orbits the Earth. Most man-made satellites also orbit the Earth, but some orbit other planets, such as Saturn, Venus or Mars, or the moon.</p>'
-                )
-            );
-            $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\HeaderPagePart',
-                array(
-                    'setTitle' => 'History',
-                    'setNiv'   => 2
-                )
-            );
+            //add gallery
+            $images = $hotel->filter("images image");
+            if($images->count() > 0){
 
-            $pagePartCreator->addPagePartsToPage('satellite', $pageparts, 'en');
+                $imagesArr = new ArrayCollection();
 
+                for($k=0;$k<$images->count();$k++){
+                    $url = $images->eq($k)->text();
 
+                    $image = new HotelImage();
+                    $image->setImageUrl($url);
+                    $imagesArr->add($image);
+                }
+
+                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
+                    array(
+                        'setImages' => $imagesArr,
+                    )
+                );
+            }
+
+            //add info
+            $info = $hotel->filter('information item');
+
+            if($info->count() > 0){
+
+                for($k=0;$k<$info->count();$k++){
+                    $name = $info->eq($k)->filter('name');
+                    $description = $info->eq($k)->filter('description');
+                    $images = $info->eq($k)->filter('images image');
+
+                    $realName = '';
+                    if($name->count() > 0){$realName = $name->first()->text();}
+                    $realDescription = '';
+                    if($description->count() > 0){$realDescription = $description->first()->text();}
+
+                    $imagesArr = new ArrayCollection();
+                    if($images->count() > 0){
+                        for($l=0;$l<$images->count();$l++){
+                            $url = $images->eq($l)->text();
+
+                            $image = new HotelImage();
+                            $image->setImageUrl($url);
+                            $imagesArr->add($image);
+                        }
+                    }
+
+                    $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+                        array(
+                            'setImages' => $imagesArr,
+                            'setName' => $realName,
+                            'setDescription' => $realDescription,
+                        )
+                    );
+                }
+
+            }
+
+            //add page parts to all languages
+            foreach ($langs as $lang) {
+                $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
+            }
+
+            if($i == 2) break;//todo kosmos remove after check
         }
 
 
