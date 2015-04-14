@@ -64,7 +64,8 @@ class HotelInformationPagePartAdminType extends \Symfony\Component\Form\Abstract
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => '\Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart'
+            'data_class' => '\Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+            'cascade_validation' => true,
         ));
     }
 }
