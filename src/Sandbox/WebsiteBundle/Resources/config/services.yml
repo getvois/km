@@ -92,6 +92,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\HotelCriteriaMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.hotel:
+        class: Sandbox\WebsiteBundle\Helper\Menu\HotelMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 
 #Listeners
