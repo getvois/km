@@ -31,12 +31,16 @@ class HotelInformationPagePartAdminType extends \Symfony\Component\Form\Abstract
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
         ));
-        $builder->add('gallery', 'entity', array(
+        $builder->add('gallery', 'collection', array(
             'type' => new HotelGalleryPagePartAdminType(),
+            'allow_add' => false,
+            'allow_delete' => false,
             'by_reference' => false,
             'cascade_validation' => true,
             'attr' => array(
                 'nested_form' => true,
+                'nested_form_min' => 1,
+                'nested_form_max' => 1,
             )
         ));
     }
