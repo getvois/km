@@ -721,76 +721,77 @@ class DefaultController extends Controller
 
             $newNode = $this->container->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
 
+            //add page parts to all languages
+            foreach ($langs as $lang) {
 
-            //add images and information
-            // Add pageparts
+                //add images and information
+                // Add pageparts
 
-            $pageparts = array();
-            //add gallery
-            $images = $hotel->filter("images image");
-            if($images->count() > 0){
-
-                $imagesArr = [];
-
-                for($k=0;$k<$images->count();$k++){
-                    $url = $images->eq($k)->text();
-
-                    $image = new HotelImage();
-                    $image->setImageUrl($url);
-                    $imagesArr[] = $image;
-                    $em->persist($image);
-                }
-
-                $em->flush();
-
-                $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
-                    array(
-                        'setImages' => $imagesArr,
-                    )
-                );
-            }
-
-            //add info
-            $info = $hotel->filter('information item');
-
-            if($info->count() > 0){
-
-                for($k=0;$k<$info->count();$k++){
-                    $name = $info->eq($k)->filter('name');
-                    $description = $info->eq($k)->filter('description');
-                    $images = $info->eq($k)->filter('images image');
-
-                    $realName = '';
-                    if($name->count() > 0){$realName = $name->first()->text();}
-                    $realDescription = '';
-                    if($description->count() > 0){$realDescription = $description->first()->text();}
+                $pageparts = array();
+                //add gallery
+                $images = $hotel->filter("images image");
+                if($images->count() > 0){
 
                     $imagesArr = [];
-                    if($images->count() > 0){
-                        for($l=0;$l<$images->count();$l++){
-                            $url = $images->eq($l)->text();
 
-                            $image = new HotelImage();
-                            $image->setImageUrl($url);
-                            $imagesArr[] = $image;
-                            $em->persist($image);
-                        }
+                    for($k=0;$k<$images->count();$k++){
+                        $url = $images->eq($k)->text();
+
+                        $image = new HotelImage();
+                        $image->setImageUrl($url);
+                        $imagesArr[] = $image;
+                        $em->persist($image);
                     }
+
                     $em->flush();
 
-                    $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+                    $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
                         array(
                             'setImages' => $imagesArr,
-                            'setName' => $realName,
-                            'setDescription' => $realDescription,
                         )
                     );
                 }
 
-            }
+                //add info
+                $info = $hotel->filter('information item');
 
-            //add page parts to all languages
-            foreach ($langs as $lang) {
+                if($info->count() > 0){
+
+                    for($k=0;$k<$info->count();$k++){
+                        $name = $info->eq($k)->filter('name');
+                        $description = $info->eq($k)->filter('description');
+                        $images = $info->eq($k)->filter('images image');
+
+                        $realName = '';
+                        if($name->count() > 0){$realName = $name->first()->text();}
+                        $realDescription = '';
+                        if($description->count() > 0){$realDescription = $description->first()->text();}
+
+                        $imagesArr = [];
+                        if($images->count() > 0){
+                            for($l=0;$l<$images->count();$l++){
+                                $url = $images->eq($l)->text();
+
+                                $image = new HotelImage();
+                                $image->setImageUrl($url);
+                                $imagesArr[] = $image;
+                                $em->persist($image);
+                            }
+                        }
+                        $em->flush();
+
+                        $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+                            array(
+                                'setImages' => $imagesArr,
+                                'setName' => $realName,
+                                'setDescription' => $realDescription,
+                            )
+                        );
+                    }
+
+                }
+
+
                 $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
             }
 
