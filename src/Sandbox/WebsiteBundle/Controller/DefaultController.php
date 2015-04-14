@@ -738,7 +738,10 @@ class DefaultController extends Controller
                     $image = new HotelImage();
                     $image->setImageUrl($url);
                     $imagesArr[] = $image;
+                    $em->persist($image);
                 }
+
+                $em->flush();
 
                 $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
                     array(
@@ -770,8 +773,10 @@ class DefaultController extends Controller
                             $image = new HotelImage();
                             $image->setImageUrl($url);
                             $imagesArr[] = $image;
+                            $em->persist($image);
                         }
                     }
+                    $em->flush();
 
                     $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
                         array(
