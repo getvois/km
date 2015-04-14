@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Form\PageParts;
 
 use Sandbox\WebsiteBundle\Entity\HotelImage;
+use Sandbox\WebsiteBundle\Form\HotelImageAdminType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +28,7 @@ class HotelGalleryPagePartAdminType extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder->add('images', 'collection', array(
-            'type' => new HotelImage(),
+            'type' => new HotelImageAdminType(),
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,

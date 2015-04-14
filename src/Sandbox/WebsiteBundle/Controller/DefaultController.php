@@ -593,7 +593,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-
+        $pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
         //create pages
         for($i=0; $i<$hotels->count(); $i++){
             $hotel = $hotels->eq($i);
@@ -717,6 +717,30 @@ class DefaultController extends Controller
 
 
         //add images and information
+
+            // Add pageparts
+            $pageparts = array();
+            $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\HeaderPagePart',
+                array(
+                    'setTitle' => 'Satellite (artificial)',
+                    'setNiv'   => 1
+                )
+            );
+            $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\TextPagePart',
+                array(
+                    'setContent' => '<p>A <b>satellite</b> is an object that orbits another object. In space, satellites may be made by man, or they may be natural. The moon is a natural satellite that orbits the Earth. Most man-made satellites also orbit the Earth, but some orbit other planets, such as Saturn, Venus or Mars, or the moon.</p>'
+                )
+            );
+            $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Kunstmaan\PagePartBundle\Entity\HeaderPagePart',
+                array(
+                    'setTitle' => 'History',
+                    'setNiv'   => 2
+                )
+            );
+
+            $pagePartCreator->addPagePartsToPage('satellite', $pageparts, 'en');
+
+
         }
 
 
