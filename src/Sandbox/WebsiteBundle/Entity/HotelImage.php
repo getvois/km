@@ -59,7 +59,7 @@ class HotelImage extends AbstractEntity {
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart", inversedBy="images", cascade={"persist"})
      **/
     private $infoPagePart;
 
