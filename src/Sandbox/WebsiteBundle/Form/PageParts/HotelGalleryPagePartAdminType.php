@@ -25,7 +25,7 @@ class HotelGalleryPagePartAdminType extends \Symfony\Component\Form\AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('contacts', 'collection', array(
+        $builder->add('images', 'collection', array(
             'type' => new HotelImage(),
             'allow_add' => true,
             'allow_delete' => true,
