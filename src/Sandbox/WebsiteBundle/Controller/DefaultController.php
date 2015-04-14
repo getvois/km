@@ -818,7 +818,7 @@ class DefaultController extends Controller
                 $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
             }
 
-            if($i > 2) break;//todo kosmos remove after check
+            //if($i > 2) break;//todo kosmos remove after check
         }
 
 
