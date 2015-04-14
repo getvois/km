@@ -72,11 +72,11 @@ class HotelImage extends AbstractEntity {
     }
 
     /**
-     * @param mixed $galleryPagePart
+     * @param mixed $infoPagePart
      */
-    public function setInfoPagePart($galleryPagePart)
+    public function setInfoPagePart($infoPagePart)
     {
-        $this->infoPagePart = $galleryPagePart;
+        $this->infoPagePart = $infoPagePart;
     }
 
 

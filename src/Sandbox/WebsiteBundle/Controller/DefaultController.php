@@ -730,14 +730,14 @@ class DefaultController extends Controller
             $images = $hotel->filter("images image");
             if($images->count() > 0){
 
-                $imagesArr = new ArrayCollection();
+                $imagesArr = [];
 
                 for($k=0;$k<$images->count();$k++){
                     $url = $images->eq($k)->text();
 
                     $image = new HotelImage();
                     $image->setImageUrl($url);
-                    $imagesArr->add($image);
+                    $imagesArr[] = $image;
                 }
 
                 $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
@@ -762,14 +762,14 @@ class DefaultController extends Controller
                     $realDescription = '';
                     if($description->count() > 0){$realDescription = $description->first()->text();}
 
-                    $imagesArr = new ArrayCollection();
+                    $imagesArr = [];
                     if($images->count() > 0){
                         for($l=0;$l<$images->count();$l++){
                             $url = $images->eq($l)->text();
 
                             $image = new HotelImage();
                             $image->setImageUrl($url);
-                            $imagesArr->add($image);
+                            $imagesArr[] = $image;
                         }
                     }
 
