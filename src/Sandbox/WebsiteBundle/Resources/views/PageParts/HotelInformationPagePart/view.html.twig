@@ -3,7 +3,7 @@
     <p>{{ resource.description|raw }}</p>
     {% if resource.images %}
         {% for image in resource.images %}
-            <img src="{{ image }}" class="img-responsive"/>
+            <img src="{{ image.imageUrl }}" class="img-responsive"/>
         {% endfor %}
     {% endif %}
 </div>
