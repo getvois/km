@@ -3,13 +3,14 @@
 namespace Sandbox\WebsiteBundle\Form\PageParts;
 
 use Sandbox\WebsiteBundle\Entity\HotelImage;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * HotelGalleryPagePartAdminType
  */
-class HotelGalleryPagePartAdminType extends \Symfony\Component\Form\AbstractType
+class HotelGalleryPagePartAdminType extends AbstractType
 {
 
     /**

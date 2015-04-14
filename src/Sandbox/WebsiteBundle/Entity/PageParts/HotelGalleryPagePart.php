@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Entity\PageParts;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\AdminBundle\Entity\DeepCloneInterface;
 use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
 use Sandbox\WebsiteBundle\Entity\HotelImage;
 use Sandbox\WebsiteBundle\Form\PageParts\HotelGalleryPagePartAdminType;
@@ -14,12 +15,12 @@ use Sandbox\WebsiteBundle\Form\PageParts\HotelGalleryPagePartAdminType;
  * @ORM\Table(name="sb_hotel_gallery_page_parts")
  * @ORM\Entity
  */
-class HotelGalleryPagePart extends AbstractPagePart
+class HotelGalleryPagePart extends AbstractPagePart implements DeepCloneInterface
 {
 
     public function __construct()
     {
-        $this->contacts = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
