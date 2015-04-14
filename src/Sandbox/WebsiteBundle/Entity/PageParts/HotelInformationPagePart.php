@@ -2,8 +2,10 @@
 
 namespace Sandbox\WebsiteBundle\Entity\PageParts;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
+use Sandbox\WebsiteBundle\Entity\HotelImage;
 
 /**
  * HotelInformationPagePart
@@ -13,6 +15,62 @@ use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
  */
 class HotelInformationPagePart extends AbstractPagePart
 {
+
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Sandbox\WebsiteBundle\Entity\HotelImage", mappedBy="infoPagePart", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $images;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param ArrayCollection $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * @param HotelImage $contactInfo
+     */
+    public function addImage(HotelImage $contactInfo)
+    {
+        $contactInfo->setImageUrl($this);
+
+        $this->images->add($contactInfo);
+    }
+
+    /**
+     * @param HotelImage $contactInfo
+     */
+    public function removeImage(HotelImage $contactInfo)
+    {
+        $this->images->removeElement($contactInfo);
+    }
+
+    public function deepClone()
+    {
+        $contacts = $this->getImages();
+        $this->images = new ArrayCollection();
+        foreach ($contacts as $contact) {
+            $cloneContact = clone $contact;
+            $this->addImage($cloneContact);
+        }
+    }
 
     /**
      * @var HotelGalleryPagePart

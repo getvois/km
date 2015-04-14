@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Form\PageParts;
 
+use Sandbox\WebsiteBundle\Form\HotelImageAdminType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -31,16 +32,16 @@ class HotelInformationPagePartAdminType extends \Symfony\Component\Form\Abstract
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
         ));
-        $builder->add('gallery', 'collection', array(
-            'type' => new HotelGalleryPagePartAdminType(),
-            'allow_add' => false,
-            'allow_delete' => false,
+        $builder->add('images', 'collection', array(
+            'type' => new HotelImageAdminType(),
+            'allow_add' => true,
+            'allow_delete' => true,
             'by_reference' => false,
             'cascade_validation' => true,
             'attr' => array(
                 'nested_form' => true,
                 'nested_form_min' => 1,
-                'nested_form_max' => 1,
+                'nested_form_max' => 20,
             )
         ));
     }

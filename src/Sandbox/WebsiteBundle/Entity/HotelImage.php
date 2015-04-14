@@ -58,5 +58,26 @@ class HotelImage extends AbstractEntity {
         $this->galleryPagePart = $galleryPagePart;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart", inversedBy="images")
+     **/
+    private $infoPagePart;
+
+    /**
+     * @return mixed
+     */
+    public function getInfoPagePart()
+    {
+        return $this->infoPagePart;
+    }
+
+    /**
+     * @param mixed $galleryPagePart
+     */
+    public function setInfoPagePart($galleryPagePart)
+    {
+        $this->infoPagePart = $galleryPagePart;
+    }
+
 
 }
