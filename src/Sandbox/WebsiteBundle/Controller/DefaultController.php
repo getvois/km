@@ -599,6 +599,19 @@ class DefaultController extends Controller
         //create pages
         for($i=0; $i<$hotels->count(); $i++){
             $hotel = $hotels->eq($i);
+
+            //check if already exists by hotel id
+            $page = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+                ->findOneBy(['hotelId' => $hotel->filter('id')->first()->text()]);
+            if($page){
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($page);
+
+                //if node exists and not deleted skip
+                if($node && !$node->isDeleted()) continue;
+            }
+
+
             //find placeoverviewnode based on city or city_parish
 
             $city = $hotel->filter('city');
