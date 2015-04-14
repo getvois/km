@@ -55,9 +55,11 @@ class HotelPageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
         ));
         $builder->add('criterias', 'entity', array(
             'class' => 'Sandbox\WebsiteBundle\Entity\HotelCriteria',
-            'expanded' => true,
+            'property' => 'name',
+            'expanded' => false,
             'multiple' => true,
             'required' => false,
+            'attr' => array('class' => 'chzn-select')
         ));
     }
 

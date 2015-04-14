@@ -636,38 +636,44 @@ class DefaultController extends Controller
             $hotelPage = new HotelPage();
             $hotelPage->setTitle($hotel->filter('name')->first()->text());
 
+            var_dump($hotelPage->getTitle());
+
             //set fields
+            $hotelId = $hotel->filter('id');
+            if($hotelId->count() > 0){
+                $hotelPage->setHotelId($hotelId->first()->text());
+            }
             $street = $hotel->filter('street');
             if($street->count() > 0){
-                $hotelPage->setStreet($street->first()->count());
+                $hotelPage->setStreet($street->first()->text());
             }
             $city = $hotel->filter('city');
             if($city->count() > 0){
-                $hotelPage->setCity($city->first()->count());
+                $hotelPage->setCity($city->first()->text());
             }
             $city_parish = $hotel->filter('city_parish');
             if($city_parish->count() > 0){
-                $hotelPage->setCityParish($city_parish->first()->count());
+                $hotelPage->setCityParish($city_parish->first()->text());
             }
             $country = $hotel->filter('country');
             if($country->count() > 0){
-                $hotelPage->setCountry($country->first()->count());
+                $hotelPage->setCountry($country->first()->text());
             }
             $latitude = $hotel->filter('latitude');
             if($latitude->count() > 0){
-                $hotelPage->setLatitude($latitude->first()->count());
+                $hotelPage->setLatitude($latitude->first()->text());
             }
             $longitude = $hotel->filter('longitude');
             if($longitude->count() > 0){
-                $hotelPage->setLongitude($longitude->first()->count());
+                $hotelPage->setLongitude($longitude->first()->text());
             }
             $short_description = $hotel->filter('short_description');
             if($short_description->count() > 0){
-                $hotelPage->setShortDescription($short_description->first()->count());
+                $hotelPage->setShortDescription($short_description->first()->text());
             }
             $long_description = $hotel->filter('long_description');
             if($long_description->count() > 0){
-                $hotelPage->setLongDescription($long_description->first()->count());
+                $hotelPage->setLongDescription($long_description->first()->text());
             }
 
             $translations = array();
@@ -714,8 +720,6 @@ class DefaultController extends Controller
             }
 
             $newNode = $this->container->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
-
-
 
 
             //add images and information
@@ -785,7 +789,7 @@ class DefaultController extends Controller
                 $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
             }
 
-            if($i == 2) break;//todo kosmos remove after check
+            if($i > 2) break;//todo kosmos remove after check
         }
 
 
