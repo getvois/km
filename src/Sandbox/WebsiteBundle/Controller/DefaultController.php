@@ -729,11 +729,9 @@ class DefaultController extends Controller
 
                 $pageparts = array();
                 //add gallery
-                var_dump($hotel->html());
 
                 $images = $hotel->filterXPath("hotel/images/image");
 
-                var_dump($images->count());
                 if($images->count() > 0){
 
                     $imagesArr = [];
