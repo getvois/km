@@ -678,7 +678,7 @@ class DefaultController extends Controller
 
             $translations = array();
 
-            $langs = ['en', 'ee', 'ru', 'fi', 'se', 'fr', 'de'];
+            $langs = ['ee', 'en', 'ru', 'fi', 'se', 'fr', 'de'];
 
             foreach ($langs as $lang) {
                 $translations[] = array('language' => $lang, 'callback' => function($page, $translation, $seo) {
