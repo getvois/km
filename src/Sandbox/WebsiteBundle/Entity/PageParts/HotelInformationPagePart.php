@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\AdminBundle\Entity\DeepCloneInterface;
 use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
 use Sandbox\WebsiteBundle\Entity\HotelImage;
+use Sandbox\WebsiteBundle\Form\PageParts\HotelInformationPagePartAdminType;
 
 /**
  * HotelInformationPagePart
@@ -42,7 +43,9 @@ class HotelInformationPagePart extends AbstractPagePart implements DeepCloneInte
      */
     public function setImages($images)
     {
-        $this->images = $images;
+        foreach ($images as $image) {
+            $this->addImage($image);
+        }
     }
 
     /**
@@ -169,10 +172,10 @@ class HotelInformationPagePart extends AbstractPagePart implements DeepCloneInte
     /**
      * Get the admin form type.
      *
-     * @return \Sandbox\WebsiteBundle\Form\PageParts\HotelInformationPagePartAdminType
+     * @return HotelInformationPagePartAdminType
      */
     public function getDefaultAdminType()
     {
-        return new \Sandbox\WebsiteBundle\Form\PageParts\HotelInformationPagePartAdminType();
+        return new HotelInformationPagePartAdminType();
     }
 }

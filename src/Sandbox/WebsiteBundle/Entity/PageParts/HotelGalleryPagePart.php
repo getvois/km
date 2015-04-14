@@ -42,7 +42,11 @@ class HotelGalleryPagePart extends AbstractPagePart implements DeepCloneInterfac
      */
     public function setImages($images)
     {
-        $this->images = $images;
+        /** @var HotelImage $image */
+        foreach ($images as $image) {
+            $this->addImage($image);
+        }
+
     }
 
     /**
