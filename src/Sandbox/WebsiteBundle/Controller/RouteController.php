@@ -58,19 +58,21 @@ class RouteController extends Controller
         }
         if(!$locale) $locale = $_locale;//substr($path, 0, 2);
 
-
-//        $newPath = preg_replace('/' . $originalLocale . "\//", "", $path, 1);
-//        if($newPath == $path)
-//            $path = preg_replace('/' . $originalLocale . '/' , "", $path, 1);
-//        else
-//            $path = $newPath;
-
         //redirect to host lang
         if($locale != $originalLocale){
             $request->setLocale($locale);
             return $this->redirect("http://" . $request->getHost() . $request->getBaseUrl() . "/" . $locale);
         }
 
+        $args = explode('/', $path);
+        $lastArg = $args[count($args)-1];
+        $node = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+            ->findOneBy(['slug' => $lastArg, 'online' => 1, 'lang' => $locale]);
+
+        if($node) {
+            $path = trim($path, '/');
+            return $this->forward("KunstmaanNodeBundle:Slug:slug", ['_locale' => $locale, 'url' => $countryPrefix."/".$path]);
+        }
 
         //check for tag as last argument of path
         $args = explode('/', $path);
