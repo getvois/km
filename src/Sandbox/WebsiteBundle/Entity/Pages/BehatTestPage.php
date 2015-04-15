@@ -35,6 +35,10 @@ class BehatTestPage extends AbstractPage  implements HasPageTemplateInterface
     {
         return array(
             array(
+                'name' => 'PackagePage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackagePage'
+            ),
+            array(
                 'name' => 'HotelOverviewPage',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\HotelOverviewPage'
             ),

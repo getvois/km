@@ -20,3 +20,4 @@ types:
     - { name: Audio, class: Kunstmaan\MediaPagePartBundle\Entity\AudioPagePart }
     - { name: HotelGallery, class: Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart }
     - { name: HotelInformation, class: Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart }
+    - { name: Room, class: Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart }

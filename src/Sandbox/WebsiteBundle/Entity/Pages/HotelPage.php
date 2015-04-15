@@ -350,7 +350,11 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
      */
     public function getPossibleChildTypes()
     {
-        return array();
+        return array(
+            array(
+                'name' => 'PackagePage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackagePage'
+            ),);
     }
 
     /**

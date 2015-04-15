@@ -3,7 +3,7 @@
     <div class="row">
 
         {% for hotel in pagerfanta.CurrentPageResults %}
-            <div class="col-md-4 well">
+            <div class="col-md-4 well hotell">
                 <h3>{{ hotel.title }}</h3>
                 <p>{% if hotel.city %}{{ hotel.city }}{% else %}{{ hote.cityParish }}{% endif %}</p>
                 <p>{{ hotel.street }}</p>

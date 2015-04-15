@@ -146,3 +146,13 @@ sandboxwebsitebundle_hotelcriteria_admin_list:
     resource: @SandboxWebsiteBundle/Controller/HotelCriteriaAdminListController.php
     type:     annotation
     prefix:   /admin/hotelcriteria/
+
+sandboxwebsitebundle_hotelpage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/HotelPageAdminListController.php
+    type:     annotation
+    prefix:   /admin/hotelpage/
+
+sandboxwebsitebundle_packagecategory_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/PackageCategoryAdminListController.php
+    type:     annotation
+    prefix:   /admin/packagecategory/

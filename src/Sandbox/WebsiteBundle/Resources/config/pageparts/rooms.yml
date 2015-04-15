@@ -1,5 +1,5 @@
-name: Information
-context: information
+name: Rooms
+context: rooms
 types:
     - { name: Header, class: Kunstmaan\PagePartBundle\Entity\HeaderPagePart }
     - { name: Text, class: Kunstmaan\PagePartBundle\Entity\TextPagePart }

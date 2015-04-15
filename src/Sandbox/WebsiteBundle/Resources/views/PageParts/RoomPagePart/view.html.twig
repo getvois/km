@@ -1,0 +1,6 @@
+<div class="room-pp">
+    <div>{% if resource.roomId %}{{ resource.roomId }}{% endif %}</div>
+    <p>{{ resource.name }}</p>
+    <p>{{ resource.image }}</p>
+    {{ resource.content|raw }}
+</div>

@@ -1,0 +1,9 @@
+name: "Package page"
+rows:
+    - regions:
+        - { name: "main", span: 12 }
+    - regions:
+        - { name: "rooms", span: 12 }
+    - regions:
+        - { name: "information", span: 12 }
+template: "SandboxWebsiteBundle::Package\\pagetemplate.html.twig"
