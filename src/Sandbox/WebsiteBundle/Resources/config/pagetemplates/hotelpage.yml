@@ -1,0 +1,9 @@
+name: "Hotel page"
+rows:
+    - regions:
+        - { name: "main", span: 12 }
+    - regions:
+        - { name: "gallery", span: 12 }
+    - regions:
+        - { name: "information", span: 12 }
+template: "SandboxWebsiteBundle::Hotel\\pagetemplate.html.twig"

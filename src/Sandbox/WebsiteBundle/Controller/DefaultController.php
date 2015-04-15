@@ -770,7 +770,7 @@ class DefaultController extends Controller
 
                     $em->flush();
 
-                    $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
+                    $pageparts['gallery'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelGalleryPagePart',
                         array(
                             'setImages' => $imagesArr,
                         )
@@ -805,7 +805,7 @@ class DefaultController extends Controller
                         }
                         $em->flush();
 
-                        $pageparts['main'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+                        $pageparts['information'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
                             array(
                                 'setImages' => $imagesArr,
                                 'setName' => $realName,

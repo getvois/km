@@ -361,6 +361,8 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
     {
         return array(
             'SandboxWebsiteBundle:main',
+            'SandboxWebsiteBundle:gallery',
+            'SandboxWebsiteBundle:information',
         );
     }
 
@@ -369,7 +371,7 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
      */
     public function getPageTemplates()
     {
-        return array('SandboxWebsiteBundle:contentpage');
+        return array('SandboxWebsiteBundle:hotelpage');
     }
 
     /**

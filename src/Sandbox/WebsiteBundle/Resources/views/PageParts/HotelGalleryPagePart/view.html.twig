@@ -1,5 +1,9 @@
 <div class="hotel-gallery-pp">
-    {% for image in resource.images %}
-        <img src="{{ image.imageUrl }}" class="img-responsive"/>
-    {% endfor %}
+    <div class="row">
+        {% for image in resource.images %}
+            <div class="col-md-3">
+                <img src="{{ image.imageUrl }}" class="img-responsive"/>
+            </div>
+        {% endfor %}
+    </div>
 </div>
