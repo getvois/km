@@ -40,6 +40,7 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         if (!$pagenumber || $pagenumber < 1) {
             $pagenumber = 1;
         }
+        $pagerfanta->setMaxPerPage(500);
         $pagerfanta->setCurrentPage($pagenumber);
         $context['pagerfanta'] = $pagerfanta;
     }

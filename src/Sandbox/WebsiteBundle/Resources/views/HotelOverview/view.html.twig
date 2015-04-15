@@ -13,8 +13,9 @@
             </div>
         {% endfor %}
 
-        {% if pagerfanta.haveToPaginate %}
-
-        {% endif %}
+        {#{% if pagerfanta.haveToPaginate %}#}
+            {#{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}#}
+        {#{% endif %}#}
+        {# does not paginate because of the route controller #}
     </div>
 {% endblock %}
