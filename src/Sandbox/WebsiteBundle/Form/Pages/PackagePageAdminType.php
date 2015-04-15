@@ -58,6 +58,9 @@ class PackagePageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
             'multiple' => true,
             'required' => false,
         ));
+
+        $builder->add('places', 'place');
+
         $builder->add('bankPayment', 'checkbox', array(
             'required' => false,
         ));

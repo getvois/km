@@ -6,7 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
+use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
 
 /**
@@ -15,7 +17,7 @@ use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
  * @ORM\Table(name="sb_package_pages")
  * @ORM\Entity
  */
-class PackagePage extends AbstractPage implements HasPageTemplateInterface
+class PackagePage extends AbstractPage implements HasPageTemplateInterface, IPlaceFromTo
 {
     /**
      * @var integer
@@ -117,11 +119,19 @@ class PackagePage extends AbstractPage implements HasPageTemplateInterface
     private $categories;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     * @ORM\JoinTable(name="sb_package_place_overview")
+     **/
+    private $places;
+
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
 
     /**
@@ -479,4 +489,78 @@ class PackagePage extends AbstractPage implements HasPageTemplateInterface
     {
         return 'SandboxWebsiteBundle:Package:view.html.twig';
     }
+
+    /**
+     * Get full entity name
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return 'Sandbox\WebsiteBundle\Entity\Pages\PackagePage';
+    }
+
+    /**
+     * Add fromPlaces
+     *
+     * @param PlaceOverviewPage $fromPlaces
+     */
+    public function addFromPlace(PlaceOverviewPage $fromPlaces)
+    {
+    }
+
+    /**
+     * Add place
+     *
+     * @param PlaceOverviewPage $children
+     * @return $this
+     */
+    public function addPlace(PlaceOverviewPage $children)
+    {
+        $this->places[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Get places
+     *
+     * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * Get fromPlaces
+     *
+     * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
+     */
+    public function getFromPlaces()
+    {
+        return [];
+    }
+
+    /**
+     * Remove all places
+     */
+    public function removeAllPlaces()
+    {
+        $this->places->clear();
+    }
+
+    /**
+     * Remove place
+     *
+     * @param PlaceOverviewPage $children
+     */
+    public function removePlace(PlaceOverviewPage $children)
+    {
+        $this->places->removeElement($children);
+    }
+
+    /**
+     * Remove all from places
+     */
+    public function removeAllFromPlaces(){}
 }
