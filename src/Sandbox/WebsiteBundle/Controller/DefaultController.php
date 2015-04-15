@@ -683,11 +683,11 @@ class DefaultController extends Controller
                 $hotelPage->setCountry($country->first()->text());
             }
             $latitude = $hotel->filter('latitude');
-            if($latitude->count() > 0){
+            if($latitude->count() > 0 && is_numeric($latitude->first()->text())){
                 $hotelPage->setLatitude($latitude->first()->text());
             }
             $longitude = $hotel->filter('longitude');
-            if($longitude->count() > 0){
+            if($longitude->count() > 0 && is_numeric($longitude->first()->text())){
                 $hotelPage->setLongitude($longitude->first()->text());
             }
             $short_description = $hotel->filter('short_description');
