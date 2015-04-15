@@ -5,7 +5,6 @@ namespace Sandbox\WebsiteBundle\Entity\Pages;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
-use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
 use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
@@ -14,7 +13,7 @@ use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
  * HotelPage
  *
  * @ORM\Table(name="sb_hotel_pages")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\HotelPageRepository")
  */
 class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface //AbstractPage
 {

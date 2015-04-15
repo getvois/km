@@ -3,7 +3,10 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
+use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
+use Sandbox\WebsiteBundle\Form\Pages\SatelliteOverviewPageAdminType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_satellite_overview_page")
  * @ORM\Entity
  */
-class SatelliteOverviewPage extends \Kunstmaan\NodeBundle\Entity\AbstractPage implements \Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface
+class SatelliteOverviewPage extends AbstractPage implements HasPageTemplateInterface
 {
     /**
      * @var string
@@ -48,11 +51,11 @@ class SatelliteOverviewPage extends \Kunstmaan\NodeBundle\Entity\AbstractPage im
     /**
      * Returns the default backend form type for this page
      *
-     * @return \Sandbox\WebsiteBundle\Form\Pages\SatelliteOverviewPageAdminType
+     * @return SatelliteOverviewPageAdminType
      */
     public function getDefaultAdminType()
     {
-        return new \Sandbox\WebsiteBundle\Form\Pages\SatelliteOverviewPageAdminType();
+        return new SatelliteOverviewPageAdminType();
     }
 
     /**

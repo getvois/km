@@ -640,20 +640,29 @@ class DefaultController extends Controller
                 var_dump('city not found in xml');
                 continue;
             }
-            //find place page
-            $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-                ->findOneBy(['title' => $city]);
-            if(!$place) {
-                var_dump('place not found in db '. $city);
-                continue;
+
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                ->findOneBy(['internalName' => 'hotels', 'deleted' => 0]);
+
+            if(!$node){
+                var_dump('Could not find HotelOverviewPage with internal name "hotels"');
+                break;
             }
 
-            //get place page node
-            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
-            if(!$node) {
-                var_dump('Node node found for city'. $city);
-                continue;
-            }
+//            //find place page
+//            $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+//                ->findOneBy(['title' => $city]);
+//            if(!$place) {
+//                var_dump('place not found in db '. $city);
+//                continue;
+//            }
+//
+//            //get place page node
+//            $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+//            if(!$node) {
+//                var_dump('Node node found for city'. $city);
+//                continue;
+//            }
 
             //create page as admin
             $hotelPage = new HotelPage();

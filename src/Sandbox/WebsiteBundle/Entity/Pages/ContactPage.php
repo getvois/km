@@ -3,6 +3,9 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\FormBundle\Entity\AbstractFormPage;
+use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
+use Sandbox\WebsiteBundle\Form\Pages\ContactPageAdminType;
 
 /**
  * ContactPage
@@ -10,17 +13,17 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sb_contact_pages")
  * @ORM\Entity
  */
-class ContactPage extends \Kunstmaan\FormBundle\Entity\AbstractFormPage implements \Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface
+class ContactPage extends AbstractFormPage implements HasPageTemplateInterface
 {
 
     /**
      * Returns the default backend form type for this page
      *
-     * @return \Sandbox\WebsiteBundle\Form\Pages\ContactPageAdminType
+     * @return ContactPageAdminType
      */
     public function getDefaultAdminType()
     {
-        return new \Sandbox\WebsiteBundle\Form\Pages\ContactPageAdminType();
+        return new ContactPageAdminType();
     }
 
     /**

@@ -1,0 +1,20 @@
+{% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
+{% block content %}
+    <div class="row">
+
+        {% for hotel in pagerfanta.CurrentPageResults %}
+            <div class="col-md-4 well">
+                <h3>{{ hotel.title }}</h3>
+                <p>{% if hotel.city %}{{ hotel.city }}{% else %}{{ hote.cityParish }}{% endif %}</p>
+                <p>{{ hotel.street }}</p>
+                <p>
+                    <a class="btn btn-primary" href="{{ get_node_translation_for(hotel).fullSlug }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+                </p>
+            </div>
+        {% endfor %}
+
+        {% if pagerfanta.haveToPaginate %}
+
+        {% endif %}
+    </div>
+{% endblock %}
