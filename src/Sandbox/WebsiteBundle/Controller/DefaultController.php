@@ -18,7 +18,9 @@ use Sandbox\WebsiteBundle\Entity\Form\Passenger;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
 use Sandbox\WebsiteBundle\Entity\HotelImage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
+use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Booking\BookingFormType;
 use Sandbox\WebsiteBundle\Helper\FacebookHelper;
@@ -552,20 +554,8 @@ class DefaultController extends Controller
         return ['form' => $form->createView()];
     }
 
-    /**
-     * @Route("/test/")
-     * @param Request $request
-     * @return Response
-     */
-    public function testAction(Request $request)
+    private function checkHotelCriterias(Crawler $hotels)
     {
-
-        set_time_limit(0);
-
-        $crawler = new Crawler(file_get_contents('http://www.hotelliveeb.ee/xml.php?type=hotel'));
-
-        $hotels = $crawler->filter('hotel');
-
         $criteriaArr = [];
 
         for($i=0; $i<$hotels->count(); $i++){
@@ -596,46 +586,82 @@ class DefaultController extends Controller
             $em->persist($c);
             $em->flush();
         }
+    }
 
+    /**
+     * @param $hotelId
+     * @return null|HotelPage
+     */
+    private function hotelExists($hotelId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var HotelPage[] $pages */
+        $pages = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->findBy(['hotelId' => $hotelId]);
+        if($pages){
+            foreach ($pages as $page) {
+                /** @var Node $node */
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($page);
+
+                //if node exists and not deleted skip
+                if($node && !$node->isDeleted()) {
+                    return $page;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Crawler $hotel
+     * @return null|string
+     */
+    private function getCityFromHotel(Crawler $hotel)
+    {
+        $city = $hotel->filter('city');
+        if($city->count() > 0){
+            $city = $city->first()->text();
+        }else{
+            $city = $hotel->filter('city_parish');
+            if($city->count() > 0){
+                $city = $city->first()->text();
+            }else{
+                $city = null;
+            }
+        }
+
+        return $city;
+    }
+
+    /**
+     * @Route("/test/")
+     * @param Request $request
+     * @return Response
+     */
+    public function testAction(Request $request)
+    {
+        set_time_limit(0);
+        $crawler = new Crawler(file_get_contents('http://www.hotelliveeb.ee/xml.php?type=hotel'));
+        $hotels = $crawler->filter('hotel');
+        $this->checkHotelCriterias($hotels);
+
+        $em = $this->getDoctrine()->getManager();
         $pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
         //create pages
         for($i=0; $i<$hotels->count(); $i++){
             $hotel = $hotels->eq($i);
 
             //check if already exists by hotel id
-            $pages = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-                ->findBy(['hotelId' => $hotel->filter('id')->first()->text()]);
-            if($pages){
-                $skip = false;
-                foreach ($pages as $page) {
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($page);
-
-                    //if node exists and not deleted skip
-                    if($node && !$node->isDeleted()) {
-                        $skip = true;
-                        break;
-                    }
-                }
-
-                if($skip) continue;
+            $hotelPage = $this->hotelExists($hotel->filter('id')->first()->text());
+            if($hotelPage){
+                $this->addPackages($hotelPage, $hotel);
+                continue;
             }
-
 
             //find placeoverviewnode based on city or city_parish
-
-            $city = $hotel->filter('city');
-            if($city->count() > 0){
-                $city = $city->first()->text();
-            }else{
-                $city = $hotel->filter('city_parish');
-                if($city->count() > 0){
-                    $city = $city->first()->text();
-                }else{
-                    $city = null;
-                }
-            }
-
+            $city = $this->getCityFromHotel($hotel);
             if(!$city) {
                 var_dump('city not found in xml');
                 continue;
@@ -643,7 +669,6 @@ class DefaultController extends Controller
 
             $node = $em->getRepository('KunstmaanNodeBundle:Node')
                 ->findOneBy(['internalName' => 'hotels', 'deleted' => 0]);
-
             if(!$node){
                 var_dump('Could not find HotelOverviewPage with internal name "hotels"');
                 break;
@@ -671,42 +696,7 @@ class DefaultController extends Controller
             var_dump($hotelPage->getTitle());
 
             //set fields
-            $hotelId = $hotel->filter('id');
-            if($hotelId->count() > 0){
-                $hotelPage->setHotelId($hotelId->first()->text());
-            }
-            $street = $hotel->filter('street');
-            if($street->count() > 0){
-                $hotelPage->setStreet($street->first()->text());
-            }
-            $city = $hotel->filter('city');
-            if($city->count() > 0){
-                $hotelPage->setCity($city->first()->text());
-            }
-            $city_parish = $hotel->filter('city_parish');
-            if($city_parish->count() > 0){
-                $hotelPage->setCityParish($city_parish->first()->text());
-            }
-            $country = $hotel->filter('country');
-            if($country->count() > 0){
-                $hotelPage->setCountry($country->first()->text());
-            }
-            $latitude = $hotel->filter('latitude');
-            if($latitude->count() > 0 && is_numeric($latitude->first()->text())){
-                $hotelPage->setLatitude($latitude->first()->text());
-            }
-            $longitude = $hotel->filter('longitude');
-            if($longitude->count() > 0 && is_numeric($longitude->first()->text())){
-                $hotelPage->setLongitude($longitude->first()->text());
-            }
-            $short_description = $hotel->filter('short_description');
-            if($short_description->count() > 0){
-                $hotelPage->setShortDescription($short_description->first()->text());
-            }
-            $long_description = $hotel->filter('long_description');
-            if($long_description->count() > 0){
-                $hotelPage->setLongDescription($long_description->first()->text());
-            }
+            $hotelPage = $this->setPageFields($hotel, $hotelPage);
 
             $translations = array();
 
@@ -828,6 +818,8 @@ class DefaultController extends Controller
 
                 $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
             }
+
+            $this->addPackages($hotelPage, $hotel);
 
             //if($i > 2) break;//todo kosmos remove after check
         }
@@ -1224,5 +1216,352 @@ class DefaultController extends Controller
             setlocale(LC_TIME, 'ru_RU', 'Russian_Russia', 'Russian');
 
         return strftime($format, strtotime($date));
+    }
+
+    /**
+     * @param $hotel
+     * @param $hotelPage
+     * @return mixed
+     */
+    private function setPageFields(Crawler $hotel,HotelPage $hotelPage)
+    {
+        $hotelId = $hotel->filter('id');
+        if ($hotelId->count() > 0) {
+            $hotelPage->setHotelId($hotelId->first()->text());
+        }
+        $street = $hotel->filter('street');
+        if ($street->count() > 0) {
+            $hotelPage->setStreet($street->first()->text());
+        }
+        $city = $hotel->filter('city');
+        if ($city->count() > 0) {
+            $hotelPage->setCity($city->first()->text());
+        }
+        $city_parish = $hotel->filter('city_parish');
+        if ($city_parish->count() > 0) {
+            $hotelPage->setCityParish($city_parish->first()->text());
+        }
+        $country = $hotel->filter('country');
+        if ($country->count() > 0) {
+            $hotelPage->setCountry($country->first()->text());
+        }
+        $latitude = $hotel->filter('latitude');
+        if ($latitude->count() > 0 && is_numeric($latitude->first()->text())) {
+            $hotelPage->setLatitude($latitude->first()->text());
+        }
+        $longitude = $hotel->filter('longitude');
+        if ($longitude->count() > 0 && is_numeric($longitude->first()->text())) {
+            $hotelPage->setLongitude($longitude->first()->text());
+        }
+        $short_description = $hotel->filter('short_description');
+        if ($short_description->count() > 0) {
+            $hotelPage->setShortDescription($short_description->first()->text());
+        }
+        $long_description = $hotel->filter('long_description');
+        if ($long_description->count() > 0) {
+            $hotelPage->setLongDescription($long_description->first()->text());
+        }
+        return $hotelPage;
+    }
+
+    private function addPackages(HotelPage $hotelPage, Crawler $hotel)
+    {
+        $hotelId = $hotelPage->getHotelId();
+
+        $url = 'http://www.hotelliveeb.ee/xml.php?type=package&hotel=' . $hotelId;
+        $content = @file_get_contents($url);
+        if(!$content){
+            var_dump('couldnot load: '. $url);
+            return;
+        }
+
+        $crawler = new Crawler($content);
+        $packages = $crawler->filter('package');
+
+        if($packages->count() == 0) return;
+
+        for($i=0;$i<$packages->count();$i++){
+            $package = $packages->eq($i);
+            $this->createPageFromPackage($package, $hotelPage, $hotel);
+        }
+
+    }
+
+    private function createPageFromPackage(Crawler $package, HotelPage $hotelPage, Crawler $hotel)
+    {
+        $packageId = $package->filter('id')->first()->text();
+        if($this->packageExists($packageId))
+            return;
+
+        $packagePage = new PackagePage();
+        $packagePage->setTitle($package->filter('title')->first()->text());
+
+
+        $em = $this->getDoctrine()->getManager();
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($hotelPage);
+
+        if(!$node){
+            var_dump('Node for page not found');
+            return;
+        }
+
+        $this->setPackagePageFields($package, $packagePage);
+        $newNode = $this->createPackageTranslations($node , $packagePage, $package, $hotel);
+        $this->createPackagePageParts($package, $newNode);
+
+    }
+
+    /**
+     * @param $packageId
+     * @return null|HotelPage
+     */
+    private function packageExists($packageId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var HotelPage[] $pages */
+        $pages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->findBy(['packageId' => $packageId]);
+        if($pages){
+            foreach ($pages as $page) {
+                /** @var Node $node */
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($page);
+
+                //if node exists and not deleted skip
+                if($node && !$node->isDeleted()) {
+                    return $page;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private function setPackagePageFields(Crawler $package, PackagePage $packagePage)
+    {
+        $packageId = $package->filter('id');
+        if ($packageId->count() > 0) {
+            $packagePage->setPackageId($packageId->first()->text());
+        }
+        $number_adults = $package->filter('number_adults');
+        if ($number_adults->count() > 0) {
+            $packagePage->setNumberAdults($number_adults->first()->text());
+        }
+        $number_children = $package->filter('number_children');
+        if ($number_children->count() > 0) {
+            $packagePage->setNumberChildren($number_children->first()->text());
+        }
+        $duration = $package->filter('duration');
+        if ($duration->count() > 0) {
+            $packagePage->setDuration($duration->first()->text());
+        }
+        $description = $package->filter('description');
+        if ($description->count() > 0) {
+            $packagePage->setDescription($description->first()->text());
+        }
+        $checkin = $package->filter('checkin');
+        if ($checkin->count() > 0) {
+            $packagePage->setCheckin($checkin->first()->text());
+        }
+        $checkout = $package->filter('checkout');
+        if ($checkout->count() > 0) {
+            $packagePage->setCheckout($checkout->first()->text());
+        }
+        $minprice = $package->filter('minprice');
+        if ($minprice->count() > 0) {
+            $packagePage->setMinprice($minprice->first()->text());
+        }
+        $image = $package->filter('image');
+        if ($image->count() > 0) {
+            $packagePage->setImage($image->first()->text());
+        }
+
+        //set payment methods
+        $payment = $package->filter('paymentmethod');
+        if ($payment->count() > 0) {
+            for($i=0;$i<$payment->count();$i++){
+                if($payment->eq($i)->text() == 'bank'){
+                    $packagePage->setBankPayment(true);
+                }
+                if($payment->eq($i)->text() == 'creditcard'){
+                    $packagePage->setCreditcardPayment(true);
+                }
+                if($payment->eq($i)->text() == 'onthespot'){
+                    $packagePage->setOnthespotPayment(true);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $node
+     * @param $packagePage
+     * @return Node
+     */
+    private function createPackageTranslations($node, PackagePage $packagePage, Crawler $package, Crawler $hotel)
+    {
+        $langs = ['ee', 'en', 'ru', 'fi', 'se', 'fr', 'de'];
+        $translations = [];
+        foreach ($langs as $lang) {
+            $translations[] = array('language' => $lang, 'callback' => function($page, $translation, $seo) {
+                /** @var $page PackagePage */
+                /** @var $translation NodeTranslation */
+                $translation->setTitle($page->getTitle());
+                $translation->setWeight(20);
+            });
+        }
+
+        //add categories
+        $categories = $package->filter('category');
+
+        $em = $this->getDoctrine()->getManager();
+        if($categories->count() > 0){
+            for($j=0; $j<$categories->count(); $j++){
+                $category = $categories->eq($j)->text();
+
+                $c = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                    ->findOneBy(['name' => $category]);
+
+                if(!$c){
+                    //add new
+                    $c = new PackageCategory();
+                    $c->setName($category);
+                    $em->persist($c);
+                    $em->flush();
+                }
+
+                $packagePage->addCategory($c);
+            }
+        }
+
+        $options = array(
+            'parent' => $node,
+            'set_online' => true,
+            'hidden_from_nav' => false,
+            'creator' => 'Admin'
+        );
+
+        $node = $this->container->get('kunstmaan_node.page_creator_service')->createPage($packagePage, $translations, $options);
+
+        //bind package to place from hotel
+        foreach ($langs as $lang) {
+            $translation = $node->getNodeTranslation($lang, true);
+            if(!$translation) continue;
+
+            /** @var PackagePage $page */
+            $page = $translation->getRef($em);
+            if(!$page) continue;
+
+            //find placeoverviewnode based on city or city_parish
+            $city = $this->getCityFromHotel($hotel);
+            if($city){
+                //find place page
+                $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                    ->findOneBy(['title' => $city]);
+                if($place){
+                    //get place page node
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+                    if($node) {
+                        //get fresh place page
+                        $placeTranslation = $node->getNodeTranslation($lang, true);
+                        if(!$placeTranslation) continue;
+                        $placePage = $placeTranslation->getRef($em);
+                        if($placePage){
+                            $page->addPlace($placePage);
+                            $em->persist($page);
+                            $em->flush();
+                        }
+                    }
+                }
+            }
+        }
+
+        return $node;
+
+    }
+
+    private function createPackagePageParts(Crawler $package, Node $node)
+    {
+        $pagePartCreator = $this->container->get('kunstmaan_pageparts.pagepart_creator_service');
+        $em = $this->getDoctrine()->getManager();
+        $langs = ['ee', 'en', 'ru', 'fi', 'se', 'fr', 'de'];
+        //add page parts to all languages
+        foreach ($langs as $lang) {
+
+            //add rooms and information
+            // Add pageparts
+
+            $pageparts = array();
+            //add gallery
+
+            $rooms = $package->filter("room");
+            if($rooms->count() > 0){
+                for($k=0;$k<$rooms->count();$k++){
+                    $room = $rooms->eq($k);
+
+                    $params = [];
+
+                    $roomID = $room->filter('id');
+                    if($roomID->count() > 0){
+                        $params['setRoomId'] = $roomID->first()->text();
+                    }
+                    $roomName = $room->filter('name');
+                    if($roomName->count() > 0){
+                        $params['setName'] = $roomName->first()->text();
+                    }
+                    $roomImage = $room->filter('image');
+                    if($roomImage->count() > 0){
+                        $params['setImage'] = $roomImage->first()->text();
+                    }
+                    $roomContent = $room->filter('content');
+                    if($roomContent->count() > 0){
+                        $params['setContent'] = $roomContent->first()->text();
+                    }
+
+                    $pageparts['rooms'][] = $pagePartCreator
+                        ->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart',
+                        $params
+                    );
+                }
+            }
+
+            //add info
+            $info = $package->filter('information item');
+
+            if($info->count() > 0){
+
+                for($k=0;$k<$info->count();$k++){
+                    $name = $info->eq($k)->filter('name');
+                    $description = $info->eq($k)->filter('description');
+                    $image = $info->eq($k)->filter('image');
+
+                    $realName = '';
+                    if($name->count() > 0){$realName = $name->first()->text();}
+                    $realDescription = '';
+                    if($description->count() > 0){$realDescription = $description->first()->text();}
+
+                    $roomsArr = [];
+                    if($image->count() > 0){
+                        $url = $image->first()->text();
+                        $image = new HotelImage();
+                        $image->setImageUrl($url);
+                        $roomsArr[] = $image;
+                        $em->persist($image);
+                        $em->flush();
+                    }
+
+                    $pageparts['information'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+                        array(
+                            'setImages' => $roomsArr,
+                            'setName' => $realName,
+                            'setDescription' => $realDescription,
+                        )
+                    );
+                }
+            }
+
+            $pagePartCreator->addPagePartsToPage($node, $pageparts, $lang);
+        }
     }
 }

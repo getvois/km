@@ -3,6 +3,8 @@
 namespace Sandbox\WebsiteBundle\Entity\PageParts;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\PagePartBundle\Entity\AbstractPagePart;
+use Sandbox\WebsiteBundle\Form\PageParts\RoomPagePartAdminType;
 
 /**
  * RoomPagePart
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sb_room_page_parts")
  * @ORM\Entity
  */
-class RoomPagePart extends \Kunstmaan\PagePartBundle\Entity\AbstractPagePart
+class RoomPagePart extends AbstractPagePart
 {
     /**
      * @var integer
@@ -146,10 +148,10 @@ class RoomPagePart extends \Kunstmaan\PagePartBundle\Entity\AbstractPagePart
     /**
      * Get the admin form type.
      *
-     * @return \Sandbox\WebsiteBundle\Form\PageParts\RoomPagePartAdminType
+     * @return RoomPagePartAdminType
      */
     public function getDefaultAdminType()
     {
-        return new \Sandbox\WebsiteBundle\Form\PageParts\RoomPagePartAdminType();
+        return new RoomPagePartAdminType();
     }
 }

@@ -112,7 +112,7 @@ class PackagePage extends AbstractPage implements HasPageTemplateInterface, IPla
      *     @ORM\JoinColumn(name="package_page_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="package_category_id", referencedColumnName="id", unique=true)
+     *     @ORM\JoinColumn(name="package_category_id", referencedColumnName="id")
      *   }
      * )
      */

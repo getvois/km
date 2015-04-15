@@ -54,9 +54,12 @@ class PackagePageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
         ));
         $builder->add('categories', 'entity', array(
             'class' => 'Sandbox\WebsiteBundle\Entity\PackageCategory',
-            'expanded' => true,
+            'expanded' => false,
             'multiple' => true,
             'required' => false,
+            'attr' => array('class' => 'chzn-select'),
+            'property' => 'name',
+
         ));
 
         $builder->add('places', 'place');

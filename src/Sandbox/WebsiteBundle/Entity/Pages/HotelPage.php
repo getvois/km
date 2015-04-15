@@ -100,6 +100,7 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
      */
     public function __construct()
     {
+        $this->setDate(new \DateTime());
         $this->criterias = new ArrayCollection();
     }
 
