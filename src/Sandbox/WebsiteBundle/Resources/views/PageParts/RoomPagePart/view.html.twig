@@ -1,6 +1,11 @@
 <div class="room-pp">
-    <div>{% if resource.roomId %}{{ resource.roomId }}{% endif %}</div>
-    <p>{{ resource.name }}</p>
-    <p>{{ resource.image }}</p>
-    {{ resource.content|raw }}
+    <div class="row">
+        <div class="col-md-12">
+            <p>{{ resource.name }}</p>
+            {% if resource.image %}
+                <img src="{{ resource.image }}" class="img-responsive"/>
+            {% endif %}
+            <p>{{ resource.content|raw }}</p>
+        </div>
+    </div>
 </div>

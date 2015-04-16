@@ -2,13 +2,14 @@
 
 namespace Sandbox\WebsiteBundle\Form\Pages;
 
+use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * PackagePageAdminType
  */
-class PackagePageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
+class PackagePageAdminType extends AbstractArticlePageAdminType
 {
 
     /**
@@ -73,6 +74,9 @@ class PackagePageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
         $builder->add('onthespotPayment', 'checkbox', array(
             'required' => false,
         ));
+
+        $builder->add('orderNumber');
+        $builder->add('company');
     }
 
     /**

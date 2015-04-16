@@ -2,13 +2,14 @@
 
 namespace Sandbox\WebsiteBundle\Form\Pages;
 
+use Kunstmaan\ArticleBundle\Form\AbstractArticlePageAdminType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * HotelPageAdminType
  */
-class HotelPageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
+class HotelPageAdminType extends AbstractArticlePageAdminType
 {
 
     /**

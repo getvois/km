@@ -4,6 +4,7 @@ namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
@@ -17,8 +18,55 @@ use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
  * @ORM\Table(name="sb_package_pages")
  * @ORM\Entity
  */
-class PackagePage extends AbstractPage implements HasPageTemplateInterface, IPlaceFromTo
+class PackagePage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo
 {
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage")
+     */
+    private $company;
+
+    /**
+     * @return int
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param int $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+    }
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_number", type="integer", nullable=true)
+     */
+    private $orderNumber;
+
+    /**
+     * @return int
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * @param int $orderNumber
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+    }
+
     /**
      * @var integer
      *
@@ -132,6 +180,7 @@ class PackagePage extends AbstractPage implements HasPageTemplateInterface, IPla
     {
         $this->categories = new ArrayCollection();
         $this->places = new ArrayCollection();
+        $this->setDate(new \DateTime());
     }
 
     /**
@@ -504,9 +553,7 @@ class PackagePage extends AbstractPage implements HasPageTemplateInterface, IPla
      *
      * @param PlaceOverviewPage $fromPlaces
      */
-    public function addFromPlace(PlaceOverviewPage $fromPlaces)
-    {
-    }
+    public function addFromPlace(PlaceOverviewPage $fromPlaces){}
 
     /**
      * Add place
