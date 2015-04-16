@@ -399,14 +399,16 @@ $(document).ready(function() {
         var $destination = $('#destination-dataholder');
         var $todata = $destination.data('data');
 
-        var $select2datafrom = $("#departure-el").data('selected');
-        var $select2datato = $("#destination-el").data('selected');
+        var $departure4 = $("#departure-el");
+        var $select2datafrom = $departure4.data('selected');
+        var $destination3 = $("#destination-el");
+        var $select2datato = $destination3.data('selected');
 
         if($select2datafrom == undefined) $select2datafrom = [];
         if($select2datato == undefined) $select2datato = [];
 
-        $("#departure-el").data('selected', $select2datato);
-        $("#destination-el").data('selected', $select2datafrom);
+        $departure4.data('selected', $select2datato);
+        $destination3.data('selected', $select2datafrom);
 
         $departure2.data('data', $todata);
         $destination.data('data', $fromdata);
@@ -418,7 +420,7 @@ $(document).ready(function() {
         $destination.html($fromhtml);
 
 
-        var $departure3 = $("#departure-el");
+        var $departure3 = $departure4;
         if($todata.length > 0){
             $departure2.show();
             $departure2.prev().show();
@@ -431,7 +433,7 @@ $(document).ready(function() {
             $departure3.prev().prev().show();
         }
 
-        var $destination2 = $("#destination-el");
+        var $destination2 = $destination3;
         if($fromdata.length > 0){
             $destination.show();
             $destination.prev().show();
