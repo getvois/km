@@ -399,6 +399,15 @@ $(document).ready(function() {
         var $destination = $('#destination-dataholder');
         var $todata = $destination.data('data');
 
+        var $select2datafrom = $("#departure-el").data('selected');
+        var $select2datato = $("#destination-el").data('selected');
+
+        if($select2datafrom == undefined) $select2datafrom = [];
+        if($select2datato == undefined) $select2datato = [];
+
+        $("#departure-el").data('selected', $select2datato);
+        $("#destination-el").data('selected', $select2datafrom);
+
         $departure2.data('data', $todata);
         $destination.data('data', $fromdata);
 
