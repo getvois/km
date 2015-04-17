@@ -51,7 +51,7 @@ class HotelliveebCommand extends ContainerAwareCommand
                 $node = $em->getRepository('KunstmaanNodeBundle:Node')
                     ->getNodeFor($hotelPage);
 
-                $this->addPlaceToHotel($node);
+                //$this->addPlaceToHotel($node);
 
                 //$this->addPackages($hotelPage, $hotel);
                 continue;
@@ -140,7 +140,7 @@ class HotelliveebCommand extends ContainerAwareCommand
 
             $newNode = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
 
-            $this->addPlaceToHotel($newNode);
+            //$this->addPlaceToHotel($newNode);
 
             //add page parts to all languages
             foreach ($langs as $lang) {
