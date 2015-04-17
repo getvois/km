@@ -53,7 +53,7 @@ class HotelliveebCommand extends ContainerAwareCommand
 
                 $this->addPlaceToHotel($node);
 
-                $this->addPackages($hotelPage, $hotel);
+                //$this->addPackages($hotelPage, $hotel);
                 continue;
             }
 
@@ -218,7 +218,7 @@ class HotelliveebCommand extends ContainerAwareCommand
                 $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
             }
 
-            $this->addPackages($hotelPage, $hotel);
+            //$this->addPackages($hotelPage, $hotel);
 
             //if($i > 2) break;//todo kosmos remove after check
         }
