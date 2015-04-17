@@ -141,6 +141,7 @@
                     {% if host
                     and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage"
                     and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\CompanyPlacePage"
+                    and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\HotelOverviewPage"
 
                     %}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
