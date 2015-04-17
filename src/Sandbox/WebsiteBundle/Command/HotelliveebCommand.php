@@ -820,6 +820,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             /** @var HotelPage $page */
             $page = $translation->getRef($em);
 
+            $page->removeAllPlaces();
+
             $city = '';
             if($page->getCity())$city = $page->getCity();
             elseif($page->getCityParish()) $city = $page->getCityParish();
