@@ -848,6 +848,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
                     $placePage = $translation->getRef($em);
                     if($placePage){
                         $page->addPlace($placePage);
+                        $em->persist($page);
                     }
                 }
             }
