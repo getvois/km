@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
+use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
 
 /**
@@ -15,7 +17,7 @@ use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
  * @ORM\Table(name="sb_hotel_pages")
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\HotelPageRepository")
  */
-class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface //AbstractPage
+class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo //AbstractPage
 {
     /**
      * @var string
@@ -142,12 +144,19 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
     private $criterias;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     * @ORM\JoinTable(name="sb_hotel_place_overview")
+     **/
+    private $places;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->setDate(new \DateTime());
         $this->criterias = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
 
     /**
@@ -433,4 +442,63 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
     {
         return 'SandboxWebsiteBundle:Hotel:view.html.twig';
     }
+
+    /**
+     * Get full entity name
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage';
+    }
+
+    /**
+     * Add fromPlaces
+     *
+     * @param PlaceOverviewPage $fromPlaces
+     */
+    public function addFromPlace(PlaceOverviewPage $fromPlaces){}
+
+    /**
+     * Add place
+     *
+     * @param PlaceOverviewPage $places
+     * @return $this
+     */
+    public function addPlace(PlaceOverviewPage $places)
+    {
+        $this->places[] = $places;
+
+        return $this;
+    }
+
+    /**
+     * Get places
+     *
+     * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * Get fromPlaces
+     *
+     * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
+     */
+    public function getFromPlaces(){}
+
+    /**
+     * Remove all places
+     */
+    public function removeAllPlaces()
+    {
+        $this->places->clear();
+    }
+
+    /**
+     * Remove all from places
+     */
+    public function removeAllFromPlaces(){}
 }

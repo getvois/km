@@ -47,6 +47,12 @@ class HotelliveebCommand extends ContainerAwareCommand
                 $hotelPage = $this->setPageFields($hotel, $hotelPage);
                 $em->persist($hotelPage);
                 $em->flush();
+
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($hotelPage);
+
+                $this->addPlaceToHotel($node);
+
                 $this->addPackages($hotelPage, $hotel);
                 continue;
             }
@@ -133,6 +139,8 @@ class HotelliveebCommand extends ContainerAwareCommand
             }
 
             $newNode = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
+
+            $this->addPlaceToHotel($newNode);
 
             //add page parts to all languages
             foreach ($langs as $lang) {
@@ -638,10 +646,13 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
         $em->flush();
 
+
+        $added = [];
         if($categories->count() > 0){
             for($j=0; $j<$categories->count(); $j++){
                 $category = $categories->eq($j)->text();
 
+                var_dump($category);
                 $c = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
                     ->findOneBy(['name' => $category]);
 
@@ -653,7 +664,11 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
                     $em->flush();
                 }
 
-                $packagePage->addCategory($c);
+                if(!array_key_exists($c->getId(), $added)){
+                    $added[$c->getId()] = $c->getId();
+                    $packagePage->addCategory($c);
+                }
+
             }
         }
 
@@ -790,5 +805,53 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
             $pagePartCreator->addPagePartsToPage($node, $pageparts, $lang);
         }
+    }
+
+
+    private function addPlaceToHotel(Node $node)
+    {
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        /** @var NodeTranslation[] $translations */
+        $translations = $node->getNodeTranslations(true);
+
+        foreach ($translations as $translation) {
+            $lang = $translation->getLang();
+            /** @var HotelPage $page */
+            $page = $translation->getRef($em);
+
+            $city = '';
+            if($page->getCity())$city = $page->getCity();
+            elseif($page->getCityParish()) $city = $page->getCityParish();
+
+            //set place to hotel based on city
+            if($city){
+                //find place page
+                $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                    ->findOneBy(['title' => $city]);
+                if(!$place) {
+                    var_dump('place not found in db '. $city);
+                    break;
+                }
+
+                //get place page node
+                $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+                if(!$node2) {
+                    var_dump('Node node found for city'. $city);
+                    continue;
+                }
+
+                $translation = $node2->getNodeTranslation($lang, true);
+                if($translation){
+                    $placePage = $translation->getRef($em);
+                    if($placePage){
+                        $page->addPlace($placePage);
+                    }
+                }
+            }
+
+        }
+        $em->flush();
+
     }
 }
