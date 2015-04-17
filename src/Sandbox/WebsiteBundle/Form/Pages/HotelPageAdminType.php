@@ -62,6 +62,9 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
             'required' => false,
             'attr' => array('class' => 'chzn-select')
         ));
+
+        $builder->add('www');
+        $builder->add('bookingcom');
     }
 
     /**

@@ -20,6 +20,52 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface 
     /**
      * @var string
      *
+     * @ORM\Column(name="www", type="string", length=512, nullable=true)
+     */
+    private $www;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bookingcom", type="string", length=512, nullable=true)
+     */
+    private $bookingcom;
+
+    /**
+     * @return string
+     */
+    public function getWww()
+    {
+        return $this->www;
+    }
+
+    /**
+     * @param string $www
+     */
+    public function setWww($www)
+    {
+        $this->www = $www;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBookingcom()
+    {
+        return $this->bookingcom;
+    }
+
+    /**
+     * @param string $bookingcom
+     */
+    public function setBookingcom($bookingcom)
+    {
+        $this->bookingcom = $bookingcom;
+    }
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="street", type="string", length=255, nullable=true)
      */
     private $street;
