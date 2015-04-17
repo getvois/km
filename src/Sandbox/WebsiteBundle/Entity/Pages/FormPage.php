@@ -35,6 +35,10 @@ class FormPage extends AbstractFormPage implements HasPageTemplateInterface
     {
         return array(
             array(
+                'name' => 'PackageOverviewPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
+            ),
+            array(
                 'name'  => 'ContentPage',
                 'class' => 'Sandbox\WebsiteBundle\Entity\Pages\ContentPage'
             ),

@@ -9,17 +9,17 @@ use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Sandbox\WebsiteBundle\Form\Pages\HotelOverviewPageAdminType;
+use Sandbox\WebsiteBundle\Form\Pages\PackageOverviewPageAdminType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * HotelOverviewPage
+ * PackageOverviewPage
  *
- * @ORM\Table(name="sb_hotel_overview_pages")
+ * @ORM\Table(name="sb_package_overview_pages")
  * @ORM\Entity
  */
-class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
+class PackageOverviewPage extends AbstractPage implements HasPageTemplateInterface
 {
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
@@ -28,12 +28,12 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         /** @var EntityManager $em */
         $em = $container->get('doctrine.orm.entity_manager');
 
-        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPages($request->getLocale());
+        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagePages($request->getLocale());
 
-        if(!$hotels) $hotels = [];
+        if(!$packages) $packages = [];
 
-        $adapter = new ArrayAdapter($hotels);
+        $adapter = new ArrayAdapter($packages);
         $pagerfanta = new Pagerfanta($adapter);
 
         $pagenumber = $request->get('page');
@@ -48,11 +48,11 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
     /**
      * Returns the default backend form type for this page
      *
-     * @return HotelOverviewPageAdminType
+     * @return PackageOverviewPageAdminType
      */
     public function getDefaultAdminType()
     {
-        return new HotelOverviewPageAdminType();
+        return new PackageOverviewPageAdminType();
     }
 
     /**
@@ -60,11 +60,7 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
      */
     public function getPossibleChildTypes()
     {
-        return array(
-            array(
-                'name' => 'PackageOverviewPage',
-                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
-            ),);
+        return array();
     }
 
     /**
@@ -92,6 +88,6 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
      */
     public function getDefaultView()
     {
-        return 'SandboxWebsiteBundle:HotelOverview:view.html.twig';
+        return 'SandboxWebsiteBundle:PackageOverview:view.html.twig';
     }
 }

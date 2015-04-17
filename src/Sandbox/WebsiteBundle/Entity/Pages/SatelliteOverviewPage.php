@@ -63,7 +63,11 @@ class SatelliteOverviewPage extends AbstractPage implements HasPageTemplateInter
      */
     public function getPossibleChildTypes()
     {
-        return array();
+        return array(
+            array(
+                'name' => 'PackageOverviewPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
+            ),);
     }
 
     /**

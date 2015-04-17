@@ -31,7 +31,11 @@ class ContactPage extends AbstractFormPage implements HasPageTemplateInterface
      */
     public function getPossibleChildTypes()
     {
-        return array();
+        return array(
+            array(
+                'name' => 'PackageOverviewPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
+            ),);
     }
 
     /**

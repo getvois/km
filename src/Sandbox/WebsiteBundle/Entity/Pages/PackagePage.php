@@ -16,7 +16,7 @@ use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
  * PackagePage
  *
  * @ORM\Table(name="sb_package_pages")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\PackagePageRepository")
  */
 class PackagePage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo
 {
@@ -506,7 +506,11 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
      */
     public function getPossibleChildTypes()
     {
-        return array();
+        return array(
+            array(
+                'name' => 'PackageOverviewPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
+            ),);
     }
 
     /**
