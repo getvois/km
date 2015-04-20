@@ -6,6 +6,10 @@ sandboxwebsitebundle_offers:
     resource: "@SandboxWebsiteBundle/Controller/OfferController.php"
     type:     annotation
 
+sandboxwebsitebundle_packages:
+    resource: "@SandboxWebsiteBundle/Controller/PackageController.php"
+    type:     annotation
+
 sandboxwebsitebundle_newsletter:
     resource: "@SandboxWebsiteBundle/Controller/NewsletterController.php"
     type:     annotation

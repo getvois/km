@@ -1,24 +1,24 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 {% block content %}
     <div class="row">
+        <div class="col-md-12">
+            <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
+            <select name="package-place" id="package-place">
+                <option value="-1">{{ 'any'|trans({}, 'frontend') }}</option>
+                {% for place in places %}
+                    <option value="{{ place.cityid }}">{{ place.title }}</option>
+                {% endfor %}
+            </select>
 
+            <input class="datepick" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
+            <input class="datepick" type="text" id="package-date-to" name="package-date-to" placeholder="{{ 'date.to'|trans({}, 'frontend') }}"/>
+
+            <a href="#" id="package-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>
+        </div>
+    </div>
+    <div class="row" id="package-holder">
         {% for package in pagerfanta.CurrentPageResults %}
-            <div class="col-md-4 well packagel">
-                <h3>{{ package.title }}</h3>
-                <p>{{ package.description }}</p>
-                <p>{{ package.minprice }}</p>
-                {% if package.image %}
-                    <p><img src="{{ package.image }}" class="img-responsive"/></p>
-                {% endif %}
-                <p>
-                    <a class="btn btn-primary" href="{{ get_node_translation_for(package).fullSlug }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
-                </p>
-            </div>
+            {% include '@SandboxWebsite/Package/package.html.twig' %}
         {% endfor %}
-
-        {#{% if pagerfanta.haveToPaginate %}#}
-            {#{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}#}
-        {#{% endif %}#}
-        {# does not paginate because of the route controller #}
     </div>
 {% endblock %}

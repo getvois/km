@@ -44,9 +44,9 @@ class HotelliveebCommand extends ContainerAwareCommand
             $hotelPage = $this->hotelExists($hotel->filter('id')->first()->text());
             if($hotelPage){
                 //update fields on existing page
-                $hotelPage = $this->setPageFields($hotel, $hotelPage);
-                $em->persist($hotelPage);
-                $em->flush();
+                //$hotelPage = $this->setPageFields($hotel, $hotelPage);
+                //$em->persist($hotelPage);
+                //$em->flush();
 
                 $node = $em->getRepository('KunstmaanNodeBundle:Node')
                     ->getNodeFor($hotelPage);

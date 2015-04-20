@@ -28,10 +28,20 @@ class PackageOverviewPage extends AbstractPage implements HasPageTemplateInterfa
         /** @var EntityManager $em */
         $em = $container->get('doctrine.orm.entity_manager');
 
+        /** @var PackagePage[] $packages */
         $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePages($request->getLocale());
 
         if(!$packages) $packages = [];
+
+        $places = [];
+        foreach ($packages as $package) {
+            foreach ($package->getPlaces() as $place) {
+                $places[$place->getId()] = $place;
+            }
+        }
+        $context['places'] = $places;
+
 
         $adapter = new ArrayAdapter($packages);
         $pagerfanta = new Pagerfanta($adapter);

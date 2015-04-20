@@ -11,6 +11,66 @@ $(document).ready(function() {
         $('#club-tab').tab('show');
     }
 
+
+    $(".datepick").datepick($.extend({
+            dateFormat: 'dd.mm.yyyy',
+            //rangeSelect: true,
+            //monthsToShow: 2,
+            //minDate: '+1d',
+            changeMonth: false,
+            renderer: $.extend({}, $.datepick.defaultRenderer,
+                {picker: $.datepick.defaultRenderer.picker.
+                    replace(/\{link:buttons}/, '')
+                    .replace(/\{link:today}/, '')
+                })
+        },
+        $.datepick.regionalOptions[$lang]));
+
+    $('#package-filter').click(function () {
+        $(this).addClass('disabled');
+
+        var $from = $('#package-date-from').datepick('getDate');
+        var $to = $('#package-date-to').datepick('getDate');
+        var $place = $('#package-place').val();
+
+        $.get('/package-filter/?place='+$place + "&from=" + $from + "&to=" + $to, function (responce) {
+
+            $('#package-holder').html(responce.html);
+
+            $('#package-filter').removeClass('disabled');
+        });
+
+        return false;
+    });
+
+
+    $('#package-holder').on('click', '.package-calendar-show', function () {
+        var $packageId = $(this).data('package-id');
+
+        $(".package-calendar-control").addClass('hide');
+        $('.package-calendar').html('');
+
+        //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
+        var calendar = $(this).closest('.package').find('.package-calendar').calendar(
+            {
+                tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
+                events_source: '/package-event-source/' + $packageId
+            });
+
+        calendar.setLanguage($lang);
+        calendar.view();
+
+
+        var control = $(this).closest('.package').find(".package-calendar-control");
+        control.removeClass('hide');
+        control.find('.package-calendar-navigate').click(function () {
+            calendar.navigate($(this).data('calendar-nav'));
+        });
+
+        return false;
+    });
+
+
     $('#club-filter').click(function () {
         var $container = $("#offers-container");
         $container.html("");
