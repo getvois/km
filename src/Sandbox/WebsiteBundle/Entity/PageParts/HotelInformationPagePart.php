@@ -53,9 +53,12 @@ class HotelInformationPagePart extends AbstractPagePart implements DeepCloneInte
      */
     public function addImage($contactInfo)
     {
-        $contactInfo->setInfoPagePart($this);
+        if($contactInfo){
+            $contactInfo->setInfoPagePart($this);
 
-        $this->images->add($contactInfo);
+            $this->images->add($contactInfo);
+        }
+
     }
 
     /**
