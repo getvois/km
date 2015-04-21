@@ -77,14 +77,14 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
      */
     private $country;
     /**
-     * @var string
+     * @var PlaceOverviewPage
      *
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
      */
     private $countryPlace;
 
     /**
-     * @return string
+     * @return PlaceOverviewPage
      */
     public function getCountryPlace()
     {
@@ -92,7 +92,7 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
     }
 
     /**
-     * @param string $countryPlace
+     * @param PlaceOverviewPage $countryPlace
      */
     public function setCountryPlace($countryPlace)
     {
@@ -490,7 +490,7 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
      *
      * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
      */
-    public function getFromPlaces(){}
+    public function getFromPlaces(){ return [];}
 
     /**
      * Remove all places
