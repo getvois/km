@@ -232,6 +232,8 @@ class FormListener {
                 $this->em->persist($pp);
             }
             $this->em->flush();
+
+            $this->setCountryPlaces($originalLanguage, $page);
         }
 
         //copy package fields
@@ -365,6 +367,61 @@ class FormListener {
 
             }
             $this->em->persist($newsPage);
+        }
+        $this->em->flush();
+    }
+
+
+
+    private function setCountryPlaces($originalLanguage, HotelPage $page)
+    {
+        //check for place
+        //for each locale get news page in lang
+        $checkLangs = array_diff($this->locales, [$originalLanguage]);
+        foreach ($checkLangs as $locale) {
+
+            /** @var NodeVersion $nodeVersion */
+            $nodeVersion = $this->em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                ->findOneBy([
+                    'refId' => $page->getId(),
+                    'refEntityName' => $page->getEntityName(),
+                    'type' => 'public'
+                ]);
+
+            if(!$nodeVersion) continue;
+
+            //get news translation
+            $nodeTranslation = $nodeVersion->getNodeTranslation()->getNode()->getNodeTranslation($locale, true);
+            if(!$nodeTranslation) continue;
+            //get news page
+            /** @var HotelPage $hotelPage */
+            $hotelPage = $nodeTranslation->getPublicNodeVersion()->getRef($this->em);
+
+            //add selected places to other translations
+            if($page->getCountryPlace()){
+                /** @var NodeVersion $nodeVersion */
+                $nodeVersion = $this->em->getRepository('KunstmaanNodeBundle:NodeVersion')
+                    ->findOneBy([
+                        'refId' => $page->getCountryPlace()->getId(),
+                        'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
+                        'type' => 'public'
+                    ]);
+
+                if(!$nodeVersion) continue;
+
+                //get place translation
+                $nodeTranslation = $nodeVersion->getNodeTranslation()->getNode()->getNodeTranslation($locale, true);
+
+                if(!$nodeTranslation) continue;
+
+                //get place page
+                /** @var PlaceOverviewPage $placePage */
+                $placePage = $nodeTranslation->getPublicNodeVersion()->getRef($this->em);
+                //add place to news
+                $hotelPage->setCountryPlace($placePage);
+            }
+
+            $this->em->persist($hotelPage);
         }
         $this->em->flush();
     }
