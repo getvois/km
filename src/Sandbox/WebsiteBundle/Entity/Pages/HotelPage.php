@@ -76,6 +76,28 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
      * @ORM\Column(name="country", type="string", length=255, nullable=true)
      */
     private $country;
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     */
+    private $countryPlace;
+
+    /**
+     * @return string
+     */
+    public function getCountryPlace()
+    {
+        return $this->countryPlace;
+    }
+
+    /**
+     * @param string $countryPlace
+     */
+    public function setCountryPlace($countryPlace)
+    {
+        $this->countryPlace = $countryPlace;
+    }
 
     /**
      * @var string
