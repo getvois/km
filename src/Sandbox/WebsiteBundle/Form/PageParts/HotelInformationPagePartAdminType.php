@@ -33,6 +33,7 @@ class HotelInformationPagePartAdminType extends \Symfony\Component\Form\Abstract
             'required' => false,
         ));
         $builder->add('images', 'collection', array(
+            'required' => false,
             'type' => new HotelImageAdminType(),
             'allow_add' => true,
             'allow_delete' => true,
