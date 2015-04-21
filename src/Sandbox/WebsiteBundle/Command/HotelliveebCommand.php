@@ -58,11 +58,11 @@ class HotelliveebCommand extends ContainerAwareCommand
             }
 
             //find placeoverviewnode based on city or city_parish
-            $city = $this->getCityFromHotel($hotel);
-            if(!$city) {
-                var_dump('city not found in xml');
-                continue;
-            }
+//            $city = $this->getCityFromHotel($hotel);
+//            if(!$city) {
+//                var_dump('city not found in xml');
+//                continue;
+//            }
 
             $node = $em->getRepository('KunstmaanNodeBundle:Node')
                 ->findOneBy(['internalName' => 'hotels', 'deleted' => 0]);
