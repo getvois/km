@@ -30,10 +30,12 @@ $(document).ready(function() {
         $(this).addClass('disabled');
 
         var $from = $('#package-date-from').datepick('getDate');
-        var $to = $('#package-date-to').datepick('getDate');
         var $place = $('#package-place').val();
 
-        $.get('/package-filter/?place='+$place + "&from=" + $from + "&to=" + $to, function (responce) {
+        if($from.length > 0)$from = $from[0].toMysqlFormat();
+        else $from = '';
+
+        $.get('/package-filter/?place='+$place + "&from=" + $from, function (responce) {
 
             $('#package-holder').html(responce.html);
 
@@ -43,31 +45,20 @@ $(document).ready(function() {
         return false;
     });
 
-
-    $('#package-holder').on('click', '.package-calendar-show', function () {
-        var $packageId = $(this).data('package-id');
-
-        $(".package-calendar-control").addClass('hide');
-        $('.package-calendar').html('');
-
-        //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
-        var calendar = $(this).closest('.package').find('.package-calendar').calendar(
-            {
-                tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
-                events_source: '/package-event-source/' + $packageId
-            });
-
-        calendar.setLanguage($lang);
-        calendar.view();
-
-
-        var control = $(this).closest('.package').find(".package-calendar-control");
-        control.removeClass('hide');
-        control.find('.package-calendar-navigate').click(function () {
-            calendar.navigate($(this).data('calendar-nav'));
+    //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
+    var $packageCalendar = $('.package-calendar');
+    var calendar = $packageCalendar.calendar(
+        {
+            tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
+            events_source: '/package-event-source/' + $packageCalendar.data('package-id')
         });
 
-        return false;
+    calendar.setLanguage($lang);
+    //calendar.view();
+
+    var control = $(".package-calendar-control");
+    control.find('.package-calendar-navigate').click(function () {
+        calendar.navigate($(this).data('calendar-nav'));
     });
 
 

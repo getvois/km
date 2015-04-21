@@ -1,3 +1,12 @@
+
+<div class="btn-group package-calendar-control">
+        <button class="btn btn-primary package-calendar-navigate" data-calendar-nav="prev">&lt;&lt; {{ 'prev'|trans({}, 'frontend') }}</button>
+        <button class="btn package-calendar-navigate" data-calendar-nav="today">{{ 'today'|trans({}, 'frontend') }}</button>
+        <button class="btn btn-primary package-calendar-navigate" data-calendar-nav="next">{{ 'next'|trans({}, 'frontend') }} &gt;&gt;</button>
+    </div>
+
+<div data-package-id="{{ page.packageId }}" data-date-from="{{ fromdate }}" class="package-calendar"></div>
+
 {{ render_pageparts(page, 'main') }}
 {{ render_pageparts(page, 'rooms') }}
 {{ render_pageparts(page, 'information') }}

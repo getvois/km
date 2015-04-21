@@ -21,7 +21,6 @@ class PackageController extends Controller
 
         $toPlace = $request->query->get('place', '');
         $from = $request->query->get('from', '');
-        $to = $request->query->get('to', '');
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -39,7 +38,11 @@ class PackageController extends Controller
             foreach ($package->getPlaces() as $place) {
                 if($toPlace == -1 || $place->getCityId() == $toPlace){
                     $filtered[] = $package;
-                    $html .= $this->get('templating')->render('@SandboxWebsite/Package/package.html.twig', ['package' => $package]);
+
+                    //get packages from date or current date
+                    $packageDates = $this->getPackageDates($package, $from);
+
+                    $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
                 }
             }
         }
@@ -53,10 +56,13 @@ class PackageController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function packageEventSourceAction($id){
+    public function packageEventSourceAction(Request $request, $id){
 
         $data = ['success' => 1, 'result' => []];
         $content = @file_get_contents('http://www.hotelliveeb.ee/xml.php?type=packageresource&package='.$id);
+
+        $from = $request->query->get('from') / 1000;
+        $to = $request->query->get('to') / 1000;
 
         if(!$content) return new JsonResponse($data);
 
@@ -72,17 +78,79 @@ class PackageController extends Controller
             $price = $item->filter('price')->first()->text();
             $available = $item->filter('available')->first()->text();
 
-            $out[] = array(
-                'id' => $i,
-                'title' => $price. "eur",
-                'url' => '',
-                'start' => strtotime($date . " 00:00") . '000',
-                'end' => strtotime($date . "23:59") .'000'
-            );
+            if(strtotime($date) >= $from && strtotime($date) <= $to){
+                if(array_key_exists($date, $out)){
+                    if($price > $out[$date]['price']){
+                        $out[$date] = array(
+                            'id' => $i,
+                            'title' => $price. "eur",
+                            'url' => '',
+                            'start' => strtotime($date ) . '000',
+                            //'end' => strtotime($date . "20:59") .'000',
+                            'price' => $price,
+                            'date' => $date,
+                        );
+                    }
+                }else{
+                    $out[$date] = array(
+                        'id' => $i,
+                        'title' => $price. "eur",
+                        'url' => '',
+                        'start' => strtotime($date ) . '000',
+                        //'end' => strtotime($date . "20:59") .'000',
+                        'price' => $price,
+                        'date' => $date,
+                    );
+                }
+            }
+
         }
+
+        $out = array_values($out);
 
         $data['result'] = $out;
 
         return new JsonResponse($data);
+    }
+
+    private function getPackageDates(PackagePage $package, $from)
+    {
+        //set date to yesterday
+        if(!$from) $from = date("Y-m-d", strtotime('-1 day'));
+        else $from = date("Y-m-d", strtotime($from) - 60 * 60 * 24);
+
+        $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
+        $content = @file_get_contents('http://www.hotelliveeb.ee/xml.php?type=packageresource&package='.$package->getPackageId(), false, $context);
+
+        if(!$content) return [];
+
+        $crawler = new Crawler($content);
+
+        $items = $crawler->filter('resource');
+
+        $out = [];
+        for($i=0; $i<$items->count(); $i++){
+            $item = $items->eq($i);
+
+            $date = $item->filter('date')->first()->text();
+            $price = $item->filter('price')->first()->text();
+            //$available = $item->filter('available')->first()->text();
+
+            //check if date >= from date
+            if(strtotime($date) >= strtotime($from)){
+                //check if in array and set bigger price
+                if(array_key_exists($date, $out)){
+                    if($out[$date] < $price)
+                        $out[$date] = round($price);
+                }else{
+                    $out[$date] = round($price);
+                }
+            }
+
+            //only add 7 days
+            if(count($out) == 7) break;
+        }
+
+        return $out;
     }
 }

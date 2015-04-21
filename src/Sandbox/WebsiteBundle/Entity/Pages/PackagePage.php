@@ -6,11 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * PackagePage
@@ -20,6 +23,16 @@ use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
  */
 class PackagePage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo
 {
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        parent::service($container, $request, $context);
+
+        $fromDate = $request->query->get('fromdate', date('Y-m-d'));
+
+        $context['fromdate'] = $fromDate;
+
+    }
+
 
     /**
      * @var integer

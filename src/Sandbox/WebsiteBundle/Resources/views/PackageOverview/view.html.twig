@@ -4,14 +4,13 @@
         <div class="col-md-12">
             <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
             <select name="package-place" id="package-place">
-                <option value="-1">{{ 'any'|trans({}, 'frontend') }}</option>
+                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
                 {% for place in places %}
                     <option value="{{ place.cityid }}">{{ place.title }}</option>
                 {% endfor %}
             </select>
 
             <input class="datepick" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
-            <input class="datepick" type="text" id="package-date-to" name="package-date-to" placeholder="{{ 'date.to'|trans({}, 'frontend') }}"/>
 
             <a href="#" id="package-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>
         </div>

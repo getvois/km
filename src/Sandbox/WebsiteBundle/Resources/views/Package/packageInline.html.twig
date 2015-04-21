@@ -1,0 +1,50 @@
+<div class="col-md-12 well package" data-package-id="{{ package.packageId }}">
+
+    <div class="row">
+
+        {% if package.image %}
+            <div class="col-md-3">
+                <img src="{{ package.image }}" class="img-responsive"/>
+            </div>
+            <div class="col-md-9">
+                <h3>{{ package.title }}</h3>
+                <p>{{ package.description }}</p>
+                <p>{{ package.minprice }}</p>
+                <p>
+                    <a class="btn btn-primary" href="{{ get_node_translation_for(package).fullSlug }}?fromdate={{ fromdate }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+                </p>
+            </div>
+        {% else %}
+            <div class="col-md-12">
+                <h3>{{ package.title }}</h3>
+                <p>{{ package.description }}</p>
+                <p>{{ package.minprice }}</p>
+                <p>
+                    <a class="btn btn-primary" href="{{ get_node_translation_for(package).fullSlug }}?fromdate={{ fromdate }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if dates is defined and dates|length > 0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        {% for date, price in dates %}
+                            <th>{{ date|datelocale('medium', 'none')[:(date|datelocale('medium', 'none')|length - 6)] }}</th>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for date, price in dates %}
+                            <td>
+                                <a class="btn btn-primary" href="{{ get_node_translation_for(package).fullSlug }}?fromdate={{ date }}">{{ price }}eur</a>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
