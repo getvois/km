@@ -65,7 +65,7 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
 
         $builder->add('www');
         $builder->add('places', 'place');
-        $builder->add('countryPlace', 'place', ['multiple' => false]);
+        $builder->add('countryPlace', 'place', ['multiple' => false, 'empty_data'  => null]);
     }
 
     /**
