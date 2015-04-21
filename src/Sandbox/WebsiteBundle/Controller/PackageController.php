@@ -3,6 +3,8 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Kunstmaan\NodeBundle\Entity\Node;
+use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,31 +22,60 @@ class PackageController extends Controller
      * @return JsonResponse
      */
     public function filterAction(Request $request){
-
+        $html = '';
         $toPlace = $request->query->get('place', '');
         $from = $request->query->get('from', '');
+        $hotel = $request->query->get('hotel', '');
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        /** @var PackagePage[] $packages */
-        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
-            ->getPackagePages($request->getLocale());
+        if($hotel && $hotel != -1){
 
-        if(!$packages) $packages = [];
+            $hotelPage = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+                ->findOneBy(['hotelId' => $hotel]);
 
-        $filtered = [];
+            if(!$hotelPage) return new JsonResponse(['html' => $html]);
 
-        $html = '';
-        foreach ($packages as $package) {
-            foreach ($package->getPlaces() as $place) {
-                if($toPlace == -1 || $place->getCityId() == $toPlace){
-                    $filtered[] = $package;
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($hotelPage);
 
-                    //get packages from date or current date
-                    $packageDates = $this->getPackageDates($package, $from);
+            if($node->getChildren()){
+                /** @var Node $packageNode */
+                foreach ($node->getChildren() as $packageNode) {
+                    $translation = $packageNode->getNodeTranslation($request->getLocale());
+                    if($translation){
+                        $packagePage = $translation->getRef($em);
+                        if($packagePage){
+                            //get packages from date or current date
+                            $packageDates = $this->getPackageDates($packagePage, $from);
 
-                    $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
+                            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $packagePage, 'dates' => $packageDates, 'fromdate' => $from]);
+                        }
+                    }
+                }
+            }
+
+        }else{
+            /** @var PackagePage[] $packages */
+            $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+                ->getPackagePages($request->getLocale());
+
+            if(!$packages) $packages = [];
+
+            $filtered = [];
+
+
+            foreach ($packages as $package) {
+                foreach ($package->getPlaces() as $place) {
+                    if($toPlace == -1 || $place->getCityId() == $toPlace){
+                        $filtered[] = $package;
+
+                        //get packages from date or current date
+                        $packageDates = $this->getPackageDates($package, $from);
+
+                        $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
+                    }
                 }
             }
         }
@@ -190,6 +221,49 @@ class PackageController extends Controller
         /** @var PlaceOverviewPage $place */
         foreach ($places as $place) {
             $html .= "<option value='{$place->getCityId()}'>{$place->getTitle()}</option>";
+        }
+
+        return new Response($html);
+    }
+    /**
+     * @Route("/package-hotellist/{placeId}")
+     * @param Request $request
+     * @param $placeId
+     * @return string
+     */
+    public function hotelListAction(Request $request, $placeId)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPages($request->getLocale());
+
+        if(!$hotels) $hotels = [];
+
+        $filtered = [];
+
+        foreach ($hotels as $hotel) {
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getCityId() == $placeId){
+                    //check if hotel has packages eg node has children
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+                    if($node && $node->getChildren()->count() > 0){
+                        $filtered[$hotel->getId()] = $hotel;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        $any = $this->get('translator')->trans('any', [], 'frontend');
+        $html = "<option value='-1'>$any</option>";
+
+        /** @var HotelPage $hotel */
+        foreach ($filtered as $hotel) {
+            $html .= "<option value='{$hotel->getHotelId()}'>{$hotel->getTitle()}</option>";
         }
 
         return new Response($html);

@@ -16,9 +16,14 @@
             <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
             <select name="package-place" id="package-place" class="hide">
                 <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
-                {% for place in places %}
-                    <option value="{{ place.cityid }}">{{ place.title }}</option>
-                {% endfor %}
+                {#{% for place in places %}#}
+                    {#<option value="{{ place.cityid }}">{{ place.title }}</option>#}
+                {#{% endfor %}#}
+            </select>
+
+            <label for="package-hotel" class="sr-only">{{ 'hotel'|trans({}, 'frontend') }}</label>
+            <select name="package-hotel" id="package-hotel" class="hide">
+                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
             </select>
 
             <input class="datepick" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>

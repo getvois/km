@@ -28,26 +28,39 @@ $(document).ready(function() {
 
     $('#package-country').change(function () {
         var $cityId = $(this).val();
-        $('#package-place').removeClass('hide').hide();
+        $('#package-place').removeClass('hide').hide().val('-1');
         if($cityId != -1){
             $.get('/package-citylist/' + $cityId, function (responce) {
                 $('#package-place').html(responce).show();
             });
+        }else{
+            $('#package-hotel').hide().val('-1');
         }
-
-
     });
+
+    $('#package-place').change(function () {
+        var $placeId = $(this).val();
+        $('#package-hotel').removeClass('hide').hide().val('-1');
+        if($placeId != -1){
+            $.get('/package-hotellist/' + $placeId, function (responce) {
+                $('#package-hotel').html(responce).show();
+            });
+        }
+    });
+
+
 
     $('#package-filter').click(function () {
         $(this).addClass('disabled');
 
         var $from = $('#package-date-from').datepick('getDate');
         var $place = $('#package-place').val();
+        var $hotel = $('#package-hotel').val();
 
-        if($from.length > 0)$from = $from[0].toMysqlFormat();
+        if($from.length > 0) $from = $from[0].toMysqlFormat();
         else $from = '';
 
-        $.get('/package-filter/?place='+$place + "&from=" + $from, function (responce) {
+        $.get('/package-filter/?hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
 
             $('#package-holder').html(responce.html);
 
