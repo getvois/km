@@ -14,6 +14,8 @@ use Sandbox\WebsiteBundle\Entity\ICopyFields;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
+use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlacePage;
 use Symfony\Component\DependencyInjection\Container;
@@ -212,6 +214,44 @@ class FormListener {
             }
             $this->em->flush();
         }
+
+
+        //copy hotel fields
+        if($page instanceof HotelPage){
+            /** @var $page HotelPage */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var HotelPage $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setWww($page->getWww());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
+        //copy package fields
+        if($page instanceof PackagePage){
+            /** @var $page PackagePage */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var PackagePage $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setOrderNumber($page->getOrderNumber());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
     }
 
     private function copyHostsToChildren(PlaceOverviewPage $page, Node $node)

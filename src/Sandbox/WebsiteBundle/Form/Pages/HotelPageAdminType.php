@@ -64,7 +64,6 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
         ));
 
         $builder->add('www');
-        $builder->add('bookingcom');
         $builder->add('places', 'place');
     }
 
