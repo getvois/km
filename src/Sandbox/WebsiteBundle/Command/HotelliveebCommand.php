@@ -97,7 +97,7 @@ class HotelliveebCommand extends ContainerAwareCommand
 
             $translations = array();
 
-            $langs = ['ee', 'en', 'ru', 'fi', 'se', 'fr', 'de'];
+            $langs = ['ee', 'en', 'ru', 'fi', 'se'];
 
             foreach ($langs as $lang) {
                 $translations[] = array('language' => $lang, 'callback' => function($page, $translation, $seo) {
@@ -623,7 +623,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
      */
     private function createPackageTranslations($node, PackagePage $packagePage, Crawler $package, Crawler $hotel)
     {
-        $langs = ['ee', 'en', 'ru', 'fi', 'se', 'fr', 'de'];
+        $langs = ['ee', 'en', 'ru', 'fi', 'se'];
         $translations = [];
         foreach ($langs as $lang) {
             $translations[] = array('language' => $lang, 'callback' => function($page, $translation, $seo) {
@@ -725,7 +725,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
     {
         $pagePartCreator = $this->getContainer()->get('kunstmaan_pageparts.pagepart_creator_service');
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $langs = ['ee', 'en', 'ru', 'fi', 'se', 'fr', 'de'];
+        $langs = ['ee', 'en', 'ru', 'fi', 'se'];
         //add page parts to all languages
         foreach ($langs as $lang) {
 
