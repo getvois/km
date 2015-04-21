@@ -77,6 +77,12 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
 
         $builder->add('orderNumber');
         $builder->add('company');
+
+        $builder->add('country', 'place', [
+            'multiple' => false,
+            'empty_data'  => null,
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+        ]);
     }
 
     /**

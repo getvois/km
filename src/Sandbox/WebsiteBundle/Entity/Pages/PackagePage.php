@@ -42,6 +42,29 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
     private $company;
 
     /**
+     * @var PlaceOverviewPage
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage")
+     */
+    private $country;
+
+    /**
+     * @return PlaceOverviewPage
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param PlaceOverviewPage $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
      * @return int
      */
     public function getCompany()

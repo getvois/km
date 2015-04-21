@@ -32,9 +32,23 @@ class PackageOverviewPage extends AbstractPage implements HasPageTemplateInterfa
         $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePages($request->getLocale());
 
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPages($request->getLocale());
+
+        if(!$hotels) $hotels = [];
+
+        $countries = [];
+        foreach ($hotels as $hotel) {
+            if($hotel->getCountryPlace())
+                $countries[$hotel->getCountryPlace()->getId()] = $hotel->getCountryPlace();
+        }
+        $context['countries'] = $countries;
+
         if(!$packages) $packages = [];
 
         $places = [];
+
         foreach ($packages as $package) {
             foreach ($package->getPlaces() as $place) {
                 $places[$place->getId()] = $place;

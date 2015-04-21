@@ -26,6 +26,18 @@ $(document).ready(function() {
         },
         $.datepick.regionalOptions[$lang]));
 
+    $('#package-country').change(function () {
+        var $cityId = $(this).val();
+        $('#package-place').removeClass('hide').hide();
+        if($cityId != -1){
+            $.get('/package-citylist/' + $cityId, function (responce) {
+                $('#package-place').html(responce).show();
+            });
+        }
+
+
+    });
+
     $('#package-filter').click(function () {
         $(this).addClass('disabled');
 

@@ -2,8 +2,19 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
+
+
+            <label for="package-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
+            <select name="package-country" id="package-country">
+                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+                {% for place in countries %}
+                    <option value="{{ place.cityid }}">{{ place.title }}</option>
+                {% endfor %}
+            </select>
+
+
             <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
-            <select name="package-place" id="package-place">
+            <select name="package-place" id="package-place" class="hide">
                 <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
                 {% for place in places %}
                     <option value="{{ place.cityid }}">{{ place.title }}</option>

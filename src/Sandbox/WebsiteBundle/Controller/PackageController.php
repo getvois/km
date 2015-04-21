@@ -4,11 +4,13 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PackageController extends Controller
 {
@@ -152,5 +154,44 @@ class PackageController extends Controller
         }
 
         return $out;
+    }
+
+    /**
+     * @Route("/package-citylist/{cityId}")
+     * @param Request $request
+     * @param $cityId
+     * @return string
+     */
+    public function cityListAction(Request $request, $cityId)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var PackagePage[] $packages */
+        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagePages($request->getLocale());
+
+        if(!$packages) $packages = [];
+
+        $places = [];
+
+
+        foreach ($packages as $package) {
+            if($package->getCountry() && $package->getCountry()->getCityId() == $cityId){
+                foreach ($package->getPlaces() as $place) {
+                    $places[$place->getId()] = $place;
+                }
+            }
+        }
+
+        $any = $this->get('translator')->trans('any', [], 'frontend');
+        $html = "<option value='-1'>$any</option>";
+
+        /** @var PlaceOverviewPage $place */
+        foreach ($places as $place) {
+            $html .= "<option value='{$place->getCityId()}'>{$place->getTitle()}</option>";
+        }
+
+        return new Response($html);
     }
 }
