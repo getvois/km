@@ -4,8 +4,11 @@ namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Form\Pages\OffersOverviewPageAdminType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * OffersOverviewPage
@@ -15,6 +18,20 @@ use Sandbox\WebsiteBundle\Form\Pages\OffersOverviewPageAdminType;
  */
 class OffersOverviewPage extends AbstractPage implements HasPageTemplateInterface
 {
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        parent::service($container, $request, $context);
+
+        $em = $container->get('doctrine.orm.entity_manager');
+
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($request->getLocale());
+
+        if(!$offers) $offers = [];
+
+        $context['offers'] = $offers;
+    }
+
 
     /**
      * Returns the default backend form type for this page
@@ -59,6 +76,6 @@ class OffersOverviewPage extends AbstractPage implements HasPageTemplateInterfac
      */
     public function getDefaultView()
     {
-        return 'SandboxWebsiteBundle:Pages:Common/view.html.twig';
+        return 'SandboxWebsiteBundle:OffersOverview:view.html.twig';
     }
 }

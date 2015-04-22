@@ -15,7 +15,7 @@ use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
  * OfferPage
  *
  * @ORM\Table(name="sb_offer_pages")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\OffersPageRepository")
  */
 class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlaceFromTo
 {

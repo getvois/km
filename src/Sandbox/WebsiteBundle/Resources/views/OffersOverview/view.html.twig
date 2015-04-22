@@ -1,0 +1,18 @@
+{% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
+{% block content %}
+    <div class="row">
+
+        {% for offer in offers %}
+            <div class="col-md-4 well">
+                <h3>{{ offer.title }}</h3>
+                {% if offer.image %}
+                    <img src="{{ offer.image }}" class="img-responsive"/>
+                {% endif %}
+                <p>{{ offer.price }}{{ offer.currency }}</p>
+                <p>{{ offer.shortDescription }}</p>
+                <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
