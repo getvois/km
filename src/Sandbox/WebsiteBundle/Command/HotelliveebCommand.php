@@ -223,6 +223,7 @@ class HotelliveebCommand extends ContainerAwareCommand
             //if($i > 2) break;//todo kosmos remove after check
         }
 
+        $this->copyCountryFromHotelToPackage();
 
     }
 
@@ -373,6 +374,9 @@ class HotelliveebCommand extends ContainerAwareCommand
 
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $hotelNode = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($hotelPage);
 
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
@@ -856,5 +860,43 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         }
         $em->flush();
 
+    }
+
+    /**
+     * Set Package country as its Hotel parent
+     */
+    private function copyCountryFromHotelToPackage()
+    {
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $hotelNodes = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->findBy(['deleted' => 0, 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage']);
+
+        if(!$hotelNodes) $hotelNodes = [];
+
+        foreach ($hotelNodes as $hotelNode) {
+            /** @var Node $node */
+            foreach ($hotelNode->getChildren() as $node) {
+                if($node->getRefEntityName() == 'Sandbox\WebsiteBundle\Entity\Pages\PackagePage'){
+                    foreach ($node->getNodeTranslations(true) as $translation) {
+                        //copy country to package from hotel
+                        $hotelTranslation = $hotelNode->getNodeTranslation($translation->getLang());
+                        if($hotelTranslation){
+                            /** @var HotelPage $hotelP */
+                            $hotelP = $hotelTranslation->getRef($em);
+                            if($hotelP){
+                                /** @var PackagePage $packagePage */
+                                $packagePage = $translation->getRef($em);
+                                if($packagePage){
+                                    $packagePage->setCountry($hotelP->getCountryPlace());
+                                    $em->persist($packagePage);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $em->flush();
+        }
     }
 }
