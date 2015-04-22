@@ -566,9 +566,49 @@ class DefaultController extends Controller
     {
         set_time_limit(0);
 
+        $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
+        $crawler = new Crawler(file_get_contents('http://travelbird.fi/data/travelwebpartner/all_active_extended.xml', false, $context));
 
+        $offers = $crawler->filter('offer');
 
+        $categories = [];
 
+        for($i = 0; $i<$offers->count(); $i++){
+            $offer = $offers->eq($i);
+
+            if($offer->filter('category')->count() > 0){
+                $category = $offer->filter('category')->text();
+                $cats = explode(' ', $category);
+                foreach ($cats as $cat) {
+                    $categories[$cat] = $cat;
+                }
+            }
+        }
+        $transportation = [];
+
+        for($i = 0; $i<$offers->count(); $i++){
+            $offer = $offers->eq($i);
+
+            if($offer->filter('transportation')->count() > 0){
+                $category = $offer->filter('transportation')->text();
+                $transportation[$category] = $category;
+            }
+        }
+
+        $included = [];
+
+        for($i = 0; $i<$offers->count(); $i++){
+            $offer = $offers->eq($i);
+
+            if($offer->filter('included')->count() > 0){
+                $category = $offer->filter('included')->text();
+                $included[$category] = $category;
+            }
+        }
+
+        var_dump($categories);
+        var_dump($transportation);
+        var_dump($included);
 
         return new Response();
     }

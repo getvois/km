@@ -407,6 +407,10 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
     {
         return array(
             array(
+                'name' => 'OfferPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\OfferPage'
+            ),
+            array(
                 'name' => 'PackageOverviewPage',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
             ),
