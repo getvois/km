@@ -1,100 +1,20 @@
 <section id="travelbase_tabs" class="">
     <ul id="form-type-switcher" class="tabs nav nav-tabs">
-        <li class="active">
-            <a href="#hot-offers" data-toggle="tab" class="">
-                &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-paper-plane"></span>
-                    <span class="fa fa-plus"></span>
-                    <span class="fa fa-bed"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'flights.hotel' | trans({}, 'frontend') }}
-                </span>
-                &nbsp;
-                <span id="hot-offers-badge" class="badge"></span>
-                <span id="hot-offers-badge-loading" class="badge spinner"></span>
-            </a>
-        </li>
-        <li class="">
-            <a href="#lowcost" data-toggle="tab" data-type="flightHotel">
-                &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-paper-plane"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'only.flights' | trans({}, 'frontend') }}
-                </span>
-                &nbsp;
-                <span id="lowcost-badge" class="badge"></span>
-                <span id="lowcost-badge-loading" class="badge spinner"></span>
-            </a>
-        </li>
-        <li class="">
-            <a href="#hotels" data-toggle="tab" data-type="hotels">
-                &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-bed"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'Hotels' | trans({}, 'frontend') }}
-                </span>
-                &nbsp;
-            </a>
-        </li>
-        <li class="">
-            <a href="#ferries" data-toggle="tab" data-type="ferries">
-                &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-ship"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'Ferries' | trans({}, 'frontend') }}
-                </span>
-                &nbsp;
-            </a>
-        </li>
-        <li class="">
-            <a href="#cruises" data-toggle="tab" data-type="cruises">
-                &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-ship"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'Cruises' | trans({}, 'frontend') }}
-                </span>
-                &nbsp;
-            </a>
-        </li>
-        <li class="{% if app.user %} super-active {% endif %}">
-            <a href="#club" id="club-tab" data-toggle="tab" data-type="club">
-                &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-users"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'club.tab' | trans({}, 'frontend') }}
-                </span>
-                &nbsp;
-                <span id="club-badge" class="badge"></span>
-                <span id="club-badge-loading" class="badge spinner"></span>
-            </a>
-        </li>
-        {% if app.user %}
-            <li class="hidden">
-                <a href="#user" id="user-tab" data-toggle="tab" data-type="user">
-                    &nbsp;
-                <span class="visible-xs-inline-block visible-sm-inline-block">
-                    <span class="fa fa-user"></span>
-                </span>
-                <span class="visible-md-inline visible-lg-inline">
-                    {{ 'user.tab' | trans({}, 'frontend') }}
-                </span>
-                    &nbsp;
-                </a>
-            </li>
-        {% endif %}
-        {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
+{% if host and host.tabs|length > 0 %}
+    {% for tab in host.tabs %}
+        {% include '@SandboxWebsite/Travelbase/tabHeaders/' ~ tab ~ '.html.twig' %}
+    {% endfor %}
+{% else %}
+    {% include '@SandboxWebsite/Travelbase/tabHeaders/flight.hotel.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabHeaders/flight.only.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabHeaders/hotel.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabHeaders/ferry.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabHeaders/cruise.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabHeaders/club.html.twig' %}
+    {#<li class=""><a href="#car-rent" data-toggle="tab" data-type="car-rent">&nbsp; {{ 'Car.rent' | trans({}, 'frontend') }} &nbsp;</a></li>#}
+{% endif %}
+        {% include '@SandboxWebsite/Travelbase/tabHeaders/user.html.twig' %}
+
     </ul>
 
     {% if page is instanceof('Sandbox\\WebsiteBundle\\Entity\\Company\\CompanyOverviewPage') %}
@@ -107,80 +27,28 @@
     {% endif %}
 
     <div class="tab-content">
-        {# TAB 1 #}
-        <div class="tab-pane active" id="hot-offers">
-            <div class="travelbase_items travelbase_items_df" data-filter-type="[1,2]" data-badge="#hot-offers-badge"></div>
-            <div class="progressbar"></div>
-        </div>
-        {# TAB 2 #}
-        <div class="tab-pane" id="lowcost">
-            <div class="row">
-                {# COL 1 #}
-                <div class="col-md-2">
-                    <p style="position: relative; height: 0;">
-                        <label for="stopover"></label>
-                        <input type="text" id="stopover" readonly>
-                    </p>
-                    <div id="slider-range-stopover"></div>
-                </div>
-                {# COL 2 #}
-                <div class="col-md-3">
-                    <div class="checkbox">
-                        <label class="directFlight-label">
-                            <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
-                        </label>
-                    </div>
-                </div>
-                {# COL 3 #}
-                <div class="col-md-3">
-                    <div class="checkbox">
-                        <label class="sameDay-label">
-                            <input id="sameDay" type="checkbox"> {{ 'fly.same.day' | trans({}, 'frontend') }}
-                        </label>
-                    </div>
-                </div>
+{% if host and host.tabs|length > 0 %}
+    {% for tab in host.tabs %}
+        {% include '@SandboxWebsite/Travelbase/tabBody/' ~ tab ~ '.html.twig' %}
+    {% endfor %}
+{% else %}
+    {% include '@SandboxWebsite/Travelbase/tabBody/flight.hotel.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabBody/flight.only.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabBody/hotel.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabBody/ferry.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabBody/cruise.html.twig' %}
+    {% include '@SandboxWebsite/Travelbase/tabBody/club.html.twig' %}
+    {#<div class="tab-pane" id="car-rent"></div>#}
+{% endif %}
+        {% include '@SandboxWebsite/Travelbase/tabBody/user.html.twig' %}
 
-                {# COL 3 #}
-                <div class="col-md-2">
-                    <div class="checkbox">
-                        <label class="directFlight-label">
-                            <input id="flyOneWay" type="checkbox" checked="checked"> {{ 'fly.one.way' | trans({}, 'frontend') }}
-                        </label>
-                    </div>
-                </div>
-                {# COL 4 #}
-                <div class="col-md-2">
-                    <div class="checkbox">
-                        <label class="sameDay-label">
-                            <input id="flyWithReturn" type="checkbox" checked="checked"> {{ 'fly.with.return' | trans({}, 'frontend') }}
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="travelbase_items travelbase_items_sp" data-filter-type="[4, 3]" data-badge="#lowcost-badge"></div>
-            <div class="progressbar"></div>
-        </div>
-        {# TAB 3 #}
-        <div class="tab-pane" id="hotels">
-			<br /><br /><script type='text/javascript' src='http://www.hotelscombined.ee/SearchBox/255530'></script>
-		</div>
-        {# TAB 4 #}
-        <div class="tab-pane" id="ferries">
-			<table cellpadding="0" width="240" cellspacing="0" border="0" ><tr><td height="170" align="right" valign="top"><iframe height="170" width="290" src="http://www.aferry.co.uk/AFRYminiengine.asp?currency=GBP&HomeURL=&language=&routes=&route1=&route2=&route3=&route4=&background=&popup=&selectwidth=280&refercode=AFUK&multi=Y" frameborder="no"></iframe></td></tr></table>
-		</div>
-        {# TAB 5 #}
-        <div class="tab-pane" id="club">
-			{% include '@SandboxWebsite/User/registerForm.html.twig' %}
-		</div>
-        {% if app.user %}
-            <div class="tab-pane" id="user">
-                {% include '@SandboxWebsite/User/menu.html.twig' %}
-            </div>
-        {% endif %}
-        {#<div class="tab-pane" id="car-rent">
-
-		</div>#}
-        </div>
+    </div>
 </section>
+
+
+
+
+
+
 
 

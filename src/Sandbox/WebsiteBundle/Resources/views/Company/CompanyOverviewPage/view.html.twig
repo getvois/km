@@ -64,21 +64,25 @@
         		 {{ page.description | raw }}
         		 
         		 {% if page.linkurl %}
-                 <a href="{{ page.linkurl }}" {% if page.linkNewWindow %} target="_blank" {% endif %}>
-                    {% if page.linkText %}
-                        {{ page.linktext }}
+                 <a href="{{ page.linkurl }}" target="_blank">
+                     {% if page.logo %}
+                         <div class="col-md-3">
+                             <img src="{{ page.logo.url }}" alt="{{ page.logoAltText }}"/>
+                         </div>
                     {% else %}
                         {{ page.linkurl }}
                     {% endif %}
                 </a>
+                     {% else %}
+                         {% if page.logo %}
+                             <div class="col-md-3">
+                                 <img src="{{ page.logo.url }}" alt="{{ page.logoAltText }}"/>
+                             </div>
+                         {% endif %}
         		{% endif %}
 				<p></p>
         	</div>
-        	{% if page.logo %}
-        	<div class="col-md-3">
-		            <img src="{{ page.logo.url }}" alt="{{ page.logoAltText }}"/>
-        	</div>
-        	{% endif %}
+
         </div>
 
         {{ render_pageparts(page, 'main') }}

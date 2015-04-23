@@ -1,0 +1,14 @@
+<li class="{% if app.user %} super-active {% endif %}">
+    <a href="#club" id="club-tab" data-toggle="tab" data-type="club" data-form="">
+        &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-users"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'club.tab' | trans({}, 'frontend') }}
+                </span>
+        &nbsp;
+        <span id="club-badge" class="badge"></span>
+        <span id="club-badge-loading" class="badge spinner"></span>
+    </a>
+</li>

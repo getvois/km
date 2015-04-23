@@ -56,6 +56,18 @@ class HostAdminType extends AbstractType
         $builder->add('vk_group_id');
         $builder->add('vk_access_token');
         $builder->add('ga_tracking_id');
+
+
+        $builder->add('tabs', 'choice', ['choices' => [
+            'flight.hotel' => 'flight.hotel',
+            'flight.only' => 'flight.only',
+            'hotel' => 'hotel',
+            'ferry' => 'ferry',
+            'cruise' => 'cruise',
+            'club' => 'club',
+            'offer' => 'offer',
+            'package' => 'package',
+        ], 'required' => false, 'multiple' => true]);
     }
 
     /**

@@ -1,0 +1,47 @@
+<div class="tab-pane" id="lowcost">
+    <div class="row">
+        {# COL 1 #}
+        <div class="col-md-2">
+            <p style="position: relative; height: 0;">
+                <label for="stopover"></label>
+                <input type="text" id="stopover" readonly>
+            </p>
+            <div id="slider-range-stopover"></div>
+        </div>
+        {# COL 2 #}
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label class="directFlight-label">
+                    <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
+                </label>
+            </div>
+        </div>
+        {# COL 3 #}
+        <div class="col-md-3">
+            <div class="checkbox">
+                <label class="sameDay-label">
+                    <input id="sameDay" type="checkbox"> {{ 'fly.same.day' | trans({}, 'frontend') }}
+                </label>
+            </div>
+        </div>
+
+        {# COL 3 #}
+        <div class="col-md-2">
+            <div class="checkbox">
+                <label class="directFlight-label">
+                    <input id="flyOneWay" type="checkbox" checked="checked"> {{ 'fly.one.way' | trans({}, 'frontend') }}
+                </label>
+            </div>
+        </div>
+        {# COL 4 #}
+        <div class="col-md-2">
+            <div class="checkbox">
+                <label class="sameDay-label">
+                    <input id="flyWithReturn" type="checkbox" checked="checked"> {{ 'fly.with.return' | trans({}, 'frontend') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="travelbase_items travelbase_items_sp" data-filter-type="[4, 3]" data-badge="#lowcost-badge"></div>
+    <div class="progressbar"></div>
+</div>

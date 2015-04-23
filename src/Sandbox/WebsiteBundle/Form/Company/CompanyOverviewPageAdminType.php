@@ -20,34 +20,35 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-        $builder->add('companyId');
+        //parent::buildForm($builder, $options);
+        $builder->add('id', 'hidden');
+        $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
+        $builder->add('pageTitle', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+
         $builder->add('description', 'textarea', array(
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
-        ));
+            'label_attr' => ['style' => 'font-weight:bold;']
+        ) );
+        $builder->add('cashBackValue', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+        $builder->add('cashBackType');
+
         $builder->add('logo', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
             'mediatype' => 'image',
             'required' => false,
         ));
+        $builder->add('companyId');
         $builder->add('logoAltText', 'text', array(
             'required' => false,
         ));
         $builder->add('linkUrl', 'urlchooser', array(
             'required' => false,
         ));
-        $builder->add('linkText', 'text', array(
-            'required' => false,
-        ));
-        $builder->add('linkNewWindow', 'checkbox', array(
-            'required' => false,
-        ));
+
         $builder->add('places', 'place');
 
         $builder->add('affiliateLink');
-        $builder->add('cashBackValue');
-        $builder->add('cashBackType');
 
     }
     /**

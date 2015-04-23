@@ -185,20 +185,6 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     private $linkUrl;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="link_text", type="string", nullable=true)
-     */
-    private $linkText;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="link_new_window", type="boolean", nullable=true)
-     */
-    private $linkNewWindow;
-
-    /**
      * @var Media
      *
      * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
@@ -276,52 +262,6 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     public function getLinkUrl()
     {
         return $this->linkUrl;
-    }
-
-    /**
-     * Set linkText
-     *
-     * @param string $linkText
-     * @return CompanyPage
-     */
-    public function setLinkText($linkText)
-    {
-        $this->linkText = $linkText;
-
-        return $this;
-    }
-
-    /**
-     * Get linkText
-     *
-     * @return string
-     */
-    public function getLinkText()
-    {
-        return $this->linkText;
-    }
-
-    /**
-     * Set linkNewWindow
-     *
-     * @param boolean $linkNewWindow
-     * @return CompanyPage
-     */
-    public function setLinkNewWindow($linkNewWindow)
-    {
-        $this->linkNewWindow = $linkNewWindow;
-
-        return $this;
-    }
-
-    /**
-     * Get linkNewWindow
-     *
-     * @return boolean
-     */
-    public function getLinkNewWindow()
-    {
-        return $this->linkNewWindow;
     }
 
     /**

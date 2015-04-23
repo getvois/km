@@ -9,6 +9,7 @@ use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Kunstmaan\TaggingBundle\Entity\Tagging;
 use Kunstmaan\TaggingBundle\Repository\TagRepository;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\ICompany;
 use Sandbox\WebsiteBundle\Entity\ICopyFields;
 use Sandbox\WebsiteBundle\Entity\IHostable;
@@ -248,6 +249,30 @@ class FormListener {
                 $pp = $translation->getRef($this->em);
 
                 $pp->setOrderNumber($page->getOrderNumber());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
+
+        //copy company fields
+        if($page instanceof CompanyOverviewPage){
+            /** @var $page CompanyOverviewPage */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var CompanyOverviewPage $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setLogo($page->getLogo());
+                $pp->setLogoAltText($page->getLogoAltText());
+                $pp->setLinkUrl($page->getLinkUrl());
+                $pp->setAffiliateLink($page->getAffiliateLink());
+                $pp->setCashBackValue($page->getCashBackValue());
+                $pp->setCompanyId($page->getCompanyId());
 
                 $this->em->persist($pp);
             }

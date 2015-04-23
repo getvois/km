@@ -1,0 +1,14 @@
+{% if app.user %}
+    <li class="hidden">
+        <a href="#user" id="user-tab" data-toggle="tab" data-type="user" data-form="">
+            &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-user"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'user.tab' | trans({}, 'frontend') }}
+                </span>
+            &nbsp;
+        </a>
+    </li>
+{% endif %}

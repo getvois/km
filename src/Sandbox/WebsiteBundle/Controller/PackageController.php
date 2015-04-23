@@ -8,6 +8,7 @@ use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -267,5 +268,25 @@ class PackageController extends Controller
         }
 
         return new Response($html);
+    }
+
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function getPackagesAction(Request $request){
+
+        /** @var EntityManager $em */
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        /** @var PackagePage[] $packages */
+        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagePages($request->getLocale());
+
+        if(!$packages) $packages = [];
+
+        return ['packages' => $packages];
     }
 }

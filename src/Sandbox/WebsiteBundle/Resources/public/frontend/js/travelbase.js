@@ -6,11 +6,19 @@ $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if($(e.target).data('form')){
+            $('.form-header').addClass('hide');
+            $($(e.target).data('form')).removeClass('hide');
+        }
+    });
+    //select first tab to show the form
+    $('.form-header:first').removeClass('hide');
+
     //club page
     if(window.location.pathname.match(/\/club/)){
         $('#club-tab').tab('show');
     }
-
 
     $(".datepick").datepick($.extend({
             dateFormat: 'dd.mm.yyyy',
@@ -28,22 +36,22 @@ $(document).ready(function() {
 
     $('#package-country').change(function () {
         var $cityId = $(this).val();
-        $('#package-place').removeClass('hide').hide().val('-1');
+        $('#package-place').attr('disabled', true).val('-1');
         if($cityId != -1){
             $.get('/package-citylist/' + $cityId, function (responce) {
-                $('#package-place').html(responce).show();
+                $('#package-place').html(responce).attr('disabled', false);
             });
         }else{
-            $('#package-hotel').hide().val('-1');
+            $('#package-hotel').attr('disabled', true).val('-1');
         }
     });
 
     $('#package-place').change(function () {
         var $placeId = $(this).val();
-        $('#package-hotel').removeClass('hide').hide().val('-1');
+        $('#package-hotel').attr('disabled', true).val('-1');
         if($placeId != -1){
             $.get('/package-hotellist/' + $placeId, function (responce) {
-                $('#package-hotel').html(responce).show();
+                $('#package-hotel').html(responce).attr('disabled', false);
             });
         }
     });
@@ -65,6 +73,8 @@ $(document).ready(function() {
             $('#package-holder').html(responce.html);
 
             $('#package-filter').removeClass('disabled');
+
+            $('a[data-type="packages"]').tab('show');
         });
 
         return false;
@@ -1524,6 +1534,9 @@ $(document).ready(function() {
 
     $("#form-submit").click(function (e) {
         e.preventDefault();
+
+        $('a[data-type="flight-hotel"]').tab('show');
+
         formChange();
     }).click();
 

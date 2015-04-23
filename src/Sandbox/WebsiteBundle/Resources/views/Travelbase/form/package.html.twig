@@ -1,0 +1,37 @@
+<div id="form-package" class="form-header hide">
+    <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label for="package-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
+            <select class="form-control" name="package-country" id="package-country">
+                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+                {% for place in countries %}
+                    <option value="{{ place.cityid }}">{{ place.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
+            <select name="package-place" id="package-place" class="form-control" disabled>
+                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="package-hotel" class="sr-only">{{ 'hotel'|trans({}, 'frontend') }}</label>
+            <select name="package-hotel" id="package-hotel" class="form-control" disabled>
+                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <input class="datepick" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
+        </div>
+
+        <div class="col-md-2">
+            <a href="#" id="package-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>
+        </div>
+    </div>
+</div>

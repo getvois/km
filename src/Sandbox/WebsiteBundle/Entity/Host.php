@@ -16,6 +16,30 @@ class Host extends AbstractEntity
 {
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="tabs", type="array", nullable=true)
+     */
+    private $tabs;
+
+    /**
+     * @return array
+     */
+    public function getTabs()
+    {
+        return $this->tabs;
+    }
+
+    /**
+     * @param array $tabs
+     */
+    public function setTabs($tabs)
+    {
+        $this->tabs = $tabs;
+    }
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="fb_block", type="text", nullable=true)
