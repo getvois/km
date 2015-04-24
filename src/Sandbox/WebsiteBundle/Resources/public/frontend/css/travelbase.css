@@ -1509,6 +1509,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     right: 50%;
     border: none;
     position: absolute;
+    width: 50px;
 }
 .travelbase_items #loadMore span {
     font-size: 33px;
