@@ -133,7 +133,7 @@ class OfferController extends Controller
 
         if(!$offers) $offers = [];
 
-        $offers = array_slice($offers, 9);
+        $offers = array_slice($offers, 0, 9);
 
         return ['offers' => $offers];
     }
