@@ -399,13 +399,18 @@ class TravelbaseController extends Controller
                 }elseif($tab == 'offer'){
                     $params = $this->offerFormParams($request);
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/offer.html.twig', $params);
+                }elseif($tab == 'club'){
+                    $params = $this->offerFormParams($request);
+                    $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/club.html.twig', $params);
                 }else{
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/'.$tab.'.html.twig');
                 }
             }
         }else{
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/flight.html.twig');
-            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/club.html.twig');
+
+            $params = $this->offerFormParams($request);
+            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/club.html.twig', $params);
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/cruise.html.twig');
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/ferry.html.twig');
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/hotel.html.twig');

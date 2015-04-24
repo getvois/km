@@ -65,7 +65,7 @@ class HostAdminType extends AbstractType
             'ferry' => 'ferry',
             'cruise' => 'cruise',
             'club' => 'club',
-            'offer' => 'offer',
+            //'offer' => 'offer',
             'package' => 'package',
         ], 'required' => false, 'multiple' => true]);
     }

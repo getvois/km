@@ -1,26 +1,26 @@
-<div id="form-offer" class="form-header hide">
-    <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
+{#<div id="form-offer" class="form-header hide">#}
+    {#<h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>#}
 
-    <div class="row">
-        <div class="col-md-2">
-            <label for="offer-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
-            <select class="form-control" name="offer-country" id="offer-country">
-                <option value="-1" selected="selected">{{ 'offer.country'|trans({}, 'frontend') }}</option>
-                {% for place in countries %}
-                    <option value="{{ place.cityid }}">{{ place.title }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    {#<div class="row">#}
+        {#<div class="col-md-2">#}
+            {#<label for="offer-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>#}
+            {#<select class="form-control" name="offer-country" id="offer-country">#}
+                {#<option value="-1" selected="selected">{{ 'offer.country'|trans({}, 'frontend') }}</option>#}
+                {#{% for place in countries %}#}
+                    {#<option value="{{ place.cityid }}">{{ place.title }}</option>#}
+                {#{% endfor %}#}
+            {#</select>#}
+        {#</div>#}
 
-        <div class="col-md-2">
-            <label for="offer-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
-            <select name="offer-place" id="offer-place" class="form-control" disabled>
-                <option value="-1" selected="selected">{{ 'offer.city'|trans({}, 'frontend') }}</option>
-            </select>
-        </div>
+        {#<div class="col-md-2">#}
+            {#<label for="offer-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>#}
+            {#<select name="offer-place" id="offer-place" class="form-control" disabled>#}
+                {#<option value="-1" selected="selected">{{ 'offer.city'|trans({}, 'frontend') }}</option>#}
+            {#</select>#}
+        {#</div>#}
 
-        <div class="col-md-2">
-            <a href="#" id="offer-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>
-        </div>
-    </div>
-</div>
+        {#<div class="col-md-2">#}
+            {#<a href="#" id="offer-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>#}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}

@@ -1,6 +1,9 @@
 <div style="position: relative">
     <h2>{{ 'club.header'|trans({}, 'frontend') }}</h2>
-    {{ render(controller('SandboxWebsiteBundle:Offer:index')) }}
+    {#{{ render(controller('SandboxWebsiteBundle:Offer:index')) }}#}
+    <div class="row" id="offer-holder">
+        {{ render(controller('SandboxWebsiteBundle:Offer:getOfferPages')) }}
+    </div>
 
     {% if app.request.query.has('email') %}
         <div class="register-form">

@@ -99,7 +99,7 @@ $(document).ready(function() {
         $.get('/offer-filter/?country='+$country+'&place='+$place, function (responce) {
             $('#offer-holder').html(responce.html);
             $('#offer-filter').removeClass('disabled');
-            $('a[data-type="offers"]').tab('show');
+            $('a[data-type="club"]').tab('show');
         });
 
         return false;
