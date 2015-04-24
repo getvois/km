@@ -122,18 +122,18 @@ $(document).ready(function() {
     });
 
 
-    $('#club-filter').click(function () {
-        var $container = $("#offers-container");
-        $container.html("");
+    //$('#club-filter').click(function () {
+    //    var $container = $("#offers-container");
+    //    $container.html("");
+    //
+    //    loadMoreOffers();
+    //    return false;
+    //});
 
-        loadMoreOffers();
-        return false;
-    });
 
-
-    var $container = $("#offers-container");
-    $container.html("");
-    loadMoreOffers();
+    //var $container = $("#offers-container");
+    //$container.html("");
+    //loadMoreOffers();
 
     $("#show-club-tab").click(function () {
         $('#club-tab').tab('show');
