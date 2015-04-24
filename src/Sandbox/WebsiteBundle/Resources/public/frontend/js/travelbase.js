@@ -82,12 +82,45 @@ $(document).ready(function() {
         else $from = '';
 
         $.get('/package-filter/?hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
-            $('#package-holder').html(responce.html);
+            var $package = $('#package-holder');
+            $package.html(responce.html);
+
+            if($package.find('> div').length < responce.total){
+                $('#package-pager').show();
+            }else{
+                $('#package-pager').hide();
+            }
+
             $('#package-filter').removeClass('disabled');
             $('a[data-type="packages"]').tab('show');
         });
 
         return false;
+    });
+
+    $('#package-pager').find('a').click(function () {
+        $('#package-pager').find('a').addClass('disabled');
+        var $from = $('#package-date-from').datepick('getDate');
+        var $place = $('#package-place').val();
+        var $hotel = $('#package-hotel').val();
+
+        var $offset = $('#package-holder').find('> div').length;
+
+        $.get('/package-filter/?offset='+$offset+'&hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
+            var $package = $('#package-holder');
+            $package.append(responce.html);
+            var $package2 = $('#package-pager');
+            $package2.find('a').removeClass('disabled');
+
+            if($package.find('> div').length < responce.total){
+                $package2.show();
+            }else{
+                $package2.hide();
+            }
+        });
+
+        return false;
+
     });
 
     $('#offer-filter').click(function () {
@@ -1808,6 +1841,9 @@ function getTable(container, reimport){
         //hide loading
         spinner2.stop();
         $loading.hide();
+
+        if(reimport == false)
+            $('#loadMore').click();
     });
 }
 

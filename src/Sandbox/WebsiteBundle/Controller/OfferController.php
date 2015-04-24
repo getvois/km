@@ -3,8 +3,6 @@
 namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

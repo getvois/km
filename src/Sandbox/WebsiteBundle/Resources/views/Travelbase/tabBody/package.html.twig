@@ -2,4 +2,7 @@
     <div class="row" id="package-holder">
         {{ render(controller('SandboxWebsiteBundle:Package:getPackages')) }}
     </div>
+    <div id="package-pager">
+        <a href="#" class="btn btn-default">{{ 'load.more'|trans({}, 'frontend') }}</a>
+    </div>
 </div>

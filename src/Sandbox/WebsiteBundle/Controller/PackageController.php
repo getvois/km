@@ -23,13 +23,17 @@ class PackageController extends Controller
      * @return JsonResponse
      */
     public function filterAction(Request $request){
+        $pageLength = 10;
         $html = '';
         $toPlace = $request->query->get('place', '');
         $from = $request->query->get('from', '');
         $hotel = $request->query->get('hotel', '');
+        $offset = $request->query->get('offset', 0);
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+
+        $filtered = [];
 
         if($hotel && $hotel != -1){
 
@@ -48,10 +52,11 @@ class PackageController extends Controller
                     if($translation){
                         $packagePage = $translation->getRef($em);
                         if($packagePage){
+                            $filtered[] = $packagePage;
                             //get packages from date or current date
-                            $packageDates = $this->getPackageDates($packagePage, $from);
+                            //$packageDates = $this->getPackageDates($packagePage, $from);
 
-                            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $packagePage, 'dates' => $packageDates, 'fromdate' => $from]);
+                            //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $packagePage, 'dates' => $packageDates, 'fromdate' => $from]);
                         }
                     }
                 }
@@ -64,24 +69,32 @@ class PackageController extends Controller
 
             if(!$packages) $packages = [];
 
-            $filtered = [];
-
-
             foreach ($packages as $package) {
                 foreach ($package->getPlaces() as $place) {
                     if($toPlace == -1 || $place->getCityId() == $toPlace){
                         $filtered[] = $package;
 
                         //get packages from date or current date
-                        $packageDates = $this->getPackageDates($package, $from);
+                        //$packageDates = $this->getPackageDates($package, $from);
 
-                        $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
+                        //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
                     }
                 }
             }
         }
 
-        return new JsonResponse(['html' => $html]);
+        $pages = array_slice($filtered, $offset, $pageLength);
+
+        foreach ($pages as $page) {
+            $packageDates = $this->getPackageDates($page, $from);
+            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+        }
+
+//        if(count($pages) > $offset+$pageLength){
+//
+//        }
+
+        return new JsonResponse(['total' => count($filtered), 'html' => $html]);
 
     }
 
