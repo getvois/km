@@ -175,9 +175,17 @@ Date.prototype.toMysqlFormat = function() {
 };
 
 function loadMore(){
+
+    var $container = $(".travelbase_items:visible");
+
+    if($container.find("> div").outerHeight() < 200 ){
+        $container.find("> div").css('height', 'auto');
+        return;
+    }
+
     var $filter = getFilter();
 
-    var $tr = $(".travelbase_items:visible").find("> div > div ");
+    var $tr = $container.find("> div > div ");
     if($tr.length > 1){//1 because of header
         $filter.offset = $tr.length - 1 ;
     }
