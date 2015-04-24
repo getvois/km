@@ -46,6 +46,19 @@ $(document).ready(function() {
         }
     });
 
+    $('#offer-country').change(function () {
+        var $cityId = $(this).val();
+        $('#offer-place').attr('disabled', true).val('-1');
+        if($cityId != -1){
+            $.get('/offer-citylist/' + $cityId, function (responce) {
+                $('#offer-place').html(responce).attr('disabled', false);
+            });
+        }else{
+            $('#offer-hotel').attr('disabled', true).val('-1');
+        }
+    });
+
+
     $('#package-place').change(function () {
         var $placeId = $(this).val();
         $('#package-hotel').attr('disabled', true).val('-1');
@@ -69,12 +82,24 @@ $(document).ready(function() {
         else $from = '';
 
         $.get('/package-filter/?hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
-
             $('#package-holder').html(responce.html);
-
             $('#package-filter').removeClass('disabled');
-
             $('a[data-type="packages"]').tab('show');
+        });
+
+        return false;
+    });
+
+    $('#offer-filter').click(function () {
+        $(this).addClass('disabled');
+
+        var $place = $('#offer-place').val();
+        var $country = $('#offer-country').val();
+
+        $.get('/offer-filter/?country='+$country+'&place='+$place, function (responce) {
+            $('#offer-holder').html(responce.html);
+            $('#offer-filter').removeClass('disabled');
+            $('a[data-type="offers"]').tab('show');
         });
 
         return false;

@@ -2,13 +2,17 @@
 
 namespace Sandbox\WebsiteBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OfferController extends Controller
 {
@@ -113,4 +117,106 @@ class OfferController extends Controller
         $query = implode("&", $query);
         return $query;
     }
+
+    /**
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function getOfferPagesAction(Request $request){
+
+        /** @var EntityManager $em */
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($request->getLocale());
+
+        if(!$offers) $offers = [];
+
+        return ['offers' => $offers];
+    }
+
+
+    /**
+     * @Route("/offer-citylist/{cityId}")
+     * @param Request $request
+     * @param $cityId
+     * @return string
+     */
+    public function cityListAction(Request $request, $cityId)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($request->getLocale());
+
+        if(!$offers) $offers = [];
+
+        $places = [];
+
+
+        foreach ($offers as $offer) {
+            if($offer->getCountryPlace() && $offer->getCountryPlace()->getCityId() == $cityId){
+                foreach ($offer->getPlaces() as $place) {
+                    $places[$place->getId()] = $place;
+                }
+            }
+        }
+
+        $any = $this->get('translator')->trans('any', [], 'frontend');
+        $html = "<option value='-1'>$any</option>";
+
+        /** @var PlaceOverviewPage $place */
+        foreach ($places as $place) {
+            $html .= "<option value='{$place->getCityId()}'>{$place->getTitle()}</option>";
+        }
+
+        return new Response($html);
+    }
+
+    /**
+     * @Route("/offer-filter/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function filterAction(Request $request)
+    {
+        $html = '';
+        $toPlace = $request->query->get('place', '');
+        $country = $request->query->get('country', '');
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($request->getLocale());
+
+        if (!$offers) $offers = [];
+
+        if ($toPlace && $toPlace != -1) {
+            $filtered = [];
+
+            foreach ($offers as $offer) {
+                foreach ($offer->getPlaces() as $place) {
+                    if ($place->getCityId() == $toPlace) {
+                        $filtered[] = $offer;
+                        $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                    }
+                }
+            }
+            //only country set
+        } else if ($country) {
+            foreach ($offers as $offer) {
+                if ($country == -1 || $offer->getCountryPlace() && $offer->getCountryPlace()->getCityId() == $country) {
+                    $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                }
+            }
+        }
+
+        return new JsonResponse(['html' => $html]);
+
+    }
+
 }

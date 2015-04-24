@@ -1,0 +1,22 @@
+<div class="col-md-12 well">
+    <div class="row">
+        {% if offer.image %}
+            <div class="col-md-4">
+                <img src="{{ offer.image }}" class="img-responsive"/>
+            </div>
+            <div class="col-md-8">
+                <h3>{{ offer.title }}</h3>
+                <p>{{ offer.price }}{{ offer.currency }}</p>
+                <p>{{ offer.shortDescription }}</p>
+                <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+            </div>
+        {% else %}
+            <div class="col-md-12">
+                <h3>{{ offer.title }}</h3>
+                <p>{{ offer.price }}{{ offer.currency }}</p>
+                <p>{{ offer.shortDescription }}</p>
+                <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+            </div>
+        {% endif %}
+    </div>
+</div>

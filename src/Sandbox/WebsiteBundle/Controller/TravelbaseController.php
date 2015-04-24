@@ -12,6 +12,7 @@ use Sandbox\WebsiteBundle\Entity\Host;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
+use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Helper\FullNode;
@@ -43,6 +44,16 @@ class TravelbaseController extends Controller
             return[];
 
         $exclude = ['countries', 'companies']; //node internal name
+
+
+        $host = $this->get('hosthelper')->getHost();
+
+        if($host->getTabs()){
+            //keys from tab field in Sandbox/WebsiteBundle/Form/HostAdminType.php
+            $tabs = ['club', 'offer', 'package'];
+            $excludeItems = array_diff($tabs, $host->getTabs());
+            $exclude = array_merge($exclude, $excludeItems);
+        }
 
         $pages = [];
         /** @var Node $node */
@@ -385,6 +396,9 @@ class TravelbaseController extends Controller
                 }elseif($tab == 'package'){
                     $params = $this->packageFormParams($request);
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/package.html.twig', $params);
+                }elseif($tab == 'offer'){
+                    $params = $this->offerFormParams($request);
+                    $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/offer.html.twig', $params);
                 }else{
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/'.$tab.'.html.twig');
                 }
@@ -395,7 +409,9 @@ class TravelbaseController extends Controller
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/cruise.html.twig');
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/ferry.html.twig');
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/hotel.html.twig');
-            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/offer.html.twig');
+
+            $params = $this->offerFormParams($request);
+            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/offer.html.twig', $params);
 
             $params = $this->packageFormParams($request);
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/package.html.twig', $params);
@@ -439,6 +455,30 @@ class TravelbaseController extends Controller
             }
         }
         $context['places'] = $places;
+
+        return $context;
+    }
+
+    private function offerFormParams(Request $request)
+    {
+        $context = [];
+        /** @var EntityManager $em */
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        /** @var OfferPage[] $packages */
+        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($request->getLocale());
+
+        if(!$packages) $packages = [];
+
+        $countries = [];
+
+        foreach ($packages as $package) {
+            if($package->getCountryPlace()){
+                $countries[$package->getCountryPlace()->getId()] = $package->getCountryPlace();
+            }
+        }
+        $context['countries'] = $countries;
 
         return $context;
     }

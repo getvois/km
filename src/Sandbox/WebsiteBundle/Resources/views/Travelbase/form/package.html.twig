@@ -5,7 +5,7 @@
         <div class="col-md-2">
             <label for="package-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
             <select class="form-control" name="package-country" id="package-country">
-                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+                <option value="-1" selected="selected">{{ 'package.country'|trans({}, 'frontend') }}</option>
                 {% for place in countries %}
                     <option value="{{ place.cityid }}">{{ place.title }}</option>
                 {% endfor %}
@@ -15,14 +15,14 @@
         <div class="col-md-2">
             <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
             <select name="package-place" id="package-place" class="form-control" disabled>
-                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+                <option value="-1" selected="selected">{{ 'package.city'|trans({}, 'frontend') }}</option>
             </select>
         </div>
 
         <div class="col-md-3">
             <label for="package-hotel" class="sr-only">{{ 'hotel'|trans({}, 'frontend') }}</label>
             <select name="package-hotel" id="package-hotel" class="form-control" disabled>
-                <option value="-1" selected="selected">{{ 'any'|trans({}, 'frontend') }}</option>
+                <option value="-1" selected="selected">{{ 'package.hotel'|trans({}, 'frontend') }}</option>
             </select>
         </div>
 

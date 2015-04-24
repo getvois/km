@@ -33,7 +33,7 @@ class OffersCommand extends ContainerAwareCommand
 
         $rootNode = $em->getRepository('KunstmaanNodeBundle:Node')
             ->findOneBy([
-                'internalName' => 'offers',
+                'internalName' => 'offer',
                 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\OffersOverviewPage',
                 'deleted' => 0
             ]);

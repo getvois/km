@@ -226,6 +226,8 @@ class PackageController extends Controller
 
         return new Response($html);
     }
+
+
     /**
      * @Route("/package-hotellist/{placeId}")
      * @param Request $request
