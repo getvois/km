@@ -77,6 +77,7 @@ $(document).ready(function() {
 
 
     $('#package-filter').click(function () {
+        checkHolderHeight('#package-holder');
         $(this).addClass('disabled');
 
         var $from = $('#package-date-from').datepick('getDate');
@@ -175,6 +176,7 @@ $(document).ready(function() {
     });
 
     $('#offer-filter').click(function () {
+        checkHolderHeight('#offer-holder');
         $(this).addClass('disabled');
 
         var $place = $('#offer-place').val();
