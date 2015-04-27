@@ -8,7 +8,7 @@
                 <p>{% if hotel.city %}{{ hotel.city }}{% else %}{{ hotel.cityParish }}{% endif %}</p>
                 <p>{{ hotel.street }}</p>
                 <p>
-                    <a class="btn btn-primary" href="{{ get_node_translation_for(hotel).fullSlug }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+                    <a class="btn btn-primary" href="/{{ get_node_translation_for(hotel).fullSlug }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
                 </p>
             </div>
         {% endfor %}
