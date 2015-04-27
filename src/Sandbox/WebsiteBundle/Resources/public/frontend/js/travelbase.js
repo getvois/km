@@ -15,6 +15,11 @@ $(document).ready(function() {
     //select first tab to show the form
     $('.form-header:first').removeClass('hide');
 
+    //show tab based on page
+    if($body.data('tab')){
+        $('a[data-type="'+$body.data('tab')+'"]').tab('show');
+    }
+
     //club page
     if(window.location.pathname.match(/\/club/)){
         $('#club-tab').tab('show');
