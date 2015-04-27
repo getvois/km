@@ -12,10 +12,10 @@
     {% endif %}
     <p>{{ offer.price }}{{ offer.currency }}</p>
     <p>
-        {% if page.summary %}
-            {{ page.summary |raw }}
+        {% if offer.summary %}
+            {{ offer.summary |raw }}
         {% else %}
-            {{ page.shortDescription |raw }}
+            {{ offer.shortDescription |raw }}
         {% endif %}
     </p>
     <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
