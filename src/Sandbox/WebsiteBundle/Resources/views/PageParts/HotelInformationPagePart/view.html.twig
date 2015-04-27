@@ -1,23 +1,31 @@
 <div class="hotel-information-pp">
     <div class="row">
         <div class="col-md-12">
-            <p>
-                <a class="btn btn-link" data-toggle="collapse" href="#collapse-{{ resource.id }}" aria-expanded="false" aria-controls="collapse-{{ resource.id }}">
+            {% if resource.description or resource.images %}
+                <p>
+                    <a class="btn btn-link" data-toggle="collapse" href="#collapse-{{ resource.id }}" aria-expanded="false" aria-controls="collapse-{{ resource.id }}">
+                        {{ resource.name }}
+                    </a>
+                </p>
+                <div class="collapse" id="collapse-{{ resource.id }}">
+                    <p>{{ resource.description|raw }}</p>
+                    {% if resource.images %}
+                        <div class="row">
+                            {% for image in resource.images %}
+                                <div class="col-md-3">
+                                    <img src="{{ image.imageUrl }}" class="img-responsive"/>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>
                     {{ resource.name }}
-                </a>
-            </p>
-            <div class="collapse" id="collapse-{{ resource.id }}">
-                <p>{{ resource.description|raw }}</p>
-                {% if resource.images %}
-                    <div class="row">
-                        {% for image in resource.images %}
-                            <div class="col-md-3">
-                                <img src="{{ image.imageUrl }}" class="img-responsive"/>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+                </p>
+            {% endif %}
+
+
         </div>
     </div>
 </div>
