@@ -25,8 +25,9 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
         $builder->add('titleTranslated');
+
+        $builder->add('summary');
 
         $builder->add('packageId', 'integer', array(
             'required' => false,
