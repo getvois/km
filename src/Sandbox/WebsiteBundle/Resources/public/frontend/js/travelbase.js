@@ -98,8 +98,23 @@ $(document).ready(function() {
         return false;
     });
 
+    function checkHolderHeight($holderId){
+        if($($holderId).outerHeight() < 200 ){
+            $($holderId).css('height', 'auto');
+            return true;
+        }
+        return false;
+    }
+
     $('#package-pager').find('a').click(function () {
-        $('#package-pager').find('a').addClass('disabled');
+
+        var $package3 = $('#package-pager');
+        if(checkHolderHeight('#package-holder')) {
+            $package3.hide();
+            return false;
+        }
+
+        $package3.find('a').addClass('disabled');
         var $from = $('#package-date-from').datepick('getDate');
         var $place = $('#package-place').val();
         var $hotel = $('#package-hotel').val();
@@ -124,7 +139,14 @@ $(document).ready(function() {
     });
 
     $('#offer-pager').find('a').click(function () {
-        $('#offer-pager').find('a').addClass('disabled');
+
+        var $pager = $('#offer-pager');
+        if(checkHolderHeight('#offer-holder')) {
+            $pager.hide();
+            return false;
+        }
+
+        $pager.find('a').addClass('disabled');
         var $place = $('#offer-place').val();
         var $country = $('#offer-country').val();
 

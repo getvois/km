@@ -1486,6 +1486,10 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     height: 100px;
     overflow: hidden;
 }
+#offer-holder, #package-holder{
+    height: 100px;
+    overflow: hidden;
+}
 .travelbase_items table tbody tr th {
     font-weight: normal;
     border-bottom: 1px solid #00BE8D;

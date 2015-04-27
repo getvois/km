@@ -298,6 +298,8 @@ class PackageController extends Controller
 
         if(!$packages) $packages = [];
 
+        $packages = array_slice($packages, 0, 9);
+
         return ['packages' => $packages];
     }
 }
