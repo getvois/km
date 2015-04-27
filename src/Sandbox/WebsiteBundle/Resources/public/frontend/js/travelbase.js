@@ -123,6 +123,30 @@ $(document).ready(function() {
 
     });
 
+    $('#offer-pager').find('a').click(function () {
+        $('#offer-pager').find('a').addClass('disabled');
+        var $place = $('#offer-place').val();
+        var $country = $('#offer-country').val();
+
+        var $offset = $('#offer-holder').find('> div').length;
+
+        $.get('/offer-filter/?offset='+$offset+'&country='+$country+'&place='+$place, function (responce) {
+            var $package = $('#offer-holder');
+            $package.append(responce.html);
+            var $package2 = $('#offer-pager');
+            $package2.find('a').removeClass('disabled');
+
+            if($package.find('> div').length < responce.total){
+                $package2.show();
+            }else{
+                $package2.hide();
+            }
+        });
+
+        return false;
+
+    });
+
     $('#offer-filter').click(function () {
         $(this).addClass('disabled');
 
@@ -130,9 +154,17 @@ $(document).ready(function() {
         var $country = $('#offer-country').val();
 
         $.get('/offer-filter/?country='+$country+'&place='+$place, function (responce) {
-            $('#offer-holder').html(responce.html);
+            var $package = $('#offer-holder');
+            $package.html(responce.html);
             $('#offer-filter').removeClass('disabled');
             $('a[data-type="club"]').tab('show');
+            var $package2 = $('#offer-pager');
+            if($package.find('> div').length < responce.total){
+                $package2.show();
+            }else{
+                $package2.hide();
+            }
+
         });
 
         return false;

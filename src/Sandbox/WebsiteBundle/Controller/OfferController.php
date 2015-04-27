@@ -183,9 +183,11 @@ class OfferController extends Controller
      */
     public function filterAction(Request $request)
     {
+        $pageLength = 10;
         $html = '';
         $toPlace = $request->query->get('place', '');
         $country = $request->query->get('country', '');
+        $offset = $request->query->get('offset', 0);
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -195,14 +197,14 @@ class OfferController extends Controller
 
         if (!$offers) $offers = [];
 
+        $filtered = [];
         if ($toPlace && $toPlace != -1) {
-            $filtered = [];
 
             foreach ($offers as $offer) {
                 foreach ($offer->getPlaces() as $place) {
                     if ($place->getCityId() == $toPlace) {
                         $filtered[] = $offer;
-                        $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                        //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
                     }
                 }
             }
@@ -210,12 +212,19 @@ class OfferController extends Controller
         } else if ($country) {
             foreach ($offers as $offer) {
                 if ($country == -1 || $offer->getCountryPlace() && $offer->getCountryPlace()->getCityId() == $country) {
-                    $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                    $filtered[] = $offer;
+                    //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
                 }
             }
         }
 
-        return new JsonResponse(['html' => $html]);
+        $pages = array_slice($filtered, $offset, $pageLength);
+
+        foreach ($pages as $page) {
+            $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
+        }
+
+        return new JsonResponse(['total' => count($filtered), 'html' => $html]);
 
     }
 

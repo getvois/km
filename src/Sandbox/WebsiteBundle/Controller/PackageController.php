@@ -90,10 +90,6 @@ class PackageController extends Controller
             $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
         }
 
-//        if(count($pages) > $offset+$pageLength){
-//
-//        }
-
         return new JsonResponse(['total' => count($filtered), 'html' => $html]);
 
     }
