@@ -1,17 +1,17 @@
 <div class="col-md-4 well package" data-package-id="{{ package.packageId }}">
 
     <h3>
-        {% if page.titleTranslated %}
-            {{ page.titleTranslated }}
+        {% if package.titleTranslated %}
+            {{ package.titleTranslated }}
         {% else %}
-            {{ page.title }}
+            {{ package.title }}
         {% endif %}
     </h3>
     <p>
-        {% if page.summary %}
-            {{ page.summary |raw }}
+        {% if package.summary %}
+            {{ package.summary |raw }}
         {% else %}
-            {{ page.description |raw }}
+            {{ package.description |raw }}
         {% endif %}
     </p>
     <p>{{ package.minprice }}</p>
