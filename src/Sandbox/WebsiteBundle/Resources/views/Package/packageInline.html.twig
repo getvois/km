@@ -7,8 +7,20 @@
                 <img src="{{ package.image }}" class="img-responsive"/>
             </div>
             <div class="col-md-9">
-                <h3>{{ package.title }}</h3>
-                <p>{{ package.description }}</p>
+                <h3>
+                    {% if page.titleTranslated %}
+                        {{ page.titleTranslated }}
+                    {% else %}
+                        {{ page.title }}
+                    {% endif %}
+                </h3>
+                <p>
+                    {% if page.summary %}
+                        {{ page.summary |raw }}
+                    {% else %}
+                        {{ page.description |raw }}
+                    {% endif %}
+                </p>
                 <p>{{ package.minprice }}</p>
                 <p>
                     <a class="btn btn-primary" href="{{ get_node_translation_for(package).fullSlug }}?fromdate={{ fromdate }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
@@ -16,8 +28,20 @@
             </div>
         {% else %}
             <div class="col-md-12">
-                <h3>{{ package.title }}</h3>
-                <p>{{ package.description }}</p>
+                <h3>
+                    {% if page.titleTranslated %}
+                        {{ page.titleTranslated }}
+                    {% else %}
+                        {{ page.title }}
+                    {% endif %}
+                </h3>
+                <p>
+                    {% if page.summary %}
+                        {{ page.summary |raw }}
+                    {% else %}
+                        {{ page.description |raw }}
+                    {% endif %}
+                </p>
                 <p>{{ package.minprice }}</p>
                 <p>
                     <a class="btn btn-primary" href="{{ get_node_translation_for(package).fullSlug }}?fromdate={{ fromdate }}">{{ 'read.more'|trans({}, 'frontend') }}</a>

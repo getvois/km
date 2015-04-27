@@ -5,16 +5,40 @@
                 <img src="{{ offer.image }}" class="img-responsive"/>
             </div>
             <div class="col-md-8">
-                <h3>{{ offer.title }}</h3>
+                <h3>
+                    {% if offer.titleTranslated %}
+                        {{ offer.titleTranslated }}
+                    {% else %}
+                        {{ offer.title }}
+                    {% endif %}
+                </h3>
                 <p>{{ offer.price }}{{ offer.currency }}</p>
-                <p>{{ offer.shortDescription }}</p>
+                <p>
+                    {% if page.summary %}
+                        {{ page.summary |raw }}
+                    {% else %}
+                        {{ page.shortDescription |raw }}
+                    {% endif %}
+                </p>
                 <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
             </div>
         {% else %}
             <div class="col-md-12">
-                <h3>{{ offer.title }}</h3>
+                <h3>
+                    {% if offer.titleTranslated %}
+                        {{ offer.titleTranslated }}
+                    {% else %}
+                        {{ offer.title }}
+                    {% endif %}
+                </h3>
                 <p>{{ offer.price }}{{ offer.currency }}</p>
-                <p>{{ offer.shortDescription }}</p>
+                <p>
+                    {% if page.summary %}
+                        {{ page.summary |raw }}
+                    {% else %}
+                        {{ page.shortDescription |raw }}
+                    {% endif %}
+                </p>
                 <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
             </div>
         {% endif %}

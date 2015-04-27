@@ -1,4 +1,23 @@
 
+<h2>
+    {% if page.titleTranslated %}
+        {{ page.titleTranslated }}
+    {% else %}
+        {{ page.title }}
+    {% endif %}
+</h2>
+
+
+<p>
+    {% if page.summary %}
+        {{ page.summary |raw }}
+    {% else %}
+        {{ page.description |raw }}
+    {% endif %}
+</p>
+
+
+
 <div class="btn-group package-calendar-control">
     <button class="btn btn-primary package-calendar-navigate" data-calendar-nav="prev">&lt;&lt; {{ 'prev'|trans({}, 'frontend') }}</button>
     <button class="btn package-calendar-navigate" data-calendar-nav="today">{{ 'today'|trans({}, 'frontend') }}</button>

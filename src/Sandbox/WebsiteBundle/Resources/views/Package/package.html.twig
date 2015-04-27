@@ -1,6 +1,19 @@
 <div class="col-md-4 well package" data-package-id="{{ package.packageId }}">
-    <h3>{{ package.title }}</h3>
-    <p>{{ package.description }}</p>
+
+    <h3>
+        {% if page.titleTranslated %}
+            {{ page.titleTranslated }}
+        {% else %}
+            {{ page.title }}
+        {% endif %}
+    </h3>
+    <p>
+        {% if page.summary %}
+            {{ page.summary |raw }}
+        {% else %}
+            {{ page.description |raw }}
+        {% endif %}
+    </p>
     <p>{{ package.minprice }}</p>
     {% if package.image %}
         <p><img src="{{ package.image }}" class="img-responsive"/></p>
