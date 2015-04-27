@@ -1627,8 +1627,9 @@ $(document).ready(function() {
 
         $('a[data-type="flight-hotel"]').tab('show');
 
-        formChange();
-    }).click();
+        formChange(true);
+    });//.click();
+    formChange(false);
 
     $("#flyWithReturn, #flyOneWay, #sameDay, #directFlight").change(function () {
         formChange();
@@ -1714,10 +1715,10 @@ function cityFilter(){
 }
 
 //noinspection JSUnusedLocalSymbols
-function formChange(e){
-    getTable('.travelbase_items_df');
+function formChange(expand){
+    getTable('.travelbase_items_df', true, expand);
     setTimeout(function () {
-        getTable(".travelbase_items_sp");
+        getTable(".travelbase_items_sp", true, expand);
     }, 1000);
 
     //skyPickerImport();
@@ -1747,7 +1748,7 @@ function skyPickerImport(){
     xhr.send(JSON.stringify($filter));
 }
 
-function getTable(container, reimport){
+function getTable(container, reimport, expand){
     $("#form-submit").addClass('disabled');
     if(!container) container = ".travelbase_items:visible";
     var type = 1;
@@ -1874,7 +1875,7 @@ function getTable(container, reimport){
         spinner2.stop();
         $loading.hide();
 
-        if(reimport == false)
+        if(expand === true || reimport === false)
             $('#loadMore').click();
     });
 }
