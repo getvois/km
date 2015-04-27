@@ -1,7 +1,7 @@
 <div class="hotel-information-pp">
     <div class="row">
         <div class="col-md-12">
-            {% if resource.description or resource.images %}
+            {% if resource.description or resource.images|length > 0 %}
                 <p>
                     <a class="btn btn-link" data-toggle="collapse" href="#collapse-{{ resource.id }}" aria-expanded="false" aria-controls="collapse-{{ resource.id }}">
                         {{ resource.name }}
@@ -9,7 +9,7 @@
                 </p>
                 <div class="collapse" id="collapse-{{ resource.id }}">
                     <p>{{ resource.description|raw }}</p>
-                    {% if resource.images %}
+                    {% if resource.images|length > 0 %}
                         <div class="row">
                             {% for image in resource.images %}
                                 <div class="col-md-3">
