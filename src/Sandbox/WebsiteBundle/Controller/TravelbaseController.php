@@ -48,7 +48,7 @@ class TravelbaseController extends Controller
 
         $host = $this->get('hosthelper')->getHost();
 
-        if($host->getTabs()){
+        if($host && $host->getTabs()){
             //keys from tab field in Sandbox/WebsiteBundle/Form/HostAdminType.php
             $tabs = ['club', 'offer', 'package'];
             $excludeItems = array_diff($tabs, $host->getTabs());

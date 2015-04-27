@@ -26,8 +26,12 @@ class HostHelper {
     public function getHost()
     {
         if(!self::$isHostSet){
+            $name =  $this->request->getHost();
+            $name = str_replace('www.', '', $name);
+            $name = str_replace(':80', '', $name);
+
             self::$host = $this->em->getRepository('SandboxWebsiteBundle:Host')
-                ->findOneBy(['name' => $this->request->getHost()]);
+                ->findOneBy(['name' => $name]);
             self::$isHostSet = true;
         }
 
