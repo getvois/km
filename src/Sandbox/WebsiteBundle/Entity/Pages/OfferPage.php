@@ -20,6 +20,51 @@ use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
 class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlaceFromTo
 {
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true, name="title_translated")
+     */
+    protected $titleTranslated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="summary", type="text", nullable=true)
+     */
+    protected $summary;
+
+    /**
+     * @return string
+     */
+    public function getTitleTranslated()
+    {
+        return $this->titleTranslated;
+    }
+
+    /**
+     * @param string $titleTranslated
+     */
+    public function setTitleTranslated($titleTranslated)
+    {
+        $this->titleTranslated = $titleTranslated;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param string $summary
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    }
 
     /**
      * @var integer

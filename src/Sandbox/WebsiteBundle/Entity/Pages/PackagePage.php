@@ -33,6 +33,28 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
 
     }
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true, name="title_translated")
+     */
+    protected $titleTranslated;
+
+    /**
+     * @return string
+     */
+    public function getTitleTranslated()
+    {
+        return $this->titleTranslated;
+    }
+
+    /**
+     * @param string $titleTranslated
+     */
+    public function setTitleTranslated($titleTranslated)
+    {
+        $this->titleTranslated = $titleTranslated;
+    }
 
     /**
      * @var integer

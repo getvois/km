@@ -2,13 +2,14 @@
 
 namespace Sandbox\WebsiteBundle\Form\Pages;
 
+use Kunstmaan\NodeBundle\Form\PageAdminType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * OfferPageAdminType
  */
-class OfferPageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
+class OfferPageAdminType extends PageAdminType
 {
 
     /**
@@ -24,6 +25,9 @@ class OfferPageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        $builder->add('titleTranslated');
+        $builder->add('summary');
+
         $builder->add('offerId', 'integer', array(
             'required' => false,
         ));
