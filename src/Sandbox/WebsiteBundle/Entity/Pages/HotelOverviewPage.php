@@ -24,12 +24,16 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         parent::service($container, $request, $context);
-
         /** @var EntityManager $em */
         $em = $container->get('doctrine.orm.entity_manager');
 
+        $page = $context['page'];
+
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($page);
+
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPages($request->getLocale());
+            ->getHotelPagesByParent($request->getLocale(), $node);
 
         if(!$hotels) $hotels = [];
 
