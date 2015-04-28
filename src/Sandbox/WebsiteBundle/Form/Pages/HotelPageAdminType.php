@@ -28,6 +28,24 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
         $builder->add('hotelId', 'integer', array(
             'required' => false,
         ));
+
+        $builder->add('criterias', 'entity', array(
+            'class' => 'Sandbox\WebsiteBundle\Entity\HotelCriteria',
+            'property' => 'name',
+            'expanded' => false,
+            'multiple' => true,
+            'required' => false,
+            'attr' => array('class' => 'chzn-select')
+        ));
+
+        $builder->add('www');
+        $builder->add('places', 'place');
+        $builder->add('countryPlace', 'place', [
+            'multiple' => false,
+            'empty_data'  => null,
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+        ]);
+
         $builder->add('street', 'text', array(
             'required' => false,
         ));
@@ -54,22 +72,7 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
         ));
-        $builder->add('criterias', 'entity', array(
-            'class' => 'Sandbox\WebsiteBundle\Entity\HotelCriteria',
-            'property' => 'name',
-            'expanded' => false,
-            'multiple' => true,
-            'required' => false,
-            'attr' => array('class' => 'chzn-select')
-        ));
 
-        $builder->add('www');
-        $builder->add('places', 'place');
-        $builder->add('countryPlace', 'place', [
-            'multiple' => false,
-            'empty_data'  => null,
-            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
-        ]);
     }
 
     /**
