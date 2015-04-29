@@ -32,10 +32,21 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($page);
 
+        /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
             ->getHotelPagesByParent($request->getLocale(), $node);
 
         if(!$hotels) $hotels = [];
+
+
+        $places = [];
+        foreach ($hotels as $hotel) {
+            foreach ($hotel->getPlaces() as $place) {
+                $places[$place->getCityId()] = $place;
+            }
+        }
+
+        $context['places'] = $places;
 
         $adapter = new ArrayAdapter($hotels);
         $pagerfanta = new Pagerfanta($adapter);

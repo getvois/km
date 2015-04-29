@@ -1,0 +1,8 @@
+<div class="col-md-4 well hotell">
+    <h3>{{ hotel.title }}</h3>
+    <p>{% if hotel.city %}{{ hotel.city }}{% else %}{{ hotel.cityParish }}{% endif %}</p>
+    <p>{{ hotel.street }}</p>
+    <p>
+        <a class="btn btn-primary" href="/{{ get_node_translation_for(hotel).fullSlug }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+    </p>
+</div>

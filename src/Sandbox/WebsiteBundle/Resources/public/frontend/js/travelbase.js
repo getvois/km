@@ -74,6 +74,20 @@ $(document).ready(function() {
         }
     });
 
+    $('#hotel-filter').click(function () {
+        $(this).addClass('disabled');
+
+        var $place = $('#hotel-place').val();
+
+        $.get('/hotel-filter/?place='+$place, function (responce) {
+            var $package = $('#hotel-holder');
+            $package.html(responce.html);
+
+            $('#hotel-filter').removeClass('disabled');
+        });
+
+        return false;
+    });
 
 
     $('#package-filter').click(function () {
