@@ -11,7 +11,16 @@
 <div class="row">
     {% for package in packages %}
         <div class="col-md-4 well">
-            <h4>{{ package.title }}</h4>
+            <h4>
+                {% if package.titleTranslated %}
+                    {{ package.titleTranslated }}
+                {% else %}
+                    {{ package.title }}
+                {% endif %}
+                {% if package.originalLanguage %}
+                    <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ package.originalLanguage ~ '.gif') }}"/>
+                {% endif %}
+            </h4>
             {% if package.image %}
                 <img src="{{ package.image }}" alt="" class="img-responsive"/>
             {% endif %}

@@ -11,6 +11,9 @@
                     {% else %}
                         {{ offer.title }}
                     {% endif %}
+                    {% if offer.originalLanguage %}
+                        <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
+                    {% endif %}
                 </h3>
                 <p>{{ offer.price }}{{ offer.currency }}</p>
                 <p>
@@ -29,6 +32,9 @@
                         {{ offer.titleTranslated }}
                     {% else %}
                         {{ offer.title }}
+                    {% endif %}
+                    {% if offer.originalLanguage %}
+                        <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
                     {% endif %}
                 </h3>
                 <p>{{ offer.price }}{{ offer.currency }}</p>

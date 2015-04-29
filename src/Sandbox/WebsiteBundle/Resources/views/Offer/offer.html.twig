@@ -6,6 +6,10 @@
         {% else %}
             {{ offer.title }}
         {% endif %}
+
+        {% if offer.originalLanguage %}
+            <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
+        {% endif %}
     </h3>
     {% if offer.image %}
         <img src="{{ offer.image }}" class="img-responsive"/>

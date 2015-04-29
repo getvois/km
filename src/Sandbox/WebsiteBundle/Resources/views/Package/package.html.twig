@@ -6,6 +6,9 @@
         {% else %}
             {{ package.title }}
         {% endif %}
+        {% if package.originalLanguage %}
+            <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ package.originalLanguage ~ '.gif') }}"/>
+        {% endif %}
     </h3>
     <p>
         {% if package.summary %}

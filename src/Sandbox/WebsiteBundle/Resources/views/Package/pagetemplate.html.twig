@@ -5,6 +5,10 @@
     {% else %}
         {{ page.title }}
     {% endif %}
+
+    {% if page.originalLanguage %}
+        <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/>
+    {% endif %}
 </h2>
 
 {% if page.image %}
