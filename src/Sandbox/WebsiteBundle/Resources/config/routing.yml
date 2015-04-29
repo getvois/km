@@ -166,3 +166,10 @@ sandboxwebsitebundle_packagecategory_admin_list:
     prefix:   /{_locale}/admin/packagecategory/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_packagepage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/PackagePageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/packagepage/
+    requirements:
+         _locale: %requiredlocales%
