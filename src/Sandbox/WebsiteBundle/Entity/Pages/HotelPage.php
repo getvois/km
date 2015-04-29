@@ -5,11 +5,14 @@ namespace Sandbox\WebsiteBundle\Entity\Pages;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * HotelPage
@@ -19,6 +22,26 @@ use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
  */
 class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo //AbstractPage
 {
+
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        parent::service($container, $request, $context);
+
+        $em = $container->get('doctrine.orm.entity_manager');
+
+        $page = $context['page'];
+
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($page);
+
+        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagesByParent($request->getLocale(), $node);
+
+        if(!$packages) $packages = [];
+
+        $context['packages'] = $packages;
+    }
+
     /**
      * @var string
      *

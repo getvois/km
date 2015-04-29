@@ -1,3 +1,20 @@
 {{ render_pageparts(page, 'main') }}
 {{ render_pageparts(page, 'gallery') }}
 {{ render_pageparts(page, 'information') }}
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>{{ 'packages'|trans({}, 'frontend') }}</h3>
+    </div>
+</div>
+<div class="row">
+    {% for package in packages %}
+        <div class="col-md-4 well">
+            <h4>{{ package.title }}</h4>
+            {% if package.image %}
+                <img src="{{ package.image }}" alt="" class="img-responsive"/>
+            {% endif %}
+            <p><a class="btn btn-default" href="{{ path('_slug', {'url': get_node_translation_for(package).fullSlug }) }}">{{ package.minprice }}</a></p>
+        </div>
+    {% endfor %}
+</div>
