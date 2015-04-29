@@ -2,6 +2,7 @@
 {{ render_pageparts(page, 'gallery') }}
 {{ render_pageparts(page, 'information') }}
 
+{% if packages|length > 0 %}
 <div class="row">
     <div class="col-md-12">
         <h3>{{ 'packages'|trans({}, 'frontend') }}</h3>
@@ -18,3 +19,4 @@
         </div>
     {% endfor %}
 </div>
+{% endif %}
