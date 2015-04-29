@@ -600,6 +600,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             $packagePage->setImage($image->first()->text());
         }
 
+        $packagePage->setOriginalLanguage('ee');
+
         //set payment methods
         $payment = $package->filter('paymentmethod');
         if ($payment->count() > 0) {

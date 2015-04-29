@@ -239,6 +239,8 @@ class OffersCommand extends ContainerAwareCommand
 
         $offerPage->setCompany($this->company);
 
+        $offerPage->setOriginalLanguage('fi');
+
         return $offerPage;
     }
 
