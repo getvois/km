@@ -33,6 +33,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    sandboxwebsitebundle.hotelcheapestpackageextension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\HotelCheapestPackageExtension
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: twig.extension }
+
     sandboxwebsitebundle.instanceofextension:
         class: Sandbox\WebsiteBundle\Twig\Extension\InstanceOfExtension
         tags:
