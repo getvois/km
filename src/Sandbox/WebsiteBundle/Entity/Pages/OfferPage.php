@@ -19,6 +19,28 @@ use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
  */
 class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlaceFromTo
 {
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true, name="original_language")
+     */
+    protected $originalLanguage;
+
+    /**
+     * @return string
+     */
+    public function getOriginalLanguage()
+    {
+        return $this->originalLanguage;
+    }
+
+    /**
+     * @param string $originalLanguage
+     */
+    public function setOriginalLanguage($originalLanguage)
+    {
+        $this->originalLanguage = $originalLanguage;
+    }
 
     /**
      * @var string

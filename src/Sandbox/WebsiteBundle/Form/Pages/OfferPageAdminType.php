@@ -154,6 +154,7 @@ class OfferPageAdminType extends PageAdminType
             'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
         ]);
 
+        $builder->add('originalLanguage');
 
     }
 

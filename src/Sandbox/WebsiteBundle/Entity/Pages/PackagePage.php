@@ -54,6 +54,29 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
     /**
      * @var string
      *
+     * @ORM\Column(type="string", nullable=true, name="original_language")
+     */
+    protected $originalLanguage;
+
+    /**
+     * @return string
+     */
+    public function getOriginalLanguage()
+    {
+        return $this->originalLanguage;
+    }
+
+    /**
+     * @param string $originalLanguage
+     */
+    public function setOriginalLanguage($originalLanguage)
+    {
+        $this->originalLanguage = $originalLanguage;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", nullable=true, name="title_translated")
      */
     protected $titleTranslated;
