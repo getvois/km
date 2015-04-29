@@ -32,3 +32,98 @@
 {{ render_pageparts(page, 'main') }}
 {{ render_pageparts(page, 'rooms') }}
 {{ render_pageparts(page, 'information') }}
+
+{% if hotel %}
+    <div class="row">
+        <div class="col-md-6">
+            <h4><a href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">{{ hotel.title }}</a></h4>
+            <p>{{ hotel.longDescription }}</p>
+        </div>
+        <div class="col-md-6">
+            <div id="map_wrapper">
+                <div id="map_canvas" class="mapping"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        jQuery(function($) {
+            // Asynchronously Load the map API
+            var script = document.createElement('script');
+            script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+            document.body.appendChild(script);
+        });
+
+        function initialize() {
+            var map;
+            var bounds = new google.maps.LatLngBounds();
+            var mapOptions = {
+                mapTypeId: 'roadmap'
+            };
+
+            // Display a map on the page
+            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            map.setTilt(45);
+
+            var markers = [];
+            var infoWindowContent = [];
+
+            {% if hotel.longitude and hotel.latitude %}
+
+            // Multiple Markers
+            markers.push(['{{ hotel.title }}', {{ hotel.latitude }}, {{ hotel.longitude }}]);
+            // Info Window Content
+            infoWindowContent.push(
+                    ['<div class="info_content">' +
+                    '<h3>{{ hotel.title }}</h3>' +
+                    '<p>{{ hotel.shortDescription }}</p>' +
+                    {% if hotel_cheapest_package(hotel, app.request.locale) %}
+                    '<p>{{ hotel_cheapest_package(hotel, app.request.locale).minPrice }}</p>' +
+                    {% endif %}
+                    '</div>'
+                    ]);
+
+            {% endif %}
+
+
+
+
+
+            // Display multiple markers on a map
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            // Loop through our array of markers & place each one on the map
+            for( i = 0; i < markers.length; i++ ) {
+                var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+                bounds.extend(position);
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: markers[i][0]
+                });
+
+                // Allow each marker to have an info window
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        infoWindow.setContent(infoWindowContent[i][0]);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                // Automatically center the map fitting all markers on the screen
+                map.fitBounds(bounds);
+            }
+
+            // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+            var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+                this.setZoom(11);
+                google.maps.event.removeListener(boundsListener);
+            });
+
+        }
+    </script>
+{% endif %}

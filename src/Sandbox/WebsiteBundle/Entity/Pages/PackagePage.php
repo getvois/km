@@ -27,6 +27,24 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
     {
         parent::service($container, $request, $context);
 
+        $em = $container->get('doctrine.orm.entity_manager');
+
+        $page = $context['page'];
+
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($page);
+
+        $hotelNode = $node->getParent();
+        $hotelPage = null;
+        if($hotelNode){
+            $translation = $hotelNode->getNodeTranslation($request->getLocale());
+            if($translation) {
+                $hotelPage = $translation->getRef($em);
+            }
+        }
+
+        $context['hotel'] = $hotelPage;
+
         $fromDate = $request->query->get('fromdate', date('Y-m-d'));
 
         $context['fromdate'] = $fromDate;

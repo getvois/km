@@ -19,7 +19,7 @@
         <p><img src="{{ package.image }}" class="img-responsive"/></p>
     {% endif %}
     <p>
-        <a class="btn btn-primary" href="/{{ get_node_translation_for(package).fullSlug }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+        <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
         {#<a data-package-id="{{ package.packageId }}" class="package-calendar-show btn btn-default" href="#">{{ 'show.calendar'|trans({}, 'frontend') }}</a>#}
     </p>
 

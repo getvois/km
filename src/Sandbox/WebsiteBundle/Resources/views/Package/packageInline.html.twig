@@ -62,7 +62,7 @@
                     <tr>
                         {% for date, price in dates %}
                             <td>
-                                <a class="btn btn-primary" href="/{{ get_node_translation_for(package).fullSlug }}?fromdate={{ date }}">{{ price }}eur</a>
+                                <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}?fromdate={{ date }}">{{ price }}eur</a>
                             </td>
                         {% endfor %}
                     </tr>
