@@ -1866,6 +1866,7 @@ function getTable(container, reimport, expand){
             var $skypicker = $(".skypicker-toggle");
             if($(container).find('.trip').length == 1 && $skypicker.length == 1){
                 $skypicker.click();
+                $(container).find('> div').css('height', 'auto');
                 //$skypicker.hide();
             }
         }
