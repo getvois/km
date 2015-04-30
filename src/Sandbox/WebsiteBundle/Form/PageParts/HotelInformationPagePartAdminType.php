@@ -28,6 +28,9 @@ class HotelInformationPagePartAdminType extends \Symfony\Component\Form\Abstract
         $builder->add('name', 'text', array(
             'required' => false,
         ));
+        $builder->add('nameTranslated', 'text', array(
+            'required' => false,
+        ));
         $builder->add('description', 'textarea', array(
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
