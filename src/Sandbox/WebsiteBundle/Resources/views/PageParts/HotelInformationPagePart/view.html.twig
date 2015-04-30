@@ -4,7 +4,11 @@
             {% if resource.description or resource.images|length > 0 %}
                 <p>
                     <a class="btn btn-link" data-toggle="collapse" href="#collapse-{{ resource.id }}" aria-expanded="false" aria-controls="collapse-{{ resource.id }}">
-                        {{ resource.name }}
+                        {% if resource.nameTranslated %}
+                            {{ resource.nameTranslated }}
+                        {% else %}
+                            {{ resource.name }}
+                        {% endif %}
                     </a>
                 </p>
                 <div class="collapse" id="collapse-{{ resource.id }}">
@@ -21,7 +25,11 @@
                 </div>
             {% else %}
                 <p>
-                    {{ resource.name }}
+                    {% if resource.nameTranslated %}
+                        {{ resource.nameTranslated }}
+                    {% else %}
+                        {{ resource.name }}
+                    {% endif %}
                 </p>
             {% endif %}
 
