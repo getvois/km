@@ -77,7 +77,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
                         }
 
                         $em->flush();
-                        var_dump('(EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                        var_dump('(FI)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
                     }else{
                         var_dump($data);
                     }
