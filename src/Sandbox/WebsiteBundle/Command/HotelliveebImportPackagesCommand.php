@@ -128,7 +128,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 foreach ($node->getNodeTranslations(true) as $tr) {
                     $companyPage = $tr->getRef($em);
                     if($companyPage) {
-                        $this->company[$tr->getLang()] = $tr;
+                        $this->company[$tr->getLang()] = $companyPage;
                     }
                 }
             }
