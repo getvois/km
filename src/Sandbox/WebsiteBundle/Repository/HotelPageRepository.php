@@ -8,12 +8,17 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Kunstmaan\ArticleBundle\Repository\AbstractArticlePageRepository;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 
 /**
  * Repository class for the NewsPage
  */
 class HotelPageRepository extends EntityRepository
 {
+    /**
+     * @param $lang
+     * @return HotelPage[]
+     */
     public function getHotelPages($lang)
     {
         $dql = "SELECT p

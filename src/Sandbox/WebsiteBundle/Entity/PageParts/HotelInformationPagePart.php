@@ -111,6 +111,13 @@ class HotelInformationPagePart extends AbstractPagePart implements DeepCloneInte
     /**
      * @var string
      *
+     * @ORM\Column(name="name_translated", type="string", length=255, nullable=true)
+     */
+    private $nameTranslated;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -137,6 +144,22 @@ class HotelInformationPagePart extends AbstractPagePart implements DeepCloneInte
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameTranslated()
+    {
+        return $this->nameTranslated;
+    }
+
+    /**
+     * @param string $nameTranslated
+     */
+    public function setNameTranslated($nameTranslated)
+    {
+        $this->nameTranslated = $nameTranslated;
     }
 
     /**
