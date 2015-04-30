@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart;
+use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,8 +17,8 @@ class HotelliveebTranslateCommand extends ContainerAwareCommand{
     protected function configure()
     {
         $this
-            ->setName('travelbase:translate:hotelliveeb')
-            ->setDescription('Translate hotelliveeb hotel info title to fin')
+            ->setName('travelbase:translate:hotelliveeb:packages')
+            ->setDescription('Translate hotelliveeb packages title to fin + slug')
         ;
     }
 
@@ -42,15 +43,16 @@ class HotelliveebTranslateCommand extends ContainerAwareCommand{
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPages($lang);
+        /** @var PackagePage[] $packages */
+        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagePages($lang);
 
-        if(!$hotels) $hotels = [];
+        if(!$packages) $packages = [];
 
-        foreach ($hotels as $hotel) {
+        foreach ($packages as $package) {
             $pageparts = $em
                 ->getRepository('KunstmaanPagePartBundle:PagePartRef')
-                ->getPageParts($hotel, 'information');
+                ->getPageParts($package, 'information');
 
             if(!$pageparts) $pageparts = [];
 

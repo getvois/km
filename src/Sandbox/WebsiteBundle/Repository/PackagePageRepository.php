@@ -8,6 +8,7 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Kunstmaan\ArticleBundle\Repository\AbstractArticlePageRepository;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 
 /**
  * Repository class for the NewsPage
@@ -43,6 +44,10 @@ AND p.duration = :duration
         return $objects;
     }
 
+    /**
+     * @param $lang
+     * @return PackagePage[]
+     */
     public function getPackagePages($lang)
     {
         $dql = "SELECT p
