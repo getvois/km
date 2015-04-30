@@ -25,8 +25,8 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->translateEe();
-        //$this->translateRu();
+        //$this->translateEe();
+        $this->translateRu();
     }
 
     private function translateEe()
