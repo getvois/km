@@ -17,7 +17,8 @@ class HotelPageRepository extends EntityRepository
 {
     /**
      * @param $lang
-     * @return HotelPage[]
+     * @param int $online
+     * @return \Sandbox\WebsiteBundle\Entity\Pages\HotelPage[]
      */
     public function getHotelPages($lang)
     {
