@@ -164,9 +164,9 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packageId = $package->filter('id')->first()->text();
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
-            $this->setPackagePageFields($package, $packagePage);
-            $em->persist($packagePage);
-            $em->flush();
+//            $this->setPackagePageFields($package, $packagePage);
+//            $em->persist($packagePage);
+//            $em->flush();
 
             //probably company will never change
             //$node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($packagePage);
