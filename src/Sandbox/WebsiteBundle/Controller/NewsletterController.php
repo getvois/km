@@ -134,7 +134,7 @@ class NewsletterController extends Controller
 
 
                         $output .= $body;
-                        $this->makePage($headerInfo, $subject, $body, $account);
+                        //$this->makePage($headerInfo, $subject, $body, $account);
                     }
 
                     echo $output;
