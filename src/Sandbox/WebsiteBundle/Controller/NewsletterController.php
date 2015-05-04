@@ -68,7 +68,7 @@ class NewsletterController extends Controller
                     }elseif($emailStructure->type === 1) {//multipart
                         foreach ($emailStructure->parts as $key => $part) {
                             if ($part->subtype == 'HTML') {
-                                $body = (imap_fetchbody($inbox, $mail, $key + 1));//FT_PEEK
+                                $body = (imap_fetchbody($inbox, $mail, $key + 1, FT_PEEK));//FT_PEEK
 
                                 if($part->encoding == 3){
                                     $body = utf8_decode(base64_decode($body));
