@@ -55,6 +55,7 @@
 
             var markers = [];
             var infoWindowContent = [];
+            var markerIcons = [];
 
             {% for hotel in pagerfanta.CurrentPageResults %}
                 {% if hotel.longitude and hotel.latitude %}
@@ -71,6 +72,23 @@
                         {% endif %}
                         '</div>'
                         ]);
+
+                    {% if hotel_cheapest_package(hotel, app.request.locale) %}
+                        {% set  price = hotel_cheapest_package(hotel, app.request.locale).minPrice %}
+                            {% if price <= 20 %}
+                            //green
+                            markerIcons.push('http://google-maps-icons.googlecode.com/files/green{{ price|round }}.png');
+                            {% elseif price < 60 %}
+                            //yellow
+                            markerIcons.push('http://google-maps-icons.googlecode.com/files/red{{ price|round }}.png');
+                            {% else %}
+                            //red
+                            markerIcons.push('http://google-maps-icons.googlecode.com/files/black{{ price|round }}.png');
+                            {% endif %}
+                    {% else %}
+                        markerIcons.push('http://google-maps-icons.googlecode.com/files/redblank.png');
+
+                    {% endif %}
 
                 {% endif %}
             {% endfor %}
@@ -89,7 +107,8 @@
                 marker = new google.maps.Marker({
                     position: position,
                     map: map,
-                    title: markers[i][0]
+                    title: markers[i][0],
+                    icon: markerIcons[i]
                 });
 
                 // Allow each marker to have an info window
