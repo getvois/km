@@ -7,11 +7,28 @@ $(document).ready(function() {
     var $lang = $body.data('lang');
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+        if($(e.target).data('type') == 'packages'){
+            var container = document.querySelector('#package-holder');
+            new Isotope( container, {itemSelector: '.package'});
+            //$('#package-holder').css('height', '100px');
+        }
+        if($(e.target).data('type') == 'club'){
+            var container = document.querySelector('#offer-holder');
+            new Isotope( container, {itemSelector: '.offer'});
+            //$('#offer-holder').css('height', '100px');
+        }
+
         if($(e.target).data('form')){
             $('.form-header').addClass('hide');
             $($(e.target).data('form')).removeClass('hide');
         }
     });
+    //hide because of isotope behavior
+    $('#package-pager').hide();
+    $('#offer-pager').hide();
+
+
     //select first tab to show the form
     $('.form-header:first').removeClass('hide');
 
