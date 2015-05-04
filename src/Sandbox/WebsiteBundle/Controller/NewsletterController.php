@@ -153,6 +153,8 @@ class NewsletterController extends Controller
 
                         if($createPage) {
                             $this->makePage($headerInfo, $subject, $body, $account);
+                            //delete email
+                            imap_delete($inbox, $mail);
                         }
                     }
 
@@ -188,7 +190,7 @@ class NewsletterController extends Controller
         $elements = imap_mime_header_decode($headerInfo->fromaddress);
         $company = utf8_encode($elements[0]->text);
 
-        var_dump($company);
+        //var_dump($company);
 
         //company name rules
         $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $company);
