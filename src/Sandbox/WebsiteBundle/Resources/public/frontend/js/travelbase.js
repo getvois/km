@@ -20,8 +20,10 @@ $(document).ready(function() {
         }
 
         if($(e.target).data('form')){
-            $('.form-header').addClass('hide');
-            $($(e.target).data('form')).removeClass('hide');
+            if(!$($(e.target).data('form')).is(':visible')){
+                $('.form-header:visible').removeClass('hide').slideUp();
+                $($(e.target).data('form')).slideDown();
+            }
         }
     });
     //hide because of isotope behavior
@@ -30,7 +32,8 @@ $(document).ready(function() {
 
 
     //select first tab to show the form
-    $('.form-header:first').removeClass('hide');
+    $('.form-header').removeClass('hide').hide();
+    $('.form-header:first').show();
 
     //show tab based on page
     if($body.data('tab')){
