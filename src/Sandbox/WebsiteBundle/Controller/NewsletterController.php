@@ -15,6 +15,7 @@ use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Helper\NewsLetterAccountFactory;
 use Sandbox\WebsiteBundle\Helper\NewsLetterEmailAccount;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class NewsletterController extends Controller
     /**
      * @Route("/newsletter/")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Template()
      */
     public function indexAction()
     {
@@ -31,6 +33,7 @@ class NewsletterController extends Controller
         $accountFactory = new NewsLetterAccountFactory();
         $accounts = $accountFactory->getByLocale('fi');
 
+        $output = '';
         foreach ($accounts as $account) {
             $user = $account->getUser();
             $password = $account->getPassword();
@@ -149,7 +152,7 @@ class NewsletterController extends Controller
             imap_close($inbox);
         }
 
-        return new Response("");
+        return ['output' => $output];
     }
 
     /**
