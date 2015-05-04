@@ -66,6 +66,7 @@ class NewsletterController extends Controller
             $i = 0;
             if($emails)
                 foreach($emails as $mail) {
+                    $output = '';
                     $headerInfo = imap_headerinfo($inbox,$mail);
 
                     $elements = imap_mime_header_decode($headerInfo->subject);
