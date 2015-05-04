@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class NewsletterController extends Controller
@@ -27,8 +28,12 @@ class NewsletterController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
+        if($request->getMethod() == 'POST'){
+            var_dump($request->request->all());
+        }
 
         $accountFactory = new NewsLetterAccountFactory();
         $accounts = $accountFactory->getByLocale('fi');
@@ -137,8 +142,8 @@ class NewsletterController extends Controller
                         //$this->makePage($headerInfo, $subject, $body, $account);
                     }
 
-                    echo $output;
-                    $output = '';
+                    //echo $output;
+                    //$output = '';
 
                     if($i >= 0) {
                         break;
