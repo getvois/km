@@ -33,6 +33,7 @@ class NewsletterController extends Controller
 
         $emailReadOptions = FT_PEEK;//dont mark email as read by default
         $createPage = false;
+        $skip = false;
         if($request->getMethod() == 'POST'){
             $action = $request->request->get('action');
 
@@ -43,6 +44,7 @@ class NewsletterController extends Controller
             }elseif($action == 'skip'){
                 //mark email as read
                 $emailReadOptions = 0;
+                $skip = true;
             }
         }
 
@@ -155,8 +157,18 @@ class NewsletterController extends Controller
                             $this->makePage($headerInfo, $subject, $body, $account);
                             //delete email
                             imap_delete($inbox, $mail);
+
+                            //reset all vars
+                            $createPage = false;
+                            $i = -1;
                         }
                     }
+
+                    if($skip){
+                        $i = -1;
+                        $skip = false;
+                    }
+
 
                     //echo $output;
                     //$output = '';
@@ -166,6 +178,8 @@ class NewsletterController extends Controller
                     }
 
                     $i++;
+
+                    $emailReadOptions = FT_PEEK;//to read only first email
                 }
 
             // colse the connection
