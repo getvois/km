@@ -81,6 +81,8 @@
                             {% elseif price < 60 %}
                             //yellow
                             markerIcons.push('http://google-maps-icons.googlecode.com/files/red{{ price|round }}.png');
+                            {% elseif price > 100 %}
+                                markerIcons.push('http://google-maps-icons.googlecode.com/files/redblank.png');
                             {% else %}
                             //red
                             markerIcons.push('http://google-maps-icons.googlecode.com/files/black{{ price|round }}.png');
