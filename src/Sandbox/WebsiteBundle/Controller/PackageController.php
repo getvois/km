@@ -124,9 +124,10 @@ class PackageController extends Controller
             if(strtotime($date) >= $from && strtotime($date) <= $to){
                 if(array_key_exists($date, $out)){
                     if($price > $out[$date]['price']){
+                        $url = "https://api.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
                         $out[$date] = array(
                             'id' => $i,
-                            'title' => $price. "eur",
+                            'title' => "<a href='$url'>$price eur</a>",
                             'url' => '',
                             'start' => strtotime($date ) . '000',
                             //'end' => strtotime($date . "20:59") .'000',
@@ -135,10 +136,11 @@ class PackageController extends Controller
                         );
                     }
                 }else{
+                    $url = "https://api.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
                     $out[$date] = array(
                         'id' => $i,
-                        'title' => $price. "eur",
-                        'url' => '',
+                        'title' => "<a href='$url'>$price eur</a>",
+                        'url' => "",
                         'start' => strtotime($date ) . '000',
                         //'end' => strtotime($date . "20:59") .'000',
                         'price' => $price,
