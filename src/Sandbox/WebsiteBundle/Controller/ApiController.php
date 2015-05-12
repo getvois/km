@@ -38,7 +38,7 @@ class ApiController extends Controller
         $package = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePage($_locale, $packageId);
 
-        if(!$package) new JsonResponse([]);
+        if(!$package)return new JsonResponse([]);
 
         $data = $this->packageToArray($package, $request);
 
@@ -117,6 +117,12 @@ class ApiController extends Controller
 
         if(!$translation) return [];
 
+        $locale = "";
+        $host = $this->get('hosthelper')->getHost();
+        if($host && $host->getMultiLanguage()){
+            $locale = $request->getLocale() . "/";
+        }
+
         /** @var $package PackagePage */
         $data['id'] = $package->getId();
         $data['packageId'] = $package->getPackageId();
@@ -124,7 +130,7 @@ class ApiController extends Controller
         $data['duration'] = $package->getDuration();
         $data['adults'] = $package->getNumberAdults();
         $data['children'] = $package->getNumberChildren();
-        $data['url'] = $request->getSchemeAndHttpHost() ."/". $translation->getFullSlug();
+        $data['url'] = $request->getSchemeAndHttpHost() . "/". $locale . $translation->getFullSlug();
 
         return $data;
     }
@@ -147,6 +153,12 @@ class ApiController extends Controller
 
         if(!$translation) return [];
 
+        $locale = "";
+        $host = $this->get('hosthelper')->getHost();
+        if($host && $host->getMultiLanguage()){
+            $locale = $request->getLocale() . "/";
+        }
+
         /** @var $hotel HotelPage */
         $data['id'] = $hotel->getId();
         $data['hotelId'] = $hotel->getHotelId();
@@ -155,7 +167,7 @@ class ApiController extends Controller
         $data['city'] = $hotel->getCity();
         $data['cityParish'] = $hotel->getCityParish();
         $data['country'] = $hotel->getCountry();
-        $data['url'] = $request->getSchemeAndHttpHost() ."/". $translation->getFullSlug();
+        $data['url'] = $request->getSchemeAndHttpHost() . "/". $locale . $translation->getFullSlug();
 
         return $data;
     }
