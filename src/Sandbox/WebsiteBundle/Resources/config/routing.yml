@@ -1,3 +1,10 @@
+sandboxwebsitebundle_api:
+    resource: "@SandboxWebsiteBundle/Controller/ApiController.php"
+    type:     annotation
+    prefix:   /{_locale}/api/
+    requirements:
+        _locale: %requiredlocales%
+
 sandboxwebsitebundle_user:
     resource: "@SandboxWebsiteBundle/Controller/UserController.php"
     type:     annotation
