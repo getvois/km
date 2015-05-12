@@ -132,6 +132,7 @@ class ApiController extends Controller
         $data['children'] = $package->getNumberChildren();
         $data['summary'] = $package->getSummary();
         $data['description'] = $package->getDescription();
+        $data['image'] = $package->getImage();
         $data['url'] = $request->getSchemeAndHttpHost() . "/". $locale . $translation->getFullSlug();
 
         return $data;
