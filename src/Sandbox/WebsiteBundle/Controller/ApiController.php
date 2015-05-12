@@ -81,7 +81,7 @@ class ApiController extends Controller
         $package = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePage($_locale, $packageId);
 
-        if(!$package) new JsonResponse($data);
+        if(!$package)return new JsonResponse($data);
 
         $data['package'] = $this->packageToArray($package, $request);
 
