@@ -41,7 +41,7 @@
     <div class="row">
         <div class="col-md-6">
             <h4><a href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">{{ hotel.title }}</a></h4>
-            <p>{{ hotel.longDescription }}</p>
+            <p>{{ hotel.longDescription|raw }}</p>
         </div>
         <div class="col-md-6">
             <div id="map_wrapper">
