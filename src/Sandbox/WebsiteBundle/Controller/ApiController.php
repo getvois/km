@@ -38,6 +38,8 @@ class ApiController extends Controller
         $package = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePage($_locale, $packageId);
 
+        if(!$package) new JsonResponse([]);
+
         $data = $this->packageToArray($package, $request);
 
         return new JsonResponse($data);
@@ -78,6 +80,8 @@ class ApiController extends Controller
 
         $package = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePage($_locale, $packageId);
+
+        if(!$package) new JsonResponse($data);
 
         $data['package'] = $this->packageToArray($package, $request);
 
