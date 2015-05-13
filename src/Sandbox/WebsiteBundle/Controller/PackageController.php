@@ -136,7 +136,7 @@ class PackageController extends Controller
                         );
                     }
                 }else{
-                    $url = "https://api.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
+                    $url = "https://pay.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
                     $out[$date] = array(
                         'id' => $i,
                         'title' => "<a href='$url'>$price eur</a>",
