@@ -43,6 +43,29 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
     }
 
     /**
+     * @var PackagePage
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Pages\PackagePage")
+     */
+    private $cheapestPackage;
+
+    /**
+     * @return PackagePage
+     */
+    public function getCheapestPackage()
+    {
+        return $this->cheapestPackage;
+    }
+
+    /**
+     * @param PackagePage $cheapestPackage
+     */
+    public function setCheapestPackage($cheapestPackage)
+    {
+        $this->cheapestPackage = $cheapestPackage;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="www", type="string", length=512, nullable=true)
