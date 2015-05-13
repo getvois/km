@@ -73,6 +73,8 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
             'required' => false,
         ));
 
+        $builder->add('price');
+
     }
 
     /**
