@@ -124,7 +124,7 @@ class PackageController extends Controller
             if(strtotime($date) >= $from && strtotime($date) <= $to){
                 if(array_key_exists($date, $out)){
                     if($price > $out[$date]['price']){
-                        $url = "https://api.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
+                        $url = "https://pay.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
                         $out[$date] = array(
                             'id' => $i,
                             'title' => "<a href='$url'>$price eur</a>",
