@@ -67,14 +67,14 @@
                         ['<div class="info_content">' +
                         '<h3>{{ hotel.title }}</h3>' +
                         '<p>{{ hotel.shortDescription }}</p>' +
-                        {% if hotel_cheapest_package(hotel, app.request.locale) %}
-                        '<p>{{ hotel_cheapest_package(hotel, app.request.locale).minPrice }}</p>' +
+                        {% if hotel.cheapestPackage %}
+                        '<p>{{ hotel.cheapestPackage.minPrice }}</p>' +
                         {% endif %}
                         '</div>'
                         ]);
 
-                    {% if hotel_cheapest_package(hotel, app.request.locale) %}
-                        {% set  price = hotel_cheapest_package(hotel, app.request.locale).minPrice %}
+                    {% if hotel.cheapestPackage %}
+                        {% set  price = hotel.cheapestPackage.minPrice %}
                             {% if price <= 20 %}
                             //green
                             markerIcons.push('http://google-maps-icons.googlecode.com/files/green{{ price|round }}.png');
