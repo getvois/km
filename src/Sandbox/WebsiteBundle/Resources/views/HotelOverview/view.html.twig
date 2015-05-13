@@ -69,10 +69,11 @@
                         '<p>{{ hotel.shortDescription }}</p>' +
                         {% if hotel.cheapestPackage %}
                         '<p>{{ hotel.cheapestPackage.minPrice }}</p>' +
+                        {% elseif hotel.price > 0 %}
+                        '<p><a href="http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss={{ hotel.title }}">booking.com</a></p>' +
                         {% endif %}
                         '</div>'
                         ]);
-
                     {% if hotel.cheapestPackage %}
                         {% set  price = hotel.cheapestPackage.minPrice %}
                             {% if price <= 20 %}
