@@ -6,6 +6,7 @@ namespace Sandbox\WebsiteBundle\Command;
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Kunstmaan\PagePartBundle\Helper\Services\PagePartCreatorService;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\HotelImage;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
@@ -26,13 +27,20 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
     }
 
     private $company = [];
+    /** @var  PagePartCreatorService */
+    private $pagePartCreator;
+    /** @var  EntityManager */
+    private $em;
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->pagePartCreator = $this->getContainer()->get('kunstmaan_pageparts.pagepart_creator_service');
 
-        $nodes = $em->getRepository('KunstmaanNodeBundle:Node')
+        /** @var EntityManager em */
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $nodes = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->findBy(['deleted' => 0, 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage']);
 
         if(!$nodes) $nodes = [];
@@ -40,7 +48,10 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $this->cacheCompany();
 
         foreach ($nodes as $node) {
+            //$init = microtime();
             $this->addPackages($node);
+
+            //var_dump('packages added to hotel in ' . (microtime() - $init));
         }
 
     }
@@ -51,8 +62,10 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         if(!$hotelPage->getHotelId()) return;
 
+        //$init = microtime();
         $url = 'http://www.hotelliveeb.ee/xml.php?type=package&hotel=' . $hotelPage->getHotelId();
         $content = @file_get_contents($url);
+        //var_dump('page downloaded in ' . (microtime() - $init));
         if(!$content){
             var_dump('couldnot load: '. $url);
             return;
@@ -177,6 +190,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packagePage = new PackagePage();
         $packagePage->setTitle($package->filter('title')->first()->text());
 
+        var_dump($packagePage->getTitle());
+
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($hotelPage);
 
@@ -186,21 +201,28 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         }
 
         $this->setPackagePageFields($package, $packagePage);
+
+        $init = time();
         $newNode = $this->createPackageTranslations($node , $packagePage, $package);
+        var_dump('createPackageTranslations in ' . (time() - $init));
 
         $this->setPackageCompany($newNode);
+
+        $init = time();
         $this->createPackagePageParts($package, $newNode);
+        var_dump('createPackagePageParts in ' . (time() - $init));
 
     }
 
 
     private function createPackagePageParts(Crawler $package, Node $node)
     {
-        $pagePartCreator = $this->getContainer()->get('kunstmaan_pageparts.pagepart_creator_service');
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $langs = ['ee', 'en', 'ru', 'fi', 'se'];
+        $rooms = $package->filter("room");
         //add page parts to all languages
         foreach ($langs as $lang) {
+
+            $init = time();
 
             //add rooms and information
             // Add pageparts
@@ -208,7 +230,6 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             $pageparts = array();
             //add gallery
 
-            $rooms = $package->filter("room");
             if($rooms->count() > 0){
                 for($k=0;$k<$rooms->count();$k++){
                     $room = $rooms->eq($k);
@@ -232,7 +253,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                         $params['setContent'] = $roomContent->first()->text();
                     }
 
-                    $pageparts['rooms'][] = $pagePartCreator
+                    $pageparts['rooms'][] = $this->pagePartCreator
                         ->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart',
                             $params
                         );
@@ -261,12 +282,12 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                             $image = new HotelImage();
                             $image->setImageUrl($url);
                             $imgArr[] = $image;
-                            $em->persist($image);
-                            $em->flush();
+                            $this->em->persist($image);
+                            $this->em->flush();
                         }
                     }
 
-                    $pageparts['information'][] = $pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
+                    $pageparts['information'][] = $this->pagePartCreator->getCreatorArgumentsForPagePartAndProperties('Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart',
                         array(
                             'setImages' => $imgArr,
                             'setName' => $realName,
@@ -276,7 +297,9 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 }
             }
 
-            $pagePartCreator->addPagePartsToPage($node, $pageparts, $lang);
+            //$init = time(); //todo kosmos minimim 2sec per lang = 5langs * 2 = min 10 sec
+            $this->pagePartCreator->addPagePartsToPage($node, $pageparts, $lang);
+            //var_dump('pagepart created in ' . $lang . " " . (time() - $init));
         }
     }
     /**
@@ -316,7 +339,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             for($j=0; $j<$categories->count(); $j++){
                 $category = $categories->eq($j)->text();
 
-                var_dump($category);
+                //var_dump($category);
                 $c = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
                     ->findOneBy(['name' => $category]);
 
