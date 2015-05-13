@@ -107,6 +107,11 @@ AND nt.online = 1';
         return $objects;
     }
 
+    /**
+     * @param $lang
+     * @param Node $node
+     * @return PackagePage[]
+     */
     public function getPackagesByParent($lang, Node $node)
     {
         $dql = "SELECT p
