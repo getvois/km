@@ -43,6 +43,29 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
     }
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", scale=2, precision=8, nullable=true)
+     */
+    private $price;
+
+    /**
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param string $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
      * @var PackagePage
      *
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\Pages\PackagePage")
