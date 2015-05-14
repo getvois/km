@@ -806,7 +806,7 @@ label.directFlight-label,  label.sameDay-label {
 
 .trip-results {
 	border-bottom:2px solid rgba(236, 219, 48, 1);
-	box-shadow: 0 13px 5px -6px #f3f3f3;
+	box-shadow: 0 13px 5px -6px #f3f3
 }
 
 .trip {
@@ -816,9 +816,10 @@ label.directFlight-label,  label.sameDay-label {
     margin-bottom: -1px;
     overflow: visible;
     padding: 13px 16px;
+    height: 72px;
 }
 .trip:first-child {
-}
+} 
 .trip:last-child {
 }
 .trip:hover {
