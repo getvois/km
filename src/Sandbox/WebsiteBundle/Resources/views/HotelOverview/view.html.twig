@@ -75,23 +75,17 @@
                         '</div>'
                         ]);
                     {% if hotel.cheapestPackage %}
-                        {% set  price = hotel.cheapestPackage.minPrice %}
-                            {% if price <= 20 %}
-                            //green
-                            markerIcons.push('http://google-maps-icons.googlecode.com/files/green{{ price|round }}.png');
-                            {% elseif price < 60 %}
-                            //yellow
-                            markerIcons.push('http://google-maps-icons.googlecode.com/files/red{{ price|round }}.png');
-                            {% elseif price > 100 %}
-                                markerIcons.push('http://google-maps-icons.googlecode.com/files/redblank.png');
+                        {% set  price = hotel.cheapestPackage.minPrice|number_format(0) %}
+                            {% if price > 0 %}
+                            markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/generated/marker'~price~'.png') }}');
                             {% else %}
                             //red
-                            markerIcons.push('http://google-maps-icons.googlecode.com/files/black{{ price|round }}.png');
+                            markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/template/marker_b.png') }}');
                             {% endif %}
                     {% elseif hotel.price > 0 %}
-                        markerIcons.push('http://thydzik.com/thydzikGoogleMap/markerlink.php?text={{ hotel.price }}&color=5680FC');
+                        markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/generated/marker_b'~price~'.png') }}');
                     {% else %}
-                        markerIcons.push('http://thydzik.com/thydzikGoogleMap/markerlink.php?text=B&color=5680FC');
+                        markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/template/marker_b.png') }}');
 
                     {% endif %}
 
