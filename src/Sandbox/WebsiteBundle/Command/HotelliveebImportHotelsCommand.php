@@ -104,7 +104,7 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
 
             $newNode = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
 
-            $emailBody .= "node: ". $newNode->getId(). " title:". $hotelPage->getTitle() . "\n";
+            $emailBody .= "node: ". $newNode->getId(). " title:". $hotelPage->getTitle() . "<br/>";
 
             //add page parts to all languages
             foreach ($langs as $lang) {
@@ -181,7 +181,7 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
         }
 
         if($emailBody){
-            $email = "New Hotels added:\n" . $emailBody;
+            $email = "New Hotels added:<br/>" . $emailBody;
             EmailInfoSend::sendEmail($email, 'twp: New hotels');
         }
     }
