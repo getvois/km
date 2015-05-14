@@ -83,7 +83,7 @@
                             markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/template/marker_b.png') }}');
                             {% endif %}
                     {% elseif hotel.price > 0 %}
-                        markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/generated/marker_b'~hotel.price~'.png') }}');
+                        markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/generated/marker_b'~hotel.price|number_format(0)~'.png') }}');
                     {% else %}
                         markerIcons.push('{{ asset('bundles/sandboxwebsite/img/markers/template/marker_b.png') }}');
 
