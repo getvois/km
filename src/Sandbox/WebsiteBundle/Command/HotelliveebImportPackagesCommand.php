@@ -650,7 +650,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
 
         if($needUpdate){
-            $qb->where('p.packageId', $packageId);
+            $qb->where('p.packageId = ' . $packageId);
             $qb->getQuery()->execute();
 
             //if package updated add it to email
