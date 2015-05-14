@@ -178,7 +178,7 @@ function loadMore(){
 
     var $container = $(".travelbase_items:visible");
 
-    if($container.find("> div").outerHeight() < 200 ){
+    if($container.find("> div").outerHeight() < 206 ){
         $container.find("> div").css('height', 'auto');
         return;
     }

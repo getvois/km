@@ -139,7 +139,7 @@ $(document).ready(function() {
     });
 
     function checkHolderHeight($holderId){
-        if($($holderId).outerHeight() < 200 ){
+        if($($holderId).outerHeight() < 206 ){
             $($holderId).css('height', 'auto');
             return true;
         }

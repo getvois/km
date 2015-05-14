@@ -803,6 +803,12 @@ label.directFlight-label,  label.sameDay-label {
 
 
 /* TRIP Result table */
+
+.trip-results {
+	border-bottom:2px solid rgba(236, 219, 48, 1);
+	box-shadow: 0 13px 5px -6px #f3f3f3;
+}
+
 .trip {
     -moz-user-select: none;
     border: none;
@@ -1159,6 +1165,7 @@ label.directFlight-label,  label.sameDay-label {
 
 .select2-container-multi .select2-choices .select2-search-field input{
     padding-left: 42px;
+    font-size: 15px;
     width: calc(100% - 42px);
 }
 #date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
@@ -1497,7 +1504,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     border: 0 solid;
 }
 .travelbase_items > div{
-    height: 100px;
+    height: 205px;
     overflow: hidden;
 }
 #offer-holder, #package-holder{
@@ -1522,6 +1529,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     padding-right: 5px;
 }
 .travelbase_items #loadMore {
+	margin-top: -2px;
     left: 50%;
     background: transparent;
     right: 50%;
@@ -1531,8 +1539,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 }
 .travelbase_items #loadMore span {
     font-size: 33px;
-    background: rgba(236, 217, 27, 0.9);
-    border: 1px solid #bbb;
+    background: rgba(236, 217, 27, 1);
     width: 38px;
     height: 38px;
     padding-top: 3px;
