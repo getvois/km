@@ -571,6 +571,13 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
                 $qb->set('p.numberAdults', $number_adults->first()->text());
             }
         }
+        $title = $package->filter('title');
+        if ($title->count() > 0) {
+            if($packagePage->getTitle() != $title->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.title', $qb->expr()->literal($title->first()->text()));
+            }
+        }
         $number_children = $package->filter('number_children');
         if ($number_children->count() > 0) {
             if($packagePage->getNumberChildren() != $number_children->first()->text()){
