@@ -32,6 +32,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
     /** @var  EntityManager */
     private $em;
 
+    private $emailBody;
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -52,6 +54,12 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             $this->addPackages($node);
 
             //var_dump('packages added to hotel in ' . (microtime() - $init));
+        }
+
+        if($this->emailBody)
+        {
+            $email = "New Packcages added:<br/>" . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'twp: New packages');
         }
 
     }
@@ -205,6 +213,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $init = time();
         $newNode = $this->createPackageTranslations($node , $packagePage, $package);
         var_dump('createPackageTranslations in ' . (time() - $init));
+
+        $this->emailBody  .= "node: ". $newNode->getId(). " title:". $packagePage->getTitle() . "<br/>";
 
         $this->setPackageCompany($newNode);
 
