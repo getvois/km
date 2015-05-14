@@ -589,21 +589,21 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         if ($description->count() > 0) {
             if($packagePage->getDescription() != $description->first()->text()){
                 $needUpdate = true;
-                $qb->set('p.description', $description->first()->text());
+                $qb->set('p.description', $qb->expr()->literal($description->first()->text()));
             }
         }
         $checkin = $package->filter('checkin');
         if ($checkin->count() > 0) {
             if($packagePage->getCheckin() != $checkin->first()->text()){
                 $needUpdate = true;
-                $qb->set('p.checkin', $checkin->first()->text());
+                $qb->set('p.checkin', $qb->expr()->literal($checkin->first()->text()));
             }
         }
         $checkout = $package->filter('checkout');
         if ($checkout->count() > 0) {
             if($packagePage->getCheckout() != $checkout->first()->text()){
                 $needUpdate = true;
-                $qb->set('p.checkout', $checkout->first()->text());
+                $qb->set('p.checkout', $qb->expr()->literal($checkout->first()->text()));
             }
         }
         $minprice = $package->filter('minprice');
@@ -617,7 +617,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         if ($image->count() > 0) {
             if($packagePage->getImage() != $image->first()->text()){
                 $needUpdate = true;
-                $qb->set('p.image', $image->first()->text());
+                $qb->set('p.image', $qb->expr()->literal($image->first()->text()));
             }
         }
 
