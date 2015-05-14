@@ -1538,6 +1538,8 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     position: absolute;
     width: 50px;
 }
+.travelbase_items .loadDiv { border-top-width: 2px; border-top-style: solid; border-top-color: rgb(236, 219, 48); height: auto;}
+
 .travelbase_items #loadMore span {
     font-size: 33px;
     background: rgba(236, 217, 27, 1);
