@@ -174,11 +174,12 @@ Date.prototype.toMysqlFormat = function() {
     return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate());// + " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
 };
 
-function loadMore(){
+function loadMore(button){
 
-    var $container = $(".travelbase_items:visible");
+    console.log('run');
+    var $container = $(button).closest(".travelbase_items");
 
-    if($container.find("> div").outerHeight() < 206 ){
+    if($container.find("> div").outerHeight() < 230 ){
         $container.find("> div").css('height', 'auto');
         return;
     }
@@ -191,12 +192,12 @@ function loadMore(){
     }
 
     $.post('/api-filter/0', JSON.stringify($filter), function (responce) {
-        var $table = $(".travelbase_items:visible").find('> div ');
+        var $table = $container.find('> div ');
         $table.append(responce.html);
 
         if($table.find('> div').length - 1 >= responce.total){
             //hide load more btn
-            $("button[id=loadMore]:visible").hide();
+            $table.find("button[id=loadMore]").hide();
         }
     });
 

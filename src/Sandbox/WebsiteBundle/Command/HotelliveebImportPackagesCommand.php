@@ -185,6 +185,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packageId = $package->filter('id')->first()->text();
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
+            $this->updatePackageFields($package);
 //            $this->setPackagePageFields($package, $packagePage);
 //            $em->persist($packagePage);
 //            $em->flush();
@@ -214,7 +215,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $newNode = $this->createPackageTranslations($node , $packagePage, $package);
         var_dump('createPackageTranslations in ' . (time() - $init));
 
-        $this->emailBody  .= "node: ". $newNode->getId(). " title:". $packagePage->getTitle() . "<br/>";
+        $this->emailBody  .= "NEW node: ". $newNode->getId(). " title:". $packagePage->getTitle() . "<br/>";
 
         $this->setPackageCompany($newNode);
 
@@ -538,5 +539,127 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         if(!$pages) return [];
 
         return $pages;
+    }
+
+    /**
+     * Update existing packages if any data changed
+     * @param Crawler $package
+     * @return bool
+     */
+    private function updatePackageFields(Crawler $package)
+    {
+        $packageId = $package->filter('id');
+        //if no id return
+        if ($packageId->count() <= 0) {
+            return false;
+        }
+        $packageId = $packageId->first()->text();
+
+        $packagePage = $this->em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagePage('ee', $packageId);
+        if(!$packagePage) return false;
+
+        $needUpdate = false;
+
+        $qb = $this->em->createQueryBuilder()
+            ->update('SandboxWebsiteBundle:Pages\PackagePage', 'p');
+
+        $number_adults = $package->filter('number_adults');
+        if ($number_adults->count() > 0) {
+            if($packagePage->getNumberAdults() != $number_adults->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.numberAdults', $number_adults->first()->text());
+            }
+        }
+        $number_children = $package->filter('number_children');
+        if ($number_children->count() > 0) {
+            if($packagePage->getNumberChildren() != $number_children->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.numberChildren', $number_children->first()->text());
+            }
+        }
+        $duration = $package->filter('duration');
+        if ($duration->count() > 0) {
+            if($packagePage->getDuration() != $duration->first()->text()) {
+                $needUpdate = true;
+                $qb->set('p.duration', $duration->first()->text());
+            }
+        }
+        $description = $package->filter('description');
+        if ($description->count() > 0) {
+            if($packagePage->getDescription() != $description->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.description', $description->first()->text());
+            }
+        }
+        $checkin = $package->filter('checkin');
+        if ($checkin->count() > 0) {
+            if($packagePage->getCheckin() != $checkin->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.checkin', $checkin->first()->text());
+            }
+        }
+        $checkout = $package->filter('checkout');
+        if ($checkout->count() > 0) {
+            if($packagePage->getCheckout() != $checkout->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.checkout', $checkout->first()->text());
+            }
+        }
+        $minprice = $package->filter('minprice');
+        if ($minprice->count() > 0) {
+            if($packagePage->getMinprice() != $minprice->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.minprice', $minprice->first()->text());
+            }
+        }
+        $image = $package->filter('image');
+        if ($image->count() > 0) {
+            if($packagePage->getImage() != $image->first()->text()){
+                $needUpdate = true;
+                $qb->set('p.image', $image->first()->text());
+            }
+        }
+
+        //$qb->set('p.originalLanguage', 'ee');
+
+        //set payment methods
+        $payment = $package->filter('paymentmethod');
+        if ($payment->count() > 0) {
+            for($i=0;$i<$payment->count();$i++){
+                if($payment->eq($i)->text() == 'bank'){
+                    if($packagePage->getBankPayment() != true){
+                        $needUpdate = true;
+                        $qb->set('p.bankPayment', true);
+                    }
+                }
+                if($payment->eq($i)->text() == 'creditcard'){
+                    if($packagePage->getCreditcardPayment() != true){
+                        $needUpdate = true;
+                        $qb->set('p.creditcardPayment', true);
+                    }
+                }
+                if($payment->eq($i)->text() == 'onthespot'){
+                    if($packagePage->getOnthespotPayment() != true){
+                        $needUpdate = true;
+                        $qb->set('p.onthespotPayment', true);
+                    }
+                }
+            }
+        }
+
+
+        if($needUpdate){
+            $qb->where('p.packageId', $packageId);
+            $qb->getQuery()->execute();
+
+            //if package updated add it to email
+            $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($packagePage);
+            $this->emailBody  .= "UPDATED node: ". $node->getId(). " title:". $packagePage->getTitle() . "<br/>";
+        }
+
+        return $needUpdate;
+
     }
 }

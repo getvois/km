@@ -76,7 +76,7 @@ AND nt.online = 1';
     /**
      * @param $lang
      * @param $packageId
-     * @return \Sandbox\WebsiteBundle\Entity\Pages\PackagePage[]
+     * @return \Sandbox\WebsiteBundle\Entity\Pages\PackagePage
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getPackagePage($lang, $packageId)
