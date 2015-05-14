@@ -25,6 +25,7 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $emailBody = '';
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
@@ -103,6 +104,8 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
 
             $newNode = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($hotelPage, $translations, $options);
 
+            $emailBody .= "node: ". $newNode->getId(). " title:". $hotelPage->getTitle() . "\n";
+
             //add page parts to all languages
             foreach ($langs as $lang) {
 
@@ -175,6 +178,11 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
                 }
                 $pagePartCreator->addPagePartsToPage($newNode, $pageparts, $lang);
             }
+        }
+
+        if($emailBody){
+            $email = "New Hotels added:\n" . $emailBody;
+            EmailInfoSend::sendEmail($email, 'twp: New hotels');
         }
     }
 
@@ -251,6 +259,8 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
         }
         return $hotelPage;
     }
+
+
 
 
 }
