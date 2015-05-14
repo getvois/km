@@ -95,7 +95,7 @@ AND nt.online = 1';
         $dql .= " AND n.parent = :parent ";
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
-        $dql .= ' ORDER BY p.date ASC ';
+        $dql .= ' ORDER BY p.date DESC ';
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
