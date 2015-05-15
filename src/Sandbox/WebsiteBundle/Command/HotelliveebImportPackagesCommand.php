@@ -62,6 +62,15 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             EmailInfoSend::sendEmail($email, 'twp: HV Packages info');
         }
 
+
+        //translate page titles
+        $command = $this->getApplication()->find('travelbase:translate:packages:title');
+        $command->run($input, $output);
+
+        //translate pageparts titles
+        $command = $this->getApplication()->find('travelbase:translate:hotelliveeb:packages');
+        $command->run($input, $output);
+
     }
     private function addPackages(Node $node)
     {
