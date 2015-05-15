@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
@@ -22,6 +23,63 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo //AbstractPage
 {
+
+    public function getMapInfoWindowHTML(EntityManager $em, $locale)
+    {
+        $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+            ->getNodeTranslationFor($this);
+
+        $html = '';
+
+        $html .= '<div class="info_content"><div class="row">';
+
+        if($this->getCheapestPackage()){
+
+            $translationPackage = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                ->getNodeTranslationFor($this->getCheapestPackage());
+
+
+            $title = $this->getCheapestPackage()->getTitle();
+            if($this->getCheapestPackage()->getTitleTranslated())
+                $title = $this->getCheapestPackage()->getTitleTranslated();
+
+            if($this->getCheapestPackage()->getImage()){
+                $html .= '<div class="col-xs-3">';
+                $html .= '<img src="'.$this->getCheapestPackage()->getImage().'" class="img-responsive">';
+                $html .= '</div>';
+                $html .= '<div class="col-xs-6">';
+                $html .= "<h4>$title</h4>";
+                $html .= "<p><a href=\"/" . $translationPackage->getFullSlug() . "\">book now</a></p>";
+                $html .= "<p><a href=\"/" . $translation->getFullSlug() . "\">hotel</a></p>";
+                $html .= '</div>';
+                $html .= '<div class="col-xs-3">';
+                $html .= "<p class=\"info-window-price\">" . $this->getCheapestPackage()->getMinprice() . "</p>";
+                $html .= '</div>';
+            }else{
+                $html .= '<div class="col-xs-9">';
+                $html .= "<h4>$title</h4>";
+                $html .= "<p><a href=\"/" . $translationPackage->getFullSlug() . "\">book now</a></p>";
+                $html .= "<p><a href=\"/" . $translation->getFullSlug() . "\">hotel</a></p>";
+                $html .= '</div>';
+                $html .= '<div class="col-xs-3">';
+                $html .= "<p class=\"info-window-price\">" . $this->getCheapestPackage()->getMinprice() . "</p>";
+                $html .= '</div>';
+            }
+
+        }else{
+            $html .= '<div class="col-xs-12">';
+            $html .= "<h4>" . $this->getTitle() . "</h4>";
+            $html .= "<p>" . $this->getShortDescription() . "</p>";
+            $html .= "<p><a href=\"/" . $translation->getFullSlug() . "\">hotel</a></p>";
+            $html .= '<p><a href="http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss={{ hotel.title }}">booking.com</a></p>';
+            $html .= '</div>';
+        }
+
+        $html .= '</div></div>';
+
+        return $html;
+    }
+
 
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {

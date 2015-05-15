@@ -1468,15 +1468,27 @@ span.city-picker-close:hover {
 }
 
 /* Bootstrap Css Map Fix*/
-#map_canvas img {
+#map_canvas img:not(.img-responsive) {
     max-width: none;
 }
 /* Bootstrap Css Map Fix*/
 #map_canvas label {
     width: auto; display:inline;
 }
+#map_canvas img.img-responsive {
+    max-width: 100% !important;
+}
+.info_content .row{
+    margin: 0;
 
-
+}
+.info_content{
+    width: 400px;
+}
+.info-window-price{
+    font-size: 24px;
+    color:#ff7e0c ;
+}
 
 /* old needs refactoring */
 

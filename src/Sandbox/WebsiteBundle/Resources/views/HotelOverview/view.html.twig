@@ -64,21 +64,7 @@
                 markers.push(['{{ hotel.title }}', {{ hotel.latitude }}, {{ hotel.longitude }}]);
                 // Info Window Content
                 infoWindowContent.push(
-                        ['<div class="info_content">' +
-                        '<h3>{{ hotel.title }}</h3>' +
-                        '<p>{{ hotel.shortDescription }}</p>' +
-                        {% if hotel.cheapestPackage %}
-                            {% set title = hotel.cheapestPackage.title %}
-                            {% if hotel.cheapestPackage.titleTranslated %}
-                                {% set title = hotel.cheapestPackage.titleTranslated %}
-                            {% endif %}
-
-                        '<p>{{ title }} {{ hotel.cheapestPackage.minPrice }}</p>' +
-                        {% else %}
-                        '<p>{{ hotel.price }}. <a href="http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss={{ hotel.title }}">booking.com</a></p>' +
-                        {% endif %}
-                        '</div>'
-                        ]);
+                        ['{{ hotel.getMapInfoWindowHTML(em, app.request.locale)|raw }}']);
                     {% if hotel.cheapestPackage %}
                         {% set  price = hotel.cheapestPackage.minPrice|number_format(0) %}
                             {% if price > 0 %}
