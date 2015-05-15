@@ -176,20 +176,25 @@ Date.prototype.toMysqlFormat = function() {
 
 function loadMore(button){
 
-    console.log('run');
     var $container = $(button).closest(".travelbase_items");
+    var $tr = $container.find("> div > div ");
 
     if($container.find("> div").outerHeight() < 230 ){
         $container.find("> div").css('height', 'auto');
+
+        if($tr.length >= $(button).data('total')){
+            $(button).hide();
+        }
         return;
     }
 
     var $filter = getFilter();
 
-    var $tr = $container.find("> div > div ");
     if($tr.length > 1){//1 because of header
         $filter.offset = $tr.length - 1 ;
     }
+
+
 
     $.post('/api-filter/0', JSON.stringify($filter), function (responce) {
         var $table = $container.find('> div ');
@@ -215,12 +220,12 @@ function loadMore(button){
             }
 
             $rows += '<script>$(".my-popover").popover();</script><script></script>';
-            var $table = $(".travelbase_items:visible").find('table');
+            var $table = $container.find('table');
             $table.append($rows);
 
             if($table.find('tr').length - 1 >= $data.total){
                 //hide load more btn
-                $("#loadMore").hide();
+                $(button).hide();
             }
 
 
