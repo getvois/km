@@ -704,10 +704,12 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $page = $this->em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->getPackagePage('ee', $package->filter('id')->first()->text());
 
+        if(!$page) return;
+
         $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($page);
 
-        if(!$page || !$node) return;
+        if(!$node) return;
 
         $pageParts = $this->em->getRepository('KunstmaanPagePartBundle:PagePartRef')
             ->getPageParts($page, 'rooms');
