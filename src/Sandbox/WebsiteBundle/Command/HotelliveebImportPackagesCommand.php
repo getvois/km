@@ -716,7 +716,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         if(count($pageParts) > $rooms->count()){
             //some room vas deleted
             //delete page parts
-            //todo delete pp
+            $this->deletePageParts($node, 'room');
             //update pageparts
             $this->createPackagePageParts($package, $node);
 
@@ -765,7 +765,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
             if($needUpdate){
                 //delete page parts
-                //todo delete pp
+                $this->deletePageParts($node, 'room');
                 //update pageparts
                 $this->createPackagePageParts($package, $node);
             }
@@ -780,7 +780,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         if(count($pageParts) > $info->count()){
             //some info vas deleted
             //delete page parts
-            //todo delete pp
+            $this->deletePageParts($node, 'information');
             //update pageparts
             $this->createPackagePageParts($package, $node);
 
@@ -816,11 +816,47 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
             if($needUpdate){
                 //delete page parts
-                //todo delete pp
+                $this->deletePageParts($node, 'information');
                 //update pageparts
                 $this->createPackagePageParts($package, $node);
             }
         }
 
+    }
+
+    private function deletePageParts(Node $node, $context)
+    {
+        $pageClassname = 'Sandbox\WebsiteBundle\Entity\Pages\PackagePage';
+        $translations = $node->getNodeTranslations(true);
+
+        $pagepartClassname = '';
+        if($context == 'room'){
+            $pagepartClassname = 'Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart';
+        }elseif($context == 'information'){
+            $pagepartClassname = 'Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart';
+        }
+        if(!$pagepartClassname) return;
+
+        $pageIds = [];
+        /** @var NodeTranslation $translation */
+        foreach ($translations as $translation) {
+            /** @var PackagePage $page */
+            $page = $translation->getRef($this->em);
+            if($page){
+                $pageIds[] = $page->getId();
+            }
+        }
+
+        $sql = 'DELETE FROM KunstmaanPagePartBundle:PagePartRef pp
+                 WHERE pp.pageEntityname = :pageEntityname
+                   AND pp.pageId IN(:pageId)
+                   AND pp.pagePartEntityname = :pagePartEntityname
+                   AND pp.context = :context';
+
+        $this->em->createQuery($sql)
+            ->setParameter('pageEntityname', $pageClassname)
+            ->setParameter('pageId', $pageIds)
+            ->setParameter('pagePartEntityname', $pagepartClassname)
+            ->setParameter('context', $context)->execute();
     }
 }
