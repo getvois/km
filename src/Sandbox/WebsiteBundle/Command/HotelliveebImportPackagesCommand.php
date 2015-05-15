@@ -722,6 +722,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             //update pageparts
             $this->createPackagePageParts($package, $node);
 
+            $this->emailBody .= 'PAGE PARTS UPDATED rooms node: ' . $node->getId();
+
         }else{
             //check if names were changed
 
@@ -770,6 +772,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
                 $this->deletePageParts($node, 'room');
                 //update pageparts
                 $this->createPackagePageParts($package, $node);
+                $this->emailBody .= 'PAGE PARTS UPDATED rooms node: ' . $node->getId();
+
             }
 
         }
@@ -785,6 +789,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             $this->deletePageParts($node, 'information');
             //update pageparts
             $this->createPackagePageParts($package, $node);
+            $this->emailBody .= 'PAGE PARTS UPDATED information node: ' . $node->getId();
+
 
         }else{
             //check if names was changed
@@ -821,6 +827,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
                 $this->deletePageParts($node, 'information');
                 //update pageparts
                 $this->createPackagePageParts($package, $node);
+                $this->emailBody .= 'PAGE PARTS UPDATED information node: ' . $node->getId();
+
             }
         }
 
