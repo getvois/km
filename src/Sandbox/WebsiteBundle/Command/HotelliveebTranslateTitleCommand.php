@@ -14,19 +14,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
 
     private $key = 'AIzaSyAfEHbffAkg6FoOqpCEUdgn9EGrONKiZeM';
+    private $emailBody = '';
 
     protected function configure()
     {
         $this
             ->setName('travelbase:translate:packages:title')
-            ->setDescription('Translate packages title to fin')
+            ->setDescription('Translate packages title to fin and ru')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->translateFi();
-        //$this->translateRu();
+        $this->translateRu();
+
+        if($this->emailBody){
+            $email = 'HV Package titles translated<br/>' . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'HV Package titles translated');
+        }
     }
 
     private function translateFi()
@@ -76,6 +82,7 @@ class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
 
                         $em->flush();
                         var_dump('(EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                        $this->emailBody .= 'Node: ' . $translation->getNode()->getId() . ' (EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName .'<br/>';
                     }else{
                         var_dump($data);
                     }
