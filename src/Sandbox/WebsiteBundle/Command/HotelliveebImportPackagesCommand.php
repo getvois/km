@@ -58,8 +58,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         if($this->emailBody)
         {
-            $email = "Packcages added/updated:<br/>" . $this->emailBody;
-            EmailInfoSend::sendEmail($email, 'twp: Packages info');
+            $email = "HV Packcages added/updated:<br/>" . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'twp: HV Packages info');
         }
 
     }
