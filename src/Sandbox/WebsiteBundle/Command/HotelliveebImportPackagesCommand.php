@@ -576,6 +576,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             if($packagePage->getTitle() != $title->first()->text()){
                 $needUpdate = true;
                 $qb->set('p.title', $qb->expr()->literal($title->first()->text()));
+                $qb->set('p.titleTranslated', $qb->expr()->literal(''));
             }
         }
         $number_children = $package->filter('number_children');
