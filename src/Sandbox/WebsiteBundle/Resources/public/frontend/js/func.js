@@ -183,7 +183,7 @@ function loadMore(button){
         $container.find("> div").css('height', 'auto');
 
         if($tr.length >= $(button).data('total')){
-            $(button).hide();
+            $(button).parent().hide();
         }
         return;
     }
@@ -202,7 +202,7 @@ function loadMore(button){
 
         if($table.find('> div').length - 1 >= responce.total){
             //hide load more btn
-            $table.find("button[id=loadMore]").hide();
+            $table.find("button[id=loadMore]").parent().hide();
         }
     });
 
@@ -225,7 +225,7 @@ function loadMore(button){
 
             if($table.find('tr').length - 1 >= $data.total){
                 //hide load more btn
-                $(button).hide();
+                $(button).parent().hide();
             }
 
 
