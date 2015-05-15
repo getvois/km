@@ -13,19 +13,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 class HotelliveebTranslateCommand extends ContainerAwareCommand{
 
     private $key = 'AIzaSyAfEHbffAkg6FoOqpCEUdgn9EGrONKiZeM';
+    private $emailBody = '';
 
     protected function configure()
     {
         $this
             ->setName('travelbase:translate:hotelliveeb:packages')
-            ->setDescription('Translate hotelliveeb packages title to fin + slug')
+            ->setDescription('Translate hotelliveeb packages pageparts fin and ru')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->translateFi();
-        //$this->translateRu();
+        $this->translateRu();
+
+        if($this->emailBody){
+            $email = 'HV Package pageparts titles translated<br/>' . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'HV Package pageparts titles translated');
+        }
     }
 
     private function translateFi()
@@ -74,7 +80,12 @@ class HotelliveebTranslateCommand extends ContainerAwareCommand{
                                 $pagepart->setNameTranslated($translatedName);
                                 $em->persist($pagepart);
 
+                                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                                    ->getNodeFor($package);
+
                                 var_dump('(EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                                $this->emailBody .= 'Node: ' . $node->getId() . ' (EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName .'<br/>';
+
                             }else{
                                 var_dump($data);
                             }

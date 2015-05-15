@@ -14,19 +14,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 class OffersTranslateTitleCommand extends ContainerAwareCommand{
 
     private $key = 'AIzaSyAfEHbffAkg6FoOqpCEUdgn9EGrONKiZeM';
+    private $emailBody = '';
 
     protected function configure()
     {
         $this
             ->setName('travelbase:translate:offers:title')
-            ->setDescription('Translate packages title to ee + slug')
+            ->setDescription('Translate packages title to ee ru + slug')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        //$this->translateEe();
+        $this->translateEe();
         $this->translateRu();
+
+        if($this->emailBody){
+            $email = 'Offers titles translated<br/>' . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'Offers titles translated');
+        }
     }
 
     private function translateEe()
@@ -78,6 +84,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
 
                         $em->flush();
                         var_dump('(FI)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                        $this->emailBody .= 'Node: ' . $translation->getNode()->getId() . ' (FI)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName .'<br/>';
                     }else{
                         var_dump($data);
                     }
