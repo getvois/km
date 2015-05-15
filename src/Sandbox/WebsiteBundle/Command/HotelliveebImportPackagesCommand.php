@@ -548,6 +548,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
      */
     private function updatePackageFields(Crawler $package)
     {
+
+        $emailAdd = '';
         $packageId = $package->filter('id');
         //if no id return
         if ($packageId->count() <= 0) {
@@ -567,6 +569,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $number_adults = $package->filter('number_adults');
         if ($number_adults->count() > 0) {
             if($packagePage->getNumberAdults() != $number_adults->first()->text()){
+                $emailAdd .= 'number_adults changed from ' . $packagePage->getNumberAdults() . ' to ' . $number_adults->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.numberAdults', $number_adults->first()->text());
             }
@@ -574,14 +577,17 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $title = $package->filter('title');
         if ($title->count() > 0) {
             if($packagePage->getTitle() != $title->first()->text()){
+                $emailAdd .= 'Title changed from ' . $packagePage->getTitle() . ' to ' . $title->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.title', $qb->expr()->literal($title->first()->text()));
-                $qb->set('p.titleTranslated', $qb->expr()->literal(''));
+                //just inform about update
+                //$qb->set('p.titleTranslated', $qb->expr()->literal(''));
             }
         }
         $number_children = $package->filter('number_children');
         if ($number_children->count() > 0) {
             if($packagePage->getNumberChildren() != $number_children->first()->text()){
+                $emailAdd .= 'number_children changed from ' . $packagePage->getNumberChildren() . ' to ' . $number_children->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.numberChildren', $number_children->first()->text());
             }
@@ -589,6 +595,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $duration = $package->filter('duration');
         if ($duration->count() > 0) {
             if($packagePage->getDuration() != $duration->first()->text()) {
+                $emailAdd .= 'duration changed from ' . $packagePage->getDuration() . ' to ' . $duration->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.duration', $duration->first()->text());
             }
@@ -596,6 +603,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $description = $package->filter('description');
         if ($description->count() > 0) {
             if($packagePage->getDescription() != $description->first()->text()){
+                $emailAdd .= 'description changed from ' . $packagePage->getDescription() . ' to ' . $description->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.description', $qb->expr()->literal($description->first()->text()));
             }
@@ -603,6 +611,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $checkin = $package->filter('checkin');
         if ($checkin->count() > 0) {
             if($packagePage->getCheckin() != $checkin->first()->text()){
+                $emailAdd .= 'checkin changed from ' . $packagePage->getCheckin() . ' to ' . $checkin->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.checkin', $qb->expr()->literal($checkin->first()->text()));
             }
@@ -610,6 +619,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $checkout = $package->filter('checkout');
         if ($checkout->count() > 0) {
             if($packagePage->getCheckout() != $checkout->first()->text()){
+                $emailAdd .= 'checkout changed from ' . $packagePage->getCheckout() . ' to ' . $checkout->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.checkout', $qb->expr()->literal($checkout->first()->text()));
             }
@@ -617,6 +627,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $minprice = $package->filter('minprice');
         if ($minprice->count() > 0) {
             if($packagePage->getMinprice() != $minprice->first()->text()){
+                $emailAdd .= 'minprice changed from ' . $packagePage->getMinprice() . ' to ' . $minprice->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.minprice', $minprice->first()->text());
             }
@@ -624,6 +635,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $image = $package->filter('image');
         if ($image->count() > 0) {
             if($packagePage->getImage() != $image->first()->text()){
+                $emailAdd .= 'image changed from ' . $packagePage->getImage() . ' to ' . $image->first()->text() . " <br/>";
                 $needUpdate = true;
                 $qb->set('p.image', $qb->expr()->literal($image->first()->text()));
             }
@@ -637,18 +649,21 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             for($i=0;$i<$payment->count();$i++){
                 if($payment->eq($i)->text() == 'bank'){
                     if($packagePage->getBankPayment() != true){
+                        $emailAdd .= 'bank changed from false to true <br/>';
                         $needUpdate = true;
                         $qb->set('p.bankPayment', true);
                     }
                 }
                 if($payment->eq($i)->text() == 'creditcard'){
                     if($packagePage->getCreditcardPayment() != true){
+                        $emailAdd .= 'creditcard changed from false to true <br/>';
                         $needUpdate = true;
                         $qb->set('p.creditcardPayment', true);
                     }
                 }
                 if($payment->eq($i)->text() == 'onthespot'){
                     if($packagePage->getOnthespotPayment() != true){
+                        $emailAdd .= 'onthespot changed from false to true <br/>';
                         $needUpdate = true;
                         $qb->set('p.onthespotPayment', true);
                     }
@@ -665,6 +680,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($packagePage);
             $this->emailBody  .= "UPDATED node: ". $node->getId(). " title:". $packagePage->getTitle() . "<br/>";
+            $this->emailBody .= $emailAdd;
         }
 
         return $needUpdate;
