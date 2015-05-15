@@ -10,6 +10,8 @@ use Kunstmaan\PagePartBundle\Helper\Services\PagePartCreatorService;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\HotelImage;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
+use Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart;
+use Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -195,6 +197,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
             $this->updatePackageFields($package);
+            $this->updatePageParts($package, $packagePage);
 //            $this->setPackagePageFields($package, $packagePage);
 //            $em->persist($packagePage);
 //            $em->flush();
@@ -693,6 +696,131 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         }
 
         return $needUpdate;
+
+    }
+
+    private function updatePageParts(Crawler $package, PackagePage $packagePage)
+    {
+        $page = $this->em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+            ->getPackagePage('ee', $package->filter('id')->first()->text());
+
+        $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($page);
+
+        if(!$page || !$node) return;
+
+        $pageParts = $this->em->getRepository('KunstmaanPagePartBundle:PagePartRef')
+            ->getPageParts($page, 'rooms');
+
+        $rooms = $package->filter("room");
+        if(count($pageParts) > $rooms->count()){
+            //some room vas deleted
+            //delete page parts
+            //todo delete pp
+            //update pageparts
+            $this->createPackagePageParts($package, $node);
+
+        }else{
+            //check if names were changed
+
+            $needUpdate = false;
+
+            for($k=0;$k<$rooms->count();$k++){
+                $room = $rooms->eq($k);
+
+                $params = [];
+
+                $name = '';
+                $image = '';
+                $content = '';
+                $roomName = $room->filter('name');
+                if($roomName->count() > 0){
+                    $name = $roomName->first()->text();
+                }
+                $roomImage = $room->filter('image');
+                if($roomImage->count() > 0){
+                    $image = $roomImage->first()->text();
+                }
+                $roomContent = $room->filter('content');
+                if($roomContent->count() > 0){
+                    $content = $roomContent->first()->text();
+                }
+
+                $found = false;
+                /** @var RoomPagePart $pagePart */
+                foreach ($pageParts as $pagePart) {
+                    if($pagePart->getName() == $name
+                    && $pagePart->getImage() == $image
+                    && $pagePart->getContent() == $content){
+                        $found = true;
+                    }
+                }
+
+
+                if(!$found){
+                    $needUpdate = true;
+                    break;
+                }
+            }
+
+            if($needUpdate){
+                //delete page parts
+                //todo delete pp
+                //update pageparts
+                $this->createPackagePageParts($package, $node);
+            }
+
+        }
+
+
+        $pageParts = $this->em->getRepository('KunstmaanPagePartBundle:PagePartRef')
+            ->getPageParts($page, 'information');
+
+        $info = $package->filter('information item');
+        if(count($pageParts) > $info->count()){
+            //some info vas deleted
+            //delete page parts
+            //todo delete pp
+            //update pageparts
+            $this->createPackagePageParts($package, $node);
+
+        }else{
+            //check if names was changed
+            $needUpdate = false;
+
+            for($k=0;$k<$info->count();$k++){
+                $name = $info->eq($k)->filter('name');
+                $description = $info->eq($k)->filter('description');
+                $image = $info->eq($k)->filter('image');
+
+                $realName = '';
+                if($name->count() > 0){$realName = $name->first()->text();}
+                $realDescription = '';
+                if($description->count() > 0){$realDescription = $description->first()->text();}
+
+
+                $found = false;
+                /** @var HotelInformationPagePart $pagePart */
+                foreach ($pageParts as $pagePart) {
+                    if($pagePart->getName() == $realName
+                    && $pagePart->getDescription() == $realDescription){
+                        $found = true;
+                    }
+                }
+
+                if(!$found){
+                    $needUpdate = true;
+                    break;
+                }
+            }
+
+            if($needUpdate){
+                //delete page parts
+                //todo delete pp
+                //update pageparts
+                $this->createPackagePageParts($package, $node);
+            }
+        }
 
     }
 }
