@@ -53,6 +53,8 @@ class HotelInfoWindowHTMLExtension extends \Twig_Extension{
             if($hotelPage->getCheapestPackage()->getTitleTranslated())
                 $title = $hotelPage->getCheapestPackage()->getTitleTranslated();
 
+            $title = str_replace("'", "\'", $title);
+
             if($hotelPage->getCheapestPackage()->getImage()){
                 $html .= '<div class="col-xs-3">';
                 $html .= '<img src="'.$hotelPage->getCheapestPackage()->getImage().'" class="img-responsive">';
@@ -77,8 +79,12 @@ class HotelInfoWindowHTMLExtension extends \Twig_Extension{
             }
 
         }else{
+
+            $title = $hotelPage->getTitle();
+            $title = str_replace("'", "\'", $title);
+
             $html .= '<div class="col-xs-12">';
-            $html .= "<h4>" . $hotelPage->getTitle() . "</h4>";
+            $html .= "<h4>" . $title . "</h4>";
             $html .= "<p>" . $hotelPage->getShortDescription() . "</p>";
             $html .= "<p><a href=\"" . $this->router->generate('_slug', ['url' => $translation->getFullSlug()]) . "\">hotel</a></p>";
             $html .= '<p><a href="http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss={{ hotel.title }}">booking.com</a></p>';
