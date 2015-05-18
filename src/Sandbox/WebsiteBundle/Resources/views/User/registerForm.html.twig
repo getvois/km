@@ -4,8 +4,8 @@
     <div class="row" id="offer-holder">
         {{ render(controller('SandboxWebsiteBundle:Offer:getOfferPages')) }}
     </div>
-    <div id="offer-pager">
-        <a href="#" class="btn btn-default">{{ 'load.more'|trans({}, 'frontend') }}</a>
+    <div id="offer-pager" class="loadDiv">
+        <a href="#" ><span class="fa fa-angle-double-down"></span></a>
     </div>
 
     {% if app.request.query.has('email') %}

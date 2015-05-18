@@ -1541,7 +1541,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     white-space: nowrap;
     padding-right: 5px;
 }
-.travelbase_items #loadMore {
+.travelbase_items #loadMore, .loadDiv a {
 	margin-top: -2px;
     left: 50%;
     background: transparent;
@@ -1550,9 +1550,12 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     position: absolute;
     width: 50px;
 }
-.travelbase_items .loadDiv { border-top-width: 2px; border-top-style: solid; border-top-color: rgb(236, 219, 48); height: auto;}
+.loadDiv {
+    border-top: 2px solid rgb(236, 219, 48);
+    height: auto;
+}
 
-.travelbase_items #loadMore span {
+.travelbase_items #loadMore span, .loadDiv span{
     font-size: 33px;
     background: rgba(236, 217, 27, 1);
     width: 38px;
@@ -1560,11 +1563,16 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     padding-top: 3px;
     color: #00BE8D;
 }
-.travelbase_items #loadMore span:before {
+
+.loadDiv a span{
+    padding-left: 8px;
+}
+
+.travelbase_items #loadMore span:before, .loadDiv span:before {
     text-shadow: 1px 1px 1px #aaa;
     color: #fff;
 }
-.travelbase_items #loadMore span:hover:before {
+.travelbase_items #loadMore span:hover:before, .loadDiv span:hover:before {
     text-shadow: 1px 1px 1px #00BE8D;
     color: #bbb;
 }
