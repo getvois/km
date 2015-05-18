@@ -231,12 +231,22 @@ class PackageController extends Controller
                     ->getNodeFor($package->getCountry());
                 if($host){
                     //if country in host and equal to node id
-                    if($package->getCountry() && $package->getCountry()->getHosts()->contains($host) && $node->getId() == $nodeId){
-                        $places[$node->getId()] = $package->getCountry();
+                    if($package->getCountry()->getHosts()->contains($host) && $node->getId() == $nodeId){
+                        foreach ($package->getPlaces() as $place) {
+                            if($place->getHosts()->contains($host)){
+                                $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                    ->getNodeFor($place);
+                                $places[$placeNode->getId()] = $place;
+                            }
+                        }
                     }
                 }else{
-                    if($package->getCountry() && $node->getId() == $nodeId){
-                        $places[$node->getId()] = $package->getCountry();
+                    if($node->getId() == $nodeId){
+                        foreach ($package->getPlaces() as $place) {
+                            $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                ->getNodeFor($place);
+                            $places[$placeNode->getId()] = $place;
+                        }
                     }
                 }
             }
