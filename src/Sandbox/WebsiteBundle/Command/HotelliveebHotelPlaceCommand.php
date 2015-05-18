@@ -78,7 +78,6 @@ class HotelliveebHotelPlaceCommand extends ContainerAwareCommand{
                     $placePage = $translation->getRef($em);
                     if($placePage){
                         $page->addPlace($placePage);
-                        $em->persist($page);
                     }
                 }
 
@@ -92,8 +91,8 @@ class HotelliveebHotelPlaceCommand extends ContainerAwareCommand{
                         $page->setCountryPlace($countryPage);
                     }
                 }
+                $em->persist($page);
             }
-
         }
         $em->flush();
 
