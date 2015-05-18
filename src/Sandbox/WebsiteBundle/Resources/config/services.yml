@@ -39,6 +39,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    sandboxwebsitebundle.hotelinfohtml:
+        class: Sandbox\WebsiteBundle\Twig\Extension\HotelInfoWindowHTMLExtension
+        arguments: ["@doctrine.orm.entity_manager", "@router"]
+        tags:
+            - { name: twig.extension }
+
     sandboxwebsitebundle.instanceofextension:
         class: Sandbox\WebsiteBundle\Twig\Extension\InstanceOfExtension
         tags:

@@ -64,7 +64,7 @@
                 markers.push(['{{ hotel.title }}', {{ hotel.latitude }}, {{ hotel.longitude }}]);
                 // Info Window Content
                 infoWindowContent.push(
-                        ['{{ hotel.getMapInfoWindowHTML(em, app.request.locale)|raw }}']);
+                        ['{{ hotel_info_window(hotel)|raw }}']);
                     {% if hotel.cheapestPackage %}
                         {% set  price = hotel.cheapestPackage.minPrice|number_format(0) %}
                             {% if price > 0 %}
