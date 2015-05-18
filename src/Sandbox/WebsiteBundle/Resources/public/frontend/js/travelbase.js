@@ -11,12 +11,20 @@ $(document).ready(function() {
         if($(e.target).data('type') == 'packages'){
             var container = document.querySelector('#package-holder');
             new Isotope( container, {itemSelector: '.package'});
-            //$('#package-holder').css('height', '100px');
+
+            $('#package-holder')
+                .data('height', $(container).outerHeight())
+                .css('height', '100px');
+            $('#package-pager').show();
         }
         if($(e.target).data('type') == 'club'){
             var container = document.querySelector('#offer-holder');
             new Isotope( container, {itemSelector: '.offer'});
-            //$('#offer-holder').css('height', '100px');
+
+            $('#offer-holder')
+                .data('height', $(container).outerHeight())
+                .css('height', '100px');
+            $('#offer-pager').show();
         }
 
         if($(e.target).data('form')){
@@ -27,8 +35,8 @@ $(document).ready(function() {
         }
     });
     //hide because of isotope behavior
-    $('#package-pager').hide();
-    $('#offer-pager').hide();
+    //$('#package-pager').hide();
+    //$('#offer-pager').hide();
 
 
     function hotelOverviewIsotope(){
@@ -148,7 +156,11 @@ $(document).ready(function() {
 
     function checkHolderHeight($holderId){
         if($($holderId).outerHeight() < 206 ){
-            $($holderId).css('height', 'auto');
+            if($($holderId).data('height')){
+                $($holderId).css('height', $($holderId).data('height') + "px");
+            }else{
+                $($holderId).css('height', 'auto');
+            }
             return true;
         }
         return false;
@@ -158,6 +170,7 @@ $(document).ready(function() {
 
         var $package3 = $('#package-pager');
         if(checkHolderHeight('#package-holder')) {
+
             $package3.hide();
             return false;
         }
