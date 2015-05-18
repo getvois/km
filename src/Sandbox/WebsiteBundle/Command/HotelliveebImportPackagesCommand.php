@@ -892,6 +892,8 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             $page = $translation->getRef($this->em);
             if(!$page) continue;
 
+            $page->removeAllPlaces();
+
             $hotelTrans = $node->getParent()->getNodeTranslation($lang, true);
             if($hotelTrans){
                 $hotelPage = $hotelTrans->getRef($this->em);
