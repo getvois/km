@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Command;
 
 
+use Kunstmaan\NodeBundle\Entity\Node;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,6 +32,7 @@ class ChangeParentCommand extends ContainerAwareCommand
     {
         $em=$this->getContainer()->get('doctrine')->getManager();
 
+        /** @var Node $child */
         $child = $em->getRepository('KunstmaanNodeBundle:Node')
             ->find($input->getArgument('child'));
         if(!$child) {
