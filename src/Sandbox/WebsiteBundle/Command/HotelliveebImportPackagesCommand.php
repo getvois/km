@@ -409,8 +409,12 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 if($hotelPage){
                     foreach ($hotelPage->getPlaces() as $place) {
                         $page->addPlace($place);
-                        $em->persist($page);
                     }
+
+                    //set country
+                    $page->setCountry($hotelPage->getCountryPlace());
+
+                    $em->persist($page);
                     $em->flush();
                 }
             }
@@ -896,12 +900,17 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
             $hotelTrans = $node->getParent()->getNodeTranslation($lang, true);
             if($hotelTrans){
+                /** @var HotelPage $hotelPage */
                 $hotelPage = $hotelTrans->getRef($this->em);
                 if($hotelPage){
                     foreach ($hotelPage->getPlaces() as $place) {
                         $page->addPlace($place);
-                        $this->em->persist($page);
                     }
+
+                    //set country
+                    $page->setCountry($hotelPage->getCountryPlace());
+
+                    $this->em->persist($page);
                     $this->em->flush();
                 }
             }
