@@ -30,9 +30,23 @@ class ChangeParentCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em=$this->getContainer()->get('doctrine')->getManager();
-        $child=$em->getRepository('KunstmaanNodeBundle:Node')->find($input->getArgument('child'));
-        $parent=$em->getRepository('KunstmaanNodeBundle:Node')->find($input->getArgument('parent'));
+
+        $child = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->find($input->getArgument('child'));
+        if(!$child) {
+            $output->writeln('child does not exist.');
+            return;
+        }
+
+        $parent = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->find($input->getArgument('parent'));
+        if(!$parent){
+            $output->writeln('parent does not exist.');
+            return;
+        }
+
         $child->setParent($parent);
+
         $em->persist($child);
         $em->flush();
         $output->writeln('Done.');
