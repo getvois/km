@@ -20,6 +20,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
+    private $langs = ['ee', 'en', 'ru', 'fi', 'se'];
+
     protected function configure()
     {
         $this
@@ -196,8 +198,10 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packageId = $package->filter('id')->first()->text();
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
+            var_dump('Updating package: ' . $packagePage->getTitle());
             $this->updatePackageFields($package);
             $this->updatePageParts($package, $packagePage);
+            $this->setPlaces($packagePage);
 //            $this->setPackagePageFields($package, $packagePage);
 //            $em->persist($packagePage);
 //            $em->flush();
@@ -240,12 +244,11 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private function createPackagePageParts(Crawler $package, Node $node)
     {
-        $langs = ['ee', 'en', 'ru', 'fi', 'se'];
         $rooms = $package->filter("room");
         //add page parts to all languages
-        foreach ($langs as $lang) {
+        foreach ($this->langs as $lang) {
 
-            $init = time();
+            //$init = time();
 
             //add rooms and information
             // Add pageparts
@@ -333,9 +336,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
      */
     private function createPackageTranslations($node, PackagePage $packagePage, Crawler $package)
     {
-        $langs = ['ee', 'en', 'ru', 'fi', 'se'];
         $translations = [];
-        foreach ($langs as $lang) {
+        foreach ($this->langs as $lang) {
             $translations[] = array('language' => $lang, 'callback' => function($page, $translation, $seo) {
                 /** @var $page PackagePage */
                 /** @var $translation NodeTranslation */
@@ -393,7 +395,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $node = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($packagePage, $translations, $options);
 
         //bind package to place from hotel
-        foreach ($langs as $lang) {
+        foreach ($this->langs as $lang) {
             $translation = $node->getNodeTranslation($lang, true);
             if(!$translation) continue;
 
@@ -868,5 +870,39 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
             ->setParameter('pageId', $pageIds)
             ->setParameter('pagePartEntityname', $pagepartClassname)
             ->setParameter('context', $context)->execute();
+    }
+
+    /**
+     * Set package places from hotel parent
+     * @param PackagePage $packagePage
+     */
+    private function setPlaces(PackagePage $packagePage)
+    {
+        $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($packagePage);
+
+        if(!$node) return;
+
+        //bind package to place from hotel
+        foreach ($this->langs as $lang) {
+            $translation = $node->getNodeTranslation($lang, true);
+            if(!$translation) continue;
+
+            /** @var PackagePage $page */
+            $page = $translation->getRef($this->em);
+            if(!$page) continue;
+
+            $hotelTrans = $node->getParent()->getNodeTranslation($lang, true);
+            if($hotelTrans){
+                $hotelPage = $hotelTrans->getRef($this->em);
+                if($hotelPage){
+                    foreach ($hotelPage->getPlaces() as $place) {
+                        $page->addPlace($place);
+                        $this->em->persist($page);
+                    }
+                    $this->em->flush();
+                }
+            }
+        }
     }
 }
