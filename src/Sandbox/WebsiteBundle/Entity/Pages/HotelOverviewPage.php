@@ -41,22 +41,26 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         if(!$hotels) $hotels = [];
 
 
+        $filteredHotels = [];
+
         $places = [];
         foreach ($hotels as $hotel) {
             foreach ($hotel->getPlaces() as $place) {
                 if($host){
                     if($place->getHosts()->contains($host)){
                         $places[$place->getCityId()] = $place;
+                        $filteredHotels[$hotel->getId()] = $hotel;
                     }
                 }else{
                     $places[$place->getCityId()] = $place;
+                    $filteredHotels[$hotel->getId()] = $hotel;
                 }
             }
         }
 
         $context['places'] = $places;
 
-        $adapter = new ArrayAdapter($hotels);
+        $adapter = new ArrayAdapter($filteredHotels);
         $pagerfanta = new Pagerfanta($adapter);
 
         $pagenumber = $request->get('page');
