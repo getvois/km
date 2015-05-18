@@ -75,6 +75,18 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
 
         $builder->add('price');
 
+        $builder->add('mainPhoto', 'media', array(
+            'pattern' => 'KunstmaanMediaBundle_chooser',
+            'mediatype' => 'image',
+            'required' => false,
+        ));
+
+        $builder->add('buildingPhoto', 'media', array(
+            'pattern' => 'KunstmaanMediaBundle_chooser',
+            'mediatype' => 'image',
+            'required' => false,
+        ));
+
     }
 
     /**

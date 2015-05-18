@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
@@ -41,6 +42,58 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
         if(!$packages) $packages = [];
 
         $context['packages'] = $packages;
+    }
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="main_photo_id", referencedColumnName="id")
+     * })
+     */
+    private $mainPhoto;
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="building_photo_id", referencedColumnName="id")
+     * })
+     */
+    private $buildingPhoto;
+
+    /**
+     * @return Media
+     */
+    public function getMainPhoto()
+    {
+        return $this->mainPhoto;
+    }
+
+    /**
+     * @param Media $mainPhoto
+     */
+    public function setMainPhoto($mainPhoto)
+    {
+        $this->mainPhoto = $mainPhoto;
+    }
+
+    /**
+     * @return Media
+     */
+    public function getBuildingPhoto()
+    {
+        return $this->buildingPhoto;
+    }
+
+    /**
+     * @param Media $buildingPhoto
+     */
+    public function setBuildingPhoto($buildingPhoto)
+    {
+        $this->buildingPhoto = $buildingPhoto;
     }
 
     /**
