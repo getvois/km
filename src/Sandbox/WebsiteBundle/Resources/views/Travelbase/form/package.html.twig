@@ -6,8 +6,8 @@
             <label for="package-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
             <select class="form-control" name="package-country" id="package-country">
                 <option value="-1" selected="selected">{{ 'package.country'|trans({}, 'frontend') }}</option>
-                {% for place in countries %}
-                    <option value="{{ place.cityid }}">{{ place.title }}</option>
+                {% for key,place in countries %}
+                    <option value="{{ key }}">{{ place.title }}</option>
                 {% endfor %}
             </select>
         </div>

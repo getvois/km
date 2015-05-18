@@ -433,9 +433,11 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
 
-        /** @var PackagePage[] $packages */
-        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
-            ->getPackagePages($request->getLocale());
+        $host = $this->get('hosthelper')->getHost();
+
+//        /** @var PackagePage[] $packages */
+//        $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+//            ->getPackagePages($request->getLocale());
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
@@ -445,21 +447,36 @@ class TravelbaseController extends Controller
 
         $countries = [];
         foreach ($hotels as $hotel) {
-            if($hotel->getCountryPlace())
-                $countries[$hotel->getCountryPlace()->getId()] = $hotel->getCountryPlace();
+
+            if($host){
+                if($hotel->getCountryPlace() && $hotel->getCountryPlace()->getHosts()->contains($host)){
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($hotel->getCountryPlace());
+                    $countries[$node->getId()] = $hotel->getCountryPlace();
+                }
+            }else{
+                if($hotel->getCountryPlace()){
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($hotel->getCountryPlace());
+                    $countries[$node->getId()] = $hotel->getCountryPlace();
+                }
+            }
+
+//            if($hotel->getCountryPlace())
+//                $countries[$hotel->getCountryPlace()->getId()] = $hotel->getCountryPlace();
         }
         $context['countries'] = $countries;
 
-        if(!$packages) $packages = [];
-
-        $places = [];
-
-        foreach ($packages as $package) {
-            foreach ($package->getPlaces() as $place) {
-                $places[$place->getId()] = $place;
-            }
-        }
-        $context['places'] = $places;
+//        if(!$packages) $packages = [];
+//
+//        $places = [];
+//
+//        foreach ($packages as $package) {
+//            foreach ($package->getPlaces() as $place) {
+//                $places[$place->getId()] = $place;
+//            }
+//        }
+//        $context['places'] = $places;
 
         return $context;
     }

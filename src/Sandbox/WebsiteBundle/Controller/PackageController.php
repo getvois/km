@@ -200,12 +200,12 @@ class PackageController extends Controller
     }
 
     /**
-     * @Route("/package-citylist/{cityId}")
+     * @Route("/package-citylist/{nodeId}")
      * @param Request $request
-     * @param $cityId
+     * @param $nodeId
      * @return string
      */
-    public function cityListAction(Request $request, $cityId)
+    public function cityListAction(Request $request, $nodeId)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -218,11 +218,26 @@ class PackageController extends Controller
 
         $places = [];
 
+        $host = $this->get('hosthelper')->getHost();
 
         foreach ($packages as $package) {
-            if($package->getCountry() && $package->getCountry()->getCityId() == $cityId){
-                foreach ($package->getPlaces() as $place) {
-                    $places[$place->getId()] = $place;
+//            if($package->getCountry() && $package->getCountry()->getCityId() == $cityId){
+//                foreach ($package->getPlaces() as $place) {
+//                    $places[$place->getId()] = $place;
+//                }
+//            }
+            if($package->getCountry()){
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($package->getCountry());
+                if($host){
+                    //if country in host and equal to node id
+                    if($package->getCountry() && $package->getCountry()->getHosts()->contains($host) && $node->getId() == $nodeId){
+                        $places[$node->getId()] = $package->getCountry();
+                    }
+                }else{
+                    if($package->getCountry() && $node->getId() == $nodeId){
+                        $places[$node->getId()] = $package->getCountry();
+                    }
                 }
             }
         }
@@ -231,8 +246,8 @@ class PackageController extends Controller
         $html = "<option value='-1'>$any</option>";
 
         /** @var PlaceOverviewPage $place */
-        foreach ($places as $place) {
-            $html .= "<option value='{$place->getCityId()}'>{$place->getTitle()}</option>";
+        foreach ($places as $key => $place) {
+            $html .= "<option value='$key'>{$place->getTitle()}</option>";
         }
 
         return new Response($html);
@@ -240,12 +255,12 @@ class PackageController extends Controller
 
 
     /**
-     * @Route("/package-hotellist/{placeId}")
+     * @Route("/package-hotellist/{nodeId}")
      * @param Request $request
-     * @param $placeId
+     * @param $nodeId
      * @return string
      */
-    public function hotelListAction(Request $request, $placeId)
+    public function hotelListAction(Request $request, $nodeId)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -258,14 +273,36 @@ class PackageController extends Controller
 
         $filtered = [];
 
+        $host = $this->get('hosthelper')->getHost();
+
         foreach ($hotels as $hotel) {
             foreach ($hotel->getPlaces() as $place) {
-                if($place->getCityId() == $placeId){
-                    //check if hotel has packages eg node has children
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
-                    if($node && $node->getChildren()->count() > 0){
-                        $filtered[$hotel->getId()] = $hotel;
-                        break;
+//                if($place->getCityId() == $placeId){
+//                    //check if hotel has packages eg node has children
+//                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+//                    if($node && $node->getChildren()->count() > 0){
+//                        $filtered[$hotel->getId()] = $hotel;
+//                        break;
+//                    }
+//                }
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($place);
+
+                if($host){
+                    if($place->getHosts()->contains($host) && $node->getId() == $nodeId){
+                        $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+                        if($node2 && $node2->getChildren()->count() > 0){
+                            $filtered[$hotel->getId()] = $hotel;
+                            break;
+                        }
+                    }
+                }else{
+                    if($node->getId() == $nodeId){
+                        $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+                        if($node2 && $node2->getChildren()->count() > 0){
+                            $filtered[$hotel->getId()] = $hotel;
+                            break;
+                        }
                     }
                 }
             }
