@@ -27,6 +27,8 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         /** @var EntityManager $em */
         $em = $container->get('doctrine.orm.entity_manager');
 
+        $host = $container->get('hosthelper')->getHost();
+
         $page = $context['page'];
 
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
@@ -42,7 +44,13 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         $places = [];
         foreach ($hotels as $hotel) {
             foreach ($hotel->getPlaces() as $place) {
-                $places[$place->getCityId()] = $place;
+                if($host){
+                    if($place->getHosts()->contains($host)){
+                        $places[$place->getCityId()] = $place;
+                    }
+                }else{
+                    $places[$place->getCityId()] = $place;
+                }
             }
         }
 
