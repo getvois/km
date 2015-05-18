@@ -31,6 +31,13 @@ $(document).ready(function() {
     $('#offer-pager').hide();
 
 
+    function hotelOverviewIsotope(){
+        var container = document.querySelector('#hotel-holder');
+        new Isotope( container, {itemSelector: '.hotell'});
+
+    }
+    hotelOverviewIsotope();
+
     //select first tab to show the form
     $('.form-header').removeClass('hide').hide();
     $('.form-header:first').show();
@@ -102,6 +109,7 @@ $(document).ready(function() {
         $.get('/hotel-filter/?place='+$place, function (responce) {
             var $package = $('#hotel-holder');
             $package.html(responce.html);
+            hotelOverviewIsotope();
 
             $('#hotel-filter').removeClass('disabled');
         });
