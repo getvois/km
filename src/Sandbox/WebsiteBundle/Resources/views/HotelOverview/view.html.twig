@@ -1,11 +1,6 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 {% block content %}
 
-    <div id="map_wrapper">
-        <div id="map_canvas" class="mapping"></div>
-    </div>
-
-
     <div class="row">
         <select name="hotel-place" id="hotel-place">
             <option value="-1">{{ 'hotel.city'|trans({}, 'frontend') }}</option>
@@ -18,6 +13,9 @@
 
     </div>
 
+    <div id="map_wrapper">
+        <div id="map_canvas" class="mapping"></div>
+    </div>
 
     <div class="row" id="hotel-holder">
 
