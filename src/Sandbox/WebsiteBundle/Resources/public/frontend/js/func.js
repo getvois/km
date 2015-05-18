@@ -197,7 +197,7 @@ function loadMore(button){
 
 
     $.post('/api-filter/0', JSON.stringify($filter), function (responce) {
-        var $table = $container.find('> div ');
+        var $table = $container.find('> div ').eq(0);
         $table.append(responce.html);
 
         if($table.find('> div').length - 1 >= responce.total){
