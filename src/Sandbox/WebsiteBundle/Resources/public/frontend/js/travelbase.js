@@ -869,16 +869,17 @@ $(document).ready(function() {
             var $destination = $("#destination-dataholder");
 
             var $id = $(this).data('id');
-            if($(this).data('type') == 'country'){
-                //country
-                $id += "_";
+            if($id){
+                if($(this).data('type') == 'country'){
+                    //country
+                    $id += "_";
+                }
+
+                $destination.dataHolder('add', {id: $id, text: $name});
+
+                var $deparpureEl = $("#destination-el");
+                $deparpureEl.data('selected', $destination.dataHolder('data'));
             }
-
-            $destination.dataHolder('add', {id: $id, text: $name});
-
-            var $deparpureEl = $("#destination-el");
-            $deparpureEl.data('selected', $destination.dataHolder('data'));
-
         });
 
 
@@ -892,15 +893,17 @@ $(document).ready(function() {
                 var $destination = $("#destination-dataholder");
 
                 var $id = $(this).val();
-                if($(this).data('type') == 'country'){
-                    //country
-                    $id += "_";
+                if($id){
+                    if($(this).data('type') == 'country'){
+                        //country
+                        $id += "_";
+                    }
+
+                    $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
+
+                    var $deparpureEl = $("#destination-el");
+                    $deparpureEl.data('selected', $destination.dataHolder('data'));
                 }
-
-                $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
-
-                var $deparpureEl = $("#destination-el");
-                $deparpureEl.data('selected', $destination.dataHolder('data'));
             }
         });
     }
@@ -921,16 +924,18 @@ $(document).ready(function() {
         var $departure = $("#departure-dataholder");
 
         var $id = $link.data('id');
-        if($($link).data('type') == 'country'){
-            //country
-            $id += "_";
+        if($id){
+            if($($link).data('type') == 'country'){
+                //country
+                $id += "_";
+            }
+            var $name1 = $link.text();
+            $departure.dataHolder('add', {id: $id, text: $name1});
+
+
+            var $deparpureEl = $("#departure-el");
+            $deparpureEl.data('selected', $departure.dataHolder('data'));
         }
-        var $name1 = $link.text();
-        $departure.dataHolder('add', {id: $id, text: $name1});
-
-
-        var $deparpureEl = $("#departure-el");
-        $deparpureEl.data('selected', $departure.dataHolder('data'));
 
     }else{
         //Pre Select from preferred countries
@@ -942,28 +947,30 @@ $(document).ready(function() {
             var $data = $departure.dataHolder('data');
             var $id = $(this).val();
 
-            var add = true;
-            if($(this).data('type') == 'country'){
-                //country
-                $id += "_";
-            }else{
-                //city
-                //check parent
-                var $countryId = $(this).closest('ul.city-near').find('input').first().val() + "_";
+            if($id){
+                var add = true;
+                if($(this).data('type') == 'country'){
+                    //country
+                    $id += "_";
+                }else{
+                    //city
+                    //check parent
+                    var $countryId = $(this).closest('ul.city-near').find('input').first().val() + "_";
 
-                for(var i = 0; i<$data.length; i++){
-                    if($data[i] == $countryId){
-                        add = false;
-                        break;
+                    for(var i = 0; i<$data.length; i++){
+                        if($data[i] == $countryId){
+                            add = false;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if(add){
-                $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
+                if(add){
+                    $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
 
-                var $deparpureEl = $("#departure-el");
-                $deparpureEl.data('selected', $departure.dataHolder('data'));
+                    var $deparpureEl = $("#departure-el");
+                    $deparpureEl.data('selected', $departure.dataHolder('data'));
+                }
             }
 
         });
