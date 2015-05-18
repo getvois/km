@@ -81,6 +81,17 @@ class HotelliveebHotelPlaceCommand extends ContainerAwareCommand{
                         $em->persist($page);
                     }
                 }
+
+                //set country to hotel
+                //place parent
+                $countryNode = $node2->getParent();
+                $countryTranslation = $countryNode->getNodeTranslation($lang, true);
+                if($countryTranslation){
+                    $countryPage = $countryTranslation->getRef($em);
+                    if($countryPage){
+                        $page->setCountryPlace($countryPage);
+                    }
+                }
             }
 
         }
