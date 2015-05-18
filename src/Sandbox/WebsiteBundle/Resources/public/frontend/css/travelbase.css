@@ -1516,7 +1516,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     background: #fff;
     border: 0 solid;
 }
-.travelbase_items > div{
+.travelbase_items > div:first-of-type{
     height: 205px;
     overflow: hidden;
 }
