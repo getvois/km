@@ -1695,7 +1695,7 @@ $(document).ready(function() {
     formChange(false);
 
     $("#flyWithReturn, #flyOneWay, #sameDay, #directFlight").change(function () {
-        formChange();
+        formChange(true);
     });
     //getTable();
     //setTimeout(function () {
@@ -1907,7 +1907,7 @@ function getTable(container, reimport, expand){
 
             //$(this).data('order', $directionVal);
             $direction.val($directionVal);
-            getTable(null, false);
+            getTable(null, false, true);
             //$("#edit-companies").change();
             return false;
         });
@@ -1940,7 +1940,7 @@ function getTable(container, reimport, expand){
         $loading.hide();
 
         if(expand === true || reimport === false)
-            $('#loadMore').click();
+            $travelbase_items.find('button[id=loadMore]').click();
     });
 }
 
