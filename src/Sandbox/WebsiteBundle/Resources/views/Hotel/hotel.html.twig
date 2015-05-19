@@ -1,10 +1,21 @@
-<div class="col-md-4 well hotell">
-    <h3>{{ hotel.title }}</h3>
-    <p>{% if hotel.city %}{{ hotel.city }}{% else %}{{ hotel.cityParish }}{% endif %}</p>
-    <p>{{ hotel.street }}</p>
-
-    {% set package = hotel.cheapestPackage %}
+ {% set package = hotel.cheapestPackage %}
+        {% if package or hotel.buildingPhoto %}
+ <div class="col-md-4 nopadding hotell">
+	<div class="hotell-inside well">
     {% if package %}
+    <a class="package-price pull-right btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">
+	  <span class="price-from">{{ 'price.from'|trans({}, 'frontend') }}</span> {{ package.minPrice|number_format(0, '.', ',') }} &euro;
+	</a>
+	{% endif %}
+	<a class="uline" href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">
+     	<h4 class="hotel-title">{{ hotel.title }}</h4>
+    </a>
+    <p class="hotel-adress">{{ hotel.street }}, {% if hotel.city %}{{ hotel.city }}{% else %}{{ hotel.cityParish }}s{% endif %}</p>
+
+  
+    {% if package %}
+     	<p>{{ package.title }}</p>
+    	<a href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">
         {% if package.image %}
             <img src="{{ package.image }}" class="img-responsive"/>
         {% elseif hotel.mainPhoto %}
@@ -12,14 +23,11 @@
         {% elseif hotel.buildingPhoto %}
             <img src="{{ asset(hotel.buildingPhoto.url) }}" class="img-responsive"/>
         {% endif %}
-        {{ package.minPrice }}
-
-    {% elseif hotel.mainPhoto %}
-        <img src="{{ asset(hotel.mainPhoto.url) }}" class="img-responsive"/>
-    {% elseif hotel.buildingPhoto %}
-        <img src="{{ asset(hotel.buildingPhoto.url) }}" class="img-responsive"/>
+		</a>
+	    {% elseif hotel.mainPhoto %}
+	        <img src="{{ asset(hotel.mainPhoto.url) }}" class="img-responsive"/>
+	    {% elseif hotel.buildingPhoto %}
+	        <img src="{{ asset(hotel.buildingPhoto.url) }}" class="img-responsive"/>
     {% endif %}
-    <p>
-        <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
-    </p>
-</div>
+    </div>
+</div>{% endif %}

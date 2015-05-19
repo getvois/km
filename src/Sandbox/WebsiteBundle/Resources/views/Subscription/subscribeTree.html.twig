@@ -68,7 +68,7 @@
     </div>
 
     <div>
-        {{ form_widget(form.submit) }}
+        {{ form_widget(form.submit, {'attr': {'value': 'submit'|trans({}, 'frontend')}}) }}
     </div>
 
     {{ form_rest(form) }}

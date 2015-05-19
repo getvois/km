@@ -1,6 +1,6 @@
 {% if app.user %}
     <div class="user-edit-form">
-        <h3>{{ 'edit.user.details.title' }}</h3>
+        <h3>{{ 'edit.user.details.title'|trans({}, 'frontend') }}</h3>
         <form action="#">
             <div class="form-group">
                 <input class="form-control" id="edit-name" type="text" name="name" value="{{ app.user.name }}" placeholder="{{ 'name'|trans({}, 'frontend') }}"/>

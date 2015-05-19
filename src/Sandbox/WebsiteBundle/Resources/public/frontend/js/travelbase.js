@@ -14,7 +14,7 @@ $(document).ready(function() {
 
             $('#package-holder')
                 .data('height', $(container).outerHeight())
-                .css('height', '100px');
+                .css('height', '240px');
             $('#package-pager').show();
         }
         if($(e.target).data('type') == 'club'){
@@ -23,7 +23,7 @@ $(document).ready(function() {
 
             $('#offer-holder')
                 .data('height', $(container).outerHeight())
-                .css('height', '100px');
+                .css('height', '240px');
             $('#offer-pager').show();
         }
 
@@ -155,7 +155,7 @@ $(document).ready(function() {
     });
 
     function checkHolderHeight($holderId){
-        if($($holderId).outerHeight() < 206 ){
+        if($($holderId).outerHeight() < 246 ){
             if($($holderId).data('height')){
                 $($holderId).css('height', $($holderId).data('height') + "px");
             }else{

@@ -10,10 +10,10 @@
 
     {% if app.request.query.has('email') %}
         <div class="register-form">
-            <div>{{ 'welcom.to.the.club'|trans({}, 'frontend') }},</div>
+            <div>{{ 'welcome.to.the.club'|trans({}, 'frontend') }},</div>
             <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
                 <div  class="form-group pull-left">
-            <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'email'|trans({}, 'frontend') }}"/>
+            <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
                 </div>
             <span class="pull-left">{{ 'recieve.your.new.acc.password'|trans({}, 'frontend') }}.</span>
             <p class="clear">
@@ -25,27 +25,27 @@
         {% if not app.user %}
             <div class="register-form">
                 <form action="{{ path('register_action') }}" method="post">
-                    <div>{{ 'welcom.to.the.club'|trans({}, 'frontend') }},</div>
+                    <div>{{ 'welcome.to.the.club'|trans({}, 'frontend') }},</div>
                     <span class="pull-left">{{ 'i.am'|trans({}, 'frontend') }}</span>
                     <div  class="form-group pull-left">
-                        <label class="sr-only" for="name">{{ 'name'|trans({}, 'frontend') }}:</label>
+                        <label class="sr-only" for="name">{{ 'Name'|trans({}, 'frontend') }}:</label>
                         <input id="name" type="text" name="name" class="form-control"
-                               placeholder="{{ 'name'|trans({}, 'frontend') }}"/>
+                               placeholder="{{ 'Name'|trans({}, 'frontend') }}"/>
                     </div>
                     <span class="pull-left">{{ 'and.my.email.is'|trans({}, 'frontend') }}</span>
                     <div class="form-group pull-left">
-                        <label class="sr-only" for="email">{{ 'email'|trans({}, 'frontend') }}:</label>
+                        <label class="sr-only" for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
                         <input id="email" type="text" name="email" class="form-control"
-                               placeholder="{{ 'email'|trans({}, 'frontend') }}"/>
+                               placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
                     </div>
                     <span class="pull-left">.</span>
-                    <div class="clear">{{ 'i.want.to.join.others'|trans({}, 'frontend') }}.</div>
+                    <div class="clear">{{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}.</div>
                     <p>
                         <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
                     </p>
-                </form>
+                </form> 
             </div>
         {% endif %}
-
+ 
     {% endif %}
 </div>

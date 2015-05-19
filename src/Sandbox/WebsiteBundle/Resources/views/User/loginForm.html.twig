@@ -1,36 +1,49 @@
 {% if app.user %}
-    <h4><a id="open-user-tab" href="#">{{ app.user.email }}</a></h4>
+
+	<p>{{ 'club.logged.description' | trans({}, 'frontend') }}</p>
+
+    <h4><a id="open-user-tab" href="#">{{ app.user.email }} <span class="fa fa-edit"></span></a></h4>
     {#{{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}#}
 
-    <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'logout'|trans({}, 'frontend') }}</a>
+    <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'Logout'|trans({}, 'frontend') }}</a>
 {% else %}
     <h3><a id="show-club-tab" href="#">{{ 'subscribe.now'|trans({}, 'frontend') }}</a></h3>
     <p>{{ 'subscribe.now.text'|trans({}, 'frontend') }}</p>
-
-    <form action="{{ path('login_action') }}" method="post">
-        <div class="form-group">
-            <label for="email">{{ 'email'|trans({}, 'frontend') }}:</label>
-            <input id="email" type="text" name="email" class="form-control"/>
-        </div>
-
-        <div class="form-group">
-            <label for="password">{{ 'password'|trans({}, 'frontend') }}:</label>
-            <input id="password" type="password" name="password" class="form-control"/>
-        </div>
-
-        <p>
-            <input type="submit" class="btn btn-primary" value="{{ 'login'|trans({}, 'frontend') }}"/>
-            <a id="fb-login-btn" class="btn btn-primary" href="#">fb login</a>
-
-            {% if host and host.vkAppId and host.vkAppSecret %}
-                <a href="#" id="vk-login-btn" class="btn btn-primary">vk login</a>
-                <script>
-                    $("#vk-login-btn").click(function () {
-                        window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/vk-login&response_type=code&v=5.29&state=');
-                    });
-                </script>
-            {% endif %}
-        </p>
-    </form>
+	
+		<form action="{{ path('login_action') }}" method="post">
+        <div class="row">
+			<div class="col-md-8 col-xs-8">
+		        <div class="form-group">
+		            <label for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
+		            <input id="email" type="text" name="email" class="form-control"/>
+		        </div>
+		
+		        <div class="form-group">
+		            <label for="password">{{ 'Password'|trans({}, 'frontend') }}:</label>
+		            <input id="password" type="password" name="password" class="form-control"/>
+		        </div>
+	 		</div>
+	 	</div>
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+		        <p>
+		            <input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>
+		            <a id="fb-login-btn" class="btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
+		
+		            {% if host and host.vkAppId and host.vkAppSecret %}
+		                <a href="#" id="vk-login-btn" class="btn btn-primary"><span class="fa fa-vk"></span> | login</a>
+		                <script>
+		                    $("#vk-login-btn").click(function () {
+		                        window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/vk-login&response_type=code&v=5.29&state=');
+		                    });
+		                </script>
+		            {% endif %}
+		        </p>
+	        </div>
+		</div>
+    	</form>
+    
+		
+    
 
 {% endif %}

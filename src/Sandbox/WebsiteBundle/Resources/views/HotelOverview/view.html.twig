@@ -1,24 +1,27 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 {% block content %}
-
+{{ render_pageparts(page, 'main') }}
     <div class="row">
-        <select name="hotel-place" id="hotel-place">
-            <option value="-1">{{ 'hotel.city'|trans({}, 'frontend') }}</option>
-            {% for place in places %}
-                <option value="{{ place.cityid }}">{{ place.title }}</option>
-            {% endfor %}
-        </select>
-
-        <a class="btn btn-primary" id="hotel-filter" href="#">{{ 'hotel.filter'|trans({}, 'frontend') }}</a>
-
+        <div class="col-md-12"> 
+        	<div class="map-filters">
+		        {{ 'filter.hotels'|trans({}, 'frontend') }}
+		        <select name="hotel-place" id="hotel-place">
+		            <option value="-1">{{ 'pick.city'|trans({}, 'frontend') }}</option>
+		            {% for place in places %}
+		                <option value="{{ place.cityid }}">{{ place.title }}</option>
+		            {% endfor %}
+		        </select>
+		
+		        <a class="btn btn-primary" id="hotel-filter" href="#">{{ 'show.filter'|trans({}, 'frontend') }}</a>
+			</div>	
+		</div>
     </div>
 
     <div id="map_wrapper">
         <div id="map_canvas" class="mapping"></div>
     </div>
 
-    <div class="row" id="hotel-holder">
-
+    <div class="row nomargin" id="hotel-holder">
         {% for hotel in pagerfanta.CurrentPageResults %}
             {% include '@SandboxWebsite/Hotel/hotel.html.twig' %}
         {% endfor %}

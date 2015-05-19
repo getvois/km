@@ -98,7 +98,9 @@ body{background-color: #ffffff !important;}
 /*pageparts gallery, googlemap */
 
 .breadcrumb {
-	padding: 0;
+	padding: 3px 10px;
+	border: 1px solid #eee;
+	box-shadow: inset 1px 1px 2px #fff;
 } 
 .breadcrumb li a, .breadcrumb li.active {
     font-family: 'Open Sans', serif;
@@ -118,7 +120,7 @@ body{background-color: #ffffff !important;}
 	margin-top: 10px;
 }
 
-.to-places a, .tags-block a, .link-pp a, .map-container a, .companies-block a { 
+.uline, .to-places a, .tags-block a, .link-pp a, .map-container a, .companies-block a { 
 	text-decoration:underline;
 }
 
@@ -134,7 +136,7 @@ body{background-color: #ffffff !important;}
 .news-panel article h3 a { 
 	font-size: 20px; 
 }
-.news-panel h2, .news-panel article h3 a { 
+.news-panel h2, .news-panel article h3 a, .clubbar h2, .clubbar h3 a { 
 	color:#F8C600;
 	line-height:1.1em;
 }
@@ -145,11 +147,13 @@ body{background-color: #ffffff !important;}
 	padding:30px;
 	color:#fefefe;
 }
-.news-panel article a { 
+.news-panel article a, .clubbar h3 a { 
 	color:#ddd;
 	text-decoration:underline;
 }
-
+.news-panel article a:hover, .clubbar h3 a:hover { 
+	color:#eee;
+}
 .travelbase_items .my-popover { 
 	text-decoration:none;
 }
@@ -242,7 +246,7 @@ main h2 {
     margin: 25px 0 15px 0;  
 }
 
-main h2.topheader {
+main h2.topheader, .clubbar h2 {
     font-weight: bold;
 	font-size: 25px;
 }
@@ -345,7 +349,7 @@ body .splash--green {
     text-decoration:underline;
 }
 #travelbase-form > div {
-    margin-top:0;
+    margin-top:-10px;
 }
 
 .top-img-title {
@@ -371,7 +375,7 @@ body .splash--green {
 /* place holder */
 .placeholder{
     background-color: white;
-    min-height: 41px;
+    min-height: 42px;
     padding: 5px 5px 5px 35px;
     height: auto;
 
@@ -468,9 +472,16 @@ div.travelbase-input-addon{
 /* sidebar */
 
 .clubbar {
-  background: #fff;
+  background:-moz-linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
+    /*noinspection CssOverwrittenProperties*/
+    background:-webkit-linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
+	background: -ms-linear-gradient(top, #444444, #000000); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000'); /* IE6 & IE7 */  
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000')"; /* IE8+ */
+    /*noinspection CssUnknownProperty*/
+    -pie-background:linear-gradient(#44444, #000000) repeat scroll 0 0 transparent !important;
+  color: #fff;
   padding: 20px;
-  border: 3px dashed #F2E022;
   margin-bottom: 20px;
   margin-top: -40px;
 }
@@ -587,11 +598,11 @@ div.travelbase-input-addon{
 }
 
 /* icons */
-.price-from {
+.main-news .price-from {
     position:absolute;
     margin-left: 20px;
 }
-.price-from-line { 
+.main-news .price-from-line { 
 	position:absolute;
 	border-top:2px solid #F8C600;
 	width:25px;
@@ -602,14 +613,14 @@ div.travelbase-input-addon{
 	z-index: 9;
 	top: 18px;
 }
-.price-from-img {
+.main-news .price-from-img {
     right: -5px;
     top: -23px;
 }
-.price-from-img-left {
+.main-news .price-from-img-left {
     left: -5px;
 }
-.price-from-inner {
+.main-news .price-from-inner {
     background: #fff;
     position:relative;
     width: auto;
@@ -625,10 +636,10 @@ div.travelbase-input-addon{
     font-family: "Open Sans", serif;
     font-size:20px;
 }
-.price-from-img-left .price-from-inner {
+.main-news .price-from-img-left .price-from-inner {
     border-width: 2px 0 2px 2px;
 }
-.price-from:after { /* the circle on the left */
+.main-news .price-from:after { /* the circle on the left */
     position: absolute;
     content: '';
     height: 10px; 
@@ -640,12 +651,12 @@ div.travelbase-input-addon{
 	top: 16px;
     z-index: 2;
 }
-.price-from-img-left:after {
+.main-news .price-from-img-left:after {
 	left: auto;
 	right: -10px;
 }
 
-.price-from:before{ /* the arrow on left side positioned using left property */
+.main-news .price-from:before{ /* the arrow on left side positioned using left property */
     position: absolute;
     content: '';
     height: 33px; 
@@ -660,7 +671,7 @@ div.travelbase-input-addon{
     left: -16px;
     top: 5px;
 }
-.price-from-img-left:before {
+.main-news .price-from-img-left:before {
 	-webkit-transform: rotate(135deg);
     -moz-transform: rotate(135deg);
     transform: rotate(135deg);
@@ -1005,9 +1016,15 @@ label.directFlight-label,  label.sameDay-label {
 .trip-cost {
     text-align: center;
 }
-.trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p {
+.trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p, .package-price {
     font-size: 20px;
     font-weight: bold;
+}
+.package-price {
+	position: absolute;
+  right: 0;
+}
+.trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p {
     width: 100%;
 }
 .trip:hover .trip-btn-cost {
@@ -1016,8 +1033,6 @@ label.directFlight-label,  label.sameDay-label {
 .trip:hover p {
     display: none;
 }
-
-
 .trip-cost > p {
     color: #468847;
     padding: 10px 0 0;
@@ -1029,7 +1044,6 @@ label.directFlight-label,  label.sameDay-label {
 .popover-title {
     white-space: nowrap;
 }
-
 .airline {
     display: inline-block;
     height: 16px;
@@ -1037,8 +1051,6 @@ label.directFlight-label,  label.sameDay-label {
     opacity: 0.6;
     width: 18px;
 }
-
-
 .travelbase_items.travelbase_items_sp td {
     padding: 0 10px 0 0;
     text-align: left;
@@ -1080,6 +1092,33 @@ label.directFlight-label,  label.sameDay-label {
 .company-info .company-clear{
     cursor: pointer;
 }
+
+/* PACKAGES AND OFFERS */ 
+
+.well { 
+	border: 1px solid #e3e3e3;
+	box-shadow: inset 0 5px 5px rgba(0,0,0,.05);
+	background-color: #f5f5f5;
+	background-image: none;
+}
+#packages .package-inside, .hotell-inside {margin: 20px 10px}
+#packages .package-title {margin-right: 40px;line-height: 1.4em;font-weight:700}
+.hotel-title {margin-right: 65px}
+span.price-from {font-size: 14px;}
+.hotel-adress {font-size: 11px;}
+
+.map-filters {
+  background: #444;
+  color: #ccc;
+  padding: 5px 10px;
+}
+.map-filters select {
+  color: #777;
+  border-radius: 3px;
+  border: none;
+  margin-top: 2px;
+}
+.map-filters .btn {margin-top: -2px;}
 
 /*DATE PICKER STUFF*/
 #edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0, .datepick-input{
@@ -1305,7 +1344,7 @@ span.city-picker-close:hover {
         top:0;
         right:0;
         padding-right:4%;
-        padding-top: 135px;
+        padding-top: 106px;
         padding-left: 280px;
         z-index: 0;
         height: 380px;
@@ -1349,6 +1388,8 @@ span.city-picker-close:hover {
 }
 .form-table-btn-switch a span{
 	font-size:25px;
+	text-shadow: 1px 1px #eee;
+  	color: #444;
 }
 .form-table-btn-switch a:hover{
   color: #eee;
@@ -1521,7 +1562,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     overflow: hidden;
 }
 #offer-holder, #package-holder{
-    height: 100px;
+    height: 240px;
     overflow: hidden;
 }
 .travelbase_items table tbody tr th {
@@ -1551,8 +1592,9 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     width: 50px;
 }
 .loadDiv {
-    border-top: 2px solid rgb(236, 219, 48);
-    height: auto;
+  border-top: 2px solid rgb(236, 219, 48);
+  height: 2px;
+  box-shadow:0px 2px 5px 2px #f6f6f6;
 }
 
 .travelbase_items #loadMore span, .loadDiv span{
@@ -1562,6 +1604,9 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     height: 38px;
     padding-top: 3px;
     color: #00BE8D;
+      border-right: 1px solid #E4D11D;
+  border-bottom: 1px solid #E4D11D;
+  box-shadow: 2px 2px 1px #f3f3f3;
 }
 
 .loadDiv a span{
@@ -2040,7 +2085,6 @@ ul#form-type-switcher li {
 }
 ul#form-type-switcher li {
     margin-right: 2px;
-    
     background:-moz-linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;
     /*noinspection CssOverwrittenProperties*/
     background:-webkit-linear-gradient(#F2E022, #F4BF17) repeat scroll 0 0 transparent !important;

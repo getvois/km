@@ -1,36 +1,43 @@
-<div class="col-md-4 well package" data-package-id="{{ package.packageId }}">
-
-    <h3>
-        {% if package.titleTranslated %}
-            {{ package.titleTranslated }}
-        {% else %}
-            {{ package.title }}
-        {% endif %}
-        {% if package.originalLanguage %}
-            <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ package.originalLanguage ~ '.gif') }}"/>
-        {% endif %}
-    </h3>
-    <p>
-        {% if package.summary %}
-            {{ package.summary |raw }}
-        {% else %}
-            {{ package.description |raw }}
-        {% endif %}
-    </p>
-    <p>{{ package.minprice }}</p>
-    {% if package.image %}
-        <p><img src="{{ package.image }}" class="img-responsive"/></p>
-    {% endif %}
-    <p>
-        <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
-        {#<a data-package-id="{{ package.packageId }}" class="package-calendar-show btn btn-default" href="#">{{ 'show.calendar'|trans({}, 'frontend') }}</a>#}
-    </p>
-
-    {#<div class="btn-group package-calendar-control hide">#}
-        {#<button class="btn btn-primary package-calendar-navigate" data-calendar-nav="prev">&lt;&lt; {{ 'prev'|trans({}, 'frontend') }}</button>#}
-        {#<button class="btn package-calendar-navigate" data-calendar-nav="today">{{ 'today'|trans({}, 'frontend') }}</button>#}
-        {#<button class="btn btn-primary package-calendar-navigate" data-calendar-nav="next">{{ 'next'|trans({}, 'frontend') }} &gt;&gt;</button>#}
-    {#</div>#}
-
-    {#<div class="package-calendar"></div>#}
+<div class="col-md-4 nopadding package" data-package-id="{{ package.packageId }}">
+	<div class="package-inside well">
+	    <a class="package-price pull-right btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">
+	    	{{ package.minprice |number_format(0, '.', ',') }} &euro;
+	    </a>
+	    <a href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">
+	    	<h4 class="package-title">
+	        {% if package.titleTranslated %}
+	            {{ package.titleTranslated }}
+	        {% else %}
+	            {{ package.title }}
+	        {% endif %}
+	    	</h4>
+		    {% if package.image %}
+		        <p><img src="{{ package.image }}" class="img-responsive"/></p>
+		    {% endif %}
+	    </a>
+	    <p>
+	        {% if package.summary %}
+	            {{ package.summary |raw }}
+	        {% else %}
+	            {{ package.description |raw }}
+	        {% endif %}
+	         {% if package.originalLanguage %}
+	            <img width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ package.originalLanguage ~ '.gif') }}"/>
+	        {% endif %}
+	    </p>
+	    
+	    
+	    <p>
+	        <a class="uline" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">{{ 'article.readmore'|trans({}, 'messages') }}</a>
+	        {#<a data-package-id="{{ package.packageId }}" class="package-calendar-show btn btn-default" href="#">{{ 'show.calendar'|trans({}, 'frontend') }}</a>#}
+	    </p>
+	
+	    {#<div class="btn-group package-calendar-control hide">#}
+	        {#<button class="btn btn-primary package-calendar-navigate" data-calendar-nav="prev">&lt;&lt; {{ 'prev'|trans({}, 'frontend') }}</button>#}
+	        {#<button class="btn package-calendar-navigate" data-calendar-nav="today">{{ 'today'|trans({}, 'frontend') }}</button>#}
+	        {#<button class="btn btn-primary package-calendar-navigate" data-calendar-nav="next">{{ 'next'|trans({}, 'frontend') }} &gt;&gt;</button>#}
+	    {#</div>#}
+	
+	    {#<div class="package-calendar"></div>#}
+    </div>
 </div>
