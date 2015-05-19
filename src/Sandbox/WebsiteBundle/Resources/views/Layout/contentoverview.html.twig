@@ -1,4 +1,4 @@
-<div class="row content content-panel">
+<div class="row nomargin content content-panel">
 	<div class="news-panel col-md-6">
         <!-- News pane -->
         {% if news is not null %}
@@ -92,7 +92,6 @@
 						</header>
                             
                             <h3>
-                                {% if item.priceFrom %}<div class="pull-right"><div class="price-from price-from-img"><div class="price-from-inner pull-right"><span>{{ item.priceFrom }} {% if item.priceFromLabel %}/ {{ item.priceFromLabel|trans({}, 'frontend', app.request.locale) }}{% endif %}</span></div></div></div>{% endif %}
                                 <a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
                             </h3>
                             

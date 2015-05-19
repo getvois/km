@@ -1,26 +1,28 @@
 <div id="form-club" class="form-header hide">
-    <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
+    <h1>{{ 'last.minute.club.deals' | trans({}, 'frontend') }}</h1>
 
-    <div class="row">
-        <div class="col-md-2">
+    <div class="row nomargin travelbase-input-rel">
+        <div class="col-md-2 form-col col-2_5">
             <label for="offer-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
-            <select class="form-control" name="offer-country" id="offer-country">
-                <option value="-1" selected="selected">{{ 'offer.country'|trans({}, 'frontend') }}</option>
+            <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
+            <select class="form-control placeholder" name="offer-country" id="offer-country">
+                <option value="-1" selected="selected">{{ 'package.country'|trans({}, 'frontend') }}</option>
                 {% for place in countries %}
                     <option value="{{ place.cityid }}">{{ place.title }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 form-col col-2_5">
             <label for="offer-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
-            <select name="offer-place" id="offer-place" class="form-control" disabled>
-                <option value="-1" selected="selected">{{ 'offer.city'|trans({}, 'frontend') }}</option>
+            <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-city"></span>
+            <select name="offer-place" id="offer-place" class="form-control placeholder" disabled>
+                <option value="-1" selected="selected">{{ 'package.city'|trans({}, 'frontend') }}</option>
             </select>
         </div>
 
-        <div class="col-md-2">
-            <a href="#" id="offer-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>
+        <div class="col-md-2 nopadding">
+            <a href="#" id="offer-filter" type="button" class="btn btn-lg btn-primary form-submit"><span class="glyphicon glyphicon-search"></span></a>
         </div>
     </div>
 </div>

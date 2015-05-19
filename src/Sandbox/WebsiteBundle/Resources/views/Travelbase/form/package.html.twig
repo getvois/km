@@ -1,10 +1,11 @@
 <div id="form-package" class="form-header hide">
-    <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
+    <h1>{{ 'last.minute.hotelliveeb.form.header' | trans({}, 'frontend') }}</h1>
 
-    <div class="row">
-        <div class="col-md-2">
+    <div class="row nomargin travelbase-input-rel">
+        <div class="col-md-2 form-col col-2_5">
             <label for="package-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
-            <select class="form-control" name="package-country" id="package-country">
+            <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
+            <select class="form-control placeholder" name="package-country" id="package-country">
                 <option value="-1" selected="selected">{{ 'package.country'|trans({}, 'frontend') }}</option>
                 {% for key,place in countries %}
                     <option value="{{ key }}">{{ place.title }}</option>
@@ -12,26 +13,31 @@
             </select>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 form-col col-2_5">
             <label for="package-place" class="sr-only">{{ 'place'|trans({}, 'frontend') }}</label>
-            <select name="package-place" id="package-place" class="form-control" disabled>
+            <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-city"></span>
+            <select name="package-place" id="package-place" class="form-control placeholder" disabled>
                 <option value="-1" selected="selected">{{ 'package.city'|trans({}, 'frontend') }}</option>
             </select>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3 form-col col-2_5">
             <label for="package-hotel" class="sr-only">{{ 'hotel'|trans({}, 'frontend') }}</label>
-            <select name="package-hotel" id="package-hotel" class="form-control" disabled>
+            <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
+            <select name="package-hotel" id="package-hotel" class="form-control placeholder" disabled>
                 <option value="-1" selected="selected">{{ 'package.hotel'|trans({}, 'frontend') }}</option>
             </select>
         </div>
 
-        <div class="col-md-3">
-            <input class="datepick" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
+        <div class="col-md-2 form-col col-2_5">
+        	<div class="input-group-addon travelbase-input-addon">
+        		<span class="glyphicon travelbase-icon travelbase-icon-date-from"></span>
+        	</div>
+            <input class="datepick placeholder" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
         </div>
 
         <div class="col-md-2">
-            <a href="#" id="package-filter" class="btn btn-primary">{{ 'filter'|trans({}, 'frontend') }}</a>
+        	<a href="#" id="package-filter" type="button" class="btn btn-lg btn-primary form-submit"><span class="glyphicon glyphicon-search"></span></a>
         </div>
     </div>
 </div>

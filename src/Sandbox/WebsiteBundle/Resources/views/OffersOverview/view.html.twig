@@ -1,11 +1,10 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 {% block show_tab %}club{% endblock %}
 {% block content %}
-    <div class="row">
-
+    <div class="row nomargin"> 
         {% for offer in offers %}
             {% include '@SandboxWebsite/Offer/offer.html.twig' %}
         {% endfor %}
-
     </div>
 {% endblock %}
+ 
