@@ -7,10 +7,15 @@ $(document).ready(function() {
     var $lang = $body.data('lang');
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
+        var container;
+        var iso;
         if($(e.target).data('type') == 'packages'){
-            var container = document.querySelector('#package-holder');
-            new Isotope( container, {itemSelector: '.package'});
+            container = document.querySelector('#package-holder');
+            iso = new Isotope( container, {itemSelector: '.package'});
+
+            imagesLoaded( container, function() {
+                iso.layout();
+            });
 
             $('#package-holder')
                 .data('height', $(container).outerHeight())
@@ -18,8 +23,12 @@ $(document).ready(function() {
             $('#package-pager').show();
         }
         if($(e.target).data('type') == 'club'){
-            var container = document.querySelector('#offer-holder');
-            new Isotope( container, {itemSelector: '.offer'});
+            container = document.querySelector('#offer-holder');
+            iso = new Isotope( container, {itemSelector: '.offer'});
+
+            imagesLoaded( container, function() {
+                iso.layout();
+            });
 
             $('#offer-holder')
                 .data('height', $(container).outerHeight())
