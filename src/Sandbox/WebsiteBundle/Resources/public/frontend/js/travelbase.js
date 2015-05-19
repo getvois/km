@@ -50,11 +50,13 @@ $(document).ready(function() {
 
     function hotelOverviewIsotope(){
         var container = document.querySelector('#hotel-holder');
-        var iso = new Isotope( container, {itemSelector: '.hotell'});
+        if(container) {
+            var iso = new Isotope(container, {itemSelector: '.hotell'});
 
-        imagesLoaded( container, function() {
-            iso.layout();
-        });
+            imagesLoaded(container, function () {
+                iso.layout();
+            });
+        }
 
     }
     hotelOverviewIsotope();
