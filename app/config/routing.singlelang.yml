@@ -74,9 +74,8 @@ Slash:
     requirements:
         path: ".+/"
 Router:
-    path:      /{_locale}/{countryPrefix}/{path}
+    path:      /{countryPrefix}/{path}
     defaults:  { _controller: "SandboxWebsiteBundle:Route:path" }
     requirements:
-        _locale: %requiredlocales%
         countryPrefix: visit|jkhgh
         path: ".+"
