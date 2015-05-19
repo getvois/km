@@ -13,9 +13,9 @@ $(document).ready(function() {
             container = document.querySelector('#package-holder');
             iso = new Isotope( container, {itemSelector: '.package'});
 
-            imagesLoaded( container, function() {
-                iso.layout();
-            });
+            //imagesLoaded( container, function() {
+            //    iso.layout();
+            //});
 
             $('#package-holder')
                 .data('height', $(container).outerHeight())
@@ -26,9 +26,9 @@ $(document).ready(function() {
             container = document.querySelector('#offer-holder');
             iso = new Isotope( container, {itemSelector: '.offer'});
 
-            imagesLoaded( container, function() {
-                iso.layout();
-            });
+            //imagesLoaded( container, function() {
+            //    iso.layout();
+            //});
 
             $('#offer-holder')
                 .data('height', $(container).outerHeight())
