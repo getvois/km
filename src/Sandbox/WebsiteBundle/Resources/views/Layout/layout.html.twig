@@ -154,6 +154,7 @@
         </main>
     </div>
     <div class="col-md-3 sidebar">
+        {% block club %}
         <div class="clubbar">
 		<h2>{{ 'club.header' | trans({}, 'frontend') }}</h2>
 			
@@ -170,7 +171,8 @@
         {% endif %}
 
         {% block sidebar %}{% endblock %}
-		
+
+        {% endblock %}
     </div>
 </div>
 
