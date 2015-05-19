@@ -513,6 +513,17 @@ class TravelbaseController extends Controller
     private function hotelsFormParams(Request $request)
     {
         $context = [];
+        /** @var EntityManager $em */
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->findOneBy(['deleted' => 0, 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\BookingcomPage']);
+
+        $url = 'http://www.booking.com/searchresults.html';
+        if($node && $node->getNodeTranslation($request->getLocale())){
+            $url = $this->generateUrl('_slug', ['url' => $node->getNodeTranslation($request->getLocale())->getFullSlug()]);
+        }
+        $context['formUrl'] = $url;
 
         $year = date('Y');
         $month = date('n');

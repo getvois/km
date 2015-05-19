@@ -3,7 +3,7 @@
     <div id="searchboxHolder">
     <!-- start copy sourcecode from here -->
     <div id="searchboxInc">
-        <form autocomplete="off" target="booking" method="get" action="http://www.booking.com/searchresults.html" name="frm" id="frm">
+        <form autocomplete="off" target="booking" method="get" action="http://www.booking.com/searchresults.html" name="frm" id="booking-form">
             <fieldset>
                 <div id="destinationSearch">
                     <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
@@ -57,3 +57,16 @@
     <div id="calendar"></div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#booking-form').submit(function () {
+
+            if($('#booking-frame').length == 0){
+                $(this).attr('action', '{{ formUrl }}');
+                $(this).attr('target', '_self');
+            }
+
+            return true;
+        });
+    });
+</script>
