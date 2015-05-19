@@ -6,69 +6,50 @@
         <form autocomplete="off" target="booking" method="get" action="http://www.booking.com/searchresults.html" name="frm" id="frm">
             <fieldset>
                 <div id="destinationSearch">
+                    <h1>{{ 'lowcost.last.minute.travel.deals' | trans({}, 'frontend') }}</h1>
+
                     <input type="hidden" value="810437" name="aid">
                     <input type="hidden" value="http://www.booking.com/?aid=810437;" name="error_url">
                     <input type="hidden" value="ai,co,ci,re,di" name="si">
                     <input type="hidden" value="" name="label">
-                    <input type="hidden" value="en" name="lang">
+                    <input type="hidden" value="{{ app.request.locale }}" name="lang">
                     <input type="hidden" value="" name="nflt">
                     <input type="hidden" value="" name="ifl">
-                    <p>Zoek hotels</p>
-                    <label for="destination">Bestemming</label>
-                    <input type="text" autocomplete="off" title="Stad, Regio, Land, Bezienswaardigheid, Hotel, Wijk" value="" name="ss" id="destination" class="text blur">
+                    <label for="destination">{{ 'destination'| trans({}, 'frontend') }}</label>
+                    <input type="text" autocomplete="off" title="{{ 'bookingcom.placeholder' }}" value="" name="ss" id="destination" class="text blur">
                 </div>
                 <div id="inout">
                     <div id="homein">
-                        <h3>Incheckdatum</h3>
+                        <h3>{{ 'check.in.date'| trans({}, 'frontend') }}</h3>
                         <select name="checkin_monthday" id="b_checkin_day">
                             <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
                         </select>
                         <select name="checkin_year_month" id="b_checkin_month">
-                            <option value="2015-5">mei '15
-                            </option><option value="2015-6">juni '15
-                            </option><option value="2015-7">juli '15
-                            </option><option value="2015-8">augustus '15
-                            </option><option value="2015-9">september '15
-                            </option><option value="2015-10">oktober '15
-                            </option><option value="2015-11">november '15
-                            </option><option value="2015-12">december '15
-                            </option><option value="2016-1">januari '16
-                            </option><option value="2016-2">februari '16
-                            </option><option value="2016-3">maart '16
-                            </option><option value="2016-4">april '16
-
-                            </option></select>
+                            {% for key, date in dates %}
+                                <option value="{{ key }}">{{ date }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div id="homeout">
-                        <h3>Uitcheckdatum</h3>
+                        <h3>{{ 'check.out.date'| trans({}, 'frontend') }}</h3>
                         <select name="checkout_monthday" id="b_checkout_day">
                             <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
                         </select>
                         <select name="checkout_year_month" id="b_checkout_month">
-                            <option value="2015-5">mei '15
-                            </option><option value="2015-6">juni '15
-                            </option><option value="2015-7">juli '15
-                            </option><option value="2015-8">augustus '15
-                            </option><option value="2015-9">september '15
-                            </option><option value="2015-10">oktober '15
-                            </option><option value="2015-11">november '15
-                            </option><option value="2015-12">december '15
-                            </option><option value="2016-1">januari '16
-                            </option><option value="2016-2">februari '16
-                            </option><option value="2016-3">maart '16
-                            </option><option value="2016-4">april '16
-
-                            </option></select>
+                            {% for key, date in dates %}
+                                <option value="{{ key }}">{{ date }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="avail">
                         <input type="checkbox" value="on" name="idf" id="availcheck">
                         <label for="availcheck" id="labfor">
-                            Ik heb nog geen specifieke datum
+                            {{ 'i.dont.have.specific.dates.yet'| trans({}, 'frontend') }}
                         </label>
                     </div>
                 </div>
                 <div class="but">
-                    <button type="submit">Zoek</button>
+                    <button type="submit">{{ 'search' | trans({}, 'frontend') }}</button>
                 </div>
             </fieldset>
         </form>

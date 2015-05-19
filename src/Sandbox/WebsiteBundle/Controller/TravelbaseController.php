@@ -402,6 +402,9 @@ class TravelbaseController extends Controller
                 }elseif($tab == 'club'){
                     $params = $this->offerFormParams($request);
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/club.html.twig', $params);
+                }elseif($tab == 'hotel'){
+                    $params = $this->hotelsFormParams($request);
+                    $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/hotel.html.twig', $params);
                 }else{
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/'.$tab.'.html.twig');
                 }
@@ -413,7 +416,9 @@ class TravelbaseController extends Controller
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/club.html.twig', $params);
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/cruise.html.twig');
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/ferry.html.twig');
-            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/hotel.html.twig');
+
+            $params = $this->hotelsFormParams($request);
+            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/hotel.html.twig', $params);
 
             $params = $this->offerFormParams($request);
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/offer.html.twig', $params);
@@ -504,4 +509,29 @@ class TravelbaseController extends Controller
 
         return $context;
     }
+
+    private function hotelsFormParams(Request $request)
+    {
+        $context = [];
+
+        $year = date('Y');
+        $month = date('n');
+
+        $dates = [];
+
+        for($i=0; $i < 12; $i++){
+            $dates[$year . '-' . $month] = $month . '-' . $year;
+
+            $month++;
+            if($month == 13){
+                $month = 1;
+                $year++;
+            }
+        }
+
+        $context['dates'] = $dates;
+
+        return $context;
+    }
+
 }
