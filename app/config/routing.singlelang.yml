@@ -67,3 +67,16 @@ KunstmaanTaggingBundle:
 sandbox_website:
      resource: "@SandboxWebsiteBundle/Resources/config/routing.singlelang.yml"
      prefix:   /
+
+Slash:
+    pattern: "/{path}"
+    defaults: { _controller: "SandboxWebsiteBundle:Route:slash" }
+    requirements:
+        path: ".+/"
+Router:
+    path:      /{_locale}/{countryPrefix}/{path}
+    defaults:  { _controller: "SandboxWebsiteBundle:Route:path" }
+    requirements:
+        _locale: %requiredlocales%
+        countryPrefix: visit|jkhgh
+        path: ".+"
