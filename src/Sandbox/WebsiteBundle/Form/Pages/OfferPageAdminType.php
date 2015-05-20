@@ -64,6 +64,10 @@ class OfferPageAdminType extends PageAdminType
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
         ));
+        $builder->add('shortDescriptionTranslated', 'textarea', array(
+            'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
+            'required' => false,
+        ));
         $builder->add('logo', 'text', array(
             'required' => false,
         ));

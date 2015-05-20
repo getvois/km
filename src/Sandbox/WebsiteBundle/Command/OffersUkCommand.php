@@ -79,14 +79,14 @@ class OffersUkCommand extends OffersCommand
 //        $days = $offer->filter('days')->text();
 //        $offerPage->setDays($days);
 
-        $description = $offer->filter('desc')->text();
-        $offerPage->setDescription($description);
+//        $description = $offer->filter('desc')->text();
+//        $offerPage->setDescription($description);
 
         $long_description = $offer->filter('additional long_description')->text();
         $offerPage->getLongDescription($long_description);
 
-//        $short_description = $offer->filter('short_description')->text();
-//        $offerPage->setShortDescription($short_description);
+        $short_description = $offer->filter('desc')->text();
+        $offerPage->setShortDescription($short_description);
 
         $logo = $offer->filter('additional logo')->text();
         $offerPage->setLogo($logo);

@@ -168,6 +168,29 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * @var string
      *
+     * @ORM\Column(name="short_description_translated", type="text", nullable=true)
+     */
+    private $shortDescriptionTranslated;
+
+    /**
+     * @return string
+     */
+    public function getShortDescriptionTranslated()
+    {
+        return $this->shortDescriptionTranslated;
+    }
+
+    /**
+     * @param string $shortDescriptionTranslated
+     */
+    public function setShortDescriptionTranslated($shortDescriptionTranslated)
+    {
+        $this->shortDescriptionTranslated = $shortDescriptionTranslated;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
