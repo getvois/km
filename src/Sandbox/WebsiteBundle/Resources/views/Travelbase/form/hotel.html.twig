@@ -31,7 +31,7 @@
 		                    <div class="col-xs-6 col-md-2 form-col col-2_5">
 		                        <div>
 		                            <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-from" class="glyphicon travelbase-icon travelbase-icon-date-from"></span></div>
-		                            <input id="datepick-input-from-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
+		                            <input id="datepick-ckeckin" type="text" class="datepick-input-holder form-control travelbase-input"/>
 		                        </div>
 		                    </div>
 		                    
@@ -40,76 +40,89 @@
 		                        <div>
 		                            <span class="fa fa-times-circle datepicker-clear-icon hide"></span>
 		                            <div class="input-group-addon travelbase-input-addon"><span id="datepick-trigger-to" class="glyphicon travelbase-icon travelbase-icon-date-to"></span></div>
-		                            <input value="–" id="datepick-input-to-holder" type="text" class="datepick-input-holder form-control travelbase-input"/>
+		                            <input value="–" id="datepick-ckeckout" type="text" class="datepick-input-holder form-control travelbase-input"/>
 		                        </div>
 		                    </div>
 		                    
 		                    <div class="col-md-2 nopadding">
 				                {#submit#}
 				                <div class="form-col text-center-mobile">
-				                    <a href="#" id="form-submit" type="button" class="btn btn-lg btn-primary form-submit "><span class="glyphicon glyphicon-search"></span></a>
+				                    <button id="form-submit" type="submit" class="btn btn-lg btn-primary form-submit "><span class="glyphicon glyphicon-search"></span></button>
 				                </div>
 				            </div>
 		                </div>
 		                
                 	</div>
                 	
-                	
-                	
-                	
                 </div>
                 
                 
-                
-                
-                
-                
+
                 <div id="inout" class="no">
-                    <div id="homein">
-                        <h3>{{ 'date.from'| trans({}, 'frontend') }}</h3>
-                        <select name="checkin_monthday" id="b_checkin_day">
-                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-                        </select>
-                        <select name="checkin_year_month" id="b_checkin_month">
-                            {% for key, date in dates %}
-                                <option value="{{ key }}">{{ date }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div id="homeout">
-                        <h3>{{ 'date.to'| trans({}, 'frontend') }}</h3>
-                        <select name="checkout_monthday" id="b_checkout_day">
-                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-                        </select>
-                        <select name="checkout_year_month" id="b_checkout_month">
-                            {% for key, date in dates %}
-                                <option value="{{ key }}">{{ date }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    <select name="checkin_monthday" id="b_checkin_day">
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+                    </select>
+                    <select name="checkin_year_month" id="b_checkin_month">
+                        {% for key, date in dates %}
+                            <option value="{{ key }}">{{ date }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="checkout_monthday" id="b_checkout_day">
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+                    </select>
+                    <select name="checkout_year_month" id="b_checkout_month">
+                        {% for key, date in dates %}
+                            <option value="{{ key }}">{{ date }}</option>
+                        {% endfor %}
+                    </select>
+
                     <div class="avail no">
                         <input type="checkbox" value="on" name="idf" id="availcheck">
                         <label for="availcheck" id="labfor">
                         </label>
                     </div>
                 </div>
-                <div class="but no">
-                    <button type="submit">{{ 'search' | trans({}, 'frontend') }}</button>
-                </div>
             </fieldset>
         </form>
     </div>
-    <div id="calendar"></div>
+    {#<div id="calendar"></div>#}
     </div>
 </div>
 <script>
     $(document).ready(function () {
+        var $lang = $("body").data('lang');
+
+        $('#datepick-ckeckin, #datepick-ckeckout').datepick($.extend({
+                    dateFormat: 'dd.mm.yyyy',
+                    //rangeSelect: true,
+                    //monthsToShow: 2,
+                    minDate: '+0d',
+                    maxDate: '+1y',
+                    defaultDate: '+0d',
+                    changeMonth: false,
+                    selectDefaultDate: true,
+                    renderer: $.extend({}, $.datepick.defaultRenderer,
+                            {picker: $.datepick.defaultRenderer.picker.
+                                    replace(/\{link:buttons}/, '')
+                            })
+                },
+                $.datepick.regionalOptions[$lang]));
+
+
         $('#booking-form').submit(function () {
 
             if($('#booking-frame').length == 0){
                 $(this).attr('action', '{{ formUrl }}');
                 $(this).attr('target', '_self');
             }
+
+            var $checkin = $('#datepick-ckeckin').datepick('getDate')[0];
+            var $checkout = $('#datepick-ckeckout').datepick('getDate')[0];
+
+            $("#b_checkin_day").val($checkin.getDate());
+            $("#b_checkin_month").val($checkin.getFullYear() + "-" + ($checkin.getMonth()+1) );
+            $("#b_checkout_day").val($checkout.getDate());
+            $("#b_checkout_month").val($checkout.getFullYear() + "-" + ($checkout.getMonth()+1));
 
             return true;
         });
