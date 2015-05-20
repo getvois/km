@@ -13,7 +13,7 @@ use Sandbox\WebsiteBundle\Entity\Host;
  */
 class OffersPageRepository extends EntityRepository
 {
-    public function getOfferPages($lang)
+    public function getOfferPages($lang, $originalLang = null)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -28,6 +28,7 @@ AND nt.online = 1';
 
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
+        if($originalLang) $dql .= ' AND p.originalLanguage = :originalLang ';
 
         $dql .= ' AND p.expirationDate >= :date ';
 
@@ -35,6 +36,7 @@ AND nt.online = 1';
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
+        if($originalLang) $query->setParameter(':originalLang', $originalLang);
 
         $query->setParameter(':date', new \DateTime());
         $objects = $query->getResult();

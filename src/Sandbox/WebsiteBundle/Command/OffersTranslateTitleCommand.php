@@ -52,7 +52,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
 
         /** @var PackagePage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPages($lang);
+            ->getOfferPages($lang, 'fi');
 
         if(!$offers) $offers = [];
 
