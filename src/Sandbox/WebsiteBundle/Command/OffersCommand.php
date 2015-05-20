@@ -75,7 +75,6 @@ class OffersCommand extends ContainerAwareCommand
 
             $offerPage = $this->setPageFields($offer);
 
-            var_dump(memory_get_usage() / 1024 / 1024);
             var_dump($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count());
 
             $meta_description = $this->getMetaDesc($offer);
