@@ -24,12 +24,24 @@ class OffersCommand extends ContainerAwareCommand
         ;
     }
 
-    private $company;
+    protected $company;
+
+    protected function getId(Crawler $offer)
+    {
+        return $offer->filter('id')->text();
+    }
+
+    protected function getMetaDesc(Crawler $offer)
+    {
+        return $offer->filter('meta_description')->text();
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $em->getConnection()->getConfiguration()->setSQLLogger(null);
 
         $rootNode = $em->getRepository('KunstmaanNodeBundle:Node')
             ->findOneBy([
@@ -50,20 +62,23 @@ class OffersCommand extends ContainerAwareCommand
         for($i = 0; $i<$offers->count(); $i++){
             $offer = $offers->eq($i);
 
-            $id = $offer->filter('id')->text();
+            $id = $this->getId($offer);
 
             $offerPage = $this->offerExists($id);
             if($offerPage){
                 //update or something
+
+                var_dump($offerPage->getOfferId());
 
                 continue;
             }
 
             $offerPage = $this->setPageFields($offer);
 
+            var_dump(memory_get_usage() / 1024 / 1024);
             var_dump($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count());
 
-            $meta_description = $offer->filter('meta_description')->text();
+            $meta_description = $this->getMetaDesc($offer);
 
             $translations = array();
 
@@ -92,7 +107,7 @@ class OffersCommand extends ContainerAwareCommand
     /**
      * @return Crawler
      */
-    private function getOffers()
+    protected function getOffers()
     {
         $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
         $crawler = new Crawler(@file_get_contents('http://travelbird.fi/data/travelwebpartner/all_active_extended.xml', false, $context));
@@ -103,7 +118,7 @@ class OffersCommand extends ContainerAwareCommand
      * @param $offer
      * @return OfferPage
      */
-    private function setPageFields(Crawler $offer)
+    protected function setPageFields(Crawler $offer)
     {
         $offerPage = new OfferPage();
 
@@ -248,7 +263,7 @@ class OffersCommand extends ContainerAwareCommand
      * @param $id
      * @return null|OfferPage
      */
-    private function offerExists($id)
+    protected function offerExists($id)
     {
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
@@ -275,7 +290,7 @@ class OffersCommand extends ContainerAwareCommand
     /**
      * @return CompanyOverviewPage
      */
-    private function setCompany()
+    protected function setCompany()
     {
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
@@ -290,7 +305,7 @@ class OffersCommand extends ContainerAwareCommand
         return $company;
     }
 
-    private function addPlaces(Node $node)
+    protected function addPlaces(Node $node)
     {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
