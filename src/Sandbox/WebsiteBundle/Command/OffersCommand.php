@@ -51,7 +51,7 @@ class OffersCommand extends ContainerAwareCommand
             ]);
 
         if(!$rootNode){
-            var_dump('OffersOverviewPage with internal name offers not found. Please create one.');
+            echo("OffersOverviewPage with internal name offers not found. Please create one.\n");
             return;
         }
 
@@ -324,14 +324,14 @@ class OffersCommand extends ContainerAwareCommand
                 $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCity()]);
                 if(!$place) {
-                    var_dump('place not found in db '. $page->getCity());
+                    echo('place not found in db '. $page->getCity(). "\n");
                     break;
                 }
 
                 //get place page node
                 $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    var_dump('Node node found for city'. $page->getCity());
+                    echo('Node node found for city'. $page->getCity() . "\n");
                     continue;
                 }
 
@@ -352,14 +352,14 @@ class OffersCommand extends ContainerAwareCommand
                 $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCountry()]);
                 if(!$place) {
-                    var_dump('place not found in db '. $page->getCountry());
+                    echo('place not found in db '. $page->getCountry(). "\n");
                     break;
                 }
 
                 //get place page node
                 $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    var_dump('Node node found for city'. $page->getCountry());
+                    echo('Node node found for city'. $page->getCountry() . "\n");
                     continue;
                 }
 

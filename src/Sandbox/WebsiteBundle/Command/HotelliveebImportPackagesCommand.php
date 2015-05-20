@@ -215,7 +215,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packagePage = new PackagePage();
         $packagePage->setTitle($package->filter('title')->first()->text());
 
-        var_dump($packagePage->getTitle());
+        echo($packagePage->getTitle() . "\n");
 
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($hotelPage);
@@ -229,7 +229,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         $init = time();
         $newNode = $this->createPackageTranslations($node , $packagePage, $package);
-        var_dump('createPackageTranslations in ' . (time() - $init));
+        echo('createPackageTranslations in ' . (time() - $init) . "\n");
 
         $this->emailBody  .= "NEW node: ". $newNode->getId(). " title:". $packagePage->getTitle() . "<br/>";
 
@@ -237,7 +237,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         $init = time();
         $this->createPackagePageParts($package, $newNode);
-        var_dump('createPackagePageParts in ' . (time() - $init));
+        echo('createPackagePageParts in ' . (time() - $init) . "\n");
 
     }
 
