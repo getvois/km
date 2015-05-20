@@ -68,14 +68,14 @@ class OffersCommand extends ContainerAwareCommand
             if($offerPage){
                 //update or something
 
-                var_dump($offerPage->getOfferId());
+                echo($offerPage->getOfferId() . "\n");
 
                 continue;
             }
 
             $offerPage = $this->setPageFields($offer);
 
-            var_dump($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count());
+            echo($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count() . "\n");
 
             $meta_description = $this->getMetaDesc($offer);
 
@@ -299,7 +299,7 @@ class OffersCommand extends ContainerAwareCommand
 
         $this->company = $company;
 
-        if(!$company) var_dump('WARNING: company Travelbird not found');
+        if(!$company) echo('WARNING: company Travelbird not found\n');
 
         return $company;
     }
