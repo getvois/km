@@ -1,26 +1,53 @@
-<div class="col-md-4 well offer">
+<div class="col-md-4 nopadding package">
+	<div class="package-inside well">
+		
+		<a class="package-price pull-right btn btn-primary" href="{{ offer.absoluteUrl }}">
+			
+			{% if offer.category == 'hotel' or 'citytrip' %}
+				{{ offer.price |number_format(0, '.', ',') * 2 }}{% if offer.currency == 'EUR' %}&euro;{% else %}{{ offer.currency }}{% endif %}
+		    	<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+		    	{% if offer.discount %}
+		    	<span class="offer-discount">-{{ offer.discount }}</span>
+		   	 	{% endif %}
+			{% else %}
+		    	{{ offer.price |number_format(0, '.', ',') }} {% if offer.currency == 'EUR' %}&euro;{% else %}{{ offer.currency }}{% endif %}
+		    	<span class="price-from">/{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+		    	{% if offer.discount %}
+		    	<span class="offer-discount">-{{ offer.discount }}</span>
+		   	 	{% endif %}
+	   	 	{% endif %}
+	   	 	
+	   	 	
+	    </a>
+		<a href="{{ offer.absoluteUrl }}">
+	    	<h4 class="package-title">
+	        {% if offer.titleTranslated %}
+           		{{ offer.titleTranslated }}
+	        {% else %}
+	            {{ offer.title }}
+	        {% endif %}
+	        {% if offer.nights %}
+		         ({{ offer.nights|split(',')[0] }} {% if offer.nights|split(',')[0] == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
+	        {% endif %}
+	    	</h4>
+	    	{% if offer.city %}<p>{{ offer.city }}{% if offer.country %}, {{ offer.country }}{% endif %}</p>{% endif %}
+		    {% if offer.image %}
+		        <img src="{{ offer.image }}" class="img-responsive"/>
+		    {% endif %}
+	    </a>
+       
 
-    <h3>
-        {% if offer.titleTranslated %}
-            {{ offer.titleTranslated }}
-        {% else %}
-            {{ offer.title }}
-        {% endif %}
-
-        {% if offer.originalLanguage %}
-            <img src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
-        {% endif %}
-    </h3>
-    {% if offer.image %}
-        <img src="{{ offer.image }}" class="img-responsive"/>
-    {% endif %}
-    <p>{{ offer.price }}{{ offer.currency }}</p>
+       
     <p>
         {% if offer.summary %}
             {{ offer.summary |raw }}
         {% else %}
             {{ offer.shortDescription |raw }}
         {% endif %}
+         {% if offer.originalLanguage %}
+	            <img width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
+	    {% endif %}
     </p>
-    <a class="btn btn-primary" href="{{ offer.absoluteUrl }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+    
+    </div>
 </div>

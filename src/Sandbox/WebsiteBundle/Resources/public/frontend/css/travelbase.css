@@ -2,6 +2,8 @@
 @import url(http://fonts.googleapis.com/css?family=Yellowtail:400,700);
 @import url(http://fonts.googleapis.com/css?family=Noto+Serif:400,700);
 
+
+
 html body {  
     font-family: "Open Sans",serif;
 }
@@ -10,6 +12,7 @@ h1, h2, h3, h4, h5  {
 	letter-spacing: -0.3px;
 }
 body{background-color: #ffffff !important;}
+
 .clear {
     clear:both;
 } 
@@ -72,17 +75,42 @@ body{background-color: #ffffff !important;}
     padding-left: 5%;
 }
 
+input:focus {outline:0;}
+
+.btn  {border-radius:3px;}
+
+/* Register form */
 .register-form{
-    background-color: rgba(1, 1, 1, 0.8);
+    background-color: rgba(1, 1, 1, 0.85);
     box-sizing: border-box;
     color: white;
     font-size: 20px;
     line-height: 34px;
-    padding: 28px;
+    padding: 28px 0 28px 28px;
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
+}
+.register-form #register-submit{
+	font-size: 16px;
+}
+.register-form .form-control, .clubbar .form-control{
+	border: 2px solid #222;
+	border-radius: 3px;
+	font-size: 16px;
+	background: #f9f9f9;
+	box-shadow: inset -1px 9px 9px #ddd;
+  	margin-top: -2px;
+	height: 38px;
+}
+.register-form .form-control{
+  font-family: Yellowtail;
+  font-size: 23px;
+  width: 200px!important;
+}
+.register-form h2{
+    margin-bottom:20px;
 }
 .register-form .form-control{
     width: auto;
@@ -91,8 +119,12 @@ body{background-color: #ffffff !important;}
     display: inline;
     margin: 0 10px;
 }
-
-
+.register-form .form-group-email{
+    margin:0 2px 0 10px;
+}
+.register-form p.join-count{
+    margin-top:10px;
+}
 .datepicker {z-index: 1151 !important;}
 
 /*pageparts gallery, googlemap */
@@ -136,7 +168,7 @@ body{background-color: #ffffff !important;}
 .news-panel article h3 a { 
 	font-size: 20px; 
 }
-.news-panel h2, .news-panel article h3 a, .clubbar h2, .clubbar h3 a { 
+.news-panel h2, .news-panel article h3 a, .clubbar h2, .clubbar h3 a, .register-form h2 { 
 	color:#F8C600;
 	line-height:1.1em;
 }
@@ -144,12 +176,17 @@ body{background-color: #ffffff !important;}
 	background:#444!important;
 }
 .news-panel { 
-	padding:30px;
+	padding:25px;
 	color:#fefefe;
 }
-.news-panel article a, .clubbar h3 a { 
+.news-panel article a { 
 	color:#ddd;
 	text-decoration:underline;
+}
+.clubbar h3 a { 
+	font-family: Yellowtail;
+  	font-size: 30px;
+  	color:#ddd;
 }
 .news-panel article a:hover, .clubbar h3 a:hover { 
 	color:#eee;
@@ -170,10 +207,11 @@ body{background-color: #ffffff !important;}
 }
 
 time, .tags-block a, header, header a  {
-	color: #999; 
 	margin-bottom:5px;
 }
-
+.news-panel header, .articles-panel header, .news-panel header a, .articles-panel header a, .doormat__list-item header, .doormat__list-item header a {
+	color: #999; 
+}
 .topnews {
 	padding-bottom:15px;
 	padding-top:10px;
@@ -239,14 +277,14 @@ time, .tags-block a, header, header a  {
 }
 
 .content-panel {
-	margin-top:15px;
+	margin-top:5px;
 }
 
 main h2 {
     margin: 25px 0 15px 0;  
 }
-
-main h2.topheader, .clubbar h2 {
+ 
+main h2.topheader, .clubbar h2, .register-form h2 {
     font-weight: bold;
 	font-size: 25px;
 }
@@ -263,10 +301,10 @@ body .splash--green {
     background-size: cover;
     position: relative;
 }
-#travelbase-form h1 {
+.form-header h1 {
     color: #f8c701;
     text-shadow:1px 1px #454545;
-    margin: 35px 0 30px;
+    margin: 0 0 30px;
     font:  700 35px "Open Sans";
     letter-spacing:-1px;
 }
@@ -330,7 +368,7 @@ body .splash--green {
 /*}*/
 .travelbase_top_menu{
 	margin:0;
-    padding: 0 0 100px;
+    padding: 0;
 
 }
 .travelbase_top_menu > li {
@@ -349,7 +387,6 @@ body .splash--green {
     text-decoration:underline;
 }
 #travelbase-form > div {
-    margin-top:-10px;
 }
 
 .top-img-title {
@@ -429,7 +466,9 @@ body .splash--green {
     background-position: right -11px;
 }
 
-
+div.travelbase-input-rel{
+	position:relative;
+}
 div.travelbase-input-addon{
     background-color: transparent;
     border: medium none;
@@ -454,6 +493,11 @@ div.travelbase-input-addon{
     position: absolute;
     top: 0;
 }
+.travelbase-icon-other{
+    position: absolute;
+	top: 7px;
+	left: 7px;
+}
 
 .travelbase-icon-from{
     background-position: 0 -8px;
@@ -467,7 +511,17 @@ div.travelbase-input-addon{
 .travelbase-icon-date-to{
     background-position: 0 -118px;
 }
+.travelbase-icon-dest{
+    background-position: 0 -151px;
+}
 
+.travelbase-icon-city{
+    background-position: 0 -183px;
+}
+
+.travelbase-icon-hotel{
+    background-position: 0 -213px;
+}
 
 /* sidebar */
 
@@ -483,7 +537,7 @@ div.travelbase-input-addon{
   color: #fff;
   padding: 20px;
   margin-bottom: 20px;
-  margin-top: -40px;
+  margin-top: -45px;
 }
 
 .sidebar {
@@ -771,7 +825,7 @@ label.directFlight-label,  label.sameDay-label {
     color: #ffffff;
 }
 
-#form-submit {
+.form-submit {
 	height: 40px;
 	/*position: absolute;*/
 	z-index: 200;
@@ -1017,12 +1071,13 @@ label.directFlight-label,  label.sameDay-label {
     text-align: center;
 }
 .trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p, .package-price {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: bold;
 }
 .package-price {
-	position: absolute;
+  position: absolute;
   right: 0;
+  padding: 4px 8px;
 }
 .trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p {
     width: 100%;
@@ -1078,7 +1133,14 @@ label.directFlight-label,  label.sameDay-label {
     margin: 45px 20px 20px;
 }
 
-
+.loaded-message {
+    margin: 25px 0;
+    width: 90%;
+    background:url("/bundles/sandboxwebsite/img/general/notfound-plane.png") no-repeat top right;
+}
+.loaded-message h2 {
+    margin: 0 0 25px 0;
+}
 .company-info{
     font-size: 16px;
     margin-top: 7px;
@@ -1101,7 +1163,7 @@ label.directFlight-label,  label.sameDay-label {
 	background-color: #f5f5f5;
 	background-image: none;
 }
-#packages .package-inside, .hotell-inside {margin: 20px 10px}
+#packages .package-inside, .hotell-inside, #club .package-inside {margin: 20px 10px}
 #packages .package-title {margin-right: 40px;line-height: 1.4em;font-weight:700}
 .hotel-title {margin-right: 65px}
 span.price-from {font-size: 14px;}
@@ -1119,6 +1181,18 @@ span.price-from {font-size: 14px;}
   margin-top: 2px;
 }
 .map-filters .btn {margin-top: -2px;}
+
+.offer-discount {
+	background: #F8C600;
+	display:block;
+	border-radius: 33px;
+	text-shadow: 1px 1px #C3A321;
+	padding: 12px 5px;
+	font-size: 16px;
+	height: 46px;
+	width: 46px;
+	position: absolute;
+}
 
 /*DATE PICKER STUFF*/
 #edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0, .datepick-input{
@@ -1339,7 +1413,7 @@ span.city-picker-close:hover {
         padding-top: 1px;
         padding-right: 0;
     }
-    .site-topmenu {
+    .navbar .site-topmenu {
         position: absolute;
         top:0;
         right:0;
@@ -1347,7 +1421,7 @@ span.city-picker-close:hover {
         padding-top: 106px;
         padding-left: 280px;
         z-index: 0;
-        height: 380px;
+        height: 380px!important;
         background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(197,220,245,0.8) 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(197,220,245,0.8))); /* Chrome,Safari4+ */
         background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* Chrome10+,Safari5.1+ */
@@ -1553,13 +1627,13 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 #block-travelbase-travelbase-search-form .ico-flight:nth-of-type(2) {padding:0;}
 .travelbase_items {
     clear:both;
-    padding: 10px 10px 30px 10px;
+    padding: 10px 10px 0px 10px;
     background: #fff;
     border: 0 solid;
 }
 .travelbase_items > div:first-of-type{
     height: 205px;
-    overflow: hidden;
+    overflow: hidden; 
 }
 #offer-holder, #package-holder{
     height: 240px;
@@ -1590,7 +1664,9 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     border: none;
     position: absolute;
     width: 50px;
+    
 }
+#loadMore:focus {outline:0;}
 .loadDiv {
   border-top: 2px solid rgb(236, 219, 48);
   height: 2px;

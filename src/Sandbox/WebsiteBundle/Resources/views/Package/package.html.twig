@@ -1,7 +1,8 @@
 <div class="col-md-4 nopadding package" data-package-id="{{ package.packageId }}">
 	<div class="package-inside well">
 	    <a class="package-price pull-right btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">
-	    	{{ package.minprice |number_format(0, '.', ',') }} &euro;
+	    	{{ package.minprice |number_format(0, '.', ',') }}&euro;
+	    	<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
 	    </a>
 	    <a href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">
 	    	<h4 class="package-title">
@@ -10,6 +11,7 @@
 	        {% else %}
 	            {{ package.title }}
 	        {% endif %}
+	        
 	    	</h4>
 		    {% if package.image %}
 		        <p><img src="{{ package.image }}" class="img-responsive"/></p>

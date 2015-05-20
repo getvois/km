@@ -58,7 +58,7 @@ class DefaultController extends Controller
             </div>
         </span>";
 
-        $noItemsFoundHTML = "$loading<div class='text-center'><h2>$noItemsFoundTitle</h2><p>$noItemsFoundText</p></div>";
+        $noItemsFoundHTML = "$loading<div class='loaded-message'><h2>$noItemsFoundTitle</h2><p>$noItemsFoundText</p></div>";
 
         if($request->getContent()){
             $filter = json_decode($request->getContent());

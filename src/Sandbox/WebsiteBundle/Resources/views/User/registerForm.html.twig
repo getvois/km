@@ -1,7 +1,6 @@
 <div style="position: relative">
-    <h2>{{ 'club.header'|trans({}, 'frontend') }}</h2>
     {#{{ render(controller('SandboxWebsiteBundle:Offer:index')) }}#}
-    <div class="row" id="offer-holder">
+    <div class="row nomargin" id="offer-holder">
         {{ render(controller('SandboxWebsiteBundle:Offer:getOfferPages')) }}
     </div>
     <div id="offer-pager" class="loadDiv">
@@ -9,8 +8,8 @@
     </div>
 
     {% if app.request.query.has('email') %}
-        <div class="register-form">
-            <div>{{ 'welcome.to.the.club'|trans({}, 'frontend') }},</div>
+        <div class="register-form"> 
+            <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
             <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
                 <div  class="form-group pull-left">
             <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
@@ -23,23 +22,31 @@
     {% else %}
 
         {% if not app.user %}
-            <div class="register-form">
+            <div class="register-form text-center">
                 <form action="{{ path('register_action') }}" method="post">
-                    <div>{{ 'welcome.to.the.club'|trans({}, 'frontend') }},</div>
+                    <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
+                    
+                    <div style="margin:0 auto;display:table;">
                     <span class="pull-left">{{ 'i.am'|trans({}, 'frontend') }}</span>
                     <div  class="form-group pull-left">
-                        <label class="sr-only" for="name">{{ 'Name'|trans({}, 'frontend') }}:</label>
+                        <label class="sr-only" for="name">{{ 'write.name'|trans({}, 'frontend') }}:</label>
                         <input id="name" type="text" name="name" class="form-control"
-                               placeholder="{{ 'Name'|trans({}, 'frontend') }}"/>
+                               placeholder="{{ 'write.name'|trans({}, 'frontend') }}"/>
                     </div>
                     <span class="pull-left">{{ 'and.my.email.is'|trans({}, 'frontend') }}</span>
-                    <div class="form-group pull-left">
-                        <label class="sr-only" for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
+                    <div class="form-group form-group-email pull-left">  
+                        <label class="sr-only" for="email">{{ 'write.email'|trans({}, 'frontend') }}:</label>
                         <input id="email" type="text" name="email" class="form-control"
-                               placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
+                               placeholder="{{ 'write.email'|trans({}, 'frontend') }}"/>
                     </div>
                     <span class="pull-left">.</span>
-                    <div class="clear">{{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}.</div>
+                    
+                    </div>
+                    
+                    <div class="clear"></div>
+                	<p class="join-count">
+                		{{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}.
+                	</p>
                     <p>
                         <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
                     </p>
