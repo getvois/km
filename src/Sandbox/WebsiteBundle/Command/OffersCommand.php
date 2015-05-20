@@ -299,7 +299,7 @@ class OffersCommand extends ContainerAwareCommand
 
         $this->company = $company;
 
-        if(!$company) echo('WARNING: company Travelbird not found\n');
+        if(!$company) echo("WARNING: company Travelbird not found\n");
 
         return $company;
     }
