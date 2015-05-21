@@ -618,6 +618,14 @@ $(document).ready(function() {
     });
 
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable
+    $('#form-package .datepick').datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
+        {picker: $.datepick.defaultRenderer.picker.
+            replace(/\{link:buttons}/, '')
+            .replace(/\{link:clear\}/, '')
+        }));
+
+
+    //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     $datepickFrom.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
         {picker: $.datepick.defaultRenderer.picker.
             replace(/\{link:buttons}/, buttonPanel("#datepick-input-from"))
