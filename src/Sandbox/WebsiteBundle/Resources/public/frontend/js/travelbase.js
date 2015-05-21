@@ -687,7 +687,7 @@ $(document).ready(function() {
 //"<button data-target='" + $id + "' class='btn btn-default dp-close' >close</button>" +
         return "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='0d'?" active ":"") + "' data-interval='0d'>1 " + trans.day[$lang] + "</button>" +
             "<button data-target='" + $id + "' class='btn btn-default dp-interval" + (interval=='7d'?" active ":"") + "' data-interval='7d'>1 " + trans.week[$lang] + "</button>" +
-            "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval=='1m'?" active ":"") + " ' data-interval='1m'>" + trans.month[$lang] + "</button>";
+            "<button data-target='" + $id + "' class='btn btn-default dp-interval " + (interval=='1m'?" active ":"") + " ' data-interval='1m'>1 " + trans.month[$lang] + "</button>";
     }
 
     cityPicker("#departure-el", "#departure-dataholder", 'from');
