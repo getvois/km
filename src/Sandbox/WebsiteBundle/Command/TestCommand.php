@@ -23,13 +23,21 @@ class TestCommand extends ContainerAwareCommand
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine')->getManager();
 
-        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPages('ee');
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages('en');
 
-        foreach ($hotels as $hotel) {
-            if($hotel->getCountryPlace() && $hotel->getCountryPlace()->getTitle() == 'Tallinn')
-                var_dump($hotel->getTitle() . " " . $hotel->getCountryPlace()->getTitle());
+        $categories = [];
+
+        foreach ($offers as $offer) {
+            $categories[] = $offer->getCategory();
         }
+
+        $categories = array_unique($categories);
+
+        foreach ($categories as $c) {
+            echo $c . "\n";
+        }
+
 
     }
 }

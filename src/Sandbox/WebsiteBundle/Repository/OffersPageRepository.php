@@ -7,6 +7,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Kunstmaan\ArticleBundle\Repository\AbstractArticlePageRepository;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 
 /**
  * Repository class for the NewsPage
@@ -43,6 +44,12 @@ AND nt.online = 1';
 
         return $objects;
     }
+
+    /**
+     * @param $lang
+     * @param null $originalLang
+     * @return OfferPage[]
+     */
     public function getOfferPages($lang, $originalLang = null)
     {
         $dql = "SELECT p
