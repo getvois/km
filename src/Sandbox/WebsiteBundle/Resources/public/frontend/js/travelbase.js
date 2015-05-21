@@ -622,6 +622,7 @@ $(document).ready(function() {
         {picker: $.datepick.defaultRenderer.picker.
             replace(/\{link:buttons}/, buttonPanel("#datepick-input-from"))
             .replace(/\{link:today}/, '')
+            .replace(/\{link:clear\}/, '')
         }));
 
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -629,6 +630,7 @@ $(document).ready(function() {
         {picker: $.datepick.defaultRenderer.picker.
             replace(/\{link:buttons}/, buttonPanel("#datepick-input-to"))
             .replace(/\{link:today}/, '')
+            .replace(/\{link:clear\}/, '')
         }));
 
 
