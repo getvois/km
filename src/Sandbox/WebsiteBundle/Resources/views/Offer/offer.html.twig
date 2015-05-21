@@ -3,7 +3,7 @@
 		
 		<a class="package-price pull-right btn btn-primary" href="{{ offer.absoluteUrl }}">
 			
-			{% if offer.category == 'hotel' or 'citytrip' %}
+			{% if offer.inCategory('hotel') or offer.inCategory('citytrip') %}
 				{{ offer.price |number_format(0, '.', ',') * 2 }}{% if offer.currency == 'EUR' %}&euro;{% else %}{{ offer.currency }}{% endif %}
 		    	<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
 		    	{% if offer.discount %}

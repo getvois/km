@@ -401,6 +401,17 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
         $this->places = new ArrayCollection();
     }
 
+    public function inCategory($name)
+    {
+        /** @var PackageCategory $category */
+        foreach ($this->categories as $category) {
+            if($category->getName() == $name)
+                return true;
+        }
+
+        return false;
+    }
+
     /**
      * @return CompanyOverviewPage
      */
