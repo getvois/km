@@ -124,12 +124,139 @@
             var $checkin = $('#datepick-ckeckin').datepick('getDate')[0];
             var $checkout = $('#datepick-ckeckout').datepick('getDate')[0];
 
+            if(!$checkin) $checkin = new Date();
+            if(!$checkout) $checkout = new Date();
+
             $("#b_checkin_day").val($checkin.getDate());
             $("#b_checkin_month").val($checkin.getFullYear() + "-" + ($checkin.getMonth()+1) );
             $("#b_checkout_day").val($checkout.getDate());
             $("#b_checkout_month").val($checkout.getFullYear() + "-" + ($checkout.getMonth()+1));
 
+
+            var $destination = $("#destination");
+            var data = $destination.select2("data");
+            if(!data) return true;
+
+            if(data.id.toString().indexOf('_') != -1){
+                //country
+                $destination.val(data.countryName);
+            }else{
+                //city
+                $destination.val(data.cityName);
+            }
+
             return true;
         });
+
+
+        function convertData(data){
+            var $finalData = [];
+
+            var data = $.map(data, function(el) {
+                        //el.id = Object.keys(el)[0];
+                        return el;
+                    }
+            );
+
+
+            //loop countries
+            for(var i=0; i<data.length; i++){
+                var $cityArr = data[i];
+
+                //loop cities
+                for(var j=0; j<Object.keys($cityArr).length; j++){
+                    if(j == 0){
+                        //add county
+                        var $country = $cityArr[Object.keys($cityArr)[j]];
+                        $country = JSON.parse(JSON.stringify($country));
+                        $country.id = $country.id + "_";
+
+                        $finalData.push($country);
+                    }
+                    //add city
+                    var $city = $cityArr[Object.keys($cityArr)[j]];
+                    $city = JSON.parse(JSON.stringify($city));
+
+                    $finalData.push($city);
+                }
+            }
+            return $finalData;
+        }
+
+        function repoFormatSelection(repo) {
+            var $lang = $("body").data('lang');
+            if($lang == 'ee') $lang = 'et';
+
+            $lang = $lang.charAt(0).toUpperCase() + $lang.slice(1);
+
+            var $locale = $lang;
+            if($locale == "En") $locale = "";
+            if($locale == "Et") $locale = "Ee";
+
+            //var $title = repo.countryName + "/" + repo.cityNameEn;
+            var $title = repo['cityName' + $lang];
+
+            if(repo.id.toString().indexOf("_") != -1){
+                $title = repo['countryName' + $locale];
+            }
+            repo.text = $title;
+
+            return $title;
+        }
+
+        $('#destination').select2({
+            //placeholder: 'todo ',
+            minimumInputLength: 3,
+            //multiple: true,
+            width: '100%',
+            dropdownAutoWidth: true,
+            cacheDataSource: [],
+            query: function(query) {
+                //noinspection JSUndeclaredVariable
+                self = this;
+                var key = query.term;
+                var cachedData = self.cacheDataSource[key];
+
+                if(cachedData) {
+                    query.callback({results: convertData(cachedData)});
+                    return;
+                } else {
+                    $.ajax({
+                        url: 'http://api.travelwebpartner.com/api/city.findByText/',
+                        data: { q : query.term },
+                        dataType: 'json',
+                        type: 'GET',
+                        success: function(data) {
+                            self.cacheDataSource[key] = data;
+                            query.callback({results: convertData(data)});
+                        }
+                    })
+                }
+            },
+            initSelection: function (element, callback) {
+                // the input tag has a value attribute preloaded that points to a preselected repository's id
+                // this function resolves that id attribute to an object that select2 can render
+                // using its formatResult renderer - that way the repository name is shown preselected
+                $(element).val("");
+                var id = $(element).val();
+                id = '';
+                if (id !== "") {
+//                                        id = 'estonia';
+                    $.ajax("http://api.travelwebpartner.com/api/city.findByText/?q=" + id, {
+                        dataType: "json"
+                    }).done(function (data) {
+
+                        callback(convertData(data));
+                    });
+                }
+            },
+            formatResult: repoFormatResult, // omitted for brevity, see the source of this page
+            formatSelection: repoFormatSelection, // omitted for brevity, see the source of this page
+            dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+            escapeMarkup: function (m) {
+                return m;
+            } // we do not want to escape markup since we are displaying html in results
+        });
+
     });
 </script>

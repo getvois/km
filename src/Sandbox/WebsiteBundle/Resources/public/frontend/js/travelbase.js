@@ -2026,63 +2026,17 @@ function cityPicker($el, $holder, $direction) {
         }
     });
 
-    var $lang = $("body").data('lang');
-    if($lang == 'ee') $lang = 'et';
+    var $language = $('body').data('lang');
+    var $trans = window.trans.searchForPlace[$language];
 
-    $lang = $lang.charAt(0).toUpperCase() + $lang.slice(1);
-
-    var $locale = $lang;
-    if($locale == "En") $locale = "";
-    if($locale == "Et") $locale = "Ee";
-
-    var airportName = 'airportNameEn';
-    if($locale == "Ee") airportName = 'airportNameEt';
-
-    function repoFormatResult(repo) {
-        var $title = repo['cityName' + $lang];
-        //noinspection JSUnresolvedVariable
-        if(repo.airportNameEn){
-            $title += " <span class='text-muted'>("+repo[airportName];
-            //noinspection JSUnresolvedVariable
-            if(repo.airportCode.length < 4) {
-                //noinspection JSUnresolvedVariable
-                $title += ", " + repo.airportCode;
-            }
-            $title += ")</span>";
+    if($direction){
+        if($direction == 'from'){
+            $trans = window.trans.searchFromPlace[$language];
         }else{
-            //noinspection JSUnresolvedVariable
-            if(repo.airportCode.length < 4) {
-                //noinspection JSUnresolvedVariable
-                $title += " <span class='text-muted'>(" + repo.airportCode + ")</span>";
-            }
+            $trans = window.trans.searchForPlace[$language];
         }
-
-        $title = '<div class="col-xs-11 col-xs-offset-1">' + $title +'</div>';
-
-        if(repo.id.toString().indexOf("_") != -1){
-            $title = '<div class="col-xs-12"><strong>' + repo['countryName' + $locale] +'</strong></div>';
-        }
-
-        var markup = '<div class="row">' + $title;
-
-        markup += '</div>';
-
-        return markup;
     }
 
-    function repoFormatSelection(repo) {
-        //var $title = repo.countryName + "/" + repo.cityNameEn;
-        var $title = repo['cityName' + $lang];
-
-        if(repo.id.toString().indexOf("_") != -1){
-            $title = repo['countryName' + $locale];
-        }
-        repo.text = $title;
-
-        $($holder).dataHolder('add', repo);
-
-        return $title;
-    }
 
     function convertData(data){
         var $finalData = [];
@@ -2125,15 +2079,27 @@ function cityPicker($el, $holder, $direction) {
         return $finalData;
     }
 
-    var $language = $('body').data('lang');
-    var $trans = window.trans.searchForPlace[$language];
+    function repoFormatSelection(repo) {
+        var $lang = $("body").data('lang');
+        if($lang == 'ee') $lang = 'et';
 
-    if($direction){
-        if($direction == 'from'){
-            $trans = window.trans.searchFromPlace[$language];
-        }else{
-            $trans = window.trans.searchForPlace[$language];
+        $lang = $lang.charAt(0).toUpperCase() + $lang.slice(1);
+
+        var $locale = $lang;
+        if($locale == "En") $locale = "";
+        if($locale == "Et") $locale = "Ee";
+
+        //var $title = repo.countryName + "/" + repo.cityNameEn;
+        var $title = repo['cityName' + $lang];
+
+        if(repo.id.toString().indexOf("_") != -1){
+            $title = repo['countryName' + $locale];
         }
+        repo.text = $title;
+
+        $($holder).dataHolder('add', repo);
+
+        return $title;
     }
 
     $($el).select2({
@@ -2236,3 +2202,48 @@ function fixDiv() {
 }
 $(window).scroll(fixDiv);
 fixDiv();
+
+function repoFormatResult(repo) {
+
+    var $lang = $("body").data('lang');
+    if($lang == 'ee') $lang = 'et';
+
+    $lang = $lang.charAt(0).toUpperCase() + $lang.slice(1);
+
+    var $locale = $lang;
+    if($locale == "En") $locale = "";
+    if($locale == "Et") $locale = "Ee";
+
+    var airportName = 'airportNameEn';
+    if($locale == "Ee") airportName = 'airportNameEt';
+
+    var $title = repo['cityName' + $lang];
+    //noinspection JSUnresolvedVariable
+    if(repo.airportNameEn){
+        $title += " <span class='text-muted'>("+repo[airportName];
+        //noinspection JSUnresolvedVariable
+        if(repo.airportCode.length < 4) {
+            //noinspection JSUnresolvedVariable
+            $title += ", " + repo.airportCode;
+        }
+        $title += ")</span>";
+    }else{
+        //noinspection JSUnresolvedVariable
+        if(repo.airportCode.length < 4) {
+            //noinspection JSUnresolvedVariable
+            $title += " <span class='text-muted'>(" + repo.airportCode + ")</span>";
+        }
+    }
+
+    $title = '<div class="col-xs-11 col-xs-offset-1">' + $title +'</div>';
+
+    if(repo.id.toString().indexOf("_") != -1){
+        $title = '<div class="col-xs-12"><strong>' + repo['countryName' + $locale] +'</strong></div>';
+    }
+
+    var markup = '<div class="row">' + $title;
+
+    markup += '</div>';
+
+    return markup;
+}
