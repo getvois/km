@@ -24,7 +24,7 @@ $(document).ready(function() {
         }
         if($(e.target).data('type') == 'club'){
             container = document.querySelector('#offer-holder');
-            iso = new Isotope( container, {itemSelector: '.offer'});
+            iso = new Isotope( container, {itemSelector: '.package'});
 
             //imagesLoaded( container, function() {
             //    iso.layout();
