@@ -533,7 +533,7 @@ div.travelbase-input-addon{
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000'); /* IE6 & IE7 */  
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000')"; /* IE8+ */
     /*noinspection CssUnknownProperty*/
-    -pie-background:linear-gradient(#44444, #000000) repeat scroll 0 0 transparent !important;
+    -pie-background:linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
   color: #fff;
   padding: 20px;
   margin-bottom: 20px;
@@ -563,7 +563,7 @@ div.travelbase-input-addon{
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */
     /*noinspection CssUnknownProperty*/
     -pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
-}	
+}
 
 .sidebar .club-header { margin-top: 0;}
 .sidebar .top-ten {
@@ -871,7 +871,7 @@ label.directFlight-label,  label.sameDay-label {
 
 .trip-results {
 	border-bottom:2px solid rgba(236, 219, 48, 1);
-	box-shadow: 0 13px 5px -6px #f3f3
+	box-shadow: 0 13px 5px -6px #f3f3f3
 }
 
 .trip {
@@ -1136,6 +1136,7 @@ label.directFlight-label,  label.sameDay-label {
 .loaded-message {
     margin: 25px 0;
     width: 90%;
+    /*noinspection CssUnknownTarget*/
     background:url("/bundles/sandboxwebsite/img/general/notfound-plane.png") no-repeat top right;
 }
 .loaded-message h2 {
@@ -1240,11 +1241,11 @@ span.price-from {font-size: 14px;}
     height: 37px;
     border-right: 0;
 }
-#s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
+#s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected, #s2id_destination{
     padding: 0;
     border: 0;
 }
-#s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
+#s2id_destination .select2-choices, #s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     position: relative;
     padding-top: 3px;
     padding-bottom: 2px;
@@ -1258,12 +1259,18 @@ span.price-from {font-size: 14px;}
     width: calc(100% - 38px);
 }
 
-#s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
+#s2id_destination .select2-choices,#s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     min-height: 38px;
     position: relative;
     top: 0;
 }
- 
+
+#s2id_destination .select2-choice {
+    height: 42px;
+    margin: 0;
+    padding: 8px;
+}
+
 .select2-container-multi .select2-choices {
 	border-width:2px;
 }
