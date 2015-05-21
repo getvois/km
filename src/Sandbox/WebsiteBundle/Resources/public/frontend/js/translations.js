@@ -95,3 +95,30 @@ window.trans.returnDate = {
     ru:'Return ru',
     fi:'Return fi'
 };
+window.trans.day = {
+    en:'day',
+    ee:'day',
+    se:'day',
+    de:'day',
+    fr:'day',
+    ru:'day',
+    fi:'day'
+};
+window.trans.week = {
+    en:'week',
+    ee:'week',
+    se:'week',
+    de:'week',
+    fr:'week',
+    ru:'week',
+    fi:'week'
+};
+window.trans.month = {
+    en:'month',
+    ee:'month',
+    se:'month',
+    de:'month',
+    fr:'month',
+    ru:'month',
+    fi:'month'
+};
