@@ -74,8 +74,14 @@ class OfferPageAdminType extends PageAdminType
         $builder->add('absoluteUrl', 'text', array(
             'required' => false,
         ));
-        $builder->add('category', 'text', array(
+        $builder->add('categories', 'entity', array(
+            'class' => 'Sandbox\WebsiteBundle\Entity\PackageCategory',
+            'expanded' => false,
+            'multiple' => true,
             'required' => false,
+            'attr' => array('class' => 'chzn-select'),
+            'property' => 'name',
+
         ));
         $builder->add('country', 'text', array(
             'required' => false,

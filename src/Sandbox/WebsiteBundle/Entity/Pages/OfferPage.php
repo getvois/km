@@ -8,6 +8,7 @@ use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
 
@@ -203,11 +204,19 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     private $absoluteUrl;
 
     /**
-     * @var string
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\Column(name="category", type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\PackageCategory")
+     * @ORM\JoinTable(name="sb_offer_page_category",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="offer_page_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="package_category_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $category;
+    private $categories;
 
     /**
      * @var string
@@ -388,6 +397,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
 
     function __construct()
     {
+        $this->categories = new ArrayCollection();
         $this->places = new ArrayCollection();
     }
 
@@ -722,27 +732,38 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
         return $this->absoluteUrl;
     }
 
+
     /**
-     * Set category
+     * Add categories
      *
-     * @param string $category
-     * @return OfferPage
+     * @param PackageCategory $categories
+     * @return PackagePage
      */
-    public function setCategory($category)
+    public function addCategory(PackageCategory $categories)
     {
-        $this->category = $category;
+        $this->categories[] = $categories;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Remove categories
      *
-     * @return string 
+     * @param PackageCategory $categories
      */
-    public function getCategory()
+    public function removeCategory(PackageCategory $categories)
     {
-        return $this->category;
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 
     /**
