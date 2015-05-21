@@ -141,9 +141,26 @@ $(document).ready(function() {
     });
 
 
+    function startTabSpinner(badgeid){
+        var $badgeLoading = $(badgeid + "-loading");
+        var opts = tabSpinnerOpts();
+        $(badgeid).hide();
+        return new Spinner(opts).spin($badgeLoading[0]);
+    }
+
+    function stopTabSpinner(spinner, badgeid, amount){
+        spinner.stop();
+        //if(responce.total > 0 && $travelbase_items.data('badge'))
+        $(badgeid).show().text(amount);
+
+    }
+
     $('#package-filter').click(function () {
         checkHolderHeight('#package-holder');
         $(this).addClass('disabled');
+
+        //start loading
+        var spinner = startTabSpinner('#packages-badge');
 
         var $from = $('#package-date-from').datepick('getDate');
         var $place = $('#package-place').val();
@@ -161,6 +178,8 @@ $(document).ready(function() {
             }else{
                 $('#package-pager').hide();
             }
+
+            stopTabSpinner(spinner, '#packages-badge', responce.total);
 
             $('#package-filter').removeClass('disabled');
             $('a[data-type="packages"]').tab('show');
@@ -249,6 +268,8 @@ $(document).ready(function() {
         checkHolderHeight('#offer-holder');
         $(this).addClass('disabled');
 
+        var spinner = startTabSpinner('#club-badge');
+
         var $place = $('#offer-place').val();
         var $country = $('#offer-country').val();
 
@@ -263,6 +284,8 @@ $(document).ready(function() {
             }else{
                 $package2.hide();
             }
+
+            stopTabSpinner(spinner, '#club-badge', responce.total);
 
         });
 
@@ -1854,20 +1877,8 @@ function skyPickerImport(){
     xhr.send(JSON.stringify($filter));
 }
 
-function getTable(container, reimport, expand){
-    $("#form-submit").addClass('disabled');
-    if(!container) container = ".travelbase_items:visible";
-    var type = 1;
-    if(reimport === false) type = 2;
-
-    var $filter = getFilter(container);
-
-    var $travelbase_items = $(container);
-    //start loading
-    var $badgeLoading = $($travelbase_items.data('badge') + "-loading");
-
-
-    var opts = {
+function tabSpinnerOpts(){
+    return {
         lines: 11, // The number of lines to draw
         length: 4, // The length of each line
         width: 2, // The line thickness
@@ -1885,10 +1896,25 @@ function getTable(container, reimport, expand){
         top: '50%', // Top position relative to parent
         left: '50%' // Left position relative to parent
     };
+}
+
+function getTable(container, reimport, expand){
+    $("#form-submit").addClass('disabled');
+    if(!container) container = ".travelbase_items:visible";
+    var type = 1;
+    if(reimport === false) type = 2;
+
+    var $filter = getFilter(container);
+
+    var $travelbase_items = $(container);
+    //start loading
+    var $badgeLoading = $($travelbase_items.data('badge') + "-loading");
+
+
+    var opts = tabSpinnerOpts();
 
     $($travelbase_items.data('badge')).hide();
     var spinner = new Spinner(opts).spin($badgeLoading[0]);
-
 
     var opts2 = {
         lines: 15, // The number of lines to draw
