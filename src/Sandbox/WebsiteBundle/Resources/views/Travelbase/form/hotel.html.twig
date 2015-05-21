@@ -8,11 +8,16 @@
                 <div id="destinationSearch">
                     <h1>{{ 'last.minute.hotel.deals' | trans({}, 'frontend') }}</h1>
 
+                    {% set lang = app.request.locale %}
+                    {% if lang == 'ee' %}
+                        {% set lang = 'et' %}
+                    {% endif %}
+
                     <input type="hidden" value="810437" name="aid">
                     <input type="hidden" value="http://www.booking.com/?aid=810437;" name="error_url">
                     <input type="hidden" value="ai,co,ci,re,di" name="si">
                     <input type="hidden" value="" name="label">
-                    <input type="hidden" value="{{ app.request.locale }}" name="lang">
+                    <input type="hidden" value="{{ lang }}" name="lang">
                     <input type="hidden" value="" name="nflt">
                     <input type="hidden" value="" name="ifl">
                     
