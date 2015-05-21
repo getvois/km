@@ -1,8 +1,10 @@
-<div class="tab-pane" id="packages">
+<div class="tab-pane" id="packages" style="position: relative">
     <div class="row nomargin" id="package-holder">
         {{ render(controller('SandboxWebsiteBundle:Package:getPackages')) }}
     </div>
     <div id="package-pager" class="loadDiv">
         <a href="#" ><span class="fa fa-angle-double-down"></span></a>
     </div>
+
+    {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
 </div>

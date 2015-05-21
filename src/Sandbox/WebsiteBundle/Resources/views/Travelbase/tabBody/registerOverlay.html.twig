@@ -1,0 +1,32 @@
+{% if not app.user %}
+    <div class="register-form text-center">
+        <form action="{{ path('register_action') }}" method="post">
+            <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
+
+            <div style="margin:0 auto;display:table;">
+                <span class="pull-left">{{ 'i.am'|trans({}, 'frontend') }}</span>
+                <div  class="form-group pull-left">
+                    <label class="sr-only" for="name">{{ 'write.name'|trans({}, 'frontend') }}:</label>
+                    <input id="name" type="text" name="name" class="form-control"
+                           placeholder="{{ 'write.name'|trans({}, 'frontend') }}"/>
+                </div>
+                <span class="pull-left">{{ 'and.my.email.is'|trans({}, 'frontend') }}</span>
+                <div class="form-group form-group-email pull-left">
+                    <label class="sr-only" for="email">{{ 'write.email'|trans({}, 'frontend') }}:</label>
+                    <input id="email" type="text" name="email" class="form-control"
+                           placeholder="{{ 'write.email'|trans({}, 'frontend') }}"/>
+                </div>
+                <span class="pull-left">.</span>
+
+            </div>
+
+            <div class="clear"></div>
+            <p class="join-count">
+                {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}.
+            </p>
+            <p>
+                <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
+            </p>
+        </form>
+    </div>
+{% endif %}
