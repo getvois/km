@@ -8,7 +8,7 @@
                     {{ 'packages' | trans({}, 'frontend') }}
                 </span>
         &nbsp;
-        <span id="packages-badge" class="badge"></span>
+        <span id="packages-badge" class="badge">{{ total_packages(app.request.locale) }}</span>
         <span id="packages-badge-loading" class="badge spinner"></span>
     </a>
 </li>

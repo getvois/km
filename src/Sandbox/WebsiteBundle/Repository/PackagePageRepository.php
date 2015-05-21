@@ -44,6 +44,36 @@ AND p.duration = :duration
         return $objects;
     }
 
+
+    /**
+     * @param $lang
+     * @return PackagePage[]
+     */
+    public function getTotalPages($lang)
+    {
+        $dql = "SELECT COUNT(p.id)
+FROM Sandbox\WebsiteBundle\Entity\Pages\PackagePage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node";
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\PackagePage\'
+AND nt.online = 1';
+
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+        //$dql .= ' GROUP BY p.id ';
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+
+        $objects = $query->getSingleScalarResult();
+
+        return $objects;
+    }
+
     /**
      * @param $lang
      * @return PackagePage[]

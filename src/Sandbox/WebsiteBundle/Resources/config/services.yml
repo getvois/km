@@ -39,6 +39,18 @@ services:
         tags:
             - { name: twig.extension }
 
+    sandboxwebsitebundle.totalpackagesextension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\TotalPackagesExtension
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: twig.extension }
+
+    sandboxwebsitebundle.totaloffersextension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\TotalOffersExtension
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: twig.extension }
+
     sandboxwebsitebundle.hotelinfohtml:
         class: Sandbox\WebsiteBundle\Twig\Extension\HotelInfoWindowHTMLExtension
         arguments: ["@doctrine.orm.entity_manager", "@router"]
@@ -49,7 +61,6 @@ services:
         class: Sandbox\WebsiteBundle\Twig\Extension\InstanceOfExtension
         tags:
             - { name: twig.extension }
-
 
 #Form Fields
     sandboxwebsitebundle.form.type.imagesize:

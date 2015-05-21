@@ -8,7 +8,7 @@
                     {{ 'club.tab' | trans({}, 'frontend') }}
                 </span>
         &nbsp;
-        <span id="club-badge" class="badge"></span>
+        <span id="club-badge" class="badge">{{ total_offers(app.request.locale) }}</span>
         <span id="club-badge-loading" class="badge spinner"></span>
     </a>
 </li>
