@@ -85,6 +85,7 @@ $(document).ready(function() {
                 {picker: $.datepick.defaultRenderer.picker.
                     replace(/\{link:buttons}/, '')
                     .replace(/\{link:today}/, '')
+                    .replace(/\{link:clear}/, '')
                 })
         },
         $.datepick.regionalOptions[$lang]));
