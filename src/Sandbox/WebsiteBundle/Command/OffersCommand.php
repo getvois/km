@@ -336,7 +336,9 @@ class OffersCommand extends ContainerAwareCommand
                 $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCity()]);
                 if(!$place) {
-                    echo('place not found in db '. $page->getCity(). "\n");
+                    $msg = 'place not found in db '. $page->getCity(). "\n";
+                    echo($msg);
+                    $this->emailBody .= $msg;
                     break;
                 }
 
@@ -364,7 +366,9 @@ class OffersCommand extends ContainerAwareCommand
                 $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCountry()]);
                 if(!$place) {
-                    echo('place not found in db '. $page->getCountry(). "\n");
+                    $msg = 'place not found in db ' . $page->getCountry() . "\n";
+                    echo($msg);
+                    $this->emailBody .= $msg;
                     break;
                 }
 
