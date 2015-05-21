@@ -8,7 +8,7 @@ window.trans.searchFromPlace = {
     de:'Search for place de',
     fr:'Search for place fr',
     ru:'Search for place ru',
-    fi:'Search for place fi'
+    fi:'Lähtö'
 };
 
 window.trans.searchForPlace = {
@@ -18,7 +18,7 @@ window.trans.searchForPlace = {
     de:'Search for place de',
     fr:'Search for place fr',
     ru:'Search for place ru',
-    fi:'Search for place fi'
+    fi:'Määränpää'
 };
 window.trans.typeMinThreeLetters = {
     en:'Search for place',
@@ -27,7 +27,7 @@ window.trans.typeMinThreeLetters = {
     de:'Search for place de',
     fr:'Search for place fr',
     ru:'Введите название города, страны или аэропорта',
-    fi:'Search for place fi'
+    fi:'Kirjoita kaupunki, maa tai lentokentän nimi'
 };
 
 window.trans.popularDestinations = {
@@ -37,7 +37,7 @@ window.trans.popularDestinations = {
     de:'Search for place de',
     fr:'Search for place fr',
     ru:'Search for place ru',
-    fi:'Search for place fi'
+    fi:'Suositut kohteet'
 };
 
 window.trans.returnFlight = {
@@ -47,7 +47,7 @@ window.trans.returnFlight = {
     de:'Search for place de',
     fr:'Search for place fr',
     ru:'Возвращение',
-    fi:'Search for place fi'
+    fi:'Paluulento'
 };
 
 window.trans.prev = {
@@ -57,7 +57,7 @@ window.trans.prev = {
     de:'Prev de',
     fr:'Prev fr',
     ru:'Prev ru',
-    fi:'Prev fi'
+    fi:'Edellinen'
 };
 window.trans.next = {
     en:'Next',
@@ -66,7 +66,7 @@ window.trans.next = {
     de:'Next de',
     fr:'Next fr',
     ru:'Next ru',
-    fi:'Next fi'
+    fi:'Seuraava'
 };
 window.trans.today = {
     en:'Today',
@@ -74,8 +74,8 @@ window.trans.today = {
     se:'Today se',
     de:'Today de',
     fr:'Today fr',
-    ru:'Today ru',
-    fi:'Today fi'
+    ru:'Today',
+    fi:'Tänään'
 };
 window.trans.departures = {
     en:'Departure flight',
@@ -84,7 +84,7 @@ window.trans.departures = {
     de:'Departures de',
     fr:'Departures fr',
     ru:'Departures ru',
-    fi:'Departures fi'
+    fi:'Lähtö'
 };
 window.trans.returnDate = {
     en:'Return flight',
@@ -93,32 +93,32 @@ window.trans.returnDate = {
     de:'Return de',
     fr:'Return fr',
     ru:'Return ru',
-    fi:'Return fi'
+    fi:'Paluulento'
 };
 window.trans.day = {
     en:'day',
-    ee:'day',
+    ee:'päev',
     se:'day',
     de:'day',
     fr:'day',
-    ru:'day',
-    fi:'day'
+    ru:'день',
+    fi:'päivä'
 };
 window.trans.week = {
     en:'week',
-    ee:'week',
+    ee:'nädal',
     se:'week',
     de:'week',
     fr:'week',
-    ru:'week',
-    fi:'week'
+    ru:'неделя',
+    fi:'viikko'
 };
 window.trans.month = {
     en:'month',
-    ee:'month',
+    ee:'kuu',
     se:'month',
     de:'month',
     fr:'month',
-    ru:'month',
-    fi:'month'
+    ru:'месяц',
+    fi:'kuukausi'
 };

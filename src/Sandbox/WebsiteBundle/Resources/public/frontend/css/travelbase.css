@@ -81,7 +81,7 @@ input:focus {outline:0;}
 
 /* Register form */
 .register-form{
-    background-color: rgba(1, 1, 1, 0.85);
+    background-color: rgba(1, 1, 1, 0.75);
     box-sizing: border-box;
     color: white;
     font-size: 20px;
@@ -89,7 +89,7 @@ input:focus {outline:0;}
     padding: 28px 0 28px 28px;
     position: absolute;
     top: 0;
-    width: 100%;
+    width: 101%;
     height: 100%;
 }
 .register-form #register-submit{
@@ -533,7 +533,7 @@ div.travelbase-input-addon{
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000'); /* IE6 & IE7 */  
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000')"; /* IE8+ */
     /*noinspection CssUnknownProperty*/
-    -pie-background:linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
+    -pie-background:linear-gradient(#44444, #000000) repeat scroll 0 0 transparent !important;
   color: #fff;
   padding: 20px;
   margin-bottom: 20px;
@@ -563,7 +563,7 @@ div.travelbase-input-addon{
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#eeeeee')"; /* IE8+ */
     /*noinspection CssUnknownProperty*/
     -pie-background:linear-gradient(#f9f9f9, #eeeeee) repeat scroll 0 0 transparent !important;
-}
+}	
 
 .sidebar .club-header { margin-top: 0;}
 .sidebar .top-ten {
@@ -781,15 +781,18 @@ div.travelbase-input-addon{
     height: 1px;
     background: #000000 none;
     width: 70%;
-    margin-top: 20px;
+    margin-top: 0;
+}
+#form-flight #slider-range, #form-flight  #slider-range-stopover{
 	margin-left: 50px;
+	margin-top: 20px;
 }
 #slider-range .ui-slider-range,#slider-range-stopover .ui-slider-range{
     background: #f8c701 none;
 }
 #slider-range .ui-slider-handle, #slider-range-stopover .ui-slider-handle{
     top: -0.3em;
-    width: 12px;
+    width: 12px; 
     height: 12px;
     border-radius: 15px;
     border: none;
@@ -803,9 +806,15 @@ div.travelbase-input-addon{
     border:0;
     color:#fff;
     position: absolute;
+	left:2px;
+	top:11px;
+	font-size:11px;
+    background-color: rgba(252, 252, 252, 0);
+}
+#form-flight #amount {
 	top: 27px;
 	left: 43px;
-    background-color: rgba(252, 252, 252, 0);
+	font-size:13px;
 }
 #stopover{
     color:#000;
@@ -871,7 +880,7 @@ label.directFlight-label,  label.sameDay-label {
 
 .trip-results {
 	border-bottom:2px solid rgba(236, 219, 48, 1);
-	box-shadow: 0 13px 5px -6px #f3f3f3
+	box-shadow: 0 13px 5px -6px #f3f3
 }
 
 .trip {
@@ -1136,7 +1145,6 @@ label.directFlight-label,  label.sameDay-label {
 .loaded-message {
     margin: 25px 0;
     width: 90%;
-    /*noinspection CssUnknownTarget*/
     background:url("/bundles/sandboxwebsite/img/general/notfound-plane.png") no-repeat top right;
 }
 .loaded-message h2 {
@@ -1196,6 +1204,66 @@ span.price-from {font-size: 14px;}
 }
 
 /*DATE PICKER STUFF*/
+
+.datepick {
+	font-family: "Open Sans",serif;
+}
+
+.datepick {
+	font-family: "Open Sans",serif;
+}
+
+.datepick-nav, .datepick-ctrl {
+  background-color: #F7F7F7;
+}
+
+.datepick-month-header, .datepick-month-header select, .datepick-month-header input {
+  background-color: transparent;
+  color: #444;
+}
+
+.datepick-month thead > tr {
+  border-bottom: 1px solid #E6EDF6;
+}
+.datepick .datepick-month td .datepick-selected {
+	color: #665412;
+	text-shadow:none;
+	border-radius:inherit!important;
+	border:none!important;
+	background:#FEDF5E;
+}
+
+.datepick-month td .datepick-selected, .datepick-month a, .datepick .datepick-month td .datepick-today {
+	padding: 4px;
+	border-radius:none!important;
+}
+.datepick .datepick-month td .datepick-today {
+	background-color:#EA3E3E;
+	color:#fff;
+	border-radius:inherit!important;
+}
+.datepick-cmd:hover, .datepick-ctrl .datepick-cmd:hover {
+  background-color: transparent;
+  color: #ccc!important;
+}
+
+.datepick-month th, .datepick-month td {
+  padding: 2px;
+}
+
+.datepick .datepick-month {
+  width: 17em;
+  border: 6px solid #ffffff;
+}
+
+.datepick .datepick-ctrl {
+  padding:4px;
+}
+.datepick  a.datepick-cmd-close {
+  margin-top: 10px;
+}
+
+
 #edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0, .datepick-input{
     width: 1px;
     padding: 0;
@@ -1241,11 +1309,11 @@ span.price-from {font-size: 14px;}
     height: 37px;
     border-right: 0;
 }
-#s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected, #s2id_destination{
+#s2id_departure-el, #s2id_destination-el, #s2id_departure-selected, #s2id_destination-selected{
     padding: 0;
     border: 0;
 }
-#s2id_destination .select2-choices, #s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
+#s2id_departure-el .select2-choices, #s2id_destination-el .select2-choices, #s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     position: relative;
     padding-top: 3px;
     padding-bottom: 2px;
@@ -1259,18 +1327,12 @@ span.price-from {font-size: 14px;}
     width: calc(100% - 38px);
 }
 
-#s2id_destination .select2-choices,#s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
+#s2id_departure-selected .select2-choices, #s2id_destination-selected .select2-choices{
     min-height: 38px;
     position: relative;
     top: 0;
 }
-
-#s2id_destination .select2-choice {
-    height: 42px;
-    margin: 0;
-    padding: 8px;
-}
-
+ 
 .select2-container-multi .select2-choices {
 	border-width:2px;
 }
@@ -1634,7 +1696,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 #block-travelbase-travelbase-search-form .ico-flight:nth-of-type(2) {padding:0;}
 .travelbase_items {
     clear:both;
-    padding: 10px 10px 0px 10px;
+    padding: 15px 15px 0px 15px;
     background: #fff;
     border: 0 solid;
 }
@@ -1805,33 +1867,244 @@ a.top-link img {
     clear:both
 }
 /* Travelbase search form more options checkboxes */
+
+.flight-subsearch  {
+background: -webkit-linear-gradient(#fff, #f6f6f6) repeat scroll 0 0 transparent !important;
+  border-radius: 7px;
+  display: inline-grid;
+  padding: 12px;
+  margin-bottom: 5px;
+  border-radius: 0 0 3px 3px;
+  box-shadow: 1px 1px 1px #ddd;
+}
+  
+.flight-subsearch label {
+  font-weight: 400;
+}
+
 .option-div .form-type-checkbox {
 }
-.options input[type="radio"],
-.options input[type="checkbox"] {
-    display:none;
+.checkbox {
+  padding-left: 20px;
 }
-.options input[type="radio"] + label:before,
-.options input[type="checkbox"] + label:before {
-    font-family: 'FontAwesome', serif;
-    padding-right: 6px;
-    font-size: 20px;
+.checkbox label {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 5px;
 }
-.options input[type="checkbox"]:checked + label:before {
-    padding-right: 3px;
+.checkbox label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  border: 2px solid #F0AD4E;
+  background-color: #fff;
+  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
 }
-.options input[type="radio"] + label:before {
-    content: "\f10c"; /* circle-blank */
+.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  padding-top: 1px;
+  font-size: 11px;
+  color: #555555;
 }
-.options input[type="radio"]:checked + label:before {
-    content: "\f111"; /* circle */
+.checkbox input[type="checkbox"] {
+  opacity: 0;
+  z-index: 1;
 }
-.options input[type="checkbox"] + label:before {
-    content: "\f096"; /* check-empty */
+.checkbox input[type="checkbox"]:focus + label::before {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
-.options input[type="checkbox"]:checked + label:before {
-    content: "\f046"; /* check */
+.checkbox input[type="checkbox"]:checked + label::after {
+  font-family: 'FontAwesome';
+  content: "\f00c";
 }
+.checkbox input[type="checkbox"]:disabled + label {
+  opacity: 0.65;
+}
+.checkbox input[type="checkbox"]:disabled + label::before {
+  background-color: #eeeeee;
+  cursor: not-allowed;
+}
+.checkbox.checkbox-circle label::before {
+  border-radius: 50%;
+}
+.checkbox.checkbox-inline {
+  margin-top: 0;
+}
+.checkbox-primary input[type="checkbox"]:checked + label::before {
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+.checkbox-primary input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+.checkbox-danger input[type="checkbox"]:checked + label::before {
+  background-color: #d9534f;
+  border-color: #d9534f;
+}
+.checkbox-danger input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+.checkbox-info input[type="checkbox"]:checked + label::before {
+  background-color: #5bc0de;
+  border-color: #5bc0de;
+}
+.checkbox-info input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+.checkbox-warning input[type="checkbox"]:checked + label::before {
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+.checkbox-warning input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+.checkbox-success input[type="checkbox"]:checked + label::before {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+.checkbox-success input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+.radio {
+  padding-left: 20px;
+}
+.radio label {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 5px;
+}
+.radio label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  border: 2px solid #F0AD4E;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-transition: border 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out;
+}
+.radio label::after {
+  display: inline-block;
+  position: absolute;
+  content: " ";
+  width: 11px;
+  height: 11px;
+  left: 3px;
+  top: 3px;
+  margin-left: -20px;
+  border-radius: 50%;
+  background-color: #555555;
+  -webkit-transform: scale(0, 0);
+  -ms-transform: scale(0, 0);
+  -o-transform: scale(0, 0);
+  transform: scale(0, 0);
+  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+}
+.radio input[type="radio"] {
+  opacity: 0;
+  z-index: 1;
+}
+.radio input[type="radio"]:focus + label::before {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.radio input[type="radio"]:checked + label::after {
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.radio input[type="radio"]:disabled + label {
+  opacity: 0.65;
+}
+.radio input[type="radio"]:disabled + label::before {
+  cursor: not-allowed;
+}
+.radio.radio-inline {
+  margin-top: 0;
+}
+.radio-primary input[type="radio"] + label::after {
+  background-color: #337ab7;
+}
+.radio-primary input[type="radio"]:checked + label::before {
+  border-color: #337ab7;
+}
+.radio-primary input[type="radio"]:checked + label::after {
+  background-color: #337ab7;
+}
+.radio-danger input[type="radio"] + label::after {
+  background-color: #d9534f;
+}
+.radio-danger input[type="radio"]:checked + label::before {
+  border-color: #d9534f;
+}
+.radio-danger input[type="radio"]:checked + label::after {
+  background-color: #d9534f;
+}
+.radio-info input[type="radio"] + label::after {
+  background-color: #5bc0de;
+}
+.radio-info input[type="radio"]:checked + label::before {
+  border-color: #5bc0de;
+}
+.radio-info input[type="radio"]:checked + label::after {
+  background-color: #5bc0de;
+}
+.radio-warning input[type="radio"] + label::after {
+  background-color: #f0ad4e;
+}
+.radio-warning input[type="radio"]:checked + label::before {
+  border-color: #f0ad4e;
+}
+.radio-warning input[type="radio"]:checked + label::after {
+  background-color: #f0ad4e;
+}
+.radio-success input[type="radio"] + label::after {
+  background-color: #5cb85c;
+}
+.radio-success input[type="radio"]:checked + label::before {
+  border-color: #5cb85c;
+}
+.radio-success input[type="radio"]:checked + label::after {
+  background-color: #5cb85c;
+}
+input[type="checkbox"].styled:checked + label:after {
+  font-family: 'FontAwesome';
+  content: "\f00c";
+}
+input[type="checkbox"] .styled:checked + label::before {
+  color: #fff;
+}
+input[type="checkbox"] .styled:checked + label::after {
+  color: #fff;
+}
+
 #travelbase-form .engine-offset{
     padding-left:7%;
 }
