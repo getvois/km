@@ -2202,6 +2202,26 @@ function fixDiv() {
             'width' : 'auto'
         });
     }
+
+
+    $container = $('.register-form:visible');
+    $width = $container.parent().width();
+    $height = $container.parent().height();
+    if ($(window).scrollTop() > 350 && $(window).scrollTop() < $height) {
+        $container.css({
+            'position': 'fixed',
+            'top': '50px',
+            'width' : $width
+        });
+    }
+    else {
+        $container.css({
+            'position': 'relative',
+            'top': 'auto',
+            'width' : 'auto'
+        });
+    }
+
 }
 $(window).scroll(fixDiv);
 fixDiv();
