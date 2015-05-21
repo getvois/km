@@ -7,6 +7,7 @@ use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\SeoBundle\Entity\Seo;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
+use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -69,6 +70,7 @@ class OffersCommand extends ContainerAwareCommand
             $offerPage = $this->offerExists($id);
             if($offerPage){
                 //update or something
+
 
                 echo($offerPage->getOfferId() . "\n");
 
@@ -176,7 +178,22 @@ class OffersCommand extends ContainerAwareCommand
         $offerPage->setAbsoluteUrl($absolute_url);
 
         $category = $offer->filter('category')->text();
-        $offerPage->setCategory($category);
+        if($category){
+            /** @var EntityManager $em */
+            $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+            $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                ->findOneBy(['name' => $category]);
+
+            if(!$cat){
+                $cat = new PackageCategory();
+                $cat->setName($category);
+                $em->persist($cat);
+                $em->flush();
+            }
+            $offerPage->addCategory($cat);
+        }
+        //$offerPage->setCategory($category);
 
         $country = $offer->filter('country')->text();
         $offerPage->setCountry($country);
