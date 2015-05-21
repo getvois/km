@@ -1,46 +1,50 @@
 <div class="tab-pane" id="lowcost" style="position: relative;">
     <div class="row">
-        {# COL 1 #}
-        <div class="col-md-2">
-            <p style="position: relative; height: 0;">
-                <label for="stopover"></label>
-                <input type="text" id="stopover" readonly>
-            </p>
-            <div id="slider-range-stopover"></div>
-        </div>
-        {# COL 2 #}
-        <div class="col-md-3">
-            <div class="checkbox">
-                <label class="directFlight-label">
-                    <input id="directFlight" type="checkbox"> {{ 'direct.flights.only' | trans({}, 'frontend') }}
+    	
+    	<div class="col-md-12">
+	    	<div class="flight-subsearch">
+		        {# COL 1 #}
+		        <div class="pull-left">
+		              <label for="stopover">{{ 'max.flight.duration' | trans({}, 'frontend') }}:</label>
+		        </div>
+		        <div style="margin-left: 20px;width:170px;float:left">
+		            <p style="position: relative; height: 0;">
+		                <input type="text" id="stopover" readonly>
+		            </p>
+		            <div id="slider-range-stopover"></div>
+		        </div>
+		        {# COL 2 #} 
+		            <div class="checkbox checkbox-warning checkbox-inline">
+		              
+		              
+		             
+		              		<input type="checkbox" id="directFlight"> 
+		                  	 <label for="directFlight">{{ 'direct.flights.only' | trans({}, 'frontend') }} 
+		               </label>
+		            </div>
+		        {# COL 3 #}
+		            <div class="checkbox checkbox-warning checkbox-inline">
+		               
+		                    <input type="checkbox" id="sameDay"> 
+		                    <label for="sameDay"> {{ 'fly.same.day' | trans({}, 'frontend') }}
+		                </label>
+		            </div>
+		
+		        {# COL 3 #}
+		            <div class="checkbox checkbox-warning checkbox-inline">
+		               
+		                    <input type="checkbox" id="flyOneWay" checked="checked"> 
+		                     <label for="flyOneWay">{{ 'fly.one.way' | trans({}, 'frontend') }}
+		                </label>
+		            </div>
+		        {# COL 4 #}
+	            <div class="checkbox checkbox-warning checkbox-inline">
+                    <input type="checkbox" id="flyWithReturn" checked="checked"> 
+                   <label for="flyWithReturn"> {{ 'fly.with.return' | trans({}, 'frontend') }}
                 </label>
-            </div>
-        </div>
-        {# COL 3 #}
-        <div class="col-md-3">
-            <div class="checkbox">
-                <label class="sameDay-label">
-                    <input id="sameDay" type="checkbox"> {{ 'fly.same.day' | trans({}, 'frontend') }}
-                </label>
-            </div>
-        </div>
-
-        {# COL 3 #}
-        <div class="col-md-2">
-            <div class="checkbox">
-                <label class="directFlight-label">
-                    <input id="flyOneWay" type="checkbox" checked="checked"> {{ 'fly.one.way' | trans({}, 'frontend') }}
-                </label>
-            </div>
-        </div>
-        {# COL 4 #}
-        <div class="col-md-2">
-            <div class="checkbox">
-                <label class="sameDay-label">
-                    <input id="flyWithReturn" type="checkbox" checked="checked"> {{ 'fly.with.return' | trans({}, 'frontend') }}
-                </label>
-            </div>
-        </div>
+            	</div>
+       		</div>
+    	</div>
     </div>
     <div class="travelbase_items travelbase_items_sp" data-filter-type="[4, 3]" data-badge="#lowcost-badge"></div>
     <div class="progressbar"></div>

@@ -5,7 +5,7 @@
         <div class="col-md-2 form-col col-2_5">
             <label for="offer-country" class="sr-only">{{ 'country'|trans({}, 'frontend') }}</label>
             <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
-            <select class="form-control placeholder" name="offer-country" id="offer-country">
+            <select class="selectpicker form-control placeholder" name="offer-country" id="offer-country">
                 <option value="-1" selected="selected">{{ 'package.country'|trans({}, 'frontend') }}</option>
                 {% for place in countries %}
                     <option value="{{ place.cityid }}">{{ place.title }}</option>
@@ -26,3 +26,5 @@
         </div>
     </div>
 </div>
+
+ 
