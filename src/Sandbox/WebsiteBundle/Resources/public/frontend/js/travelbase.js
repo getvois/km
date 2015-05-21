@@ -2204,7 +2204,7 @@ function fixDiv() {
     }
 
 
-    $container = $('.register-form:visible');
+    $container = $('.register-form form:visible');
     $width = $container.parent().width();
     $height = $container.parent().height();
     if ($(window).scrollTop() > 350 && $(window).scrollTop() < $height) {
