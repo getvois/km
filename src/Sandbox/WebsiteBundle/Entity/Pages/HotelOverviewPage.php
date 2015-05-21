@@ -9,6 +9,7 @@ use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\HotelOverviewPageAdminType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +37,7 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByParent($request->getLocale(), $node, 'p.title ASC');
+            ->getHotelPagesByParent($request->getLocale(), $node);
 
         if(!$hotels) $hotels = [];
 
@@ -57,6 +58,11 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
                 }
             }
         }
+
+        usort($places, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
+        {
+            return strcmp($a->getTitle(), $b->getTitle());
+        });
 
         $context['places'] = $places;
 
