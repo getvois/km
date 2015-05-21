@@ -7,6 +7,7 @@ use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\SeoBundle\Entity\Seo;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
+use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -95,7 +96,28 @@ class OffersUkCommand extends OffersCommand
         $offerPage->setAbsoluteUrl($absolute_url);
 
         $category = $offer->filter('category')->text();
-        $offerPage->setCategory($category);
+        if($category){
+            /** @var EntityManager $em */
+            $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+            //exceptions
+            if($category == 'wellness') $category = 'Spaa- ja lõõgastuspaketid';
+            elseif($category == 'musical show or festival') $category = 'Teatri- ja kontserdipaketid';
+
+            $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                ->findOneBy(['name' => $category]);
+
+            if(!$cat){
+                $cat = new PackageCategory();
+                $cat->setName($category);
+                $em->persist($cat);
+                $em->flush();
+            }
+            $offerPage->addCategory($cat);
+        }
+
+//        $category = $offer->filter('category')->text();
+//        $offerPage->setCategory($category);
 
         $country = $offer->filter('country')->text();
         $offerPage->setCountry($country);
