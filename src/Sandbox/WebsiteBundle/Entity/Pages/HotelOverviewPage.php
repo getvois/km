@@ -36,7 +36,7 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByParent($request->getLocale(), $node);
+            ->getHotelPagesByParent($request->getLocale(), $node, 'p.title ASC');
 
         if(!$hotels) $hotels = [];
 

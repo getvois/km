@@ -79,7 +79,7 @@ AND nt.online = 1';
         return $objects;
     }
 
-    public function getHotelPagesByParent($lang,Node $node)
+    public function getHotelPagesByParent($lang,Node $node, $orderBy = 'p.date DESC')
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\HotelPage p
@@ -95,7 +95,7 @@ AND nt.online = 1';
         $dql .= " AND n.parent = :parent ";
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
-        $dql .= ' ORDER BY p.date DESC ';
+        $dql .= " ORDER BY $orderBy ";
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
