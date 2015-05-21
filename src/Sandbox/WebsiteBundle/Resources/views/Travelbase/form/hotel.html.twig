@@ -97,7 +97,8 @@
     $(document).ready(function () {
         var $lang = $("body").data('lang');
 
-        $('#datepick-ckeckin, #datepick-ckeckout').datepick($.extend({
+        var $dp = $('#datepick-ckeckin, #datepick-ckeckout');
+        $dp.datepick($.extend({
                     dateFormat: 'dd.mm.yyyy',
                     //rangeSelect: true,
                     //monthsToShow: 2,
@@ -114,6 +115,13 @@
                 },
                 $.datepick.regionalOptions[$lang]));
 
+
+        //noinspection JSUnresolvedFunction,JSUnresolvedVariable
+        $dp.datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
+                {picker: $.datepick.defaultRenderer.picker.
+                        replace(/\{link:buttons}/, '')
+                        .replace(/\{link:clear\}/, '')
+                }));
 
         $('#booking-form').submit(function () {
 
