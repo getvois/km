@@ -16,6 +16,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class OffersCommand extends ContainerAwareCommand
 {
+    protected $emailBody;
+
     protected function configure()
     {
         $this
@@ -100,7 +102,17 @@ class OffersCommand extends ContainerAwareCommand
 
             $this->addPlaces($newNode);
 
+            $this->emailBody .= "New Offer node: ({$newNode->getId()}) title: " . $offerPage->getTitle();
+
         }
+
+
+        if($this->emailBody)
+        {
+            $email = "Offers added/updated:<br/>" . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'twp: Offers info');
+        }
+
     }
 
     /**
