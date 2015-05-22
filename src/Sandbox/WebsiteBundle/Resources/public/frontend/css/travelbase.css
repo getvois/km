@@ -409,17 +409,22 @@ body .splash--green {
     vertical-align: middle;
 }
 
-/* place holder */
+
+/* FORM AND PLACEHOLDER */
+
+.form-col {padding:0 15px 0 0;}
 .placeholder{
     background-color: white;
     min-height: 42px;
     padding: 5px 5px 5px 35px;
     height: auto;
-
+}
+.datepick .placeholder{
+    padding: 5px 5px 5px 38px;
 }
 .placeholder-collapse{
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; 
 }
 .placeholder-item{
     color: #333;
@@ -486,6 +491,7 @@ div.travelbase-input-addon{
     background-image: url("/bundles/sandboxwebsite/img/icons/search-icons.png");
     width: 27px;
     height: 28px;
+    z-index:9;
 }
 
 .travelbase-icon-to-top{
@@ -522,6 +528,50 @@ div.travelbase-input-addon{
 .travelbase-icon-hotel{
     background-position: 0 -213px;
 }
+
+select {
+  outline: none;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+    
+}
+
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .travelbase-input-rel select {padding-right:28px}
+}
+
+.travelbase-input-rel label {position:relative;width:100%;}
+.travelbase-input-rel label:after {
+    content:'>';
+    font:18px "Consolas", monospace;
+    color:#aaa;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right:8px; top:8px;
+    padding:0 0 2px;
+    position:absolute;
+    pointer-events:none;
+}
+.travelbase-input-rel label:before {
+    content:'';
+      padding-right: 5px;
+	right: 2px;
+	top: 2px;
+	width: 24px;
+	height: 38px; 
+    position:absolute;
+    pointer-events:none;
+    background: #fff;
+    display:block;
+}
+
+
 
 /* sidebar */
 
@@ -778,10 +828,11 @@ div.travelbase-input-addon{
 }
 #slider-range, #slider-range-stopover{
     border: none;
-    height: 1px;
+    height: 2px;
     background: #000000 none;
     width: 70%;
     margin-top: 0;
+    z-index: 0;
 }
 #form-flight #slider-range, #form-flight  #slider-range-stopover{
 	margin-left: 50px;
@@ -795,7 +846,7 @@ div.travelbase-input-addon{
     width: 12px; 
     height: 12px;
     border-radius: 15px;
-    border: none;
+    border: 2px solid #333;
 }
 #slider-range-stopover .ui-slider-handle{
 	background: #ccc;
@@ -845,8 +896,13 @@ label.directFlight-label,  label.sameDay-label {
 
 /* result table header */
 .sort-controls .btn-group  {
+	z-index: 0;
 }
-
+.btn-group-right  {
+  float: right;
+  margin-right: 25px;
+  right: 0;
+}
 .sort-controls .sort-date, .sort-controls .sort-price {
 	text-transform:capitalize;
 }
@@ -887,10 +943,8 @@ label.directFlight-label,  label.sameDay-label {
     -moz-user-select: none;
     border: none;
     cursor: pointer;
-    margin-bottom: -1px;
     overflow: visible;
     padding: 13px 16px;
-    height: 72px;
 }
 .trip:first-child {
 } 
@@ -1207,6 +1261,8 @@ span.price-from {font-size: 14px;}
 
 .datepick {
 	font-family: "Open Sans",serif;
+	border: 1px solid #eee;
+	box-shadow: -2px 5px 5px -2px #ccc;
 }
 
 .datepick {
@@ -1300,8 +1356,9 @@ span.price-from {font-size: 14px;}
     border-radius: 12px;
     font-size: 22px;
     background-color: #ffffff;
+    cursor:hand;
+    cursor:pointer;
 }
-
 
 /* select 2 fields*/
 
@@ -1357,6 +1414,8 @@ span.price-from {font-size: 14px;}
 }
 
 /* City picker list */
+
+
 .city-picker{
     background: #fff;
     box-shadow: none;
@@ -1455,7 +1514,9 @@ span.city-picker-close:hover {
     margin-left: 5px;
 }
 
-
+.mobile-hotel {
+    text-align:left;
+}
 /* SP MODAL */
 #sp-modal #modal-content {padding:50px;}
 
@@ -1531,7 +1592,6 @@ span.city-picker-close:hover {
 }
 .form-table-btn-switch a span{
 	font-size:25px;
-	text-shadow: 1px 1px #eee;
   	color: #444;
 }
 .form-table-btn-switch a:hover{
@@ -1546,10 +1606,10 @@ span.city-picker-close:hover {
         height: 530px;
     }
 
-    #form-submit{
+    #form-submit, #package-filter, #offer-filter {
         font-size: 32px;
         height: auto;
-        margin-top: 30px;
+        margin-top: 15px;
     }
     .text-center-mobile{
         text-align: center;
@@ -1673,6 +1733,17 @@ span.city-picker-close:hover {
     font-size: 24px;
     color:#ff7e0c ;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /* old needs refactoring */
 
@@ -1869,9 +1940,9 @@ a.top-link img {
 /* Travelbase search form more options checkboxes */
 
 .flight-subsearch  {
-background: -webkit-linear-gradient(#fff, #f6f6f6) repeat scroll 0 0 transparent !important;
+  background: -webkit-linear-gradient(#fff, #f6f6f6) repeat scroll 0 0 transparent !important;
   border-radius: 7px;
-  display: inline-grid;
+  display: flex;
   padding: 12px;
   margin-bottom: 5px;
   border-radius: 0 0 3px 3px;
@@ -1945,6 +2016,7 @@ background: -webkit-linear-gradient(#fff, #f6f6f6) repeat scroll 0 0 transparent
 }
 .checkbox.checkbox-inline {
   margin-top: 0;
+  margin-left: 20px;
 }
 .checkbox-primary input[type="checkbox"]:checked + label::before {
   background-color: #337ab7;
@@ -2244,6 +2316,11 @@ input[type="checkbox"] .styled:checked + label::after {
 .travelbase_items .active {
     font-weight: bold;
 }
+@media (min-width: 1370px) {
+    .trip {
+    height: 72px;
+	}
+}
 @media (min-width: 992px) {
     #travelbase-form .form-second, #travelbase-form .form-third {
         margin-top: 20px!important;
@@ -2281,6 +2358,9 @@ input[type="checkbox"] .styled:checked + label::after {
     #travelbase-form .field-one, #travelbase-form .field-three {
         width: 250px;
     }
+    .mobile-date-div {
+    	width: 12%;
+	}
 }
 
 
