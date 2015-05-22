@@ -99,6 +99,9 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
             array(
                 'name' => 'PackageOverviewPage',
                 'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\PackageOverviewPage'
+            ),array(
+                'name' => 'HotelPage',
+                'class'=> 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage'
             ),);
     }
 
