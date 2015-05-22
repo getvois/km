@@ -670,6 +670,9 @@ class OffersCommand extends ContainerAwareCommand
         }
 
         $sold_out = $offer->filter('sold_out')->text();
+        if($sold_out == 'False') $sold_out = false;
+        else $sold_out = true;
+
         if($sold_out != $offerPage->getSoldOut()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'sold_out', $offerPage->getSoldOut(), $sold_out );
