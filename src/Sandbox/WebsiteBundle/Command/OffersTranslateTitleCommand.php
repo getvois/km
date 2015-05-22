@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -20,18 +21,26 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
         $this
             ->setName('travelbase:translate:offers:title')
             ->setDescription('Translate packages title to ee ru + slug')
+            ->addArgument(
+                'originalLang',
+                InputArgument::REQUIRED,
+                'Original language of offers e.g en,fi'
+            )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->translateEe('fi');
-        $this->translateRu('fi');
-        $this->translateEn('fi');
-
-        $this->translateEe('en');
-        $this->translateRu('en');
-        $this->translateFi('en');
+        $originalLang = $input->getArgument('originalLang');
+        if($originalLang == 'fi') {
+            $this->translateEe('fi');
+            $this->translateRu('fi');
+            $this->translateEn('fi');
+        }elseif($originalLang == 'en') {
+            $this->translateEe('en');
+            $this->translateRu('en');
+            $this->translateFi('en');
+        }
 
         if($this->emailBody){
             $email = 'Offers titles translated<br/>' . $this->emailBody;
