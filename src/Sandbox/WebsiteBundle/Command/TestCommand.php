@@ -20,24 +20,6 @@ class TestCommand extends ContainerAwareCommand
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
-        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPages('en');
-
-        $categories = [];
-
-        foreach ($offers as $offer) {
-            $categories[] = $offer->getCategory();
-        }
-
-        $categories = array_unique($categories);
-
-        foreach ($categories as $c) {
-            echo $c . "\n";
-        }
-
-
+        var_dump((int)microtime(true));
     }
 }

@@ -45,6 +45,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         /** @var EntityManager em */
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
 
         $nodes = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->findBy(['deleted' => 0, 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage']);
@@ -121,24 +122,23 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             $this->createPageFromPackage($package, $hotelPage);
         }
 
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
             foreach ($packagePages as $page) {
                 if($page->getId() == $id){
                     //unpublish page
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($page);
+                    $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($page);
                     if($node){
                         /** @var NodeTranslation[] $translations */
                         $translations = $node->getNodeTranslations();
                         if($translations){
                             foreach ($translations as $translation) {
                                 $translation->setOnline(false);
-                                $em->persist($translation);
+                                $this->em->persist($translation);
                             }
-                            $em->flush();
+                            $this->em->flush();
                         }
                     }
                     break;
@@ -150,21 +150,21 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private function cacheCompany()
     {
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         //set company to hotelliveeb
         /** @var CompanyOverviewPage $companyPage */
-        $companyPage = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+        $companyPage = $this->em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
             ->findOneBy(['title' => 'hotelliveeb']);
 
         if($companyPage) {
-            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($companyPage);
 
             if($node){
                 /** @var NodeTranslation $tr */
                 foreach ($node->getNodeTranslations(true) as $tr) {
-                    $companyPage = $tr->getRef($em);
+                    $companyPage = $tr->getRef($this->em);
                     if($companyPage) {
                         $this->company[$tr->getLang()] = $companyPage;
                     }
@@ -175,7 +175,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private function setPackageCompany(Node $node)
     {
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em= $this->getContainer()->get('doctrine.orm.entity_manager');
 
         /** @var NodeTranslation[] $translations */
         $translations = $node->getNodeTranslations(true);
@@ -183,21 +183,20 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         foreach ($translations as $translation) {
             $lang = $translation->getLang();
             if(array_key_exists($lang, $this->company)){
-                $packagePage = $translation->getRef($em);
+                $packagePage = $translation->getRef($this->em);
                 if($packagePage) {
                     $packagePage->setCompany($this->company[$lang]);
-                    $em->persist($packagePage);
+                    $this->em->persist($packagePage);
                 }
             }
         }
-        $em->flush();
+        $this->em->flush();
 
     }
 
     private function createPageFromPackage(Crawler $package, HotelPage $hotelPage)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $packageId = $package->filter('id')->first()->text();
         $packagePage = $this->packageExists($packageId);
@@ -207,11 +206,11 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             $this->updatePageParts($package, $packagePage);
             $this->setPlaces($packagePage);
 //            $this->setPackagePageFields($package, $packagePage);
-//            $em->persist($packagePage);
-//            $em->flush();
+//            $this->em->persist($packagePage);
+//            $this->em->flush();
 
             //probably company will never change
-            //$node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($packagePage);
+            //$node = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($packagePage);
             //$this->setPackageCompany($node);
             return;
         }
@@ -221,7 +220,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         echo($packagePage->getTitle() . "\n");
 
-        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+        $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($hotelPage);
 
         if(!$node){
@@ -353,14 +352,14 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         //add categories
         $categories = $package->filter('category');
 
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         foreach ($packagePage->getCategories() as $category) {
             $packagePage->removeCategory($category);
-            $em->remove($category);
+            $this->em->remove($category);
         }
 
-        $em->flush();
+        $this->em->flush();
 
 
         $added = [];
@@ -369,15 +368,15 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 $category = $categories->eq($j)->text();
 
                 //var_dump($category);
-                $c = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                $c = $this->em->getRepository('SandboxWebsiteBundle:PackageCategory')
                     ->findOneBy(['name' => $category]);
 
                 if(!$c){
                     //add new
                     $c = new PackageCategory();
                     $c->setName($category);
-                    $em->persist($c);
-                    $em->flush();
+                    $this->em->persist($c);
+                    $this->em->flush();
                 }
 
                 if(!array_key_exists($c->getId(), $added)){
@@ -404,12 +403,12 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             if(!$translation) continue;
 
             /** @var PackagePage $page */
-            $page = $translation->getRef($em);
+            $page = $translation->getRef($this->em);
             if(!$page) continue;
 
             $hotelTrans = $node->getParent()->getNodeTranslation($lang, true);
             if($hotelTrans){
-                $hotelPage = $hotelTrans->getRef($em);
+                $hotelPage = $hotelTrans->getRef($this->em);
                 if($hotelPage){
                     foreach ($hotelPage->getPlaces() as $place) {
                         $page->addPlace($place);
@@ -418,8 +417,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                     //set country
                     $page->setCountry($hotelPage->getCountryPlace());
 
-                    $em->persist($page);
-                    $em->flush();
+                    $this->em->persist($page);
+                    $this->em->flush();
                 }
             }
         }
@@ -491,14 +490,14 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
      */
     private function packageExists($packageId)
     {
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         /** @var PackagePage[] $pages */
-        $pages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+        $pages = $this->em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
             ->findBy(['packageId' => $packageId]);
         if($pages){
             foreach ($pages as $page) {
                 /** @var Node $node */
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
                     ->getNodeFor($page);
 
                 //if node exists and not deleted skip
@@ -516,13 +515,13 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
      */
     private function getPage(Node $node)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        /** @var EntityManager $this->em */
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $page = null;
         $translation = $node->getNodeTranslation('ee', true);
         if($translation){
-            $page = $translation->getRef($em);
+            $page = $translation->getRef($this->em);
         }
 
         return $page;
@@ -535,10 +534,10 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
      */
     private function getHotelPackages($hotelPage)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        /** @var EntityManager $this->em */
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $hotelNode = $em->getRepository('KunstmaanNodeBundle:Node')
+        $hotelNode = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($hotelPage);
 
         if(!$hotelNode) return [];
@@ -555,7 +554,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
 
         /** @var PackagePage[] $pages */
-        $pages = $em->createQuery($dql)
+        $pages = $this->em->createQuery($dql)
             ->getResult();
 
         if(!$pages) return [];
