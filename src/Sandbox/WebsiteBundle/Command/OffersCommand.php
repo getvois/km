@@ -487,7 +487,7 @@ class OffersCommand extends ContainerAwareCommand
         if($long_description != $offerPage->getLongDescription()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'long_description', $offerPage->getLongDescription(), $long_description );
-            $qb->set('o.longDescription', $qb->expr()->literal($long_description));
+            //$qb->set('o.longDescription', $qb->expr()->literal($long_description));
         }
 
         $short_description = $offer->filter('short_description')->text();
