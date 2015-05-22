@@ -18,6 +18,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class OffersCommand extends ContainerAwareCommand
 {
     protected $emailBody;
+    protected $lang = 'fi';
 
     protected function configure()
     {
@@ -37,6 +38,14 @@ class OffersCommand extends ContainerAwareCommand
     protected function getMetaDesc(Crawler $offer)
     {
         return $offer->filter('meta_description')->text();
+    }
+
+    protected function runTranslateCommand(InputInterface $input, OutputInterface $output)
+    {
+        $input->setArgument('originalLang', $this->lang);
+        //translate titles
+        $command = $this->getApplication()->find('travelbase:translate:offers:title');
+        $command->run($input, $output);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -123,6 +132,7 @@ class OffersCommand extends ContainerAwareCommand
             EmailInfoSend::sendEmail($email, 'twp: Offers info');
         }
 
+        $this->runTranslateCommand($input, $output);
     }
 
     /**

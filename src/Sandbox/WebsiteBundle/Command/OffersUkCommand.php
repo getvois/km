@@ -17,6 +17,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class OffersUkCommand extends OffersCommand
 {
+    protected $lang = 'en';
+
     protected function configure()
     {
         $this
