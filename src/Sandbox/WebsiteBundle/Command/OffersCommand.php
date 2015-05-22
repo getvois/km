@@ -63,49 +63,60 @@ class OffersCommand extends ContainerAwareCommand
         $offers = $this->getOffers();
 
         for($i = 0; $i<$offers->count(); $i++){
-            $offer = $offers->eq($i);
 
-            $id = $this->getId($offer);
+            try {
 
-            $offerPage = $this->offerExists($id);
-            if($offerPage){
-                //update or something
-                $this->updateFields($offerPage, $offer);
 
-                echo($offerPage->getOfferId() . "\n");
+                $offer = $offers->eq($i);
 
+                $id = $this->getId($offer);
+
+                $offerPage = $this->offerExists($id);
+                if ($offerPage) {
+                    //update or something
+                    $this->updateFields($offerPage, $offer);
+
+                    echo($offerPage->getOfferId() . "\n");
+
+                    continue;
+                }
+
+                $offerPage = $this->setPageFields($offer);
+
+                echo($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count() . "\n");
+
+                $meta_description = $this->getMetaDesc($offer);
+
+                $translations = array();
+
+                $langs = ['en', 'ee', 'fi', 'se', 'ru'];
+
+                foreach ($langs as $lang) {
+                    $translations[] = array('language' => $lang, 'callback' => function (OfferPage $page, NodeTranslation $translation, Seo $seo) use ($meta_description) {
+                        $translation->setTitle($page->getTitle());
+                        $seo->setMetaDescription($meta_description);
+                    });
+                }
+
+                $options = array(
+                    'parent' => $rootNode,
+                    'set_online' => true,
+                    'hidden_from_nav' => false,
+                    'creator' => 'Admin'
+                );
+                $newNode = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($offerPage, $translations, $options);
+
+                $this->addPlaces($newNode);
+
+                $this->emailBody .= "New Offer node: ({$newNode->getId()}) title: " . $offerPage->getTitle();
+
+            }
+            catch(\Exception $e){
+                var_dump($e->getMessage());
+            }
+            finally{
                 continue;
             }
-
-            $offerPage = $this->setPageFields($offer);
-
-            echo($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count() . "\n");
-
-            $meta_description = $this->getMetaDesc($offer);
-
-            $translations = array();
-
-            $langs = ['en', 'ee', 'fi', 'se', 'ru'];
-
-            foreach ($langs as $lang) {
-                $translations[] = array('language' => $lang, 'callback' => function(OfferPage $page,NodeTranslation $translation, Seo $seo) use ($meta_description) {
-                    $translation->setTitle($page->getTitle());
-                    $seo->setMetaDescription($meta_description);
-                });
-            }
-
-            $options = array(
-                'parent' => $rootNode,
-                'set_online' => true,
-                'hidden_from_nav' => false,
-                'creator' => 'Admin'
-            );
-            $newNode = $this->getContainer()->get('kunstmaan_node.page_creator_service')->createPage($offerPage, $translations, $options);
-
-            $this->addPlaces($newNode);
-
-            $this->emailBody .= "New Offer node: ({$newNode->getId()}) title: " . $offerPage->getTitle();
-
         }
 
 
