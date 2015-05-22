@@ -114,9 +114,6 @@ class OffersCommand extends ContainerAwareCommand
             catch(\Exception $e){
                 var_dump($e->getMessage());
             }
-            finally{
-                continue;
-            }
         }
 
 
