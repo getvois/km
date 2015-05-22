@@ -721,6 +721,7 @@ class OffersCommand extends ContainerAwareCommand
         if($update){
 
             var_dump('b q');
+            var_dump($offerPage->getOfferId());
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
 
