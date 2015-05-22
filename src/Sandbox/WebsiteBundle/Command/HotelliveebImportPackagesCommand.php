@@ -54,10 +54,11 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $this->cacheCompany();
 
         foreach ($nodes as $node) {
-            //$init = microtime();
-            $this->addPackages($node);
-
-            //var_dump('packages added to hotel in ' . (microtime() - $init));
+            try{
+                $this->addPackages($node);
+            }catch (\Exception $e){
+                var_dump($e->getMessage());
+            }
         }
 
         if($this->emailBody)
