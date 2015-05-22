@@ -67,23 +67,17 @@ class OffersCommand extends ContainerAwareCommand
 
             $id = $this->getId($offer);
 
-            var_dump('b getpage');
             $offerPage = $this->offerExists($id);
-            var_dump('a getpage');
             if($offerPage){
                 //update or something
-                var_dump('b update');
                 $this->updateFields($offerPage, $offer);
-                var_dump('a update');
 
                 echo($offerPage->getOfferId() . "\n");
 
                 continue;
             }
 
-            var_dump('b set');
             $offerPage = $this->setPageFields($offer);
-            var_dump('a set');
 
             echo($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count() . "\n");
 
@@ -726,6 +720,7 @@ class OffersCommand extends ContainerAwareCommand
 
         if($update){
 
+            var_dump('b q');
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
 
