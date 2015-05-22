@@ -718,9 +718,14 @@ class OffersCommand extends ContainerAwareCommand
         //return $offerPage;
 
         if($update){
-            $qb->where('o.offerId = ' . $offerPage->getOfferId())
-                ->getQuery()
-                ->execute();
+
+            $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
+                ->getQuery();
+
+            var_dump($query->getDQL());
+
+            $query->execute();
+
 
             $node = $em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($offerPage);
