@@ -413,6 +413,9 @@ class OffersCommand extends ContainerAwareCommand
 
     protected function updateFields(OfferPage $offerPage, Crawler $offer)
     {
+
+        var_dump('start update');
+
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
@@ -511,7 +514,7 @@ class OffersCommand extends ContainerAwareCommand
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'absolute_url', $offerPage->getAbsoluteUrl(), $absolute_url );
             $qb->set('o.absoluteUrl', $qb->expr()->literal($absolute_url));
         }
-
+        var_dump('update cat');
         $category = $offer->filter('category')->text();
 
         if(!$offerPage->inCategory($category)){
@@ -585,6 +588,7 @@ class OffersCommand extends ContainerAwareCommand
             $qb->set('o.accomodationType', $qb->expr()->literal($accomodation_type));
         }
 
+        var_dump('update date');
         $expiration_date = $offer->filter('expiration_date')->text();
         $expiration_date = new \DateTime($expiration_date);
         if($expiration_date->getTimestamp() != $offerPage->getExpirationDate()->getTimestamp()){
@@ -704,6 +708,7 @@ class OffersCommand extends ContainerAwareCommand
         if($extra_moreinclusive=='yes'){ $extra[]= '';}
         if($extra_skipass=='yes'){ $extra[]= '';}
 
+        var_dump('update extra');
         $extras = implode(', ', $extra);
         if($extras != $offerPage->getExtra()){
             $update = true;
