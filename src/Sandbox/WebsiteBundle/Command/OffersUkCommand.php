@@ -361,7 +361,8 @@ class OffersUkCommand extends OffersCommand
         if($expiration_date->getTimestamp() != $offerPage->getExpirationDate()->getTimestamp()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'expiration_date', $offerPage->getExpirationDate()->format('d-m-Y'), $expiration_date->format("d-m-Y") );
-            $qb->set('o.expirationDate', $expiration_date);
+            $qb->set('o.expirationDate', ':date');
+            $qb->setParameter(':date', $expiration_date);
         }
 
 //        $latLong = $offer->filter('latlng')->text();
