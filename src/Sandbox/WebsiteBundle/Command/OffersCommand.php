@@ -177,6 +177,7 @@ class OffersCommand extends ContainerAwareCommand
         $absolute_url = $offer->filter('absolute_url')->text();
         $offerPage->setAbsoluteUrl($absolute_url);
 
+        var_dump('cat');
         $category = $offer->filter('category')->text();
         if($category){
             /** @var EntityManager $em */
@@ -194,7 +195,7 @@ class OffersCommand extends ContainerAwareCommand
             $offerPage->addCategory($cat);
         }
         //$offerPage->setCategory($category);
-
+        var_dump('end cat');
         $country = $offer->filter('country')->text();
         $offerPage->setCountry($country);
 
@@ -720,7 +721,6 @@ class OffersCommand extends ContainerAwareCommand
         //return $offerPage;
 
         if($update){
-            var_dump($qb->getQuery()->getDQL());
 
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
@@ -728,7 +728,6 @@ class OffersCommand extends ContainerAwareCommand
             var_dump($query->getDQL());
 
             $query->execute();
-
 
             $node = $em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($offerPage);
