@@ -329,6 +329,46 @@ body .splash--green {
 .cal-item-cheapest {
     background-color: #FFEDBA;
 }
+
+
+.calendar-page {
+}
+
+.calendar-page .cal-month-day {
+  height: 70px;
+}
+.calendar-page .cal-year-box [class*="span"], .calendar-page .cal-month-box [class*="cal-cell"] {
+  min-height: 70px;
+}
+.calendar-page span[data-cal-date]  {
+  margin-top: 5px;
+  margin-right: 5px;
+  z-index: 9;
+  position: relative;
+}
+
+.calendar-page .events-list span {
+  font-size:18px;
+}
+main .calendar-page .cal-day-today .events-list {
+  background: -webkit-linear-gradient(#F26E6E, #D34C4C) repeat scroll 0 0 transparent
+}
+.calendar-page .cal-month-day .events-list {
+  position: absolute;
+  width: 100%;
+  padding-top: 35px;
+  height: 100%;
+  background: -webkit-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent;
+  max-height:inherit;
+  text-align: center;
+  padding-left:0;
+  padding-right:0;
+}
+
+.calendar-page .cal-month-day .events-list a {
+  color:#fff;
+}
+
 /*topmenu*/
 .site-logo, .site-logo a {
 	 width:250px;
@@ -1140,6 +1180,7 @@ label.directFlight-label,  label.sameDay-label {
 .package-price {
   position: absolute;
   right: 0;
+  margin-top: 15px;
   padding: 4px 8px;
 }
 .trip-cost > .trip-btn-cost, .trip-cost > .trip-btn-close, .trip-cost > p {
@@ -1255,6 +1296,10 @@ span.price-from {font-size: 14px;}
 	height: 46px;
 	width: 46px;
 	position: absolute;
+}
+
+ul.nav-tabs-packages .tab-content .tab-pane { 
+	padding-top: 20px;
 }
 
 /*DATE PICKER STUFF*/

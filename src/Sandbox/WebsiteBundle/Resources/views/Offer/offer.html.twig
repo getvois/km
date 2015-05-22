@@ -1,7 +1,22 @@
 <div class="col-md-4 nopadding package">
 	<div class="package-inside well">
 		
-		<a class="package-price pull-right btn btn-primary" href="{{ offer.absoluteUrl }}">
+		
+		<a href="{{ offer.absoluteUrl }}">
+	    	<h4 class="package-title">
+	        {% if offer.titleTranslated %}
+           		{{ offer.titleTranslated }}
+	        {% else %}
+	            {{ offer.title }}
+	        {% endif %}
+	        {% if offer.nights %}
+		         ({{ offer.nights|split(',')[0] }} {% if offer.nights|split(',')[0] == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
+	        {% endif %}
+	    	</h4>
+	    	{% if offer.city %}<p>{{ offer.city }}{% if offer.country %}, {{ offer.country }}{% endif %}</p>{% endif %}
+	    	
+	    </a>	
+	    <a class="package-price pull-right btn btn-primary" href="{{ offer.absoluteUrl }}">
 			
 			{% if offer.inCategory('hotel') or offer.inCategory('citytrip') %}
 				{{ offer.price |number_format(0, '.', ',') * 2 }}{% if offer.currency == 'EUR' %}&euro;{% else %}{{ offer.currency }}{% endif %}
@@ -17,20 +32,9 @@
 		   	 	{% endif %}
 	   	 	{% endif %}
 	   	 	
-	   	 	
-	    </a>
-		<a href="{{ offer.absoluteUrl }}">
-	    	<h4 class="package-title">
-	        {% if offer.titleTranslated %}
-           		{{ offer.titleTranslated }}
-	        {% else %}
-	            {{ offer.title }}
-	        {% endif %}
-	        {% if offer.nights %}
-		         ({{ offer.nights|split(',')[0] }} {% if offer.nights|split(',')[0] == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
-	        {% endif %}
-	    	</h4>
-	    	{% if offer.city %}<p>{{ offer.city }}{% if offer.country %}, {{ offer.country }}{% endif %}</p>{% endif %}
+	    </a>	
+	    	
+	    <a href="{{ offer.absoluteUrl }}">	
 		    {% if offer.image %}
 		        <img src="{{ offer.image }}" class="img-responsive"/>
 		    {% endif %}
