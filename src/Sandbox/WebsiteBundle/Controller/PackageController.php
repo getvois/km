@@ -127,7 +127,7 @@ class PackageController extends Controller
                         $url = "https://pay.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
                         $out[$date] = array(
                             'id' => $i,
-                            'title' => "<a href='$url'>$price eur</a>",
+                            'title' => "<a href='$url'>$price €</a>",
                             'url' => '',
                             'start' => strtotime($date ) . '000',
                             //'end' => strtotime($date . "20:59") .'000',
@@ -139,7 +139,7 @@ class PackageController extends Controller
                     $url = "https://pay.travelwebpartner.com/payment/hv/" . $request->getLocale()."/$id/$date?host=" . $request->getHost();
                     $out[$date] = array(
                         'id' => $i,
-                        'title' => "<a href='$url'>$price eur</a>",
+                        'title' => "<a href='$url'>$price €</a>",
                         'url' => "",
                         'start' => strtotime($date ) . '000',
                         //'end' => strtotime($date . "20:59") .'000',
