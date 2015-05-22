@@ -412,6 +412,10 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
         return false;
     }
 
+    public function removeAllCategories()
+    {
+        $this->categories->clear();
+    }
     /**
      * @return CompanyOverviewPage
      */

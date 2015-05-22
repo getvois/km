@@ -70,7 +70,7 @@ class OffersCommand extends ContainerAwareCommand
             $offerPage = $this->offerExists($id);
             if($offerPage){
                 //update or something
-
+                $this->updateFields($offerPage, $offer);
 
                 echo($offerPage->getOfferId() . "\n");
 
@@ -408,6 +408,325 @@ class OffersCommand extends ContainerAwareCommand
             }
         }
         $em->flush();
+
+    }
+
+    protected function updateFields(OfferPage $offerPage, Crawler $offer)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $qb = $em->createQueryBuilder();
+        $qb->update('SandboxWebsiteBundle:Pages\OfferPage', 'o');
+
+        $update = false;
+
+        $title = $offer->filter('title')->text();
+        if($title != $offerPage->getTitle()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'title', $offerPage->getTitle(), $title );
+            $qb->set('o.title', $qb->expr()->literal($title));
+        }
+
+        $longTitle = $offer->filter('long_title')->text();
+        if($longTitle != $offerPage->getLongTitle()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'long_title', $offerPage->getLongTitle(), $longTitle );
+            $qb->set('o.longTitle', $qb->expr()->literal($longTitle));
+        }
+
+        $image = $offer->filter('image')->text();
+        if($image != $offerPage->getImage()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'image', $offerPage->getImage(), $image );
+            $qb->set('o.image', $qb->expr()->literal($image));
+        }
+
+        $wide_image = $offer->filter('wide_image')->text();
+        if($wide_image != $offerPage->getWideImage()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'wide_image', $offerPage->getWideImage(), $wide_image );
+            $qb->set('o.wideImage', $qb->expr()->literal($wide_image));
+        }
+
+        $price = $offer->filter('price')->text();
+        if($price != $offerPage->getPrice()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'price', $offerPage->getPrice(), $price );
+            $qb->set('o.price', $price);
+        }
+
+        $price_normal = $offer->filter('price_normal')->text();
+        if($price_normal != $offerPage->getPriceNormal()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'price_normal', $offerPage->getPriceNormal(), $price_normal );
+            $qb->set('o.priceNormal', $price_normal);
+        }
+
+        $currency = $offer->filter('currency')->text();
+        if($currency != $offerPage->getCurrency()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'currency', $offerPage->getCurrency(), $currency );
+            $qb->set('o.currency', $qb->expr()->literal($currency));
+        }
+
+        $days = $offer->filter('days')->text();
+        if($days != $offerPage->getDays()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'days', $offerPage->getDays(), $days );
+            $qb->set('o.days', $days);
+        }
+
+        $description = $offer->filter('description')->text();
+        if($description != $offerPage->getDescription()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'description', $offerPage->getDescription(), $description );
+            $qb->set('o.description', $qb->expr()->literal($description));
+        }
+
+        $long_description = $offer->filter('long_description')->text();
+        if($long_description != $offerPage->getLongDescription()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'long_description', $offerPage->getLongDescription(), $long_description );
+            $qb->set('o.longDescription', $qb->expr()->literal($long_description));
+        }
+
+        $short_description = $offer->filter('short_description')->text();
+        if($short_description != $offerPage->getShortDescription()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'short_description', $offerPage->getShortDescription(), $short_description );
+            $qb->set('o.shortDescription', $qb->expr()->literal($short_description));
+        }
+
+        $logo = $offer->filter('logo')->text();
+        if($logo != $offerPage->getLogo()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'logo', $offerPage->getLogo(), $logo );
+            $qb->set('o.logo', $qb->expr()->literal($logo));
+        }
+
+        $absolute_url = $offer->filter('absolute_url')->text();
+        if($absolute_url != $offerPage->getAbsoluteUrl()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'absolute_url', $offerPage->getAbsoluteUrl(), $absolute_url );
+            $qb->set('o.absoluteUrl', $qb->expr()->literal($absolute_url));
+        }
+
+        $category = $offer->filter('category')->text();
+
+        if(!$offerPage->inCategory($category)){
+            $offerPage->removeAllCategories();
+            if($category){
+                /** @var EntityManager $em */
+                $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+                $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                    ->findOneBy(['name' => $category]);
+
+                if(!$cat){
+                    $cat = new PackageCategory();
+                    $cat->setName($category);
+                    $em->persist($cat);
+                    $em->flush();
+                }
+                $offerPage->addCategory($cat);
+            }
+        }
+
+
+        //$offerPage->setCategory($category);
+
+        $country = $offer->filter('country')->text();
+        if($country != $offerPage->getCountry()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'country', $offerPage->getCountry(), $country );
+            $qb->set('o.country', $qb->expr()->literal($country));
+        }
+
+        $city = $offer->filter('city')->text();
+        if($city != $offerPage->getCity()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'city', $offerPage->getCity(), $city );
+            $qb->set('o.city', $qb->expr()->literal($city));
+        }
+
+        $region = $offer->filter('region')->text();
+        if($region != $offerPage->getRegion()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'region', $offerPage->getRegion(), $region );
+            $qb->set('o.region', $qb->expr()->literal($region));
+        }
+
+        $transportation = $offer->filter('transportation')->text();
+        if($transportation != $offerPage->getTransportation()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'transportation', $offerPage->getTransportation(), $transportation );
+            $qb->set('o.transportation', $qb->expr()->literal($transportation));
+        }
+
+        $target_group = $offer->filter('target_group')->text();
+        if($target_group != $offerPage->getTargetGroup()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'target_group', $offerPage->getTargetGroup(), $target_group );
+            $qb->set('o.targetGroup', $qb->expr()->literal($target_group));
+        }
+
+        $accomodation = $offer->filter('accomodation')->text();
+        if($accomodation != $offerPage->getAccomodation()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'accomodation', $offerPage->getAccomodation(), $accomodation );
+            $qb->set('o.accomodation', $qb->expr()->literal($accomodation));
+        }
+
+        $accomodation_type = $offer->filter('accomodation_type')->text();
+        if($accomodation_type != $offerPage->getAccomodationType()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'accomodation_type', $offerPage->getAccomodationType(), $accomodation_type );
+            $qb->set('o.accomodationType', $qb->expr()->literal($accomodation_type));
+        }
+
+        $expiration_date = $offer->filter('expiration_date')->text();
+        $expiration_date = new \DateTime($expiration_date);
+        if($expiration_date->getTimestamp() != $offerPage->getExpirationDate()->getTimestamp()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'expiration_date', $offerPage->getExpirationDate()->format('d-m-Y'), $expiration_date->format("d-m-Y") );
+            $qb->set('o.expirationDate', $expiration_date);
+        }
+
+        $offer_sold = $offer->filter('offer_sold')->text();
+        if($offer_sold != $offerPage->getOfferSold()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'offer_sold', $offerPage->getOfferSold(), $offer_sold );
+            $qb->set('o.offerSold', $qb->expr()->literal($offer_sold));
+        }
+
+        $adress = $offer->filter('adress')->text();
+        if($adress != $offerPage->getAdress()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'adress', $offerPage->getAdress(), $adress );
+            $qb->set('o.adress', $qb->expr()->literal($adress));
+        }
+
+        $included = $offer->filter('included')->text();
+        if($included != $offerPage->getIncluded()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'included', $offerPage->getIncluded(), $included );
+            $qb->set('o.included', $qb->expr()->literal($included));
+        }
+
+        $latitude = $offer->filter('latitude')->text();
+        if($latitude != $offerPage->getLatitude()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'latitude', $offerPage->getLatitude(), $latitude );
+            $qb->set('o.latitude', $qb->expr()->literal($latitude));
+        }
+
+        $longitude = $offer->filter('longitude')->text();
+        if($longitude != $offerPage->getLongitude()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'longitude', $offerPage->getLongitude(), $longitude );
+            $qb->set('o.longitude', $qb->expr()->literal($longitude));
+        }
+
+        $nights = $offer->filter('nights')->text();
+        if($nights != $offerPage->getNights()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'nights', $offerPage->getNights(), $nights );
+            $qb->set('o.nights', $qb->expr()->literal($nights));
+        }
+
+        $price_type = $offer->filter('price_type')->text();
+        if($price_type != $offerPage->getPriceType()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'price_type', $offerPage->getPriceType(), $price_type );
+            $qb->set('o.priceType', $qb->expr()->literal($price_type));
+        }
+
+        $price_per = $offer->filter('price_per')->text();
+        if($price_per != $offerPage->getPricePer()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'price_per', $offerPage->getPricePer(), $price_per );
+            $qb->set('o.pricePer', $qb->expr()->literal($price_per));
+        }
+
+        $discount = $offer->filter('discount')->text();
+        if($discount != $offerPage->getDiscount()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'discount', $offerPage->getDiscount(), $discount );
+            $qb->set('o.discount', $qb->expr()->literal($discount));
+        }
+
+        $max_persons = $offer->filter('max_persons')->text();
+        if($max_persons != $offerPage->getMaxPersons()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'max_persons', $offerPage->getMaxPersons(), $max_persons );
+            $qb->set('o.maxPersons', $qb->expr()->literal($max_persons));
+        }
+
+        $min_persons = $offer->filter('min_persons')->text();
+        if($min_persons != $offerPage->getMinPersons()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'min_persons', $offerPage->getMinPersons(), $min_persons );
+            $qb->set('o.minPersons', $qb->expr()->literal($min_persons));
+        }
+
+        $sold_out = $offer->filter('sold_out')->text();
+        if($sold_out != $offerPage->getSoldOut()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'sold_out', $offerPage->getSoldOut(), $sold_out );
+            $qb->set('o.soldOut', $qb->expr()->literal($sold_out));
+        }
+
+        $booking_fee = $offer->filter('booking_fee')->text();
+        if($booking_fee != $offerPage->getBookingFee()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'booking_fee', $offerPage->getBookingFee(), $booking_fee );
+            $qb->set('o.bookingFee', $qb->expr()->literal($booking_fee));
+        }
+
+        $extra = [];
+
+        $extra_breakfast = $offer->filter('extra_breakfast')->text();
+        $extra_dinner = $offer->filter('extra_dinner')->text();
+        $extra_wellness = $offer->filter('extra_wellness')->text();
+        $extra_halfboard = $offer->filter('extra_halfboard')->text();
+        $extra_fullboard = $offer->filter('extra_fullboard')->text();
+        $extra_allinclusive = $offer->filter('extra_allinclusive')->text();
+        $extra_moreinclusive = $offer->filter('extra_moreinclusive')->text();
+        $extra_skipass = $offer->filter('extra_skipass')->text();
+
+        if($extra_breakfast=='yes'){ $extra[]= '';}
+        if($extra_dinner=='yes'){ $extra[]= '';}
+        if($extra_wellness=='yes'){ $extra[]= '';}
+        if($extra_halfboard=='yes'){ $extra[]= '';}
+        if($extra_fullboard=='yes'){ $extra[]= '';}
+        if($extra_allinclusive=='yes'){ $extra[]= '';}
+        if($extra_moreinclusive=='yes'){ $extra[]= '';}
+        if($extra_skipass=='yes'){ $extra[]= '';}
+
+        $extras = implode(', ', $extra);
+        if($extras != $offerPage->getExtra()){
+            $update = true;
+            $this->emailBody .= sprintf("%s updated from %s to %s\n", 'extra', $offerPage->getExtra(), $extras );
+            $qb->set('o.extra', $qb->expr()->literal($extras));
+        }
+
+        //$offerPage->setCompany($this->company);
+
+        //$offerPage->setOriginalLanguage('fi');
+
+        //return $offerPage;
+
+        if($update){
+            $qb->where('o.offerId = ' . $offerPage->getOfferId())
+                ->getQuery()
+                ->execute();
+
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($offerPage);
+
+            $this->emailBody .= "On node:" . $node->getId();
+        }
 
     }
 
