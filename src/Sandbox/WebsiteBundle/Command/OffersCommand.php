@@ -487,7 +487,7 @@ class OffersCommand extends ContainerAwareCommand
         if($long_description != $offerPage->getLongDescription()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'long_description', $offerPage->getLongDescription(), $long_description );
-            //$qb->set('o.longDescription', $qb->expr()->literal($long_description));
+            $qb->set('o.longDescription', $qb->expr()->literal($long_description));
         }
 
         $short_description = $offer->filter('short_description')->text();
@@ -588,7 +588,7 @@ class OffersCommand extends ContainerAwareCommand
         if($expiration_date->getTimestamp() != $offerPage->getExpirationDate()->getTimestamp()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'expiration_date', $offerPage->getExpirationDate()->format('d-m-Y'), $expiration_date->format("d-m-Y") );
-            $qb->set('o.expirationDate', $expiration_date);
+            //$qb->set('o.expirationDate', $expiration_date);
         }
 
         $offer_sold = $offer->filter('offer_sold')->text();
