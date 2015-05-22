@@ -595,7 +595,7 @@ class OffersCommand extends ContainerAwareCommand
         if($offer_sold != $offerPage->getOfferSold()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'offer_sold', $offerPage->getOfferSold(), $offer_sold );
-            $qb->set('o.offerSold', $qb->expr()->literal($offer_sold));
+            $qb->set('o.offerSold', $offer_sold);
         }
 
         $adress = $offer->filter('adress')->text();
@@ -721,7 +721,7 @@ class OffersCommand extends ContainerAwareCommand
         if($update){
 
             var_dump('b q');
-            var_dump($qb->getDQLParts());
+            var_dump($qb->get());
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
 
