@@ -183,6 +183,9 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
         if($emailBody){
             $email = "New Hotels added:<br/>" . $emailBody;
             EmailInfoSend::sendEmail($email, 'twp: New hotels');
+        }else{
+            $email = "No new data :<br/>";
+            EmailInfoSend::sendEmail($email, 'twp: Hotels no new data');
         }
     }
 
