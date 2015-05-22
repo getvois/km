@@ -307,26 +307,26 @@ class OffersUkCommand extends OffersCommand
             $this->emailBody .= sprintf("%s updated from %s to %s\n", 'absolute_url', $offerPage->getAbsoluteUrl(), $absolute_url );
             $qb->set('o.absoluteUrl', $qb->expr()->literal($absolute_url));
         }
-
-        $category = $offer->filter('category')->text();
-        if(!$offerPage->inCategory($category)){
-            $offerPage->removeAllCategories();
-            if($category){
-                /** @var EntityManager $em */
-                $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-
-                $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
-                    ->findOneBy(['name' => $category]);
-
-                if(!$cat){
-                    $cat = new PackageCategory();
-                    $cat->setName($category);
-                    $em->persist($cat);
-                    $em->flush();
-                }
-                $offerPage->addCategory($cat);
-            }
-        }
+//
+//        $category = $offer->filter('category')->text();
+//        if(!$offerPage->inCategory($category)){
+//            $offerPage->removeAllCategories();
+//            if($category){
+//                /** @var EntityManager $em */
+//                $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+//
+//                $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+//                    ->findOneBy(['name' => $category]);
+//
+//                if(!$cat){
+//                    $cat = new PackageCategory();
+//                    $cat->setName($category);
+//                    $em->persist($cat);
+//                    $em->flush();
+//                }
+//                $offerPage->addCategory($cat);
+//            }
+//        }
 
         $country = $offer->filter('country')->text();
         if($country != $offerPage->getCountry()){
