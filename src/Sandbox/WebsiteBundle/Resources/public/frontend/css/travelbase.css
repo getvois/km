@@ -615,14 +615,15 @@ select {
 }
 .travelbase-input-rel label:before {
     content:'';
-      padding-right: 5px;
+    padding-right: 5px;
 	right: 2px;
 	top: 2px;
 	width: 24px;
-	height: 38px; 
+	height: 38px;
     position:absolute;
     pointer-events:none;
-    background: #fff;
+    /*background: #fff;*/
+    background: transparent;
     display:block;
 }
 
