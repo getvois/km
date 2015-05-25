@@ -80,7 +80,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
         if($lang == 'ee') $lang = 'et';
 
         foreach ($offers as $offer) {
-            $this->translateShortDescription($offer, $lang, $originalLang);
+            //$this->translateShortDescription($offer, $lang, $originalLang);
             $this->translateTitle($offer, $lang, $originalLang);
         }
 
