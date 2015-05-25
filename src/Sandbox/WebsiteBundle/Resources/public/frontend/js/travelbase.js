@@ -305,7 +305,8 @@ $(document).ready(function() {
             events_source: '/package-event-source/' + $packageCalendar.data('package-id'),
             onAfterViewLoad: function(view) {
                 $('.package-calendar-header').text(this.getTitle());
-            }
+            },
+            language: $lang
         });
 
     calendar.setLanguage($lang);
