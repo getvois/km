@@ -1,3 +1,9 @@
 <div class="tab-pane" id="hotels">
     {#<br /><br /><script type='text/javascript' src='http://www.hotelscombined.ee/SearchBox/255530'></script>#}
+
+    {% if not app.user %}
+        <div class="overlay-holder">
+            {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
+        </div>
+    {% endif %}
 </div>

@@ -1334,6 +1334,11 @@ ul.nav-tabs-packages .tab-content .tab-pane {
 	background:#FEDF5E;
 }
 
+.overlay-holder{
+    position: relative;
+    height: 300px;
+}
+
 .datepick-month td .datepick-selected, .datepick-month a, .datepick .datepick-month td .datepick-today {
 	padding: 4px;
 	border-radius:none!important;
