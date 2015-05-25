@@ -55,16 +55,20 @@
 </div>
 
     <script>
-        var container = document.querySelector('#hotel-packages');
-        new Isotope( container, {itemSelector: '.package'});
-
-
 
         jQuery(function($) {
             // Asynchronously Load the map API
             var script = document.createElement('script');
             script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
             document.body.appendChild(script);
+
+
+            var container = document.querySelector('#hotel-packages');
+            var iso = new Isotope( container, {itemSelector: '.package'});
+
+            imagesLoaded( container, function() {
+                iso.layout();
+            });
         });
 
         function initialize() {
