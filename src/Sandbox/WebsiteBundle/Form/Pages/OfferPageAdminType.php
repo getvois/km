@@ -46,6 +46,12 @@ class OfferPageAdminType extends PageAdminType
         $builder->add('priceNormal', 'number', array(
             'required' => false,
         ));
+        $builder->add('priceEur', 'number', array(
+            'required' => false,
+        ));
+        $builder->add('priceNormalEur', 'number', array(
+            'required' => false,
+        ));
         $builder->add('currency', 'text', array(
             'required' => false,
         ));
