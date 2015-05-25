@@ -146,16 +146,11 @@
 
 
             var $destination = $("#destination");
-            var data = $destination.select2("data");
+            var data = $destination.val();
+
             if(!data) return true;
 
-            if(data.id.toString().indexOf('_') != -1){
-                //country
-                $destination.val(data.countryName);
-            }else{
-                //city
-                $destination.val(data.cityName);
-            }
+            $destination.val(data.countryName);
 
             return true;
         });
