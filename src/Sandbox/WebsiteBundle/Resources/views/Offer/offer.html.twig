@@ -46,7 +46,11 @@
         {% if offer.summary %}
             {{ offer.summary |raw }}
         {% else %}
-            {{ offer.shortDescription |raw }}
+            {% if offer.shortDescriptionTranslated %}
+                    {{ offer.shortDescriptionTranslated|raw }}
+                {% else %}
+                    {{ offer.shortDescription |raw }}
+                {% endif %}
         {% endif %}
          {% if offer.originalLanguage %}
 	            <img width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
