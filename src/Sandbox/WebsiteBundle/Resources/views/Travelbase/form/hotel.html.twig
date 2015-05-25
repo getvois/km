@@ -144,14 +144,6 @@
             $("#b_checkout_day").val($checkout.getDate());
             $("#b_checkout_month").val($checkout.getFullYear() + "-" + ($checkout.getMonth()+1));
 
-
-            var $destination = $("#destination");
-            var data = $destination.val();
-
-            if(!data) return true;
-
-            $destination.val(data.countryName);
-
             return true;
         });
 
