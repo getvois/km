@@ -3,14 +3,18 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * OfferPage
@@ -20,6 +24,46 @@ use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
  */
 class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlaceFromTo
 {
+    public function service(ContainerInterface $container, Request $request, RenderContext $context)
+    {
+        parent::service($container, $request, $context);
+
+        /** @var EntityManager $em */
+        $em = $container->get('doctrine.orm.entity_manager');
+        /** @var OfferPage $page */
+        $page = $context['page'];
+
+        $page->viewCount += 1;
+
+        $em->persist($page);
+        $em->flush();
+
+        $context['page'] = $page;
+    }
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="view_count", type="integer")
+     */
+    private $viewCount;
+
+    /**
+     * @return int
+     */
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
+
+    /**
+     * @param int $viewCount
+     */
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
+    }
+
     /**
      * @var string
      *

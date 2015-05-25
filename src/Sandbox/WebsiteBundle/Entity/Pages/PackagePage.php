@@ -31,6 +31,11 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
 
         $page = $context['page'];
 
+        $page->viewCount += 1;
+        $em->persist($page);
+        $em->flush();
+        $context['page'] = $page;
+
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($page);
 
@@ -50,6 +55,31 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
         $context['fromdate'] = $fromDate;
 
     }
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="view_count", type="integer")
+     */
+    private $viewCount;
+
+    /**
+     * @return int
+     */
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
+
+    /**
+     * @param int $viewCount
+     */
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
+    }
+
 
     /**
      * @var string
