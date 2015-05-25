@@ -90,6 +90,10 @@ $(document).ready(function() {
         },
         $.datepick.regionalOptions[$lang]));
 
+    $('#package-date-from').datepick('option', 'onSelect', function () {
+        $(this).datepick('hide');
+    });
+
     $('#package-country').change(function () {
         var $cityId = $(this).val();
         $('#package-place').attr('disabled', true).val('-1');

@@ -106,6 +106,9 @@
                     maxDate: '+1y',
                     defaultDate: '+0d',
                     changeMonth: false,
+                    onSelect: function () {
+                        $(this).datepick('hide');
+                    },
                     //selectDefaultDate: true,
                     renderer: $.extend({}, $.datepick.defaultRenderer,
                             {picker: $.datepick.defaultRenderer.picker.
