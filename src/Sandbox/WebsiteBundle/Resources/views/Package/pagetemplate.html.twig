@@ -1,13 +1,14 @@
 <div class="row">
 	<div class="col-md-12">
-		<h2>{{ hotel.title }}</h2>
-		<div role="tabpanel">
+		{% if hotel %}
+					<h2>{{ hotel.title }}</h2>{% endif %}
+		<div role="tabpanel" class="tabs-packages">
 
 		  <!-- Nav tabs -->
-		  <ul class="nav nav-tabs nav-tabs-packages" role="tablist">
-		    <li role="package" class="active"><a href="#package" aria-controls="package" role="tab" data-toggle="tab">Package</a></li>
-		    <li role="hotel"><a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab">Hotel</a></li>
-		    <li role="rooms"><a href="#rooms" aria-controls="rooms" role="tab" data-toggle="tab">Rooms</a></li>
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="package" class="active"><a href="#package" aria-controls="package" role="tab" data-toggle="tab">{{ 'hv.package.tabheader' | trans({}, 'frontend') }}</a></li>
+		    <li role="hotel"><a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab">{{ 'hotel' | trans({}, 'frontend') }}</a></li>
+		    <li role="rooms"><a href="#rooms" aria-controls="rooms" role="tab" data-toggle="tab">{{ 'hv.rooms.tabheader' | trans({}, 'frontend') }}</a></li>
 		    
 		  </ul>
 		
@@ -15,7 +16,7 @@
 			<div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="package">
 			
-					<div class="col-md-6 col-sm-12">
+					<div class="col-md-7 col-sm-12 nopadding-left">
 					<h2>
 					    {% if page.titleTranslated %}
 					        {{ page.titleTranslated }}
@@ -47,7 +48,7 @@
 					{{ render_pageparts(page, 'information') }}
 					
 					</div>
-					<div class="col-md-6 col-sm-12 calendar-page">
+					<div class="col-md-5 col-sm-12 calendar-page">
 						<h3>
 						    {{ 'book.online.header' | trans({}, 'frontend') }}
 						</h3>
@@ -84,38 +85,9 @@
 				            </div>
 				        </div>
 				    </div>
-					{% endif %}
-			
-			
-				</div>
-				
-				<div role="tabpanel" class="tab-pane" id="rooms">
-				
-					{{ render_pageparts(page, 'rooms') }}
-			
-				</div>
-				
-			</div>
-		
-		</div>
-		
-	</div>
-	
-	
-
-
-	
-</div>
-
-<div class="row">
-	<div class="col-md-12 col-sm-12">
-	
-	{{ render_pageparts(page, 'main') }}
-
-	</div>
-</div>
-
-		    <script>
+				    
+				    
+				      <script>
 		        jQuery(function($) {
 		            // Asynchronously Load the map API
 		            var script = document.createElement('script');
@@ -191,3 +163,37 @@
 		
 		        }
 		    </script>
+				    
+				    
+					{% endif %}
+			
+			
+				</div>
+				
+				<div role="tabpanel" class="tab-pane" id="rooms">
+				
+					{{ render_pageparts(page, 'rooms') }}
+			
+				</div>
+				
+			</div>
+		
+		</div>
+		
+	</div>
+	
+	
+
+
+	
+</div>
+
+<div class="row">
+	<div class="col-md-12 col-sm-12">
+	
+	{{ render_pageparts(page, 'main') }}
+
+	</div>
+</div>
+
+		  

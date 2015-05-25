@@ -332,33 +332,48 @@ body .splash--green {
 
 
 .calendar-page {
+  	background: -webkit-linear-gradient(#f9f9f9, #eee) repeat scroll 0 0 transparent !important;
+}
+
+.calendar-page h3 {
+	padding: 15px;
+  text-shadow: 1px 1px #82F48B;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #27A632;
+  margin: 0 -15px 20px -15px;
 }
 
 .calendar-page .cal-month-day {
-  height: 70px;
+  height: 60px;
 }
 .calendar-page .cal-year-box [class*="span"], .calendar-page .cal-month-box [class*="cal-cell"] {
-  min-height: 70px;
+  min-height: 60px;
 }
 .calendar-page span[data-cal-date]  {
   margin-top: 5px;
   margin-right: 5px;
   z-index: 9;
   position: relative;
+  font-size: 1em;
 }
 
 .calendar-page .events-list span {
-  font-size:18px;
+  font-size:15px;
 }
 main .calendar-page .cal-day-today .events-list {
   background: -webkit-linear-gradient(#F26E6E, #D34C4C) repeat scroll 0 0 transparent
 }
+
+.calendar-page .cal-month-day .events-list, .calendar-page h3 {
+	background: -webkit-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent;
+}
 .calendar-page .cal-month-day .events-list {
   position: absolute;
   width: 100%;
-  padding-top: 35px;
+  padding-top: 30px;
   height: 100%;
-  background: -webkit-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent;
   max-height:inherit;
   text-align: center;
   padding-left:0;
@@ -623,7 +638,7 @@ select {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000'); /* IE6 & IE7 */  
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000')"; /* IE8+ */
     /*noinspection CssUnknownProperty*/
-    -pie-background:linear-gradient(#44444, #000000) repeat scroll 0 0 transparent !important;
+    -pie-background:linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
   color: #fff;
   padding: 20px;
   margin-bottom: 20px;
@@ -870,7 +885,7 @@ select {
     border: none;
     height: 2px;
     background: #000000 none;
-    width: 70%;
+    width: 90%;
     margin-top: 0;
     z-index: 0;
 }
@@ -940,7 +955,7 @@ label.directFlight-label,  label.sameDay-label {
 }
 .btn-group-right  {
   float: right;
-  margin-right: 25px;
+  margin-right: 17px;
   right: 0;
 }
 .sort-controls .sort-date, .sort-controls .sort-price {
@@ -976,7 +991,7 @@ label.directFlight-label,  label.sameDay-label {
 
 .trip-results {
 	border-bottom:2px solid rgba(236, 219, 48, 1);
-	box-shadow: 0 13px 5px -6px #f3f3
+	box-shadow: 0 13px 5px -6px #f3f3f3;
 }
 
 .trip {
@@ -1298,7 +1313,7 @@ span.price-from {font-size: 14px;}
 	position: absolute;
 }
 
-ul.nav-tabs-packages .tab-content .tab-pane { 
+.tabs-packages .tab-content { 
 	padding-top: 20px;
 }
 
@@ -1341,7 +1356,7 @@ ul.nav-tabs-packages .tab-content .tab-pane {
 
 .datepick-month td .datepick-selected, .datepick-month a, .datepick .datepick-month td .datepick-today {
 	padding: 4px;
-	border-radius:none!important;
+	border-radius:inherit!important;
 }
 .datepick .datepick-month td .datepick-today {
 	background-color:#EA3E3E;
@@ -2066,7 +2081,7 @@ a.top-link img {
 }
 .checkbox.checkbox-inline {
   margin-top: 0;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .checkbox-primary input[type="checkbox"]:checked + label::before {
   background-color: #337ab7;

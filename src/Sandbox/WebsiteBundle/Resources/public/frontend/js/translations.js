@@ -56,7 +56,7 @@ window.trans.prev = {
     se:'Prev se',
     de:'Prev de',
     fr:'Prev fr',
-    ru:'Prev ru',
+    ru:'Предыдущий месяц',
     fi:'Edellinen'
 };
 window.trans.next = {
@@ -65,7 +65,7 @@ window.trans.next = {
     se:'Next se',
     de:'Next de',
     fr:'Next fr',
-    ru:'Next ru',
+    ru:'Следующий месяц',
     fi:'Seuraava'
 };
 window.trans.today = {
@@ -74,7 +74,7 @@ window.trans.today = {
     se:'Today se',
     de:'Today de',
     fr:'Today fr',
-    ru:'Today',
+    ru:'Текущий месяц',
     fi:'Tänään'
 };
 window.trans.departures = {

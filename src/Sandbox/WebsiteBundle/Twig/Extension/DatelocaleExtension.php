@@ -14,7 +14,7 @@ class DatelocaleExtension extends \Twig_Extension{
     function __construct(ContainerInterface $container)
     {
         $locale = $container->get('request')->getLocale();
-        if($locale == 'ee') $locale = 'et';
+        if($locale == 'ee') $locale = 'fi';
         $this->locale = $locale;
     }
 
