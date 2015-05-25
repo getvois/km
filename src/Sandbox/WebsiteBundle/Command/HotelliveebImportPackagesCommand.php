@@ -16,6 +16,7 @@ use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -27,6 +28,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $this
             ->setName('travelbase:import:hotelliveeb:packages')
             ->setDescription('Import packages to hotelliveeb hotels')
+            ->addOption('updatePageparts', 'upp', InputOption::VALUE_OPTIONAL, 'update existing page parts', 1)
         ;
     }
 
@@ -38,9 +40,12 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private $emailBody;
 
+    private $updatePageparts;
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->updatePageparts = $input->getOption('updatePageparts');
+
         $this->pagePartCreator = $this->getContainer()->get('kunstmaan_pageparts.pagepart_creator_service');
 
         /** @var EntityManager em */
@@ -203,7 +208,11 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         if($packagePage){
             var_dump('Updating package: ' . $packagePage->getTitle());
             $this->updatePackageFields($package);
-            $this->updatePageParts($package, $packagePage);
+
+            if($this->updatePageparts){
+                $this->updatePageParts($package, $packagePage);
+            }
+
             $this->setPlaces($packagePage);
 //            $this->setPackagePageFields($package, $packagePage);
 //            $this->em->persist($packagePage);
