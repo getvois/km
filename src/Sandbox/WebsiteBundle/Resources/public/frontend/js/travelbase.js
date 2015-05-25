@@ -302,7 +302,10 @@ $(document).ready(function() {
     var calendar = $packageCalendar.calendar(
         {
             tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
-            events_source: '/package-event-source/' + $packageCalendar.data('package-id')
+            events_source: '/package-event-source/' + $packageCalendar.data('package-id'),
+            onAfterViewLoad: function(view) {
+                $('.package-calendar-header').text(this.getTitle());
+            }
         });
 
     calendar.setLanguage($lang);
