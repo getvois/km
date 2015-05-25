@@ -178,6 +178,20 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * @var string
      *
+     * @ORM\Column(name="price_eur", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $priceEur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price_normal_eur", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $priceNormalEur;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="currency", type="string", length=255, nullable=true)
      */
     private $currency;
@@ -605,6 +619,38 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriceEur()
+    {
+        return $this->priceEur;
+    }
+
+    /**
+     * @param string $priceEur
+     */
+    public function setPriceEur($priceEur)
+    {
+        $this->priceEur = $priceEur;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriceNormalEur()
+    {
+        return $this->priceNormalEur;
+    }
+
+    /**
+     * @param string $priceNormalEur
+     */
+    public function setPriceNormalEur($priceNormalEur)
+    {
+        $this->priceNormalEur = $priceNormalEur;
     }
 
     /**

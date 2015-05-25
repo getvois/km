@@ -438,6 +438,8 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private function setPackagePageFields(Crawler $package, PackagePage $packagePage)
     {
+        $packagePage->setViewCount(0);
+
         $packageId = $package->filter('id');
         if ($packageId->count() > 0) {
             $packagePage->setPackageId($packageId->first()->text());

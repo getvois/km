@@ -20,6 +20,8 @@ class OffersCommand extends ContainerAwareCommand
     protected $emailBody;
     protected $lang = 'fi';
 
+    protected $rate = 1;
+
     protected function configure()
     {
         $this
@@ -48,8 +50,42 @@ class OffersCommand extends ContainerAwareCommand
         $command->run($input, $output);
     }
 
+    /**
+     * @param $currency string 3 char code of currency that needs to convert to EUR
+     * @return float
+     */
+    private function getCurrencyRate($currency)
+    {
+        if($currency == "EUR")
+            return 1;
+
+        do{
+            $rate = null;
+            $content = @file_get_contents('http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22'.$currency.'EUR%22%29&format=json&env=store://datatables.org/alltableswithkeys&callback=');
+            if($content){
+                $res = json_decode($content);
+                if(property_exists($res, 'query') &&
+                    property_exists($res->query, 'results') &&
+                    property_exists($res->query->results, 'rate') &&
+                    property_exists($res->query->results->rate, 'Rate'))
+                    $rate = $res->query->results->rate->Rate;
+            }else{
+                $content = @file_get_contents('http://rate-exchange.appspot.com/currency?from='.$currency.'&to=EUR');
+                if($content) {
+                    $res = json_decode($content);
+                    $rate = $res->rate;
+                }
+            }
+
+        }while($content == false || $rate == null);
+
+        return $rate;
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->rate = $this->getCurrencyRate('GBP');
+
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
@@ -153,6 +189,8 @@ class OffersCommand extends ContainerAwareCommand
     {
         $offerPage = new OfferPage();
 
+        $offerPage->setViewCount(0);
+
         $id = $offer->filter('id')->text();
         $offerPage->setOfferId($id);
 
@@ -168,14 +206,19 @@ class OffersCommand extends ContainerAwareCommand
         $wide_image = $offer->filter('wide_image')->text();
         $offerPage->setWideImage($wide_image);
 
+        $currency = $offer->filter('currency')->text();
+        $offerPage->setCurrency($currency);
+
         $price = $offer->filter('price')->text();
         $offerPage->setPrice($price);
 
         $price_normal = $offer->filter('price_normal')->text();
         $offerPage->setPriceNormal($price_normal);
 
-        $currency = $offer->filter('currency')->text();
-        $offerPage->setCurrency($currency);
+        if($currency != 'EUR'){
+            $offerPage->setPriceEur($price * $this->rate);
+            $offerPage->setPriceNormalEur($price_normal * $this->rate);
+        }
 
         $days = $offer->filter('days')->text();
         $offerPage->setDays($days);
@@ -486,6 +529,18 @@ class OffersCommand extends ContainerAwareCommand
             $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'currency', $offerPage->getCurrency(), $currency );
             $qb->set('o.currency', $qb->expr()->literal($currency));
         }
+
+
+        if($currency != 'EUR'){
+            if($offerPage->getPriceEur() != $price * $this->rate){
+                $qb->set('o.priceEur', $price * $this->rate);
+            }
+
+            if($offerPage->getPriceNormalEur() != $price_normal * $this->rate){
+                $qb->set('o.priceNormalEur', $price_normal * $this->rate);
+            }
+        }
+
 
         $days = $offer->filter('days')->text();
         if($days != $offerPage->getDays()){

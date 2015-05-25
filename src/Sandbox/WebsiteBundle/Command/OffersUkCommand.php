@@ -79,6 +79,11 @@ class OffersUkCommand extends OffersCommand
         $currency = $offer->filter('currency')->text();
         $offerPage->setCurrency($currency);
 
+        if($currency != 'EUR'){
+            $offerPage->setPriceEur($price * $this->rate);
+            $offerPage->setPriceNormalEur($price_normal * $this->rate);
+        }
+
 //        $days = $offer->filter('days')->text();
 //        $offerPage->setDays($days);
 
@@ -280,6 +285,17 @@ class OffersUkCommand extends OffersCommand
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'currency', $offerPage->getCurrency(), $currency );
             $qb->set('o.currency', $qb->expr()->literal($currency));
+        }
+
+
+        if($currency != 'EUR'){
+            if($offerPage->getPriceEur() != $price * $this->rate){
+                $qb->set('o.priceEur', $price * $this->rate);
+            }
+
+            if($offerPage->getPriceNormalEur() != $price_normal * $this->rate){
+                $qb->set('o.priceNormalEur', $price_normal * $this->rate);
+            }
         }
 
         $long_description = $offer->filter('additional long_description')->text();
