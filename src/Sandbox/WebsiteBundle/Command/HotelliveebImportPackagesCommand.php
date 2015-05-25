@@ -727,7 +727,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         if(count($pageParts) > $rooms->count()){
             //some room vas deleted
             //delete page parts
-            $this->deletePageParts($node, 'room');
+            $this->deletePageParts($node, 'rooms');
             //update pageparts
             $this->createPackagePageParts($package, $node);
 
@@ -849,7 +849,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $translations = $node->getNodeTranslations(true);
 
         $pagepartClassname = '';
-        if($context == 'room'){
+        if($context == 'rooms'){
             $pagepartClassname = 'Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart';
         }elseif($context == 'information'){
             $pagepartClassname = 'Sandbox\WebsiteBundle\Entity\PageParts\HotelInformationPagePart';
