@@ -924,59 +924,6 @@ $(document).ready(function() {
         return false;
     });
 
-
-    //Pre Select current place
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    var $to = $('.to-places:not(.ignore)');
-    if($to.length > 0){
-        $to.find('a, span:not(.glyphicon)').each(function () {
-            var $name = $(this).text();
-
-            var $destination = $("#destination-dataholder");
-
-            var $id = $(this).data('id');
-            if($id){
-                if($(this).data('type') == 'country'){
-                    //country
-                    $id += "_";
-                }
-
-                $destination.dataHolder('add', {id: $id, text: $name});
-
-                var $deparpureEl = $("#destination-el");
-                $deparpureEl.data('selected', $destination.dataHolder('data'));
-            }
-        });
-
-
-    }else{
-        //Pre Select from bread crumbs
-        var $place = $('ol.breadcrumb').find('li.active').text();
-        $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
-            if($(this).data('name') == $place){
-                $(this).attr('checked', true).change();
-
-                var $destination = $("#destination-dataholder");
-
-                var $id = $(this).val();
-                if($id){
-                    if($(this).data('type') == 'country'){
-                        //country
-                        $id += "_";
-                    }
-
-                    $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
-
-                    var $deparpureEl = $("#destination-el");
-                    $deparpureEl.data('selected', $destination.dataHolder('data'));
-                }
-            }
-        });
-    }
-
-
-
-
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     $(".city-list .columnize").columnize({lastNeverTallest: true});
@@ -1044,6 +991,64 @@ $(document).ready(function() {
 
 
 
+    //Pre Select current place
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    var $to = $('.to-places:not(.ignore)');
+    if($to.length > 0){
+        $to.find('a, span:not(.glyphicon)').each(function () {
+            var $name = $(this).text();
+
+
+            var $departure = $("#departure-dataholder");
+            var $data = $departure.dataHolder('data');
+
+            var $destination = $("#destination-dataholder");
+
+            var $id = $(this).data('id');
+            if($id){
+                if($(this).data('type') == 'country'){
+                    //country
+                    $id += "_";
+                }
+
+
+                if($data.indexOf($id) == -1)
+                    $destination.dataHolder('add', {id: $id, text: $name});
+
+                var $deparpureEl = $("#destination-el");
+                $deparpureEl.data('selected', $destination.dataHolder('data'));
+            }
+        });
+
+
+    }else{
+        //Pre Select from bread crumbs
+        var $place = $('ol.breadcrumb').find('li.active').text();
+        $("#dropdown-destination").find('.city-list').find("input[type='checkbox']").each(function () {
+            if($(this).data('name') == $place){
+                $(this).attr('checked', true).change();
+
+                var $destination = $("#destination-dataholder");
+
+                var $departure = $("#departure-dataholder");
+                var $data = $departure.dataHolder('data');
+
+                var $id = $(this).val();
+                if($id){
+                    if($(this).data('type') == 'country'){
+                        //country
+                        $id += "_";
+                    }
+
+                    if($data.indexOf($id) == -1)
+                        $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
+
+                    var $deparpureEl = $("#destination-el");
+                    $deparpureEl.data('selected', $destination.dataHolder('data'));
+                }
+            }
+        });
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //SKYPICKER FETCH DATA
