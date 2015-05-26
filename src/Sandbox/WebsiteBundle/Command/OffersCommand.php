@@ -91,8 +91,6 @@ class OffersCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->runTranslateCommand($input, $output);
-
         $this->rate = $this->getCurrencyRate('GBP');
 
         /** @var EntityManager $em */
