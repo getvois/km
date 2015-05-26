@@ -15,6 +15,7 @@ use Sandbox\WebsiteBundle\Entity\PageParts\RoomPagePart;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -79,10 +80,20 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         //translate page titles
         $command = $this->getApplication()->find('travelbase:translate:packages:title');
+        $arguments = array(
+            'command' => 'travelbase:translate:packages:title',
+        );
+
+        $input = new ArrayInput($arguments);
         $command->run($input, $output);
 
         //translate pageparts titles
         $command = $this->getApplication()->find('travelbase:translate:hotelliveeb:packages');
+        $arguments = array(
+            'command' => 'travelbase:translate:hotelliveeb:packages',
+        );
+
+        $input = new ArrayInput($arguments);
         $command->run($input, $output);
 
     }
