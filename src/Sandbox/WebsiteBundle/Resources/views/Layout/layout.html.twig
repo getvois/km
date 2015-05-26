@@ -41,6 +41,12 @@
     <link href="{{ asset("bundles/sandboxwebsite/frontend/js/calendar/calendar.css") }}" rel="stylesheet" type="text/css">
     <link href="{{ asset("bundles/sandboxwebsite/frontend/css/travelbase.css") }}" rel="stylesheet" type="text/css">
 
+
+	 <!--[if gt IE 7]><!-->
+        <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/frontend/css/ie.css") }}"type="text/css">
+   <!--<![endif]-->
+   
+   	
     {% if host and asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") %}
         <link href="{{ asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") }}" rel="stylesheet" type="text/css">
     {% endif %}
