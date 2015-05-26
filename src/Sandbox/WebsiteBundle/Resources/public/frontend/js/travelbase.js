@@ -90,9 +90,11 @@ $(document).ready(function() {
         },
         $.datepick.regionalOptions[$lang]));
 
-    $('#package-date-from').datepick('option', 'onSelect', function () {
+    var $packageFrom = $('#package-date-from');
+    $packageFrom.datepick('option', 'onSelect', function () {
         $(this).datepick('hide');
     });
+    $packageFrom.datepick('option', 'minDate', '+0d');
 
     $('#package-country').change(function () {
         var $cityId = $(this).val();

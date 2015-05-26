@@ -126,6 +126,16 @@
                         .replace(/\{link:clear\}/, '')
                 }));
 
+        $('#datepick-ckeckin').datepick('option', 'onSelect', function (dates) {
+            $(this).datepick('hide');
+            if(dates.length == 0) return;
+
+            var $dates = $(this).datepick('getDate');
+            var $date = new Date($dates[0]);
+
+            $('#datepick-ckeckout').datepick('option', 'minDate', $date);
+        });
+
         $('#booking-form').submit(function () {
 
             if($('#booking-frame').length == 0){
