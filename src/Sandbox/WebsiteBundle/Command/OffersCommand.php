@@ -11,6 +11,8 @@ use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
@@ -44,9 +46,14 @@ class OffersCommand extends ContainerAwareCommand
 
     protected function runTranslateCommand(InputInterface $input, OutputInterface $output)
     {
-        $input->setArgument('originalLang', $this->lang);
-        //translate titles
         $command = $this->getApplication()->find('travelbase:translate:offers:title');
+
+        $arguments = array(
+            'command' => 'travelbase:translate:offers:title',
+            'originalLang'    => $this->lang,
+        );
+
+        $input = new ArrayInput($arguments);
         $command->run($input, $output);
     }
 
@@ -84,6 +91,8 @@ class OffersCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->runTranslateCommand($input, $output);
+
         $this->rate = $this->getCurrencyRate('GBP');
 
         /** @var EntityManager $em */
