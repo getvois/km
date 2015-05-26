@@ -177,3 +177,7 @@ sandboxwebsitebundle_packagepage_admin_list:
     type:     annotation
     prefix:   /admin/packagepage/
 
+sandboxwebsitebundle_offerpage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/OfferPageAdminListController.php
+    type:     annotation
+    prefix:   /admin/offerpage/

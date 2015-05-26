@@ -188,3 +188,10 @@ sandboxwebsitebundle_packagepage_admin_list:
     prefix:   /{_locale}/admin/packagepage/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_offerpage_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/OfferPageAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/offerpage/
+    requirements:
+         _locale: %requiredlocales%
