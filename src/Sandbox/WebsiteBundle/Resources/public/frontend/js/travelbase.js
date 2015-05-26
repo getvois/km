@@ -1011,12 +1011,7 @@ $(document).ready(function() {
                     $id += "_";
                 }
 
-
-                console.log($id);
-                console.log($data);
-                console.log($data.indexOf($id));
-
-                if($data.indexOf($id) == -1)
+                if($data.indexOf($id.toString()) == -1)
                     $destination.dataHolder('add', {id: $id, text: $name});
 
                 var $deparpureEl = $("#destination-el");
@@ -1044,7 +1039,7 @@ $(document).ready(function() {
                         $id += "_";
                     }
 
-                    if($data.indexOf($id) == -1)
+                    if($data.indexOf($id.toString()) == -1)
                         $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
 
                     var $deparpureEl = $("#destination-el");
