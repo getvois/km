@@ -2028,7 +2028,7 @@ function getTable(container, reimport, expand){
         });
 
         if($('#hot-offers').is(':visible') || $('#lowcost').is(':visible')){
-            if(container == ".travelbase_items_sp"){
+            //if(container == ".travelbase_items_sp"){
                 if($(".travelbase_items:visible").find("> div").find(">div ").length == 0){
                     if($('.travelbase_items_df').find('> div').find(">div ").length > 1){
                         $("#travelbase_tabs").find("a:eq(0)").tab("show");
@@ -2036,7 +2036,7 @@ function getTable(container, reimport, expand){
                         $("#travelbase_tabs").find("a:eq(1)").tab("show");
                     }
                 }
-            }
+            //}
         }
 
         //if(responce.total == 0){
