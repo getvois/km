@@ -799,7 +799,7 @@ class OffersCommand extends ContainerAwareCommand
             $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($offerPage);
 
-            $this->emailBody .= "On node:" . $node->getId();
+            $this->emailBody .= "On node:" . $node->getId() . '<br/>';
         }
 
     }
