@@ -57,23 +57,23 @@
     <!-- js -->
     {% include 'SandboxWebsiteBundle:Layout:_js_header.html.twig' %}
 
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <script src="{{ asset('bundles/sandboxwebsite/frontend/js/jquery-2.1.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/sandboxwebsite/frontend/js/isotope.pkgd.min.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </head>
 <body {% block extra_body_attributes %}{% endblock %} data-lang="{{ app.request.locale }}" {% if app.user %}data-user='{{ app.user.id }}'{% endif %}
     data-tab="{% block show_tab %}{% endblock %}">
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/jquery-2.1.1.min.js') }}"></script>
-<script src="{{ asset('bundles/sandboxwebsite/frontend/js/isotope.pkgd.min.js') }}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 {% include 'SandboxWebsiteBundle:Layout:_googletagmanager.html.twig' %}
 {% include '@SandboxWebsite/Google/rannapuhkus.ee.html.twig' %}
