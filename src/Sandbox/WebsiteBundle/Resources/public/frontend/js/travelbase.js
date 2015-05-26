@@ -2093,8 +2093,14 @@ function cityPicker($el, $holder, $direction) {
             }
         );
 
-        var selected = $($el).data('selected');
+
+        var selected = $("#departure-el").data('selected');
         if(!selected) selected = [];
+        var selected2 = $("#destination-el").data('selected');
+        if(!selected2) selected2 = [];
+
+        //var selected = $($el).data('selected');
+        selected = selected.concat(selected2).unique();
 
         //loop countries
         for(var i=0; i<data.length; i++){
