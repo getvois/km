@@ -1318,6 +1318,12 @@ span.price-from {font-size: 14px;}
 	padding-top: 20px;
 }
 
+
+.icon-translate { 
+	font-size:11px;
+	padding: 5px;
+}
+
 /*DATE PICKER STUFF*/
 
 .datepick {

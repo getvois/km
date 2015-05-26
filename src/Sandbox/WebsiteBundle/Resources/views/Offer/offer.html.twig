@@ -1,7 +1,5 @@
 <div class="col-md-4 nopadding package">
 	<div class="package-inside well">
-		
-		
 		<a href="{{ offer.absoluteUrl }}">
 	    	<h4 class="package-title">
 	        {% if offer.titleTranslated %}
@@ -11,15 +9,22 @@
 	        {% endif %}
 	        {% if offer.nights %}
 		         ({{ offer.nights|split(',')[0] }} {% if offer.nights|split(',')[0] == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
+		    {% elseif offer.days %}     
+		         ({{ offer.days - 1 }} {% if offer.days - 1 == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
 	        {% endif %}
 	    	</h4>
-	    	{% if offer.city %}<p>{{ offer.city }}{% if offer.country %}, {{ offer.country }}{% endif %}</p>{% endif %}
+	    	{% if offer.city %}
+	    		<p>{{ offer.city }}{% if offer.country %}, {{ offer.country }}{% endif %}</p>
+	    	{% elseif offer.country %}	
+	    		<p>{{ offer.country }}</p>
+	    	{% else %} 
+	    	{% endif %}
 	    	
 	    </a>	
 	    <a class="package-price pull-right btn btn-primary" href="{{ offer.absoluteUrl }}">
 			
-			{% if offer.inCategory('hotel') or offer.inCategory('citytrip') %}
-				{{ offer.price |number_format(0, '.', ',') * 2 }}{% if offer.currency == 'EUR' %}&euro;{% else %}{{ offer.currency }}{% endif %}
+			{% if offer.inCategory('hotel') or offer.inCategory('citytrip') or offer.priceper == 'per_person' or offer.priceper == 'Per person' or offer.priceper == 'Per Person'  %}
+				{{ offer.price |number_format(0, '.', ',') * 2 }}{% if offer.currency == 'EUR' %}&euro;{% elseif offer.currency == 'GBP' %}&pound;{% else %}{{ offer.currency }}{% endif %}
 		    	<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
 		    	{% if offer.discount %}
 		    	<span class="offer-discount">-{{ offer.discount }}</span>
@@ -43,18 +48,15 @@
 
        
     <p>
-        {% if offer.summary %}
-            {{ offer.summary |raw }}
-        {% else %}
-            {% if offer.shortDescriptionTranslated %}
-                    {{ offer.shortDescriptionTranslated|raw }}
-                {% else %}
-                    {{ offer.shortDescription |raw }}
-                {% endif %}
-        {% endif %}
-         {% if offer.originalLanguage %}
+        {% if offer.originalLanguage %}
 	            <img width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
 	    {% endif %}
+	    {% if offer.summary %}
+            {{ offer.summary |raw }}
+        {% else %}
+            {{ offer.shortDescription |raw }}
+            <span class="icon-translate btn btn-primary">{{ 'icon.translate' | trans({}, 'frontend') }}</span>
+        {% endif %}
     </p>
     
     </div>
