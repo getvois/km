@@ -317,6 +317,13 @@ $(document).ready(function() {
     var control = $(".package-calendar-control");
     control.find('.package-calendar-navigate').click(function () {
         calendar.navigate($(this).data('calendar-nav'));
+
+        var date = new Date();
+        if(calendar.getStartDate().getMonth() <= date.getMonth()){
+            $('.package-calendar-navigate-prev').addClass('disabled');
+        }else{
+            $('.package-calendar-navigate-prev').removeClass('disabled');
+        }
     });
 
 
@@ -1190,7 +1197,7 @@ $(document).ready(function() {
                         '<div class="row">' +
                             '<div class="col-md-6"><h2>'+ trans.departures[$lang] +'</h2><div class="calendar-header-1"></div>' +
                                 '<div class="btn-group">' +
-                    '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
+                    '<button class="btn btn-primary calendar-navigate-1 calendar-navigate-1-prev" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
                     '<button class="btn calendar-navigate-1" data-calendar-nav="today">' + trans.today[$lang] + '</button>' +
                     '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">' + trans.next[$lang] + ' &gt;&gt;</button>' +
                     '</div>' +
@@ -1204,7 +1211,7 @@ $(document).ready(function() {
                 if($date_end.length > 0 && $type == 3){
                     $row += '<div class="col-md-6"><h2>'+ trans.returnDate[$lang] +'</h2><div class="calendar-header-2"></div>' +
                     '<div class="btn-group">' +
-                    '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
+                    '<button class="btn btn-primary calendar-navigate-2 calendar-navigate-2-prev" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
                     '<button class="btn calendar-navigate-2" data-calendar-nav="today">' + trans.today[$lang] + '</button>' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="next">' + trans.next[$lang] + ' &gt;&gt;</button>' +
                     '</div>' +
@@ -1341,6 +1348,13 @@ $(document).ready(function() {
 
                 $(".calendar-navigate-1").click(function () {
                     calendar1.navigate($(this).data('calendar-nav'));
+
+                    var date = new Date();
+                    if(calendar1.getStartDate().getMonth() <= date.getMonth()){
+                        $('.calendar-navigate-1-prev').addClass('disabled');
+                    }else{
+                        $('.calendar-navigate-1-prev').removeClass('disabled');
+                    }
                 });
 
                 $('.skypicker-dropdown').on('click', '.calendar-1 .cal-month-day, .calendar-1 .cal-year-box .span3', function () {
@@ -1494,6 +1508,13 @@ $(document).ready(function() {
 
                     $(".calendar-navigate-2").click(function () {
                         calendar2.navigate($(this).data('calendar-nav'));
+
+                        var date = new Date();
+                        if(calendar2.getStartDate().getMonth() <= date.getMonth()){
+                            $('.calendar-navigate-2-prev').addClass('disabled');
+                        }else{
+                            $('.calendar-navigate-2-prev').removeClass('disabled');
+                        }
                     });
 
 
