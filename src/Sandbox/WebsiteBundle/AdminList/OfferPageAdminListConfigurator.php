@@ -167,4 +167,9 @@ class OfferPageAdminListConfigurator extends AbstractArticlePageAdminListConfigu
     {
         return null;
     }
+
+    public function getListTemplate()
+    {
+        return 'SandboxWebsiteBundle:AdminList/Offer:list.html.twig';
+    }
 }
