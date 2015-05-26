@@ -54,6 +54,7 @@ class OffersUkCommand extends OffersCommand
     protected function setPageFields(Crawler $offer)
     {
         $offerPage = new OfferPage();
+        $offerPage->setViewCount(0);
 
         $id = $offer->filter('pid')->text();
         $offerPage->setOfferId($id);
