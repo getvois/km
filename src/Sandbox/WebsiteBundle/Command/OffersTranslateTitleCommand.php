@@ -116,7 +116,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
                     }
 
                     $em->flush();
-                    var_dump('('.strtoupper($originalLang).')' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                    echo('('.strtoupper($originalLang).')' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName) . "\n";
                     $this->emailBody .= 'Node: ' . $translation->getNode()->getId() . ' ('.strtoupper($originalLang).')' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName .'<br/>';
                 }else{
                     var_dump($data);
@@ -151,7 +151,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
                         ->getNodeFor($offer);
 
                     $em->flush();
-                    var_dump('('.strtoupper($originalLang).')' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                    echo('('.strtoupper($originalLang).')' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName) . "\n";
                     $this->emailBody .= 'Node: ' . $node->getId() . ' ('.strtoupper($originalLang).')' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName .'<br/>';
                 }else{
                     var_dump($data);
