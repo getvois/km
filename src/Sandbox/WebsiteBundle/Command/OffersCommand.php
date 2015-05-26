@@ -22,6 +22,9 @@ class OffersCommand extends ContainerAwareCommand
     protected $emailBody;
     protected $lang = 'fi';
 
+    /** @var  EntityManager */
+    protected $em; 
+    
     protected $rate = 1;
 
     protected function configure()
@@ -93,12 +96,10 @@ class OffersCommand extends ContainerAwareCommand
     {
         $this->rate = $this->getCurrencyRate('GBP');
 
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
 
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-
-        $rootNode = $em->getRepository('KunstmaanNodeBundle:Node')
+        $rootNode = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->findOneBy([
                 'internalName' => 'offer',
                 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\OffersOverviewPage',
@@ -247,17 +248,15 @@ class OffersCommand extends ContainerAwareCommand
 
         $category = $offer->filter('category')->text();
         if($category){
-            /** @var EntityManager $em */
-            $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-            $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+            $cat = $this->em->getRepository('SandboxWebsiteBundle:PackageCategory')
                 ->findOneBy(['name' => $category]);
 
             if(!$cat){
                 $cat = new PackageCategory();
                 $cat->setName($category);
-                $em->persist($cat);
-                $em->flush();
+                $this->em->persist($cat);
+                $this->em->flush();
             }
             $offerPage->addCategory($cat);
         }
@@ -360,16 +359,14 @@ class OffersCommand extends ContainerAwareCommand
      */
     protected function offerExists($id)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         /** @var OfferPage[] $pages */
-        $pages = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+        $pages = $this->em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
             ->findBy(['offerId' => $id]);
         if($pages){
             foreach ($pages as $page) {
                 /** @var Node $node */
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
                     ->getNodeFor($page);
 
                 //if node exists and not deleted skip
@@ -387,10 +384,8 @@ class OffersCommand extends ContainerAwareCommand
      */
     protected function setCompany()
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         /** @var CompanyOverviewPage $company */
-        $company = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+        $company = $this->em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
             ->findOneBy(['title' => 'Travelbird']);
 
         $this->company = $company;
@@ -402,7 +397,6 @@ class OffersCommand extends ContainerAwareCommand
 
     protected function addPlaces(Node $node)
     {
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         /** @var NodeTranslation[] $translations */
         $translations = $node->getNodeTranslations(true);
@@ -410,14 +404,14 @@ class OffersCommand extends ContainerAwareCommand
         foreach ($translations as $translation) {
             $lang = $translation->getLang();
             /** @var OfferPage $page */
-            $page = $translation->getRef($em);
+            $page = $translation->getRef($this->em);
 
             $page->removeAllPlaces();
 
             //set place to hotel based on city
             if($page->getCity()){
                 //find place page
-                $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                $place = $this->em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCity()]);
                 if(!$place) {
                     $msg = 'place not found in db '. $page->getCity(). "<br>";
@@ -427,7 +421,7 @@ class OffersCommand extends ContainerAwareCommand
                 }
 
                 //get place page node
-                $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+                $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
                     echo('Node node found for city'. $page->getCity() . "<br>");
                     continue;
@@ -436,10 +430,10 @@ class OffersCommand extends ContainerAwareCommand
                 $translation = $node2->getNodeTranslation($lang, true);
                 if($translation){
                     /** @var PlaceOverviewPage $placePage */
-                    $placePage = $translation->getRef($em);
+                    $placePage = $translation->getRef($this->em);
                     if($placePage){
                         $page->addPlace($placePage);
-                        $em->persist($page);
+                        $this->em->persist($page);
                     }
                 }
             }
@@ -447,7 +441,7 @@ class OffersCommand extends ContainerAwareCommand
             ///set country place
             if($page->getCountry()){
                 //find place page
-                $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
+                $place = $this->em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCountry()]);
                 if(!$place) {
                     $msg = 'place not found in db ' . $page->getCountry() . "<br>";
@@ -457,7 +451,7 @@ class OffersCommand extends ContainerAwareCommand
                 }
 
                 //get place page node
-                $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
+                $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
                     echo('Node node found for city'. $page->getCountry() . "\n");
                     continue;
@@ -466,24 +460,22 @@ class OffersCommand extends ContainerAwareCommand
                 $translation = $node2->getNodeTranslation($lang, true);
                 if($translation){
                     /** @var PlaceOverviewPage $placePage */
-                    $placePage = $translation->getRef($em);
+                    $placePage = $translation->getRef($this->em);
                     if($placePage){
                         $page->setCountryPlace($placePage);
-                        $em->persist($page);
+                        $this->em->persist($page);
                     }
                 }
             }
         }
-        $em->flush();
+        $this->em->flush();
 
     }
 
     protected function updateFields(OfferPage $offerPage, Crawler $offer)
     {
-        /** @var EntityManager $em */
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $qb = $em->createQueryBuilder();
+        $qb = $this->em->createQueryBuilder();
         $qb->update('SandboxWebsiteBundle:Pages\OfferPage', 'o');
 
         $update = false;
@@ -595,17 +587,15 @@ class OffersCommand extends ContainerAwareCommand
         if(!$offerPage->inCategory($category)){
             $offerPage->removeAllCategories();
             if($category){
-                /** @var EntityManager $em */
-                $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-                $cat = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                $cat = $this->em->getRepository('SandboxWebsiteBundle:PackageCategory')
                     ->findOneBy(['name' => $category]);
 
                 if(!$cat){
                     $cat = new PackageCategory();
                     $cat->setName($category);
-                    $em->persist($cat);
-                    $em->flush();
+                    $this->em->persist($cat);
+                    $this->em->flush();
                 }
                 $offerPage->addCategory($cat);
             }
@@ -806,7 +796,7 @@ class OffersCommand extends ContainerAwareCommand
 
             $query->execute();
 
-            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($offerPage);
 
             $this->emailBody .= "On node:" . $node->getId();
