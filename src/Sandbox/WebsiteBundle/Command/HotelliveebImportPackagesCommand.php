@@ -191,8 +191,6 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private function setPackageCompany(Node $node)
     {
-        $this->em= $this->getContainer()->get('doctrine.orm.entity_manager');
-
         /** @var NodeTranslation[] $translations */
         $translations = $node->getNodeTranslations(true);
 
@@ -212,8 +210,6 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
     private function createPageFromPackage(Crawler $package, HotelPage $hotelPage)
     {
-        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-
         $packageId = $package->filter('id')->first()->text();
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
@@ -406,6 +402,14 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
             }
         }
+
+        //add hotel category to each package
+        $c = $this->em->getRepository('SandboxWebsiteBundle:PackageCategory')
+            ->findOneBy(['name' => 'hotel']);
+
+        if($c) $packagePage->addCategory($c);
+
+
 
         $options = array(
             'parent' => $node,
