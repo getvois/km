@@ -1012,6 +1012,10 @@ $(document).ready(function() {
                 }
 
 
+                console.log($id);
+                console.log($data);
+                console.log($data.indexOf($id));
+
                 if($data.indexOf($id) == -1)
                     $destination.dataHolder('add', {id: $id, text: $name});
 
