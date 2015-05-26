@@ -622,7 +622,6 @@ select {
 	height: 38px;
     position:absolute;
     pointer-events:none;
-    /*background: #fff;*/
     background: transparent;
     display:block;
 }

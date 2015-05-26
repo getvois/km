@@ -24,19 +24,31 @@
 	    <a class="package-price pull-right btn btn-primary" href="{{ offer.absoluteUrl }}">
 			
 			{% if offer.inCategory('hotel') or offer.inCategory('citytrip') or offer.priceper == 'per_person' or offer.priceper == 'Per person' or offer.priceper == 'Per Person'  %}
-				{{ offer.price |number_format(0, '.', ',') * 2 }}{% if offer.currency == 'EUR' %}&euro;{% elseif offer.currency == 'GBP' %}&pound;{% else %}{{ offer.currency }}{% endif %}
-		    	<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
-		    	{% if offer.discount %}
-		    	<span class="offer-discount">-{{ offer.discount }}</span>
+				
+				{% if offer.price and offer.currency == 'EUR' %}
+					{% if offer.price %}
+						{{ offer.price |number_format(0, '.', ',') * 2 }} &euro;
+			    		<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+			    	{% endif %}
+			    	{% if offer.discount %}
+			    		<span class="offer-discount">-{{ offer.discount }}</span>
+			   	 	{% endif %}
+			   	{% elseif offer.priceEur %}
+			   		{{ offer.priceEur |number_format(0, '.', ',') * 2 }} &euro;
+			    		<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+			    	{% if offer.discount %}
+			    		<span class="offer-discount">-{{ offer.discount }}</span>
+			   	 	{% endif %}
+			   	{% else %}	
 		   	 	{% endif %}
+		   	 	
 			{% else %}
 		    	{{ offer.price |number_format(0, '.', ',') }} {% if offer.currency == 'EUR' %}&euro;{% else %}{{ offer.currency }}{% endif %}
-		    	<span class="price-from">/{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+		    		<span class="price-from">/{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
 		    	{% if offer.discount %}
-		    	<span class="offer-discount">-{{ offer.discount }}</span>
+		    		<span class="offer-discount">-{{ offer.discount }}</span>
 		   	 	{% endif %}
 	   	 	{% endif %}
-	   	 	
 	    </a>	
 	    	
 	    <a href="{{ offer.absoluteUrl }}">	
@@ -57,8 +69,8 @@
             {{ offer.shortDescription |raw }}
 
             {% if offer.shortDescriptionTranslated %}
-
-                <button type="button" class="icon-translate btn btn-primary btn-lg" data-toggle="popover" data-content="{{ offer.shortDescriptionTranslated }}">
+ 
+                <button type="button" class="icon-translate btn btn-primary btn-lg" data-toggle="popover" data-content="{{ offer.title }}{{ offer.shortDescriptionTranslated }}">
                     {{ 'icon.translate' | trans({}, 'frontend') }}
                 </button>
 
