@@ -295,16 +295,15 @@ class BalticaController extends Controller{
             if(!$packages) $packages = [];
 
             foreach ($packages as $package) {
-                foreach ($package->getPlaces() as $place) {
-                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($place);
-                    if($toPlace == -1 || $placeNode->getId() == $toPlace){
-                        $filtered[] = $package;
-
-                        //get packages from date or current date
-                        //$packageDates = $this->getPackageDates($package, $from);
-
-                        //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
+                if($toPlace == -1){
+                    $filtered[] = $package;
+                }else{
+                    foreach ($package->getPlaces() as $place) {
+                        $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                            ->getNodeFor($place);
+                        if($placeNode->getId() == $toPlace){
+                            $filtered[] = $package;
+                        }
                     }
                 }
             }
