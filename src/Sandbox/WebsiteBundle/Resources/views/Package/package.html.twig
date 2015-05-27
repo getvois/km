@@ -13,7 +13,7 @@
 	    </a>	
 	     <a class="package-price pull-right btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">
 	    	{{ package.minprice |number_format(0, '.', ',') }}&euro;
-	    	<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+	    	<span class="price-inc">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
 	    </a>	
 	    	
 	    <a href="{{ path('_slug', {'url' : get_node_translation_for(package).fullSlug }) }}">	

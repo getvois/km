@@ -84,9 +84,9 @@ input:focus {outline:0;}
     background-color: rgba(1, 1, 1, 0.75);
     box-sizing: border-box;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 34px;
-    padding: 28px 0 28px 28px;
+    padding: 38px 0 0 28px;
     position: absolute;
     top: 0;
     width: 101%;
@@ -162,6 +162,7 @@ input:focus {outline:0;}
 }
 
 
+/* NEWS AND ARTICLE PANELS */
 .articles-panel { 
 	padding-left: 30px; 
 }
@@ -172,7 +173,7 @@ input:focus {outline:0;}
 	color:#F8C600;
 	line-height:1.1em;
 }
-.news-panel, .price-from-inner, .price-from:after, .price-from:before {
+.news-panel, .news-panel .price-from-inner, .news-panel .price-from:after, .news-panel .price-from:before {
 	background:#444!important;
 }
 .news-panel { 
@@ -600,7 +601,7 @@ select {
 }
 
 .travelbase-input-rel label {position:relative;width:100%;}
-.travelbase-input-rel label:after {
+.travelbase-input-rel label:before {
     content:'>';
     font:18px "Consolas", monospace;
     color:#aaa;
@@ -613,7 +614,7 @@ select {
     position:absolute;
     pointer-events:none;
 }
-.travelbase-input-rel label:before {
+.travelbase-input-rel label:after {
     content:'';
     padding-right: 5px;
 	right: 2px;
@@ -756,8 +757,12 @@ select {
     display: inline;
 }
 
-/* icons */
-.main-news .price-from {
+
+
+
+
+/* PRICE TAG and icons */
+.price-from {
     position:absolute;
     margin-left: 20px;
 }
@@ -776,10 +781,14 @@ select {
     right: -5px;
     top: -23px;
 }
-.main-news .price-from-img-left {
+.price-from-img {
+    right: 15px;
+    top: 0px;
+}
+.price-from-img-left {
     left: -5px;
 }
-.main-news .price-from-inner {
+.price-from-inner {
     background: #fff;
     position:relative;
     width: auto;
@@ -795,10 +804,10 @@ select {
     font-family: "Open Sans", serif;
     font-size:20px;
 }
-.main-news .price-from-img-left .price-from-inner {
+.price-from-img-left .price-from-inner {
     border-width: 2px 0 2px 2px;
 }
-.main-news .price-from:after { /* the circle on the left */
+.price-from:after { /* the circle on the left */
     position: absolute;
     content: '';
     height: 10px; 
@@ -810,12 +819,13 @@ select {
 	top: 16px;
     z-index: 2;
 }
-.main-news .price-from-img-left:after {
+
+.price-from-img-left:after {
 	left: auto;
 	right: -10px;
 }
 
-.main-news .price-from:before{ /* the arrow on left side positioned using left property */
+.price-from:before{ /* the arrow on left side positioned using left property */
     position: absolute;
     content: '';
     height: 33px; 
@@ -830,7 +840,7 @@ select {
     left: -16px;
     top: 5px;
 }
-.main-news .price-from-img-left:before {
+.price-from-img-left:before {
 	-webkit-transform: rotate(135deg);
     -moz-transform: rotate(135deg);
     transform: rotate(135deg);
@@ -838,6 +848,19 @@ select {
     left: auto;
     border-color: #F8C600 transparent transparent #F8C600;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .stitched {
    padding: 20px;
@@ -1286,8 +1309,10 @@ label.directFlight-label,  label.sameDay-label {
 #packages .package-inside, .hotell-inside, #club .package-inside {margin: 20px 10px}
 #packages .package-title {margin-right: 40px;line-height: 1.4em;font-weight:700}
 .hotel-title {margin-right: 65px}
-span.price-from {font-size: 14px;}
+span.price-inc {font-size: 14px;}
 .hotel-adress {font-size: 11px;}
+
+
 
 .map-filters {
   background: #444;
@@ -1317,11 +1342,18 @@ span.price-from {font-size: 14px;}
 .tabs-packages .tab-content { 
 	padding-top: 20px;
 }
-
-
+.tabs-packages h4 {
+  font-weight:700;
+}
 .icon-translate { 
 	font-size:11px;
 	padding: 5px;
+}
+
+.package-calendar-header { 
+	font-size: 16px;
+  	padding-top: 10px;
+  	font-weight: 700;
 }
 
 /*DATE PICKER STUFF*/
@@ -1880,11 +1912,13 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 }
 #loadMore:focus {outline:0;}
 .loadDiv {
+  height:50px;
+}
+.loadDiv .loadDiv-line{
   border-top: 2px solid rgb(236, 219, 48);
   height: 2px;
   box-shadow:0px 2px 5px 2px #f6f6f6;
 }
-
 .travelbase_items #loadMore span, .loadDiv span{
     font-size: 33px;
     background: rgba(236, 217, 27, 1);

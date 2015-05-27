@@ -1,7 +1,48 @@
 <div class="row">
 	<div class="col-md-12">
+		
+	
+		<h2>
+			
+		{% if page.minprice %}
+            <div class="pull-right">
+            <div class="price-from price-from-img">
+                <div class="price-from-inner pull-right">
+                    <span>
+                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
+                    	<span>/ 2{{ 'price.per.pers'|trans({}, 'frontend') }}
+                    		
+                    	{% if page.duration %}
+					         {% if page.duration == '1' %} 
+					         	{{ page.duration }}{{ 'night'|trans({}, 'frontend') }}
+					         {% else %}
+					         	{{ page.duration }}{{ 'nights'|trans({}, 'frontend') }}
+					         {% endif %}
+				        {% endif %}
+				        
+                    	</span>
+                    </span>
+                </div>
+            </div>
+            </div>
+        {% endif %}
+                    
+                    
 		{% if hotel %}
-					<h2>{{ hotel.title }}</h2>{% endif %}
+			{{ hotel.title }}
+		{% else %}
+			{% if page.titleTranslated %}
+		        {{ page.titleTranslated }}
+		    {% else %}
+		        {{ page.title }}
+		    {% endif %}
+		{% endif %}
+		
+		</h2>
+		
+		
+		
+		
 		<div role="tabpanel" class="tabs-packages">
 
 		  <!-- Nav tabs -->
@@ -16,14 +57,14 @@
 			<div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="package">
 			
-					<div class="col-md-7 col-sm-12 nopadding-left">
-					<h2>
+					<div class="col-md-7 col-sm-12">
+					<h4>
 					    {% if page.titleTranslated %}
 					        {{ page.titleTranslated }}
 					    {% else %}
 					        {{ page.title }}
 					    {% endif %}
-					</h2>
+					</h4>
 					
 					 {% if page.originalLanguage %}
 					        <img class="pull-right" width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/>

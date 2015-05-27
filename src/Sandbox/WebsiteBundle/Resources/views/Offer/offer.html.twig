@@ -35,7 +35,7 @@
 			   	 	{% endif %}
 			   	{% elseif offer.priceEur %}
 			   		{{ offer.priceEur |number_format(0, '.', ',') * 2 }} &euro;
-			    		<span class="price-from">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+			    		<span class="price-inc">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
 			    	{% if offer.discount %}
 			    		<span class="offer-discount">-{{ offer.discount }}</span>
 			   	 	{% endif %}
