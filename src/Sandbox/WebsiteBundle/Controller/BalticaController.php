@@ -265,7 +265,9 @@ class BalticaController extends Controller{
 
             foreach ($packages as $package) {
                 foreach ($package->getPlaces() as $place) {
-                    if($toPlace == -1 || $place->getCityId() == $toPlace){
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($place);
+                    if($toPlace == -1 || $placeNode->getId() == $toPlace){
                         $filtered[] = $package;
 
                         //get packages from date or current date
