@@ -122,4 +122,89 @@ class BalticaController extends Controller{
     }
 
 
+    /**
+     * @Route("/baltica-package-category/{nodeId}")
+     * @param Request $request
+     * @param $nodeId
+     * @return string
+     */
+    public function hotelListAction(Request $request, $nodeId)
+    {
+        //node id = place node id.
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+
+        $categories = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+            ->findAll();
+
+        if(!$categories) $categories = [];
+
+
+
+        $any = $this->get('translator')->trans('any', [], 'frontend');
+        $html = "<option value='-1'>$any</option>";
+
+        foreach ($categories as $category) {
+            $html .= "<option value='{$category->getId()}'>{$category->getName()}</option>";
+        }
+
+        return new Response($html);
+
+
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPages($request->getLocale());
+
+        if(!$hotels) $hotels = [];
+
+        $filtered = [];
+
+        $host = $this->get('hosthelper')->getHost();
+
+        foreach ($hotels as $hotel) {
+            foreach ($hotel->getPlaces() as $place) {
+//                if($place->getCityId() == $placeId){
+//                    //check if hotel has packages eg node has children
+//                    $node = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+//                    if($node && $node->getChildren()->count() > 0){
+//                        $filtered[$hotel->getId()] = $hotel;
+//                        break;
+//                    }
+//                }
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($place);
+
+                if($host){
+                    if($place->getHosts()->contains($host) && $node->getId() == $nodeId){
+                        $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+                        if($node2 && $node2->getChildren()->count() > 0){
+                            $filtered[$hotel->getId()] = $hotel;
+                            break;
+                        }
+                    }
+                }else{
+                    if($node->getId() == $nodeId){
+                        $node2 = $em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($hotel);
+                        if($node2 && $node2->getChildren()->count() > 0){
+                            $filtered[$hotel->getId()] = $hotel;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        $any = $this->get('translator')->trans('any', [], 'frontend');
+        $html = "<option value='-1'>$any</option>";
+
+        /** @var HotelPage $hotel */
+        foreach ($filtered as $hotel) {
+            $html .= "<option value='{$hotel->getHotelId()}'>{$hotel->getTitle()}</option>";
+        }
+
+        return new Response($html);
+    }
+
 }
