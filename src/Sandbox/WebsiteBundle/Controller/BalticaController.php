@@ -221,7 +221,7 @@ class BalticaController extends Controller{
         $html = '';
         $toPlace = $request->query->get('place', '');
         $from = $request->query->get('from', '');
-        $hotel = $request->query->get('hotel', '');
+        $hotel = $request->query->get('hotel', '');//package category
         $offset = $request->query->get('offset', 0);
         $country = $request->query->get('country', '');
         $total = 0;
@@ -233,30 +233,59 @@ class BalticaController extends Controller{
 
         if($hotel && $hotel != -1){
 
-            $hotelPage = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-                ->findOneBy(['hotelId' => $hotel]);
+            $hotelPage = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
+                ->findOneBy(['id' => $hotel]);
 
-            if(!$hotelPage) return new JsonResponse(['html' => $html]);
+            if(!$hotelPage) return new JsonResponse(['total'=> 0, 'html' => $html]);
+
+            /** @var PackagePage[] $packages */
+            $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+                ->getPackagePages($request->getLocale());
+
+            if(!$packages) $packages = [];
+
+            foreach ($packages as $package) {
+
+                    if($toPlace == -1){
+                        foreach ($package->getPlaces() as $place) {
+                            $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                ->getNodeFor($place);
+                            if($placeNode == $toPlace){
+                                foreach ($package->getCategories() as $category) {
+                                    if($category->getId() == $hotel){
+                                        $filtered[] = $package;
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        foreach ($package->getCategories() as $category) {
+                            if($category->getId() == $hotel){
+                                $filtered[] = $package;
+                            }
+                        }
+                    }
+            }
 
             $node = $em->getRepository('KunstmaanNodeBundle:Node')
                 ->getNodeFor($hotelPage);
 
-            if($node->getChildren()){
-                /** @var Node $packageNode */
-                foreach ($node->getChildren() as $packageNode) {
-                    $translation = $packageNode->getNodeTranslation($request->getLocale());
-                    if($translation){
-                        $packagePage = $translation->getRef($em);
-                        if($packagePage){
-                            $filtered[] = $packagePage;
-                            //get packages from date or current date
-                            //$packageDates = $this->getPackageDates($packagePage, $from);
-
-                            //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $packagePage, 'dates' => $packageDates, 'fromdate' => $from]);
-                        }
-                    }
-                }
-            }
+//            if($node->getChildren()){
+//                /** @var Node $packageNode */
+//                foreach ($node->getChildren() as $packageNode) {
+//                    $translation = $packageNode->getNodeTranslation($request->getLocale());
+//                    if($translation){
+//                        $packagePage = $translation->getRef($em);
+//                        if($packagePage){
+//                            $filtered[] = $packagePage;
+//                            //get packages from date or current date
+//                            //$packageDates = $this->getPackageDates($packagePage, $from);
+//
+//                            //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $packagePage, 'dates' => $packageDates, 'fromdate' => $from]);
+//                        }
+//                    }
+//                }
+//            }
 
         }else{
             /** @var PackagePage[] $packages */

@@ -614,7 +614,7 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
     /**
      * Get categories
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection|PackageCategory[]
      */
     public function getCategories()
     {
