@@ -217,6 +217,39 @@ $(document).ready(function() {
         return false;
     });
 
+    $('#baltica-filter').click(function () {
+        checkHolderHeight('#baltica-holder');
+        $(this).addClass('disabled');
+
+        //start loading
+        var spinner = startTabSpinner('#baltica-badge');
+
+        var $from = $('#baltica-date-from').datepick('getDate');
+        var $place = $('#baltica-place').val();
+        var $hotel = $('#baltica-hotel').val();
+
+        if($from.length > 0) $from = $from[0].toMysqlFormat();
+        else $from = '';
+
+        $.get('/baltica-filter/?hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
+            var $package = $('#baltica-holder');
+            $package.html(responce.html);
+
+            if($package.find('> div').length < responce.total){
+                $('#baltica-pager').show();
+            }else{
+                $('#baltica-pager').hide();
+            }
+
+            stopTabSpinner(spinner, '#baltica-badge', responce.total);
+
+            $('#baltica-filter').removeClass('disabled');
+            $('a[data-type="baltica"]').tab('show');
+        });
+
+        return false;
+    });
+
     function checkHolderHeight($holderId){
         if($($holderId).outerHeight() < 246 ){
             if($($holderId).data('height')){

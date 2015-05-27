@@ -207,4 +207,82 @@ class BalticaController extends Controller{
         return new Response($html);
     }
 
+
+    /**
+     * @Route("/baltica-filter/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function filterAction(Request $request){
+        $pageLength = 10;
+        $html = '';
+        $toPlace = $request->query->get('place', '');
+        $from = $request->query->get('from', '');
+        $hotel = $request->query->get('hotel', '');
+        $offset = $request->query->get('offset', 0);
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $filtered = [];
+
+        if($hotel && $hotel != -1){
+
+            $hotelPage = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+                ->findOneBy(['hotelId' => $hotel]);
+
+            if(!$hotelPage) return new JsonResponse(['html' => $html]);
+
+            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($hotelPage);
+
+            if($node->getChildren()){
+                /** @var Node $packageNode */
+                foreach ($node->getChildren() as $packageNode) {
+                    $translation = $packageNode->getNodeTranslation($request->getLocale());
+                    if($translation){
+                        $packagePage = $translation->getRef($em);
+                        if($packagePage){
+                            $filtered[] = $packagePage;
+                            //get packages from date or current date
+                            //$packageDates = $this->getPackageDates($packagePage, $from);
+
+                            //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $packagePage, 'dates' => $packageDates, 'fromdate' => $from]);
+                        }
+                    }
+                }
+            }
+
+        }else{
+            /** @var PackagePage[] $packages */
+            $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
+                ->getPackagePages($request->getLocale());
+
+            if(!$packages) $packages = [];
+
+            foreach ($packages as $package) {
+                foreach ($package->getPlaces() as $place) {
+                    if($toPlace == -1 || $place->getCityId() == $toPlace){
+                        $filtered[] = $package;
+
+                        //get packages from date or current date
+                        //$packageDates = $this->getPackageDates($package, $from);
+
+                        //$html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $package, 'dates' => $packageDates, 'fromdate' => $from]);
+                    }
+                }
+            }
+        }
+
+        $pages = array_slice($filtered, $offset, $pageLength);
+
+        foreach ($pages as $page) {
+            $packageDates = $this->getPackageDates($page, $from);
+            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+        }
+
+        return new JsonResponse(['total' => count($filtered), 'html' => $html]);
+
+    }
+
 }
