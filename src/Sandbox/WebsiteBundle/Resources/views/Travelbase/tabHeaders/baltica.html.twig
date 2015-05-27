@@ -8,7 +8,8 @@
                     {{ 'baltica' | trans({}, 'frontend') }}
                 </span>
         &nbsp;
-        <span id="baltica-badge" class="badge">{{ total_packages(app.request.locale) }}</span>
+        {#<span id="baltica-badge" class="badge">{{ total_packages(app.request.locale) }}</span>#}
+        <span id="baltica-badge" class="badge"></span>
         <span id="baltica-badge-loading" class="badge spinner"></span>
     </a>
 </li>
