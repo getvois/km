@@ -14,6 +14,7 @@ use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\TopImage;
 use Sandbox\WebsiteBundle\Helper\FullNode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -441,35 +442,27 @@ class TravelbaseController extends Controller
     private function balticaFormParams(Request $request)
     {
         $context = [];
-        /** @var EntityManager $em */
-        $em = $this->get('doctrine.orm.entity_manager');
+        /** @var PlaceOverviewPage[] $countries */
+        $countries = $this->packageFormParams($request)['countries'];
 
-        $host = $this->get('hosthelper')->getHost();
+        /** @var PlaceOverviewPage[] $offerCountries */
+        $offerCountries = $this->offerFormParams($request)['countries'];
 
-        /** @var HotelPage[] $hotels */
-        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPages($request->getLocale());
-
-        if(!$hotels) $hotels = [];
-
-        $countries = [];
-        foreach ($hotels as $hotel) {
-
-            if($host){
-                if($hotel->getCountryPlace() && $hotel->getCountryPlace()->getHosts()->contains($host)){
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($hotel->getCountryPlace());
-                    $countries[$node->getId()] = $hotel->getCountryPlace();
-                }
-            }else{
-                if($hotel->getCountryPlace()){
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($hotel->getCountryPlace());
-                    $countries[$node->getId()] = $hotel->getCountryPlace();
+        // merge arrays
+        foreach ($offerCountries as $country) {
+            $found = false;
+            foreach ($countries as $c) {
+                if($country->getId() == $c->getId()){
+                    $found = true;
+                    break;
                 }
             }
 
+            if(!$found){
+                $countries[] = $country;
+            }
         }
+
         $context['countries'] = $countries;
 
         return $context;
