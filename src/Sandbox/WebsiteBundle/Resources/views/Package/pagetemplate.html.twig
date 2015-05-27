@@ -1,44 +1,54 @@
-<div class="row">
+
+		<div class="row">
+			<div class="col-md-7 col-xs-12">
+			<h2>
+			{% if hotel %}
+				{{ hotel.title }}
+			{% else %}
+				{% if page.titleTranslated %}
+			        {{ page.titleTranslated }}
+			    {% else %}
+			        {{ page.title }}
+			    {% endif %}
+			{% endif %}
+			</h2>
+			</div>
+			<div class="col-md-5 col-xs-12 text-right">
+				{% if page.minprice %}
+	            <div class="price-from price-from-img">
+	                <div class="price-from-inner pull-right">
+	                    <span>
+	                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
+	                    	<span>/ 2{{ 'price.per.pers'|trans({}, 'frontend') }}
+	                    		
+	                    	{% if page.duration %}
+						         {% if page.duration == '1' %} 
+						         	{{ page.duration }}{{ 'night'|trans({}, 'frontend') }}
+						         {% else %}
+						         	{{ page.duration }}{{ 'nights'|trans({}, 'frontend') }}
+						         {% endif %}
+					        {% endif %}
+					        
+	                    	</span>
+	                    </span>
+	                </div>
+	            </div>
+	        	{% endif %}
+			</div>
+			
+		</div>	
+		<div class="row">
 	<div class="col-md-12">
 		
 	
-		<h2>
-			
-		{% if page.minprice %}
-            <div class="pull-right">
-            <div class="price-from price-from-img">
-                <div class="price-from-inner pull-right">
-                    <span>
-                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
-                    	<span>/ 2{{ 'price.per.pers'|trans({}, 'frontend') }}
-                    		
-                    	{% if page.duration %}
-					         {% if page.duration == '1' %} 
-					         	{{ page.duration }}{{ 'night'|trans({}, 'frontend') }}
-					         {% else %}
-					         	{{ page.duration }}{{ 'nights'|trans({}, 'frontend') }}
-					         {% endif %}
-				        {% endif %}
-				        
-                    	</span>
-                    </span>
-                </div>
-            </div>
-            </div>
-        {% endif %}
-                    
-                    
-		{% if hotel %}
-			{{ hotel.title }}
-		{% else %}
-			{% if page.titleTranslated %}
-		        {{ page.titleTranslated }}
-		    {% else %}
-		        {{ page.title }}
-		    {% endif %}
-		{% endif %}
 		
-		</h2>
+	
+		
+                    
+                    
+		
+		
+		
 		
 		
 		
@@ -50,7 +60,6 @@
 		    <li role="package" class="active"><a href="#package" aria-controls="package" role="tab" data-toggle="tab">{{ 'hv.package.tabheader' | trans({}, 'frontend') }}</a></li>
 		    <li role="hotel"><a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab">{{ 'hv.hotel.and.location.tabheader' | trans({}, 'frontend') }}</a></li>
 		    <li role="rooms"><a href="#rooms" aria-controls="rooms" role="tab" data-toggle="tab">{{ 'hv.rooms.tabheader' | trans({}, 'frontend') }}</a></li>
-		      
 		  </ul>
 		
 		  <!-- Tab panes -->
@@ -119,7 +128,7 @@
 					{% if hotel %}
 				    <div class="row">
 				        <div class="col-md-6">
-				            <h2>{{ hotel.title }}</h2>
+				            <h4>{{ hotel.title }}</h4>
 				            <p>{{ hotel.longDescription|raw }}</p>
 				            
 				            <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">
