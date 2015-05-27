@@ -250,7 +250,7 @@ class BalticaController extends Controller{
                         foreach ($package->getPlaces() as $place) {
                             $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
                                 ->getNodeFor($place);
-                            if($placeNode == $toPlace){
+                            if($placeNode->getId() == $toPlace){
                                 foreach ($package->getCategories() as $category) {
                                     if($category->getId() == $hotel){
                                         $filtered[] = $package;
