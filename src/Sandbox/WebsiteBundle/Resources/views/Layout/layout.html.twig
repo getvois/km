@@ -1,3 +1,4 @@
+{% extends host ? ['@SandboxWebsite/Layout/hosts/'~ host.name ~'.html.twig', '@SandboxWebsite/Layout/hosts/default.html.twig'] : '@SandboxWebsite/Layout/hosts/default.html.twig' %}
 <!DOCTYPE html>
 {% set htmlLocale = app.request.locale|default(defaultlocale)|slice(0,2) %}
 <!--[if lt IE 7]>       <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ htmlLocale }}"> <![endif]-->
@@ -116,11 +117,11 @@
     </header>
 {% endblock %}
 
-{% if host and file_exists(root_path ~ "src/Sandbox/WebsiteBundle/Resources/views/Layout/hosts/"~host.name~".html.twig") %}
-    {% include '@SandboxWebsite/Layout/hosts/'~host.name~'.html.twig' %}
-{% else %}
-    {% include '@SandboxWebsite/Layout/hosts/default.html.twig' %}
-{% endif %}
+{#{% if host and file_exists(root_path ~ "src/Sandbox/WebsiteBundle/Resources/views/Layout/hosts/"~host.name~".html.twig") %}#}
+    {#{% include '@SandboxWebsite/Layout/hosts/'~host.name~'.html.twig' %}#}
+{#{% else %}#}
+    {#{% include '@SandboxWebsite/Layout/hosts/default.html.twig' %}#}
+{#{% endif %}#}
 
 {% block footer %}
     <!-- Footer -->
