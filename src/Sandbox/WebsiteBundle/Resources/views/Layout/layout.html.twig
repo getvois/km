@@ -47,7 +47,7 @@
    <!--<![endif]-->
    
 
-    {% if host and file_exists("web/bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") %}
+    {% if host and file_exists( root_path ~ "web/bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") %}
         <link href="{{ asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") }}" rel="stylesheet" type="text/css">
     {% endif %}
 
@@ -116,71 +116,11 @@
     </header>
 {% endblock %}
 
-<div class="row nomargin">
-    <div class="col-md-9 col-md-offset-0_5">
-
-        <!-- Travelbase -->
-        {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
-
-        <section class="">
-            <div class="row">
-                <div class="col-md-12 col--padded">
-                    {% block breadcrumbs %}
-                        {% if nodemenu is defined and nodemenu.breadCrumb|length > 1 %}
-                            <nav role="navigation">
-                                <ol class="breadcrumb">
-                                    <li>
-                                        {% set homepagePageNode = nodemenu.getNodeByInternalName('homepage') %}
-                                        <a href="{{ path('_slug', { 'url': homepagePageNode.slug }) }}">
-                                            {{ 'startpage' | trans({}, 'frontend') }}
-                                        </a>
-                                    </li>
-                                    {% for node in nodemenu.breadCrumb %}
-                                        {% if not loop.first %}
-                                            {% if loop.last %}
-                                                <li class="active">{{ node.title }}</li>
-                                            {% else %}
-                                                <li>
-                                                    <a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a>
-                                                </li>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol>
-                            </nav>
-                        {% endif %}
-                    {% endblock breadcrumbs %}
-                </div>
-            </div>
-        </section>
-		
-		 <!-- Main -->
-        <main role="main">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
-    <div class="col-md-3 sidebar">
-        {% block club %}
-        <div class="clubbar">
-		<h2>{{ 'club.header' | trans({}, 'frontend') }}</h2>
-			
-			
-			
-			
-	        {% block userlogin %}
-	            {% include '@SandboxWebsite/User/loginForm.html.twig' %}
-	        {% endblock %}
-        </div>
-
-        {% if host %}
-            {{ host.fbBlock|raw }}
-        {% endif %}
-
-        {% block sidebar %}{% endblock %}
-
-        {% endblock %}
-    </div>
-</div>
+{% if host and file_exists(root_path ~ "src/Sandbox/WebsiteBundle/Resources/views/Layout/hosts/"~host.name~".html.twig") %}
+    {% include '@SandboxWebsite/Layout/hosts/'~host.name~'.html.twig' %}
+{% else %}
+    {% include '@SandboxWebsite/Layout/hosts/default.html.twig' %}
+{% endif %}
 
 {% block footer %}
     <!-- Footer -->
