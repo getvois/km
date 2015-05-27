@@ -223,6 +223,8 @@ class BalticaController extends Controller{
         $from = $request->query->get('from', '');
         $hotel = $request->query->get('hotel', '');
         $offset = $request->query->get('offset', 0);
+        $country = $request->query->get('country', '');
+        $total = 0;
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -286,7 +288,45 @@ class BalticaController extends Controller{
             $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
         }
 
-        return new JsonResponse(['total' => count($filtered), 'html' => $html]);
+        $total += count($filtered);
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($request->getLocale());
+
+        if (!$offers) $offers = [];
+
+        $filtered = [];
+        if ($toPlace && $toPlace != -1) {
+
+            foreach ($offers as $offer) {
+                foreach ($offer->getPlaces() as $place) {
+                    if ($place->getCityId() == $toPlace) {
+                        $filtered[] = $offer;
+                        //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                    }
+                }
+            }
+            //only country set
+        } else if ($country) {
+            foreach ($offers as $offer) {
+                if ($country == -1 || $offer->getCountryPlace() && $offer->getCountryPlace()->getCityId() == $country) {
+                    $filtered[] = $offer;
+                    //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                }
+            }
+        }
+
+        $pages = array_slice($filtered, $offset, $pageLength);
+
+        foreach ($pages as $page) {
+            $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
+        }
+
+        $total += $filtered;
+
+        return new JsonResponse(['total' => $total, 'html' => $html]);
+
 
     }
 

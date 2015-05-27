@@ -225,13 +225,14 @@ $(document).ready(function() {
         var spinner = startTabSpinner('#baltica-badge');
 
         var $from = $('#baltica-date-from').datepick('getDate');
+        var $country = $('#baltica-country').val();
         var $place = $('#baltica-place').val();
         var $hotel = $('#baltica-hotel').val();
 
         if($from.length > 0) $from = $from[0].toMysqlFormat();
         else $from = '';
 
-        $.get('/baltica-filter/?hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
+        $.get('/baltica-filter/?country='+$country+'hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
             var $package = $('#baltica-holder');
             $package.html(responce.html);
 
