@@ -10,6 +10,7 @@ use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -287,4 +288,44 @@ class BalticaController extends Controller{
 
     }
 
+    private function getPackageDates(PackagePage $package, $from)
+    {
+        //set date to yesterday
+        if(!$from) $from = date("Y-m-d", strtotime('-1 day'));
+        else $from = date("Y-m-d", strtotime($from) - 60 * 60 * 24);
+
+        $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
+        $content = @file_get_contents('http://www.hotelliveeb.ee/xml.php?type=packageresource&package='.$package->getPackageId(), false, $context);
+
+        if(!$content) return [];
+
+        $crawler = new Crawler($content);
+
+        $items = $crawler->filter('resource');
+
+        $out = [];
+        for($i=0; $i<$items->count(); $i++){
+            $item = $items->eq($i);
+
+            $date = $item->filter('date')->first()->text();
+            $price = $item->filter('price')->first()->text();
+            //$available = $item->filter('available')->first()->text();
+
+            //check if date >= from date
+            if(strtotime($date) >= strtotime($from)){
+                //check if in array and set bigger price
+                if(array_key_exists($date, $out)){
+                    if($out[$date] < $price)
+                        $out[$date] = round($price);
+                }else{
+                    $out[$date] = round($price);
+                }
+            }
+
+            //only add 7 days
+            if(count($out) == 7) break;
+        }
+
+        return $out;
+    }
 }
