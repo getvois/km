@@ -657,7 +657,7 @@ $(document).ready(function() {
     });
 
     //noinspection JSUnresolvedFunction,JSUnresolvedVariable
-    $('#form-package .datepick').datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
+    $('#form-package, #form-baltica').find('.datepick').datepick('option', 'renderer', $.extend({}, $.datepick.defaultRenderer,
         {picker: $.datepick.defaultRenderer.picker.
             replace(/\{link:buttons}/, '')
             .replace(/\{link:clear\}/, '')
