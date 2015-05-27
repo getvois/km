@@ -246,7 +246,7 @@ class BalticaController extends Controller{
 
             foreach ($packages as $package) {
 
-                    if($toPlace == -1){
+                    if($toPlace != -1){
                         foreach ($package->getPlaces() as $place) {
                             $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
                                 ->getNodeFor($place);
@@ -267,8 +267,8 @@ class BalticaController extends Controller{
                     }
             }
 
-            $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                ->getNodeFor($hotelPage);
+//            $node = $em->getRepository('KunstmaanNodeBundle:Node')
+//                ->getNodeFor($hotelPage);
 
 //            if($node->getChildren()){
 //                /** @var Node $packageNode */
