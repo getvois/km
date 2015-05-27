@@ -521,7 +521,9 @@ class TravelbaseController extends Controller
 
         foreach ($packages as $package) {
             if($package->getCountryPlace()){
-                $countries[$package->getCountryPlace()->getId()] = $package->getCountryPlace();
+                $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                    ->getNodeFor($package->getCountryPlace());
+                $countries[$node->getId()] = $package->getCountryPlace();
             }
         }
         $context['countries'] = $countries;
