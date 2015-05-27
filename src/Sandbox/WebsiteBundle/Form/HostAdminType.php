@@ -67,6 +67,7 @@ class HostAdminType extends AbstractType
             'club' => 'club',
             //'offer' => 'offer',
             'package' => 'package',
+            'baltica' => 'baltica',
         ], 'required' => false, 'multiple' => true]);
     }
 

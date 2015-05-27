@@ -1,0 +1,14 @@
+<li class="">
+    <a href="#baltica" data-toggle="tab" data-type="baltica" data-form="#form-baltica">
+        &nbsp;
+                <span class="visible-xs-inline-block visible-sm-inline-block">
+                    <span class="fa fa-suitcase"></span>
+                </span>
+                <span class="visible-md-inline visible-lg-inline">
+                    {{ 'baltica' | trans({}, 'frontend') }}
+                </span>
+        &nbsp;
+        <span id="baltica-badge" class="badge">{{ total_packages(app.request.locale) }}</span>
+        <span id="baltica-badge-loading" class="badge spinner"></span>
+    </a>
+</li>

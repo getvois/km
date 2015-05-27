@@ -425,6 +425,8 @@ class TravelbaseController extends Controller
 
             $params = $this->packageFormParams($request);
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/package.html.twig', $params);
+
+            $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/baltica.html.twig');
             $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/user.html.twig');
         }
 
