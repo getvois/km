@@ -90,7 +90,7 @@ $(document).ready(function() {
         },
         $.datepick.regionalOptions[$lang]));
 
-    var $packageFrom = $('#package-date-from');
+    var $packageFrom = $('#package-date-from, #baltica-date-from');
     $packageFrom.datepick('option', 'onSelect', function () {
         $(this).datepick('hide');
     });
