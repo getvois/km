@@ -191,10 +191,10 @@
 		
 		            // Display multiple markers on a map
 		            var infoWindow = new google.maps.InfoWindow(), marker, i;
-		
+                    var position;
 		            // Loop through our array of markers & place each one on the map
 		            for( i = 0; i < markers.length; i++ ) {
-		                var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+		                position = new google.maps.LatLng(markers[i][1], markers[i][2]);
 		                bounds.extend(position);
 		                marker = new google.maps.Marker({
 		                    position: position,
@@ -211,7 +211,7 @@
 		                })(marker, i));
 		
 		                // Automatically center the map fitting all markers on the screen
-		                map.fitBounds(bounds);
+		                //map.fitBounds(bounds);
 		            }
 
                     //map.setCenter(bounds.getCenter());
@@ -226,6 +226,7 @@
                     $('a[href="#hotel"]').on('shown.bs.tab', function(e)
                     {
                         google.maps.event.trigger(map, 'resize');
+                        map.setCenter(position);
                     });
 
 		        }
