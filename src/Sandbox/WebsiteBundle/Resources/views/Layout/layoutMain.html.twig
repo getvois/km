@@ -116,11 +116,15 @@
     </header>
 {% endblock %}
 
-{% if host and file_exists(root_path ~ "src/Sandbox/WebsiteBundle/Resources/views/Layout/hosts/"~host.name~".html.twig") %}
-    {% include '@SandboxWebsite/Layout/hosts/'~host.name~'.html.twig' %}
-{% else %}
-    {% include '@SandboxWebsite/Layout/hosts/default.html.twig' %}
-{% endif %}
+{% block hostLayout %}
+
+{% endblock %}
+
+{#{% if host and file_exists(root_path ~ "src/Sandbox/WebsiteBundle/Resources/views/Layout/hosts/"~host.name~".html.twig") %}#}
+    {#{% include '@SandboxWebsite/Layout/hosts/'~host.name~'.html.twig' %}#}
+{#{% else %}#}
+    {#{% include '@SandboxWebsite/Layout/hosts/default.html.twig' %}#}
+{#{% endif %}#}
 
 {% block footer %}
     <!-- Footer -->
