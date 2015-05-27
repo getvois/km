@@ -212,7 +212,7 @@
 		
 		                // Automatically center the map fitting all markers on the screen
 		                //map.fitBounds(bounds);
-                        map.setCenter(position);
+                        map.setCenter(bounds.getCenter());
 		            }
 		
 		            // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
