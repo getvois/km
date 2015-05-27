@@ -329,7 +329,7 @@ class BalticaController extends Controller{
             $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
         }
 
-        $total += $filtered;
+        $total += count($filtered);
 
         return new JsonResponse(['total' => $total, 'html' => $html]);
 
