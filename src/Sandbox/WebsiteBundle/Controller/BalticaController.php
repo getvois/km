@@ -301,7 +301,9 @@ class BalticaController extends Controller{
 
             foreach ($offers as $offer) {
                 foreach ($offer->getPlaces() as $place) {
-                    if ($place->getCityId() == $toPlace) {
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($place);
+                    if ($placeNode->getId() == $toPlace) {
                         $filtered[] = $offer;
                         //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
                     }
@@ -310,8 +312,12 @@ class BalticaController extends Controller{
             //only country set
         } else if ($country) {
             foreach ($offers as $offer) {
-                if ($country == -1 || $offer->getCountryPlace() && $offer->getCountryPlace()->getCityId() == $country) {
-                    $filtered[] = $offer;
+                if ($country == -1 || $offer->getCountryPlace()) {
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($offer->getCountryPlace());
+                    if($placeNode->getId() == $country){
+                        $filtered[] = $offer;
+                    }
                     //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
                 }
             }
