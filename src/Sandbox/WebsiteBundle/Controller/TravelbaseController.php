@@ -396,6 +396,9 @@ class TravelbaseController extends Controller
                 }elseif($tab == 'package'){
                     $params = $this->packageFormParams($request);
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/package.html.twig', $params);
+                }elseif($tab == 'baltica'){
+                    $params = $this->balticaFormParams($request);
+                    $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/baltica.html.twig', $params);
                 }elseif($tab == 'offer'){
                     $params = $this->offerFormParams($request);
                     $html .= $twigEngine->render('@SandboxWebsite/Travelbase/form/offer.html.twig', $params);
