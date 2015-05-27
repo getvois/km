@@ -395,7 +395,7 @@ main .calendar-page .cal-day-today .events-list {
 	z-index: 9999;
 }
 .site-logo a {
-    height:86px;
+    height:65px;
     top:30px;
     position: absolute;
     z-index: 99;
@@ -1255,6 +1255,7 @@ label.directFlight-label,  label.sameDay-label {
 .loaded-message {
     margin: 25px 0;
     width: 90%;
+    /*noinspection CssUnknownTarget*/
     background:url("/bundles/sandboxwebsite/img/general/notfound-plane.png") no-repeat top right;
 }
 .loaded-message h2 {
