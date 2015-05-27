@@ -121,6 +121,18 @@ $(document).ready(function() {
     });
 
 
+    $('#baltica-country').change(function () {
+        var $cityId = $(this).val();
+        $('#baltica-place').attr('disabled', true).val('-1');
+        if($cityId != -1){
+            $.get('/baltica-citylist/' + $cityId, function (responce) {
+                $('#baltica-place').html(responce).attr('disabled', false);
+            });
+        }else{
+            $('#baltica-hotel').attr('disabled', true).val('-1');
+        }
+    });
+
     $('#package-place').change(function () {
         var $placeId = $(this).val();
         $('#package-hotel').attr('disabled', true).val('-1');
