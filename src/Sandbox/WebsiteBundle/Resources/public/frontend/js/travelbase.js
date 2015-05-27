@@ -232,7 +232,7 @@ $(document).ready(function() {
         if($from.length > 0) $from = $from[0].toMysqlFormat();
         else $from = '';
 
-        $.get('/baltica-filter/?country='+$country+'hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
+        $.get('/baltica-filter/?country='+$country+'&hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
             var $package = $('#baltica-holder');
             $package.html(responce.html);
 
