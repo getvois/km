@@ -62,6 +62,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    sandboxwebsitebundle.fileexistsextension:
+        class: Sandbox\WebsiteBundle\Twig\Extension\FileExistsExtension
+        tags:
+            - { name: twig.extension }
+
 #Form Fields
     sandboxwebsitebundle.form.type.imagesize:
         class: Sandbox\WebsiteBundle\Form\Type\ImageSizeType

@@ -46,8 +46,8 @@
         <link rel="stylesheet" href="{{ asset("bundles/sandboxwebsite/frontend/css/ie.css") }}"type="text/css">
    <!--<![endif]-->
    
-   	
-    {% if host and asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") %}
+
+    {% if host and file_exists("web/bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") %}
         <link href="{{ asset("bundles/sandboxwebsite/frontend/css/" ~ host.name ~ ".css") }}" rel="stylesheet" type="text/css">
     {% endif %}
 

@@ -18,6 +18,7 @@ twig:
         gtm_code: %analytics.googletagmanager%
         #titlecolor: "#000000"
         #titlebgcolor: "#2997CE"
+        root_path: %kernel.root_dir%/../
 
 assetic:
     node: /usr/local/bin/node
