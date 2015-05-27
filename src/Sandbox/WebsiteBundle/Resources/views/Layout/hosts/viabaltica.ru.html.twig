@@ -2,7 +2,7 @@
 
 {% block hostLayout %}
 <div class="row nomargin">
-    <div class="col-md-9 col-md-offset-0_5">
+    <div class="col-md-6 col-md-offset-0_5">
 
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
@@ -44,7 +44,7 @@
             {% block content %}{% endblock %}
         </main>
     </div>
-    <div class="col-md-3 sidebar">
+    <div class="col-md-6 sidebar">
         {% block club %}
             <div class="clubbar">
                 <h2>{{ 'club.header' | trans({}, 'frontend') }}</h2>
