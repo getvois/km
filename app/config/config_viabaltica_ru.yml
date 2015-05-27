@@ -1,0 +1,12 @@
+imports:
+    - { resource: config.yml }
+    - { resource: security.singlelang.yml }
+
+parameters:
+    locale: ru
+    defaultlocale: ru
+    multilanguage: false
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing.singlelang.yml"
