@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             {% if resource.description or resource.images|length > 0 %}
-                <p>
+                <p><span class="fa fa-angle-double-right"></span>&nbsp;
                     <a class="" data-toggle="collapse" href="#collapse-{{ resource.id }}" aria-expanded="false" aria-controls="collapse-{{ resource.id }}">
-                        {% if resource.nameTranslated %}
+                       {% if resource.nameTranslated %}
                             {{ resource.nameTranslated }}
                         {% else %}
                             {{ resource.name }}
@@ -25,6 +25,7 @@
                 </div>
             {% else %}
                 <p>
+                    <span class="fa fa-angle-double-right"></span>&nbsp;
                     {% if resource.nameTranslated %}
                         {{ resource.nameTranslated }}
                     {% else %}

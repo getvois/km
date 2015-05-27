@@ -1312,8 +1312,6 @@ label.directFlight-label,  label.sameDay-label {
 span.price-inc {font-size: 14px;}
 .hotel-adress {font-size: 11px;}
 
-
-
 .map-filters {
   background: #444;
   color: #ccc;
@@ -1343,19 +1341,38 @@ span.price-inc {font-size: 14px;}
 	padding-top: 20px;
 }
 .tabs-packages h4 {
-  font-weight:700;
+    font-weight:700;
 }
 .icon-translate { 
 	font-size:11px;
 	padding: 5px;
 }
 
-.package-calendar-header { 
-	font-size: 16px;
-  	padding-top: 10px;
-  	font-weight: 700;
+.package-calendar-control span { 
+  font-size: 18px;
 }
+ 
+.package-calendar-today, .package-calendar-today:hover { 
+  background: #2E6EA5;
+  color: #fff;
+  padding: 6px 10px;
+  font-weight: 700;
+}
+/* COMMENTS ROW */
 
+.comments-row  { 
+  padding-top:15px;
+}
+.comments-row .col-md-12  { 
+	border-top: 3px solid #337ab7;
+}
+  
+.comments-row h4  { 
+  padding: 15px;
+  color: #fff;
+  display: inline-block;
+  background: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+}
 /*DATE PICKER STUFF*/
 
 .datepick {

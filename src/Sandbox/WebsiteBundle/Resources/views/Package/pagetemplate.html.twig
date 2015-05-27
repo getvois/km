@@ -64,12 +64,15 @@
 					    {% else %}
 					        {{ page.title }}
 					    {% endif %}
+					    {% if page.duration %}
+					         ({% if page.duration == '1' %}{{ page.duration }} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ page.duration }} {{ 'nights'|trans({}, 'frontend') }}{% endif %})
+				        {% endif %}
 					</h4>
 					
-					 {% if page.originalLanguage %}
-					        <img class="pull-right" width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/>
-					    {% endif %}
-					
+					 {% if page.originalLanguage and page.originalLanguage == 'ee' %}
+					 {% elseif page.originalLanguage %}
+							<img class="pull-right" width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/>
+					 {% endif %}
 					<p>
 					    {% if page.summary %}
 					        {{ page.summary |raw }}
@@ -83,9 +86,9 @@
 					    <img src="{{ page.image }}" alt="" class="img-responsive"/>
 					{% endif %}
 					
-					<h3>
+					<h4>
 					    {{ 'book.online.hv.package.inc' | trans({}, 'frontend') }}
-					</h3>
+					</h4>
 					{{ render_pageparts(page, 'information') }}
 					
 					</div>
@@ -95,12 +98,12 @@
 						</h3>
 						<p>{{ 'book.online.hv.desc' | trans({}, 'frontend') }}</p>
 						<div class="btn-group package-calendar-control">
-						    <button class="btn btn-primary disabled package-calendar-navigate-prev package-calendar-navigate" data-calendar-nav="prev">&lt;&lt; {{ 'prev.month'|trans({}, 'frontend') }}</button>
-						    <button class="btn package-calendar-navigate" data-calendar-nav="today">{{ 'today.month'|trans({}, 'frontend') }}</button>
-						    <button class="btn btn-primary package-calendar-navigate" data-calendar-nav="next">{{ 'next.month'|trans({}, 'frontend') }} &gt;&gt;</button>
+						    <button class="btn btn-primary disabled package-calendar-navigate-prev package-calendar-navigate" data-calendar-nav="prev"><span class="fa fa-angle-double-left"></span></button>
+						    <button class="btn package-calendar-today"><div class="package-calendar-header"></div></button>
+						    <button class="btn btn-primary package-calendar-navigate" data-calendar-nav="next"><span class="fa fa-angle-double-right"></span></button>
 						</div>
 
-                        <div class="package-calendar-header"></div>
+                        
 
 						<div data-package-id="{{ page.packageId }}" data-date-from="{{ fromdate }}" class="package-calendar"></div>
 						
@@ -233,17 +236,11 @@
 		
 		</div>
 
-
-        {% include '@SandboxWebsite/Layout/disqus.html.twig' %}
-
+	
 	</div>
 	
-	
-
-
-	
 </div>
-
+	{% include '@SandboxWebsite/Layout/disqus.html.twig' %}
 <div class="row">
 	<div class="col-md-12 col-sm-12">
 	
