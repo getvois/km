@@ -559,56 +559,93 @@ class DefaultController extends Controller
      * @Route("/test/")
      * @param Request $request
      * @return Response
+     * @Template()
      */
     public function testAction(Request $request)
     {
         set_time_limit(0);
+        return [];
+    }
 
-        $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
-        $crawler = new Crawler(file_get_contents('http://travelbird.fi/data/travelwebpartner/all_active_extended.xml', false, $context));
+    /**
+     * @Route("/gbcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
+     * @param Request $request
+     * @param $trLat
+     * @param $trLong
+     * @param $blLat
+     * @param $blLong
+     * @return JsonResponse
+     */
+    public function getbycityboundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
-        $offers = $crawler->filter('offer');
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
 
-        $categories = [];
+        $data = [];
 
-        for($i = 0; $i<$offers->count(); $i++){
-            $offer = $offers->eq($i);
+        foreach ($hotels as $hotel) {
+            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
+            //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
 
-            if($offer->filter('category')->count() > 0){
-                $category = $offer->filter('category')->text();
-                $cats = explode(' ', $category);
-                foreach ($cats as $cat) {
-                    $categories[$cat] = $cat;
-                }
-            }
-        }
-        $transportation = [];
+            $hotelData = [];
+            $hotelData['title'] = $hotel->getTitle();
+            $hotelData['lat'] = $hotel->getLatitude();
+            $hotelData['long'] = $hotel->getLongitude();
 
-        for($i = 0; $i<$offers->count(); $i++){
-            $offer = $offers->eq($i);
-
-            if($offer->filter('transportation')->count() > 0){
-                $category = $offer->filter('transportation')->text();
-                $transportation[$category] = $category;
-            }
-        }
-
-        $included = [];
-
-        for($i = 0; $i<$offers->count(); $i++){
-            $offer = $offers->eq($i);
-
-            if($offer->filter('included')->count() > 0){
-                $category = $offer->filter('included')->text();
-                $included[$category] = $category;
-            }
+            $data[] = $hotelData;
         }
 
-        var_dump($categories);
-        var_dump($transportation);
-        var_dump($included);
+        //$data = array_values($data);
+        return new JsonResponse($data);
+    }
+    /**
+     * @Route("/gbb/{trLat}/{trLong}/{blLat}/{blLong}")
+     * @param Request $request
+     * @param $trLat
+     * @param $trLong
+     * @param $blLat
+     * @param $blLong
+     * @return JsonResponse
+     */
+    public function getbyboundsAction(Request $request, $trLat, $trLong, $blLat, $blLong)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
-        return new Response();
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
+
+        $data = [];
+
+        foreach ($hotels as $hotel) {
+
+            $city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
+
+
+            $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
+
+//            $hotelData = [];
+//            $hotelData['title'] = $hotel->getTitle();
+//            $hotelData['lat'] = $hotel->getLatitude();
+//            $hotelData['long'] = $hotel->getLongitude();
+//
+//            $data[] = $hotelData;
+        }
+
+        $data = array_values($data);
+        return new JsonResponse($data);
+    }
+
+    private function mapHtml($city)
+    {
+        $html = '<a href="#" data-city="' . $city . '" onclick="return loadByCity(this)">' . $city . '</a><br/>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadByCity(this)">hotel</a><br/>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadByCity(this)">activity</a>';
+
+        return $html;
     }
 
     /**
