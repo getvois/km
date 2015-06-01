@@ -54,6 +54,7 @@
             var topRight = bounds.getNorthEast();
             var bottomLeft = bounds.getSouthWest();
 
+            update = false;
             $.get('/app_dev.php/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
                 //console.log(responce);
                 var j;
@@ -154,6 +155,8 @@
                 }
 
                 //console.log(placesCache);
+
+                update = true;
             });
 
 //            console.log(topRight.lat());
