@@ -638,6 +638,45 @@ class DefaultController extends Controller
         return new JsonResponse($data);
     }
 
+
+    public function getHotelsCountByCityBounds(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
+    {
+        $count = 0;
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+
+        /** @var OfferPage[] $offerHotels */
+        $offerHotels = [];
+
+        foreach ($offers as $offer) {
+            foreach ($offer->getCategories() as $category) {
+                if($category->getName() == 'hotel'){
+                    $offerHotels[] = $offer;
+                }
+            }
+        }
+
+        foreach ($hotels as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+            $count++;
+        }
+
+        foreach ($offerHotels as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+            $count++;
+        }
+
+        return $count;
+    }
+
     /**
      * @Route("/gabcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
      * @param Request $request
@@ -693,6 +732,41 @@ class DefaultController extends Controller
         return new JsonResponse($data);
     }
 
+
+    public function getActivitiesCountByCityBounds(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
+    {
+        $count = 0;
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+
+        /** @var OfferPage[] $realOffers */
+        $realOffers = [];
+
+        foreach ($offers as $offer) {
+            $isHotel = false;
+            foreach ($offer->getCategories() as $category) {
+                if($category->getName() == 'hotel'){
+                    $isHotel = true;
+                }
+            }
+
+            if(!$isHotel){
+                $realOffers[] = $offer;
+            }
+        }
+
+        foreach ($realOffers as $offer) {
+            if(!$offer->hasCoordinates()) continue;
+            $count++;
+        }
+
+        return $count;
+    }
+
     /**
      * @Route("/gbb/{trLat}/{trLong}/{blLat}/{blLong}")
      * @param Request $request
@@ -720,7 +794,7 @@ class DefaultController extends Controller
             $city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
 
             if(!array_key_exists($city, $data)){
-                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong)];
+                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request)];
             }
 
 
@@ -734,7 +808,7 @@ class DefaultController extends Controller
 
         foreach ($offers as $offer) {
             if($offer->getCity() && !array_key_exists($offer->getCity(), $data)){
-                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity(), $trLat, $trLong, $blLat, $blLong)];
+                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity(), $trLat, $trLong, $blLat, $blLong, $request)];
             }
         }
 
@@ -742,8 +816,10 @@ class DefaultController extends Controller
         return new JsonResponse($data);
     }
 
-    private function mapHtml($city, $trLat, $trLong, $blLat, $blLong)
+    private function mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request)
     {
+        $activities = $this->getActivitiesCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong);
+        $hotels = $this->getHotelsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong);
 
         $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
 
@@ -761,8 +837,8 @@ class DefaultController extends Controller
 
 
         $html = '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel</a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity</a><br/>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity<span class="badge">'.$activities.'</span></a><br/>';
         $html .= $airbnb;
 
         return $html;
