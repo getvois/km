@@ -831,6 +831,16 @@ class DefaultController extends Controller
             $content = null;
         }
 
+        if($mapZoom < 9){
+
+            $badge = $activities > $hotels? $activities:$hotels;
+            //only bigest badge
+            $html = "<div class='map-window-all-mini'>" . '<span class="badge">'.$badge.'</span>' . "</div>";
+
+            return $html;
+        }
+
+
         if($content){
             $data = json_decode($content);
 
