@@ -47,7 +47,7 @@
             var bottomLeft = bounds.getSouthWest();
 
             update = false;
-            $.get('/app_dev.php/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
+            $.get('/app_dev.php/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + map.getZoom(), function (responce) {
                 //console.log(responce);
                 var j;
                 //clear all markers

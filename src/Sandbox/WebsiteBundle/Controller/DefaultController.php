@@ -772,7 +772,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/gbb/{trLat}/{trLong}/{blLat}/{blLong}")
+     * @Route("/gbb/{trLat}/{trLong}/{blLat}/{blLong}/{mapZoom}")
      * @param Request $request
      * @param $trLat
      * @param $trLong
@@ -780,7 +780,7 @@ class DefaultController extends Controller
      * @param $blLong
      * @return JsonResponse
      */
-    public function getbyboundsAction(Request $request, $trLat, $trLong, $blLat, $blLong)
+    public function getbyboundsAction(Request $request, $trLat, $trLong, $blLat, $blLong, $mapZoom)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -798,7 +798,7 @@ class DefaultController extends Controller
             $city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
 
             if(!array_key_exists($city, $data)){
-                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request)];
+                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
             }
 
 
@@ -812,7 +812,7 @@ class DefaultController extends Controller
 
         foreach ($offers as $offer) {
             if($offer->getCity() && !array_key_exists($offer->getCity(), $data)){
-                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity(), $trLat, $trLong, $blLat, $blLong, $request)];
+                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity(), $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
             }
         }
 
@@ -820,12 +820,16 @@ class DefaultController extends Controller
         return new JsonResponse($data);
     }
 
-    private function mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request)
+    private function mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)
     {
         $activities = $this->getActivitiesCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong);
         $hotels = $this->getHotelsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong);
 
-        $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
+        if($mapZoom > 11){
+            $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
+        }else{
+            $content = null;
+        }
 
         if($content){
             $data = json_decode($content);
