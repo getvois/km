@@ -16,7 +16,7 @@
     var map;
     var markers = [];
     var update = true;
-
+    var markerBounds = new google.maps.LatLngBounds();
     var infoWindows = [];
 
     function initialize() {
@@ -125,6 +125,7 @@
     function backBtn(){
         update = true;
         $('#back-btn').html('');
+        map.fitBounds(markerBounds);
         google.maps.event.trigger(map, 'idle');
 
         if(map.getZoom() > 12){
@@ -156,7 +157,7 @@
 
             markers = [];
 
-            var markerBounds = new google.maps.LatLngBounds();
+            markerBounds = new google.maps.LatLngBounds();
 
             //add markers
             for(i=0; i<responce.length; i++){
@@ -219,7 +220,7 @@
 
             markers = [];
 
-            var markerBounds = new google.maps.LatLngBounds();
+            markerBounds = new google.maps.LatLngBounds();
 
             //add markers
             for(i=0; i<responce.length; i++){
