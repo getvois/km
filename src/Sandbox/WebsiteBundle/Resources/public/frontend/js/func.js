@@ -101,6 +101,7 @@ function getFilter(container){
     }
 
     $depData = $('#departure-dataholder').dataHolder('data');
+    if($depData == undefined) $depData = [];
     for(var i=0;i<$depData.length; i++){
         var $id = $depData[i];
         if($id.toString().indexOf("_") != -1){
