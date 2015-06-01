@@ -86,7 +86,7 @@ input:focus {outline:0;}
     color: white;
     font-size: 16px;
     line-height: 34px;
-    padding: 38px 0 0 28px;
+    padding: 45px 0 0 28px;
     position: absolute;
     top: 0;
     width: 101%;
@@ -114,6 +114,10 @@ input:focus {outline:0;}
 }
 .register-form .form-control{
     width: auto;
+      text-align: center;
+}
+.register-form #name { 
+    margin-bottom:12px;
 }
 .register-form .form-group{
     display: inline;
@@ -123,7 +127,8 @@ input:focus {outline:0;}
     margin:0 2px 0 10px;
 }
 .register-form p.join-count{
-    margin-top:10px;
+    margin:10px auto;
+    line-height:1.3em;
 }
 .datepicker {z-index: 1151 !important;}
 
@@ -486,8 +491,8 @@ main .calendar-page .cal-day-today .events-list {
     color: #333;
     cursor: default;
     line-height: 13px;
-    margin: 3px 0 3px 5px;
-    padding: 3px 0 3px 18px;
+    margin: 5px 0 3px 5px;
+    padding: 3px 0 3px 15px;
     position: relative;
     white-space: nowrap;
     display: inline-block;
@@ -506,11 +511,12 @@ main .calendar-page .cal-day-today .events-list {
 
 .placeholder-item a.placeholder-item-remove{
     cursor:pointer;
-    color: #999;
+    color: #9485F4;
     font-size: 21px;
     display: inline-block;
     line-height: 0;
-    padding: 7px 3px 0 0;       
+    padding:0;
+    /*padding: 7px 3px 0 0;   */    
 }
 
 .placeholder-item a.placeholder-item-remove:before {
@@ -1790,7 +1796,11 @@ span.city-picker-close:hover {
 
 /*MOBILE ONLY*/
 @media (max-width: 768px) {
-    .navbar.navbar-default{
+    .register-form{
+    	padding: 20px 0 0 28px;
+	}
+	
+	.navbar.navbar-default{
         position: absolute;
         width: auto;
         z-index: 100;

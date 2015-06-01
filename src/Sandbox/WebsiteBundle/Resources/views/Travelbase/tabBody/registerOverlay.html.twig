@@ -4,25 +4,18 @@
             <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
 
             <div style="margin:0 auto;display:table;">
-                <span class="pull-left">{{ 'i.am'|trans({}, 'frontend') }}</span>
-                <div  class="form-group pull-left">
-                    <label class="sr-only" for="name">{{ 'write.name'|trans({}, 'frontend') }}:</label>
+                    <label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>
                     <input id="name" type="text" name="name" class="form-control"
-                           placeholder="{{ 'write.name'|trans({}, 'frontend') }}"/>
-                </div>
-                <span class="pull-left">{{ 'and.my.email.is'|trans({}, 'frontend') }}</span>
-                <div class="form-group form-group-email pull-left">
-                    <label class="sr-only" for="email">{{ 'write.email'|trans({}, 'frontend') }}:</label>
+                           placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>
+                    <label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>
                     <input id="email" type="text" name="email" class="form-control"
-                           placeholder="{{ 'write.email'|trans({}, 'frontend') }}"/>
-                </div>
-                <span class="pull-left">.</span>
+                           placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>
 
             </div>
 
             <div class="clear"></div>
             <p class="join-count">
-                {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}.
+                {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}!
             </p>
             <p>
                 <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
