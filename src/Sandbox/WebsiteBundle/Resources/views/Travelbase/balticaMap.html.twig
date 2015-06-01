@@ -126,7 +126,10 @@
         update = true;
         $('#back-btn').html('');
         google.maps.event.trigger(map, 'idle');
-        map.setZoom(12);
+
+        if(map.getZoom() > 12){
+            map.setZoom(12);
+        }
 
         return false;
     }
