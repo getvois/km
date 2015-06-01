@@ -61,7 +61,9 @@
                 {{ host.fbBlock|raw }}
             {% endif %}
 
-            {% block sidebar %}{% endblock %}
+            {% block sidebar %}
+                {% import '@SandboxWebsite/Travelbase/balticaMap.html.twig' %}
+            {% endblock %}
 
         {% endblock %}
     </div>
