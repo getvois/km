@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\AdminBundle\Entity\AbstractEntity;
 
 /**
  * PackageCategory
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sb_package_category")
  * @ORM\Entity
  */
-class PackageCategory extends \Kunstmaan\AdminBundle\Entity\AbstractEntity
+class PackageCategory extends AbstractEntity
 {
     /**
      * @var string

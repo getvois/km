@@ -864,7 +864,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * Get categories
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|PackageCategory[]
      */
     public function getCategories()
     {
@@ -1481,4 +1481,14 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
      * Remove all from places
      */
     public function removeAllFromPlaces(){}
+
+    /**
+     * @return bool
+     */
+    public function hasCoordinates()
+    {
+        if($this->getLatitude() && $this->getLongitude())
+            return true;
+        return false;
+    }
 }

@@ -25,6 +25,16 @@ use Symfony\Component\HttpFoundation\Request;
 class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo //AbstractPage
 {
 
+    /**
+     * @return bool
+     */
+    public function hasCoordinates()
+    {
+        if($this->getLatitude() && $this->getLongitude())
+            return true;
+        return false;
+    }
+    
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         parent::service($container, $request, $context);

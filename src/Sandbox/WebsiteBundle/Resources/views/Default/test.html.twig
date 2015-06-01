@@ -171,14 +171,14 @@
         google.maps.event.trigger(map, 'idle');
     }
 
-    function loadByCity(link){
+    function loadHotelsByCity(link){
         $(link).closest('.gm-style-iw').next().click();
         var bounds = map.getBounds();
 
         var topRight = bounds.getNorthEast();
         var bottomLeft = bounds.getSouthWest();
 
-        $.get('/app_dev.php/gbcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
+        $.get('/app_dev.php/ghbcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
             //console.log(responce);
 
             $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
@@ -202,6 +202,11 @@
                         position: new google.maps.LatLng(hotel.lat, hotel.long),
                         title:"Hello World!"
                     });
+
+                    if(hotel.icon){
+                        marker.setIcon(hotel.icon);
+                    }
+
                     markers.push(marker);
                     marker.setMap(map);
                     google.maps.event.addListener(marker, 'click', (function(marker) {
@@ -218,6 +223,58 @@
         return false;
     }
 
+
+    function loadActivityByCity(link){
+        $(link).closest('.gm-style-iw').next().click();
+        var bounds = map.getBounds();
+
+        var topRight = bounds.getNorthEast();
+        var bottomLeft = bounds.getSouthWest();
+
+        $.get('/app_dev.php/gabcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
+            //console.log(responce);
+
+            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
+
+            //clear all markers
+            for(var j=0; j<markers.length; j++){
+                markers[j].setMap(null);
+            }
+
+            // Display multiple markers on a map
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            markers = [];
+            //add markers
+            for(i=0; i<responce.length; i++){
+                (function(){
+
+                    var hotel = responce[i];
+
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(hotel.lat, hotel.long),
+                        title:"Hello World!"
+                    });
+
+                    if(hotel.icon){
+                        marker.setIcon(hotel.icon);
+                    }
+
+                    markers.push(marker);
+                    marker.setMap(map);
+                    google.maps.event.addListener(marker, 'click', (function(marker) {
+                        return function() {
+                            infoWindow.setContent(hotel.title);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker));
+                })();
+            }
+
+            update = false;
+        });
+        return false;
+    }
 </script>
 </body>
 </html>

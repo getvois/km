@@ -20,6 +20,7 @@ use Sandbox\WebsiteBundle\Entity\HotelImage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
+use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Booking\BookingFormType;
@@ -568,7 +569,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/gbcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
+     * @Route("/ghbcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
      * @param Request $request
      * @param $trLat
      * @param $trLong
@@ -576,19 +577,38 @@ class DefaultController extends Controller
      * @param $blLong
      * @return JsonResponse
      */
-    public function getbycityboundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
+    public function getHotelsByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
             ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+
+        /** @var OfferPage[] $offerHotels */
+        $offerHotels = [];
+
+        foreach ($offers as $offer) {
+            foreach ($offer->getCategories() as $category) {
+                if($category->getName() == 'hotel'){
+                    $offerHotels[] = $offer;
+                }
+            }
+        }
+
 
         $data = [];
 
         foreach ($hotels as $hotel) {
             //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
             //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
+
+            if(!$hotel->hasCoordinates()) continue;
 
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
@@ -598,9 +618,63 @@ class DefaultController extends Controller
             $data[] = $hotelData;
         }
 
+        foreach ($offerHotels as $hotel) {
+            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
+            //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
+
+            if(!$hotel->hasCoordinates()) continue;
+
+            $hotelData = [];
+            $hotelData['title'] = $hotel->getTitle();
+            $hotelData['lat'] = $hotel->getLatitude();
+            $hotelData['long'] = $hotel->getLongitude();
+            $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
+
+            $data[] = $hotelData;
+        }
+
         //$data = array_values($data);
         return new JsonResponse($data);
     }
+
+    /**
+     * @Route("/gabcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
+     * @param Request $request
+     * @param $trLat
+     * @param $trLong
+     * @param $blLat
+     * @param $blLong
+     * @return JsonResponse
+     */
+    public function getActivitiesByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+
+        $data = [];
+
+        foreach ($offers as $offer) {
+            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
+            //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
+
+            if(!$offer->hasCoordinates()) continue;
+
+            $offerData = [];
+            $offerData['title'] = $offer->getTitle() . " " . $offer->getPrice();
+            $offerData['lat'] = $offer->getLatitude();
+            $offerData['long'] = $offer->getLongitude();
+
+            $data[] = $offerData;
+        }
+
+        //$data = array_values($data);
+        return new JsonResponse($data);
+    }
+
     /**
      * @Route("/gbb/{trLat}/{trLong}/{blLat}/{blLong}")
      * @param Request $request
@@ -641,9 +715,9 @@ class DefaultController extends Controller
 
     private function mapHtml($city)
     {
-        $html = '<a href="#" data-city="' . $city . '" onclick="return loadByCity(this)">' . $city . '</a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadByCity(this)">hotel</a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadByCity(this)">activity</a>';
+        $html = '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel</a><br/>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity</a>';
 
         return $html;
     }
