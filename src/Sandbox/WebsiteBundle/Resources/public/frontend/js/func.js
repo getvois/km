@@ -88,7 +88,7 @@ function getFilter(container){
     var $departure = [];
 
     $destData = $('#destination-dataholder').dataHolder('data');
-    if(!$destData) $destData = [];
+    if($destData == undefined) $destData = [];
     for(var i=0;i<$destData.length; i++){
         var $id = $destData[i];
         if($id.toString().indexOf("_") != -1){
