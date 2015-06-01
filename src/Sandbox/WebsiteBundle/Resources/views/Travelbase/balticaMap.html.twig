@@ -126,6 +126,7 @@
         update = true;
         $('#back-btn').html('');
         google.maps.event.trigger(map, 'idle');
+        map.setZoom(12);
     }
 
     function loadHotelsByCity(link){
@@ -182,6 +183,8 @@
                     map.fitBounds(markerBounds);
                 })();
             }
+
+            if(map.getZoom() > 15) map.setZoom(15);
 
             update = false;
         });
@@ -243,6 +246,8 @@
                     map.fitBounds(markerBounds);
                 })();
             }
+
+            if(map.getZoom() > 15) map.setZoom(15);
 
             update = false;
         });
