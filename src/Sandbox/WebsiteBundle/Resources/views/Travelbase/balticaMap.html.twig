@@ -17,10 +17,12 @@
     var markers = [];
     var update = true;
     var infoWindows = [];
-    var markerBounds = new google.maps.LatLngBounds();
+    var markerBounds;
 
     function initialize() {
         var geocoder;
+
+        markerBounds = new google.maps.LatLngBounds();
 
         var bounds = new google.maps.LatLngBounds();
         var mapOptions = {
