@@ -837,8 +837,10 @@ class DefaultController extends Controller
 
 
         $html = '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity<span class="badge">'.$activities.'</span></a><br/>';
+        if($hotels > 0)
+            $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
+        if($activities > 0)
+            $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity<span class="badge">'.$activities.'</span></a><br/>';
         $html .= $airbnb;
 
         return $html;
