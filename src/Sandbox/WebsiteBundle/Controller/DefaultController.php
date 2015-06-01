@@ -692,12 +692,14 @@ class DefaultController extends Controller
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
             ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
+
         $data = [];
 
         foreach ($hotels as $hotel) {
 
             $city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
-
 
             $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
 
@@ -707,6 +709,12 @@ class DefaultController extends Controller
 //            $hotelData['long'] = $hotel->getLongitude();
 //
 //            $data[] = $hotelData;
+        }
+
+        foreach ($offers as $offer) {
+            if($offer->getCity()){
+                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity())];
+            }
         }
 
         $data = array_values($data);
