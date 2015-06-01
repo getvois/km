@@ -615,6 +615,8 @@ class DefaultController extends Controller
             $hotelData['title'] = $hotel->getTitle();
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
+            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+
 
             $data[] = $hotelData;
         }
@@ -630,6 +632,7 @@ class DefaultController extends Controller
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
+            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
 
             $data[] = $hotelData;
         }
@@ -721,9 +724,10 @@ class DefaultController extends Controller
             if(!$offer->hasCoordinates()) continue;
 
             $offerData = [];
-            $offerData['title'] = $offer->getTitle() . " " . $offer->getPrice();
+            $offerData['title'] = $offer->getTitle();
             $offerData['lat'] = $offer->getLatitude();
             $offerData['long'] = $offer->getLongitude();
+            $offerData['html'] = "<div class='map-window-item'>" . $offer->getTitle() . " " . $offer->getPrice() . "</div>";
 
             $data[] = $offerData;
         }
@@ -842,6 +846,8 @@ class DefaultController extends Controller
         if($activities > 0)
             $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity<span class="badge">'.$activities.'</span></a><br/>';
         $html .= $airbnb;
+
+        $html = "<div class='map-window-all'>" . $html . "</div>";
 
         return $html;
     }

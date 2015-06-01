@@ -163,7 +163,7 @@
 
                     marker = new google.maps.Marker({
                         position: position,
-                        title:"Hello World!"
+                        title:""
                     });
 
                     if(hotel.icon){
@@ -174,7 +174,7 @@
                     marker.setMap(map);
                     google.maps.event.addListener(marker, 'click', (function(marker) {
                         return function() {
-                            infoWindow.setContent(hotel.title);
+                            infoWindow.setContent(hotel.html);
                             infoWindow.open(map, marker);
                         }
                     })(marker));
@@ -235,7 +235,7 @@
                     marker.setMap(map);
                     google.maps.event.addListener(marker, 'click', (function(marker) {
                         return function() {
-                            infoWindow.setContent(hotel.title);
+                            infoWindow.setContent(hotel.html);
                             infoWindow.open(map, marker);
                         }
                     })(marker));
