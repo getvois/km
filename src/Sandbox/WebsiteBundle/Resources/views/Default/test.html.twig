@@ -144,8 +144,6 @@
 
 
 
-
-
                 }
 
                 if(map.getZoom() > 11){
@@ -154,19 +152,8 @@
                     $('.airbnb-badge').addClass('hide');
                 }
 
-                //console.log(placesCache);
-
                 update = true;
             });
-
-//            console.log(topRight.lat());
-//            console.log(topRight.lng());
-//            console.log(bottomLeft.lat());
-//            console.log(bottomLeft.lng());
-            //console.log(map.getCenter());
-            //this.setZoom(14);
-
-                //google.maps.event.removeListener(boundsListener);
 
         });
 
@@ -199,14 +186,20 @@
             var infoWindow = new google.maps.InfoWindow(), marker, i;
 
             markers = [];
+
+            var markerBounds = new google.maps.LatLngBounds();
+
             //add markers
             for(i=0; i<responce.length; i++){
                 (function(){
 
                     var hotel = responce[i];
 
+                    var position = new google.maps.LatLng(hotel.lat, hotel.long);
+                    markerBounds.extend(position);
+
                     marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(hotel.lat, hotel.long),
+                        position: position,
                         title:"Hello World!"
                     });
 
@@ -222,6 +215,8 @@
                             infoWindow.open(map, marker);
                         }
                     })(marker));
+
+                    map.fitBounds(markerBounds);
                 })();
             }
 
@@ -252,14 +247,20 @@
             var infoWindow = new google.maps.InfoWindow(), marker, i;
 
             markers = [];
+
+            var markerBounds = new google.maps.LatLngBounds();
+
             //add markers
             for(i=0; i<responce.length; i++){
                 (function(){
 
                     var hotel = responce[i];
 
+                    var position = new google.maps.LatLng(hotel.lat, hotel.long);
+                    markerBounds.extend(position);
+
                     marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(hotel.lat, hotel.long),
+                        position: position,
                         title:"Hello World!"
                     });
 
@@ -275,6 +276,8 @@
                             infoWindow.open(map, marker);
                         }
                     })(marker));
+
+                    map.fitBounds(markerBounds);
                 })();
             }
 
