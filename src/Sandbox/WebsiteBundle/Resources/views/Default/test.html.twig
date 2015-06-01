@@ -56,13 +56,13 @@
 
             $.get('/app_dev.php/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
                 //console.log(responce);
-
+                var j;
                 //clear all markers
-                for(var j=0; j<markers.length; j++){
+                for(j=0; j<markers.length; j++){
                     markers[j].setMap(null);
                 }
                 //clear all infowindows
-                for(var j=0; j<infoWindows.length; j++){
+                for(j=0; j<infoWindows.length; j++){
                     infoWindows[j].close();
                 }
 
@@ -86,7 +86,8 @@
                             //marker.setMap(map);
 
                             var infW = new google.maps.InfoWindow({disableAutoPan: true});
-                            infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
+                            //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
+                            infW.setContent(hotel.html);
                             infW.setPosition(placesCache[hotel.city.toLowerCase()]);
                             infW.open(map);
                             infoWindows.push(infW);
@@ -146,9 +147,11 @@
 
                 }
 
-
-
-
+                if(map.getZoom() > 11){
+                    $('.airbnb-badge').removeClass('hide');
+                }else{
+                    $('.airbnb-badge').addClass('hide');
+                }
 
                 //console.log(placesCache);
             });
@@ -161,6 +164,7 @@
             //this.setZoom(14);
 
                 //google.maps.event.removeListener(boundsListener);
+
         });
 
     }

@@ -24,6 +24,7 @@ use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Booking\BookingFormType;
+use Sandbox\WebsiteBundle\Helper\CurrencyConverter;
 use Sandbox\WebsiteBundle\Helper\FacebookHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -655,9 +656,26 @@ class DefaultController extends Controller
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
             ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
 
-        $data = [];
+        /** @var OfferPage[] $realOffers */
+        $realOffers = [];
 
         foreach ($offers as $offer) {
+            $isHotel = false;
+            foreach ($offer->getCategories() as $category) {
+                if($category->getName() == 'hotel'){
+                    $isHotel = true;
+                }
+            }
+
+            if(!$isHotel){
+                $realOffers[] = $offer;
+            }
+        }
+
+
+        $data = [];
+
+        foreach ($realOffers as $offer) {
             //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
             //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
 
@@ -701,7 +719,10 @@ class DefaultController extends Controller
 
             $city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
 
-            $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
+            if(!array_key_exists($city, $data)){
+                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong)];
+            }
+
 
 //            $hotelData = [];
 //            $hotelData['title'] = $hotel->getTitle();
@@ -712,8 +733,8 @@ class DefaultController extends Controller
         }
 
         foreach ($offers as $offer) {
-            if($offer->getCity()){
-                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity())];
+            if($offer->getCity() && !array_key_exists($offer->getCity(), $data)){
+                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity(), $trLat, $trLong, $blLat, $blLong)];
             }
         }
 
@@ -721,13 +742,43 @@ class DefaultController extends Controller
         return new JsonResponse($data);
     }
 
-    private function mapHtml($city)
+    private function mapHtml($city, $trLat, $trLong, $blLat, $blLong)
     {
+
+        $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
+
+        if($content){
+            $data = json_decode($content);
+
+            $results = $data->visible_results_count;
+            //$price = CurrencyConverter::getPrice("USD", $data->average_price);
+
+            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb <span class="badge airbnb-badge hide">'.$results.'</span></a>';
+
+        }else{
+            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb</a>';
+        }
+
+
         $html = '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
         $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel</a><br/>';
-        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity</a>';
+        $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity</a><br/>';
+        $html .= $airbnb;
 
         return $html;
+    }
+
+    function getSslPage($url) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_REFERER, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 
     /**
