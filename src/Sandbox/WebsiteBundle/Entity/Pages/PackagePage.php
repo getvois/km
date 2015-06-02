@@ -9,6 +9,7 @@ use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\MapCategory;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
@@ -56,6 +57,28 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
 
     }
 
+    /**
+     * @var MapCategory
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")
+     */
+    private $mapCategory;
+
+    /**
+     * @return MapCategory
+     */
+    public function getMapCategory()
+    {
+        return $this->mapCategory;
+    }
+
+    /**
+     * @param MapCategory $mapCategory
+     */
+    public function setMapCategory($mapCategory)
+    {
+        $this->mapCategory = $mapCategory;
+    }
 
     /**
      * @var int

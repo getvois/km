@@ -10,6 +10,7 @@ use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\MapCategory;
 use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\OfferPageAdminType;
@@ -39,6 +40,29 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
         $em->flush();
 
         $context['page'] = $page;
+    }
+
+    /**
+     * @var MapCategory
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")
+     */
+    private $mapCategory;
+
+    /**
+     * @return MapCategory
+     */
+    public function getMapCategory()
+    {
+        return $this->mapCategory;
+    }
+
+    /**
+     * @param MapCategory $mapCategory
+     */
+    public function setMapCategory($mapCategory)
+    {
+        $this->mapCategory = $mapCategory;
     }
 
     /**
