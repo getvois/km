@@ -607,7 +607,7 @@ class DefaultController extends Controller
             if(!$hotel->hasCoordinates()) continue;
 
             if($hotel->getCheapestPackage()){
-                if($hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()){
+                if($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()){
                     $hotelData = [];
                     $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
                     $hotelData['lat'] = $hotel->getLatitude();
@@ -692,7 +692,7 @@ class DefaultController extends Controller
             if(!$hotel->hasCoordinates()) continue;
 
             if($hotel->getCheapestPackage()) {
-                if ($hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()) {
+                if ($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()) {
                     $count++;
                 }
             }
