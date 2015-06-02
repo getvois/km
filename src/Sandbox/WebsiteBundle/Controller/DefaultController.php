@@ -683,16 +683,6 @@ class DefaultController extends Controller
         return new JsonResponse($data);
     }
 
-
-    /**
-     * @Route("/gibcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}/{category}")
-     * @param Request $request
-     * @param $trLat
-     * @param $trLong
-     * @param $blLat
-     * @param $blLong
-     * @return JsonResponse
-     */
     public function getItemsCountByCityBounds(Request $request, $city, $trLat, $trLong, $blLat, $blLong, $category)
     {
         $count = 0;
