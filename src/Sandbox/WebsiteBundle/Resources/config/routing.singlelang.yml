@@ -185,3 +185,7 @@ sandboxwebsitebundle_offerpage_admin_list:
     resource: @SandboxWebsiteBundle/Controller/OfferPageAdminListController.php
     type:     annotation
     prefix:   /admin/offerpage/
+sandboxwebsitebundle_mapcategory_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/MapCategoryAdminListController.php
+    type:     annotation
+    prefix:   /admin/mapcategory/

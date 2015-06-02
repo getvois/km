@@ -199,3 +199,10 @@ sandboxwebsitebundle_offerpage_admin_list:
     prefix:   /{_locale}/admin/offerpage/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_mapcategory_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/MapCategoryAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/mapcategory/
+    requirements:
+         _locale: %requiredlocales%
