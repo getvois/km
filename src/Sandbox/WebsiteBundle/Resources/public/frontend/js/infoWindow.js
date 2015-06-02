@@ -39,10 +39,11 @@ function GenCustomWindow(){
      * would effect positions, to redraw this overlay.
      */
     CustomWindow.prototype.draw = function(){
-        var markerIcon = this.marker.getIcon(),
-            cHeight = this.container.offsetHeight + markerIcon.scaledSize.height + 10,
-            cWidth = this.container.offsetWidth / 2;
-        this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
+        //var markerIcon = this.marker.getIcon(),
+        //    cHeight = this.container.offsetHeight + markerIcon.scaledSize.height + 10,
+        //    cWidth = this.container.offsetWidth / 2;
+        //this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
+        this.position = this.getProjection().fromLatLngToDivPixel(this.marker);
         this.container.style.top = this.position.y - cHeight+'px';
         this.container.style.left = this.position.x - cWidth+'px';
     };
