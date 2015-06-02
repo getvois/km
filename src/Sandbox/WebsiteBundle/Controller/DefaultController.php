@@ -688,6 +688,8 @@ class DefaultController extends Controller
         $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
             ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
+        var_dump(count($companies));
+
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
 
