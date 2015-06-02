@@ -24,6 +24,13 @@ class CompanyTypePageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        $builder->add('latitude');
+        $builder->add('longitude');
+        $builder->add('mapCategory', null, [
+            'multiple' => false,
+            'empty_data'  => null,
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+        ]);
     }
 
     /**

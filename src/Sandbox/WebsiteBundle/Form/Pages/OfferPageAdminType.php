@@ -172,6 +172,11 @@ class OfferPageAdminType extends PageAdminType
 
         $builder->add('originalLanguage');
 
+        $builder->add('mapCategory', null, [
+            'multiple' => false,
+            'empty_data'  => null,
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+        ]);
     }
 
     /**
