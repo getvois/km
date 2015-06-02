@@ -991,6 +991,7 @@ class DefaultController extends Controller
 
         if($mapZoom > 11){
             $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
+            var_dump($content);
         }else{
             $content = null;
         }
