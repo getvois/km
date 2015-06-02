@@ -11,7 +11,9 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\MapCategory;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Entity\PreferredTag;
 use Sandbox\WebsiteBundle\Form\Company\CompanyOverviewPageAdminType;
@@ -31,6 +33,89 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CompanyOverviewPage extends AbstractArticleOverviewPage
 {
+
+    /**
+     * @var MapCategory
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")
+     */
+    private $mapCategory;
+
+    /**
+     * @return MapCategory
+     */
+    public function getMapCategory()
+    {
+        return $this->mapCategory;
+    }
+
+    /**
+     * @param MapCategory $mapCategory
+     */
+    public function setMapCategory($mapCategory)
+    {
+        $this->mapCategory = $mapCategory;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
+     */
+    private $longitude;
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     * @return OfferPage
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     * @return OfferPage
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
 
     /**
      * @var string

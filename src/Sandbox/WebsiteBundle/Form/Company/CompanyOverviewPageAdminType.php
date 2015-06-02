@@ -50,6 +50,14 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
 
         $builder->add('affiliateLink');
 
+        $builder->add('latitude');
+        $builder->add('longitude');
+        $builder->add('mapCategory', null, [
+            'multiple' => false,
+            'empty_data'  => null,
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+        ]);
+
     }
     /**
      * Sets the default options for this type.
