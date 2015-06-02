@@ -44,8 +44,10 @@ function GenCustomWindow(){
         //    cWidth = this.container.offsetWidth / 2;
         //this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
         this.position = this.getProjection().fromLatLngToDivPixel(this.marker);
-        this.container.style.top = this.position.y - cHeight+'px';
-        this.container.style.left = this.position.x - cWidth+'px';
+        //this.container.style.top = this.position.y - cHeight+'px';
+        this.container.style.top = this.position.y +'px';
+        //this.container.style.left = this.position.x - cWidth+'px';
+        this.container.style.left = this.position.x +'px';
     };
     /**
      * If the custom window is not already entirely within the map view, pan the map the minimum amount
