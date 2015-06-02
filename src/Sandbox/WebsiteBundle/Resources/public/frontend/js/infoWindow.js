@@ -133,6 +133,7 @@ function GenCustomWindow(){
     };
     CustomWindow.prototype.setPosition = function(marker){
         this.marker = marker;
+        this.container.setAttribute('data-position', marker);
     };
     return CustomWindow;
 }
