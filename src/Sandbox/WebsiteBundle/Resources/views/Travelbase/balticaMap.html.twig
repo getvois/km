@@ -172,6 +172,10 @@
 
         });
 
+        google.maps.event.addListener(map, 'click', function(e) {
+            console.log(e);
+        });
+
     }
 
     function backBtn(){
@@ -319,8 +323,5 @@
         return false;
     }
 
-    google.maps.event.addListener(marker, 'click', function(e) {
-        console.log(e);
-    });
 
 </script>
