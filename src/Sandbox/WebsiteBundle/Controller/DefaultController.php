@@ -838,7 +838,7 @@ class DefaultController extends Controller
 //            $lat = ($blLat + $trLat) / 2;
 //            $long = ($blLong + $trLong) / 2;
 
-            $html = "<div class='map-window-all-mini'><a href='#' onclick='return zoomMap(9)'>" . '<span class="badge">'.$badge.'</span>' . "</a></div>";
+            $html = "<div class='map-window-all-mini'><a href='#' onclick='return zoomMap(9, this)'>" . '<span class="badge">'.$badge.'</span>' . "</a></div>";
 
             return $html;
         }

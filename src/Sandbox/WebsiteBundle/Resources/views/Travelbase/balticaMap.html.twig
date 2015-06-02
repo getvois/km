@@ -317,9 +317,10 @@
     }
 
 
-    function zoomMap(amount, lat, long){
-        //map.panTo(new google.maps.LatLng(lat, long));
+    function zoomMap(amount, link){
         map.setZoom(amount);
+        var $pos = $(link).closest('.map-info-window').data('position');
+        map.panTo($pos);
         return false;
     }
 
