@@ -2,13 +2,14 @@
 
 namespace Sandbox\WebsiteBundle\Form\Pages;
 
+use Kunstmaan\NodeBundle\Form\PageAdminType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * CompanyTypePageAdminType
  */
-class CompanyTypePageAdminType extends \Kunstmaan\NodeBundle\Form\PageAdminType
+class CompanyTypePageAdminType extends PageAdminType
 {
 
     /**
