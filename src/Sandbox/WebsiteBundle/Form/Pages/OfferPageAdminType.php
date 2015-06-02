@@ -175,7 +175,8 @@ class OfferPageAdminType extends PageAdminType
         $builder->add('mapCategory', null, [
             'multiple' => false,
             'empty_data'  => null,
-            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1),
+            'property' => 'name'
         ]);
     }
 

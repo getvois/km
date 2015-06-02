@@ -1,4 +1,5 @@
 /**
+ * https://github.com/SaneMethod/CGWin
  * Create a custom overlay for our window marker display, extending google.maps.OverlayView.
  * This is somewhat complicated by needing to async load the google.maps api first - thus, we
  * wrap CustomWindow into a closure, and when instantiating CustomWindow, we first execute the closure
