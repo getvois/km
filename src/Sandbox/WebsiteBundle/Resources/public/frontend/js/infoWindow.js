@@ -55,7 +55,8 @@ function GenCustomWindow(){
      */
     CustomWindow.prototype.panToView = function(){
         var position = this.position,
-            latlng = this.marker.getPosition(),
+            //latlng = this.marker.getPosition(),
+            latlng = this.marker,
             top = parseInt(this.container.style.top, 10),
             cHeight = position.y - top,
             cWidth = this.container.offsetWidth / 2,
