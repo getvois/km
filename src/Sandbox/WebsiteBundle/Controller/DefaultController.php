@@ -612,7 +612,7 @@ class DefaultController extends Controller
                     $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
                     $hotelData['lat'] = $hotel->getLatitude();
                     $hotelData['long'] = $hotel->getLongitude();
-                    $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getCheapestPackage()->getTitle() . "</div>";
+                    $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'>" . $hotel->getCheapestPackage()->getMinprice() . "</div>";
                     $data[] = $hotelData;
                 }
             }else{
@@ -633,7 +633,7 @@ class DefaultController extends Controller
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'>" . $hotel->getPrice() . "</div>";
 
             $data[] = $hotelData;
         }
@@ -646,7 +646,7 @@ class DefaultController extends Controller
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'>&nbsp;</div>";
 
             $data[] = $hotelData;
         }

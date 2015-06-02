@@ -360,23 +360,30 @@
                     var position = new google.maps.LatLng(hotel.lat, hotel.long);
                     markerBounds.extend(position);
 
-                    marker = new google.maps.Marker({
-                        position: position,
-                        title:""
-                    });
+                    var infW = new (GenCustomWindow())();
+                    //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
+                    infW.setContent(hotel.html);
+                    infW.setPosition(position);
+                    infW.open(map);
+                    markers.push(infW);
 
-                    if(hotel.icon){
-                        marker.setIcon(hotel.icon);
-                    }
+//                    marker = new google.maps.Marker({
+//                        position: position,
+//                        title:""
+//                    });
+//
+//                    if(hotel.icon){
+//                        marker.setIcon(hotel.icon);
+//                    }
 
-                    markers.push(marker);
-                    marker.setMap(map);
-                    google.maps.event.addListener(marker, 'click', (function(marker) {
-                        return function() {
-                            infoWindow.setContent(hotel.html);
-                            infoWindow.open(map, marker);
-                        }
-                    })(marker));
+//                    markers.push(marker);
+//                    marker.setMap(map);
+//                    google.maps.event.addListener(marker, 'click', (function(marker) {
+//                        return function() {
+//                            infoWindow.setContent(hotel.html);
+//                            infoWindow.open(map, marker);
+//                        }
+//                    })(marker));
 
                     map.fitBounds(markerBounds);
                 })();
