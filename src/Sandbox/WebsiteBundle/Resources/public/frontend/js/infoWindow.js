@@ -133,7 +133,8 @@ function GenCustomWindow(){
     };
     CustomWindow.prototype.setPosition = function(marker){
         this.marker = marker;
-        this.container.setAttribute('data-position', {lat: marker.lat(), lng: marker.lng});
+        this.container.setAttribute('data-lat', marker.lat());
+        this.container.setAttribute('data-lng', marker.lng());
     };
     return CustomWindow;
 }
