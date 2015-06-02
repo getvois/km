@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\AdminBundle\Entity\AbstractEntity;
 
 /**
  * MapCategory
@@ -10,8 +11,31 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sb_map_category")
  * @ORM\Entity
  */
-class MapCategory extends \Kunstmaan\AdminBundle\Entity\AbstractEntity
+class MapCategory extends AbstractEntity
 {
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=512, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
     /**
      * @var string
      *
