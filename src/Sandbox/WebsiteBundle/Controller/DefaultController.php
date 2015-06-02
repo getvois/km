@@ -606,6 +606,16 @@ class DefaultController extends Controller
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
 
+            $found = false;
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getTitle() == $city){
+                    $found = true;
+                    break;
+                }
+            }
+
+            if(!$found) continue;
+
             if($hotel->getCheapestPackage()){
                 if($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()){
                     $hotelData = [];
@@ -628,6 +638,16 @@ class DefaultController extends Controller
         foreach ($offers as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
 
+            $found = false;
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getTitle() == $city){
+                    $found = true;
+                    break;
+                }
+            }
+
+            if(!$found) continue;
+
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
             $hotelData['lat'] = $hotel->getLatitude();
@@ -640,6 +660,16 @@ class DefaultController extends Controller
 
         foreach ($companies as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
+
+            $found = false;
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getTitle() == $city){
+                    $found = true;
+                    break;
+                }
+            }
+
+            if(!$found) continue;
 
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
@@ -691,6 +721,16 @@ class DefaultController extends Controller
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
 
+            $found = false;
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getTitle() == $city){
+                    $found = true;
+                    break;
+                }
+            }
+
+            if(!$found) continue;
+
             if($hotel->getCheapestPackage()) {
                 if ($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()) {
                     $count++;
@@ -700,11 +740,33 @@ class DefaultController extends Controller
 
         foreach ($offers as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
+
+            $found = false;
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getTitle() == $city){
+                    $found = true;
+                    break;
+                }
+            }
+
+            if(!$found) continue;
+
             $count++;
         }
 
+
         foreach ($companies as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
+            $found = false;
+            foreach ($hotel->getPlaces() as $place) {
+                if($place->getTitle() == $city){
+                    $found = true;
+                    break;
+                }
+            }
+
+            if(!$found) continue;
+
             $count++;
         }
         return $count;
@@ -959,7 +1021,11 @@ class DefaultController extends Controller
 
         foreach ($hotels as $hotel) {
 
-            $city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
+            $city = $hotel->getPlaces()->first();
+            if(!$city) continue;
+
+            $city = $city->getTitle();
+            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
 
             if(!array_key_exists($city, $data)){
                 $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
@@ -975,8 +1041,14 @@ class DefaultController extends Controller
         }
 
         foreach ($offers as $offer) {
-            if($offer->getCity() && !array_key_exists($offer->getCity(), $data)){
-                $data[$offer->getCity()] = ['city' => $offer->getCity(), 'html' => $this->mapHtml($offer->getCity(), $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
+
+            $city = $offer->getPlaces()->first();
+            if(!$city) continue;
+
+            $city = $city->getTitle();
+
+            if(!array_key_exists($city, $data)){
+                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
             }
         }
 

@@ -264,7 +264,7 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
         return $this;
     }
     /**
-     * @return PlaceOverviewPage
+     * @return PlaceOverviewPage[]
      */
     public function getPlaces()
     {
