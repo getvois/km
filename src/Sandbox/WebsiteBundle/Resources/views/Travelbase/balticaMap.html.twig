@@ -35,6 +35,7 @@
         padding: 10px;
         box-shadow: 8px 8px 16px #222;
         margin: 30px;
+        max-width: 200px;
     }
 
     .map-window-all-mini {
@@ -312,8 +313,9 @@
     }
 
 
-    function zoomMap(amount){
+    function zoomMap(amount, lat, long){
         map.setZoom(amount);
+        map.setCenter(new google.maps.LatLng(lat, long));
         return false;
     }
 
