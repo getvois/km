@@ -314,8 +314,8 @@
 
 
     function zoomMap(amount, lat, long){
+        map.panTo(new google.maps.LatLng(lat, long));
         map.setZoom(amount);
-        map.setCenter(new google.maps.LatLng(lat, long));
         return false;
     }
 
