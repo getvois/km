@@ -53,6 +53,7 @@ function GenCustomWindow(){
      * necessary to bring the custom info window fully into view.
      */
     CustomWindow.prototype.panToView = function(){
+        return;
         var position = this.position,
             //latlng = this.marker.getPosition(),
             latlng = this.marker,
