@@ -319,8 +319,9 @@
 
     function zoomMap(amount, link){
         map.setZoom(amount);
-        var $pos = $(link).closest('.map-info-window').data('position');
-        map.panTo($pos);
+        var lat = $(link).closest('.map-info-window').data('lat');
+        var lng = $(link).closest('.map-info-window').data('lng');
+        map.panTo({lat: lat, lng: lng});
         return false;
     }
 
