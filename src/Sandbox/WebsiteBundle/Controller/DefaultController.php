@@ -709,11 +709,11 @@ class DefaultController extends Controller
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+            ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
             ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
