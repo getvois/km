@@ -30,6 +30,7 @@ class MapCategoryAdminListConfigurator extends AbstractDoctrineORMAdminListConfi
     public function buildFields()
     {
         $this->addField('name', 'Name', true);
+        $this->addField('image', 'Image', false);
     }
 
     /**
