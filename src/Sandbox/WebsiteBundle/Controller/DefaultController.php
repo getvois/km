@@ -686,7 +686,7 @@ class DefaultController extends Controller
             ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
