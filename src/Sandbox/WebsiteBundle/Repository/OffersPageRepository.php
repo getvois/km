@@ -91,7 +91,7 @@ AND nt.online = 1';
      * @param $blLong
      * @return OfferPage[]
      */
-    public function getOfferPagesByCityBounds($lang, $city, $trLat, $trLong, $blLat, $blLong)
+    public function getOfferPagesByCityBounds($lang, $city, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -110,10 +110,15 @@ AND nt.online = 1';
 
         $dql .= " AND p.city = :city ";
 
+        if($mapCategoryId){
+            $dql .= " AND p.mapCategory = :map ";
+        }
+
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
+        if($mapCategoryId) $query->setParameter(':map', $mapCategoryId);
 
         $query->setParameter(':blLat', $blLat);
         $query->setParameter(':trLat', $trLat);

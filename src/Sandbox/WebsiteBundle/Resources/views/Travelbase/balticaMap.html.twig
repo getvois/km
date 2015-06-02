@@ -327,5 +327,66 @@
         return false;
     }
 
+    function loadItemsByCity(link){
+        $(link).closest('.map-info-window').hide();
+        var bounds = map.getBounds();
+
+        var topRight = bounds.getNorthEast();
+        var bottomLeft = bounds.getSouthWest();
+
+        $.get('/app_dev.php/gibcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + $(link).data('category'), function (responce) {
+            //console.log(responce);
+
+            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
+
+            //clear all markers
+            for(var j=0; j<markers.length; j++){
+                markers[j].setMap(null);
+            }
+
+            // Display multiple markers on a map
+            var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+            markers = [];
+
+            markerBounds = new google.maps.LatLngBounds();
+
+            //add markers
+            for(i=0; i<responce.length; i++){
+                (function(){
+
+                    var hotel = responce[i];
+
+                    var position = new google.maps.LatLng(hotel.lat, hotel.long);
+                    markerBounds.extend(position);
+
+                    marker = new google.maps.Marker({
+                        position: position,
+                        title:""
+                    });
+
+                    if(hotel.icon){
+                        marker.setIcon(hotel.icon);
+                    }
+
+                    markers.push(marker);
+                    marker.setMap(map);
+                    google.maps.event.addListener(marker, 'click', (function(marker) {
+                        return function() {
+                            infoWindow.setContent(hotel.html);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker));
+
+                    map.fitBounds(markerBounds);
+                })();
+            }
+
+            if(map.getZoom() > 15) map.setZoom(15);
+
+            update = false;
+        });
+        return false;
+    }
 
 </script>

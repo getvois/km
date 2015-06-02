@@ -141,6 +141,16 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     }
 
     /**
+     * @return bool
+     */
+    public function hasCoordinates()
+    {
+        if($this->getLatitude() && $this->getLongitude())
+            return true;
+        return false;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="affiliate_link", type="string", length=255, nullable=true)

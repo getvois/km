@@ -570,6 +570,133 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/gibcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}/{category}")
+     * @param Request $request
+     * @param $trLat
+     * @param $trLong
+     * @param $blLat
+     * @param $blLong
+     * @return JsonResponse
+     */
+    public function getItemsByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong, $category)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $mapCategory = $em->getRepository('SandboxWebsiteBundle:MapCategory')
+            ->findOneBy(['name' => $category]);
+
+        if(!$mapCategory){
+            return new JsonResponse([]);
+        }
+
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        $data = [];
+
+        foreach ($hotels as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+
+            $hotelData = [];
+            $hotelData['title'] = $hotel->getTitle();
+            $hotelData['lat'] = $hotel->getLatitude();
+            $hotelData['long'] = $hotel->getLongitude();
+            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+
+
+            $data[] = $hotelData;
+        }
+
+        foreach ($offers as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+
+            $hotelData = [];
+            $hotelData['title'] = $hotel->getTitle();
+            $hotelData['lat'] = $hotel->getLatitude();
+            $hotelData['long'] = $hotel->getLongitude();
+            $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
+            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+
+            $data[] = $hotelData;
+        }
+
+        foreach ($companies as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+
+            $hotelData = [];
+            $hotelData['title'] = $hotel->getTitle();
+            $hotelData['lat'] = $hotel->getLatitude();
+            $hotelData['long'] = $hotel->getLongitude();
+            $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
+            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+
+            $data[] = $hotelData;
+        }
+        return new JsonResponse($data);
+    }
+
+
+    /**
+     * @Route("/gibcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}/{category}")
+     * @param Request $request
+     * @param $trLat
+     * @param $trLong
+     * @param $blLat
+     * @param $blLong
+     * @return JsonResponse
+     */
+    public function getItemsCountByCityBounds(Request $request, $city, $trLat, $trLong, $blLat, $blLong, $category)
+    {
+        $count = 0;
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $mapCategory = $em->getRepository('SandboxWebsiteBundle:MapCategory')
+            ->findOneBy(['name' => $category]);
+
+        if(!$mapCategory){
+            return new JsonResponse([]);
+        }
+
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        foreach ($hotels as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+            $count++;
+        }
+
+        foreach ($offers as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+            $count++;
+        }
+
+        foreach ($companies as $hotel) {
+            if(!$hotel->hasCoordinates()) continue;
+            $count++;
+        }
+        return $count;
+    }
+
+    /**
      * @Route("/ghbcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
      * @param Request $request
      * @param $trLat
@@ -583,13 +710,23 @@ class DefaultController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        $mapCategory = $em->getRepository('SandboxWebsiteBundle:MapCategory')
+            ->findOneBy(['name' => 'hotel']);
+
+        if(!$mapCategory){
+            return new JsonResponse([]);
+        }
+
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
+            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         /** @var OfferPage[] $offerHotels */
         $offerHotels = [];
@@ -637,6 +774,19 @@ class DefaultController extends Controller
             $data[] = $hotelData;
         }
 
+        foreach ($companies as $hotel) {
+
+            if(!$hotel->hasCoordinates()) continue;
+
+            $hotelData = [];
+            $hotelData['title'] = $hotel->getTitle();
+            $hotelData['lat'] = $hotel->getLatitude();
+            $hotelData['long'] = $hotel->getLongitude();
+            $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
+            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+
+            $data[] = $hotelData;
+        }
         //$data = array_values($data);
         return new JsonResponse($data);
     }
@@ -822,8 +972,8 @@ class DefaultController extends Controller
 
     private function mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)
     {
-        $activities = $this->getActivitiesCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong);
-        $hotels = $this->getHotelsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong);
+        $activities = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'offer');
+        $hotels = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'hotel');
 
         if($mapZoom > 11){
             $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
@@ -859,9 +1009,9 @@ class DefaultController extends Controller
 
         $html = '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
         if($hotels > 0)
-            $html .= '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" data-category="hotel" onclick="return loadItemsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
         if($activities > 0)
-            $html .= '<a href="#" data-city="' . $city . '" onclick="return loadActivityByCity(this)">activity<span class="badge">'.$activities.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" data-category="offer" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$activities.'</span></a><br/>';
         $html .= $airbnb;
 
         $html = "<div class='map-window-all'>" . $html . "</div>";
