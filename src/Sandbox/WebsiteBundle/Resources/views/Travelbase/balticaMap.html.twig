@@ -182,11 +182,11 @@
         update = true;
         $('#back-btn').html('');
         map.fitBounds(markerBounds);
-        google.maps.event.trigger(map, 'idle');
 
         if(map.getZoom() > 12){
             map.setZoom(12);
         }
+        google.maps.event.trigger(map, 'idle');
 
         return false;
     }
