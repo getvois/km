@@ -1011,8 +1011,8 @@ class DefaultController extends Controller
         if($content){
             $data = json_decode($content);
 
-            var_dump($data);
             $results = $data->visible_results_count;
+            var_dump($results);
             //$price = CurrencyConverter::getPrice("USD", $data->average_price);
 
             $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb <span class="badge airbnb-badge hide">'.$results.'</span></a>';
