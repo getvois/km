@@ -41,7 +41,7 @@ function GenCustomWindow(){
     CustomWindow.prototype.draw = function(){
         //var markerIcon = this.marker.getIcon();
         //var cHeight = this.container.offsetHeight + markerIcon.scaledSize.height + 10;
-        var cHeight = this.container.offsetHeight + 10;
+        var cHeight = this.container.offsetHeight + 30 + 10;
         var cWidth = this.container.offsetWidth / 2;
         //this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
         this.position = this.getProjection().fromLatLngToDivPixel(this.marker);
