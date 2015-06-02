@@ -35,6 +35,29 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
 {
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=512, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
      * @var MapCategory
      *
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")

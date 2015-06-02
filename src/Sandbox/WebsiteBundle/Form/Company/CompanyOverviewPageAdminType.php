@@ -50,6 +50,7 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
 
         $builder->add('affiliateLink');
 
+        $builder->add('address');
         $builder->add('latitude');
         $builder->add('longitude');
         $builder->add('mapCategory', null, [
