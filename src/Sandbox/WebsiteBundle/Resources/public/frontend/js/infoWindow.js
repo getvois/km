@@ -107,7 +107,7 @@ function GenCustomWindow(){
      * @see CustomWindow.close
      */
     CustomWindow.prototype.onRemove = function(){
-        this.layer.removeChild(this.container);
+        //this.layer.removeChild(this.container);
     };
     /**
      * Sets the contents of this overlay.
