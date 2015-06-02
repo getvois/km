@@ -674,7 +674,7 @@ class DefaultController extends Controller
             ->findOneBy(['name' => $category]);
 
         if(!$mapCategory){
-            return new JsonResponse([]);
+            return 0;
         }
 
         /** @var HotelPage[] $hotels */
@@ -956,6 +956,9 @@ class DefaultController extends Controller
             ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
         $data = [];
+
+        var_dump(count($hotels));
+        var_dump(count($offers));
 
         foreach ($hotels as $hotel) {
 
