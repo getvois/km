@@ -127,5 +127,8 @@ function GenCustomWindow(){
     CustomWindow.prototype.close = function(){
         this.setMap(null);
     };
+    CustomWindow.prototype.setPosition = function(marker){
+        this.marker = marker;
+    };
     return CustomWindow;
 }
