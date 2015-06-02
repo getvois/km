@@ -688,8 +688,6 @@ class DefaultController extends Controller
         $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
             ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
-        var_dump(count($companies));
-
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
 
@@ -990,10 +988,6 @@ class DefaultController extends Controller
     {
         $activities = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'offer');
         $hotels = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'hotel');
-
-        var_dump($activities);
-        var_dump($hotels);
-
 
         if($mapZoom > 11){
             $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
