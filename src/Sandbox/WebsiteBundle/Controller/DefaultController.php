@@ -592,7 +592,7 @@ class DefaultController extends Controller
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
@@ -606,14 +606,23 @@ class DefaultController extends Controller
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
 
-            $hotelData = [];
-            $hotelData['title'] = $hotel->getTitle();
-            $hotelData['lat'] = $hotel->getLatitude();
-            $hotelData['long'] = $hotel->getLongitude();
-            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
-
-
-            $data[] = $hotelData;
+            if($hotel->getCheapestPackage()){
+                if($hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()){
+                    $hotelData = [];
+                    $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
+                    $hotelData['lat'] = $hotel->getLatitude();
+                    $hotelData['long'] = $hotel->getLongitude();
+                    $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getCheapestPackage()->getTitle() . "</div>";
+                    $data[] = $hotelData;
+                }
+            }else{
+//                $hotelData = [];
+//                $hotelData['title'] = $hotel->getTitle();
+//                $hotelData['lat'] = $hotel->getLatitude();
+//                $hotelData['long'] = $hotel->getLongitude();
+//                $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
+//                $data[] = $hotelData;
+            }
         }
 
         foreach ($offers as $hotel) {
@@ -670,7 +679,7 @@ class DefaultController extends Controller
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
@@ -681,7 +690,12 @@ class DefaultController extends Controller
 
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
-            $count++;
+
+            if($hotel->getCheapestPackage()) {
+                if ($hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()) {
+                    $count++;
+                }
+            }
         }
 
         foreach ($offers as $hotel) {
