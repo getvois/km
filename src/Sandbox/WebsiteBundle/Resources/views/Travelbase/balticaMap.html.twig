@@ -192,7 +192,8 @@
     }
 
     function loadHotelsByCity(link){
-        $(link).closest('.gm-style-iw').next().click();
+        //$(link).closest('.gm-style-iw').next().click();
+        $(link).closest('.map-info-window').remove();
         var bounds = map.getBounds();
 
         var topRight = bounds.getNorthEast();
@@ -255,7 +256,8 @@
 
 
     function loadActivityByCity(link){
-        $(link).closest('.gm-style-iw').next().click();
+        //$(link).closest('.gm-style-iw').next().click();
+        $(link).closest('.map-info-window').remove();
         var bounds = map.getBounds();
 
         var topRight = bounds.getNorthEast();
