@@ -835,7 +835,7 @@ class DefaultController extends Controller
 
             $badge = $activities > $hotels? $activities:$hotels;
             //only bigest badge
-            $html = "<div class='map-window-all-mini'>" . '<span class="badge">'.$badge.'</span>' . "</div>";
+            $html = "<div class='map-window-all-mini'><a href='#' onclick='return zoomMap(9)'>" . '<span class="badge">'.$badge.'</span>' . "</a></div>";
 
             return $html;
         }
