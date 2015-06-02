@@ -119,7 +119,7 @@ function GenCustomWindow(){
      * @param {google.maps.Marker} marker
      */
     CustomWindow.prototype.open = function(map, marker){
-        this.marker = marker;
+        //this.marker = marker;
         this.setMap(map);
     };
     /**
