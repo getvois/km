@@ -39,15 +39,14 @@ function GenCustomWindow(){
      * would effect positions, to redraw this overlay.
      */
     CustomWindow.prototype.draw = function(){
-        //var markerIcon = this.marker.getIcon(),
-        //    cHeight = this.container.offsetHeight + markerIcon.scaledSize.height + 10,
-        //    cWidth = this.container.offsetWidth / 2;
+        //var markerIcon = this.marker.getIcon();
+        //var cHeight = this.container.offsetHeight + markerIcon.scaledSize.height + 10;
+        var cHeight = this.container.offsetHeight + 10;
+        var cWidth = this.container.offsetWidth / 2;
         //this.position = this.getProjection().fromLatLngToDivPixel(this.marker.getPosition());
         this.position = this.getProjection().fromLatLngToDivPixel(this.marker);
-        //this.container.style.top = this.position.y - cHeight+'px';
-        this.container.style.top = this.position.y +'px';
-        //this.container.style.left = this.position.x - cWidth+'px';
-        this.container.style.left = this.position.x +'px';
+        this.container.style.top = this.position.y - cHeight+'px';
+        this.container.style.left = this.position.x - cWidth+'px';
     };
     /**
      * If the custom window is not already entirely within the map view, pan the map the minimum amount
