@@ -835,10 +835,10 @@ class DefaultController extends Controller
 
             $badge = $activities > $hotels? $activities:$hotels;
             //only bigest badge
-            $lat = ($blLat + $trLat) / 2;
-            $long = ($blLong + $trLong) / 2;
+//            $lat = ($blLat + $trLat) / 2;
+//            $long = ($blLong + $trLong) / 2;
 
-            $html = "<div class='map-window-all-mini'><a href='#' onclick='return zoomMap(9, $lat, $long)'>" . '<span class="badge">'.$badge.'</span>' . "</a></div>";
+            $html = "<div class='map-window-all-mini'><a href='#' onclick='return zoomMap(9)'>" . '<span class="badge">'.$badge.'</span>' . "</a></div>";
 
             return $html;
         }

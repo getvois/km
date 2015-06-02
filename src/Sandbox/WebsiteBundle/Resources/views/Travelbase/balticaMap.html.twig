@@ -314,9 +314,13 @@
 
 
     function zoomMap(amount, lat, long){
-        map.panTo(new google.maps.LatLng(lat, long));
+        //map.panTo(new google.maps.LatLng(lat, long));
         map.setZoom(amount);
         return false;
     }
+
+    google.maps.event.addListener(marker, 'click', function(e) {
+        console.log(e);
+    });
 
 </script>
