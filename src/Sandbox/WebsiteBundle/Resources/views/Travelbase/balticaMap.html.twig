@@ -135,7 +135,10 @@
                 for(j=0; j<infoWindows.length; j++){
                     infoWindows[j].close();
                 }
-
+                //clear all popups
+                for(j=0; j<popups.length; j++){
+                    popups[j].setMap(null);
+                }
                 // Display multiple markers on a map
                 var infoWindow = new google.maps.InfoWindow(), marker, i;
 
