@@ -30,10 +30,14 @@ function GenCustomWindow(){
     CustomWindow.prototype.onAdd = function(){
         this.layer = this.getPanes().floatPane;
         this.layer.appendChild(this.container);
-        //this.container.getElementsByClassName('map-info-close')[0].addEventListener('click', function(){
-            // Close info window on click
-            //this.close();
-        //}.bind(this), false);
+
+        if(this.container.getElementsByClassName('map-info-close').length > 0){
+            this.container.getElementsByClassName('map-info-close')[0].addEventListener('click', function(){
+                //Close info window on click
+                this.close();
+            }.bind(this), false);
+        }
+
         // Ensure newly opened window is fully in view
         setTimeout(this.panToView.bind(this), 200);
     };
