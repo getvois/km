@@ -618,12 +618,23 @@ class DefaultController extends Controller
 
             if($hotel->getCheapestPackage()){
                 if($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()){
+
+                    /** @var NodeTranslation $translation */
+                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                        ->getNodeTranslationFor($hotel->getCheapestPackage());
+
                     $hotelData = [];
                     $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
                     $hotelData['lat'] = $hotel->getLatitude();
                     $hotelData['long'] = $hotel->getLongitude();
                     $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
-                    $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>text text text text text text text<div class='map-info-close'>x</div></div>";
+                    $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
+                        "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+
+                        . $hotel->getCheapestPackage()->getTitle() .
+                        $hotel->getCheapestPackage()->getMinprice() .
+                        "</a>".
+                        "<div class='map-info-close'>x</div></div>";
 
                     $data[] = $hotelData;
                 }
@@ -650,13 +661,27 @@ class DefaultController extends Controller
 
             if(!$found) continue;
 
+            /** @var NodeTranslation $translation */
+            $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                ->getNodeTranslationFor($hotel);
+
+            $price = $hotel->getPriceEur()?$hotel->getPriceEur():$hotel->getPrice();
+
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
             $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>";
-            $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>text text text text text text text<div class='map-info-close'>x</div></div>";
+            $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
+
+                "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+
+                . $hotel->getTitle() .
+                $price .
+                "</a>".
+
+            "<div class='map-info-close'>x</div></div>";
 
             $data[] = $hotelData;
         }
@@ -674,13 +699,23 @@ class DefaultController extends Controller
 
             if(!$found) continue;
 
+            /** @var NodeTranslation $translation */
+            $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                ->getNodeTranslationFor($hotel);
+
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
             $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'>&nbsp;</div>";
-            $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>text text text text text text text<div class='map-info-close'>x</div></div>";
+            $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
+
+                "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+                . $hotel->getTitle() .
+                "</a>".
+
+            "<div class='map-info-close'>x</div></div>";
 
             $data[] = $hotelData;
         }
