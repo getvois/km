@@ -2,6 +2,16 @@
     <h1>{{ 'last.minute.hotelliveeb.form.header' | trans({}, 'frontend') }}</h1>
 
     <div class="row nomargin travelbase-input-rel">
+
+        <div class="col-md-2 col-xs-6 nopadding form-col select-style">
+            <label for="baltica-hotel">
+                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
+                <select name="baltica-hotel" id="baltica-hotel" class="form-control placeholder" disabled>
+                    <option value="-1" selected="selected">{{ 'package.category'|trans({}, 'frontend') }}</option>
+                </select>
+            </label>
+        </div>
+
         <div class="col-md-2 nopadding form-col select-style">
             <label for="baltica-country">
                 <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
@@ -19,15 +29,6 @@
                 <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-city"></span>
                 <select name="baltica-place" id="baltica-place" class="form-control placeholder" disabled>
                     <option value="-1" selected="selected">{{ 'baltica.city'|trans({}, 'frontend') }}</option>
-                </select>
-            </label>
-        </div>
-
-        <div class="col-md-2 col-xs-6 nopadding form-col select-style">
-            <label for="baltica-hotel">
-                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
-                <select name="baltica-hotel" id="baltica-hotel" class="form-control placeholder" disabled>
-                    <option value="-1" selected="selected">{{ 'package.category'|trans({}, 'frontend') }}</option>
                 </select>
             </label>
         </div>
