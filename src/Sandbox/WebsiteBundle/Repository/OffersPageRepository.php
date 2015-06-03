@@ -114,6 +114,8 @@ AND nt.online = 1';
         $query->setParameter(':date', new \DateTime());
         $objects = $query->getResult();
 
+        if(!$objects) $objects = [];
+
         return $objects;
     }
 

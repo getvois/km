@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\Node;
+use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -233,11 +234,12 @@ class BalticaController extends Controller{
 
         if($hotel && $hotel != -1){
 
-            $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
-                ->getPackagePagesByMapCategory($request->getLocale(), $hotel);
+            $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+                ->getHotelPagesByMapCategory($request->getLocale(), $hotel);
 
             $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
                 ->getOfferPagesByMapCategory($request->getLocale(), $hotel);
+
 //
 //            $hotelPage = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
 //                ->findOneBy(['id' => $hotel]);
@@ -275,9 +277,9 @@ class BalticaController extends Controller{
 
         }else{
 
-            /** @var PackagePage[] $packages */
-            $packages = $em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
-                ->getPackagePages($request->getLocale());
+            /** @var HotelPage[] $packages */
+            $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+                ->getHotelPages($request->getLocale());
 
             $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
                 ->getOfferPages($request->getLocale());
