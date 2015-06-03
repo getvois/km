@@ -83,6 +83,7 @@
     var update = true;
     var infoWindows = [];
     var markerBounds;
+    var popups = [];
 
     function initialize() {
         var geocoder;
@@ -199,6 +200,11 @@
         update = true;
         $('#back-btn').html('');
         map.fitBounds(markerBounds);
+
+        //clear all popups
+        for(var j=0; j<popups.length; j++){
+            popups[j].setMap(null);
+        }
 
         if(map.getZoom() > 12){
             map.setZoom(12);
@@ -426,7 +432,7 @@
         infW.setContent(content);
         infW.setPosition(position);
         infW.open(map);
-
+        popups.push(infW);
         return false;
     });
 
