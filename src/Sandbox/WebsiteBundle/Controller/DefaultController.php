@@ -1156,10 +1156,10 @@ class DefaultController extends Controller
             $results = $data->visible_results_count;
             //$price = CurrencyConverter::getPrice("USD", $data->average_price);
 
-            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb <span class="badge airbnb-badge">'.$results.'</span></a>';
+            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '?af=26886727&c=81202" target="_blank">airbnb <span class="badge airbnb-badge">'.$results.'</span></a>';
 
         }else{
-            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb</a>';
+            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '?af=26886727&c=81202" target="_blank">airbnb</a>';
         }
 
 
