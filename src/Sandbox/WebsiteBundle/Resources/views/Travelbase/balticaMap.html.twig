@@ -363,6 +363,11 @@
     }
 
     function loadItemsByCity(link){
+        //clear all popups
+        for(var j=0; j<popups.length; j++){
+            popups[j].setMap(null);
+        }
+
         $(link).closest('.map-info-window').hide();
         var bounds = map.getBounds();
 
