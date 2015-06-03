@@ -13,6 +13,7 @@ use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\TranslatorBundle\Entity\Translation;
 use Kunstmaan\UtilitiesBundle\Helper\Slugifier;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Form\BookingForm;
 use Sandbox\WebsiteBundle\Entity\Form\Passenger;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
@@ -1042,6 +1043,9 @@ class DefaultController extends Controller
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
             ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
+
         $data = [];
 
         foreach ($hotels as $hotel) {
@@ -1077,8 +1081,50 @@ class DefaultController extends Controller
             }
         }
 
+        foreach ($companies as $company) {
+            if(!$company->hasCoordinates()) continue;
+            if(!$company->getMapCategory()) continue;
+
+            $data[$company->getTitle()] = $this->companyData($company);
+
+        }
+
+
         $data = array_values($data);
         return new JsonResponse($data);
+    }
+
+    function companyData(CompanyOverviewPage $company){
+        $data =
+        [
+            'city' => null,
+            'lat' => $company->getLatitude(),
+            'long' => $company->getLongitude(),
+        ];
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var NodeTranslation $translation */
+        $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+            ->getNodeTranslationFor($company);
+
+
+        $mapCategory = $company->getMapCategory();
+        $category = $mapCategory->getName();
+        $bg = $mapCategory->getImage();
+
+
+        $data['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url($bg)'><a href='#' class='map-popup'>C</a></div>";
+        $data['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
+
+            "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+            . $company->getTitle() .
+            "</a>".
+
+            "<div class='map-info-close'>x</div></div>";
+
+        return $data;
     }
 
     private function mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)
