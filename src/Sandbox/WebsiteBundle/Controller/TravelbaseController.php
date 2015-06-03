@@ -463,7 +463,14 @@ class TravelbaseController extends Controller
             }
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('SandboxWebsiteBundle:MapCategory')
+            ->findAll();
+
+        if(!$categories) $categories = [];
+
         $context['countries'] = $countries;
+        $context['categories'] = $categories;
 
         return $context;
     }

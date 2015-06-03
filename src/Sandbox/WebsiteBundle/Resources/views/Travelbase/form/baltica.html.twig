@@ -8,6 +8,9 @@
                 <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
                 <select name="baltica-hotel" id="baltica-hotel" class="form-control placeholder" disabled>
                     <option value="-1" selected="selected">{{ 'package.category'|trans({}, 'frontend') }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
                 </select>
             </label>
         </div>
