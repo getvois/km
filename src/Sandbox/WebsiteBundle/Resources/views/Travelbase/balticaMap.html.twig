@@ -147,7 +147,9 @@
 
                         var hotel = responce[i];
 
-                        if(placesCache[hotel.city.toLowerCase()] != undefined){
+                        if(hotel.city == null){
+
+                        }else if(placesCache[hotel.city.toLowerCase()] != undefined){
 
                             //var infW = new google.maps.InfoWindow({disableAutoPan: true});
                             var infW = new (GenCustomWindow())();
