@@ -430,6 +430,11 @@
     }
 
     $('#map_wrapper').on('click', ".map-popup", function () {
+        //clear all popups
+        for(var j=0; j<popups.length; j++){
+            popups[j].setMap(null);
+        }
+
         var content = $(this).closest(".map-info-window").data('popup');
 
         var lat = $(this).closest('.map-info-window').data('lat');
