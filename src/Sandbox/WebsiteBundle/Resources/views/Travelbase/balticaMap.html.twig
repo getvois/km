@@ -419,7 +419,7 @@
 
         var lat = $(this).closest('.map-info-window').data('lat');
         var lng = $(this).closest('.map-info-window').data('lng');
-        var position = new google.maps.LatLng(lat, lng);
+        var position = new google.maps.LatLng(lat - 0.2, lng);
 
         var infW = new (GenCustomWindow())();
         //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
