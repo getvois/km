@@ -148,7 +148,13 @@
                         var hotel = responce[i];
 
                         if(hotel.city == null){
-
+                            var infW = new (GenCustomWindow())();
+                            //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
+                            infW.setContent(hotel.html);
+                            infW.setPopup(hotel.popup);
+                            infW.setPosition(new google.maps.LatLng(hotel.lat, hotel.long));
+                            infW.open(map);
+                            infoWindows.push(infW);
                         }else if(placesCache[hotel.city.toLowerCase()] != undefined){
 
                             //var infW = new google.maps.InfoWindow({disableAutoPan: true});
