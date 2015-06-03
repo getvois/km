@@ -11,6 +11,7 @@ use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
+use Sandbox\WebsiteBundle\Entity\MapCategory;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\HotelPageAdminType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,6 +25,29 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo //AbstractPage
 {
+
+    /**
+     * @var MapCategory
+     *
+     * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")
+     */
+    private $mapCategory;
+
+    /**
+     * @return MapCategory
+     */
+    public function getMapCategory()
+    {
+        return $this->mapCategory;
+    }
+
+    /**
+     * @param MapCategory $mapCategory
+     */
+    public function setMapCategory($mapCategory)
+    {
+        $this->mapCategory = $mapCategory;
+    }
 
     /**
      * @return bool

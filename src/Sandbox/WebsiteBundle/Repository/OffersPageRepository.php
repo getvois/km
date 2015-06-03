@@ -78,6 +78,42 @@ AND nt.online = 1';
         $query->setParameter(':date', new \DateTime());
         $objects = $query->getResult();
 
+        if(!$objects) $objects = [];
+
+        return $objects;
+    }
+
+    public function getOfferPagesByMapCategory($lang, $mapCategoryId, $originalLang = null)
+    {
+        $dql = "SELECT p
+FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
+INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
+INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node";
+
+        $dql .= ' WHERE n.deleted = 0
+        AND n.hiddenFromNav = 0
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\OfferPage\'
+AND nt.online = 1';
+
+
+        if ($lang) $dql .= " AND nt.lang = :lang ";
+        if($originalLang) $dql .= ' AND p.originalLanguage = :originalLang ';
+
+        $dql .= ' AND p.expirationDate >= :date ';
+
+        $dql .= ' AND p.mapCategory = :map';
+
+        $dql .= ' ORDER BY p.price ASC ';
+
+        $query = $this->_em->createQuery($dql);
+        if($lang) $query->setParameter(':lang', $lang);
+        $query->setParameter(':map', $mapCategoryId);
+        if($originalLang) $query->setParameter(':originalLang', $originalLang);
+
+        $query->setParameter(':date', new \DateTime());
+        $objects = $query->getResult();
+
         return $objects;
     }
 
@@ -190,7 +226,7 @@ AND nt.online = 1';
      * @param $blLong
      * @return OfferPage[]
      */
-    public function getOfferPagesByBounds($lang, $trLat, $trLong, $blLat, $blLong)
+    public function getOfferPagesByBounds($lang, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -207,10 +243,15 @@ AND nt.online = 1';
         $dql .= " AND (p.latitude >= :blLat AND p.latitude <= :trLat) ";
         $dql .= " AND (p.longitude >= :blLong AND p.longitude <= :trLong) ";
 
+        if($mapCategoryId){
+            $dql .= " AND p.mapCategory = :map ";
+        }
+
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
+        if($mapCategoryId) $query->setParameter(':map', $mapCategoryId);
 
         $query->setParameter(':blLat', $blLat);
         $query->setParameter(':trLat', $trLat);

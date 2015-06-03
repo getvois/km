@@ -62,7 +62,7 @@ AND nt.online = 1';
      * @param $blLong
      * @return \Sandbox\WebsiteBundle\Entity\Pages\HotelPage[]
      */
-    public function getHotelPagesByBounds($lang, $trLat, $trLong, $blLat, $blLong)
+    public function getHotelPagesByBounds($lang, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\HotelPage p
@@ -79,11 +79,16 @@ AND nt.online = 1';
         $dql .= " AND (p.latitude >= :blLat AND p.latitude <= :trLat) ";
         $dql .= " AND (p.longitude >= :blLong AND p.longitude <= :trLong) ";
 
+        if($mapCategoryId){
+            $dql .= " AND p.mapCategory = :map ";
+        }
+
         if ($lang) $dql .= " AND nt.lang = :lang ";
         $dql .= ' ORDER BY p.date DESC ';
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
+        if($mapCategoryId) $query->setParameter(':map', $mapCategoryId);
 
         $query->setParameter(':blLat', $blLat);
         $query->setParameter(':trLat', $trLat);

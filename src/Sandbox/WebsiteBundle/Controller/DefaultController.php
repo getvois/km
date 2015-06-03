@@ -593,7 +593,7 @@ class DefaultController extends Controller
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
+            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
@@ -618,27 +618,24 @@ class DefaultController extends Controller
             if(!$found) continue;
 
             if($hotel->getCheapestPackage()){
-                if($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()){
+                /** @var NodeTranslation $translation */
+                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                    ->getNodeTranslationFor($hotel->getCheapestPackage());
 
-                    /** @var NodeTranslation $translation */
-                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
-                        ->getNodeTranslationFor($hotel->getCheapestPackage());
+                $hotelData = [];
+                $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
+                $hotelData['lat'] = $hotel->getLatitude();
+                $hotelData['long'] = $hotel->getLongitude();
+                $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
+                $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
+                    "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
 
-                    $hotelData = [];
-                    $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
-                    $hotelData['lat'] = $hotel->getLatitude();
-                    $hotelData['long'] = $hotel->getLongitude();
-                    $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
-                    $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
-                        "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+                    . $hotel->getCheapestPackage()->getTitle() .
+                    $hotel->getCheapestPackage()->getMinprice() .
+                    "</a>".
+                    "<div class='map-info-close'>x</div></div>";
 
-                        . $hotel->getCheapestPackage()->getTitle() .
-                        $hotel->getCheapestPackage()->getMinprice() .
-                        "</a>".
-                        "<div class='map-info-close'>x</div></div>";
-
-                    $data[] = $hotelData;
-                }
+                $data[] = $hotelData;
             }else{
 //                $hotelData = [];
 //                $hotelData['title'] = $hotel->getTitle();
