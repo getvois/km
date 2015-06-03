@@ -622,7 +622,7 @@ class DefaultController extends Controller
                     $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
                     $hotelData['lat'] = $hotel->getLatitude();
                     $hotelData['long'] = $hotel->getLongitude();
-                    $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
+                    $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
                     $hotelData['popup'] = 'hello';
 
                     $data[] = $hotelData;
@@ -655,7 +655,7 @@ class DefaultController extends Controller
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#'>" . (int)$hotel->getPrice() . "</a></div>";
+            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>";
             $hotelData['popup'] = 'hello';
 
             $data[] = $hotelData;

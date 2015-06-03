@@ -399,9 +399,30 @@
 
             if(map.getZoom() > 15) map.setZoom(15);
 
+            addPopupListeners();
+
             update = false;
         });
         return false;
+    }
+
+    function addPopupListeners(){
+        $(".map-popup").click(function () {
+
+            var content = $(this).closest(".map-info-window").data('popup');
+
+            var lat = $(this).closest('.map-info-window').data('lat');
+            var lng = $(this).closest('.map-info-window').data('lng');
+            var position = {lat: lat, lng: lng};
+
+            var infW = new (GenCustomWindow())();
+            //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
+            infW.setContent(content);
+            infW.setPosition(position);
+            infW.open(map);
+
+            return false;
+        });
     }
 
 </script>
