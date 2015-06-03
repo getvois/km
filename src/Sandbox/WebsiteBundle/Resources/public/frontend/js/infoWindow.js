@@ -14,6 +14,8 @@ function GenCustomWindow(){
         this.layer = null;
         this.marker = null;
         this.position = null;
+        this.popup = document.createElement('div');
+        this.popup.classList.add('map-popup-window');
     };
     /**
      * Inherit from OverlayView
@@ -116,6 +118,14 @@ function GenCustomWindow(){
      */
     CustomWindow.prototype.setContent = function(html){
         this.container.innerHTML = html;
+    };
+    /**
+     * Sets the contents of this overlay.
+     * @param {string} html
+     */
+    CustomWindow.prototype.setPopup = function(html){
+        this.popup.innerHTML = html;
+        this.container.setAttribute('data-popup', html);
     };
     /**
      * Sets the map and relevant marker for this overlay.

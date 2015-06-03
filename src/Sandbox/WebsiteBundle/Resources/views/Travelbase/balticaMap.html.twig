@@ -370,6 +370,7 @@
                     var infW = new (GenCustomWindow())();
                     //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
                     infW.setContent(hotel.html);
+                    infW.setPopup(hotel.popup);
                     infW.setPosition(position);
                     infW.open(map);
                     markers.push(infW);
