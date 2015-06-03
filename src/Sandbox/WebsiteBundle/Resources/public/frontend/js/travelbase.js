@@ -129,7 +129,7 @@ $(document).ready(function() {
                 $('#baltica-place').html(responce).attr('disabled', false);
             });
         }else{
-            $('#baltica-hotel').attr('disabled', true).val('-1');
+            //$('#baltica-hotel').attr('disabled', true).val('-1');
         }
     });
 
@@ -143,15 +143,15 @@ $(document).ready(function() {
         }
     });
 
-    $('#baltica-place').change(function () {
-        var $placeId = $(this).val();
-        $('#baltica-hotel').attr('disabled', true).val('-1');
-        if($placeId != -1){
-            $.get('/baltica-package-category/' + $placeId, function (responce) {
-                $('#baltica-hotel').html(responce).attr('disabled', false);
-            });
-        }
-    });
+    //$('#baltica-place').change(function () {
+    //    var $placeId = $(this).val();
+    //    $('#baltica-hotel').attr('disabled', true).val('-1');
+    //    if($placeId != -1){
+    //        $.get('/baltica-package-category/' + $placeId, function (responce) {
+    //            $('#baltica-hotel').html(responce).attr('disabled', false);
+    //        });
+    //    }
+    //});
 
     $('#hotel-filter').click(function () {
         $(this).addClass('disabled');
