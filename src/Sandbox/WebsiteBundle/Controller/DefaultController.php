@@ -1048,6 +1048,14 @@ class DefaultController extends Controller
 
         $data = [];
 
+        foreach ($companies as $company) {
+            if(!$company->hasCoordinates()) continue;
+            if(!$company->getMapCategory()) continue;
+
+            $data[$company->getTitle()] = $this->companyData($company);
+
+        }
+
         foreach ($hotels as $hotel) {
 
             $city = $hotel->getPlaces()->first();
@@ -1080,15 +1088,6 @@ class DefaultController extends Controller
                 $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
             }
         }
-
-        foreach ($companies as $company) {
-            if(!$company->hasCoordinates()) continue;
-            if(!$company->getMapCategory()) continue;
-
-            $data[$company->getTitle()] = $this->companyData($company);
-
-        }
-
 
         $data = array_values($data);
         return new JsonResponse($data);
