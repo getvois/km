@@ -114,7 +114,7 @@
             var bottomLeft = bounds.getSouthWest();
 
             update = false;
-            $.get('/app_dev.php/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + map.getZoom(), function (responce) {
+            $.get('/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + map.getZoom(), function (responce) {
                 //console.log(responce);
                 var j;
                 //clear all markers
@@ -216,7 +216,7 @@
         var topRight = bounds.getNorthEast();
         var bottomLeft = bounds.getSouthWest();
 
-        $.get('/app_dev.php/ghbcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
+        $.get('/ghbcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
             //console.log(responce);
 
             $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
@@ -280,7 +280,7 @@
         var topRight = bounds.getNorthEast();
         var bottomLeft = bounds.getSouthWest();
 
-        $.get('/app_dev.php/gabcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
+        $.get('/gabcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
             //console.log(responce);
 
             $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
@@ -351,7 +351,7 @@
         var topRight = bounds.getNorthEast();
         var bottomLeft = bounds.getSouthWest();
 
-        $.get('/app_dev.php/gibcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + $(link).data('category'), function (responce) {
+        $.get('/gibcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + $(link).data('category'), function (responce) {
             //console.log(responce);
 
             $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
