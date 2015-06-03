@@ -704,7 +704,7 @@ class DefaultController extends Controller
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'>&nbsp;</div>";
+            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>C</a></div>";
             $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
 
                 "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
