@@ -1127,6 +1127,9 @@ class DefaultController extends Controller
     {
         $activities = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'offer');
         $hotels = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'hotel');
+        $spa = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'spa');
+        $castle = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'castle');
+        $themePark = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'themepark');
 
         if($mapZoom > 11){
             $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
@@ -1165,6 +1168,12 @@ class DefaultController extends Controller
             $html .= '<a href="#" data-city="' . $city . '" data-category="hotel" onclick="return loadItemsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
         if($activities > 0)
             $html .= '<a href="#" data-city="' . $city . '" data-category="offer" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$activities.'</span></a><br/>';
+        if($spa > 0)
+            $html .= '<a href="#" data-city="' . $city . '" data-category="spa" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$spa.'</span></a><br/>';
+        if($castle > 0)
+            $html .= '<a href="#" data-city="' . $city . '" data-category="castle" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$castle.'</span></a><br/>';
+        if($themePark > 0)
+            $html .= '<a href="#" data-city="' . $city . '" data-category="themepark" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$themePark.'</span></a><br/>';
         $html .= $airbnb;
 
         $html = "<div class='map-window-all'>" . $html . "</div>";
