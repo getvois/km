@@ -661,10 +661,6 @@ class DefaultController extends Controller
 
             if(!$found) continue;
 
-            /** @var NodeTranslation $translation */
-            $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
-                ->getNodeTranslationFor($hotel);
-
             $price = $hotel->getPriceEur()?$hotel->getPriceEur():$hotel->getPrice();
 
             $hotelData = [];
@@ -675,7 +671,7 @@ class DefaultController extends Controller
             $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>";
             $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
 
-                "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+                "<a href='" . $hotel->getAbsoluteUrl() . "'>"
 
                 . $hotel->getTitle() .
                 $price .
