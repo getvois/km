@@ -732,7 +732,7 @@ class DefaultController extends Controller
 
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
+            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
@@ -755,9 +755,7 @@ class DefaultController extends Controller
             if(!$found) continue;
 
             if($hotel->getCheapestPackage()) {
-                if ($hotel->getCheapestPackage()->getMapCategory() && $hotel->getCheapestPackage()->getMapCategory()->getId() == $mapCategory->getId()) {
-                    $count++;
-                }
+                $count++;
             }
         }
 
@@ -1169,11 +1167,11 @@ class DefaultController extends Controller
         if($activities > 0)
             $html .= '<a href="#" data-city="' . $city . '" data-category="offer" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$activities.'</span></a><br/>';
         if($spa > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="spa" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$spa.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" data-category="spa" onclick="return loadItemsByCity(this)">spa<span class="badge">'.$spa.'</span></a><br/>';
         if($castle > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="castle" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$castle.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" data-category="castle" onclick="return loadItemsByCity(this)">castle<span class="badge">'.$castle.'</span></a><br/>';
         if($themePark > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="themepark" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$themePark.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" data-category="themepark" onclick="return loadItemsByCity(this)">themepark<span class="badge">'.$themePark.'</span></a><br/>';
         $html .= $airbnb;
 
         $html = "<div class='map-window-all'>" . $html . "</div>";
