@@ -29,14 +29,16 @@
 
                 <form action="{{ path('register_action') }}" method="post">
 
-                    <div style="margin:0 auto;display:table;">
+                    <div class="form-group">
                         <label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>
                         <input id="name" type="text" name="name" class="form-control"
                                placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>
+                    </div>
+
+                    <div class="form-group">
                         <label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>
                         <input id="email" type="text" name="email" class="form-control"
                                placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>
-
                     </div>
 
                     <div class="clear"></div>
