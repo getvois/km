@@ -434,10 +434,10 @@ $(document).ready(function() {
     //$container.html("");
     //loadMoreOffers();
 
-    $("#show-club-tab").click(function () {
-        $('#club-tab').tab('show');
-        return false;
-    });
+    //$("#show-club-tab").click(function () {
+    //    $('#club-tab').tab('show');
+    //    return false;
+    //});
 
     $("#open-user-tab").click(function () {
         $('#user-tab').tab('show');
