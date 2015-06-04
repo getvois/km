@@ -89,6 +89,7 @@ input:focus {outline:0;}
     padding: 45px 0 0 28px;
     position: absolute;
     top: 0;
+    z-index:2;
     width: 101%;
     height: 100%;
 }
@@ -637,7 +638,7 @@ select {
 
 /* sidebar */
 
-.clubbar {
+.clubbar, .comments-row h4 {
   background:-moz-linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
     /*noinspection CssOverwrittenProperties*/
     background:-webkit-linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
@@ -646,12 +647,13 @@ select {
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000')"; /* IE8+ */
     /*noinspection CssUnknownProperty*/
     -pie-background:linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
+}
+.clubbar {
   color: #fff;
   padding: 20px;
   margin-bottom: 20px;
   margin-top: -45px;
 }
-
 .sidebar {
 	padding-bottom:30px;
 }
@@ -1276,6 +1278,10 @@ label.directFlight-label,  label.sameDay-label {
     z-index: 1;
     min-height: 200px;
 }
+#lowcost .loading {
+    top:0;
+    padding-top:15px;
+}
 .loading-message{
     text-align: center;
     margin: 45px 20px 20px;
@@ -1349,6 +1355,12 @@ span.price-inc {font-size: 14px;}
 .tabs-packages h4 {
     font-weight:700;
 }
+
+.package-terms {
+    font-size:11px;
+    font-color:#555;
+}
+
 .icon-translate { 
 	font-size:11px;
 	padding: 5px;
@@ -1364,21 +1376,34 @@ span.price-inc {font-size: 14px;}
   padding: 6px 10px;
   font-weight: 700;
 }
+
+.autotranslate {
+  font-size: 11px;
+  border: 1px solid #888;
+  display: inline-block;
+  padding: 0 10px;
+  color: #fefefe;
+  border-radius: 14px;
+  background-color: #999;
+}
+.translate-flag {
+	padding: 5px 0 0 5px;
+}
 /* COMMENTS ROW */
 
 .comments-row  { 
   padding-top:15px;
 }
 .comments-row .col-md-12  { 
-	border-top: 3px solid #337ab7;
+	border-top: 3px solid #444;
 }
   
 .comments-row h4  { 
   padding: 15px;
   color: #fff;
   display: inline-block;
-  background: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
 }
+
 /*DATE PICKER STUFF*/
 
 .datepick {
@@ -1569,6 +1594,9 @@ span.price-inc {font-size: 14px;}
 #dropdown-company .city-list ul li a.company-list-title {
     font-weight:bold;
     font-size:22px;
+}
+#dropdown-company .city-list ul li .company-type {
+    padding: 10px 80px 20px 0;
 }
 .city-picker li{
     list-style-type: none;

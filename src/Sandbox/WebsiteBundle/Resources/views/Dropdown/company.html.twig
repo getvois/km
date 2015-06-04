@@ -16,7 +16,7 @@
                     {% endif %}
 
                     {% if company['parent'].url %}
-                        <div><img src="{{ asset(company['parent'].url) }}" alt="" class="img-responsive"/></div>
+                        <div class="company-type"><img src="{{ asset(company['parent'].url) }}" alt="" class="img-responsive"/></div>
                     {% endif %}
 
                     <a class="company-list-title" href="{{ path('_slug', { 'url': root.slug ~ "/" ~ company['parent'].slug }) }}">{{ company['parent'].title }}</a>
