@@ -7,7 +7,7 @@
 
     <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'Logout'|trans({}, 'frontend') }}</a>
 {% else %}
-    <h3><a id="show-club-tab" href="#">{{ 'subscribe.now'|trans({}, 'frontend') }}</a></h3>
+    <h3><a id="show-club-tab----" href="#" data-toggle="modal" data-target="#modal-registration">{{ 'subscribe.now'|trans({}, 'frontend') }}</a></h3>
     <p>{{ 'subscribe.now.text'|trans({}, 'frontend') }}</p>
 	
 		<form action="{{ path('login_action') }}" method="post">
