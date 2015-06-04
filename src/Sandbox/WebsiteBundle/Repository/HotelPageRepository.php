@@ -199,14 +199,14 @@ AND nt.online = 1';
     public function getHotelPagesByMapCategory($lang, $mapCategoryId)
     {
         $dql = "SELECT p
-FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
+FROM Sandbox\WebsiteBundle\Entity\Pages\HotelPage p
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeVersion nv WITH nv.refId = p.id
 INNER JOIN Kunstmaan\NodeBundle\Entity\NodeTranslation nt WITH nt.publicNodeVersion = nv.id and nt.id = nv.nodeTranslation
 INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node";
 
         $dql .= ' WHERE n.deleted = 0
         AND n.hiddenFromNav = 0
-AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\OfferPage\'
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\HotelPage\'
 AND nt.online = 1';
 
 
