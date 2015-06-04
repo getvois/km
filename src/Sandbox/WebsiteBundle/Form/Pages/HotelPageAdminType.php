@@ -27,8 +27,8 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
         // ['label_attr' => ['style' => 'font-weight:bold;']]
         //parent::buildForm($builder, $options);
         $builder->add('id', 'hidden');
-        $builder->add('title', null, array('label' => 'Name', ['label_attr' => ['style' => 'font-weight:bold;']]));
-        $builder->add('pageTitle', null, [['label_attr' => ['style' => 'font-weight:bold;']]]);
+        $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
+        $builder->add('pageTitle', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add(
             'date',
@@ -41,7 +41,7 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
             ),
             ['label_attr' => ['style' => 'font-weight:bold;']]
         );
-        $builder->add('summary', null, [['label_attr' => ['style' => 'font-weight:bold;']]]);
+        $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('hotelId', 'integer', array(
             'required' => false,
