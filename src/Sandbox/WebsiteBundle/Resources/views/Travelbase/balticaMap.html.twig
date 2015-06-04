@@ -288,7 +288,7 @@
         $.get('/ghbcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
             //console.log(responce);
 
-            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-default btn-lg'> back </a>");
+            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
 
             //clear all markers
             for(var j=0; j<markers.length; j++){
