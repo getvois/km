@@ -24,9 +24,28 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        // ['label_attr' => ['style' => 'font-weight:bold;']]
+        //parent::buildForm($builder, $options);
+        $builder->add('id', 'hidden');
+        $builder->add('title', null, array('label' => 'Name', ['label_attr' => ['style' => 'font-weight:bold;']]));
+        $builder->add('pageTitle', null, [['label_attr' => ['style' => 'font-weight:bold;']]]);
+
+        $builder->add(
+            'date',
+            'datetime',
+            array(
+                'required' => true,
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'date_format' => 'dd/MM/yyyy'
+            ),
+            ['label_attr' => ['style' => 'font-weight:bold;']]
+        );
+        $builder->add('summary', null, [['label_attr' => ['style' => 'font-weight:bold;']]]);
+
         $builder->add('hotelId', 'integer', array(
             'required' => false,
+            'label_attr' => ['style' => 'font-weight:bold;']
         ));
 
         $builder->add('criterias', 'entity', array(
@@ -35,16 +54,30 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
             'expanded' => false,
             'multiple' => true,
             'required' => false,
-            'attr' => array('class' => 'chzn-select')
+            'attr' => array('class' => 'chzn-select'),
+            'label_attr' => ['style' => 'font-weight:bold;']
         ));
 
-        $builder->add('www');
-        $builder->add('places', 'place');
+        $builder->add('places', 'place', ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add('countryPlace', 'place', [
             'multiple' => false,
             'empty_data'  => null,
-            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1),
+            'label_attr' => ['style' => 'font-weight:bold;']
         ]);
+
+        $builder->add('shortDescription', 'textarea', array(
+            'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
+            'required' => false,
+            'label_attr' => ['style' => 'font-weight:bold;']
+        ));
+        $builder->add('longDescription', 'textarea', array(
+            'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
+            'required' => false,
+            'label_attr' => ['style' => 'font-weight:bold;']
+        ));
+
+        $builder->add('price', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
 
         $builder->add('street', 'text', array(
             'required' => false,
@@ -64,16 +97,7 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
         $builder->add('longitude', 'text', array(
             'required' => false,
         ));
-        $builder->add('shortDescription', 'textarea', array(
-            'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
-            'required' => false,
-        ));
-        $builder->add('longDescription', 'textarea', array(
-            'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
-            'required' => false,
-        ));
 
-        $builder->add('price');
 
         $builder->add('mainPhoto', 'media', array(
             'pattern' => 'KunstmaanMediaBundle_chooser',
@@ -92,6 +116,9 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
             'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1),
             'property' => 'name'
         ]);
+
+        $builder->add('www');
+
     }
 
     /**

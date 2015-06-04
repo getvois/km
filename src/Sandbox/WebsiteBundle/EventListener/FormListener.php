@@ -234,6 +234,12 @@ class FormListener {
                 $pp->setMapCategory($page->getMapCategory());
                 $pp->setLatitude($page->getLatitude());
                 $pp->setLongitude($page->getLongitude());
+                $pp->setCity($page->getCity());
+                $pp->setCityParish($page->getCityParish());
+                $pp->setMainPhoto($page->getMainPhoto());
+                $pp->setStreet($page->getStreet());
+                $pp->setBuildingPhoto($page->getBuildingPhoto());
+                $pp->setCountry($page->getCountry());
 
                 $this->em->persist($pp);
             }
