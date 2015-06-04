@@ -752,7 +752,15 @@ class DefaultController extends Controller
                 }
             }
 
-            if(!$found) continue;
+            if(!$found) {
+                if($hotel->getCityParish() == $city || $hotel->getCity() == $city){
+                    $found = true;
+                }
+            }
+
+            if(!$found){
+                continue;
+            }
 
             if($hotel->getCheapestPackage()) {
                 $count++;
