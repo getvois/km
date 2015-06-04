@@ -263,6 +263,42 @@ $(document).ready(function() {
         return false;
     }
 
+
+    $('#baltica-pager').find('a').click(function () {
+
+        var $package3 = $('#baltica-pager');
+        if(checkHolderHeight('#baltica-holder')) {
+
+            $package3.hide();
+            return false;
+        }
+
+        $package3.find('a').addClass('disabled');
+
+        var $country = $('#baltica-country').val();
+        var $from = $('#baltica-date-from').datepick('getDate');
+        var $place = $('#baltica-place').val();
+        var $hotel = $('#baltica-hotel').val();
+
+        var $offset = $('#baltica-holder').find('> div').length;
+
+        $.get('/baltica-filter/?offset='+$offset+'&country='+$country+'&hotel='+$hotel+'&place='+$place + "&from=" + $from, function (responce) {
+            var $package = $('#baltica-holder');
+            $package.append(responce.html);
+            var $package2 = $('#baltica-pager');
+            $package2.find('a').removeClass('disabled');
+
+            if($package.find('> div').length < responce.total){
+                $package2.show();
+            }else{
+                $package2.hide();
+            }
+        });
+
+        return false;
+
+    });
+
     $('#package-pager').find('a').click(function () {
 
         var $package3 = $('#package-pager');
@@ -326,6 +362,8 @@ $(document).ready(function() {
         return false;
 
     });
+
+
 
     $('#offer-filter').click(function () {
         checkHolderHeight('#offer-holder');

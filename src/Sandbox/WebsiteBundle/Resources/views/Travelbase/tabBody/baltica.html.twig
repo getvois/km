@@ -12,9 +12,9 @@
     <div class="row nomargin" id="baltica-holder">
         {#{{ render(controller('SandboxWebsiteBundle:Package:getPackages')) }}#}
     </div>
-    {#<div id="baltica-pager" class="loadDiv">#}
-        {#<a href="#" ><span class="fa fa-angle-double-down"></span></a>#}
-    {#</div>#}
+    <div id="baltica-pager" class="loadDiv">
+        <a href="#" ><span class="fa fa-angle-double-down"></span></a>
+    </div>
 
     {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
 </div>
