@@ -236,6 +236,9 @@ class BalticaController extends Controller{
 
             $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
                 ->getOfferPagesByMapCategory($request->getLocale(), $mapCategory);
+
+            $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                ->getCompanyPagesByMapCategory($request->getLocale(), $mapCategory);
         }else{
             /** @var HotelPage[] $packages */
             $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
@@ -243,6 +246,9 @@ class BalticaController extends Controller{
 
             $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
                 ->getOfferPages($request->getLocale());
+
+            $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+                ->getCompaniesWithMapCategory($request->getLocale());
         }
 
         //filter by place
@@ -271,6 +277,18 @@ class BalticaController extends Controller{
 
             }
             $offers = $filteredOffers;
+
+            $filteredCompanies = [];
+            foreach ($companies as $company) {
+                foreach ($company->getPlaces() as $place) {
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($place);
+                    if($placeNode->getId() == $toPlace){
+                        $filteredCompanies[] = $company;
+                    }
+                }
+            }
+            $companies = $filteredCompanies;
 
 
             //filter by country
@@ -329,13 +347,20 @@ class BalticaController extends Controller{
         }
         $total += count($packages);
 
-        $pages = array_slice($offers, $offset, $pageLength);
 
+        $pages = array_slice($offers, $offset, $pageLength);
         foreach ($pages as $page) {
             $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
         }
-
         $total += count($offers);
+
+
+        $pages = array_slice($companies, $offset, $pageLength);
+        foreach ($pages as $page) {
+            $html .= $this->get('templating')->render('@SandboxWebsite/Company/companyInline.html.twig', ['company' => $page]);
+        }
+        $total += count($companies);
+
 
         return new JsonResponse(['total' => $total, 'html' => $html]);
     }

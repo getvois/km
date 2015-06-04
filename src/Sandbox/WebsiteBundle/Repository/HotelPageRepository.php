@@ -196,6 +196,11 @@ AND nt.online = 1';
         return $objects;
     }
 
+    /**
+     * @param $lang
+     * @param $mapCategoryId
+     * @return HotelPage[]
+     */
     public function getHotelPagesByMapCategory($lang, $mapCategoryId)
     {
         $dql = "SELECT p
