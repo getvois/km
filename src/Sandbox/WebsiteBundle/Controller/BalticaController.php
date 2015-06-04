@@ -222,7 +222,7 @@ class BalticaController extends Controller{
         $html = '';
         $toPlace = $request->query->get('place', '');
         $from = $request->query->get('from', '');
-        $hotel = $request->query->get('hotel', '');//map category id
+        $mapCategory = $request->query->get('hotel', '');//map category id
         $offset = $request->query->get('offset', 0);
         $country = $request->query->get('country', '');
         $total = 0;
@@ -230,15 +230,15 @@ class BalticaController extends Controller{
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $filtered = [];
+//        $filtered = [];
 
-        if($hotel && $hotel != -1){
+        if($mapCategory && $mapCategory != -1){
 
             $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-                ->getHotelPagesByMapCategory($request->getLocale(), $hotel);
+                ->getHotelPagesByMapCategory($request->getLocale(), $mapCategory);
 
             $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-                ->getOfferPagesByMapCategory($request->getLocale(), $hotel);
+                ->getOfferPagesByMapCategory($request->getLocale(), $mapCategory);
 
 //
 //            $hotelPage = $em->getRepository('SandboxWebsiteBundle:PackageCategory')
@@ -300,59 +300,149 @@ class BalticaController extends Controller{
 //            }
         }
 
+        //filter by place
         if($toPlace && $toPlace != -1){
+            $filteredHotels = [];
+            foreach ($hotels as $hotel) {
+                foreach ($hotel->getPlaces() as $place) {
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($place);
+                    if($placeNode->getId() == $toPlace){
+                        $filteredHotels[] = $hotel;
+                    }
+                }
+            }
+            $hotels = $filteredHotels;
 
-        }
-
-        $pages = array_slice($filtered, $offset, $pageLength);
-
-        foreach ($pages as $page) {
-            $packageDates = $this->getPackageDates($page, $from);
-            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
-        }
-
-        $total += count($filtered);
-
-        /** @var OfferPage[] $offers */
-        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPages($request->getLocale());
-
-        if (!$offers) $offers = [];
-
-        $filtered = [];
-        if ($toPlace && $toPlace != -1) {
-
+            $filteredOffers = [];
             foreach ($offers as $offer) {
                 foreach ($offer->getPlaces() as $place) {
                     $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
                         ->getNodeFor($place);
-                    if ($placeNode->getId() == $toPlace) {
-                        $filtered[] = $offer;
-                        //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+                    if($placeNode->getId() == $toPlace){
+                        $filteredOffers[] = $offer;
+                    }
+                }
+
+            }
+            $offers = $filteredOffers;
+
+
+            //filter by country
+        }elseif($country && $country != -1){
+            $filteredHotels = [];
+            foreach ($hotels as $hotel) {
+                if($hotel->getCountryPlace()){
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($hotel->getCountryPlace());
+                    if($placeNode->getId() == $country){
+                        $filteredHotels[] = $hotel;
                     }
                 }
             }
-            //only country set
-        } else if ($country) {
+            $hotels = $filteredHotels;
+
+            $filteredOffers = [];
             foreach ($offers as $offer) {
-                if ($country == -1 || $offer->getCountryPlace()) {
+                if ($offer->getCountryPlace()) {
                     $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
                         ->getNodeFor($offer->getCountryPlace());
                     if($placeNode->getId() == $country){
-                        $filtered[] = $offer;
+                        $filteredOffers[] = $offer;
                     }
-                    //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
                 }
+
             }
+            $offers = $filteredOffers;
+
         }
 
-        $pages = array_slice($filtered, $offset, $pageLength);
+        $packages = [];
+
+        foreach ($hotels as $hotel) {
+            $hotelNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($hotel);
+
+            /** @var Node $childNode */
+            foreach ($hotelNode->getChildren() as $childNode) {
+                $translation = $childNode->getNodeTranslation($request->getLocale());
+                if($translation){
+                    $packagePage = $translation->getRef($em);
+                    if($packagePage){
+                        $packages[] = $packagePage;
+                    }
+                }
+            }
+
+
+        }
+
+
+        $pages = array_slice($packages, $offset, $pageLength);
+        foreach ($pages as $page) {
+            $packageDates = $this->getPackageDates($page, $from);
+            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+        }
+        $total += count($packages);
+
+        $pages = array_slice($offers, $offset, $pageLength);
 
         foreach ($pages as $page) {
             $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
         }
 
-        $total += count($filtered);
+        $total += count($offers);
+
+//
+//        $pages = array_slice($filtered, $offset, $pageLength);
+//
+//        foreach ($pages as $page) {
+//            $packageDates = $this->getPackageDates($page, $from);
+//            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+//        }
+//
+//        $total += count($filtered);
+//
+//        /** @var OfferPage[] $offers */
+//        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+//            ->getOfferPages($request->getLocale());
+//
+//        if (!$offers) $offers = [];
+//
+//        $filtered = [];
+//        if ($toPlace && $toPlace != -1) {
+//
+//            foreach ($offers as $offer) {
+//                foreach ($offer->getPlaces() as $place) {
+//                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+//                        ->getNodeFor($place);
+//                    if ($placeNode->getId() == $toPlace) {
+//                        $filtered[] = $offer;
+//                        //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+//                    }
+//                }
+//            }
+//            //only country set
+//        } else if ($country) {
+//            foreach ($offers as $offer) {
+//                if ($country == -1 || $offer->getCountryPlace()) {
+//                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+//                        ->getNodeFor($offer->getCountryPlace());
+//                    if($placeNode->getId() == $country){
+//                        $filtered[] = $offer;
+//                    }
+//                    //$html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $offer]);
+//                }
+//            }
+//        }
+//
+//        $pages = array_slice($filtered, $offset, $pageLength);
+//
+//        foreach ($pages as $page) {
+//            $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
+//        }
+//
+//        $total += count($filtered);
 
         return new JsonResponse(['total' => $total, 'html' => $html]);
 
