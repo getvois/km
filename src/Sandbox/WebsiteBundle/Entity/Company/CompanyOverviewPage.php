@@ -11,6 +11,7 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\MapCategory;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
@@ -31,8 +32,34 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository")
  * @ORM\Table(name="sb_company_overviewpages")
  */
-class CompanyOverviewPage extends AbstractArticleOverviewPage
+class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo
 {
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(targetEntity="Kunstmaan\MediaBundle\Entity\Media")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     * })
+     */
+    private $photo;
+
+    /**
+     * @return Media
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param Media $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
 
     /**
      * @var string
@@ -248,7 +275,7 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
      * @param $place
      * @return $this
      */
-    public function addPlace($place)
+    public function addPlace(PlaceOverviewPage $place)
     {
         $this->places->add($place);
         return $this;
@@ -690,5 +717,48 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage
     public function getNews()
     {
         return $this->news;
+    }
+
+    /**
+     * Get full entity name
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return 'Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage';
+    }
+
+    /**
+     * Add fromPlaces
+     *
+     * @param PlaceOverviewPage $fromPlaces
+     */
+    public function addFromPlace(PlaceOverviewPage $fromPlaces)
+    {
+    }
+
+    /**
+     * Get fromPlaces
+     *
+     * @return \Doctrine\Common\Collections\Collection|PlaceOverviewPage[]
+     */
+    public function getFromPlaces()
+    {
+        return [];
+    }
+
+    /**
+     * Remove all places
+     */
+    public function removeAllPlaces()
+    {
+        $this->places->clear();
+    }
+
+    /**
+     * Remove all from places
+     */
+    public function removeAllFromPlaces()
+    {
     }
 }
