@@ -109,13 +109,38 @@
     var popups = [];
 
     function initialize() {
+        var MY_MAPTYPE_ID = 'custom_style';
+        var featureOpts = [
+            {
+                stylers: [
+                    { hue: '#890000' },
+                    { visibility: 'simplified' },
+                    { gamma: 0.5 },
+                    { weight: 0.5 }
+                ]
+            },
+            {
+                elementType: 'labels',
+                stylers: [
+                    { visibility: 'off' }
+                ]
+            },
+            {
+                featureType: 'water',
+                stylers: [
+                    { color: '#890000' }
+                ]
+            }
+        ];
+
+
         var geocoder;
 
         markerBounds = new google.maps.LatLngBounds();
 
         var bounds = new google.maps.LatLngBounds();
         var mapOptions = {
-            mapTypeId: 'roadmap',
+            mapTypeId: MY_MAPTYPE_ID,
             zoom: 10,
             center: new google.maps.LatLng(59.42, 24.7)
         };
@@ -127,6 +152,15 @@
                 .push(document.getElementById('back-btn'));
 
         geocoder = new google.maps.Geocoder();
+
+        var styledMapOptions = {
+            name: 'Custom Style'
+        };
+
+        var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+
+        map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+
 
         google.maps.event.addListener((map), 'idle', function(event) {
 
