@@ -128,8 +128,10 @@ function GenCustomWindow(){
      * @param {string} html
      */
     CustomWindow.prototype.setPopup = function(html){
-        this.popup.innerHTML = html;
-        this.container.setAttribute('data-popup', html);
+        if(html) {
+            this.popup.innerHTML = html;
+            this.container.setAttribute('data-popup', html);
+        }
     };
     /**
      * Sets the map and relevant marker for this overlay.

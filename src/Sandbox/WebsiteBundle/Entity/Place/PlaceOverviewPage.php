@@ -35,6 +35,77 @@ use Symfony\Component\HttpFoundation\Request;
 class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany
 {
     /**
+     * @return bool
+     */
+    public function hasCoordinates()
+    {
+        if($this->getLatitude() && $this->getLongitude())
+            return true;
+        return false;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
+     */
+    private $longitude;
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     * @return PlaceOverviewPage
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     * @return PlaceOverviewPage
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+
+    /**
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage", mappedBy="places")
      */
     private $companies;

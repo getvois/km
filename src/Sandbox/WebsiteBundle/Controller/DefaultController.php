@@ -1053,14 +1053,27 @@ class DefaultController extends Controller
 
         foreach ($hotels as $hotel) {
 
+            /** @var PlaceOverviewPage $city */
             $city = $hotel->getPlaces()->first();
             if(!$city) continue;
 
-            $city = $city->getTitle();
-            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
-
-            if(!array_key_exists($city, $data)){
-                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
+            if($city->hasCoordinates()){
+                $title = $city->getTitle();
+                if(!array_key_exists($title.$title, $data)) {
+                    $data[$title . $title] =
+                        [
+                            'city' => null,
+                            'lat' => $city->getLatitude(),
+                            'long' => $city->getLongitude(),
+                            'html' => $this->mapHtml($title, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom),
+                            'popup' => '',
+                        ];
+                }
+            }else{
+                $city = $city->getTitle();
+                if(!array_key_exists($city, $data)){
+                    $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
+                }
             }
 
 
