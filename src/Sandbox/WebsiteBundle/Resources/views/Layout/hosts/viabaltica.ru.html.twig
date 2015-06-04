@@ -1,5 +1,75 @@
 {% extends '@SandboxWebsite/Layout/layoutMain.html.twig' %}
 
+{% block header %}
+
+    <!--[if lte IE 9]>
+    <div class="outdated">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="outdated__title">You are using an outdated browser.</h1>
+                    <h3 class="outdated__subtitle">Some content may be lost or not displayed correctly.</h3>
+                    <p class="outdated__description">Please consider upgrading to a more recent browser.</p>
+                    <a href="http://browsehappy.com/?locale={{ htmlLocale }}" target="_blank" class="outdated__link">Upgrade your browser</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <![endif]-->
+
+    {# DROPDOWN MENU #}
+    {% include "@SandboxWebsite/Travelbase/dropdown.html.twig" %}
+
+    <!-- Header -->
+    <div class="row">
+        <div class="col-md-6">
+            <header role="header" class="main-header">
+                <section class="splash splash--{% block pagetitleColor %}green{% endblock %} mainbg"
+                         style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
+
+                    <div class="hidden-xs top-img-title">{% block topImgTitle %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}{% endblock %}</div>
+                    <div class=" splash__container">
+                        <div class="row nomargin">
+                            <div class="site-logo">
+                                <a href="/"></a>
+                            </div>
+                            {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
+                            {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
+                        </div>
+                    </div>
+                </section>
+            </header>
+        </div>
+        <div class="col-md-6">
+            {% block club %}
+                <div class="clubbar">
+                    <h2><a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a></h2>
+
+
+
+
+                    {% block userlogin %}
+                        {% include '@SandboxWebsite/User/loginForm.html.twig' %}
+                    {% endblock %}
+                </div>
+
+                {% if host %}
+                    {{ host.fbBlock|raw }}
+                {% endif %}
+
+                {% block sidebar %}
+                    {% include '@SandboxWebsite/Travelbase/balticaMap.html.twig' %}
+                {% endblock %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
 {% block hostLayout %}
 <div class="row nomargin">
     <div class="col-md-6 col-md-offset-0_5">
@@ -45,27 +115,27 @@
         </main>
     </div>
     <div class="col-md-6 sidebar">
-        {% block club %}
-            <div class="clubbar">
-                <h2><a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a></h2>
+        {#{% block club %}#}
+            {#<div class="clubbar">#}
+                {#<h2><a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a></h2>#}
 
 
 
 
-                {% block userlogin %}
-                    {% include '@SandboxWebsite/User/loginForm.html.twig' %}
-                {% endblock %}
-            </div>
+                {#{% block userlogin %}#}
+                    {#{% include '@SandboxWebsite/User/loginForm.html.twig' %}#}
+                {#{% endblock %}#}
+            {#</div>#}
 
-            {% if host %}
-                {{ host.fbBlock|raw }}
-            {% endif %}
+            {#{% if host %}#}
+                {#{{ host.fbBlock|raw }}#}
+            {#{% endif %}#}
 
-            {% block sidebar %}
-                {% include '@SandboxWebsite/Travelbase/balticaMap.html.twig' %}
-            {% endblock %}
+            {#{% block sidebar %}#}
+                {#{% include '@SandboxWebsite/Travelbase/balticaMap.html.twig' %}#}
+            {#{% endblock %}#}
 
-        {% endblock %}
+        {#{% endblock %}#}
     </div>
 </div>
 {% endblock %}
