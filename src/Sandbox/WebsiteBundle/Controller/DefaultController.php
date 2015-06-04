@@ -1168,7 +1168,7 @@ class DefaultController extends Controller
 
         if($mapZoom < 9){
 
-            $badge = $activities > $hotels? $activities:$hotels;
+            $badge = $activities + $hotels + $spa + $castle + $themePark;
             //only bigest badge
 //            $lat = ($blLat + $trLat) / 2;
 //            $long = ($blLong + $trLong) / 2;
