@@ -22,7 +22,7 @@
 
     <!-- Header -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 no-padding">
             <header role="header" class="main-header">
                 <section class="splash splash--{% block pagetitleColor %}green{% endblock %} mainbg"
                          style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
@@ -40,7 +40,7 @@
                 </section>
             </header>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 no-padding">
             {% block club %}
                 <div class="clubbar" style="margin-top: 0">
                     <h2><a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a></h2>
@@ -69,7 +69,7 @@
 
 {% block hostLayout %}
 <div class="row nomargin">
-    <div class="col-md-6 col-md-offset-0_5">
+    <div class="col-md-6 no-padding">
 
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
@@ -111,7 +111,7 @@
             {% block content %}{% endblock %}
         </main>
     </div>
-    <div class="col-md-6 sidebar">
+    <div class="col-md-6 no-padding sidebar">
         {#{% block club %}#}
             {#<div class="clubbar">#}
                 {#<h2><a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a></h2>#}
