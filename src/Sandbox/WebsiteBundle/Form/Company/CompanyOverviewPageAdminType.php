@@ -38,6 +38,11 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
             'mediatype' => 'image',
             'required' => false,
         ));
+        $builder->add('photo', 'media', array(
+            'pattern' => 'KunstmaanMediaBundle_chooser',
+            'mediatype' => 'image',
+            'required' => false,
+        ));
         $builder->add('companyId');
         $builder->add('logoAltText', 'text', array(
             'required' => false,
@@ -60,11 +65,6 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
             'property' => 'name'
         ]);
 
-        $builder->add('photo', 'media', array(
-            'pattern' => 'KunstmaanMediaBundle_chooser',
-            'mediatype' => 'image',
-            'required' => false,
-        ));
     }
     /**
      * Sets the default options for this type.
