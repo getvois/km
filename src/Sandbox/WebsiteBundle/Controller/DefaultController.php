@@ -1055,7 +1055,13 @@ class DefaultController extends Controller
 
             /** @var PlaceOverviewPage $city */
             $city = $hotel->getPlaces()->first();
-            if(!$city) continue;
+            if(!$city) {
+                $city = $hotel->getCityParish()?$hotel->getCityParish():$hotel->getCity();
+                if(!array_key_exists($city, $data)){
+                    $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
+                }
+                continue;
+            }
 
             if($city->hasCoordinates()){
                 $title = $city->getTitle();
