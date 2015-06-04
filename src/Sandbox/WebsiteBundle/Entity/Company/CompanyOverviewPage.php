@@ -34,6 +34,28 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo
 {
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="summary", type="text", nullable=true)
+     */
+    protected $summary;
+
+    /**
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param string $summary
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    }
 
     /**
      * @var Media

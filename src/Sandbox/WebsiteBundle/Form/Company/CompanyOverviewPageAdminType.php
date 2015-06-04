@@ -25,6 +25,8 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
         $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
         $builder->add('pageTitle', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
 
+        $builder->add('summary', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
+
         $builder->add('description', 'textarea', array(
             'attr' => array('rows' => 10, 'cols' => 600, 'class' => 'rich_editor'),
             'required' => false,
