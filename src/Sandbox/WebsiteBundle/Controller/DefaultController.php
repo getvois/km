@@ -1174,17 +1174,17 @@ class DefaultController extends Controller
         }
 
 
-        $html = '<a href="#" data-city="' . $city . '" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
+        $html = '<a href="#" data-city="' . $city . '" class="iw-link-city" onclick="return loadHotelsByCity(this)">' . $city . '</a><br/>';
         if($hotels > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="hotel" onclick="return loadItemsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" class="iw-link-hotel" data-category="hotel" onclick="return loadItemsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a><br/>';
         if($activities > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="offer" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$activities.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" class="iw-link-offer" data-category="offer" onclick="return loadItemsByCity(this)">offers<span class="badge">'.$activities.'</span></a><br/>';
         if($spa > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="spa" onclick="return loadItemsByCity(this)">spa<span class="badge">'.$spa.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" class="iw-link-spa" data-category="spa" onclick="return loadItemsByCity(this)">spa<span class="badge">'.$spa.'</span></a><br/>';
         if($castle > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="castle" onclick="return loadItemsByCity(this)">castle<span class="badge">'.$castle.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" class="iw-link-castle" data-category="castle" onclick="return loadItemsByCity(this)">castle<span class="badge">'.$castle.'</span></a><br/>';
         if($themePark > 0)
-            $html .= '<a href="#" data-city="' . $city . '" data-category="themepark" onclick="return loadItemsByCity(this)">themepark<span class="badge">'.$themePark.'</span></a><br/>';
+            $html .= '<a href="#" data-city="' . $city . '" class="iw-link-themepark" data-category="themepark" onclick="return loadItemsByCity(this)">themepark<span class="badge">'.$themePark.'</span></a><br/>';
         $html .= $airbnb;
 
         $html = "<div class='map-window-all'>" . $html . "</div>";
