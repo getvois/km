@@ -49,6 +49,9 @@
                         {% include '@SandboxWebsite/User/loginForm.html.twig' %}
                     {% endblock %}
                 </div>
+                <script>
+                    $("#club-collapse").addClass('collapse');
+                </script>
 
                 {% if host %}
                     {{ host.fbBlock|raw }}
