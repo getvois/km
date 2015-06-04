@@ -218,7 +218,7 @@ class BalticaController extends Controller{
      * @return JsonResponse
      */
     public function filterAction(Request $request){
-        $pageLength = 10;
+        $pageLength = 5;
         $html = '';
         $toPlace = $request->query->get('place', '');
         $from = $request->query->get('from', '');
