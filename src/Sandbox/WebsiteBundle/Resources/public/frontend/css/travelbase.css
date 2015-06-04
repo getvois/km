@@ -133,6 +133,21 @@ input:focus {outline:0;}
 }
 .datepicker {z-index: 1151 !important;}
 
+.overlay__divider.or {
+    background: none repeat scroll 0 0 transparent;
+    color: #959595;
+    font-size: 13px;
+    height: 34px;
+    margin: 0 0 -4px 0;
+    position: relative;
+    text-align: center;
+}
+.overlay__divider.or span {
+    background-color: #fff;
+    line-height: 36px;
+    padding: 0 10px;
+}
+
 /*pageparts gallery, googlemap */
 
 .breadcrumb {

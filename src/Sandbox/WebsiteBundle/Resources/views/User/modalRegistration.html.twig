@@ -22,6 +22,11 @@
                     </script>
                 {% endif %}
 
+                <div class="overlay__divider or">
+                    <span>{{ 'or'|trans({}, 'frontend') }}</span>
+                    <hr>
+                </div>
+
                 <form action="{{ path('register_action') }}" method="post">
 
                     <div style="margin:0 auto;display:table;">
