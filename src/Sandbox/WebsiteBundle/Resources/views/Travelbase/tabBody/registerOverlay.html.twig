@@ -1,25 +1,29 @@
 {% if not app.user %}
     <div class="register-form text-center">
-        <form action="{{ path('register_action') }}" method="post">
+        {#<form action="{{ path('register_action') }}" method="post">#}
             <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
 
-            <div style="margin:0 auto;display:table;">
-                    <label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>
-                    <input id="name" type="text" name="name" class="form-control"
-                           placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>
-                    <label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>
-                    <input id="email" type="text" name="email" class="form-control"
-                           placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>
-
-            </div>
-
-            <div class="clear"></div>
+            {#<div style="margin:0 auto;display:table;">#}
+                    {#<label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>#}
+                    {#<input id="name" type="text" name="name" class="form-control"#}
+                           {#placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>#}
+                    {#<label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>#}
+                    {#<input id="email" type="text" name="email" class="form-control"#}
+                           {#placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>#}
+{##}
+            {#</div>#}
+{##}
+            {#<div class="clear"></div>#}
             <p class="join-count">
                 {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}!
             </p>
             <p>
-                <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-registration">
+                    {{ 'sign.up'|trans({}, 'frontend') }}
+                </button>
+                {#<input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>#}
             </p>
-        </form>
+        {#</form>#}
     </div>
 {% endif %}

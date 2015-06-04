@@ -1,0 +1,36 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-registration" tabindex="-1" role="dialog" aria-labelledby="modal-registration" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <form action="{{ path('register_action') }}" method="post">
+                    <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
+
+                    <div style="margin:0 auto;display:table;">
+                        <label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>
+                        <input id="name" type="text" name="name" class="form-control"
+                               placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>
+                        <label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>
+                        <input id="email" type="text" name="email" class="form-control"
+                               placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>
+
+                    </div>
+
+                    <div class="clear"></div>
+                    <p class="join-count">
+                        {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}!
+                    </p>
+                    <p>
+                        <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
