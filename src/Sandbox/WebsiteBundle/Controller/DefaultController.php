@@ -621,7 +621,7 @@ class DefaultController extends Controller
 
             if(!$found) continue;
 
-            if($hotel->getCheapestPackage()){
+            if($hotel->getCheapestPackage()) {
                 /** @var NodeTranslation $translation */
                 $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                     ->getNodeTranslationFor($hotel->getCheapestPackage());
@@ -636,7 +636,24 @@ class DefaultController extends Controller
 
                     . $hotel->getCheapestPackage()->getTitle() .
                     $hotel->getCheapestPackage()->getMinprice() .
-                    "</a>".
+                    "</a>" .
+                    "<div class='map-info-close'>x</div></div>";
+
+                $data[] = $hotelData;
+            }elseif($hotel->isShowOnMap()){
+                /** @var NodeTranslation $translation */
+                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                    ->getNodeTranslationFor($hotel);
+
+                $hotelData = [];
+                $hotelData['title'] = $hotel->getTitle();
+                $hotelData['lat'] = $hotel->getLatitude();
+                $hotelData['long'] = $hotel->getLongitude();
+                $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>H</a></div>";
+                $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
+                    "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+                    . $hotel->getTitle() .
+                    "</a>" .
                     "<div class='map-info-close'>x</div></div>";
 
                 $data[] = $hotelData;
@@ -766,7 +783,7 @@ class DefaultController extends Controller
                 continue;
             }
 
-            if($hotel->getCheapestPackage()) {
+            if($hotel->getCheapestPackage() || $hotel->isShowOnMap()) {
                 $count++;
             }
         }
@@ -1073,6 +1090,24 @@ class DefaultController extends Controller
                     $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
                     if($html)
                         $data[$city] = ['city' => $city, 'html' => $html];
+                }
+                continue;
+            }
+
+            if($hotel->isShowOnMap() && $hotel->getPlaces()->first()){
+                $title = $hotel->getPlaces()->first()->getTitle();
+                if(!array_key_exists($title.$title, $data)) {
+                    $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+                    if($html) {
+                        $data[$title . $title] =
+                            [
+                                'city' => null,
+                                'lat' => $city->getLatitude(),
+                                'long' => $city->getLongitude(),
+                                'html' => $html,
+                                'popup' => '',
+                            ];
+                    }
                 }
                 continue;
             }
