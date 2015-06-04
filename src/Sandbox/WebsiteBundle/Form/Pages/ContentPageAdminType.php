@@ -26,8 +26,10 @@ class ContentPageAdminType extends PageAdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
+        //parent::buildForm($builder, $options);
+        $builder->add('id', 'hidden');
+        $builder->add('title', null, array('label' => 'Name', 'label_attr' => ['style' => 'font-weight:bold;']));
+        $builder->add('pageTitle', null, ['label_attr' => ['style' => 'font-weight:bold;']]);
         $builder->add(
           'picture',
           'media',

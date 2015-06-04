@@ -15,6 +15,7 @@ use Sandbox\WebsiteBundle\Entity\ICopyFields;
 use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
+use Sandbox\WebsiteBundle\Entity\Pages\ContentPage;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
@@ -212,6 +213,23 @@ class FormListener {
 
                 $pp->setDateUntil($page->getDateUntil());
                 $pp->setImgSize($page->getImgSize());
+
+                $this->em->persist($pp);
+            }
+            $this->em->flush();
+        }
+
+        if($page instanceof ContentPage){
+            /** @var $page ContentPage */
+            $translations = $nodeEvent->getNode()->getNodeTranslations(true);
+
+            foreach ($translations as $translation) {
+                if($originalLanguage == $translation->getLang()) continue;
+
+                /** @var ContentPage $pp */
+                $pp = $translation->getRef($this->em);
+
+                $pp->setPicture($page->getPicture());
 
                 $this->em->persist($pp);
             }
