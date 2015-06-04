@@ -42,11 +42,8 @@
         </div>
         <div class="col-md-6">
             {% block club %}
-                <div class="clubbar">
+                <div class="clubbar" style="margin-top: 0">
                     <h2><a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a></h2>
-
-
-
 
                     {% block userlogin %}
                         {% include '@SandboxWebsite/User/loginForm.html.twig' %}
