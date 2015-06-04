@@ -27,6 +27,29 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
 {
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="show_on_map", type="boolean", nullable=true)
+     */
+    private $showOnMap;
+
+    /**
+     * @return boolean
+     */
+    public function isShowOnMap()
+    {
+        return $this->showOnMap;
+    }
+
+    /**
+     * @param boolean $showOnMap
+     */
+    public function setShowOnMap($showOnMap)
+    {
+        $this->showOnMap = $showOnMap;
+    }
+
+    /**
      * @var MapCategory
      *
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")

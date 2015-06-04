@@ -240,6 +240,7 @@ class FormListener {
                 $pp->setStreet($page->getStreet());
                 $pp->setBuildingPhoto($page->getBuildingPhoto());
                 $pp->setCountry($page->getCountry());
+                $pp->setShowOnMap($page->isShowOnMap());
 
                 $this->em->persist($pp);
             }

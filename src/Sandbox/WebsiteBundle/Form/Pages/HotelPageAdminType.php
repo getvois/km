@@ -119,6 +119,8 @@ class HotelPageAdminType extends AbstractArticlePageAdminType
 
         $builder->add('www');
 
+        $builder->add('showOnMap');
+
     }
 
     /**
