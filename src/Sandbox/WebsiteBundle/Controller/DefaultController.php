@@ -1070,7 +1070,9 @@ class DefaultController extends Controller
             if(!$city) {
                 $city = $hotel->getCityParish()?$hotel->getCityParish():$hotel->getCity();
                 if(!array_key_exists($city, $data)){
-                    $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
+                    $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+                    if($html)
+                        $data[$city] = ['city' => $city, 'html' => $html];
                 }
                 continue;
             }
@@ -1078,20 +1080,24 @@ class DefaultController extends Controller
             if($city->hasCoordinates()){
                 $title = $city->getTitle();
                 if(!array_key_exists($title.$title, $data)) {
-                    $data[$title . $title] =
-                        [
-                            'city' => null,
-                            'lat' => $city->getLatitude(),
-                            'long' => $city->getLongitude(),
-                            'html' => $this->mapHtml($title, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom),
-                            'popup' => '',
-                        ];
+                    $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+                    if($html) {
+                        $data[$title . $title] =
+                            [
+                                'city' => null,
+                                'lat' => $city->getLatitude(),
+                                'long' => $city->getLongitude(),
+                                'html' => $html,
+                                'popup' => '',
+                            ];
+                    }
                 }
             }else{
                 $city = $city->getTitle();
                 if(!array_key_exists($city, $data)){
-                    $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
-                }
+                    $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+                    if($html)
+                        $data[$city] = ['city' => $city, 'html' => $html];                }
             }
 
 
@@ -1111,7 +1117,9 @@ class DefaultController extends Controller
             $city = $city->getTitle();
 
             if(!array_key_exists($city, $data)){
-                $data[$city] = ['city' => $city, 'html' => $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom)];
+                $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+                if($html)
+                    $data[$city] = ['city' => $city, 'html' => $html];
             }
         }
 
@@ -1160,6 +1168,13 @@ class DefaultController extends Controller
         $castle = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'castle');
         $themePark = $this->getItemsCountByCityBounds($request, $city, $trLat, $trLong, $blLat, $blLong, 'themepark');
 
+        $badge = $activities + $hotels + $spa + $castle + $themePark;
+
+        if($badge == 0){
+            return "";
+        }
+
+
         if($mapZoom > 11){
             $content = $this->getSslPage('https://www.airbnb.com/search/search_results?location='.$city.'&price_max=85&search_by_map=true&zoom=11&sw_lat='.$blLat.'&sw_lng='.$blLong.'&ne_lat='.$trLat.'&ne_lng='.$trLong);
         }else{
@@ -1167,8 +1182,6 @@ class DefaultController extends Controller
         }
 
         if($mapZoom < 9){
-
-            $badge = $activities + $hotels + $spa + $castle + $themePark;
             //only bigest badge
 //            $lat = ($blLat + $trLat) / 2;
 //            $long = ($blLong + $trLong) / 2;
