@@ -667,11 +667,13 @@ select {
     -pie-background:linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
 }
 .clubbar {
-  color: #fff;
-  padding: 20px;
+  color: #fff; 
   margin-bottom: 20px;
   margin-top: -45px;
 }
+
+#club-collapse {padding: 20px;}
+
 .sidebar {
 	padding-bottom:30px;
 }
@@ -2116,6 +2118,74 @@ a.top-link img {
 #travelbase-form .field-four {
     clear:both
 }
+
+
+
+/*Googlemap styling*/
+
+
+.gm-style .map-window-all-mini  {
+    background-color: #ED1E61;
+    box-shadow: -2px -2px 9px #BE144B!important;
+    padding: 0;
+    border-radius:0!important;
+}
+
+.gm-style .map-info-window .map-window-all {
+    background-color: #ED1E61;
+    box-shadow: -2px -2px 9px #BE144B!important;
+    padding: 0;
+    box-shadow:none;
+    position:relative;
+    text-align: left;
+}
+
+.gm-style .map-info-window .map-window-all a {
+    color:#fff;
+    padding: 1px 5px;
+  	display: block;
+}
+
+.gm-style .map-window-all-mini  a .badge {
+    background:transparent;
+}
+.gm-style .map-info-window .map-window-all a .badge {
+    display: inline;
+    background:transparent;
+    padding: 1px 7px;
+}
+
+#back-btn  {
+    width: 80%;
+    left: 10%;
+    right:10%;
+}
+#back-btn a {
+     width: 100%;
+} 
+
+.gm-style .map-info-window .map-window-all a.iw-link-city {
+    font-weight:bold;
+    color:#000;
+}
+
+.gm-style .map-info-window .map-window-all:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  border-top: 10px solid #C8144E;
+  border-bottom: 0px solid transparent;
+  border-right: 20px solid transparent;
+}
+
+.map-window-item {
+	min-height: 39px!important;
+	min-width: 39px!important;
+}
+
+
 /* Travelbase search form more options checkboxes */
 
 .flight-subsearch  {
