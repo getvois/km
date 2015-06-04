@@ -27,6 +27,12 @@ class PlaceOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
             ->add('hosts');
         $builder->add('companies');
 
+        $builder->add('latitude', 'text', array(
+            'required' => false,
+        ));
+        $builder->add('longitude', 'text', array(
+            'required' => false,
+        ));
         //$builder->add('parentPlace');
     }
     /**
