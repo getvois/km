@@ -95,6 +95,8 @@ class FormListener {
 
                 $pp->setCityId($page->getCityId());
                 $pp->setCountryCode($page->getCountryCode());
+                $pp->setLatitude($page->getLatitude());
+                $pp->setLongitude($page->getLongitude());
             }
 
             $this->em->flush();
@@ -229,6 +231,9 @@ class FormListener {
                 $pp = $translation->getRef($this->em);
 
                 $pp->setWww($page->getWww());
+                $pp->setMapCategory($page->getMapCategory());
+                $pp->setLatitude($page->getLatitude());
+                $pp->setLongitude($page->getLongitude());
 
                 $this->em->persist($pp);
             }
@@ -249,6 +254,7 @@ class FormListener {
                 $pp = $translation->getRef($this->em);
 
                 $pp->setOrderNumber($page->getOrderNumber());
+                $pp->setMapCategory($page->getMapCategory());
 
                 $this->em->persist($pp);
             }
@@ -273,6 +279,10 @@ class FormListener {
                 $pp->setAffiliateLink($page->getAffiliateLink());
                 $pp->setCashBackValue($page->getCashBackValue());
                 $pp->setCompanyId($page->getCompanyId());
+                $pp->setLongitude($page->getLongitude());
+                $pp->setLatitude($page->getLatitude());
+                $pp->setAddress($page->getAddress());
+                $pp->setMapCategory($page->getMapCategory());
 
                 $this->em->persist($pp);
             }
