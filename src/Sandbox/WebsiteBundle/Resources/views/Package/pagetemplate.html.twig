@@ -136,8 +136,8 @@
 				            </a>	
 				        </div>
 				        <div class="col-md-6">
-				            <div id="map_wrapper">
-				                <div id="map_canvas" class="mapping"></div>
+				            <div id="map_wrapper2">
+				                <div id="map_canvas2" class="mapping"></div>
 				            </div>
 				        </div>
 				    </div>
@@ -145,7 +145,7 @@
 				    
 				      <script>
 
-                          var map;
+                          var map2;
 
 		        jQuery(function($) {
 		            // Asynchronously Load the map API
@@ -162,8 +162,8 @@
 		            };
 		
 		            // Display a map on the page
-		            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-		            map.setTilt(45);
+		            map2 = new google.maps.Map(document.getElementById("map_canvas2"), mapOptions);
+		            map2.setTilt(45);
 		
 		            var markers = [];
 		            var infoWindowContent = [];
@@ -198,7 +198,7 @@
 		                bounds.extend(position);
 		                marker = new google.maps.Marker({
 		                    position: position,
-		                    map: map,
+		                    map: map2,
 		                    title: markers[i][0]
 		                });
 		
@@ -206,18 +206,18 @@
 		                google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		                    return function() {
 		                        infoWindow.setContent(infoWindowContent[i][0]);
-		                        infoWindow.open(map, marker);
+		                        infoWindow.open(map2, marker);
 		                    }
 		                })(marker, i));
 		
 		                // Automatically center the map fitting all markers on the screen
-		                map.fitBounds(bounds);
+		                map2.fitBounds(bounds);
 		            }
 
                     //map.setCenter(bounds.getCenter());
 
 		            // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-		            var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+		            var boundsListener = google.maps.event.addListener((map2), 'bounds_changed', function(event) {
 		                this.setZoom(11);
 		                google.maps.event.removeListener(boundsListener);
 		            });
@@ -225,8 +225,8 @@
 
                     $('a[href="#hotel"]').on('shown.bs.tab', function(e)
                     {
-                        google.maps.event.trigger(map, 'resize');
-                        map.setCenter(position);
+                        google.maps.event.trigger(map2, 'resize');
+                        map2.setCenter(position);
                     });
 
 		        }
