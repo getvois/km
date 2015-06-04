@@ -147,6 +147,9 @@ input:focus {outline:0;}
     line-height: 36px;
     padding: 0 10px;
 }
+.overlay__divider.or hr {
+    margin: -16px 0 10px;
+}
 
 /*pageparts gallery, googlemap */
 
