@@ -283,6 +283,7 @@ class FormListener {
                 $pp->setLatitude($page->getLatitude());
                 $pp->setAddress($page->getAddress());
                 $pp->setMapCategory($page->getMapCategory());
+                $pp->setPhoto($page->getPhoto());
 
                 $this->em->persist($pp);
             }
