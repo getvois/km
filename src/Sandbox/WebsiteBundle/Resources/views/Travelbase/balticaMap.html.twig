@@ -181,7 +181,7 @@
 
         google.maps.event.addListener(map, 'zoom_changed', function() {
             var zoom = map.getZoom();
-            if(zoom <= 12) update = true;
+            if(zoom <= 12) backBtn();
         });
 
 
