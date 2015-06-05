@@ -168,10 +168,27 @@
 
                 }
 
-                if(map.getZoom() > 11){
+                var zoom = map.getZoom();
+                if(zoom > 11){
                     $('.airbnb-badge').removeClass('hide');
                 }else{
                     $('.airbnb-badge').addClass('hide');
+                }
+
+
+                if(zoom <= 11){
+                    $(".map-window-item").css({
+                        "background-size": "25px auto",
+                        'min-height': '25px',
+                        'min-width': '25px'
+                    });
+                }
+                if(zoom <= 8){
+                    $(".map-window-item").css({
+                        "background-size": "20px auto",
+                        'min-height': '20px',
+                        'min-width': '20px'
+                    });
                 }
 
                 update = true;
@@ -181,22 +198,6 @@
 
         google.maps.event.addListener(map, 'zoom_changed', function() {
             var zoom = map.getZoom();
-
-            if(zoom <= 11){
-                $(".map-window-item").css({
-                    "background-size": "25px auto",
-                    'min-height': '25px',
-                    'min-width': '25px'
-                });
-            }
-            if(zoom <= 8){
-                $(".map-window-item").css({
-                    "background-size": "20px auto",
-                    'min-height': '20px',
-                    'min-width': '20px'
-                });
-            }
-
 
             if(zoom <= 10) {
                 update = true;
