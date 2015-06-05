@@ -122,3 +122,12 @@ window.trans.month = {
     ru:'месяц',
     fi:'kuukausi'
 };
+window.trans.emptyPackageCalendar = {
+    en:'<strong>sorry</strong>. no packages for now',
+    ee:'<strong>sorry</strong>. no packages for now',
+    se:'<strong>sorry</strong>. no packages for now',
+    de:'<strong>sorry</strong>. no packages for now',
+    fr:'<strong>sorry</strong>. no packages for now',
+    ru:'<strong>sorry</strong>. no packages for now',
+    fi:'<strong>sorry</strong>. no packages for now'
+};

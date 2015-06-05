@@ -425,7 +425,7 @@ $(document).ready(function() {
             });
         }else{
             control.remove();
-            $packageCalendar.html('sorry');
+            $packageCalendar.html(window.trans.emptyPackageCalendar[$lang]);
         }
     });
 
