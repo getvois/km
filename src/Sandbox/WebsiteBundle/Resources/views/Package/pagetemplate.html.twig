@@ -1,4 +1,8 @@
 
+{% if hotel.hasCoordinates %}
+    <div id="map-center-coordinates" data-lat="{{ hotel.latitude }}" data-long="{{ hotel.longitude }}"></div>
+{% endif %}
+
 		<div class="row">
 			<div class="col-md-7 col-xs-12">
 			<h2>
