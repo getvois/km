@@ -181,14 +181,29 @@
 
         google.maps.event.addListener(map, 'zoom_changed', function() {
             var zoom = map.getZoom();
+
+            if(zoom <= 11){
+                $(".map-window-item").css({
+                    "background-size": "25px auto",
+                    'min-height': '25px',
+                    'min-width': '25px'
+                });
+            }
+            if(zoom <= 8){
+                $(".map-window-item").css({
+                    "background-size": "20px auto",
+                    'min-height': '20px',
+                    'min-width': '20px'
+                });
+            }
+
+
             if(zoom <= 10) {
                 update = true;
                 $('#back-btn').html('');
                 google.maps.event.trigger(map, 'idle');
             }
         });
-
-
     }
 
     function backBtn(){
