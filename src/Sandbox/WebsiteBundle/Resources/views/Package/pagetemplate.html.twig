@@ -1,8 +1,8 @@
 
 {% if hotel.hasCoordinates %}
 
-    {% if hotel.place.first %}
-        {% set city = hotel.place.first.title %}
+    {% if hotel.places.first %}
+        {% set city = hotel.places.first.title %}
     {% else %}
         {% set city = '' %}
     {% endif %}
