@@ -636,11 +636,11 @@ class DefaultController extends Controller
                 $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
                 $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
                     $img.
-                    "<h3>" . $hotel->getTitle() . "</h3>".
-                    "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
-
+                    "<h4>". $hotel->getTitle() . "</h4><a class='map-popup-price' href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
+                    . $hotel->getCheapestPackage()->getMinprice() .
+                    "</a>" .
+                    "<a class='map-popup-desc' href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
                     . $title .
-                    $hotel->getCheapestPackage()->getMinprice() .
                     "</a>" .
                     "<div class='map-info-close'>x</div></div>";
 
@@ -728,7 +728,7 @@ class DefaultController extends Controller
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>C</a></div>";
+            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'></a></div>";
             $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
 
                 "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
@@ -1188,7 +1188,7 @@ class DefaultController extends Controller
         $bg = $mapCategory->getImage();
 
 
-        $data['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url($bg)'><a href='#' class='map-popup'>C</a></div>";
+        $data['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url($bg)'><a href='#' class='map-popup'></a></div>";
         $data['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
 
             "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"

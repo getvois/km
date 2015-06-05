@@ -1,94 +1,9 @@
 <!--suppress ALL -->
-<style>
-    .map-info-window{
-        background: none repeat scroll 0 0 transparent;
-        /*#e9e9e9*/
-        border-radius: 0;
-        /*box-shadow: 8px 8px 16px #222;*/
-        color: #232323;
-        /*max-height: 300px;*/
-        /*max-width: 200px;*/
-        min-width: 20px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        text-align: center;
-        text-transform: uppercase;
-    }
-
-    .map-info-window .map-info-close{
-        background-color: white;
-        cursor: pointer;
-        float: right;
-        font-size: 13px;
-        margin-left: 5px;
-        margin-right: 5px;
-        padding: 3px;
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .map-info-window .map-info-close:hover{
-        text-decoration: underline;
-    }
-
-    .map-info-window h5{
-        font-weight:bold;
-    }
-
-    .map-info-window p{
-        color: #000;
-    }
-
-    .map-window-all {
-        background-color: #e9e9e9;
-        padding: 10px;
-        box-shadow: 8px 8px 16px #222;
-        margin: 30px;
-        max-width: 200px;
-    }
-
-    .map-window-all-mini {
-        background-color: transparent;
-        border-radius: 15px;
-        box-shadow: 8px 8px 14px #222;
-        margin: 30px;
-    }
-    .map-window-item {
-        color: white;
-        font-size: 12px;
-        min-height: 50px;
-        min-width: 55px;
-        padding-top: 14px;
-    }
-    .map-window-item a{
-        color: white;
-    }
-
-    .map-popup-item{
-        background: none repeat scroll 0 0 white;
-        padding: 5px 10px;
-        min-height: 50px;
-        min-width: 55px;
-    }
-    #map_wrapper{
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 42%;
-        height: 100%;
-    }
-
-    .clubbar{
-        position: fixed;
-        width: 42%;
-        z-index: 9;
-    }
-</style>
-
 
 <div id="back-btn"></div>
 <div id="map_wrapper">
+	<div id="map_shadow_left"></div>
+	<div id="map_shadow"></div>
     <div id="map_canvas" class="mapping" style="width: 100%; height: 100%"></div>
 </div>
 <script src="{{ asset('bundles/sandboxwebsite/frontend/js/infoWindow.js') }}"></script>
@@ -109,13 +24,27 @@
         var MY_MAPTYPE_ID = 'custom_style';
         var featureOpts = [
             {
+                elementType: 'geometry.stroke',
                 stylers: [
-                    { hue: '#A3C5CC' },
-                    { visibility: 'simplified' },
-                    { gamma: 0.5 },
-                    { weight: 0.5 }
+                    { hue: '#FFEFBF' },
+                    { "visibility": "on" },
+				      { "hue": "#ff3c00" },
+				      { "saturation": -65 },
+				      { "lightness": 10 },
+				      { "gamma": 0.95 }
                 ]
             },
+            {
+			    elementType: 'geometry.fill',
+			    stylers: [
+			      { "visibility": 'on' },
+			      { "hue": '#2bff00' },
+			      { "lightness": 26 },
+			      { "gamma": 1.33 },
+			      { "saturation": 15 }
+			    ]
+			  },
+
             {
                 featureType: "poi",
                 elementType: 'labels',
@@ -126,7 +55,7 @@
             {
                 featureType: 'water',
                 stylers: [
-                    { color: '#116C99' }
+                    { color: '#A3C5CC' }
                 ]
             }
         ];
