@@ -171,10 +171,13 @@
 
                 }
 
-                //clear all markers
-                for(j=0; j<prevMarkers.length; j++){
-                    prevMarkers[j].setMap(null);
-                }
+                setTimeout(function () {
+                    //clear all markers
+                    for(j=0; j<prevMarkers.length; j++){
+                        prevMarkers[j].setMap(null);
+                    }
+                }, 10);
+
 
                 var zoom = map.getZoom();
                 if(zoom > 11){
