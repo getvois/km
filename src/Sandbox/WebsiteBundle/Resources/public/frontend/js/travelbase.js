@@ -396,7 +396,13 @@ $(document).ready(function() {
     //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
     var $packageCalendar = $('.package-calendar');
 
-    $.get('/package-event-source/' + $packageCalendar.data('package-id'), function (responce) {
+
+    var fromDate = new Date();
+    var endDate = new Date();
+    fromDate.setDay(1);
+    endDate.setDay(1).setMonth(endDate.getMonth() + 1);
+
+    $.get('/package-event-source/' + $packageCalendar.data('package-id') + "?from=" + fromDate.getTime() + "&to=" + endDate.getTime() , function (responce) {
         var control = $(".package-calendar-control");
 
         if(responce.result.length > 0){
