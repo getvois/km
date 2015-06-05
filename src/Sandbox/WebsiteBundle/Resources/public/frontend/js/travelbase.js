@@ -400,8 +400,8 @@ $(document).ready(function() {
     var fromDate = new Date();
     var endDate = new Date();
     fromDate.setDate(1);
-    endDate.setDate(1).setMonth(endDate.getMonth() + 1);
-
+    endDate.setDate(1);
+    endDate.setMonth(endDate.getMonth() + 1);
     $.get('/package-event-source/' + $packageCalendar.data('package-id') + "?from=" + fromDate.getTime() + "&to=" + endDate.getTime() , function (responce) {
         var control = $(".package-calendar-control");
 
