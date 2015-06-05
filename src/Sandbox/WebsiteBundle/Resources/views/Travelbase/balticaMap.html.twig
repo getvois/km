@@ -216,6 +216,8 @@
 
 
                     if(openCity){
+                        console.log($("a[data-city='" + openCity + "']"));
+
                         $("a[data-city='" + openCity + "']").first().click();
                         openCity = '';
                     }
