@@ -1,6 +1,17 @@
 
 {% if hotel.hasCoordinates %}
-    <div id="map-center-coordinates" data-lat="{{ hotel.latitude }}" data-long="{{ hotel.longitude }}"></div>
+
+    {% if hotel.place.first %}
+        {% set city = hotel.place.first.title %}
+    {% else %}
+        {% set city = '' %}
+    {% endif %}
+
+    <div id="map-center-coordinates"
+         data-lat="{{ hotel.latitude }}"
+         data-long="{{ hotel.longitude }}"
+         data-city="{{ city }}"
+            ></div>
 {% endif %}
 
 		<div class="row">
