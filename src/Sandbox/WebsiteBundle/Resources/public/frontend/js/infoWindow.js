@@ -16,7 +16,7 @@ function GenCustomWindow(){
         this.position = null;
         this.popup = document.createElement('div');
         this.popup.classList.add('map-popup-window');
-        this.panToView = false;
+        this.pan = false;
     };
     /**
      * Inherit from OverlayView
@@ -61,7 +61,7 @@ function GenCustomWindow(){
      * necessary to bring the custom info window fully into view.
      */
     CustomWindow.prototype.panToView = function(){
-        if(!this.panToView) return;
+        if(!this.pan) return;
         var position = this.position,
             //latlng = this.marker.getPosition(),
             latlng = this.marker,
@@ -121,7 +121,7 @@ function GenCustomWindow(){
      * @param {boolean} pan
      */
     CustomWindow.prototype.setPantoView = function(pan){
-        this.panToView = pan;
+        this.pan = pan;
     };
     /**
      * Sets the contents of this overlay.
