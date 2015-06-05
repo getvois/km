@@ -322,7 +322,6 @@ body .splash--green {
 }
 .mainbg{
     height: 380px;
-    background: url('http://ku.markmedia.fi/sites/default/files/images/mainbg2.jpg') center center;
     background-size: cover;
     position: relative;
 }
@@ -2124,6 +2123,91 @@ a.top-link img {
 /*Googlemap styling*/
 
 
+.map-info-window{
+        overflow: hidden;
+        position: absolute;
+        text-align: center;
+    }
+
+    .map-info-window .map-info-close{
+        background-color: white;
+        cursor: pointer;
+        float: right;
+        font-size: 13px;
+        margin-left: 5px;
+        margin-right: 5px;
+        padding: 3px;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .map-info-window .map-info-close:hover{
+        text-decoration: underline;
+    }
+
+    .map-info-window h5{
+        font-weight:bold;
+    }
+
+    .map-info-window p{
+        color: #000;
+    }
+
+    .map-window-all {
+        background-color: #e9e9e9;
+        padding: 10px;
+        box-shadow: 8px 8px 16px #222;
+        margin: 30px;
+        max-width: 200px;
+    }
+
+    .map-window-all-mini {
+        background-color: transparent;
+        border-radius: 15px;
+        box-shadow: 8px 8px 14px #222;
+        margin: 30px;
+    }
+
+    
+    #map_wrapper{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 42%;
+        height: 100%;
+    }
+
+    .clubbar{
+        position: fixed;
+        width: 42%;
+        z-index: 9;
+    }
+
+#map_shadow_left {
+  position: absolute;
+  left: -15px;
+  top: 0px;
+  width: 15px;
+  height: 100%;
+  border: 0px solid red;
+  z-index: 1000;
+  -webkit-box-shadow: inset -15px 0px 15px -10px rgba(50,50,50,0.25);
+  -moz-box-shadow: inset -15px 0px 15px -10px rgba(50,50,50,0.25);
+  box-shadow: inset -15px 0px 15px -10px rgba(50,50,50,0.25);
+}
+#map_shadow {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 20px;
+  height: 100%;
+  border: 0px solid red;
+  z-index: 1000;
+  -webkit-box-shadow: inset 15px 0px 20px -10px rgba(50,50,50,0.25);
+  -moz-box-shadow: inset 15px 0px 20px -10px rgba(50,50,50,0.25);
+  box-shadow: inset 15px 0px 20px -10px rgba(50,50,50,0.25);
+}
+
 .gm-style .map-window-all-mini  {
     background-color: #ED1E61;
     box-shadow: -2px -2px 9px #BE144B!important;
@@ -2140,10 +2224,13 @@ a.top-link img {
     text-align: left;
 }
 
+.gm-style .map-info-window .map-window-all a, .gm-style .map-window-item a {
+	 color:#fff;
+}
+
 .gm-style .map-info-window .map-window-all a {
-    color:#fff;
     padding: 1px 5px;
-  	display: block;
+  	display: flex;
 }
 
 .gm-style .map-window-all-mini  a .badge {
@@ -2164,6 +2251,14 @@ a.top-link img {
      width: 100%;
 } 
 
+
+.gm-style .map-info-window .map-window-all a:hover, .gm-style .map-info-window .map-window-all a:hover .badge {
+    background: #fff;
+    color:#333;
+    text-decoration:none;
+}
+
+
 .gm-style .map-info-window .map-window-all a.iw-link-city {
     font-weight:bold;
     color:#000;
@@ -2180,9 +2275,31 @@ a.top-link img {
   border-right: 20px solid transparent;
 }
 
-.map-window-item {
-	min-height: 39px!important;
-	min-width: 39px!important;
+.gm-style .map-window-item {
+	min-height: 32px;
+	min-width: 32px;
+	padding-top: 14px;
+}
+.gm-style .map-window-item-hotel a, .gm-style .map-window-item-spa a {
+	 color: #fff;
+}
+.gm-style .map-window-item-hotel, .gm-style .map-window-item-spa, .gm-style .map-window-item-offer {
+     font-size: 12px;
+     min-height: 50px;
+     min-width: 55px;
+}
+
+.gm-style .map-popup-item {
+    background: none repeat scroll 0 0 white;
+    padding: 10px 20px;
+    min-height: 50px;
+    min-width: 250px;
+    font-size: 14px;
+    text-align: left;
+}
+.gm-style .map-popup-item .map-popup-price{
+    float:right;
+    padding-left: 10px;
 }
 
 
