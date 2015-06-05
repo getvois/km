@@ -65,11 +65,18 @@
 
         markerBounds = new google.maps.LatLngBounds();
 
+        var center = new google.maps.LatLng(59.42, 24.7);
+
+        var mapCoord = $("#map-center-coordinates");
+        if(mapCoord.length > 0){
+            center = new google.maps.LatLng(mapCoord.data('lat'), mapCoord.data('long'));
+        }
+
         var bounds = new google.maps.LatLngBounds();
         var mapOptions = {
             mapTypeId: MY_MAPTYPE_ID,
             zoom: 10,
-            center: new google.maps.LatLng(59.42, 24.7)
+            center: center
         };
 
         // Display a map on the page
