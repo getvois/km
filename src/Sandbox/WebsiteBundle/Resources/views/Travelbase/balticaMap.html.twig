@@ -94,10 +94,6 @@
 <script src="{{ asset('bundles/sandboxwebsite/frontend/js/infoWindow.js') }}"></script>
 <script>
     jQuery(function($) {
-//        // Asynchronously Load the map API
-//        var script = document.createElement('script');
-//        script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
-//        document.body.appendChild(script);
         initialize();
     });
     var placesCache = [];
@@ -279,134 +275,6 @@
         return false;
     }
 
-    function loadHotelsByCity(link){
-        //$(link).closest('.gm-style-iw').next().click();
-        $(link).closest('.map-info-window').hide();
-        var bounds = map.getBounds();
-
-        var topRight = bounds.getNorthEast();
-        var bottomLeft = bounds.getSouthWest();
-
-        $.get('/ghbcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
-            //console.log(responce);
-
-            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
-
-            //clear all markers
-            for(var j=0; j<markers.length; j++){
-                markers[j].setMap(null);
-            }
-
-            // Display multiple markers on a map
-            var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-            markers = [];
-
-            markerBounds = new google.maps.LatLngBounds();
-
-            //add markers
-            for(i=0; i<responce.length; i++){
-                (function(){
-
-                    var hotel = responce[i];
-
-                    var position = new google.maps.LatLng(hotel.lat, hotel.long);
-                    markerBounds.extend(position);
-
-                    marker = new google.maps.Marker({
-                        position: position,
-                        title:""
-                    });
-
-                    if(hotel.icon){
-                        marker.setIcon(hotel.icon);
-                    }
-
-                    markers.push(marker);
-                    marker.setMap(map);
-                    google.maps.event.addListener(marker, 'click', (function(marker) {
-                        return function() {
-                            infoWindow.setContent(hotel.html);
-                            infoWindow.open(map, marker);
-                        }
-                    })(marker));
-
-                    map.fitBounds(markerBounds);
-                })();
-            }
-
-            if(map.getZoom() > 15) map.setZoom(15);
-
-            update = false;
-        });
-        return false;
-    }
-
-
-    function loadActivityByCity(link){
-        //$(link).closest('.gm-style-iw').next().click();
-        $(link).closest('.map-info-window').hide();
-        var bounds = map.getBounds();
-
-        var topRight = bounds.getNorthEast();
-        var bottomLeft = bounds.getSouthWest();
-
-        $.get('/gabcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
-            //console.log(responce);
-
-            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
-
-            //clear all markers
-            for(var j=0; j<markers.length; j++){
-                markers[j].setMap(null);
-            }
-
-            // Display multiple markers on a map
-            var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-            markers = [];
-
-            markerBounds = new google.maps.LatLngBounds();
-
-            //add markers
-            for(i=0; i<responce.length; i++){
-                (function(){
-
-                    var hotel = responce[i];
-
-                    var position = new google.maps.LatLng(hotel.lat, hotel.long);
-                    markerBounds.extend(position);
-
-                    marker = new google.maps.Marker({
-                        position: position,
-                        title:""
-                    });
-
-                    if(hotel.icon){
-                        marker.setIcon(hotel.icon);
-                    }
-
-                    markers.push(marker);
-                    marker.setMap(map);
-                    google.maps.event.addListener(marker, 'click', (function(marker) {
-                        return function() {
-                            infoWindow.setContent(hotel.html);
-                            infoWindow.open(map, marker);
-                        }
-                    })(marker));
-
-                    map.fitBounds(markerBounds);
-                })();
-            }
-
-            if(map.getZoom() > 15) map.setZoom(15);
-
-            update = false;
-        });
-        return false;
-    }
-
-
     function zoomMap(amount, link){
         map.setZoom(amount);
         var lat = $(link).closest('.map-info-window').data('lat');
@@ -461,24 +329,6 @@
                     infW.open(map);
                     markers.push(infW);
 
-//                    marker = new google.maps.Marker({
-//                        position: position,
-//                        title:""
-//                    });
-//
-//                    if(hotel.icon){
-//                        marker.setIcon(hotel.icon);
-//                    }
-
-//                    markers.push(marker);
-//                    marker.setMap(map);
-//                    google.maps.event.addListener(marker, 'click', (function(marker) {
-//                        return function() {
-//                            infoWindow.setContent(hotel.html);
-//                            infoWindow.open(map, marker);
-//                        }
-//                    })(marker));
-
                     map.fitBounds(markerBounds);
                 })();
             }
@@ -506,6 +356,7 @@
         //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
         infW.setContent(content);
         infW.setPosition(position);
+        infW.setPantoView(true);
         infW.open(map);
         popups.push(infW);
         return false;
