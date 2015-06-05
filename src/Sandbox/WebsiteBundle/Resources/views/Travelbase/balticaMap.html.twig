@@ -101,16 +101,16 @@
                 //console.log(responce);
                 var j;
 
-                var prevMarkers = markers;
+                var prevMarkers = infoWindows;
 
-//                //clear all markers
-//                for(j=0; j<markers.length; j++){
-//                    markers[j].setMap(null);
-//                }
-                //clear all infowindows
-                for(j=0; j<infoWindows.length; j++){
-                    infoWindows[j].close();
+                //clear all markers
+                for(j=0; j<markers.length; j++){
+                    markers[j].setMap(null);
                 }
+                //clear all infowindows
+//                for(j=0; j<infoWindows.length; j++){
+//                    infoWindows[j].close();
+//                }
                 //clear all popups
                 for(j=0; j<popups.length; j++){
                     popups[j].setMap(null);
