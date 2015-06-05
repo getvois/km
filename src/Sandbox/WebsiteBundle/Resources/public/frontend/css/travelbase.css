@@ -2275,7 +2275,8 @@ a.top-link img {
 .gm-style .map-window-item {
 	min-height: 32px;
 	min-width: 32px;
-	padding-top: 14px;
+    padding-top: 14px;
+    background: no-repeat center center;
 }
 .gm-style .map-window-item-hotel a, .gm-style .map-window-item-spa a {
 	 color: #fff;
