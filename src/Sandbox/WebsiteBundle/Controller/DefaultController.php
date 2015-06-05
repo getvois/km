@@ -626,15 +626,20 @@ class DefaultController extends Controller
                 $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                     ->getNodeTranslationFor($hotel->getCheapestPackage());
 
+                $title = $hotel->getCheapestPackage()->getTitleTranslated()?$hotel->getCheapestPackage()->getTitleTranslated():$hotel->getCheapestPackage()->getTitle();
+                $img = $hotel->getCheapestPackage()->getImage()?"<img src='".$hotel->getCheapestPackage()->getImage()."'>":"";
+
                 $hotelData = [];
-                $hotelData['title'] = $hotel->getCheapestPackage()->getTitle();
+                $hotelData['title'] = $title;
                 $hotelData['lat'] = $hotel->getLatitude();
                 $hotelData['long'] = $hotel->getLongitude();
                 $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
                 $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
+                    $img.
+                    "<h3>" . $hotel->getTitle() . "</h3>".
                     "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
 
-                    . $hotel->getCheapestPackage()->getTitle() .
+                    . $title .
                     $hotel->getCheapestPackage()->getMinprice() .
                     "</a>" .
                     "<div class='map-info-close'>x</div></div>";
