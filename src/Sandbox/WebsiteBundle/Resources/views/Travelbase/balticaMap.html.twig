@@ -217,20 +217,15 @@
                 }, 1);
 
                 setTimeout(function () {
-
                     if($("a[data-city='" + openCity + "']").length == 0){
                         setTimeout(function () {
                             if(openCity){
-                                console.log($("a[data-city='" + openCity + "']"));
-
                                 $("a[data-city='" + openCity + "']").first().click();
                                 openCity = '';
                             }
                         }, 2000);
                     }else{
                         if(openCity){
-                            console.log($("a[data-city='" + openCity + "']"));
-
                             $("a[data-city='" + openCity + "']").first().click();
                             openCity = '';
                         }
