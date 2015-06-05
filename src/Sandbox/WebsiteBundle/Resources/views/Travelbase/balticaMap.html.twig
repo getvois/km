@@ -214,6 +214,9 @@
                         });
                     }
 
+                }, 1);
+
+                setTimeout(function () {
 
                     if(openCity){
                         console.log($("a[data-city='" + openCity + "']"));
@@ -222,7 +225,7 @@
                         openCity = '';
                     }
 
-                }, 1);
+                }, 1000);
 
                 update = true;
 
