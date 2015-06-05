@@ -17,8 +17,8 @@
 		</div>
     </div>
 
-    <div id="map_wrapper">
-        <div id="map_canvas" class="mapping"></div>
+    <div id="map_wrapper2">
+        <div id="map_canvas2" class="mapping"></div>
     </div>
 
     <div class="row nomargin" id="hotel-holder">
@@ -37,10 +37,7 @@
 
     <script>
         jQuery(function($) {
-            // Asynchronously Load the map API
-            var script = document.createElement('script');
-            script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
-            document.body.appendChild(script);
+            initialize();
         });
 
         function initialize() {
@@ -51,7 +48,7 @@
             };
 
             // Display a map on the page
-            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            map = new google.maps.Map(document.getElementById("map_canvas2"), mapOptions);
             map.setTilt(45);
 
             var markers = [];
