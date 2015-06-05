@@ -397,6 +397,8 @@ $(document).ready(function() {
     var $packageCalendar = $('.package-calendar');
 
     $.get('/package-event-source/' + $packageCalendar.data('package-id'), function (responce) {
+        var control = $(".package-calendar-control");
+
         if(responce.result.length > 0){
             var calendar = $packageCalendar.calendar(
                 {
@@ -411,7 +413,6 @@ $(document).ready(function() {
             calendar.setLanguage($lang);
             //calendar.view();
 
-            var control = $(".package-calendar-control");
             control.find('.package-calendar-navigate').click(function () {
                 calendar.navigate($(this).data('calendar-nav'));
 
@@ -423,6 +424,7 @@ $(document).ready(function() {
                 }
             });
         }else{
+            control.remove();
             $packageCalendar.html('sorry');
         }
     });
