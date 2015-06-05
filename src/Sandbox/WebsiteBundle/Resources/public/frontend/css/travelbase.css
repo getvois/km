@@ -1421,6 +1421,7 @@ span.price-inc {font-size: 14px;}
   padding: 15px;
   color: #fff;
   display: inline-block;
+  margin-left: -15px;
 }
 
 /*DATE PICKER STUFF*/
@@ -2156,7 +2157,7 @@ a.top-link img {
     .map-window-all {
         background-color: #e9e9e9;
         padding: 10px;
-        margin: 30px;
+        margin: 0 0 10px 0;
         max-width: 200px;
     }
 
@@ -2174,11 +2175,6 @@ a.top-link img {
         height: 100%;
     }
 
-    .clubbar{
-        position: fixed;
-        width: 42%;
-        z-index: 9;
-    }
 
 #map_shadow_left {
   position: absolute;
@@ -2215,6 +2211,8 @@ a.top-link img {
 .gm-style .map-info-window .map-window-all {
     background-color: #ED1E61;
     box-shadow: -2px -2px 9px #BE144B!important;
+    border-left: 1px solid #CA1C54;
+    border-bottom: 1px solid #CA1C54;
     padding: 0;
     box-shadow:none;
     position:relative;
@@ -2286,8 +2284,8 @@ a.top-link img {
      font-size: 12px;
      min-height: 50px;
      min-width: 55px;
+     background-size: inherit;
 }
-
 .gm-style .map-popup-item {
     background: none repeat scroll 0 0 white;
     padding: 10px 20px;
@@ -2296,11 +2294,13 @@ a.top-link img {
     font-size: 14px;
     text-align: left;
 }
+.gm-style .map-popup-item img {
+    width:150px;
+}
 .gm-style .map-popup-item .map-popup-price{
     float:right;
     padding-left: 10px;
 }
-
 
 /* Travelbase search form more options checkboxes */
 
