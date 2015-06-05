@@ -395,30 +395,39 @@ $(document).ready(function() {
 
     //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
     var $packageCalendar = $('.package-calendar');
-    var calendar = $packageCalendar.calendar(
-        {
-            tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
-            events_source: '/package-event-source/' + $packageCalendar.data('package-id'),
-            onAfterViewLoad: function(view) {
-                $('.package-calendar-header').text(this.getTitle());
-            },
-            language: $lang
-        });
 
-    calendar.setLanguage($lang);
-    //calendar.view();
+    $.get('/package-event-source/' + $packageCalendar.data('package-id'), function (responce) {
+        if(responce.result.length > 0){
+            var calendar = $packageCalendar.calendar(
+                {
+                    tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
+                    events_source: '/package-event-source/' + $packageCalendar.data('package-id'),
+                    onAfterViewLoad: function(view) {
+                        $('.package-calendar-header').text(this.getTitle());
+                    },
+                    language: $lang
+                });
 
-    var control = $(".package-calendar-control");
-    control.find('.package-calendar-navigate').click(function () {
-        calendar.navigate($(this).data('calendar-nav'));
+            calendar.setLanguage($lang);
+            //calendar.view();
 
-        var date = new Date();
-        if(calendar.getStartDate().getMonth() <= date.getMonth()){
-            $('.package-calendar-navigate-prev').addClass('disabled');
+            var control = $(".package-calendar-control");
+            control.find('.package-calendar-navigate').click(function () {
+                calendar.navigate($(this).data('calendar-nav'));
+
+                var date = new Date();
+                if(calendar.getStartDate().getMonth() <= date.getMonth()){
+                    $('.package-calendar-navigate-prev').addClass('disabled');
+                }else{
+                    $('.package-calendar-navigate-prev').removeClass('disabled');
+                }
+            });
         }else{
-            $('.package-calendar-navigate-prev').removeClass('disabled');
+            $packageCalendar.html('sorry');
         }
     });
+
+
 
 
     //$('#club-filter').click(function () {
