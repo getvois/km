@@ -426,7 +426,7 @@ $(document).ready(function() {
         }else{
             control.remove();
             $packageCalendar.html(window.trans.emptyPackageCalendar[$lang] +
-            '<a href="http://www.booking.com/searchresults.et.html?lang=et&si=ai%2Cco%2Cci%2Cre%2Cdi&ss='+ $packageCalendar.data('hotel-name') +'">booking.com</a>');
+            '<a href="http://www.booking.com/searchresults.html?si=ai%2Cco%2Cci%2Cre%2Cdi&ss='+ $packageCalendar.data('hotel-name') +'">booking.com</a>');
         }
     });
 
