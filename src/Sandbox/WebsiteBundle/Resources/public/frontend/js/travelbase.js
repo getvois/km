@@ -402,10 +402,10 @@ $(document).ready(function() {
     fromDate.setDate(1);
     endDate.setDate(1);
     endDate.setMonth(endDate.getMonth() + 1);
-    $.get('/package-event-source/' + $packageCalendar.data('package-id') + "?from=" + fromDate.getTime() + "&to=" + endDate.getTime() , function (responce) {
+    //$.get('/package-event-source/' + $packageCalendar.data('package-id') + "?from=" + fromDate.getTime() + "&to=" + endDate.getTime() , function (responce) {
         var control = $(".package-calendar-control");
 
-        if(responce.result.length > 0){
+        //if(responce.result.length > 0){
             var calendar = $packageCalendar.calendar(
                 {
                     tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
@@ -429,12 +429,12 @@ $(document).ready(function() {
                     $('.package-calendar-navigate-prev').removeClass('disabled');
                 }
             });
-        }else{
-            control.remove();
-            $packageCalendar.html(window.trans.emptyPackageCalendar[$lang] +
-            '<a href="http://www.booking.com/searchresults.html?si=ai%2Cco%2Cci%2Cre%2Cdi&ss='+ $packageCalendar.data('hotel-name') +'">booking.com</a>');
-        }
-    });
+        //}else{
+        //    control.remove();
+        //    $packageCalendar.html(window.trans.emptyPackageCalendar[$lang] +
+        //    '<a href="http://www.booking.com/searchresults.html?si=ai%2Cco%2Cci%2Cre%2Cdi&ss='+ $packageCalendar.data('hotel-name') +'">booking.com</a>');
+        //}
+    //});
 
 
 
