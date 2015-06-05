@@ -191,10 +191,7 @@
         $('#back-btn').html('');
         map.fitBounds(markerBounds);
 
-        //clear all popups
-        for(var j=0; j<popups.length; j++){
-            popups[j].setMap(null);
-        }
+        clearPopups();
 
         if(map.getZoom() > 12){
             map.setZoom(12);
@@ -212,11 +209,22 @@
         return false;
     }
 
+    function loadAllItemsByCity(link){
+        clearPopups();
+
+        $(link).closest('.map-info-window').hide();
+        var bounds = map.getBounds();
+
+        var topRight = bounds.getNorthEast();
+        var bottomLeft = bounds.getSouthWest();
+
+        $.get('/gaibcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng(), function (responce) {
+            showMarkers(responce);
+        });
+        return false;
+    }
     function loadItemsByCity(link){
-        //clear all popups
-        for(var j=0; j<popups.length; j++){
-            popups[j].setMap(null);
-        }
+        clearPopups();
 
         $(link).closest('.map-info-window').hide();
         var bounds = map.getBounds();
@@ -225,48 +233,57 @@
         var bottomLeft = bounds.getSouthWest();
 
         $.get('/gibcb/' + $(link).data('city') + '/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + $(link).data('category'), function (responce) {
-            //console.log(responce);
-
-            $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
-
-            //clear all markers
-            for(var j=0; j<markers.length; j++){
-                markers[j].setMap(null);
-            }
-
-            // Display multiple markers on a map
-            var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-            markers = [];
-
-            markerBounds = new google.maps.LatLngBounds();
-
-            //add markers
-            for(i=0; i<responce.length; i++){
-                (function(){
-
-                    var hotel = responce[i];
-
-                    var position = new google.maps.LatLng(hotel.lat, hotel.long);
-                    markerBounds.extend(position);
-
-                    var infW = new (GenCustomWindow())();
-                    //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
-                    infW.setContent(hotel.html);
-                    infW.setPopup(hotel.popup);
-                    infW.setPosition(position);
-                    infW.open(map);
-                    markers.push(infW);
-
-                    map.fitBounds(markerBounds);
-                })();
-            }
-
-            if(map.getZoom() > 15) map.setZoom(15);
-
-            update = false;
+            showMarkers(responce);
         });
         return false;
+    }
+
+    function clearPopups(){
+        //clear all popups
+        for(var j=0; j<popups.length; j++){
+            popups[j].setMap(null);
+        }
+    }
+
+    function showMarkers(responce){
+        $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
+
+        //clear all markers
+        for(var j=0; j<markers.length; j++){
+            markers[j].setMap(null);
+        }
+
+        // Display multiple markers on a map
+        var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+        markers = [];
+
+        markerBounds = new google.maps.LatLngBounds();
+
+        //add markers
+        for(i=0; i<responce.length; i++){
+            (function(){
+
+                var hotel = responce[i];
+
+                var position = new google.maps.LatLng(hotel.lat, hotel.long);
+                markerBounds.extend(position);
+
+                var infW = new (GenCustomWindow())();
+                //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
+                infW.setContent(hotel.html);
+                infW.setPopup(hotel.popup);
+                infW.setPosition(position);
+                infW.open(map);
+                markers.push(infW);
+
+                map.fitBounds(markerBounds);
+            })();
+        }
+
+        if(map.getZoom() > 15) map.setZoom(15);
+
+        update = false;
     }
 
     $('#map_wrapper').on('click', ".map-popup", function () {

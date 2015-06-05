@@ -570,8 +570,9 @@ class DefaultController extends Controller
         return [];
     }
 
+
     /**
-     * @Route("/gibcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}/{category}")
+     * @Route("/gaibcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
      * @param Request $request
      * @param $trLat
      * @param $trLong
@@ -579,33 +580,41 @@ class DefaultController extends Controller
      * @param $blLong
      * @return JsonResponse
      */
-    public function getItemsByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong, $category)
+    public function getAllItemsByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $mapCategory = $em->getRepository('SandboxWebsiteBundle:MapCategory')
-            ->findOneBy(['name' => $category]);
-
-        if(!$mapCategory){
-            return new JsonResponse([]);
-        }
-
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
         /** @var OfferPage[] $offers */
         $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+            ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
         $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong);
 
         $data = [];
+        $data = array_merge($data, $this->parseHotels($hotels, $city));
+        $data = array_merge($data, $this->parseOffers($offers, $city));
+        $data = array_merge($data, $this->parseCompanies($companies, $city));
 
+        return new JsonResponse($data);
+    }
+
+    private function parseHotels($hotels, $city)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $data = [];
+        /** @var HotelPage $hotel */
         foreach ($hotels as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
+
+            if(!$hotel->getMapCategory()) continue;
 
             $found = false;
             foreach ($hotel->getPlaces() as $place) {
@@ -620,6 +629,9 @@ class DefaultController extends Controller
             }
 
             if(!$found) continue;
+
+            $mapCategory = $hotel->getMapCategory();
+            $category = $mapCategory->getName();
 
             if($hotel->getCheapestPackage()) {
                 /** @var NodeTranslation $translation */
@@ -637,7 +649,7 @@ class DefaultController extends Controller
                 $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
                     $img.
                     "<h4>". $hotel->getTitle() . "</h4><a class='map-popup-price' href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
-                    . $hotel->getCheapestPackage()->getMinprice() .
+                    . (int)$hotel->getCheapestPackage()->getMinprice() .
                     "</a>" .
                     "<a class='map-popup-desc' href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
                     . $title .
@@ -672,8 +684,17 @@ class DefaultController extends Controller
             }
         }
 
+        return $data;
+    }
+
+    private function parseOffers($offers, $city)
+    {
+        $data = [];
+        /** @var OfferPage $hotel */
         foreach ($offers as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
+
+            if(!$hotel->getMapCategory()) continue;
 
             $found = false;
             foreach ($hotel->getPlaces() as $place) {
@@ -684,6 +705,9 @@ class DefaultController extends Controller
             }
 
             if(!$found) continue;
+
+            $mapCategory = $hotel->getMapCategory();
+            $category = $mapCategory->getName();
 
             $price = $hotel->getPriceEur()?$hotel->getPriceEur():$hotel->getPrice();
 
@@ -701,13 +725,24 @@ class DefaultController extends Controller
                 $price .
                 "</a>".
 
-            "<div class='map-info-close'>x</div></div>";
+                "<div class='map-info-close'>x</div></div>";
 
             $data[] = $hotelData;
         }
+        return $data;
+    }
 
+    private function parseCompanies($companies, $city)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $data = [];
+        /** @var CompanyOverviewPage $hotel */
         foreach ($companies as $hotel) {
             if(!$hotel->hasCoordinates()) continue;
+
+            if(!$hotel->getMapCategory()) continue;
 
             $found = false;
             foreach ($hotel->getPlaces() as $place) {
@@ -718,6 +753,9 @@ class DefaultController extends Controller
             }
 
             if(!$found) continue;
+
+            $mapCategory = $hotel->getMapCategory();
+            $category = $mapCategory->getName();
 
             /** @var NodeTranslation $translation */
             $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
@@ -735,10 +773,52 @@ class DefaultController extends Controller
                 . $hotel->getTitle() .
                 "</a>".
 
-            "<div class='map-info-close'>x</div></div>";
+                "<div class='map-info-close'>x</div></div>";
 
             $data[] = $hotelData;
         }
+
+        return $data;
+    }
+
+    /**
+     * @Route("/gibcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}/{category}")
+     * @param Request $request
+     * @param $trLat
+     * @param $trLong
+     * @param $blLat
+     * @param $blLong
+     * @return JsonResponse
+     */
+    public function getItemsByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong, $category)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $mapCategory = $em->getRepository('SandboxWebsiteBundle:MapCategory')
+            ->findOneBy(['name' => $category]);
+
+        if(!$mapCategory){
+            return new JsonResponse([]);
+        }
+
+        /** @var HotelPage[] $hotels */
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->getHotelPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        /** @var OfferPage[] $offers */
+        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPagesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
+            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
+
+        $data = [];
+
+        $data = array_merge($data, $this->parseHotels($hotels, $city));
+        $data = array_merge($data, $this->parseOffers($offers, $city));
+        $data = array_merge($data, $this->parseCompanies($companies, $city));
+
         return new JsonResponse($data);
     }
 
@@ -828,231 +908,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/ghbcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
-     * @param Request $request
-     * @param $trLat
-     * @param $trLong
-     * @param $blLat
-     * @param $blLong
-     * @return JsonResponse
-     */
-    public function getHotelsByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $mapCategory = $em->getRepository('SandboxWebsiteBundle:MapCategory')
-            ->findOneBy(['name' => 'hotel']);
-
-        if(!$mapCategory){
-            return new JsonResponse([]);
-        }
-
-        /** @var HotelPage[] $hotels */
-        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
-
-        /** @var OfferPage[] $offers */
-        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
-
-        $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyOverviewPage')
-            ->getCompaniesByBounds($request->getLocale(), $trLat, $trLong, $blLat, $blLong, $mapCategory->getId());
-
-        /** @var OfferPage[] $offerHotels */
-        $offerHotels = [];
-
-        foreach ($offers as $offer) {
-            foreach ($offer->getCategories() as $category) {
-                if($category->getName() == 'hotel'){
-                    $offerHotels[] = $offer;
-                }
-            }
-        }
-
-
-        $data = [];
-
-        foreach ($hotels as $hotel) {
-            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
-            //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
-
-            if(!$hotel->hasCoordinates()) continue;
-
-            $hotelData = [];
-            $hotelData['title'] = $hotel->getTitle();
-            $hotelData['lat'] = $hotel->getLatitude();
-            $hotelData['long'] = $hotel->getLongitude();
-            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
-
-
-            $data[] = $hotelData;
-        }
-
-        foreach ($offerHotels as $hotel) {
-            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
-            //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
-
-            if(!$hotel->hasCoordinates()) continue;
-
-            $hotelData = [];
-            $hotelData['title'] = $hotel->getTitle();
-            $hotelData['lat'] = $hotel->getLatitude();
-            $hotelData['long'] = $hotel->getLongitude();
-            $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
-
-            $data[] = $hotelData;
-        }
-
-        foreach ($companies as $hotel) {
-
-            if(!$hotel->hasCoordinates()) continue;
-
-            $hotelData = [];
-            $hotelData['title'] = $hotel->getTitle();
-            $hotelData['lat'] = $hotel->getLatitude();
-            $hotelData['long'] = $hotel->getLongitude();
-            $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item'>" . $hotel->getTitle() . "</div>";
-
-            $data[] = $hotelData;
-        }
-        //$data = array_values($data);
-        return new JsonResponse($data);
-    }
-
-
-    public function getHotelsCountByCityBounds(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
-    {
-        $count = 0;
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var HotelPage[] $hotels */
-        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->getHotelPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
-
-        /** @var OfferPage[] $offers */
-        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
-
-        /** @var OfferPage[] $offerHotels */
-        $offerHotels = [];
-
-        foreach ($offers as $offer) {
-            foreach ($offer->getCategories() as $category) {
-                if($category->getName() == 'hotel'){
-                    $offerHotels[] = $offer;
-                }
-            }
-        }
-
-        foreach ($hotels as $hotel) {
-            if(!$hotel->hasCoordinates()) continue;
-            $count++;
-        }
-
-        foreach ($offerHotels as $hotel) {
-            if(!$hotel->hasCoordinates()) continue;
-            $count++;
-        }
-
-        return $count;
-    }
-
-    /**
-     * @Route("/gabcb/{city}/{trLat}/{trLong}/{blLat}/{blLong}")
-     * @param Request $request
-     * @param $trLat
-     * @param $trLong
-     * @param $blLat
-     * @param $blLong
-     * @return JsonResponse
-     */
-    public function getActivitiesByCityBoundsAction(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var OfferPage[] $offers */
-        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
-
-        /** @var OfferPage[] $realOffers */
-        $realOffers = [];
-
-        foreach ($offers as $offer) {
-            $isHotel = false;
-            foreach ($offer->getCategories() as $category) {
-                if($category->getName() == 'hotel'){
-                    $isHotel = true;
-                }
-            }
-
-            if(!$isHotel){
-                $realOffers[] = $offer;
-            }
-        }
-
-
-        $data = [];
-
-        foreach ($realOffers as $offer) {
-            //$city = $hotel->getCity() ? $hotel->getCity(): $hotel->getCityParish();
-            //$data[$city] = ['city' => $city, 'html' => $this->mapHtml($city)];
-
-            if(!$offer->hasCoordinates()) continue;
-
-            $offerData = [];
-            $offerData['title'] = $offer->getTitle();
-            $offerData['lat'] = $offer->getLatitude();
-            $offerData['long'] = $offer->getLongitude();
-            $offerData['html'] = "<div class='map-window-item'>" . $offer->getTitle() . " " . $offer->getPrice() . "</div>";
-
-            $data[] = $offerData;
-        }
-
-        //$data = array_values($data);
-        return new JsonResponse($data);
-    }
-
-
-    public function getActivitiesCountByCityBounds(Request $request, $city, $trLat, $trLong, $blLat, $blLong)
-    {
-        $count = 0;
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var OfferPage[] $offers */
-        $offers = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPagesByCityBounds($request->getLocale(), $city, $trLat, $trLong, $blLat, $blLong);
-
-        /** @var OfferPage[] $realOffers */
-        $realOffers = [];
-
-        foreach ($offers as $offer) {
-            $isHotel = false;
-            foreach ($offer->getCategories() as $category) {
-                if($category->getName() == 'hotel'){
-                    $isHotel = true;
-                }
-            }
-
-            if(!$isHotel){
-                $realOffers[] = $offer;
-            }
-        }
-
-        foreach ($realOffers as $offer) {
-            if(!$offer->hasCoordinates()) continue;
-            $count++;
-        }
-
-        return $count;
-    }
-
-    /**
      * @Route("/gbb/{trLat}/{trLong}/{blLat}/{blLong}/{mapZoom}")
      * @param Request $request
      * @param $trLat
@@ -1090,6 +945,7 @@ class DefaultController extends Controller
             /** @var PlaceOverviewPage $city */
             $city = $hotel->getPlaces()->first();
             if(!$city) {
+                /** @var string $city */
                 $city = $hotel->getCityParish()?$hotel->getCityParish():$hotel->getCity();
                 if(!array_key_exists($city, $data)){
                     $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
@@ -1134,6 +990,7 @@ class DefaultController extends Controller
                 }
             }else{
                 $city = $city->getTitle();
+                /** @var string $city */
                 if(!array_key_exists($city, $data)){
                     $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
                     if($html)
@@ -1223,9 +1080,6 @@ class DefaultController extends Controller
 
         if($mapZoom < 9){
             //only bigest badge
-//            $lat = ($blLat + $trLat) / 2;
-//            $long = ($blLong + $trLong) / 2;
-
             $html = "<div class='map-window-all-mini'><a href='#' onclick='return zoomMap(9, this)'>" . '<span class="badge">'.$badge.'</span>' . "</a></div>";
 
             return $html;
@@ -1245,7 +1099,7 @@ class DefaultController extends Controller
         }
 
 
-        $html = '<a href="#" data-city="' . $city . '" class="iw-link-city" onclick="return loadHotelsByCity(this)">' . $city . '</a>';
+        $html = '<a href="#" data-city="' . $city . '" class="iw-link-city" onclick="return loadAllItemsByCity(this)">' . $city . '</a>';
         if($hotels > 0)
             $html .= '<a href="#" data-city="' . $city . '" class="iw-link-hotel" data-category="hotel" onclick="return loadItemsByCity(this)">hotel<span class="badge">'.$hotels.'</span></a>';
         if($activities > 0)
