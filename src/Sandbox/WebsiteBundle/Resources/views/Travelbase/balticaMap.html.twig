@@ -175,24 +175,25 @@
                     $('.airbnb-badge').addClass('hide');
                 }
 
+                setTimeout(function () {
+                    if(zoom <= 11){
+                        $(".map-window-item").css({
+                            "background-size": "25px auto",
+                            'min-height': '25px',
+                            'min-width': '25px'
+                        });
+                    }
+                    if(zoom <= 8){
+                        $(".map-window-item").css({
+                            "background-size": "20px auto",
+                            'min-height': '20px',
+                            'min-width': '20px'
+                        });
+                    }
 
-                console.log(zoom);
+                }, 200);
 
-                if(zoom <= 11){
-                    $(".map-window-item").css({
-                        "background-size": "25px auto",
-                        'min-height': '25px',
-                        'min-width': '25px'
-                    });
-                }
-                if(zoom <= 8){
-                    $(".map-window-item").css({
-                        "background-size": "20px auto",
-                        'min-height': '20px',
-                        'min-width': '20px'
-                    });
-                }
-                console.log(zoom);
+
 
                 update = true;
             });
