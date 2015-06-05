@@ -181,7 +181,11 @@
 
         google.maps.event.addListener(map, 'zoom_changed', function() {
             var zoom = map.getZoom();
-            if(zoom <= 12) backBtn();
+            if(zoom <= 12) {
+                update = true;
+                $('#back-btn').html('');
+                google.maps.event.trigger(map, 'idle');
+            }
         });
 
 
