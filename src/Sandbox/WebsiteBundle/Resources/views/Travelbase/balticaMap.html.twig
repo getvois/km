@@ -60,7 +60,6 @@
             }
         ];
 
-
         var geocoder;
 
         markerBounds = new google.maps.LatLngBounds();
@@ -87,7 +86,6 @@
         var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
 
         map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
-
 
         google.maps.event.addListener((map), 'idle', function(event) {
 
@@ -166,11 +164,7 @@
 
                         }
 
-
                     })();
-
-
-
 
                 }
 
@@ -182,8 +176,15 @@
 
                 update = true;
             });
-
         });
+
+
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            var zoom = map.getZoom();
+            if(zoom == 12) update = true;
+        });
+
+
     }
 
     function backBtn(){
