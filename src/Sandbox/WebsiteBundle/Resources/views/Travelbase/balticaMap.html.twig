@@ -19,6 +19,7 @@
     var infoWindows = [];
     var markerBounds;
     var popups = [];
+    var viewZoom = null;
 
     function initialize() {
         var MY_MAPTYPE_ID = 'custom_style';
@@ -192,13 +193,11 @@
                     if(zoom <= 8){
                         $(".map-window-item").css({
                             "background-size": "24px auto"
-//                            'background-image' : "url(http://viabaltica.ru/bundles/sandboxwebsite/img/markers/template/marker-park_24.png)"
                         });
                     }
                     else if(zoom <= 11){
                         $(".map-window-item").css({
                             "background-size": "24px auto"
-//                            'background-image' : "url(http://viabaltica.ru/bundles/sandboxwebsite/img/markers/template/marker-park_24.png)"
                         });
                     }else{
                         $(".map-window-item").css({
@@ -207,8 +206,6 @@
                     }
 
                 }, 1);
-
-
 
                 update = true;
             });
@@ -233,9 +230,14 @@
 
         clearPopups();
 
-        if(map.getZoom() > 12){
-            map.setZoom(12);
+//        if(map.getZoom() > 12){
+//            map.setZoom(12);
+//        }
+
+        if(viewZoom){
+            map.setZoom(viewZoom);
         }
+
         google.maps.event.trigger(map, 'idle');
 
         return false;
@@ -286,6 +288,8 @@
     }
 
     function showMarkers(responce){
+        viewZoom = map.getZoom();
+
         $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
 
         var prevMarkers = markers;
