@@ -138,7 +138,7 @@ class FormListener {
                 foreach ($pp->getHosts() as $host) {
                     $pp->removeHost($host);
                 }
-                foreach ($page->getCompanies() as $host) {
+                foreach ($page->getHosts() as $host) {
                     $pp->addHost($host);
                 }
                 $this->em->persist($pp);
