@@ -20,6 +20,7 @@
     var markerBounds;
     var popups = [];
     var viewZoom = null;
+    var openCity = '';
 
     function initialize() {
         var MY_MAPTYPE_ID = 'custom_style';
@@ -70,6 +71,7 @@
         var mapCoord = $("#map-center-coordinates");
         if(mapCoord.length > 0){
             center = new google.maps.LatLng(mapCoord.data('lat'), mapCoord.data('long'));
+            openCity = mapCoord.data('city');
         }
 
         var bounds = new google.maps.LatLngBounds();
@@ -212,9 +214,16 @@
                         });
                     }
 
+
+                    if(openCity){
+                        $("a[data-city='" + openCity + "']").first().click();
+                        openCity = '';
+                    }
+
                 }, 1);
 
                 update = true;
+
             });
         });
 
