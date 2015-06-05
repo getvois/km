@@ -276,10 +276,12 @@
     function showMarkers(responce){
         $('#back-btn').html("<a href='#' onclick='return backBtn()' class='btn btn-danger btn-lg'> back </a>");
 
+        var prevMarkers = markers;
+
         //clear all markers
-        for(var j=0; j<markers.length; j++){
-            markers[j].setMap(null);
-        }
+//        for(var j=0; j<markers.length; j++){
+            //markers[j].setMap(null);
+//        }
 
         // Display multiple markers on a map
         var infoWindow = new google.maps.InfoWindow(), marker, i;
@@ -307,6 +309,11 @@
 
                 map.fitBounds(markerBounds);
             })();
+        }
+
+        //clear all markers
+        for(var j=0; j<prevMarkers.length; j++){
+            prevMarkers[j].setMap(null);
         }
 
         if(map.getZoom() > 15) map.setZoom(15);
