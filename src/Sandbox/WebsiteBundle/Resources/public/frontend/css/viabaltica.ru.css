@@ -1,0 +1,27 @@
+.clubbar {
+    position: fixed;
+    width: 42%;
+    z-index: 9;
+}
+
+.city-picker {
+  width: 58.33333333%;
+}
+
+.travelbase_top_menu > li {
+  display: inline-block;
+}
+
+
+@media (min-width: 768px)  {
+.navbar .site-topmenu {
+  position: absolute;
+  top:auto;
+  right:auto;
+  padding:0;
+  height:inherit;
+  background:transparent;
+}
+
+}
+

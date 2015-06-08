@@ -461,7 +461,6 @@ main .calendar-page .cal-day-today .events-list {
 }
 .site-topmenu .travelbase_top_menu > li > a {
     color: #111;
-    font-style:italic;
     font-size:16px;
     text-decoration:underline;
 }
@@ -2128,6 +2127,7 @@ a.top-link img {
         overflow: hidden;
         position: absolute;
         text-align: center;
+        z-index: 4;
     }
 
     .map-info-window .map-info-close{
@@ -2207,7 +2207,6 @@ a.top-link img {
     padding: 0;
     border-radius:0!important;
 }
-
 .gm-style .map-info-window .map-window-all {
     background-color: #ED1E61;
     box-shadow: -2px -2px 9px #BE144B!important;
@@ -2218,9 +2217,15 @@ a.top-link img {
     position:relative;
     text-align: left;
 }
-
+.gm-style .map-window-item a{
+	display: block;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	top: 0;
+}
 .gm-style .map-info-window .map-window-all a, .gm-style .map-window-item a {
-	 color:#fff;
+	color:#fff;
 }
 
 .gm-style .map-info-window .map-window-all a {
@@ -2276,15 +2281,21 @@ a.top-link img {
     padding-top: 14px;
     background: no-repeat center center;
     background-size: 24px auto;
+    position: relative;
+    z-index: 2;
 }
-.gm-style .map-window-item-hotel a, .gm-style .map-window-item-spa a {
+
+.gm-style .map-window-item-hotel a, .gm-style .map-window-item-spa a, .gm-style .map-window-item-offer a {
 	 color: #fff;
+	 position:static;
+	 top:auto;
 }
 .gm-style .map-window-item-hotel, .gm-style .map-window-item-spa, .gm-style .map-window-item-offer {
      font-size: 12px;
      min-height: 50px;
      min-width: 55px;
      background-size: inherit;
+     z-index: 3;
 }
 .gm-style .map-popup-item {
     background: none repeat scroll 0 0 white;
