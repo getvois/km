@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
@@ -32,7 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Place\PlaceOverviewPageRepository")
  * @ORM\Table(name="sb_place_overviewpages")
  */
-class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany
+class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany, SlugActionInterface
 {
     /**
      * @return bool
@@ -268,6 +269,10 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
         return array(new PlaceOverviewPagePagePartAdminConfigurator());
     }
 
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:Controller:service";
+    }
 
     public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [], $host)
     {
@@ -364,7 +369,6 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
      */
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
-        var_dump(12321313);
         parent::service($container, $request, $context);
 
         $locale = $request->getLocale();//page language code
