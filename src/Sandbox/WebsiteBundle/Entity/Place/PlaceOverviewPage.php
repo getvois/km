@@ -364,6 +364,9 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
      */
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
+        var_dump(12321313);
+        parent::service($container, $request, $context);
+
         $locale = $request->getLocale();//page language code
         $placesLocale = [];//array of translated online nodes to return to template
 
@@ -413,6 +416,8 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
             }
         }
 
+        var_dump(count($news));
+
         $context['preferredtags'] = $preferredTags;
         $context['tags'] = $tags;
         $context['places'] = $placesLocale;
@@ -421,7 +426,6 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
         $context['lang'] = $locale;
         $context['em'] = $em;
 
-        parent::service($container, $request, $context);
     }
 
     public function getArticleRepository($em)

@@ -183,11 +183,11 @@ services:
 
 
 
-    sandboxwebsitebundle.admin_menu_adaptor:
-        class: Sandbox\WebsiteBundle\Helper\Menu\AdminMenuAdaptor
-        arguments: ["@security.context"]
-        tags:
-            -  { name: 'kunstmaan_admin.menu.adaptor' }
+#    sandboxwebsitebundle.admin_menu_adaptor:
+#        class: Sandbox\WebsiteBundle\Helper\Menu\AdminMenuAdaptor
+#        arguments: ["@security.context"]
+#        tags:
+#            -  { name: 'kunstmaan_admin.menu.adaptor' }
     sandboxwebsitebundle.menu.adaptor.modules:
             class: Sandbox\WebsiteBundle\Helper\Menu\ModulesMenuAdaptor
             tags:

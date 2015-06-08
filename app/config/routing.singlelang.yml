@@ -64,6 +64,16 @@ sandboxwebsitebundle_tag:
 KunstmaanTaggingBundle:
      resource: "@KunstmaanTaggingBundle/Resources/config/routing.yml"
 
+# KunstmaanSeoBundle
+KunstmaanSeoBundle:
+    resource: "@KunstmaanSeoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# Robots.txt
+KunstmaanSeoBundle_robots:
+    resource: "@KunstmaanSeoBundle/Controller/RobotsController.php"
+    type:     annotation
+
 sandbox_website:
      resource: "@SandboxWebsiteBundle/Resources/config/routing.singlelang.yml"
      prefix:   /

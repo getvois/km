@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         {#{{ websitetitle | trans }}#}
-        {% block title %}{% if page is defined and nodemenu.getActiveForDepth(2) is not null %} {{ get_title_for(page) }}{% endif %}{% endblock %}</title>
+        {% block title %}{% if page is defined  %} {{ get_title_for(page) }}{% endif %}{% endblock %}</title>
     {% if page is defined %}
         {{ render_seo_metadata_for(page) }}
     {% endif %}

@@ -86,6 +86,19 @@ KunstmaanTaggingBundle:
      prefix:   /{_locale}/
      requirements:
          _locale: %requiredlocales%
+
+# KunstmaanSeoBundle
+KunstmaanSeoBundle:
+    resource: "@KunstmaanSeoBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/
+    requirements:
+        _locale: %requiredlocales%
+
+# Robots.txt
+KunstmaanSeoBundle_robots:
+    resource: "@KunstmaanSeoBundle/Controller/RobotsController.php"
+    type:     annotation
+
 Slash:
     pattern: "/{path}"
     defaults: { _controller: "SandboxWebsiteBundle:Route:slash" }
