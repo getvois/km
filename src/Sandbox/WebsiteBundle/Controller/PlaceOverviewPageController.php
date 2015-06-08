@@ -11,8 +11,9 @@ class PlaceOverviewPageController extends Controller{
     public function serviceAction(Request $request)
     {
 
+
         $page = $request->attributes->get('page');
-        var_dump($page);
+        var_dump($request->attributes->all());
 
         $em = $this->get('doctrine.orm.entity_manager');
 
