@@ -271,7 +271,7 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
 
     public function getControllerAction()
     {
-        return "SandboxWebsiteBundle:Controller:service";
+        return "SandboxWebsiteBundle:PlaceOverviewPage:service";
     }
 
     public function getSubNews(Node $node, $locale,ObjectManager $em, &$news = [], $host)
