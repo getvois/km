@@ -13,7 +13,10 @@ class PlaceOverviewPageController extends Controller{
 
 
         $page = $request->attributes->get('_page');
-        var_dump($page);
+
+        foreach ($request->attributes->all() as $key => $value) {
+            var_dump($key);
+        }
 
         $em = $this->get('doctrine.orm.entity_manager');
 
