@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
@@ -21,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity()
  * @ORM\Table(name="sb_content_pages")
  */
-class ContentPage extends AbstractPage  implements HasPageTemplateInterface
+class ContentPage extends AbstractPage  implements HasPageTemplateInterface, SlugActionInterface
 {
 
     /**
@@ -134,6 +135,11 @@ class ContentPage extends AbstractPage  implements HasPageTemplateInterface
     public function getDefaultView()
     {
         return 'SandboxWebsiteBundle:Pages\ContentPage:view.html.twig';
+    }
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
     }
 
     /**

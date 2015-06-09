@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Article;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Sandbox\WebsiteBundle\Entity\Host;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Article\ArticleOverviewPageRepository")
  * @ORM\Table(name="sb_article_overviewpages")
  */
-class ArticleOverviewPage extends AbstractArticleOverviewPage
+class ArticleOverviewPage extends AbstractArticleOverviewPage implements SlugActionInterface
 {
 
 
@@ -34,6 +35,11 @@ class ArticleOverviewPage extends AbstractArticleOverviewPage
     public function getPagePartAdminConfigurations()
     {
         return array(new ArticleOverviewPagePagePartAdminConfigurator());
+    }
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
     }
 
     /**

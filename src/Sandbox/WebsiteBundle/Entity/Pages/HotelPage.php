@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\HotelCriteria;
@@ -23,7 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_hotel_pages")
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\HotelPageRepository")
  */
-class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo //AbstractPage
+class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo, SlugActionInterface //AbstractPage
 {
 
     /**
@@ -81,7 +82,12 @@ class HotelPage extends AbstractArticlePage implements HasPageTemplateInterface,
             return true;
         return false;
     }
-    
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
+
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         parent::service($container, $request, $context);

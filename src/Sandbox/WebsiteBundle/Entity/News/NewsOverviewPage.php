@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Entity\News;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Sandbox\WebsiteBundle\Entity\Host;
@@ -25,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\News\NewsOverviewPageRepository")
  * @ORM\Table(name="sb_news_overviewpages")
  */
-class NewsOverviewPage extends AbstractArticleOverviewPage
+class NewsOverviewPage extends AbstractArticleOverviewPage implements SlugActionInterface
 {
 
     /**
@@ -34,6 +35,11 @@ class NewsOverviewPage extends AbstractArticleOverviewPage
     public function getPagePartAdminConfigurations()
     {
         return array(new NewsOverviewPagePagePartAdminConfigurator());
+    }
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
     }
 
     /**

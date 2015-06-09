@@ -2,6 +2,7 @@
 
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
@@ -20,8 +21,13 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity()
  * @ORM\Table(name="sb_home_pages")
  */
-class HomePage extends AbstractPage  implements HasPageTemplateInterface
+class HomePage extends AbstractPage  implements HasPageTemplateInterface, SlugActionInterface
 {
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
+
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         parent::service($container, $request, $context);

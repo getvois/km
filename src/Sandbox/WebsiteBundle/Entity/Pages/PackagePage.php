@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Entity\Pages;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
@@ -22,8 +23,13 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_package_pages")
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\PackagePageRepository")
  */
-class PackagePage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo
+class PackagePage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo, SlugActionInterface
 {
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
+
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         parent::service($container, $request, $context);

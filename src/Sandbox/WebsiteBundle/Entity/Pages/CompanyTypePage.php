@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
@@ -19,8 +20,13 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_company_type_pages")
  * @ORM\Entity
  */
-class CompanyTypePage extends AbstractPage implements HasPageTemplateInterface
+class CompanyTypePage extends AbstractPage implements HasPageTemplateInterface, SlugActionInterface
 {
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
+
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         $locale = $request->getLocale();//page language code

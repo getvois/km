@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
@@ -30,10 +31,15 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_news_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany, ICopyFields
+class NewsPage extends AbstractArticlePage implements IPlaceFromTo, IHostable, Taggable, ICompany, ICopyFields, SlugActionInterface
 {
     use TPriceFrom;
     use TSocialLinks;
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
 
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {

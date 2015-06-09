@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
@@ -16,8 +17,13 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_offers_overview_pages")
  * @ORM\Entity
  */
-class OffersOverviewPage extends AbstractPage implements HasPageTemplateInterface
+class OffersOverviewPage extends AbstractPage implements HasPageTemplateInterface, SlugActionInterface
 {
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
+
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         parent::service($container, $request, $context);

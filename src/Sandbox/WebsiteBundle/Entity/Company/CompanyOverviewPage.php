@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\MediaBundle\Entity\Media;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
@@ -32,7 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository")
  * @ORM\Table(name="sb_company_overviewpages")
  */
-class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo
+class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo, SlugActionInterface
 {
     /**
      * @var string
@@ -565,6 +566,11 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceF
             $this->getSubArticles($child, $locale, $em, $articles, $host);
         }
 
+    }
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
     }
 
     /**

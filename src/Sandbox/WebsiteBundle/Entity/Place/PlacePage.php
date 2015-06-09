@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Entity\Place;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceAuthor;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_place_pages")
  * @ORM\HasLifecycleCallbacks
  */
-class PlacePage extends AbstractArticlePage
+class PlacePage extends AbstractArticlePage implements SlugActionInterface
 {
 
 //    /**
@@ -104,11 +105,15 @@ class PlacePage extends AbstractArticlePage
 //        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
 //    }
 
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
+    }
 
     public function service(ContainerInterface $container, Request $request, RenderContext $context)
     {
         /** @var PlacePage $placePage */
-        $placePage = $context['resource'];
+        $placePage = $context['page'];
         //var_dump($context['page']); same as recource;
 
         $places = $placePage->getNews();

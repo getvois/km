@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Pages;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Table(name="sb_satellite_overview_page")
  * @ORM\Entity
  */
-class SatelliteOverviewPage extends AbstractPage implements HasPageTemplateInterface
+class SatelliteOverviewPage extends AbstractPage implements HasPageTemplateInterface, SlugActionInterface
 {
     /**
      * @var string
@@ -94,6 +95,11 @@ class SatelliteOverviewPage extends AbstractPage implements HasPageTemplateInter
     public function getDefaultView()
     {
         return 'SandboxWebsiteBundle:Pages:SatelliteOverviewPage/view.html.twig';
+    }
+
+    public function getControllerAction()
+    {
+        return "SandboxWebsiteBundle:BackwardCompatibility:service";
     }
 
     /**
