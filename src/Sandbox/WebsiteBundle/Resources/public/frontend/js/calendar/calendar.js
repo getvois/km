@@ -266,92 +266,94 @@ if(!String.prototype.formatNum) {
 	}
 
 	function getHolidays(cal, year) {
-		var hash = [];
-		var holidays_def = getExtentedOption(cal, 'holidays');
-		for(var k in holidays_def) {
-			hash.push(k + ':' + holidays_def[k]);
-		}
-		hash.push(year);
-		hash = hash.join('|');
-		if(hash in getHolidays.cache) {
-			return getHolidays.cache[hash];
-		}
-		var holidays = [];
-		$.each(holidays_def, function(key, name) {
-			var firstDay = null, lastDay = null, failed = false;
-			$.each(key.split('>'), function(i, chunk) {
-				var m, date = null;
-				if(m = /^(\d\d)-(\d\d)$/.exec(chunk)) {
-					date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
-				}
-				else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(chunk)) {
-					if(parseInt(m[3], 10) == year) {
-						date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
-					}
-				}
-				else if(m = /^easter(([+\-])(\d+))?$/.exec(chunk)) {
-					date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
-				}
-				else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(chunk)) {
-					var month = parseInt(m[1], 10) - 1;
-					var direction = m[2];
-					var offset = parseInt(m[3]);
-					var weekday = parseInt(m[4]);
-					switch(direction) {
-						case '+':
-							var d = new Date(year, month, 1 - 7);
-							while(d.getDay() != weekday) {
-								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
-							}
-							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
-							break;
-						case '-':
-							var d = new Date(year, month + 1, 0 + 7);
-							while(d.getDay() != weekday) {
-								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
-							}
-							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
-							break;
-					}
-				}
-				if(!date) {
-					warn('Unknown holiday: ' + key);
-					failed = true;
-					return false;
-				}
-				switch(i) {
-					case 0:
-						firstDay = date;
-						break;
-					case 1:
-						if(date.getTime() <= firstDay.getTime()) {
-							warn('Unknown holiday: ' + key);
-							failed = true;
-							return false;
-						}
-						lastDay = date;
-						break;
-					default:
-						warn('Unknown holiday: ' + key);
-						failed = true;
-						return false;
-				}
-			});
-			if(!failed) {
-				var days = [];
-				if(lastDay) {
-					for(var date = new Date(firstDay.getTime()); date.getTime() <= lastDay.getTime(); date.setDate(date.getDate() + 1)) {
-						days.push(new Date(date.getTime()));
-					}
-				}
-				else {
-					days.push(firstDay);
-				}
-				holidays.push({name: name, days: days});
-			}
-		});
-		getHolidays.cache[hash] = holidays;
-		return getHolidays.cache[hash];
+        return {};
+        //
+		//var hash = [];
+		//var holidays_def = getExtentedOption(cal, 'holidays');
+		//for(var k in holidays_def) {
+		//	hash.push(k + ':' + holidays_def[k]);
+		//}
+		//hash.push(year);
+		//hash = hash.join('|');
+		//if(hash in getHolidays.cache) {
+		//	return getHolidays.cache[hash];
+		//}
+		//var holidays = [];
+		//$.each(holidays_def, function(key, name) {
+		//	var firstDay = null, lastDay = null, failed = false;
+		//	$.each(key.split('>'), function(i, chunk) {
+		//		var m, date = null;
+		//		if(m = /^(\d\d)-(\d\d)$/.exec(chunk)) {
+		//			date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+		//		}
+		//		else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(chunk)) {
+		//			if(parseInt(m[3], 10) == year) {
+		//				date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+		//			}
+		//		}
+		//		else if(m = /^easter(([+\-])(\d+))?$/.exec(chunk)) {
+		//			date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
+		//		}
+		//		else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(chunk)) {
+		//			var month = parseInt(m[1], 10) - 1;
+		//			var direction = m[2];
+		//			var offset = parseInt(m[3]);
+		//			var weekday = parseInt(m[4]);
+		//			switch(direction) {
+		//				case '+':
+		//					var d = new Date(year, month, 1 - 7);
+		//					while(d.getDay() != weekday) {
+		//						d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+		//					}
+		//					date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
+		//					break;
+		//				case '-':
+		//					var d = new Date(year, month + 1, 0 + 7);
+		//					while(d.getDay() != weekday) {
+		//						d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
+		//					}
+		//					date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
+		//					break;
+		//			}
+		//		}
+		//		if(!date) {
+		//			warn('Unknown holiday: ' + key);
+		//			failed = true;
+		//			return false;
+		//		}
+		//		switch(i) {
+		//			case 0:
+		//				firstDay = date;
+		//				break;
+		//			case 1:
+		//				if(date.getTime() <= firstDay.getTime()) {
+		//					warn('Unknown holiday: ' + key);
+		//					failed = true;
+		//					return false;
+		//				}
+		//				lastDay = date;
+		//				break;
+		//			default:
+		//				warn('Unknown holiday: ' + key);
+		//				failed = true;
+		//				return false;
+		//		}
+		//	});
+		//	if(!failed) {
+		//		var days = [];
+		//		if(lastDay) {
+		//			for(var date = new Date(firstDay.getTime()); date.getTime() <= lastDay.getTime(); date.setDate(date.getDate() + 1)) {
+		//				days.push(new Date(date.getTime()));
+		//			}
+		//		}
+		//		else {
+		//			days.push(firstDay);
+		//		}
+		//		holidays.push({name: name, days: days});
+		//	}
+		//});
+		//getHolidays.cache[hash] = holidays;
+		//return getHolidays.cache[hash];
 	}
 
 	getHolidays.cache = {};
@@ -646,26 +648,28 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._getHoliday = function(date) {
-		var result = false;
-		$.each(getHolidays(this, date.getFullYear()), function() {
-			var found = false;
-			$.each(this.days, function() {
-				if(this.toDateString() == date.toDateString()) {
-					found = true;
-					return false;
-				}
-			});
-			if(found) {
-				result = this.name;
-				return false;
-			}
-		});
-		return result;
+        return false;
+		//var result = false;
+		//$.each(getHolidays(this, date.getFullYear()), function() {
+		//	var found = false;
+		//	$.each(this.days, function() {
+		//		if(this.toDateString() == date.toDateString()) {
+		//			found = true;
+		//			return false;
+		//		}
+		//	});
+		//	if(found) {
+		//		result = this.name;
+		//		return false;
+		//	}
+		//});
+		//return result;
 	};
 
 	Calendar.prototype._getHolidayName = function(date) {
-		var holiday = this._getHoliday(date);
-		return (holiday === false) ? "" : holiday;
+        return "";
+		//var holiday = this._getHoliday(date);
+		//return (holiday === false) ? "" : holiday;
 	};
 
 	Calendar.prototype._getDayClass = function(class_group, date) {
@@ -1136,66 +1140,66 @@ if(!String.prototype.formatNum) {
 	};
 
 	function showEventsList(event, that, slider, self) {
-
-		event.stopPropagation();
-
-		var that = $(that);
-		var cell = that.closest('.cal-cell');
-		var row = cell.closest('.cal-before-eventlist');
-		var tick_position = cell.data('cal-row');
-
-		that.fadeOut('fast');
-
-		slider.slideUp('fast', function() {
-			var event_list = $('.events-list', cell);
-			slider.html(self.options.templates['events-list']({
-				cal:    self,
-				events: self.getEventsBetween(parseInt(event_list.data('cal-start')), parseInt(event_list.data('cal-end')))
-			}));
-			row.after(slider);
-			self.activecell = $('[data-cal-date]', cell).text();
-			$('#cal-slide-tick').addClass('tick' + tick_position).show();
-			slider.slideDown('fast', function() {
-				$('body').one('click', function() {
-					console.log('slide up');
-					slider.slideUp('fast');
-					self.activecell = 0;
-				});
-			});
-		});
-
-	
-
-		// Wait 400ms before updating the modal & attach the mouseenter&mouseleave(400ms is the time for the slider to fade out and slide up)
-		setTimeout(function() {
-			$('a.event-item').mouseenter(function() {
-				$('a[data-event-id="' + $(this).data('event-id') + '"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
-			});
-			$('a.event-item').mouseleave(function() {
-				$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
-			});
-			self._update_modal();
-		}, 400);
+        //
+		//event.stopPropagation();
+        //
+		//var that = $(that);
+		//var cell = that.closest('.cal-cell');
+		//var row = cell.closest('.cal-before-eventlist');
+		//var tick_position = cell.data('cal-row');
+        //
+		//that.fadeOut('fast');
+        //
+		//slider.slideUp('fast', function() {
+		//	var event_list = $('.events-list', cell);
+		//	slider.html(self.options.templates['events-list']({
+		//		cal:    self,
+		//		events: self.getEventsBetween(parseInt(event_list.data('cal-start')), parseInt(event_list.data('cal-end')))
+		//	}));
+		//	row.after(slider);
+		//	self.activecell = $('[data-cal-date]', cell).text();
+		//	$('#cal-slide-tick').addClass('tick' + tick_position).show();
+		//	slider.slideDown('fast', function() {
+		//		$('body').one('click', function() {
+		//			console.log('slide up');
+		//			slider.slideUp('fast');
+		//			self.activecell = 0;
+		//		});
+		//	});
+		//});
+        //
+        //
+        //
+		//// Wait 400ms before updating the modal & attach the mouseenter&mouseleave(400ms is the time for the slider to fade out and slide up)
+		//setTimeout(function() {
+		//	$('a.event-item').mouseenter(function() {
+		//		$('a[data-event-id="' + $(this).data('event-id') + '"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
+		//	});
+		//	$('a.event-item').mouseleave(function() {
+		//		$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+		//	});
+		//	self._update_modal();
+		//}, 400);
 	}
 
-	function getEasterDate(year, offsetDays) {
-		var a = year % 19;
-		var b = Math.floor(year / 100);
-		var c = year % 100;
-		var d = Math.floor(b / 4);
-		var e = b % 4;
-		var f = Math.floor((b + 8) / 25);
-		var g = Math.floor((b - f + 1) / 3);
-		var h = (19 * a + b - d - g + 15) % 30;
-		var i = Math.floor(c / 4);
-		var k = c % 4;
-		var l = (32 + 2 * e + 2 * i - h - k) % 7;
-		var m = Math.floor((a + 11 * h + 22 * l) / 451);
-		var n0 = (h + l + 7 * m + 114)
-		var n = Math.floor(n0 / 31) - 1;
-		var p = n0 % 31 + 1;
-		return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
-	}
+	//function getEasterDate(year, offsetDays) {
+	//	var a = year % 19;
+	//	var b = Math.floor(year / 100);
+	//	var c = year % 100;
+	//	var d = Math.floor(b / 4);
+	//	var e = b % 4;
+	//	var f = Math.floor((b + 8) / 25);
+	//	var g = Math.floor((b - f + 1) / 3);
+	//	var h = (19 * a + b - d - g + 15) % 30;
+	//	var i = Math.floor(c / 4);
+	//	var k = c % 4;
+	//	var l = (32 + 2 * e + 2 * i - h - k) % 7;
+	//	var m = Math.floor((a + 11 * h + 22 * l) / 451);
+	//	var n0 = (h + l + 7 * m + 114)
+	//	var n = Math.floor(n0 / 31) - 1;
+	//	var p = n0 % 31 + 1;
+	//	return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
+	//}
 
 	$.fn.calendar = function(params) {
 		return new Calendar(params, this);
