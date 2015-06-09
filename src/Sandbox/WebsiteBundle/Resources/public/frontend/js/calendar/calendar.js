@@ -1088,41 +1088,42 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._update_month_year = function() {
-		if(!this.options.views[this.options.view].slide_events) {
-			return;
-		}
-		var self = this;
-		var activecell = 0;
-		var downbox = $(document.createElement('div')).attr('id', 'cal-day-tick').html('');
-
-		$('.cal-month-day, .cal-year-box .span3')
-			.on('mouseenter', function() {
-				if($('.events-list', this).length == 0) return;
-				if($(this).children('[data-cal-date]').text() == self.activecell) return;
-				downbox.show().appendTo(this);
-			})
-			.on('mouseleave', function() {
-				downbox.hide();
-			})
-			.on('click', function(event) {
-				console.log('slide down');
-				if($('.events-list', this).length == 0) return;
-				if($(this).children('[data-cal-date]').text() == self.activecell) return;
-				//showEventsList(event, downbox, slider, self);
-			})
-		;
-
-		var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
-		slider.hide().click(function(event) {
-			event.stopPropagation();
-		});
-
-		this._loadTemplate('events-list');
-
-		downbox.click(function(event) {
-			console.log('slide down');
-			//showEventsList(event, $(this), slider, self);
-		});
+        return;
+		//if(!this.options.views[this.options.view].slide_events) {
+		//	return;
+		//}
+		//var self = this;
+		//var activecell = 0;
+		//var downbox = $(document.createElement('div')).attr('id', 'cal-day-tick').html('');
+        //
+		//$('.cal-month-day, .cal-year-box .span3')
+		//	.on('mouseenter', function() {
+		//		if($('.events-list', this).length == 0) return;
+		//		if($(this).children('[data-cal-date]').text() == self.activecell) return;
+		//		downbox.show().appendTo(this);
+		//	})
+		//	.on('mouseleave', function() {
+		//		downbox.hide();
+		//	})
+		//	.on('click', function(event) {
+		//		console.log('slide down');
+		//		if($('.events-list', this).length == 0) return;
+		//		if($(this).children('[data-cal-date]').text() == self.activecell) return;
+		//		//showEventsList(event, downbox, slider, self);
+		//	})
+		//;
+        //
+		//var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
+		//slider.hide().click(function(event) {
+		//	event.stopPropagation();
+		//});
+        //
+		//this._loadTemplate('events-list');
+        //
+		//downbox.click(function(event) {
+		//	console.log('slide down');
+		//	//showEventsList(event, $(this), slider, self);
+		//});
 	};
 
 	Calendar.prototype.getEventsBetween = function(start, end) {
