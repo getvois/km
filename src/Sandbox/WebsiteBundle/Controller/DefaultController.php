@@ -1091,13 +1091,12 @@ class DefaultController extends Controller
 
             $results = $data->visible_results_count;
             //$price = CurrencyConverter::getPrice("USD", $data->average_price);
-
-            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '?af=26886727&c=81202" target="_blank">airbnb <span class="badge airbnb-badge">'.$results.'</span></a>';
+            //http://c31.travelpayouts.com/click?shmarker=81202&promo_id=645&source_type=customlink&type=click&custom_url=https%3A%2F%2Fwww.airbnb.com%2Fs%2FKuressaare
+            $airbnb = '<a href="http://c31.travelpayouts.com/click?shmarker=81202&promo_id=645&source_type=customlink&type=click&custom_url=https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb <span class="badge airbnb-badge">'.$results.'</span></a>';
 
         }else{
-            $airbnb = '<a href="https://www.airbnb.com/s/' . $city . '?af=26886727&c=81202" target="_blank">airbnb</a>';
+            $airbnb = '<a href="http://c31.travelpayouts.com/click?shmarker=81202&promo_id=645&source_type=customlink&type=click&custom_url=https://www.airbnb.com/s/' . $city . '" target="_blank">airbnb</a>';
         }
-
 
         $html = '<a href="#" data-city="' . $city . '" class="iw-link-city" onclick="return loadAllItemsByCity(this)">' . $city . '</a>';
         if($hotels > 0)
