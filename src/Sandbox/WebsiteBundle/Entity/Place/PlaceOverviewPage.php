@@ -420,8 +420,6 @@ class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable
             }
         }
 
-        var_dump(count($news));
-
         $context['preferredtags'] = $preferredTags;
         $context['tags'] = $tags;
         $context['places'] = $placesLocale;
