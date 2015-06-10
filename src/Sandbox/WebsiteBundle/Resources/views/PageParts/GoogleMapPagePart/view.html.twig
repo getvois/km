@@ -20,12 +20,6 @@
 	        <script>
 	            jQuery(function($) {
                     initialize2();
-
-                    $('.content').find('h3').each(function () {
-                        var text = $(this).text();
-                        text = text.replace(/^([0-9]+\.) /, function (x){return "<span class='number'>" + x + "</span>";} );
-                        $(this).html(text);
-                    });
 	            });
 
                 var map;
