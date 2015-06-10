@@ -145,8 +145,11 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         if($packageIds){
             var_dump($packageIds);
-            var_dump($packagePages);
-
+            $tmp = [];
+            foreach ($packagePages as $page) {
+                $tmp[$page->getPackageId()] = $page->getPackageId();
+            }
+            var_dump($tmp);
         }
 
         //set packages to unpublished that are left in $packageIds
