@@ -57,6 +57,7 @@ class AdAdminType extends AbstractType
             'top' => 'top',
             'middle' => 'middle',
             'bottom' => 'bottom',
+            'sidebar' => 'sidebar',
         ],
             'required' => false,
             'attr' => array('class' => 'js-advanced-select')

@@ -6,6 +6,9 @@
 
                 <h2 class="topheader">{{ 'latest.offers' | trans({}, 'frontend') }}</h2>
                 {% for item in news %}
+                    {% if loop.index == (loop.length/2)|round %}
+                        {% include '@SandboxWebsite/Ad/middleAds.html.twig' %}
+                    {% endif %}
 
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}

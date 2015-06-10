@@ -1,0 +1,9 @@
+{% if ads is defined and ads is not null %}
+
+    {% for ad in ads %}
+        {% if ad.position == 'sidebar' %}
+            {{ ad.html|raw }}
+        {% endif %}
+    {% endfor %}
+
+{% endif %}

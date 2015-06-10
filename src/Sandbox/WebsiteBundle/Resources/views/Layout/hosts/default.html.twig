@@ -43,6 +43,7 @@
         <main role="main">
             {% include "@SandboxWebsite/Ad/topAds.html.twig" %}
             {% block content %}{% endblock %}
+            {% include "@SandboxWebsite/Ad/bottomAds.html.twig" %}
         </main>
     </div>
     <div class="col-md-3 sidebar">
@@ -65,6 +66,7 @@
             {% block sidebar %}{% endblock %}
 
         {% endblock %}
+        {% include "@SandboxWebsite/Ad/sidebarAds.html.twig" %}
     </div>
 </div>
 
