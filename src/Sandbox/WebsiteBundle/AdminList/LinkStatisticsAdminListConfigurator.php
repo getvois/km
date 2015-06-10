@@ -31,7 +31,6 @@ class LinkStatisticsAdminListConfigurator extends AbstractDoctrineORMAdminListCo
     {
         $this->addField('url', 'Url', true);
         $this->addField('clicks', 'Clicks', true);
-        $this->addField('ref', 'Ref', true);
     }
 
     /**
@@ -41,7 +40,6 @@ class LinkStatisticsAdminListConfigurator extends AbstractDoctrineORMAdminListCo
     {
         $this->addFilter('url', new ORM\StringFilterType('url'), 'Url');
         $this->addFilter('clicks', new ORM\NumberFilterType('clicks'), 'Clicks');
-        $this->addFilter('ref', new ORM\StringFilterType('ref'), 'Ref');
     }
 
     /**
