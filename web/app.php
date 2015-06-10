@@ -20,7 +20,7 @@ $environment = str_replace(".", "_", $_SERVER['HTTP_HOST']);
 $environment = str_replace('www_', '', $environment);
 $environment = str_replace(':80', '', $environment);
 
-$kernel = new AppKernel($environment, true);
+$kernel = new AppKernel($environment, false);
 
 $kernel->loadClassCache();
 if (!isset($_SERVER['HTTP_SURROGATE_CAPABILITY']) || false === strpos($_SERVER['HTTP_SURROGATE_CAPABILITY'], 'ESI/1.0')) {
