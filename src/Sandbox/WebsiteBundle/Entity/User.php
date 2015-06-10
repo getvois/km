@@ -152,12 +152,12 @@ class User extends BaseUser{
         $this->city = $city;
     }
 
-    protected function getFormTypeClass()
+    public function getFormTypeClass()
     {
         return 'SandBox\WebsiteBundle\Form\UserType';
     }
 
-    protected function getAdminListConfiguratorClass()
+    public function getAdminListConfiguratorClass()
     {
         return 'SandBox\WebsiteBundle\AdminList\UserAdminListConfigurator';
     }

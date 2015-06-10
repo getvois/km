@@ -203,7 +203,7 @@ fos_user:
 
 parameters:
     kunstmaan_user_management.user_admin_list_configurator.class: Sandbox\WebsiteBundle\AdminList\UserAdminListConfigurator
-
+    fos_user.model.user.class: Sandbox\WebsiteBundle\Entity\User
 
 fos_http_cache:
     cache_control:
