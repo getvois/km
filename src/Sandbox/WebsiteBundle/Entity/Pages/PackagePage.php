@@ -44,7 +44,7 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
 
         $translation = $node->getNodeTranslation($request->getLocale());
         if(!$translation || !$translation->isOnline()){
-            return new NotFoundHttpException("Requested page is offline");
+            throw new NotFoundHttpException("Requested page is offline");
         }
 
         $page->viewCount += 1;
