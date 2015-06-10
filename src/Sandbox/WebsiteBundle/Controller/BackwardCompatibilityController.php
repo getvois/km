@@ -24,7 +24,7 @@ class BackwardCompatibilityController extends Controller{
         $page->service($container, $request, $context);
 
         $ads = $this->get('adhelper')->getAds($page, $request->getLocale());
-
+        $context['ads'] = $ads;
 
         $request->attributes->set('_renderContext',$context);
     }
