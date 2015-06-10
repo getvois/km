@@ -12,6 +12,9 @@ services:
     hosthelper:
         class: Sandbox\WebsiteBundle\Helper\HostHelper
         arguments: [@doctrine.orm.entity_manager, @service_container]
+    adhelper:
+        class: Sandbox\WebsiteBundle\Helper\AdHelper
+        arguments: [@doctrine.orm.entity_manager]
     placeshelper:
         class: Sandbox\WebsiteBundle\Helper\PlacesHelper
         arguments: [@doctrine.orm.entity_manager, @service_container]
