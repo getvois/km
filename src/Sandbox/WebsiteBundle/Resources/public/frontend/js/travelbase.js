@@ -1246,6 +1246,8 @@ $(document).ready(function() {
     });
 
     $travelbaseItems.on('click', '.skypicker-toggle', function () {
+        $(".travelbase_items_sp").find("> div").css('height', 'auto');
+
         //close other opened calendar
         $(".skypicker-dropdown").remove();
 
