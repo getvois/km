@@ -1,9 +1,4 @@
 <div class="row gallery nomargin">
-
-    {% if page is defined %}
-        {{ page.title }}
-    {% endif %}
-
     	<div {% if resource.wrapperClass %}class="{{ resource.wrapperClass }}  {% if resource.wrapperClass %}nopadding{% endif %}"{% endif %}>
 	        {% if resource.title %}
 	        <h3>{{ resource.title }}</h3>
@@ -42,7 +37,8 @@
 	         
 	     {% if resource.wrapperClass == "col-md-6"  %}
 	     <div class="col-md-6 nopadding-right">
-	     	 {% include "@SandboxWebsite/Banner/col6.html.twig" %}
+             {% include '@SandboxWebsite/Ad/middleAds.html.twig' %}
+	     	 {#{% include "@SandboxWebsite/Banner/col6.html.twig" %}#}
 	     </div>
 	     {% elseif resource.wrapperClass == "col-md-8"  %}
 	     <div class="col-md-4 nopadding-right">
