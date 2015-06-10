@@ -39,6 +39,11 @@ sandboxwebsitebundle_subscription:
     type:     annotation
     prefix:   /
 
+sandboxwebsitebundle_linkstatistics:
+    resource: "@SandboxWebsiteBundle/Controller/LinkStatisticsController.php"
+    type:     annotation
+    prefix:   /
+
 sandboxwebsitebundle_tag:
     resource: @SandboxWebsiteBundle/Controller/TagController.php
     type:     annotation
@@ -194,3 +199,8 @@ sandboxwebsitebundle_ad_admin_list:
     resource: @SandboxWebsiteBundle/Controller/AdAdminListController.php
     type:     annotation
     prefix:   /admin/ad/
+
+sandboxwebsitebundle_linkstatistics_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/LinkStatisticsAdminListController.php
+    type:     annotation
+    prefix:   /admin/linkstatistics/

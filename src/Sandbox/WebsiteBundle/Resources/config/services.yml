@@ -147,6 +147,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\AdMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.linkstatistics:
+        class: Sandbox\WebsiteBundle\Helper\Menu\LinkStatisticsMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 #Listeners
     sandboxwebsitebundle.form_listener:

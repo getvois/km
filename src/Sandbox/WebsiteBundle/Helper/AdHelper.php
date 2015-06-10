@@ -14,7 +14,7 @@ class AdHelper {
         $this->em = $em;
     }
 
-    public function getAds($page, $lang)
+    public function getAds($page, $lang, $host = null)
     {
         $class = get_class($page);
 
@@ -39,6 +39,18 @@ class AdHelper {
             if(in_array($class, $ad->getPagetypes())){
                 $result[] = $ad;
             }
+        }
+
+        //filter by host
+        $filtered = [];
+        if($host){
+            /** @var Ad $ad */
+            foreach ($result as $ad) {
+                if($ad->getHosts()->contains($host)){
+                    $filtered[] = $ad;
+                }
+            }
+            $result = $filtered;
         }
 
         //sort by weight
