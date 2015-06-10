@@ -78,23 +78,23 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         }
 
 
-        //translate page titles
-        $command = $this->getApplication()->find('travelbase:translate:packages:title');
-        $arguments = array(
-            'command' => 'travelbase:translate:packages:title',
-        );
-
-        $input = new ArrayInput($arguments);
-        $command->run($input, $output);
-
-        //translate pageparts titles
-        $command = $this->getApplication()->find('travelbase:translate:hotelliveeb:packages');
-        $arguments = array(
-            'command' => 'travelbase:translate:hotelliveeb:packages',
-        );
-
-        $input = new ArrayInput($arguments);
-        $command->run($input, $output);
+//        //translate page titles
+//        $command = $this->getApplication()->find('travelbase:translate:packages:title');
+//        $arguments = array(
+//            'command' => 'travelbase:translate:packages:title',
+//        );
+//
+//        $input = new ArrayInput($arguments);
+//        $command->run($input, $output);
+//
+//        //translate pageparts titles
+//        $command = $this->getApplication()->find('travelbase:translate:hotelliveeb:packages');
+//        $arguments = array(
+//            'command' => 'travelbase:translate:hotelliveeb:packages',
+//        );
+//
+//        $input = new ArrayInput($arguments);
+//        $command->run($input, $output);
 
     }
     private function addPackages(Node $node)
@@ -135,10 +135,13 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 unset($packageIds[$packageId]);
             }
 
-            $this->createPageFromPackage($package, $hotelPage);
+            //$this->createPageFromPackage($package, $hotelPage);
         }
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+
+        $this->emailBody .= "ids to unpublish: " . implode(", ", $packageIds) . "\n";
 
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
