@@ -140,6 +140,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\OfferMenuAdaptor
         tags:
           - { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.ad:
+        class: Sandbox\WebsiteBundle\Helper\Menu\AdMenuAdaptor
+        tags:
+          - { name: 'kunstmaan_admin.menu.adaptor' }
 
 #Listeners
     sandboxwebsitebundle.form_listener:

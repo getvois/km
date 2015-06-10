@@ -206,3 +206,10 @@ sandboxwebsitebundle_mapcategory_admin_list:
     prefix:   /{_locale}/admin/mapcategory/
     requirements:
          _locale: %requiredlocales%
+
+sandboxwebsitebundle_ad_admin_list:
+    resource: @SandboxWebsiteBundle/Controller/AdAdminListController.php
+    type:     annotation
+    prefix:   /{_locale}/admin/ad/
+    requirements:
+         _locale: %requiredlocales%
