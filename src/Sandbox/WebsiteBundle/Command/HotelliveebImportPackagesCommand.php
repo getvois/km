@@ -141,12 +141,13 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
 
-        $this->emailBody .= "ids to unpublish: " . implode(", ", $packageIds) . "\n";
+        //$this->emailBody .= "ids to unpublish: " . implode(", ", $packageIds) . "\n";
 
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
             foreach ($packagePages as $page) {
                 if($page->getId() == $id){
+                    var_dump($id);
                     //unpublish page
                     $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($page);
                     if($node){
