@@ -67,15 +67,15 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 var_dump($e->getMessage());
             }
         }
-
-        if($this->emailBody)
-        {
-            $email = "HV Packcages added/updated:<br/>" . $this->emailBody;
-            EmailInfoSend::sendEmail($email, 'twp: HV Packages info');
-        }else{
-            $email = "No new data :<br/>";
-            EmailInfoSend::sendEmail($email, 'twp: HV Packages no new data');
-        }
+//
+//        if($this->emailBody)
+//        {
+//            $email = "HV Packcages added/updated:<br/>" . $this->emailBody;
+//            EmailInfoSend::sendEmail($email, 'twp: HV Packages info');
+//        }else{
+//            $email = "No new data :<br/>";
+//            EmailInfoSend::sendEmail($email, 'twp: HV Packages no new data');
+//        }
 
 
 //        //translate page titles
