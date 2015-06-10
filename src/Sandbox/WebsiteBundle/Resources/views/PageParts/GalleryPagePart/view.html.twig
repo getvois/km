@@ -37,12 +37,13 @@
 	         
 	     {% if resource.wrapperClass == "col-md-6"  %}
 	     <div class="col-md-6 nopadding-right">
-             {% include '@SandboxWebsite/Ad/topAds.html.twig' %}
+             {% include '@SandboxWebsite/Ad/galleryAd.html.twig' %}
 	     	 {#{% include "@SandboxWebsite/Banner/col6.html.twig" %}#}
 	     </div>
 	     {% elseif resource.wrapperClass == "col-md-8"  %}
 	     <div class="col-md-4 nopadding-right">
-	     	 {% include "@SandboxWebsite/Banner/col4.html.twig" %}
+             {% include '@SandboxWebsite/Ad/galleryAd.html.twig' %}
+	     	 {#{% include "@SandboxWebsite/Banner/col4.html.twig" %}#}
 	     </div>
 	     {% endif %} 
 	  

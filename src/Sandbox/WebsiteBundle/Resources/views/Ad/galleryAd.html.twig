@@ -1,0 +1,15 @@
+{% if ads is defined and ads is not null %}
+
+    {% set filtered = [] %}
+
+    {% for ad in ads %}
+        {% if ad.position == 'gallery' %}
+            {% set filtered = filtered|merge([ad]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% if filtered|length > 0 %}
+        {{ filtered[random(filtered|length - 1)].html|raw }}
+    {% endif %}
+
+{% endif %}
