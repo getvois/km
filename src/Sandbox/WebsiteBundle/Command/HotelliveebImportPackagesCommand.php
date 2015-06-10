@@ -143,7 +143,12 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         //$this->emailBody .= "ids to unpublish: " . implode(", ", $packageIds) . "\n";
 
-        var_dump($packageIds);
+        if($packageIds){
+            var_dump($packageIds);
+            var_dump($packagePages);
+
+        }
+
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
             foreach ($packagePages as $page) {
