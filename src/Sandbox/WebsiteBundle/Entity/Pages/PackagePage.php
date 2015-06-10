@@ -16,6 +16,7 @@ use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Sandbox\WebsiteBundle\Form\Pages\PackagePageAdminType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * PackagePage
@@ -38,13 +39,20 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
 
         $page = $context['page'];
 
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($page);
+
+        $translation = $node->getNodeTranslation($request->getLocale());
+        if(!$translation || !$translation->isOnline()){
+            return new NotFoundHttpException("Requested page is offline");
+        }
+
         $page->viewCount += 1;
         $em->persist($page);
         $em->flush();
         $context['page'] = $page;
 
-        $node = $em->getRepository('KunstmaanNodeBundle:Node')
-            ->getNodeFor($page);
+
 
         $hotelNode = $node->getParent();
         $hotelPage = null;
