@@ -155,11 +155,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
             foreach ($packagePages as $page) {
-
-                var_dump($page->getId());
-                var_dump($id);
-
-                if($page->getId() == $id){
+                if($page->getPackageId() == $id){
                     var_dump($id);
                     //unpublish page
                     $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($page);
