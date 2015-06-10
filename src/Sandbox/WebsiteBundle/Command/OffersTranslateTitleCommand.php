@@ -81,7 +81,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
 
         foreach ($offers as $offer) {
             try{
-                $this->translateShortDescription($offer, $lang, $originalLang);
+                //$this->translateShortDescription($offer, $lang, $originalLang);
                 $this->translateTitle($offer, $lang, $originalLang);
             }catch (\Exception $e){
                 var_dump($e->getMessage());
