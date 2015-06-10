@@ -178,6 +178,8 @@ class OfferPageAdminType extends PageAdminType
             'attr' => array('class' => 'js-advanced-select', 'data-allowempty' => 1),
             'property' => 'name'
         ]);
+
+        $builder->add('archived');
     }
 
     /**

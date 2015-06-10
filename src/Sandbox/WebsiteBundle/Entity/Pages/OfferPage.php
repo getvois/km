@@ -49,6 +49,29 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     }
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="archived", type="boolean", nullable=true)
+     */
+    private $archived;
+
+    /**
+     * @return boolean
+     */
+    public function isArchived()
+    {
+        return $this->archived;
+    }
+
+    /**
+     * @param boolean $archived
+     */
+    public function setArchived($archived)
+    {
+        $this->archived = $archived;
+    }
+
+    /**
      * @var MapCategory
      *
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")

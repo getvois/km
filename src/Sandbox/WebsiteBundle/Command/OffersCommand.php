@@ -113,6 +113,14 @@ class OffersCommand extends ContainerAwareCommand
 
         $this->setCompany();
 
+        $offerIds = [];
+
+        $offerPages = $this->getOfferPages();
+        foreach ($offerPages as $page) {
+            $offerIds[$page->getOfferId()] = $page->getOfferId();
+        }
+
+
         $offers = $this->getOffers();
 
         for($i = 0; $i<$offers->count(); $i++){
@@ -123,6 +131,11 @@ class OffersCommand extends ContainerAwareCommand
                 $offer = $offers->eq($i);
 
                 $id = $this->getId($offer);
+
+                //remove offers that are available
+                if(array_key_exists($id, $offerIds)){
+                    unset($offerIds[$id]);
+                }
 
                 $offerPage = $this->offerExists($id);
                 if ($offerPage) {
@@ -170,6 +183,39 @@ class OffersCommand extends ContainerAwareCommand
         }
 
 
+
+        //set offers to unpublished that are left in $offerIds
+        foreach ($offerIds as $id) {
+            foreach ($offerPages as $page) {
+                if($page->getOfferId() == $id){
+                    //unpublish page
+                    $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($page);
+                    if($node){
+                        /** @var NodeTranslation[] $translations */
+                        $translations = $node->getNodeTranslations();
+                        if($translations){
+                            foreach ($translations as $translation) {
+
+                                /** @var OfferPage $page */
+                                $page = $translation->getRef($this->em);
+                                if($page){
+                                    $page->setArchived(true);
+                                    $this->em->persist($page);
+                                }
+
+//                                $translation->setOnline(false);
+//                                $this->em->persist($translation);
+                            }
+                            $this->em->flush();
+                        }
+                    }
+                    break;
+                }
+            }
+
+        }
+
+
         if($this->emailBody)
         {
             $email = "Offers added/updated:<br/>" . $this->emailBody;
@@ -177,6 +223,16 @@ class OffersCommand extends ContainerAwareCommand
         }
 
         $this->runTranslateCommand($input, $output);
+    }
+
+    /**
+     * @return array|OfferPage[]
+     */
+    private function getOfferPages()
+    {
+        /** @var EntityManager em */
+        return $this->em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getOfferPages($this->lang, $this->lang);
     }
 
     /**

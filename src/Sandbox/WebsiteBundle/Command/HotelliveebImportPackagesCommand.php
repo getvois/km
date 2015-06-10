@@ -135,7 +135,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 unset($packageIds[$packageId]);
             }
 
-            //$this->createPageFromPackage($package, $hotelPage);
+            $this->createPageFromPackage($package, $hotelPage);
         }
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
