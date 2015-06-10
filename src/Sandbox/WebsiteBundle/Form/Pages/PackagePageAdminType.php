@@ -62,7 +62,7 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
             'expanded' => false,
             'multiple' => true,
             'required' => false,
-            'attr' => array('class' => 'chzn-select'),
+            'attr' => array('class' => 'js-advanced-select'),
             'property' => 'name',
 
         ));
@@ -85,7 +85,7 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
         $builder->add('country', 'place', [
             'multiple' => false,
             'empty_data'  => null,
-            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+            'attr' => array('class' => 'js-advanced-select', 'data-allowempty' => 1)
         ]);
 
         $builder->add('originalLanguage');

@@ -26,7 +26,7 @@ class CompanyType extends AbstractType{
                 //$locale = (substr($_SERVER['PATH_INFO'], 1, 2));//get locale from url(not the best way)
                 return $er->getByLang($locale);
             },
-            'attr' => array('class' => 'chzn-select')
+            'attr' => array('class' => 'js-advanced-select')
         ]);
     }
 

@@ -85,7 +85,7 @@ class OfferPageAdminType extends PageAdminType
             'expanded' => false,
             'multiple' => true,
             'required' => false,
-            'attr' => array('class' => 'chzn-select'),
+            'attr' => array('class' => 'js-advanced-select'),
             'property' => 'name',
 
         ));
@@ -167,7 +167,7 @@ class OfferPageAdminType extends PageAdminType
         $builder->add('countryPlace', 'place', [
             'multiple' => false,
             'empty_data'  => null,
-            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1)
+            'attr' => array('class' => 'js-advanced-select', 'data-allowempty' => 1)
         ]);
 
         $builder->add('originalLanguage');
@@ -175,7 +175,7 @@ class OfferPageAdminType extends PageAdminType
         $builder->add('mapCategory', null, [
             'multiple' => false,
             'empty_data'  => null,
-            'attr' => array('class' => 'chzn-select', 'data-allowempty' => 1),
+            'attr' => array('class' => 'js-advanced-select', 'data-allowempty' => 1),
             'property' => 'name'
         ]);
     }

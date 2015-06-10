@@ -51,7 +51,7 @@ class AdAdminType extends AbstractType
         ],
             'required' => false,
             'multiple' => true,
-            'attr' => array('class' => 'chzn-select')
+            'attr' => array('class' => 'js-advanced-select')
         ]);
         $builder->add('position', 'choice', ['choices' => [
             'top' => 'top',
@@ -59,7 +59,7 @@ class AdAdminType extends AbstractType
             'bottom' => 'bottom',
         ],
             'required' => false,
-            'attr' => array('class' => 'chzn-select')
+            'attr' => array('class' => 'js-advanced-select')
         ]);
         $builder->add('html');
         $builder->add('weight');
