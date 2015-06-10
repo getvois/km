@@ -638,6 +638,8 @@ class DefaultController extends Controller
                 $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                     ->getNodeTranslationFor($hotel->getCheapestPackage());
 
+                if(!$translation->isOnline()) continue;
+
                 $title = $hotel->getCheapestPackage()->getTitleTranslated()?$hotel->getCheapestPackage()->getTitleTranslated():$hotel->getCheapestPackage()->getTitle();
                 $img = $hotel->getCheapestPackage()->getImage()?"<img src='".$hotel->getCheapestPackage()->getImage()."'>":"";
 
@@ -869,6 +871,13 @@ class DefaultController extends Controller
             }
 
             if($hotel->getCheapestPackage() || $hotel->isShowOnMap()) {
+
+                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                    ->getNodeTranslationFor($hotel->getCheapestPackage());
+                if($translation && $translation->isOnline()) {
+                    $count++;
+                }
+            }elseif($hotel->isShowOnMap()){
                 $count++;
             }
         }
