@@ -67,34 +67,34 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
                 var_dump($e->getMessage());
             }
         }
-//
-//        if($this->emailBody)
-//        {
-//            $email = "HV Packcages added/updated:<br/>" . $this->emailBody;
-//            EmailInfoSend::sendEmail($email, 'twp: HV Packages info');
-//        }else{
-//            $email = "No new data :<br/>";
-//            EmailInfoSend::sendEmail($email, 'twp: HV Packages no new data');
-//        }
+
+        if($this->emailBody)
+        {
+            $email = "HV Packcages added/updated:<br/>" . $this->emailBody;
+            EmailInfoSend::sendEmail($email, 'twp: HV Packages info');
+        }else{
+            $email = "No new data :<br/>";
+            EmailInfoSend::sendEmail($email, 'twp: HV Packages no new data');
+        }
 
 
-//        //translate page titles
-//        $command = $this->getApplication()->find('travelbase:translate:packages:title');
-//        $arguments = array(
-//            'command' => 'travelbase:translate:packages:title',
-//        );
-//
-//        $input = new ArrayInput($arguments);
-//        $command->run($input, $output);
-//
-//        //translate pageparts titles
-//        $command = $this->getApplication()->find('travelbase:translate:hotelliveeb:packages');
-//        $arguments = array(
-//            'command' => 'travelbase:translate:hotelliveeb:packages',
-//        );
-//
-//        $input = new ArrayInput($arguments);
-//        $command->run($input, $output);
+        //translate page titles
+        $command = $this->getApplication()->find('travelbase:translate:packages:title');
+        $arguments = array(
+            'command' => 'travelbase:translate:packages:title',
+        );
+
+        $input = new ArrayInput($arguments);
+        $command->run($input, $output);
+
+        //translate pageparts titles
+        $command = $this->getApplication()->find('travelbase:translate:hotelliveeb:packages');
+        $arguments = array(
+            'command' => 'travelbase:translate:hotelliveeb:packages',
+        );
+
+        $input = new ArrayInput($arguments);
+        $command->run($input, $output);
 
     }
     private function addPackages(Node $node)
@@ -143,20 +143,10 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         //$this->emailBody .= "ids to unpublish: " . implode(", ", $packageIds) . "\n";
 
-//        if($packageIds){
-//            var_dump($packageIds);
-//            $tmp = [];
-//            foreach ($packagePages as $page) {
-//                $tmp[$page->getPackageId()] = $page->getPackageId();
-//            }
-//            var_dump($tmp);
-//        }
-
         //set packages to unpublished that are left in $packageIds
         foreach ($packageIds as $id) {
             foreach ($packagePages as $page) {
                 if($page->getPackageId() == $id){
-                    var_dump($id);
                     //unpublish page
                     $node = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($page);
                     if($node){
