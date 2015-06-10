@@ -1,4 +1,9 @@
-<div class="row gallery nomargin"> 
+<div class="row gallery nomargin">
+
+    {% if page is defined %}
+        {{ page.title }}
+    {% endif %}
+
     	<div {% if resource.wrapperClass %}class="{{ resource.wrapperClass }}  {% if resource.wrapperClass %}nopadding{% endif %}"{% endif %}>
 	        {% if resource.title %}
 	        <h3>{{ resource.title }}</h3>
