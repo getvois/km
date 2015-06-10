@@ -121,6 +121,7 @@ class PackageController extends Controller
 
             $date = $item->filter('date')->first()->text();
             $price = $item->filter('price')->first()->text();
+            $price = round($price);
             $available = $item->filter('available')->first()->text();
 
             if(strtotime($date) >= $from && strtotime($date) <= $to){
