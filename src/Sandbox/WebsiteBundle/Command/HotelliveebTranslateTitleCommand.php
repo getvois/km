@@ -57,6 +57,7 @@ class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
         if(!$packages) $packages = [];
 
         foreach ($packages as $package) {
+            $slugifier = new Slugifier();
             if(!$package->getTitleTranslated()){
                 usleep(1000);
                 $name = $package->getTitle();
@@ -76,7 +77,7 @@ class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
                         $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                             ->getNodeTranslationFor($package);
                         if($translation){
-                            $translation->setSlug(Slugifier::slugify($translatedName));
+                            $translation->setSlug($slugifier->slugify($translatedName));
                             $em->persist($translation);
                         }
 
