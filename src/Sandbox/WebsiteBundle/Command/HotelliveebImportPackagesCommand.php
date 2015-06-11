@@ -946,6 +946,11 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
 
             $page->removeAllPlaces();
 
+            if(!$node->getParent()){
+                $this->emailBody .= "WARING BROKEN PACKAGE!!! PLEASE DELETE IT: title=" . $page->getTitle() . ", packageId=" . $page->getPackageId() . ", nodeId=" . $node->getId() . "\n";
+                continue;
+            }
+
             $hotelTrans = $node->getParent()->getNodeTranslation($lang, true);
             if($hotelTrans){
                 /** @var HotelPage $hotelPage */
