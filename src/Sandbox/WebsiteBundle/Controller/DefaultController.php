@@ -576,6 +576,8 @@ class DefaultController extends Controller
             //->findBy(['hotelId' => null]);
             ->findBy(['hotelId' => 7194]);
 
+        if(!$hotels) return [];
+
         $pageIds = [];
 
         foreach ($hotels as $hotel) {
