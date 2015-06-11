@@ -572,7 +572,8 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->findBy(['hotelId' => null]);
+            //->findBy(['hotelId' => null]);
+            ->findBy(['hotelId' => 7194]);
 
         $pageIds = [];
 
@@ -608,7 +609,7 @@ class DefaultController extends Controller
             ->setParameter(':ids', $nodeTranslationIds)
             ->getQuery()->execute();
 
-        //delete node varsions
+        //delete node versions
         $em->createQueryBuilder()
             ->delete('KunstmaanNodeBundle:NodeVersion', 'i')
             ->where('i.id IN(:ids)')
@@ -622,6 +623,20 @@ class DefaultController extends Controller
             ->setParameter(':ids', $nodeTranslationIds)
             ->getQuery()->execute();
 
+
+
+//        $em->createQueryBuilder()
+//            ->update('KunstmaanNodeBundle:Node', 'v')
+//            ->set('v.parent', 'null')
+//            ->where('v.id IN(:ids)')
+//            ->setParameter(':ids', $nodeTranslationIds)
+//            ->getQuery()->execute();
+        $em->createQueryBuilder()
+            ->update('KunstmaanNodeBundle:Node', 'v')
+            ->set('v.parent', 'null')
+            ->where('v.parent IN(:ids)')
+            ->setParameter(':ids', $nodeTranslationIds)
+            ->getQuery()->execute();
         //delete nodes
         $em->createQueryBuilder()
             ->delete('KunstmaanNodeBundle:Node', 'i')
@@ -629,6 +644,10 @@ class DefaultController extends Controller
             ->setParameter(':ids', $nodeIds)
             ->getQuery()->execute();
 
+        //delete criterias
+        //todo kosmos delete criterias
+        $em->createQuery('DELETE FROM sb_hotel_page_hotel_criteria WHERE hotel_page_id in(' . implode(",", $pageIds) . ')')
+            ->execute();
         //delete pages
         $em->createQueryBuilder()
             ->delete('SandboxWebsiteBundle:Pages\HotelPage', 'i')
@@ -640,6 +659,7 @@ class DefaultController extends Controller
         $nodeTranslationIds = implode(", ", array_unique($nodeTranslationIds));
         $nodeIds = implode(", ", array_unique($nodeIds));
 
+        var_dump($pageIds);
         var_dump(($nodeVersionIds));
         var_dump(($nodeTranslationIds));
         var_dump(($nodeIds));
