@@ -217,6 +217,22 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
             var_dump('Updating package: ' . $packagePage->getTitle());
+
+            //set translations to online
+            $packageNode = $this->em->getRepository('KunstmaanNodeBundle:Node')
+                ->getNodeFor($packagePage);
+            if($packageNode){
+                /** @var NodeTranslation[] $translations */
+                $translations = $packageNode->getNodeTranslations(true);
+                if(!$translations) $translations = [];
+
+                foreach ($translations as $translation) {
+                    $translation->setOnline(true);
+                    $this->em->persist($translation);
+                }
+                $this->em->flush();
+            }
+
             $this->updatePackageFields($package);
 
             if($this->updatePageparts){
@@ -608,7 +624,7 @@ AND nt.online = 1 AND n.parent = ' . $hotelNode->getId();
         $packageId = $packageId->first()->text();
 
         $packagePage = $this->em->getRepository('SandboxWebsiteBundle:Pages\PackagePage')
-            ->getPackagePage('ee', $packageId);
+            ->getPackagePage('ee', $packageId, false);
         if(!$packagePage) return false;
 
         $needUpdate = false;

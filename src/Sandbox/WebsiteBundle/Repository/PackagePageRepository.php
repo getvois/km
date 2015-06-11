@@ -139,7 +139,7 @@ AND nt.online = 1';
      * @return \Sandbox\WebsiteBundle\Entity\Pages\PackagePage
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getPackagePage($lang, $packageId)
+    public function getPackagePage($lang, $packageId, $online = true)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\PackagePage p
@@ -149,8 +149,11 @@ INNER JOIN Kunstmaan\NodeBundle\Entity\Node n WITH n.id = nt.node";
 
         $dql .= ' WHERE n.deleted = 0
         AND n.hiddenFromNav = 0
-AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\PackagePage\'
-AND nt.online = 1';
+AND n.refEntityName = \'Sandbox\WebsiteBundle\Entity\Pages\PackagePage\' ';
+
+        if($online){
+            $dql .= " AND nt.online = 1 ";
+        }
 
         $dql .= " AND p.packageId = :package ";
 
