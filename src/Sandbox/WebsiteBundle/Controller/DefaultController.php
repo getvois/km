@@ -567,6 +567,16 @@ class DefaultController extends Controller
     public function testAction(Request $request)
     {
         set_time_limit(0);
+
+        $em = $this->getDoctrine()->getManager();
+        $hotel = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->find(1381);
+
+        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+            ->getNodeFor($hotel);
+
+        var_dump($node->getId());
+
         return [];
     }
 
