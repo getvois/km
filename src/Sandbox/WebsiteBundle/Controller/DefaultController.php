@@ -591,9 +591,13 @@ class DefaultController extends Controller
             $nodeIds[] = $nodeVersion->getNodeTranslation()->getNode()->getId();
         }
 
-        var_dump(array_unique($nodeVersionIds));
-        var_dump(array_unique($nodeTranslationIds));
-        var_dump(array_unique($nodeIds));
+        $nodeVersionIds = implode(", ", array_unique($nodeVersionIds));
+        $nodeTranslationIds = implode(", ", array_unique($nodeTranslationIds));
+        $nodeIds = implode(", ", array_unique($nodeIds));
+
+        var_dump(($nodeVersionIds));
+        var_dump(($nodeTranslationIds));
+        var_dump(($nodeIds));
 
 
         //delete pages
