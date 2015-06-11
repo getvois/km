@@ -72,6 +72,29 @@ class PackagePage extends AbstractArticlePage implements HasPageTemplateInterfac
     }
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="translated", type="boolean", nullable=true)
+     */
+    private $translated;
+
+    /**
+     * @return boolean
+     */
+    public function isTranslated()
+    {
+        return $this->translated;
+    }
+
+    /**
+     * @param boolean $translated
+     */
+    public function setTranslated($translated)
+    {
+        $this->translated = $translated;
+    }
+
+    /**
      * @var MapCategory
      *
      * @ORM\ManyToOne(targetEntity="Sandbox\WebsiteBundle\Entity\MapCategory")

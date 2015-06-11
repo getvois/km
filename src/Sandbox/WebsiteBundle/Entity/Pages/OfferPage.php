@@ -63,6 +63,29 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * @var boolean
      *
+     * @ORM\Column(name="translated", type="boolean", nullable=true)
+     */
+    private $translated;
+
+    /**
+     * @return boolean
+     */
+    public function isTranslated()
+    {
+        return $this->translated;
+    }
+
+    /**
+     * @param boolean $translated
+     */
+    public function setTranslated($translated)
+    {
+        $this->translated = $translated;
+    }
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="archived", type="boolean", nullable=true)
      */
     private $archived;

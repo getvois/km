@@ -89,7 +89,7 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
         ]);
 
         $builder->add('originalLanguage');
-
+        $builder->add('translated');
 
     }
 

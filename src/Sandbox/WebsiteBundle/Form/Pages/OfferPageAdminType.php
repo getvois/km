@@ -180,6 +180,7 @@ class OfferPageAdminType extends PageAdminType
         ]);
 
         $builder->add('archived');
+        $builder->add('translated');
     }
 
     /**

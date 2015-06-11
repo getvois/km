@@ -122,5 +122,11 @@ class PackagePageAdminListConfigurator extends AbstractArticlePageAdminListConfi
         return null;
     }
 
-
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return 20;
+    }
 }

@@ -172,4 +172,12 @@ class OfferPageAdminListConfigurator extends AbstractArticlePageAdminListConfigu
     {
         return 'SandboxWebsiteBundle:AdminList/Offer:list.html.twig';
     }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return 20;
+    }
 }
