@@ -33,9 +33,9 @@ AND nt.online = 1';
 
         if($archived !== null){
             if($archived){
-                $dql .= ' AND p.archived is  true ';
+                $dql .= ' AND p.archived = 1 ';
             }else{
-                $dql .= ' AND p.archived is not true ';
+                $dql .= " AND (p.archived = 0 OR p.archived is null) ";
             }
         }
 
@@ -77,9 +77,9 @@ AND nt.online = 1';
 
         if($archived !== null){
             if($archived){
-                $dql .= ' AND p.archived is true ';
+                $dql .= ' AND p.archived = 1 ';
             }else{
-                $dql .= ' AND p.archived is not true ';
+                $dql .= " AND (p.archived = 0 OR p.archived is null) ";
             }
         }
 
@@ -118,9 +118,9 @@ AND nt.online = 1';
 
         if($archived !== null){
             if($archived){
-                $dql .= ' AND p.archived is true ';
+                $dql .= ' AND p.archived = 1 ';
             }else{
-                $dql .= ' AND p.archived is not true ';
+                $dql .= " AND (p.archived = 0 OR p.archived is null) ";
             }
         }
 
@@ -180,9 +180,9 @@ AND nt.online = 1';
 
         if($archived !== null){
             if($archived){
-                $dql .= ' AND p.archived is true ';
+                $dql .= ' AND p.archived = 1 ';
             }else{
-                $dql .= ' AND p.archived is not true ';
+                $dql .= " AND (p.archived = 0 OR p.archived is null) ";
             }
         }
 
@@ -236,9 +236,9 @@ AND nt.online = 1';
 
         if($archived !== null){
             if($archived){
-                $dql .= ' AND p.archived is true ';
+                $dql .= ' AND p.archived = 1 ';
             }else{
-                $dql .= ' AND p.archived is not true ';
+                $dql .= " AND (p.archived = 0 OR p.archived is null) ";
             }
         }
 
@@ -293,9 +293,9 @@ AND nt.online = 1';
 
         if($archived !== null){
             if($archived){
-                $dql .= ' AND p.archived is true ';
+                $dql .= ' AND p.archived = 1 ';
             }else{
-                $dql .= ' AND p.archived is not true ';
+                $dql .= " AND (p.archived = 0 OR p.archived is null) ";
             }
         }
 
