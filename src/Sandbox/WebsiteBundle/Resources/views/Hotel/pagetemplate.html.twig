@@ -65,6 +65,13 @@
             imagesLoaded( container, function() {
                 iso.layout();
             });
+
+            var container2 = document.querySelector('.hotel-gallery-pp > div');
+            var iso2 = new Isotope( container2, {itemSelector: '.col-md-3'});
+
+            imagesLoaded( container2, function() {
+                iso2.layout();
+            });
         });
 
         function initialize() {
