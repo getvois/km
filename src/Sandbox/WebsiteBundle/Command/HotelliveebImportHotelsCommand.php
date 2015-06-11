@@ -55,7 +55,7 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
             $hotelPage = new HotelPage();
             $hotelPage->setTitle($hotel->filter('name')->first()->text());
 
-            var_dump($hotelPage->getTitle());
+            echo($hotelPage->getTitle() . "\n");
 
             //set fields
             $hotelPage = $this->setPageFields($hotel, $hotelPage);
