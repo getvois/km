@@ -573,9 +573,26 @@ class DefaultController extends Controller
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
             ->findBy(['hotelId' => null]);
 
+        $pageIds = [];
+
         foreach ($hotels as $hotel) {
-            var_dump($hotel->getId());
+            $pageIds[] = $hotel->getId();
         }
+
+        $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
+            ->findBy(['refId' => $pageIds]);
+
+        foreach ($nodeVersions as $nodeVersion) {
+            var_dump($nodeVersion->getId() . " - " . $nodeVersion->getRefEntityName());
+        }
+
+
+        //delete pages
+//        $em->createQueryBuilder()
+//            ->delete('SandboxWebsiteBundle:Pages\HotelPage', 'i')
+//            ->where('i.id IN(:ids)')
+//            ->setParameter(':ids', $pageIds)
+//            ->getQuery()->execute();
 
 
         return [];
