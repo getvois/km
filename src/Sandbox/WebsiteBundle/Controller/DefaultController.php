@@ -580,7 +580,7 @@ class DefaultController extends Controller
         }
 
         $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-            ->findBy(['refId' => $pageIds]);
+            ->findBy(['refId' => $pageIds, 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage']);
 
         foreach ($nodeVersions as $nodeVersion) {
             var_dump($nodeVersion->getId() . " - " . $nodeVersion->getRefEntityName());
