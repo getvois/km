@@ -595,7 +595,7 @@ class DefaultController extends Controller
         //set node version -> node tranlation to null
         $em->createQueryBuilder()
             ->update('KunstmaanNodeBundle:NodeVersion', 'v')
-            ->set('v.nodeTranslation', null)
+            ->set('v.nodeTranslation', 'null')
             ->where('v.id IN(:ids)')
             ->setParameter(':ids', $nodeVersionIds)
             ->getQuery()->execute();
@@ -603,7 +603,7 @@ class DefaultController extends Controller
         //set node translation -> public node version to null
         $em->createQueryBuilder()
             ->update('KunstmaanNodeBundle:NodeTranslation', 'v')
-            ->set('v.publicNodeVersion', null)
+            ->set('v.publicNodeVersion', 'null')
             ->where('v.id IN(:ids)')
             ->setParameter(':ids', $nodeTranslationIds)
             ->getQuery()->execute();
