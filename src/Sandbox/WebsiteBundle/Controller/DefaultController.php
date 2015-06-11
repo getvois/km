@@ -568,6 +568,7 @@ class DefaultController extends Controller
     {
         set_time_limit(0);
 
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
@@ -591,6 +592,50 @@ class DefaultController extends Controller
             $nodeIds[] = $nodeVersion->getNodeTranslation()->getNode()->getId();
         }
 
+        //set node version -> node tranlation to null
+        $em->createQueryBuilder()
+            ->update('KunstmaanNodeBundle:NodeVersion', 'v')
+            ->set('v.nodeTranslation', null)
+            ->where('v.id IN(:ids)')
+            ->setParameter(':ids', $nodeVersionIds)
+            ->getQuery()->execute();
+
+        //set node translation -> public node version to null
+        $em->createQueryBuilder()
+            ->update('KunstmaanNodeBundle:NodeTranslation', 'v')
+            ->set('v.publicNodeVersion', null)
+            ->where('v.id IN(:ids)')
+            ->setParameter(':ids', $nodeTranslationIds)
+            ->getQuery()->execute();
+
+        //delete node varsions
+        $em->createQueryBuilder()
+            ->delete('KunstmaanNodeBundle:NodeVersion', 'i')
+            ->where('i.id IN(:ids)')
+            ->setParameter(':ids', $nodeVersionIds)
+            ->getQuery()->execute();
+
+        //delete node translations
+        $em->createQueryBuilder()
+            ->delete('KunstmaanNodeBundle:NodeTranslation', 'i')
+            ->where('i.id IN(:ids)')
+            ->setParameter(':ids', $nodeTranslationIds)
+            ->getQuery()->execute();
+
+        //delete nodes
+        $em->createQueryBuilder()
+            ->delete('KunstmaanNodeBundle:Node', 'i')
+            ->where('i.id IN(:ids)')
+            ->setParameter(':ids', $nodeIds)
+            ->getQuery()->execute();
+
+        //delete pages
+        $em->createQueryBuilder()
+            ->delete('SandboxWebsiteBundle:Pages\HotelPage', 'i')
+            ->where('i.id IN(:ids)')
+            ->setParameter(':ids', $pageIds)
+            ->getQuery()->execute();
+
         $nodeVersionIds = implode(", ", array_unique($nodeVersionIds));
         $nodeTranslationIds = implode(", ", array_unique($nodeTranslationIds));
         $nodeIds = implode(", ", array_unique($nodeIds));
@@ -600,12 +645,7 @@ class DefaultController extends Controller
         var_dump(($nodeIds));
 
 
-        //delete pages
-//        $em->createQueryBuilder()
-//            ->delete('SandboxWebsiteBundle:Pages\HotelPage', 'i')
-//            ->where('i.id IN(:ids)')
-//            ->setParameter(':ids', $pageIds)
-//            ->getQuery()->execute();
+
 
 
         return [];
