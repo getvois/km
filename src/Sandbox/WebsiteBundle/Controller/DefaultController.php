@@ -582,9 +582,18 @@ class DefaultController extends Controller
         $nodeVersions = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
             ->findBy(['refId' => $pageIds, 'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Pages\HotelPage']);
 
+        $nodeVersionIds = [];
+        $nodeTranslationIds = [];
+        $nodeIds = [];
         foreach ($nodeVersions as $nodeVersion) {
-            var_dump($nodeVersion->getId() . " - " . $nodeVersion->getRefEntityName());
+            $nodeVersionIds[] = $nodeVersion->getId();
+            $nodeTranslationIds[] = $nodeVersion->getNodeTranslation()->getId();
+            $nodeIds[] = $nodeVersion->getNodeTranslation()->getNode()->getId();
         }
+
+        var_dump($nodeVersionIds);
+        var_dump($nodeTranslationIds);
+        var_dump($nodeIds);
 
 
         //delete pages
