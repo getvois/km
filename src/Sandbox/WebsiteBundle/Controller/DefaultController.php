@@ -573,8 +573,8 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            //->findBy(['hotelId' => null]);
-            ->findBy(['hotelId' => 7194]);
+            ->findBy(['hotelId' => null]);
+            //->findBy(['hotelId' => 7194]);
 
         if(!$hotels) return [];
 
