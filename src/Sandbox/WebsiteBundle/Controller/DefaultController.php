@@ -569,13 +569,14 @@ class DefaultController extends Controller
         set_time_limit(0);
 
         $em = $this->getDoctrine()->getManager();
-        $hotel = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
-            ->find(1381);
 
-        $node = $em->getRepository('KunstmaanNodeBundle:Node')
-            ->getNodeFor($hotel);
+        $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
+            ->findBy(['hotelId' => null]);
 
-        var_dump($node->getId());
+        foreach ($hotels as $hotel) {
+            var_dump($hotel->getId());
+        }
+
 
         return [];
     }
