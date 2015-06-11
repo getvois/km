@@ -647,9 +647,7 @@ class DefaultController extends Controller
 
         //delete criterias
         //todo kosmos delete criterias
-        $rsm = new ResultSetMapping();
-        $em->createNativeQuery('DELETE FROM sb_hotel_page_hotel_criteria WHERE hotel_page_id in(' . implode(",", $pageIds) . ')', $rsm)
-            ->execute();
+        $em->getConnection()->executeUpdate('DELETE FROM sb_hotel_page_hotel_criteria WHERE hotel_page_id in(' . implode(",", $pageIds) . ')');
         //delete pages
         $em->createQueryBuilder()
             ->delete('SandboxWebsiteBundle:Pages\HotelPage', 'i')
