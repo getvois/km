@@ -2,7 +2,9 @@
     <div class="row">
         {% for image in resource.images %}
             <div class="col-md-3">
-                <img src="{{ image.imageUrl }}" class="img-responsive"/>
+                <a class="fancybox" rel="group2" href="{{ image.imageUrl }}">
+                    <img src="{{ image.imageUrl }}" class="img-responsive"/>
+                </a>
             </div>
         {% endfor %}
     </div>
