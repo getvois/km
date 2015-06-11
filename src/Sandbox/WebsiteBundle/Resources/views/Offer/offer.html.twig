@@ -75,6 +75,10 @@
 
         {% endif %}
     </p>
+
+        <p>
+            <a href="{{ path("_slug", {'url': get_node_translation_for(offer).fullSlug()}) }}">{{ 'read.more'|trans({}, 'frontend') }}</a>
+        </p>
     
     </div>
 </div>
