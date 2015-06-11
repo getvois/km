@@ -315,6 +315,12 @@ AND nt.online = 1';
         return $objects;
     }
 
+    /**
+     * @param \DateTime $date
+     * @param $lang
+     * @return OfferPage|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getPrevPage(\DateTime $date, $lang)
     {
         $dql = "SELECT p
@@ -360,6 +366,12 @@ AND nt.online = 1';
         return $objects;
     }
 
+    /**
+     * @param \DateTime $date
+     * @param $lang
+     * @return OfferPage|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getNextPage(\DateTime $date, $lang)
     {
         $dql = "SELECT p

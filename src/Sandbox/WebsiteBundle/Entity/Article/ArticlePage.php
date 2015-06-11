@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\ArticleBundle\Entity\AbstractArticlePage;
 use Kunstmaan\MediaBundle\Entity\Media;
 use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
@@ -55,6 +56,18 @@ class ArticlePage extends AbstractArticlePage implements IPlaceFromTo, IHostable
         $em->persist($page);
         $em->flush();
 
+        $host = $container->get('hosthelper')->getHost();
+        /** @var NodeTranslation $translation */
+        $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+            ->getNodeTranslationFor($page);
+
+        $prevPage = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            ->getPrevPage($translation->getCreated(), $request->getLocale(), $host);
+        $nextPage = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            ->getNextPage($translation->getCreated(), $request->getLocale(), $host);
+
+        $context['prevPage'] = $prevPage;
+        $context['nextPage'] = $nextPage;
         $context['page'] = $page;
     }
 

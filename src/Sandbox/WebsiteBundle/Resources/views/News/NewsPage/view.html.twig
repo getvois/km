@@ -81,6 +81,22 @@
 		   		{% endif %} 
    			{% endif %}
 
+
+
+            {% if prevPage %}
+                <a href="{{ path("_slug", {"url": get_node_translation_for(prevPage).fullSlug}) }}">
+                        {{ prevPage.title }}
+                </a>
+            {% endif %}
+
+            {% if nextPage %}
+                <a href="{{ path("_slug", {"url": get_node_translation_for(nextPage).fullSlug}) }}">
+                        {{ nextPage.title }}
+                </a>
+            {% endif %}
+
+
+
         </div>
         <div class="row">
             <div class="col-md-12">

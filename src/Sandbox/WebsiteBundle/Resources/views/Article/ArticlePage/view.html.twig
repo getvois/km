@@ -49,6 +49,20 @@
     {% endif %}
                   
     {{ render_pageparts(page, 'main') }}
+
+        {% if prevPage %}
+            <a href="{{ path("_slug", {"url": get_node_translation_for(prevPage).fullSlug}) }}">
+                    {{ prevPage.title }}
+            </a>
+        {% endif %}
+
+        {% if nextPage %}
+            <a href="{{ path("_slug", {"url": get_node_translation_for(nextPage).fullSlug}) }}">
+                    {{ nextPage.title }}
+            </a>
+        {% endif %}
+
+
     {#{% include 'KunstmaanArticleBundle:AbstractArticlePage:view.html.twig' %}#}
         {% include '@SandboxWebsite/Layout/disqus.html.twig' %}
 
