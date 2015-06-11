@@ -67,7 +67,7 @@
 
             {% if offer.shortDescriptionTranslated and offer.originalLanguage %}
 
-                <a href="#" class="icon-translate" data-toggle="popover" data-content="{{ offer.title }}{{ offer.shortDescriptionTranslated }}">
+                <a href="#" onclick="return false" class="icon-translate" data-toggle="popover" data-content="{{ offer.title }}{{ offer.shortDescriptionTranslated }}">
                     <img width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ offer.originalLanguage ~ '.gif') }}"/>
                 </a>
 
