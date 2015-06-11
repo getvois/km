@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\NodeBundle\Controller\SlugActionInterface;
 use Kunstmaan\NodeBundle\Entity\AbstractPage;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Helper\RenderContext;
 use Kunstmaan\PagePartBundle\Helper\HasPageTemplateInterface;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
@@ -45,6 +46,17 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
         $em->persist($page);
         $em->flush();
 
+        /** @var NodeTranslation $translation */
+        $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+            ->getNodeTranslationFor($page);
+
+        $prevPage = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getPrevPage($translation->getCreated(), $request->getLocale());
+        $nextPage = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
+            ->getNextPage($translation->getCreated(), $request->getLocale());
+
+        $context['prevPage'] = $prevPage;
+        $context['nextPage'] = $nextPage;
         $context['page'] = $page;
     }
 

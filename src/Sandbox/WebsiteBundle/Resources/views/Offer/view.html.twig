@@ -88,7 +88,24 @@
         </div>
 
 
-        
-        
+        {% if prevPage %}
+            <a href="{{ path("_slug", {"url": get_node_translation_for(prevPage).fullSlug}) }}">
+                {% if prevPage.titleTranslated %}
+                {{ prevPage.titleTranslated }}
+                {% else %}
+                {{ prevPage.title }}
+                {% endif %}
+            </a>
+        {% endif %}
+
+        {% if nextPage %}
+            <a href="{{ path("_slug", {"url": get_node_translation_for(nextPage).fullSlug}) }}">
+                {% if nextPage.titleTranslated %}
+                    {{ nextPage.titleTranslated }}
+                {% else %}
+                    {{ nextPage.title }}
+                {% endif %}
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
