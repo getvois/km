@@ -1472,7 +1472,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
      */
     public function getDefaultView()
     {
-        return 'SandboxWebsiteBundle:Pages:Common/view.html.twig';
+        return 'SandboxWebsiteBundle:Offer:view.html.twig';
     }
 
 

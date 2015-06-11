@@ -1,0 +1,94 @@
+{% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
+{% block content %}
+    <div class="row nomargin">
+        <div class="col-md-12">
+
+            <a href="{{ page.absoluteUrl }}">
+                <h2 class="package-title">
+                    {% if page.archived %} [{{ 'expired'|trans({}, 'frontend') }}] {% endif %}
+
+                    {% if page.titleTranslated %}
+                        {{ page.titleTranslated }}
+                    {% else %}
+                        {{ page.title }}
+                    {% endif %}
+                    {% if page.nights %}
+                        ({{ page.nights|split(',')[0] }} {% if page.nights|split(',')[0] == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
+                    {% elseif page.days %}
+                        ({{ page.days - 1 }} {% if page.days - 1 == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
+                    {% endif %}
+                </h2>
+                {% if page.city %}
+                    <p>{{ page.city }}{% if page.country %}, {{ page.country }}{% endif %}</p>
+                {% elseif page.country %}
+                    <p>{{ page.country }}</p>
+                {% else %}
+                {% endif %}
+
+            </a>
+            <a class="package-price pull-right btn btn-primary" href="{{ page.absoluteUrl }}">
+
+                {% if page.inCategory('hotel') or page.inCategory('citytrip') or page.priceper == 'per_person' or page.priceper == 'Per person' or page.priceper == 'Per Person'  %}
+
+                    {% if page.price and page.currency == 'EUR' %}
+                        {% if page.price %}
+                            {{ page.price |number_format(0, '.', ',') * 2 }} &euro;
+                            <span class="price-inc">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+                        {% endif %}
+                        {% if page.discount %}
+                            <span class="offer-discount">-{{ page.discount }}</span>
+                        {% endif %}
+                    {% elseif page.priceEur %}
+                        {{ page.priceEur |number_format(0, '.', ',') * 2 }} &euro;
+                        <span class="price-inc">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+                        {% if page.discount %}
+                            <span class="offer-discount">-{{ page.discount }}</span>
+                        {% endif %}
+                    {% else %}
+                        {{ page.price }} {{ page.currency }}
+                    {% endif %}
+
+                {% else %}
+                    {{ page.price |number_format(0, '.', ',') }} {% if page.currency == 'EUR' %}&euro;{% else %}{{ page.currency }}{% endif %}
+                    <span class="price-from">/{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+                    {% if page.discount %}
+                        <span class="offer-discount">-{{ page.discount }}</span>
+                    {% endif %}
+                {% endif %}
+            </a>
+
+            <a href="{{ page.absoluteUrl }}">
+                {% if page.image %}
+                    <img src="{{ page.image }}" class="img-responsive"/>
+                {% endif %}
+            </a>
+
+
+
+            <p>
+                {% if page.originalLanguage %}
+                    <img width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/>
+                {% endif %}
+                {% if page.summary %}
+                    {{ page.summary |raw }}
+                {% else %}
+                    {{ page.shortDescription |raw }}
+
+                    {% if page.shortDescriptionTranslated %}
+
+                        <button type="button" class="icon-translate btn btn-primary btn-lg" data-toggle="popover" data-content="{{ page.title }}{{ page.shortDescriptionTranslated }}">
+                            {{ 'icon.translate' | trans({}, 'frontend') }}
+                        </button>
+
+                    {% endif %}
+
+                {% endif %}
+            </p>
+
+        </div>
+
+
+        
+        
+    </div>
+{% endblock %}

@@ -14,7 +14,7 @@ use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
  */
 class OffersPageRepository extends EntityRepository
 {
-    public function getTotalPages($lang, $originalLang = null)
+    public function getTotalPages($lang, $originalLang = null, $archived = false)
     {
         $dql = "SELECT COUNT(p.id)
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -30,6 +30,14 @@ AND nt.online = 1';
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
         if($originalLang) $dql .= ' AND p.originalLanguage = :originalLang ';
+
+        if($archived !== null){
+            if($archived){
+                $dql .= ' AND p.archived = true ';
+            }else{
+                $dql .= ' AND p.archived != true ';
+            }
+        }
 
         $dql .= ' AND p.expirationDate >= :date ';
 
@@ -50,7 +58,7 @@ AND nt.online = 1';
      * @param null $originalLang
      * @return OfferPage[]
      */
-    public function getOfferPages($lang, $originalLang = null)
+    public function getOfferPages($lang, $originalLang = null, $archived = false)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -66,6 +74,14 @@ AND nt.online = 1';
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
         if($originalLang) $dql .= ' AND p.originalLanguage = :originalLang ';
+
+        if($archived !== null){
+            if($archived){
+                $dql .= ' AND p.archived = true ';
+            }else{
+                $dql .= ' AND p.archived != true ';
+            }
+        }
 
         $dql .= ' AND p.expirationDate >= :date ';
 
@@ -83,7 +99,7 @@ AND nt.online = 1';
         return $objects;
     }
 
-    public function getOfferPagesByMapCategory($lang, $mapCategoryId, $originalLang = null)
+    public function getOfferPagesByMapCategory($lang, $mapCategoryId, $originalLang = null, $archived = false)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -99,6 +115,14 @@ AND nt.online = 1';
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
         if($originalLang) $dql .= ' AND p.originalLanguage = :originalLang ';
+
+        if($archived !== null){
+            if($archived){
+                $dql .= ' AND p.archived = true ';
+            }else{
+                $dql .= ' AND p.archived != true ';
+            }
+        }
 
         $dql .= ' AND p.expirationDate >= :date ';
 
@@ -129,7 +153,7 @@ AND nt.online = 1';
      * @param $blLong
      * @return OfferPage[]
      */
-    public function getOfferPagesByCityBounds($lang, $city, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null)
+    public function getOfferPagesByCityBounds($lang, $city, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null, $archived = false)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -153,6 +177,14 @@ AND nt.online = 1';
         }
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        if($archived !== null){
+            if($archived){
+                $dql .= ' AND p.archived = true ';
+            }else{
+                $dql .= ' AND p.archived != true ';
+            }
+        }
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
@@ -182,7 +214,7 @@ AND nt.online = 1';
      * @param $blLong
      * @return OfferPage[]
      */
-    public function getOfferPagesHotelByCityBounds($lang, $city, $trLat, $trLong, $blLat, $blLong)
+    public function getOfferPagesHotelByCityBounds($lang, $city, $trLat, $trLong, $blLat, $blLong, $archived = false)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -201,6 +233,14 @@ AND nt.online = 1';
         $dql .= " AND (p.longitude >= :blLong AND p.longitude <= :trLong) ";
 
         $dql .= " AND p.city = :city ";
+
+        if($archived !== null){
+            if($archived){
+                $dql .= ' AND p.archived = true ';
+            }else{
+                $dql .= ' AND p.archived != true ';
+            }
+        }
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
 
@@ -228,7 +268,7 @@ AND nt.online = 1';
      * @param $blLong
      * @return OfferPage[]
      */
-    public function getOfferPagesByBounds($lang, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null)
+    public function getOfferPagesByBounds($lang, $trLat, $trLong, $blLat, $blLong, $mapCategoryId = null, $archived = false)
     {
         $dql = "SELECT p
 FROM Sandbox\WebsiteBundle\Entity\Pages\OfferPage p
@@ -250,6 +290,14 @@ AND nt.online = 1';
         }
 
         if ($lang) $dql .= " AND nt.lang = :lang ";
+
+        if($archived !== null){
+            if($archived){
+                $dql .= ' AND p.archived = true ';
+            }else{
+                $dql .= ' AND p.archived != true ';
+            }
+        }
 
         $query = $this->_em->createQuery($dql);
         if($lang) $query->setParameter(':lang', $lang);
