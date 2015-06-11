@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Facebook\FacebookRequest;
 use Facebook\FacebookRequestException;
 use Facebook\FacebookSession;
@@ -646,7 +647,8 @@ class DefaultController extends Controller
 
         //delete criterias
         //todo kosmos delete criterias
-        $em->createQuery('DELETE FROM sb_hotel_page_hotel_criteria WHERE hotel_page_id in(' . implode(",", $pageIds) . ')')
+        $rsm = new ResultSetMapping();
+        $em->createNativeQuery('DELETE FROM sb_hotel_page_hotel_criteria WHERE hotel_page_id in(' . implode(",", $pageIds) . ')', $rsm)
             ->execute();
         //delete pages
         $em->createQueryBuilder()
