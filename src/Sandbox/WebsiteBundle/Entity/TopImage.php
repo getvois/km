@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\AdminBundle\Entity\AbstractEntity;
 use Kunstmaan\MediaBundle\Entity\Media;
@@ -152,6 +153,7 @@ class TopImage extends AbstractEntity
     public function __construct()
     {
         $this->places = new ArrayCollection();
+        $this->hosts = new ArrayCollection();
     }
 
     /**
@@ -195,5 +197,69 @@ class TopImage extends AbstractEntity
     public function getPlaces()
     {
         return $this->places;
+    }
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="dark_image", type="boolean", nullable=true)
+     */
+    private $darkImage;
+
+    /**
+     * @return mixed
+     */
+    public function getDarkImage()
+    {
+        return $this->darkImage;
+    }
+
+    /**
+     * @param mixed $darkImage
+     */
+    public function setDarkImage($darkImage)
+    {
+        $this->darkImage = $darkImage;
+    }
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Host")
+     * @ORM\JoinTable(name="sb_host_topimage")
+     **/
+    private $hosts;
+
+    /**
+     * Add hosts
+     *
+     * @param Host $hosts
+     * @return TopImage
+     */
+    public function addHost(Host $hosts)
+    {
+        $this->hosts[] = $hosts;
+
+        return $this;
+    }
+
+    /**
+     * Remove hosts
+     *
+     * @param Host $hosts
+     */
+    public function removeHost(Host $hosts)
+    {
+        $this->hosts->removeElement($hosts);
+    }
+
+    /**
+     * Get hosts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHosts()
+    {
+        return $this->hosts;
     }
 }
