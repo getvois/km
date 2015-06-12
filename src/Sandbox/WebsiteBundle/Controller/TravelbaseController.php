@@ -512,6 +512,12 @@ class TravelbaseController extends Controller
             }
 
         }
+
+        uasort($countries, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
+        {
+            return strcmp($a->getTitle(), $b->getTitle());
+        });
+
         $context['countries'] = $countries;
 
         return $context;
@@ -538,6 +544,12 @@ class TravelbaseController extends Controller
                 $countries[$node->getId()] = $package->getCountryPlace();
             }
         }
+
+        uasort($countries, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
+        {
+            return strcmp($a->getTitle(), $b->getTitle());
+        });
+
         $context['countries'] = $countries;
 
         return $context;
