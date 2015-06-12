@@ -24,7 +24,7 @@
     <div class="row nomargin">
         <div class="col-md-7 no-padding">
             <header role="header">
-                <section class="splash mainbg "
+                <section class="splash mainbg {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageClass')) }}"
                          style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
                     <div class=" splash__container">
                         <div class="row nomargin">

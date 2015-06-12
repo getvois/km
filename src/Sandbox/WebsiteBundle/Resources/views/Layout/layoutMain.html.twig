@@ -100,7 +100,7 @@
 
     <!-- Header -->
     <header role="header" class="main-header">
-        <section class="splash splash--{% block pagetitleColor %}green{% endblock %} mainbg"
+        <section class="splash splash--{% block pagetitleColor %}green{% endblock %} mainbg {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageClass')) }}"
                  style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
 
             <div class="hidden-xs top-img-title">{% block topImgTitle %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageTitle')) }}{% endblock %}</div>

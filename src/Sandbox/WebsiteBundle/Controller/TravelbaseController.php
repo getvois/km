@@ -174,6 +174,23 @@ class TravelbaseController extends Controller
     }
 
     /**
+     * Get picture class
+     *
+     * @return Response
+     */
+    public function getRandomImageClassAction()
+    {
+        $image = $this->getRandomTopImage();
+        if(!$image){
+            return new Response("");
+        }
+
+        $class = $image->getDarkImage()?"dark-image":"";
+
+        return new Response($class);
+    }
+
+    /**
      * Get picture title
      *
      * @param Request $request
