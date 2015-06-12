@@ -3,6 +3,7 @@
 namespace Sandbox\WebsiteBundle\Entity\Company;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\MediaBundle\Entity\Media;
@@ -12,6 +13,7 @@ use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\NodeBundle\Entity\NodeVersion;
 use Sandbox\WebsiteBundle\Entity\Article\ArticlePage;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\IHostable;
 use Sandbox\WebsiteBundle\Entity\IPlaceFromTo;
 use Sandbox\WebsiteBundle\Entity\MapCategory;
 use Sandbox\WebsiteBundle\Entity\News\NewsPage;
@@ -33,7 +35,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @ORM\Entity(repositoryClass="Sandbox\WebsiteBundle\Repository\Company\CompanyOverviewPageRepository")
  * @ORM\Table(name="sb_company_overviewpages")
  */
-class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo, SlugActionInterface
+class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo, SlugActionInterface, IHostable
 {
     /**
      * @var string
@@ -275,13 +277,14 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceF
         return $this;
     }
 
-
-
     /**
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Article\ArticlePage", mappedBy="companies")
      **/
     private $articles;
+
     /**
+     * @var ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\News\NewsPage", mappedBy="companies")
      **/
     private $news;
@@ -679,7 +682,16 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceF
     {
         $this->articles = new ArrayCollection();
         $this->places = new ArrayCollection();
+        $this->hosts = new ArrayCollection();
     }
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Host")
+     * @ORM\JoinTable(name="sb_host_company")
+     **/
+    private $hosts;
 
     /**
      * Add articles
@@ -789,4 +801,38 @@ class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceF
     public function removeAllFromPlaces()
     {
     }
+
+    /**
+     * Add hosts
+     *
+     * @param Host $hosts
+     * @return NewsPage
+     */
+    public function addHost(Host $hosts)
+    {
+        $this->hosts[] = $hosts;
+
+        return $this;
+    }
+
+    /**
+     * Remove hosts
+     *
+     * @param Host $hosts
+     */
+    public function removeHost(Host $hosts)
+    {
+        $this->hosts->removeElement($hosts);
+    }
+
+    /**
+     * Get hosts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHosts()
+    {
+        return $this->hosts;
+    }
+
 }

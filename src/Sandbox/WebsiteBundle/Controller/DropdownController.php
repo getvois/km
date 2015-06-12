@@ -71,7 +71,7 @@ class DropdownController extends Controller
         $places = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
             ->getByRoot($root['id'], $lang);
 
-        //get all places ids
+        //get all places node ids
         $placesIds = [];
         foreach ($places as $place) {
             $placesIds[] = $place['id'];

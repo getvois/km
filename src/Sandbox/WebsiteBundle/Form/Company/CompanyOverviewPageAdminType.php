@@ -67,6 +67,8 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
             'property' => 'name'
         ]);
 
+        $builder->add('hosts');
+
     }
     /**
      * Sets the default options for this type.
