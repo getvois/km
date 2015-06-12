@@ -168,6 +168,7 @@ class ContentPage extends AbstractPage  implements HasPageTemplateInterface, Slu
         $context['places'] = $placesLocale;
         //$context['news'] = $news;
         $context['lang'] = $locale;
+        $context['em'] = $container->get('doctrine.orm.entity_manager');
 
         parent::service($container, $request, $context);
     }
