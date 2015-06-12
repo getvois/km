@@ -973,7 +973,7 @@ class DefaultController extends Controller
                 continue;
             }
 
-            if($hotel->getCheapestPackage() || $hotel->isShowOnMap()) {
+            if($hotel->getCheapestPackage()) {
 
                 $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                     ->getNodeTranslationFor($hotel->getCheapestPackage());
