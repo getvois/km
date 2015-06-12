@@ -6,6 +6,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Kunstmaan\ArticleBundle\Repository\AbstractArticleOverviewPageRepository;
 use Sandbox\WebsiteBundle\Entity\Host;
+use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 
 /**
  * Repository class for the PlaceOverviewPage
@@ -218,5 +219,43 @@ AND nt.online = 1';
             ->from('SandboxWebsiteBundle:Place\PlaceOverviewPage', 'n')
             ->where('n.id IN(:ids)')
             ->setParameter(":ids", $ids);
+    }
+
+    /**
+     * @param $title
+     * @return null|PlaceOverviewPage
+     */
+    public function getByTitle($title)
+    {
+        $rsm = new ResultSetMappingBuilder($this->_em);
+        $rsm->addRootEntityFromClassMetadata($this->getEntityName(), 'overviewpage');
+        $query = "
+            SELECT
+                overviewpage.*
+            FROM ";
+        $query .= $this->_em->getClassMetadata($this->getEntityName())->getTableName();
+        $query .= " AS overviewpage
+            INNER JOIN
+                kuma_node_versions nv ON nv.ref_id = overviewpage.id
+            INNER JOIN
+                kuma_node_translations nt ON nt.public_node_version_id = nv.id AND nt.id = nv.node_translation_id
+            INNER JOIN
+                kuma_nodes n ON n.id = nt.node_id
+            WHERE
+                n.deleted = 0
+            AND
+                overviewpage.title = :title
+            AND
+                n.ref_entity_name = :entity_name
+        ";
+        $q = $this->_em->createNativeQuery($query, $rsm);
+        $q->setParameter('entity_name',$this->getEntityName());
+        $q->setParameter('title',$title);
+
+        $res =  $q->getResult();
+
+        if($res) return $res[0];
+
+        return null;
     }
 }

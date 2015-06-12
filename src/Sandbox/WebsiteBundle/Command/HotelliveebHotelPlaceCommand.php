@@ -60,7 +60,7 @@ class HotelliveebHotelPlaceCommand extends ContainerAwareCommand{
             if($city){
                 //find place page
                 $place = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
-                    ->findOneBy(['title' => $city]);
+                    ->getByTitle($city);
                 if(!$place) {
                     var_dump('place not found in db '. $city);
                     break;
