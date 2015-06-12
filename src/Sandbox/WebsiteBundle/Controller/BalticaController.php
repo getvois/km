@@ -114,6 +114,11 @@ class BalticaController extends Controller{
 //            }
         }
 
+        uasort($places, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
+        {
+            return strcmp($a->getTitle(), $b->getTitle());
+        });
+
         $any = $this->get('translator')->trans('any', [], 'frontend');
         $html = "<option value='-1'>$any</option>";
 
