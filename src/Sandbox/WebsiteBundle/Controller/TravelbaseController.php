@@ -138,9 +138,9 @@ class TravelbaseController extends Controller
         $qb = $em->createQueryBuilder()
             ->select('i')
             ->from('SandboxWebsiteBundle:TopImage', 'i')
-            ->join('i.hosts', 'h')
-            //->join('i.picture', 'p')
-            //->join('i.places', 'pl')
+            ->leftJoin('i.hosts', 'h')
+            ->leftJoin('i.picture', 'p')
+            ->leftJoin('i.places', 'pl')
             ->where('i.visible = 1');
 
 //        if($host){
