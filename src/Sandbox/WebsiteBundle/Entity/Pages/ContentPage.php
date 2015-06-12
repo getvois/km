@@ -165,47 +165,6 @@ class ContentPage extends AbstractPage  implements HasPageTemplateInterface, Slu
             }
         }
 
-        //$em = $container->get('doctrine.orm.entity_manager');
-        //$this->getSubNews($nodeTranslation->getNode(), $locale, $em, $news);
-
-//        $em = $container->get('doctrine.orm.entity_manager');
-//        $places = $em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')->findAll();
-//
-//        $translationIds = [];//array of node translation ids
-//        /** @var PlaceOverviewPage[] $placesLocale */
-//        $placesLocale = [];//array of translated online nodes to return to template
-//
-//        foreach ($places as $place) {
-//            //get node version
-//            /** @var NodeVersion $nodeVersion */
-//            $nodeVersion = $em->getRepository('KunstmaanNodeBundle:NodeVersion')
-//                ->findOneBy([
-//                    'refId' => $place->getId(),
-//                    'refEntityName' => 'Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage',
-//                    'type' => 'public'
-//                ]);
-//
-//            //check node versions (node could have same node translations ids)
-//            //check node online and lang
-//            if($nodeVersion
-//                && $nodeVersion->getNodeTranslation()->isOnline()
-//                && $nodeVersion->getNodeTranslation()->getLang() == $locale
-//            ){
-//                //add node if translation does not exist
-//                if(!in_array($nodeVersion->getNodeTranslation()->getId(), $translationIds)) {
-//                    $placesLocale[] = $place;
-//                    $translationIds[] = $nodeVersion->getNodeTranslation()->getId();
-//                }
-//            }
-//        }
-
-
-        //$node = $em->getRepository('KunstmaanNodeBundle:Node')->find(12);//15 spain
-        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->childrenHierarchy()[0]['__children'][5]);
-        //var_dump($em->getRepository('KunstmaanNodeBundle:Node')->getChildren($node));
-        //var_dump($placesLocale[1]->()->count());
-
-
         $context['places'] = $placesLocale;
         //$context['news'] = $news;
         $context['lang'] = $locale;
