@@ -143,10 +143,10 @@ class TravelbaseController extends Controller
             ->join('i.places', 'pl')
             ->where('i.visible = 1');
 
-        if($host){
-            $qb->andWhere('h.name = :host')
-                ->setParameter(':host', $host->getName());
-        }
+//        if($host){
+//            $qb->andWhere('h.name = :host')
+//                ->setParameter(':host', $host->getName());
+//        }
 
         $topImages = $qb->getQuery()->getResult();
 
