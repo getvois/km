@@ -36,8 +36,8 @@ class TopImageAdminType extends AbstractType
                 'required' => false,
             )
         );
-        $builder->add('visible');
         $builder->add('hosts');
+        $builder->add('visible');
         $builder->add('darkImage');
     }
 

@@ -130,9 +130,27 @@ class TravelbaseController extends Controller
     {
         if(self::$randomImage) return self::$randomImage;
 
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $topImages = $em->getRepository('SandboxWebsiteBundle:TopImage')->findBy(['visible' => 1]);
+        $host = $this->get('hosthelper')->getHost();
+
+        $qb = $em->createQueryBuilder()
+            ->select('i')
+            ->from('SandboxWebsiteBundle:TopImage', 'i')
+            ->join('i.hosts', 'h')
+            ->join('i.picture', 'p')
+            ->join('i.places', 'pl')
+            ->where('i.visible = 1');
+
+        if($host){
+            $qb->andWhere('h.name = :host')
+                ->setParameter(':host', $host->getName());
+        }
+
+        $topImages = $qb->getQuery()->getResult();
+
+        //$topImages = $em->getRepository('SandboxWebsiteBundle:TopImage')->findBy(['visible' => 1]);
         if(!$topImages) return null;
         $id = rand(0, count($topImages)-1);
 
