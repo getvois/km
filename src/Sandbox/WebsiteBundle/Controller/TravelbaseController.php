@@ -463,6 +463,11 @@ class TravelbaseController extends Controller
             }
         }
 
+        usort($countries, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
+        {
+            return strcmp($a->getTitle(), $b->getTitle());
+        });
+
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('SandboxWebsiteBundle:MapCategory')
             ->findAll();
