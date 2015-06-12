@@ -463,7 +463,7 @@ class TravelbaseController extends Controller
             }
         }
 
-        usort($countries, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
+        uasort($countries, function(PlaceOverviewPage $a,PlaceOverviewPage $b)
         {
             return strcmp($a->getTitle(), $b->getTitle());
         });
