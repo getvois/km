@@ -77,9 +77,11 @@ class DropdownController extends Controller
             $placesIds[] = $place['id'];
         }
 
+        $host = $this->get('hosthelper')->getHost();
+
         //get companies based on parent node id from places ids and order by parent id
         $companies = $em->getRepository('SandboxWebsiteBundle:Company\CompanyPage')
-            ->getByParentIds($placesIds, $lang);
+            ->getByParentIds($placesIds, $lang, $host);
 
         //bind places to companies
         $companyNodes = [];
