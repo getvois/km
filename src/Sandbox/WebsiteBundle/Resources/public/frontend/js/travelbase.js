@@ -559,17 +559,16 @@ $(document).ready(function() {
 
         $("#register-submit").addClass('disabled');
         $.get('/register-ajax/?' + $(this).serialize(), function (responce) {
-            var $flashbag = $("#info-modal");
+            var $flashbag = $("#modal-registration");
             if(responce.status == 'error'){
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
                 setTimeout(function () {
                     window.location = window.location;
                 }, 1000);
             }
 
-            $flashbag.modal('show');
             $("#register-submit").removeClass('disabled');
         });
         return false;
