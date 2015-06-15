@@ -18,6 +18,7 @@
                         ({{ page.days - 1 }} {% if page.days - 1 == '1' %} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ 'nights'|trans({}, 'frontend') }}{% endif %})
                     {% endif %}
                 </h2>
+                <div class="addthis_sharing_toolbox"></div>
                 {% if page.city %}
                     <p>{{ page.city }}{% if page.country %}, {{ page.country }}{% endif %}</p>
                 {% elseif page.country %}
@@ -84,8 +85,6 @@
 
                 {% endif %}
             </p>
-
-            <div class="addthis_sharing_toolbox"></div>
 
         </div>
 

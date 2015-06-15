@@ -38,6 +38,7 @@
                     {% endif %}
 			        {{ page.title }}
 			    </h1>
+                    <div class="addthis_sharing_toolbox"></div>
 			    {% include '@SandboxWebsite/Tag/tagblock.article.html.twig' with { 'tags': page.tags } %}
 			    </header> 
 			</div>
@@ -67,8 +68,6 @@
 		            {% endfor %}
 		        </div>
 		    {% endif %}
-
-                <div class="addthis_sharing_toolbox"></div>
 
 	   		</div>
 	   		

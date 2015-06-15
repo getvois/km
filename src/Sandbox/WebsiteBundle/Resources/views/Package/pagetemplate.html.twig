@@ -33,7 +33,7 @@
 	                <div class="price-from-inner pull-right">
 	                    <span>
 	                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
-	                    	<span>/ 2 <span class="fa fa-male"></span>
+	                    	 / 2 <span class="fa fa-male"></span>
 	                    </span>
 	                </div>
 	            </div>
@@ -111,6 +111,7 @@
 							<h4>
 						  	  {{ 'book.online.header' | trans({}, 'frontend') }}
 							</h4>
+                                <div class="addthis_sharing_toolbox"></div>
 								<p>{{ 'book.online.hv.desc' | trans({}, 'frontend') }}</p>
 								<div class="btn-group package-calendar-control">
 								    <button class="btn btn-primary disabled package-calendar-navigate-prev package-calendar-navigate" data-calendar-nav="prev"><span class="fa fa-angle-double-left"></span></button>
@@ -140,8 +141,6 @@
 					    {{ 'book.online.hv.package.inc' | trans({}, 'frontend') }}
 					</h4>
 					{{ render_pageparts(page, 'information') }}
-
-                        <div class="addthis_sharing_toolbox"></div>
 
 					</div>
 					<div class="col-md-5 col-sm-12 calendar-page">
