@@ -753,6 +753,9 @@ class DefaultController extends Controller
             $category = $mapCategory->getName();
 
             if($hotel->getCheapestPackage()) {
+
+                $class = $hotel->getCheapestPackage()->isFavorite()?"favorite":"";
+
                 /** @var NodeTranslation $translation */
                 $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                     ->getNodeTranslationFor($hotel->getCheapestPackage());
@@ -766,8 +769,8 @@ class DefaultController extends Controller
                 $hotelData['title'] = $title;
                 $hotelData['lat'] = $hotel->getLatitude();
                 $hotelData['long'] = $hotel->getLongitude();
-                $hotelData['html'] = "<div class='map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
-                $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>" .
+                $hotelData['html'] = "<div class='$class map-window-item map-window-item-$category' style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getCheapestPackage()->getMinprice() . "</a></div>";
+                $hotelData['popup'] = "<div class='$class map-popup-item map-popup-item-$category'>" .
                     $img.
                     "<h4>". $hotel->getTitle() . "</h4><a class='map-popup-price' href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
                     . (int)$hotel->getCheapestPackage()->getMinprice() .
@@ -832,13 +835,15 @@ class DefaultController extends Controller
 
             $price = $hotel->getPriceEur()?$hotel->getPriceEur():$hotel->getPrice();
 
+            $class = $hotel->isFavorite()?"favorite":"";
+
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>";
-            $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
+            $hotelData['html'] = "<div class='$class map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>";
+            $hotelData['popup'] = "<div class='$class map-popup-item map-popup-item-$category'>".
 
                 "<a href='" . $hotel->getAbsoluteUrl() . "'>"
 
@@ -882,13 +887,15 @@ class DefaultController extends Controller
             $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                 ->getNodeTranslationFor($hotel);
 
+            $class = $hotel->isFavorite()?"favorite":"";
+
             $hotelData = [];
             $hotelData['title'] = $hotel->getTitle();
             $hotelData['lat'] = $hotel->getLatitude();
             $hotelData['long'] = $hotel->getLongitude();
             $hotelData['icon'] = 'http://google-maps-icons.googlecode.com/files/redblank.png';
-            $hotelData['html'] = "<div class='map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'></a></div>";
-            $hotelData['popup'] = "<div class='map-popup-item map-popup-item-$category'>".
+            $hotelData['html'] = "<div class='$class map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'></a></div>";
+            $hotelData['popup'] = "<div class='$class map-popup-item map-popup-item-$category'>".
 
                 "<a href='" . $this->generateUrl('_slug', ['url' => $translation->getFullSlug()]) . "'>"
                 . $hotel->getTitle() .
