@@ -73,7 +73,7 @@
 }
 
 .form-header h1 {
-  margin: 0 0 0 15px;
+  margin: 0 0 15px 15px;
 }
 
 .travelbase_top_menu .nav>li>a {
@@ -82,7 +82,6 @@
 }
 
 .tabs-packages .nav-tabs {
-  background: -webkit-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent;
   border-bottom: none;
     display: inline-block;
 }
@@ -90,6 +89,7 @@
     border-right: 1px solid #fcfcfc;
   	margin-bottom: -2px;
   	margin-right:0;
+   background: -webkit-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent;
 }
 
 .tabs-packages .nav-tabs > li > a {
@@ -182,6 +182,30 @@ h2, .h2 {
  background-color: #eee;
 
 }    
+.fa-calendar-o {
+	font-size: 18px;
+}    
+
+
+
+ 
+
+
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+
+
 @media (min-width: 768px)  {
 .navbar .site-topmenu {
   position: absolute;

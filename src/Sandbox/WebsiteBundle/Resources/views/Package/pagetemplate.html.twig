@@ -15,7 +15,21 @@
 {% endif %}
 
 		<div class="row">
-			<div class="col-md-8 col-xs-12">
+			<div class="col-md-12 col-xs-12">
+				
+			{% if page.minprice %}
+	            <div class="price-from pull-right">
+	                <div class="price-from-inner">
+	                    <span>
+	                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
+	                    	 / {% if page.numberAdults %}
+					         	{{ page.numberAdults }} 
+				         		<span class="fa fa-male"></span>
+				         		{% endif %}
+	                    </span> 
+	                </div>
+	            </div>
+	        	{% endif %}	
 			<h2>
 					    {% if page.titleTranslated %}
 					        {{ page.titleTranslated }}
@@ -26,18 +40,6 @@
 					         ({% if page.duration == '1' %}{{ page.duration }} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ page.duration }} {{ 'nights'|trans({}, 'frontend') }}{% endif %})
 				        {% endif %}
 			</h2>
-			</div>
-			<div class="col-md-4 col-xs-12 text-right">
-				{% if page.minprice %}
-	            <div class="price-from price-from-img">
-	                <div class="price-from-inner pull-right">
-	                    <span>
-	                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
-	                    	 / 2 <span class="fa fa-male"></span>
-	                    </span>
-	                </div>
-	            </div>
-	        	{% endif %}
 			</div>
 			
 		</div>	
@@ -56,7 +58,6 @@
 		
 		
 		
-		
 		<div role="tabpanel" class="tabs-packages">
 
 		  <!-- Nav tabs -->
@@ -64,6 +65,7 @@
 		    <li role="package" class="active"><a href="#package" aria-controls="package" role="tab" data-toggle="tab">{{ 'hv.package.tabheader' | trans({}, 'frontend') }}</a></li>
 		    <li role="hotel"><a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab">{{ 'hv.hotel.and.location.tabheader' | trans({}, 'frontend') }}</a></li>
 		    <li role="rooms"><a href="#rooms" aria-controls="rooms" role="tab" data-toggle="tab">{{ 'hv.rooms.tabheader' | trans({}, 'frontend') }}</a></li>
+		    <li class="visible-xs"><a href="#book"><span class="fa fa-calendar-o"></span></a></li>
 		  </ul>
 		
 		  <!-- Tab panes -->
@@ -107,7 +109,7 @@
 									</div>
 							</div>
 							<div class="col-md-6 calendar-page">
-							
+							<a name="book"></a>
 							<h4>
 						  	  {{ 'book.online.header' | trans({}, 'frontend') }}
 							</h4>

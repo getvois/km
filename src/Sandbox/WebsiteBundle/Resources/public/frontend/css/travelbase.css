@@ -309,12 +309,12 @@ time, .tags-block a, header, header a  {
 }
 
 main h2 {
-    margin: 25px 0 15px 0;  
+    margin: 5px 0 15px 0;  
 }
  
 main h2.topheader, .clubbar h2, .register-form h2 {
     font-weight: bold;
-	font-size: 25px;
+	font-size: 25px; 
 	padding: 20px 0 0 20px;
 }
 
@@ -785,8 +785,10 @@ select {
 
 /* PRICE TAG and icons */
 .price-from {
-    position:absolute;
+    position:relative;
     margin-left: 20px;
+    display: inline-block;
+    top: 0px;
 }
 .main-news .price-from-line { 
 	position:absolute;
@@ -802,10 +804,6 @@ select {
 .main-news .price-from-img {
     right: -5px;
     top: -23px;
-}
-.price-from-img {
-    right: 15px;
-    top: 0px;
 }
 .price-from-img-left {
     left: -5px;

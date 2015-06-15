@@ -22,7 +22,7 @@
 
     <!-- Header -->
     <div class="row nomargin">
-        <div class="col-md-7 col-sm-12 nopadding">
+        <div class="col-md-8 col-sm-12 nopadding">
             <header role="header">
                 <section class="splash mainbg {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageClass')) }}"
                          style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
@@ -38,7 +38,7 @@
                </section> 
             </header>
         </div>
-        <div class="col-md-5 map-col hidden-xs hidden-sm no-padding">
+        <div class="col-md-4 map-col hidden-xs hidden-sm no-padding">
             {% block club %}
                 <div class="clubbar" style="margin-top: 0">
                     {% block userlogin %}
@@ -68,7 +68,7 @@
 
 {% block hostLayout %}
 <div class="row nomargin inner-col">
-    <div class="col-md-7">
+    <div class="col-md-8">
  
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
