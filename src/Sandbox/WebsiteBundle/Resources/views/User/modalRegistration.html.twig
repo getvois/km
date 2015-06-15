@@ -114,7 +114,10 @@
 
 
         $('#modal-registration').on('shown.bs.modal', function (e) {
-            console.log(e.relatedTarget);
+            var tab = $(e.relatedTarget).data('tab');
+            if(tab){
+                $('#modal-club-tabs').find('a[href="#' + tab + '"]').tab('show');
+            }
         })
     });
 </script>
