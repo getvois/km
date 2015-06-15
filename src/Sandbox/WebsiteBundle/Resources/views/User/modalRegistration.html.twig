@@ -105,7 +105,7 @@
     $(document).ready(function () {
         $('.tab-switch').click(function () {
             var active = $('#modal-club-tabs').find('li.active');
-            if(active.next('li')){
+            if(active.next('li').length > 0){
                 active.next('li').find('a').tab('show');
             }else{
                 $('#modal-club-tabs').find('a:first').tab('show')
