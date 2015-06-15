@@ -5,6 +5,7 @@ namespace Sandbox\WebsiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Kunstmaan\NodeBundle\Entity\Node;
+use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
 use Sandbox\WebsiteBundle\Entity\Pages\HotelPage;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Pages\PackagePage;
@@ -345,26 +346,50 @@ class BalticaController extends Controller{
 
         }
 
-        $pages = array_slice($packages, $offset, $pageLength);
+
+        $items = array_merge($packages, $offers, $companies);
+
+        usort($items, function($a, $b){
+            return strcmp($a->getTitle(), $b->getTitle());
+        });
+
+        $pages = array_slice($items, $offset, $pageLength * 3);
+
         foreach ($pages as $page) {
-            $packageDates = $this->getPackageDates($page, $from);
-            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+
+            if($page instanceof PackagePage){
+                $packageDates = $this->getPackageDates($page, $from);
+                $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+            }elseif($page instanceof OfferPage){
+                $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
+            }elseif($page instanceof CompanyOverviewPage){
+                $html .= $this->get('templating')->render('@SandboxWebsite/Company/companyInline.html.twig', ['company' => $page]);
+            }
+
         }
-        $total += count($packages);
+        $total += count($pages);
 
 
-        $pages = array_slice($offers, $offset, $pageLength);
-        foreach ($pages as $page) {
-            $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
-        }
-        $total += count($offers);
-
-
-        $pages = array_slice($companies, $offset, $pageLength);
-        foreach ($pages as $page) {
-            $html .= $this->get('templating')->render('@SandboxWebsite/Company/companyInline.html.twig', ['company' => $page]);
-        }
-        $total += count($companies);
+//        $pages = array_slice($packages, $offset, $pageLength);
+//        foreach ($pages as $page) {
+//            $packageDates = $this->getPackageDates($page, $from);
+//            $html .= $this->get('templating')->render('@SandboxWebsite/Package/packageInline.html.twig', ['package' => $page, 'dates' => $packageDates, 'fromdate' => $from]);
+//        }
+//        $total += count($packages);
+//
+//
+//        $pages = array_slice($offers, $offset, $pageLength);
+//        foreach ($pages as $page) {
+//            $html .= $this->get('templating')->render('SandboxWebsiteBundle:Offer:offerInline.html.twig', ['offer' => $page]);
+//        }
+//        $total += count($offers);
+//
+//
+//        $pages = array_slice($companies, $offset, $pageLength);
+//        foreach ($pages as $page) {
+//            $html .= $this->get('templating')->render('@SandboxWebsite/Company/companyInline.html.twig', ['company' => $page]);
+//        }
+//        $total += count($companies);
 
 
         return new JsonResponse(['total' => $total, 'html' => $html]);
