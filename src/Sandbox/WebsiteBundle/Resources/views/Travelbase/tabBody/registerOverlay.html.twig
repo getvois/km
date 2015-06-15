@@ -1,5 +1,6 @@
 {% if not app.user %}
     <div class="register-form text-center">
+        <form action="#">
         {#<form action="{{ path('register_action') }}" method="post">#}
             <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
 
@@ -24,6 +25,6 @@
                 </button>
                 {#<input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>#}
             </p>
-        {#</form>#}
+        </form>
     </div>
 {% endif %}
