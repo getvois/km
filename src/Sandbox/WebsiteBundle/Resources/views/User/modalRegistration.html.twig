@@ -11,7 +11,7 @@
             <div class="modal-body">
 
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
+                <ul id="modal-club-tabs" class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
                         <a href="#login-form" aria-controls="login" role="tab" data-toggle="tab">{{ 'log.in'|trans({}, 'frontend') }}</a>
                     </li>
@@ -93,10 +93,23 @@
                     </div>
                     <div class="col-md-6">
                         <img src="https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg"
-                             class="img-responsive"/>
+                             class="img-responsive tab-switch"/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.tab-switch').click(function () {
+            var active = $('#modal-club-tabs').find('li.active');
+            if(active.next('li')){
+                active.next('li').find('a').tab('show');
+            }else{
+                $('#modal-club-tabs').find('a:first').tab('show')
+            }
+        });
+    });
+</script>
