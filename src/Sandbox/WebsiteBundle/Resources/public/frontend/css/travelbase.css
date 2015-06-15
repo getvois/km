@@ -486,7 +486,7 @@ main .calendar-page .cal-day-today .events-list {
 
 /* FORM AND PLACEHOLDER */
 
-.form-col {padding:0 15px 0 0;}
+#form-header .form-col {padding:0 15px 0 0;}
 .placeholder{
     background-color: white;
     min-height: 42px;

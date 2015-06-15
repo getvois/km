@@ -73,7 +73,7 @@
 }
 
 .form-header h1 {
-  margin: 0 0 15px 15px;
+  margin: 15px 0 15px 15px;
 }
 
 .travelbase_top_menu .nav>li>a {
@@ -99,6 +99,7 @@
   padding-right: 15px;
   color: #27A632;
   text-shadow: 1px 1px #82F48B;
+  border:none;
   font-weight: bold;
 }
 
@@ -204,12 +205,15 @@ h2, .h2 {
     margin-right:-4px;
 }
 
-
+.top-80 {
+    margin-top:80px;
+    display:block;
+}
 
 @media (min-width: 768px)  {
 .navbar .site-topmenu {
-  position: absolute;
-  top:auto;
+  position: inherit;
+  top: 8px;
   right:auto;
   padding:0;
   height:inherit!important;
