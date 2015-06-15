@@ -111,5 +111,10 @@
                 $('#modal-club-tabs').find('a:first').tab('show')
             }
         });
+
+
+        $('#modal-registration').on('shown.bs.modal', function (e) {
+            console.log(e.relatedTarget);
+        })
     });
 </script>
