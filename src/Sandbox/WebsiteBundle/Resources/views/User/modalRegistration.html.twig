@@ -49,6 +49,42 @@
                         <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
                     </p>
                 </form>
+
+
+
+                <form action="{{ path('login_action') }}" method="post">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-8">
+                            <div class="form-group">
+                                <label for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
+                                <input id="email" type="text" name="email" class="form-control"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">{{ 'Password'|trans({}, 'frontend') }}:</label>
+                                <input id="password" type="password" name="password" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <p>
+                                <input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>
+                                <a id="fb-login-btn" class="btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
+
+                                {% if host and host.vkAppId and host.vkAppSecret %}
+                                    <a href="#" id="vk-login-btn" class="btn btn-primary"><span class="fa fa-vk"></span> | login</a>
+                                    <script>
+                                        $("#vk-login-btn").click(function () {
+                                            window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/vk-login&response_type=code&v=5.29&state=');
+                                        });
+                                    </script>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
