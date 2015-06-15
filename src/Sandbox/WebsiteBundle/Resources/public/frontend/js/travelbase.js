@@ -218,6 +218,8 @@ $(document).ready(function() {
     });
 
     $('#baltica-filter').click(function () {
+        $('#form-type-switcher').find('a[href="#baltica"]').removeClass('hide');
+
         checkHolderHeight('#baltica-holder');
         $(this).addClass('disabled');
 
