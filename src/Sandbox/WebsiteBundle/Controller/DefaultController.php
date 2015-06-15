@@ -157,8 +157,8 @@ class DefaultController extends Controller
             if($body)
                 $table .= '</div>';
 
-            if($body && $total > 2)//add load more button
-                $table .= '<div class="loadDiv"><div class="loadDiv-line"></div><button id="loadMore" data-total="'. $total .'" onclick="loadMore(this)"><span class="fa fa-angle-double-down"></span></button></div>';
+            if($body && $data->total > 2)//add load more button
+                $table .= '<div class="loadDiv"><div class="loadDiv-line"></div><button id="loadMore" data-total="'. $data->total .'" onclick="loadMore(this)"><span class="fa fa-angle-double-down"></span></button></div>';
             if($body && $total == 0){
                 $table = $noItemsFoundHTML;
             }
