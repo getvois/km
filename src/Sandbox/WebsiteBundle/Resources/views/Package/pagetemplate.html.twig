@@ -15,36 +15,25 @@
 {% endif %}
 
 		<div class="row">
-			<div class="col-md-7 col-xs-12">
+			<div class="col-md-8 col-xs-12">
 			<h2>
-			{% if hotel %}
-				{{ hotel.title }}
-			{% else %}
-				{% if page.titleTranslated %}
-			        {{ page.titleTranslated }}
-			    {% else %}
-			        {{ page.title }}
-			    {% endif %}
-			{% endif %}
+					    {% if page.titleTranslated %}
+					        {{ page.titleTranslated }}
+					    {% else %}
+					        {{ page.title }}
+					    {% endif %}
+					    {% if page.duration %}
+					         ({% if page.duration == '1' %}{{ page.duration }} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ page.duration }} {{ 'nights'|trans({}, 'frontend') }}{% endif %})
+				        {% endif %}
 			</h2>
 			</div>
-			<div class="col-md-5 col-xs-12 text-right">
+			<div class="col-md-4 col-xs-12 text-right">
 				{% if page.minprice %}
 	            <div class="price-from price-from-img">
 	                <div class="price-from-inner pull-right">
 	                    <span>
 	                    	{{ page.minprice |number_format(0, '.', ',')}} &euro; 
-	                    	<span>/ 2{{ 'price.per.pers'|trans({}, 'frontend') }}
-	                    		
-	                    	{% if page.duration %}
-						         {% if page.duration == '1' %} 
-						         	{{ page.duration }}{{ 'night'|trans({}, 'frontend') }}
-						         {% else %}
-						         	{{ page.duration }}{{ 'nights'|trans({}, 'frontend') }}
-						         {% endif %}
-					        {% endif %}
-					        
-	                    	</span>
+	                    	<span>/ 2 <span class="fa fa-male"></span>
 	                    </span>
 	                </div>
 	            </div>
@@ -81,34 +70,71 @@
 			<div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="package">
 			
-					<div class="col-md-7 col-sm-12">
-					<h4>
-					    {% if page.titleTranslated %}
-					        {{ page.titleTranslated }}
-					    {% else %}
-					        {{ page.title }}
-					    {% endif %}
-					    {% if page.duration %}
-					         ({% if page.duration == '1' %}{{ page.duration }} {{ 'night'|trans({}, 'frontend') }}{% else %}{{ page.duration }} {{ 'nights'|trans({}, 'frontend') }}{% endif %})
-				        {% endif %}
-					</h4>
-					
-					 {% if page.originalLanguage and page.originalLanguage == 'ee' and app.request.locale != 'ee' %}
-							<div class="autotranslate">{{ 'automatic.translate'|trans({}, 'frontend') }} <img class="pull-right translate-flag" width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/></div>
+					<div class="col-md-12 col-sm-12">
+						<div class="row">
 							
-					 {% endif %}
-					<p>
-					    {% if page.summary %}
-					        {{ page.summary |raw }}
-					    {% else %}
-					        {{ page.description |raw }}
-					    {% endif %}
-					</p>
-			
+							<div class="col-md-6 nopadding-left">
+								{% if page.image %}
+							    <img src="{{ page.image }}" alt="" style="width:100%" class="img-responsive"/>
+							{% endif %}
+							
+							
+								
+								{% if page.originalLanguage and page.originalLanguage == 'ee' and app.request.locale != 'ee' %}
+									<div class="autotranslate hidden">{{ 'automatic.translate'|trans({}, 'frontend') }} <img class="pull-right translate-flag" width="20" src="{{ asset('bundles/sandboxwebsite/img/flags/' ~ page.originalLanguage ~ '.gif') }}"/></div>
+								{% endif %}
+								 
+								 {% if page.originalLanguage and page.originalLanguage == 'ee' and app.request.locale == 'ee' %}
+								 
+								    {% if page.summary %}
+								        {{ page.summary |raw }}
+								    {% else %}
+								        {{ page.description |raw }}
+								    {% endif %}
+								    
+								    {% endif %}
+								    <div class="hv-inc">
+										 {% if hotel %}
+												<h4>{{ 'hv.Hotel'|trans({}, 'frontend') }}:  {{ hotel.title }}</h4>
+											{% else %}
+												{% if page.titleTranslated %}
+											        <h4>{{ page.titleTranslated }}</h4>
+											    {% else %}
+											       <h4> {{ page.title }}</h4>
+											    {% endif %}
+											{% endif %}
+										{{ render_pageparts(page, 'information') }}
+									</div>
+							</div>
+							<div class="col-md-6 calendar-page">
+							
+							<h4>
+						  	  {{ 'book.online.header' | trans({}, 'frontend') }}
+							</h4>
+								<p>{{ 'book.online.hv.desc' | trans({}, 'frontend') }}</p>
+								<div class="btn-group package-calendar-control">
+								    <button class="btn btn-primary disabled package-calendar-navigate-prev package-calendar-navigate" data-calendar-nav="prev"><span class="fa fa-angle-double-left"></span></button>
+								    <button class="btn package-calendar-today"><div class="package-calendar-header"></div></button>
+								    <button class="btn btn-primary package-calendar-navigate" data-calendar-nav="next"><span class="fa fa-angle-double-right"></span></button>
+								</div>
+		
+		                        
+		
+								<div data-hotel-name="{{ hotel.title }}" data-package-id="{{ page.packageId }}" data-date-from="{{ fromdate }}" class="package-calendar"></div>
+								<div class="package-terms">
+									<p>{{ 'book.online.hv.about' | trans({}, 'frontend') }}</p>
+									<p>{{ 'book.online.hv.cancel' | trans({}, 'frontend') }}</p>
+								</div>
+							
+						
+							</div>
+							
+							
+						</div>
+					   
 					
-					{% if page.image %}
-					    <img src="{{ page.image }}" alt="" class="img-responsive"/>
-					{% endif %}
+					
+					
 					
 					<h4>
 					    {{ 'book.online.hv.package.inc' | trans({}, 'frontend') }}
@@ -146,11 +172,11 @@
 				    <div class="row">
 				        <div class="col-md-6">
 				            <h4>{{ hotel.title }}</h4>
-				            <p>{{ hotel.longDescription|raw }}</p>
-				            
-				            <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">
+				             <a class="btn btn-primary" href="{{ path('_slug', {'url' : get_node_translation_for(hotel).fullSlug }) }}">
 				            	{{ 'hv.hotel.info.and.packages' | trans({}, 'frontend') }}
 				            </a>	
+				            <br />
+				            <p>{{ hotel.longDescription|raw }}</p>
 				        </div>
 				        <div class="col-md-6">
 				            <div id="map_wrapper2">

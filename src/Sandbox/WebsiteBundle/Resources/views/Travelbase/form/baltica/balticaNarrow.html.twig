@@ -3,57 +3,57 @@
 
     <div class="row nomargin travelbase-input-rel">
 
-        <div class="col-md-6 nopadding form-col select-style">
-            <label for="baltica-country">
-                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
-                <select class="form-control placeholder" name="baltica-country" id="baltica-country">
-                    <option value="-1" selected="selected">{{ 'baltica.country'|trans({}, 'frontend') }}</option>
-                    {% for key,place in countries %}
-                        <option value="{{ key }}">{{ place.title }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-        </div>
 
-        <div class="col-md-6 nopadding form-col select-style">
-            <label for="baltica-place">
-                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-city"></span>
-                <select name="baltica-place" id="baltica-place" class="form-control placeholder" disabled>
-                    <option value="-1" selected="selected">{{ 'baltica.city'|trans({}, 'frontend') }}</option>
-                </select>
-            </label>
-        </div>
 
+		<div class="col-md-6 col-md-offset-6 nopadding form-col select-style">
+			<div class="row">
+				<div class="col-md-8 nopadding col-md-offset-3 form-col select-style">
+		            <label for="baltica-country">
+		                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
+		                <select class="form-control placeholder" name="baltica-country" id="baltica-country">
+		                    <option value="-1" selected="selected">{{ 'package.country'|trans({}, 'frontend') }}</option>
+		                    {% for key,place in countries %}
+		                        <option value="{{ key }}">{{ place.title }}</option>
+		                    {% endfor %}
+		                </select>
+		            </label>
+		        </div>
+		
+		        <div class="col-md-8 nopadding col-md-offset-3 form-col select-style">
+		            <label for="baltica-place">
+		                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-city"></span>
+		                <select name="baltica-place" id="baltica-place" class="form-control placeholder" disabled>
+		                    <option value="-1" selected="selected">{{ 'package.city'|trans({}, 'frontend') }}</option>
+		                </select>
+		            </label>
+		        </div>	
+		        
+		         <div class="col-md-8 col-xs-12 col-md-offset-3 nopadding form-col select-style">
+	            <label for="baltica-hotel">
+	                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
+	                <select name="baltica-hotel" id="baltica-hotel" class="form-control placeholder">
+	                    <option value="-1" selected="selected">{{ 'choose.category'|trans({}, 'frontend') }}</option>
+	                    {% for category in categories %}
+	                        <option value="{{ category.id }}">{{ category.all }}</option>
+	                    {% endfor %}
+	                </select>
+	            </label>
+	        </div>
+        	<div class="col-md-8 col-xs-12 col-md-offset-3 nopadding-left">
+	            <div class="text-center-mobile">
+	                <a href="#" id="baltica-filter" type="button" class="btn btn-lg btn-primary form-submit"><span class="glyphicon glyphicon-search"></span></a>
+	            </div>
+        	</div>
+		</div>
     </div>
-    <div class="row nomargin travelbase-input-rel">
-
-        <div class="col-md-6 col-xs-6 nopadding form-col select-style">
-            <label for="baltica-hotel">
-                <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
-                <select name="baltica-hotel" id="baltica-hotel" class="form-control placeholder">
-                    <option value="-1" selected="selected">{{ 'package.category'|trans({}, 'frontend') }}</option>
-                    {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-        </div>
 
 
-        <div class="col-md-6 col-xs-6 nopadding form-col">
+        <div class="hidden col-md-6 col-xs-6 nopadding form-col">
             <div class="input-group-addon travelbase-input-addon">
                 <span class="glyphicon travelbase-icon travelbase-icon-date-from"></span>
             </div>
             <input required="" class="datepick form-control placeholder" type="text" id="baltica-date-from" name="baltica-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
         </div>
 
-    </div>
-    <div class="row nomargin travelbase-input-rel">
-
-        <div class="col-md-12 col-xs-12">
-            <div class="form-col text-center-mobile">
-                <a href="#" id="baltica-filter" type="button" class="btn btn-lg btn-primary form-submit"><span class="glyphicon glyphicon-search"></span></a>
-            </div>
-        </div>
     </div>
 </div>

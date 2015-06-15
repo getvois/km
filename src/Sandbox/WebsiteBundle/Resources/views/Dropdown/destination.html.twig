@@ -1,8 +1,8 @@
 <div style="margin-top: -99999px" class="city-picker" id="dropdown-destination">
     <div class="city-filters">
-        <h1 class="form-item-header">{{ 'dropdown.destinations.header' | trans }}</h1>
+        <h1 class="form-item-header">{{ 'dropdown.destinations.header' | trans({}, 'frontend') }}</h1>
 
-        <div class="form-item-desc">{{ 'dropdown.destinations.description' | trans }}</div>
+        <div class="form-item-desc">{{ 'dropdown.destinations.description' | trans({}, 'frontend') }}</div>
         <input data-type="Sun" name="sun" class="city-type-btn" id="sun" type="checkbox"><label
                 for="sun">Sun</label>
         <input data-type="Ski" name="ski" class="city-type-btn" id="ski" type="checkbox"><label
@@ -10,7 +10,7 @@
         <input data-type="Spa" name="spa" class="city-type-btn" id="spa" type="checkbox"><label
                 for="spa">Spa</label>
         <input name="city-search" class="city-search" type="text"><label for="city-search"></label>
-        <input name="map" id="map" type="checkbox"><label for="map">Map</label>
+        <input name="map" id="map" type="checkbox"><label for="map">{{ 'map' | trans({}, 'frontend') }}</label>
         <input id="774966" class="all" name="check-all" type="checkbox"><label style="display: none;"
                                                                                class="check-all" for="774966">Un-Check
             All</label>
