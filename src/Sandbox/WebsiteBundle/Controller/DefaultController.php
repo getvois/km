@@ -132,8 +132,24 @@ class DefaultController extends Controller
 
             $data = $result->items;
 
+            $host = $this->get('hosthelper')->getHost();
+
+            $total = 0;
             foreach ($data as $item) {
-                $table .= $this->itemToRow($item, $filter, $request);
+                if($host){
+                    if($host->getLang() == 'ru'){
+                        $total++;
+                        $table .= $this->itemToRow($item, $filter, $request);
+                    }else{
+                        if($item->company->name != 'Aviasales'){
+                            $total++;
+                            $table .= $this->itemToRow($item, $filter, $request);
+                        }
+                    }
+                }else{
+                    $total++;
+                    $table .= $this->itemToRow($item, $filter, $request);
+                }
             }
 
             $table .= '<script>$(".my-popover").popover();</script>';
@@ -141,9 +157,9 @@ class DefaultController extends Controller
             if($body)
                 $table .= '</div>';
 
-            if($body && $result->total > 2)//add load more button
-                $table .= '<div class="loadDiv"><div class="loadDiv-line"></div><button id="loadMore" data-total="'. $result->total .'" onclick="loadMore(this)"><span class="fa fa-angle-double-down"></span></button></div>';
-            if($body && $result->total == 0){
+            if($body && $total > 2)//add load more button
+                $table .= '<div class="loadDiv"><div class="loadDiv-line"></div><button id="loadMore" data-total="'. $total .'" onclick="loadMore(this)"><span class="fa fa-angle-double-down"></span></button></div>';
+            if($body && $total == 0){
                 $table = $noItemsFoundHTML;
             }
 
