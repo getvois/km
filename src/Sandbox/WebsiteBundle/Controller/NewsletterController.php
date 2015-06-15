@@ -283,13 +283,18 @@ class NewsletterController extends Controller
             }
         }
 
+        $names = [];
+
         foreach ($add as $node) {
             $translation = $node->getNodeTranslation('ee', true);
             if ($translation) {
                 /** @var PlaceOverviewPage $place */
                 $place = $translation->getRef($em);
                 if ($place) {
-                    $newsPage->addPlace($place);
+                    if(!in_array($place->getTitle(), $names)){
+                        $newsPage->addPlace($place);
+                        $names[] = $place->getTitle();
+                    }
                 }
             }
         }
