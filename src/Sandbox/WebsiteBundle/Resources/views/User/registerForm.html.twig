@@ -9,7 +9,8 @@
     </div>
 
     {% if app.request.query.has('email') %}
-        <div class="register-form"> 
+        <div class="register-form">
+            <form action="#">
             <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
             <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
                 <div  class="form-group pull-left">
@@ -19,6 +20,7 @@
             <p class="clear">
                 <a class="btn btn-primary" id="reset-password" href="#">{{ 'confirm'|trans({}, 'frontend') }}</a>
             </p>
+            </form>
         </div>
     {% else %}
         {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
