@@ -26,6 +26,30 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class PackagePage extends AbstractArticlePage implements HasPageTemplateInterface, IPlaceFromTo, SlugActionInterface
 {
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="favorite", type="boolean", nullable=true)
+     */
+    private $favorite;
+
+    /**
+     * @return boolean
+     */
+    public function isFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param boolean $favorite
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+    }
+
+
     public function getControllerAction()
     {
         return "SandboxWebsiteBundle:BackwardCompatibility:service";

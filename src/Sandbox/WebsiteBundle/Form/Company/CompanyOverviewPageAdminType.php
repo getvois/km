@@ -68,6 +68,7 @@ class CompanyOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
         ]);
 
         $builder->add('hosts');
+        $builder->add('favorite');
 
     }
     /**

@@ -37,6 +37,30 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CompanyOverviewPage extends AbstractArticleOverviewPage implements IPlaceFromTo, SlugActionInterface, IHostable
 {
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="favorite", type="boolean", nullable=true)
+     */
+    private $favorite;
+
+    /**
+     * @return boolean
+     */
+    public function isFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param boolean $favorite
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+    }
+
     /**
      * @var string
      *

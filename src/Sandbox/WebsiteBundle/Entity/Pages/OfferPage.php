@@ -63,6 +63,29 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * @var boolean
      *
+     * @ORM\Column(name="favorite", type="boolean", nullable=true)
+     */
+    private $favorite;
+
+    /**
+     * @return boolean
+     */
+    public function isFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param boolean $favorite
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+    }
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="translated", type="boolean", nullable=true)
      */
     private $translated;

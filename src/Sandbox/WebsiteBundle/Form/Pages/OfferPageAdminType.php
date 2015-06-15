@@ -181,6 +181,8 @@ class OfferPageAdminType extends PageAdminType
 
         $builder->add('archived');
         $builder->add('translated');
+        $builder->add('favorite');
+
     }
 
     /**
