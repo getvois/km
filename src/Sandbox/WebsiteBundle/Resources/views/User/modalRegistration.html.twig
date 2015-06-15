@@ -9,69 +9,87 @@
                 </h4>
             </div>
             <div class="modal-body">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#login-form" aria-controls="login" role="tab" data-toggle="tab">{{ 'log.in'|trans({}, 'frontend') }}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#register-form" aria-controls="register" role="tab" data-toggle="tab">{{ 'register'|trans({}, 'frontend') }}</a>
+                    </li>
+                </ul>
+
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="{{ path('login_action') }}" method="post">
-                            <div class="row">
-                                <div class="col-md-8 col-xs-8">
-                                    <div class="form-group">
-                                        <label for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
-                                        <input id="email" type="text" name="email" class="form-control"/>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="password">{{ 'Password'|trans({}, 'frontend') }}:</label>
-                                        <input id="password" type="password" name="password" class="form-control"/>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="login-form">
+                                <form action="{{ path('login_action') }}" method="post">
+                                    <div class="row">
+                                        <div class="col-md-8 col-xs-8">
+                                            <div class="form-group">
+                                                <label for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
+                                                <input id="email" type="text" name="email" class="form-control"/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="password">{{ 'Password'|trans({}, 'frontend') }}:</label>
+                                                <input id="password" type="password" name="password" class="form-control"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <p>
+                                                <input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>
+                                                <a id="fb-login-btn" class="btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
+
+                                                {% if host and host.vkAppId and host.vkAppSecret %}
+                                                    <a href="#" id="vk-login-btn" class="btn btn-primary"><span class="fa fa-vk"></span> | login</a>
+                                                    <script>
+                                                        $("#vk-login-btn").click(function () {
+                                                            window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/vk-login&response_type=code&v=5.29&state=');
+                                                        });
+                                                    </script>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 col-xs-12">
-                                    <p>
-                                        <input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>
-                                        <a id="fb-login-btn" class="btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
+                            <div role="tabpanel" class="tab-pane" id="register-form">
+                                <form action="{{ path('register_action') }}" method="post">
 
-                                        {% if host and host.vkAppId and host.vkAppSecret %}
-                                            <a href="#" id="vk-login-btn" class="btn btn-primary"><span class="fa fa-vk"></span> | login</a>
-                                            <script>
-                                                $("#vk-login-btn").click(function () {
-                                                    window.open('https://oauth.vk.com/authorize?client_id={{ host.vkAppId }}&scope=email&redirect_uri={{ app.request.schemeAndHttpHost }}/vk-login&response_type=code&v=5.29&state=');
-                                                });
-                                            </script>
-                                        {% endif %}
+                                    <div class="form-group">
+                                        <label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>
+                                        <input id="name" type="text" name="name" class="form-control"
+                                               placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>
+                                        <input id="email" type="text" name="email" class="form-control"
+                                               placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>
+                                    </div>
+
+                                    <div class="clear"></div>
+                                    <p class="join-count">
+                                        {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}!
                                     </p>
-                                </div>
+                                    <p>
+                                        <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
+                                    </p>
+                                </form>
                             </div>
-                        </form>
-
-
-                        <div class="overlay__divider or">
-                            <span>{{ 'or'|trans({}, 'frontend') }}</span>
-                            <hr>
                         </div>
 
-                        <form action="{{ path('register_action') }}" method="post">
+                        {#<div class="overlay__divider or">#}
+                            {#<span>{{ 'or'|trans({}, 'frontend') }}</span>#}
+                            {#<hr>#}
+                        {#</div>#}
 
-                            <div class="form-group">
-                                <label class="sr-only" for="name">{{ 'my.name.is'|trans({}, 'frontend') }}:</label>
-                                <input id="name" type="text" name="name" class="form-control"
-                                       placeholder="{{ 'my.name.is'|trans({}, 'frontend') }}"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="sr-only" for="email">{{ 'my.email.is'|trans({}, 'frontend') }}:</label>
-                                <input id="email" type="text" name="email" class="form-control"
-                                       placeholder="{{ 'my.email.is'|trans({}, 'frontend') }}"/>
-                            </div>
-
-                            <div class="clear"></div>
-                            <p class="join-count">
-                                {{ 'i.want.to.join'|trans({}, 'frontend') }} 10453 {{ 'joined.travellers'|trans({}, 'frontend') }}!
-                            </p>
-                            <p>
-                                <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
-                            </p>
-                        </form>
                     </div>
                     <div class="col-md-6">
                         <img src="https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg"
