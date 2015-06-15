@@ -1313,12 +1313,13 @@ $(document).ready(function() {
 
                 var $row = '<div class="row skypicker-dropdown">' +
                         '<div class="row">' +
-                            '<div class="col-md-6"><h2>'+ trans.departures[$lang] +'</h2><div class="calendar-header-1"></div>' +
+                            '<div class="col-md-6"><h2>'+ trans.departures[$lang] +'</h2>' +
                                 '<div class="btn-group">' +
                     '<button class="btn btn-primary disabled calendar-navigate-1 calendar-navigate-1-prev" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
-                    '<button class="btn calendar-navigate-1"><div class="calendar calendar-1"></div></button>' +
+                    '<button class="btn calendar-navigate-1"><div class="calendar-header-1"></div></button>' +
                     '<button class="btn btn-primary calendar-navigate-1" data-calendar-nav="next">' + trans.next[$lang] + ' &gt;&gt;</button>' +
                     '</div>' +
+                        '<div class="calendar calendar-1"></div>'+
                     '</div>';
 
 
@@ -1326,12 +1327,13 @@ $(document).ready(function() {
                 //if we have return date add second calendar
                 var $date_end = $datepickTo.datepick('getDate');
                 if($date_end.length > 0 && $type == 3){
-                    $row += '<div class="col-md-6"><h2>'+ trans.returnDate[$lang] +'</h2><div class="calendar-header-2"></div>' +
+                    $row += '<div class="col-md-6"><h2>'+ trans.returnDate[$lang] +'</h2>' +
                     '<div class="btn-group">' +
                     '<button class="btn disabled btn-primary calendar-navigate-2 calendar-navigate-2-prev" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
-                    '<button class="btn calendar-navigate-2" data-calendar-nav="today"><div class="calendar calendar-2"></div></button>' +
+                    '<button class="btn calendar-navigate-2"><div class="calendar-header-2"></div></button>' +
                     '<button class="btn btn-primary calendar-navigate-2" data-calendar-nav="next">' + trans.next[$lang] + ' &gt;&gt;</button>' +
                     '</div>' +
+                        '<div class="calendar calendar-2"></div>' +
                     '</div>';
                 }
 
