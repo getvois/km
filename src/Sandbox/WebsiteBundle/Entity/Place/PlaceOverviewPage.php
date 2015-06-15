@@ -35,6 +35,30 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PlaceOverviewPage extends AbstractArticleOverviewPage implements IHostable, ICompany, SlugActionInterface
 {
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="iata", type="string", nullable=true)
+     */
+    private $iata;
+
+    /**
+     * @return string
+     */
+    public function getIata()
+    {
+        return $this->iata;
+    }
+
+    /**
+     * @param string $iata
+     */
+    public function setIata($iata)
+    {
+        $this->iata = $iata;
+    }
+
     /**
      * @return bool
      */

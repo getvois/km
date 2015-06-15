@@ -23,6 +23,7 @@ class PlaceOverviewPageAdminType extends AbstractArticleOverviewPageAdminType
         parent::buildForm($builder, $options);
         $builder->add('cityId')
             ->add('countryCode')
+            ->add('iata')
             ->add('topImage')
             ->add('hosts');
         $builder->add('companies');

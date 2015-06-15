@@ -98,6 +98,7 @@ class FormListener {
                 $pp->setCountryCode($page->getCountryCode());
                 $pp->setLatitude($page->getLatitude());
                 $pp->setLongitude($page->getLongitude());
+                $pp->setIata($page->getIata());
             }
 
             $this->em->flush();
