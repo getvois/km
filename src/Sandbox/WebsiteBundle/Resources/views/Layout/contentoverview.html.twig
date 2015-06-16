@@ -1,4 +1,5 @@
 <div class="row nomargin content content-panel">
+	{% if news is not null %}
 	<div class="news-panel col-md-6">
         <!-- News pane -->
         {% if news is not null %}
@@ -88,6 +89,8 @@
           
         {% endif %}
     </div>
+    {% endif %}	 
+    {% if articles is not null %}
     <div class="articles-panel col-md-6">
         <!-- Articles pane -->
         {% if articles is not null %}
@@ -149,4 +152,5 @@
            
         {% endif %}
     </div>
+    {% endif %}	
 </div>
