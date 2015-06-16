@@ -324,6 +324,19 @@ class BalticaController extends Controller{
             }
             $offers = $filteredOffers;
 
+
+            $filteredCompanies = [];
+            foreach ($companies as $company) {
+                foreach ($company->getPlaces() as $place) {
+                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($place);
+                    if($placeNode->getId() == $country){
+                        $filteredCompanies[] = $company;
+                    }
+                }
+            }
+            $companies = $filteredCompanies;
+
         }
 
         $packages = [];
