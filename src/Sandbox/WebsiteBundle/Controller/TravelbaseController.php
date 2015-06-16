@@ -564,6 +564,8 @@ class TravelbaseController extends Controller
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
 
+        $host = $this->get('hosthelper')->getHost();
+
         /** @var OfferPage[] $packages */
         $packages = $em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
             ->getOfferPages($request->getLocale());
@@ -573,10 +575,19 @@ class TravelbaseController extends Controller
         $countries = [];
 
         foreach ($packages as $package) {
-            if($package->getCountryPlace()){
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                    ->getNodeFor($package->getCountryPlace());
-                $countries[$node->getId()] = $package->getCountryPlace();
+
+            if($host){
+                if($package->getCountryPlace() && $package->getCountryPlace()->getHosts()->contains($host)){
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($package->getCountryPlace());
+                    $countries[$node->getId()] = $package->getCountryPlace();
+                }
+            }else{
+                if($package->getCountryPlace()){
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($package->getCountryPlace());
+                    $countries[$node->getId()] = $package->getCountryPlace();
+                }
             }
         }
 
