@@ -380,7 +380,7 @@ class BalticaController extends Controller{
             }
 
         }
-        $total += count($pages);
+        $total += count($items);
 
 
 //        $pages = array_slice($packages, $offset, $pageLength);
