@@ -484,7 +484,7 @@ class TravelbaseController extends Controller
         $offerCountries = $this->offerFormParams($request)['countries'];
 
         // merge arrays
-        foreach ($offerCountries as $country) {
+        foreach ($offerCountries as $key => $country) {
             $found = false;
             foreach ($countries as $c) {
                 if($country->getId() == $c->getId()){
@@ -494,7 +494,7 @@ class TravelbaseController extends Controller
             }
 
             if(!$found){
-                $countries[] = $country;
+                $countries[$key] = $country;
             }
         }
 
