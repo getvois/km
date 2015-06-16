@@ -52,6 +52,9 @@ class BalticaController extends Controller{
                     ->getNodeTranslationFor($package->getCountry());
 
                 if($translation && $translation->isOnline()){
+
+                    var_dump($translation->getLang());
+
                     $node = $em->getRepository('KunstmaanNodeBundle:Node')
                         ->getNodeFor($package->getCountry());
                     if($host){
