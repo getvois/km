@@ -137,7 +137,7 @@ class DefaultController extends Controller
             $total = 0;
             foreach ($data as $item) {
                 if($host){
-                    if($host->getLang() == 'ru' && !$host->getMultiLanguage()){
+                    if($host->getLang() == 'ru' || $host->getMultiLanguage()){
                         $total++;
                         $table .= $this->itemToRow($item, $filter, $request);
                     }else{
