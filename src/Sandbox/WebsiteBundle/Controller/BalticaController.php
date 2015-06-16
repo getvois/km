@@ -86,26 +86,33 @@ class BalticaController extends Controller{
 
         foreach ($offers as $offer) {
             if($offer->getCountryPlace()){
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                    ->getNodeFor($offer->getCountryPlace());
+                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                    ->getNodeTranslationFor($offer->getCountryPlace());
 
-                if($host){
-                    //if country in host and equal to node id
-                    if($offer->getCountryPlace()->getHosts()->contains($host) && $node->getId() == $nodeId){
-                        foreach ($offer->getPlaces() as $place) {
-                            if($place->getHosts()->contains($host)){
+                if($translation && $translation->isOnline()) {
+
+
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($offer->getCountryPlace());
+
+                    if ($host) {
+                        //if country in host and equal to node id
+                        if ($offer->getCountryPlace()->getHosts()->contains($host) && $node->getId() == $nodeId) {
+                            foreach ($offer->getPlaces() as $place) {
+                                if ($place->getHosts()->contains($host)) {
+                                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                        ->getNodeFor($place);
+                                    $places[$placeNode->getId()] = $place;
+                                }
+                            }
+                        }
+                    } else {
+                        if ($node->getId() == $nodeId) {
+                            foreach ($offer->getPlaces() as $place) {
                                 $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
                                     ->getNodeFor($place);
                                 $places[$placeNode->getId()] = $place;
                             }
-                        }
-                    }
-                }else{
-                    if($node->getId() == $nodeId){
-                        foreach ($offer->getPlaces() as $place) {
-                            $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                                ->getNodeFor($place);
-                            $places[$placeNode->getId()] = $place;
                         }
                     }
                 }
