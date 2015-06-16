@@ -1040,7 +1040,7 @@ $(document).ready(function() {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    $(".city-list .columnize").columnize({lastNeverTallest: true});
+    $(".city-list .columnize").columnize({lastNeverTallest: true, width: 300});
 
 
     //Pre Select departure
