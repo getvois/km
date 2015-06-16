@@ -26,6 +26,10 @@ class NewsPagePagePartAdminConfigurator extends AbstractArticlePagePagePartAdmin
                     'name' => 'Gallery',
                     'class'=> 'Sandbox\WebsiteBundle\Entity\PageParts\GalleryPagePart'
                 ),
+                array(
+                    'name' => 'Source',
+                    'class'=> 'Sandbox\WebsiteBundle\Entity\PageParts\SourcePagePart'
+                ),
             ), $this->pagePartTypes
         );
     }
