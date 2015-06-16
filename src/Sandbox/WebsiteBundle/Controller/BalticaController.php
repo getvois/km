@@ -53,8 +53,6 @@ class BalticaController extends Controller{
 
                 if($translation && $translation->isOnline()){
 
-                    var_dump($package->getCountry()->getTitle());
-
                     $node = $em->getRepository('KunstmaanNodeBundle:Node')
                         ->getNodeFor($package->getCountry());
                     if($host){
@@ -62,18 +60,26 @@ class BalticaController extends Controller{
                         if($package->getCountry()->getHosts()->contains($host) && $node->getId() == $nodeId){
                             foreach ($package->getPlaces() as $place) {
                                 if($place->getHosts()->contains($host)){
-                                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                                        ->getNodeFor($place);
-                                    $places[$placeNode->getId()] = $place;
+                                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                                        ->getNodeTranslationFor($place);
+                                    if($translation && $translation->isOnline()) {
+                                        $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                            ->getNodeFor($place);
+                                        $places[$placeNode->getId()] = $place;
+                                    }
                                 }
                             }
                         }
                     }else{
                         if($node->getId() == $nodeId){
                             foreach ($package->getPlaces() as $place) {
-                                $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                                    ->getNodeFor($place);
-                                $places[$placeNode->getId()] = $place;
+                                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                                    ->getNodeTranslationFor($place);
+                                if($translation && $translation->isOnline()) {
+                                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                        ->getNodeFor($place);
+                                    $places[$placeNode->getId()] = $place;
+                                }
                             }
                         }
                     }
@@ -102,18 +108,26 @@ class BalticaController extends Controller{
                         if ($offer->getCountryPlace()->getHosts()->contains($host) && $node->getId() == $nodeId) {
                             foreach ($offer->getPlaces() as $place) {
                                 if ($place->getHosts()->contains($host)) {
-                                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                                        ->getNodeFor($place);
-                                    $places[$placeNode->getId()] = $place;
+                                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                                        ->getNodeTranslationFor($place);
+                                    if($translation && $translation->isOnline()) {
+                                        $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                            ->getNodeFor($place);
+                                        $places[$placeNode->getId()] = $place;
+                                    }
                                 }
                             }
                         }
                     } else {
                         if ($node->getId() == $nodeId) {
                             foreach ($offer->getPlaces() as $place) {
-                                $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                                    ->getNodeFor($place);
-                                $places[$placeNode->getId()] = $place;
+                                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                                    ->getNodeTranslationFor($place);
+                                if($translation && $translation->isOnline()) {
+                                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                        ->getNodeFor($place);
+                                    $places[$placeNode->getId()] = $place;
+                                }
                             }
                         }
                     }
