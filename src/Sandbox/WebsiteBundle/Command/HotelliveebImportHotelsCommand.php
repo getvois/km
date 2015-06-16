@@ -23,8 +23,11 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
         ;
     }
 
+    private $output;
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
         $emailBody = '';
         /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
@@ -55,7 +58,7 @@ class HotelliveebImportHotelsCommand extends ContainerAwareCommand{
             $hotelPage = new HotelPage();
             $hotelPage->setTitle($hotel->filter('name')->first()->text());
 
-            //echo($hotelPage->getTitle() . "\n");
+            $this->output->writeln($hotelPage->getTitle());
 
             //set fields
             $hotelPage = $this->setPageFields($hotel, $hotelPage);
