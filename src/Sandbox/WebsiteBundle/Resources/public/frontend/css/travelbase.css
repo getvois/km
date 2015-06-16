@@ -82,6 +82,13 @@ input:focus {outline:0;}
 
 .btn  {border-radius:3px;}
 
+.aviasales-widget-holder {
+    box-shadow: 0 0 6px -4px black;
+    height: 400px;
+    margin: 20px 0;
+    overflow: auto;
+}
+
 /* Register form */
 .register-form{
     background-color: rgba(1, 1, 1, 0.75);
