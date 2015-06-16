@@ -1,0 +1,70 @@
+{% if root is defined and root %}
+
+    {% for country in nodes %}
+        <ul class="dontsplit">
+            <li {% if country.children|length > 0 %}class="parent-list"{% endif %}>
+                {% if country.children|length > 0 %}
+                    <i class="glyphicon glyphicon-chevron-down"></i>
+                {% endif %}
+
+                {% set rand1 = random(9999) %}
+                {% set rand2 = random(9999) %}
+                <input id="country{{ country.parent.id }}{{ rand1 }}{{ rand2 }}"
+                       name="country{{ country.parent.id }}" class="parent"
+                       value="{{ country.parent.id }}"
+                       data-name="{{ country.parent.title }}"
+                       data-depth="0" data-type="country" data-city-type="[]" type="checkbox">
+                <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ country.parent.slug }) }}">{{ country.parent.title }}</a>
+
+                {% if country.children|length > 0 %}
+                    <ul style="display: none;">
+                        {% for children in country.children %}
+                            <li {% if children.children|length > 0 %}class="parent-list"{% endif %}>
+                                {% if children.children|length > 0 %}
+                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                {% endif %}
+                                {% set rand1 = random(9999) %}
+                                {% set rand2 = random(9999) %}
+                                <input id="city{{ children.parent.id }}{{ rand1 }}{{ rand2 }}"
+                                       name="city{{ children.parent.id }}" class="parent"
+                                       value="{{ children.parent.id }}"
+                                       data-name="{{ children.parent.title }}"
+                                       data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
+                                <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ country.parent.slug ~ "/" ~ children.parent.slug }) }}">
+                                    {{ children.parent.title }}
+                                </a>
+
+
+                                {% if children.children|length > 0 %}
+                                    <ul style="display: none;">
+                                        {% for subchildren in children.children %}
+                                            <li {% if subchildren.children|length > 0 %}class="parent-list"{% endif %}>
+                                                {% if subchildren.children|length > 0 %}
+                                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                                {% endif %}
+                                                {% set rand1 = random(9999) %}
+                                                {% set rand2 = random(9999) %}
+                                                <input id="city{{ subchildren.parent.id }}{{ rand1 }}{{ rand2 }}"
+                                                       name="city{{ subchildren.parent.id }}" class="parent"
+                                                       value="{{ subchildren.parent.id }}"
+                                                       data-name="{{ subchildren.parent.title }}"
+                                                       data-depth="1" data-type="city" data-city-type="[]" type="checkbox">
+                                                <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ country.parent.slug ~ "/" ~ children.parent.slug ~ "/" ~ subchildren.parent.slug }) }}">
+                                                    {{ subchildren.parent.title }}
+                                                </a>
+
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </li>
+        </ul>
+    {% endfor %}
+
+{% endif %}
