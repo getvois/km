@@ -15,22 +15,21 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Add Article</h4>
                     </div>
-                        <form action='{{ path('KunstmaanNodeBundle_nodes_add', { 'id': get_node_for(adminlistconfigurator.overviewPage).id , 'type' : 'Sandbox\\WebsiteBundle\\Entity\\Article\\ArticlePage'}) }}' method='post' novalidate='novalidate'>
-                    <div class="modal-body">
-                            <div class='input_prop'>
+                    <form action='{{ path('KunstmaanNodeBundle_nodes_add', { 'id': get_node_for(adminlistconfigurator.overviewPage).id , 'type' : 'Sandbox\\WebsiteBundle\\Entity\\Article\\ArticlePage'}) }}' method='post' novalidate='novalidate'>
+                        <div class="modal-body">
+                            <div class="form-group">
                                 <label for='addpage_title'>Title</label>
-                                <input name='title' id='addpage_title' type='text'>
+                                <input type="text" class="form-control" name='title' id="addpage_title">
                             </div>
+                        </div>
 
-                            <div class='modal-footer'>
-                                <div class='btn_group'>
-                                    <input type='submit' name='submit' value='Add' class='btn btn-primary' />
-                                    <button type="button" class='btn' data-dismiss='modal'>Cancel</button>
-                                </div>
+                        <div class='modal-footer'>
+                            <div class='btn_group'>
+                                <input type='submit' name='submit' value='Add' class='btn btn-primary' />
+                                <button type="button" class='btn' data-dismiss='modal'>Cancel</button>
                             </div>
-
-                    </div>
-                        </form>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
