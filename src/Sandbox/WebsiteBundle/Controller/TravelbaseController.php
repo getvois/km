@@ -534,15 +534,25 @@ class TravelbaseController extends Controller
 
             if($host){
                 if($hotel->getCountryPlace() && $hotel->getCountryPlace()->getHosts()->contains($host)){
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($hotel->getCountryPlace());
-                    $countries[$node->getId()] = $hotel->getCountryPlace();
+                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                        ->getNodeTranslationFor($hotel->getCountryPlace());
+                    if($translation && $translation->isOnline()){
+                        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                            ->getNodeFor($hotel->getCountryPlace());
+
+                        $countries[$node->getId()] = $hotel->getCountryPlace();
+                    }
                 }
             }else{
                 if($hotel->getCountryPlace()){
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($hotel->getCountryPlace());
-                    $countries[$node->getId()] = $hotel->getCountryPlace();
+                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                        ->getNodeTranslationFor($hotel->getCountryPlace());
+                    if($translation && $translation->isOnline()){
+                        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                            ->getNodeFor($hotel->getCountryPlace());
+
+                        $countries[$node->getId()] = $hotel->getCountryPlace();
+                    }
                 }
             }
 
@@ -578,15 +588,25 @@ class TravelbaseController extends Controller
 
             if($host){
                 if($package->getCountryPlace() && $package->getCountryPlace()->getHosts()->contains($host)){
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($package->getCountryPlace());
-                    $countries[$node->getId()] = $package->getCountryPlace();
+                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                        ->getNodeTranslationFor($package->getCountryPlace());
+                    if($translation && $translation->isOnline()){
+                        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                            ->getNodeFor($package->getCountryPlace());
+
+                        $countries[$node->getId()] = $package->getCountryPlace();
+                    }
                 }
             }else{
                 if($package->getCountryPlace()){
-                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                        ->getNodeFor($package->getCountryPlace());
-                    $countries[$node->getId()] = $package->getCountryPlace();
+                    $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                        ->getNodeTranslationFor($package->getCountryPlace());
+                    if($translation && $translation->isOnline()){
+                        $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                            ->getNodeFor($package->getCountryPlace());
+
+                        $countries[$node->getId()] = $package->getCountryPlace();
+                    }
                 }
             }
         }
