@@ -461,6 +461,11 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             $translation = $node->getNodeTranslation($lang, true);
             if(!$translation) continue;
 
+            if($translation->getLang() != 'ee') {
+                $translation->setOnline(false);
+                $this->em->persist($translation);
+            }
+
             /** @var PackagePage $page */
             $page = $translation->getRef($this->em);
             if(!$page) continue;
