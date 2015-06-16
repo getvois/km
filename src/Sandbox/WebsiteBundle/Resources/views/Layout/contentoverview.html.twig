@@ -4,18 +4,18 @@
         {% if news is not null %}
             {% if news > 0 %}
 
-                <h2 class="topheader">{{ 'latest.offers' | trans({}, 'frontend') }}</h2>
+                <h2 class="topheader">{{ 'latest.news' | trans({}, 'frontend') }}</h2>
                 {% for item in news %}
                     {% if loop.index == (loop.length/2)|round %}
                         {% include '@SandboxWebsite/Ad/middleAds.html.twig' %}
                     {% endif %}
-
+ 
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}
 
                        
 			             
-                    	<article class="main-news main-news--summary {% if item.priceFromLabel or item.priceFrom %}news-top-border{% endif %}	 ">
+                    	<article class="main-news main-news--summary {% if item.priceFromLabel or item.priceFrom %}news-top-border{% endif %}">
                      	  {% if item.priceFromLabel or item.priceFrom %}
                                 <div class="pull-right">
                                 	<div class="price-from price-from-img">

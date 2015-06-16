@@ -9,7 +9,7 @@
 }
 
 .splash--gray-dark {
-  background-color: transparent;
+  background-color: #fcfcfc;
   color: #333;
 }
 .splash--gray-dark a, .splash--gray-dark h1, .splash--gray-dark h2, .splash--gray-dark h3, .splash--gray-dark h4, .splash--gray-dark h5  {
@@ -33,6 +33,17 @@
 .navbar {
   margin-bottom: 0;
 }
+
+.side-abs {
+  position: absolute;
+  right: 0;
+  top: -40px;
+  background-color: #fff;
+  padding: 10px;
+}
+
+  
+
 
 .clubbar {
   padding: 0;
@@ -130,6 +141,7 @@ time, .tags-block a, header, header a {
 
 .inner-col {
   background: #fcfcfc;
+  padding-top: 15px;
 }
 
 #travelbase_tabs {

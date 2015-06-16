@@ -13,6 +13,9 @@ h1, h2, h3, h4, h5  {
 }
 body{background-color: #ffffff !important;}
 
+.rel {
+  position:relative;
+}
 .clear {
     clear:both;
 } 
@@ -316,7 +319,7 @@ main h2 {
  
 main h2.topheader, .clubbar h2, .register-form h2 {
     font-weight: bold;
-	font-size: 25px; 
+	font-size: 20px; 
 	padding: 20px 0 0 0;
 }
  
@@ -341,7 +344,6 @@ body .splash--green {
 
 /* footer */
 .footer {
-    margin-top:20px;
 }
 .doormat__title, .doormat__title a, .travelbase_top_menu > li a {
     color: #fff;
