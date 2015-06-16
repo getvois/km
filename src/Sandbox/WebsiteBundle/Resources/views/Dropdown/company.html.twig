@@ -1,6 +1,6 @@
 <div style="margin-top: -99999px" class="city-picker" id="dropdown-company">
     <div class="city-filters">
-        <h1 class="form-item-header">{{ 'dropdown.companies.header' |trans({}, 'frontend') }}</h1>
+        <h2 class="form-item-header">{{ 'dropdown.companies.header' |trans({}, 'frontend') }}</h2>
         <div class="form-item-desc">{{ 'dropdown.companies.description' |trans({}, 'frontend') }}</div>
     </div>
     <div class="city-list">
@@ -15,11 +15,11 @@
                         <span></span>
                     {% endif %}
 
-                    {% if company['parent'].url %}
-                        <div class="company-type"><img src="{{ asset(company['parent'].url) }}" alt="" class="img-responsive"/></div>
-                    {% endif %}
-
+                   
                     <a class="company-list-title" href="{{ path('_slug', { 'url': root.slug ~ "/" ~ company['parent'].slug }) }}">{{ company['parent'].title }}</a>
+					 {% if company['parent'].url %}
+                        <div class="company-type"><img src="{{ asset(company['parent'].url | imagine_filter("300x")) }}" alt="" class="img-responsive"/></div>
+                    {% endif %}
 
                     {% if company['children']|length > 0 %}
                         <ul style="">

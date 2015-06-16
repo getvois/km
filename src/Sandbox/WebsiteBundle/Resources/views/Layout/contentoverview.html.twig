@@ -13,22 +13,10 @@
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}
 
-                       	<header>  
-	                       	<time class="main-news__meta">
-	                            {{ item.date | datelocale('long', 'none')}}
-	                    	</time>
-                            &nbsp; <span class="fa fa-eye"></span> {{ item.viewCount }}
-			            </header>
-			             
-                    	<article class="main-news main-news--summary main-news--summary">
-                     		   
-                         <h3 class="main-news__title">
-	                       		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
-	                        </h3>
-                        	  {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
                        
-                        
-                        {% if item.priceFromLabel or item.priceFrom %}
+			             
+                    	<article class="main-news main-news--summary {% if item.priceFromLabel or item.priceFrom %}news-top-border{% endif %}	 ">
+                     	  {% if item.priceFromLabel or item.priceFrom %}
                                 <div class="pull-right">
                                 	<div class="price-from price-from-img">
                                 		<div class="price-from-line"></div> 
@@ -39,36 +27,56 @@
 	                                    </div>
 	                                </div>
                                 </div>
-                            {% endif %}
+                            {% endif %}	 
+                            
+                            	<header>  
+	                       	<time class="main-news__meta">
+	                            {{ item.date | datelocale('long', 'none')}}
+	                    	</time>
+                            &nbsp; <span class="fa fa-eye"></span> {{ item.viewCount }}
+			            </header>  
+                         <h3 class="main-news__title">
+	                       		<a href="{{ path("_slug", {'url':articlenode.url}) }}">{{ item.title }}</a>
+	                        </h3>
+                        	  {% include '@SandboxWebsite/Layout/toplaces.html.twig' with {'ignore' : true} %}
+                       
+                        
+                      
               
                         <div class="row">
                           
                             <div class="col-md-12">
                              
                               <div class="row">
-		                        	<div class="{% if item.image or (item.companies|length > 0 and item.companies[0].logo) %}col-xs-12{% else %}col-xs-12{% endif %}">
+		                        	
+<div class="{% if item.image or (item.companies|length > 0 and item.companies[0].logo) %}col-xs-12{% else %}col-xs-12{% endif %}">
+									{% if item.imgSize %}
+	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
+	                                     	 <img src="{{ asset(item.image.url | imagine_filter("500x")) }}" alt="" class="img-responsive pull-right"/>
+	                                    	</a>
+		                            {% else %}
+		                            	{% if item.image %}
+	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
+	                                     	 <img src="{{ asset(item.image.url | imagine_filter("150x")) }}" alt="" class="img-responsive pull-right"/>
+	                                    	</a>
+			                            {% elseif item.companies|length > 0 %}
+			                                {% if item.companies[0].logo %}
+			                                {#<div class="col-xs-3">#}
+		                                        {#<a href="{{ path("_slug", {'url':articlenode.url}) }}">#}
+		                                            {#<img src="{{ asset(item.companies[0].logo.url | imagine_filter("150x")) }}" alt="" class="img-responsive pull-right"/>#}
+		                                        {#</a>#}
+		                                    {#</div>#}
+			                                {% endif %}
+			                            {% endif %}
+		                            {% endif %}
+		                            
+		                            
 			                            <p>{{ item.summary }}</p>
 	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
 	                                        {{ 'article.readmore' | trans }} &raquo;
 	                                    </a>
                                 	</div>
-
-
-		                            {% if item.image %}
-	                                    <div class="col-xs-12">
-	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
-	                                     	 <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>
-	                                    	</a>
-	                                    </div>
-		                            {% elseif item.companies|length > 0 %}
-		                                {% if item.companies[0].logo %}
-		                                {#<div class="col-xs-3">#}
-	                                        {#<a href="{{ path("_slug", {'url':articlenode.url}) }}">#}
-	                                            {#<img src="{{ asset(item.companies[0].logo.url | imagine_filter("300x")) }}" alt="" class="img-responsive pull-right"/>#}
-	                                        {#</a>#}
-	                                    {#</div>#}
-		                                {% endif %}
-		                            {% endif %}
+		                             
                               </div>
                        		</div>
                         </div>
@@ -88,7 +96,7 @@
                 {% for item in articles %}
                     {% set articlenode = get_node_translation_for(item) %}
                     {#{{ dump(item) }}#}
-                    <article class="main-article main-article--summary article__overview--list-item">
+                    <article class="main-article article__overview--list-item">
                         <header>
                             <time>{{ item.date| datelocale}}</time>
                             &nbsp; <span class="fa fa-eye"></span> {{ item.viewCount }}

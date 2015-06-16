@@ -82,13 +82,6 @@ input:focus {outline:0;}
 
 .btn  {border-radius:3px;}
 
-.aviasales-widget-holder {
-    box-shadow: 0 0 6px -4px black;
-    height: 400px;
-    margin: 20px 0;
-    overflow: auto;
-}
-
 /* Register form */
 .register-form{
     background-color: rgba(1, 1, 1, 0.75);
@@ -206,6 +199,7 @@ input:focus {outline:0;}
 .news-panel h2, .news-panel article h3 a, .clubbar h2, .clubbar h3 a, .register-form h2 { 
 	color:#F8C600;
 	line-height:1.1em;
+	  padding-top: 0!important;
 }
 .news-panel, .news-panel .price-from-inner, .news-panel .price-from:after, .news-panel .price-from:before {
 	background:#444!important;
@@ -246,6 +240,7 @@ time, .tags-block a, header, header a  {
 }
 .news-panel header, .articles-panel header, .news-panel header a, .articles-panel header a, .doormat__list-item header, .doormat__list-item header a {
 	color: #999; 
+	margin-top: 10px;
 }
 .topnews {
 	padding-bottom:15px;
@@ -322,9 +317,9 @@ main h2 {
 main h2.topheader, .clubbar h2, .register-form h2 {
     font-weight: bold;
 	font-size: 25px; 
-	padding: 20px 0 0 20px;
+	padding: 20px 0 0 0;
 }
-
+ 
 main {
     line-height:1.6em;
 }
@@ -795,7 +790,13 @@ select {
     position:relative;
     margin-left: 20px;
     display: inline-block;
-    top: 0px;
+    top: 0;
+}
+
+.news-panel .price-from {
+    position:absolute;
+    top: 0;
+    right:0;
 }
 .main-news .price-from-line { 
 	position:absolute;
@@ -905,16 +906,19 @@ select {
 
 /*style min*/
 
-.main-article h3 { 
-    margin-top: 5px;
+.main-article h3, .main-news h3 { 
+    margin-top: 0;
 }
 
 
 .main-news--summary {
     position: relative;
     border-bottom: none;
+    padding: 0 0 15px 0;
+}
+
+.news-top-border {
     border-top: 2px solid #F8C600;
-    padding: 1.5em 0;
 }
 .main-article__readmore { 
     margin-top: 0;
@@ -1613,12 +1617,11 @@ span.price-inc {font-size: 14px;}
 }
 #dropdown-company .city-list ul li a.company-list-title {
     font-weight:bold;
-    font-size:22px;
 }
 #dropdown-company .city-list ul li .company-type {
     padding: 10px 80px 20px 0;
-}
-.city-picker li{
+} 
+.city-picker li{ 
     list-style-type: none;
     padding-left:19px;
 }
@@ -1676,7 +1679,7 @@ span.city-picker-close:hover {
 }
 
 .city-picker h1.form-item-header {margin:0!important;color:#333!important;font:700 35px "Open Sans";}
-.city-picker .form-item-desc {margin:5px 0 10px 0;color:#333;font-size:18px;}
+.city-picker .form-item-desc {margin:5px 0 10px 0;color:#333;}
 
 
 .mobile-day {
