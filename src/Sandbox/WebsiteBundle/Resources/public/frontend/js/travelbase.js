@@ -1930,6 +1930,12 @@ $(document).ready(function() {
     //    getTable(".travelbase_items_sp");
     //}, 1000);
 
+
+    ////aviasales widget
+    $.get('http://api.travelwebpartner.com/api/aviasales/widget/?lang=' + $lang, function (responce) {
+        $('.aviasales-widget-holder').html(responce);
+    });
+
 });
 
 function cityFilter(){
