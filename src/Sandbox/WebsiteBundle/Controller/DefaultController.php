@@ -136,20 +136,20 @@ class DefaultController extends Controller
 
             $total = 0;
             foreach ($data as $item) {
-//                if($host){
+                if($host){
 //                    if($host->getLang() == 'ru'){
 //                        $total++;
 //                        $table .= $this->itemToRow($item, $filter, $request);
 //                    }else{
 //                        if($item->company->name != 'Aviasales'){
-//                            $total++;
-//                            $table .= $this->itemToRow($item, $filter, $request);
+                            $total++;
+                            $table .= $this->itemToRow($item, $filter, $request);
 //                        }
 //                    }
-//                }else{
+                }else{
                     $total++;
                     $table .= $this->itemToRow($item, $filter, $request);
-//                }
+                }
             }
 
             $table .= '<script>$(".my-popover").popover();</script>';
