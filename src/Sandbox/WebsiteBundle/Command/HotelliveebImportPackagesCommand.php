@@ -47,10 +47,19 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
     private $emailBody;
 
     private $updatePageparts;
+    
+    /** @var  OutputInterface $output */
+    private $output;
 
+    private function out($text)
+    {
+        $this->output->writeln($text);
+    }
+    
     protected function execute(/** @noinspection PhpUndefinedClassInspection */
         InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
         $this->updatePageparts = $input->getOption('updatePageparts');
 
         $this->pagePartCreator = $this->getContainer()->get('kunstmaan_pageparts.pagepart_creator_service');
@@ -70,7 +79,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             try{
                 $this->addPackages($node);
             }catch (\Exception $e){
-                var_dump($e->getMessage());
+                $this->out($e->getMessage());
             }
         }
 
@@ -115,9 +124,9 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         //$init = microtime();
         $url = 'http://www.hotelliveeb.ee/xml.php?type=package&hotel=' . $hotelPage->getHotelId();
         $content = @file_get_contents($url);
-        //var_dump('page downloaded in ' . (microtime() - $init));
+        //$this->out('page downloaded in ' . (microtime() - $init));
         if(!$content){
-            var_dump('couldnot load: '. $url);
+            $this->out('couldnot load: '. $url);
             return;
         }
 
@@ -220,7 +229,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packageId = $package->filter('id')->first()->text();
         $packagePage = $this->packageExists($packageId);
         if($packagePage){
-            var_dump('Updating package: ' . $packagePage->getTitle());
+            $this->out('Updating package: ' . $packagePage->getTitle());
 
             //set translations to online
             $packageNode = $this->em->getRepository('KunstmaanNodeBundle:Node')
@@ -257,13 +266,13 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
         $packagePage = new PackagePage();
         $packagePage->setTitle($package->filter('title')->first()->text());
 
-        echo($packagePage->getTitle() . "\n");
+        $this->out($packagePage->getTitle() . "\n");
 
         $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($hotelPage);
 
         if(!$node){
-            var_dump('Node for page not found');
+            $this->out('Node for page not found');
             return;
         }
 
@@ -271,7 +280,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         $init = time();
         $newNode = $this->createPackageTranslations($node , $packagePage, $package);
-        echo('createPackageTranslations in ' . (time() - $init) . "\n");
+        $this->out('createPackageTranslations in ' . (time() - $init) . "\n");
 
         $this->emailBody  .= "<b>NEW node:</b> ". $newNode->getId(). " title:". $packagePage->getTitle() . "<br/>\n";
 
@@ -279,7 +288,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
         $init = time();
         $this->createPackagePageParts($package, $newNode);
-        echo('createPackagePageParts in ' . (time() - $init) . "\n");
+        $this->out('createPackagePageParts in ' . (time() - $init) . "\n");
 
     }
 
@@ -367,7 +376,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
 
             //$init = time(); //todo kosmos minimim 2sec per lang = 5langs * 2 = min 10 sec
             $this->pagePartCreator->addPagePartsToPage($node, $pageparts, $lang);
-            //var_dump('pagepart created in ' . $lang . " " . (time() - $init));
+            //$this->out('pagepart created in ' . $lang . " " . (time() - $init));
         }
     }
     /**
@@ -404,7 +413,7 @@ class HotelliveebImportPackagesCommand extends ContainerAwareCommand{
             for($j=0; $j<$categories->count(); $j++){
                 $category = $categories->eq($j)->text();
 
-                //var_dump($category);
+                //$this->out($category);
                 $c = $this->em->getRepository('SandboxWebsiteBundle:PackageCategory')
                     ->findOneBy(['name' => $category]);
 
