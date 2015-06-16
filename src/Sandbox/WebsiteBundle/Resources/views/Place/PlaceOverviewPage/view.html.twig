@@ -257,6 +257,10 @@
 
         {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeForm', {'page' : page})) }}
 
+        {% if page.iata %}
+            <script async src="//www.travelpayouts.com/weedle/widget.js?width=283px&marker=81202&host={{ app.request.host }}&locale={{ app.request.locale }}&currency=eur&destination={{ page.iata }}&destination_name={{ page.title }}" charset="UTF-8"></script>
+        {% endif %}
+
         {% include '@SandboxWebsite/Tag/tagblock.html.twig' %}
 
     </div>
