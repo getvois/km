@@ -132,23 +132,16 @@ class DefaultController extends Controller
 
             $data = $result->items;
 
-            $host = $this->get('hosthelper')->getHost();
-
             $total = 0;
             foreach ($data as $item) {
-                if($host){
-//                    if($host->getLang() == 'ru'){
-//                        $total++;
-//                        $table .= $this->itemToRow($item, $filter, $request);
-//                    }else{
-//                        if($item->company->name != 'Aviasales'){
-                            $total++;
-                            $table .= $this->itemToRow($item, $filter, $request);
-//                        }
-//                    }
-                }else{
+                if($request->getLocale() == 'ru'){
                     $total++;
                     $table .= $this->itemToRow($item, $filter, $request);
+                }else{
+                    if($item->company->name != 'Aviasales'){
+                        $total++;
+                        $table .= $this->itemToRow($item, $filter, $request);
+                    }
                 }
             }
 
