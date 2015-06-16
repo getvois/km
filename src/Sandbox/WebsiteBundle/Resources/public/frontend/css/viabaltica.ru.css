@@ -12,7 +12,7 @@
   background-color: transparent;
   color: #333;
 }
-.splash--gray-dark a, .splash--gray-dark h  {
+.splash--gray-dark a, .splash--gray-dark h1, .splash--gray-dark h2, .splash--gray-dark h3, .splash--gray-dark h4, .splash--gray-dark h5  {
   color: #333;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .city-picker {
-  width: 58.33333333%;
+  width: 66.6666666%;
 }
 
 .travelbase_top_menu > li {
