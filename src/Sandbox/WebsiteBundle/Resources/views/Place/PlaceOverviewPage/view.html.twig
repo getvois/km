@@ -28,12 +28,13 @@
                     and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\ContentPage"
                     and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\CompanyPlacePage"
                     and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\HotelOverviewPage"
-
+                    and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\HotelPage"
 
                     %}
-                        {# and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\HotelPage"#}
                         {% if host in article.publicNodeVersion.getRef(em).hosts %}
-                            {% if article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" %}
+                            {% if article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage"
+                                and article.node.refEntityName != "Sandbox\\WebsiteBundle\\Entity\\Pages\\HotelOverviewPage"
+                            %}
                                 <h2><a href="{{ path('_slug', { 'url': article.url }) }}">{{ article.title }}</a></h2>
                                 {#<ul class="company--list">#}
                                 {#<li class="article__overview--list-item">#}
@@ -120,25 +121,6 @@
             {#{{ pagerfanta(pagerfanta) }}#}
             {#{% endif %}#}
         {% endif %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
