@@ -48,25 +48,30 @@ class BalticaController extends Controller{
 //                }
 //            }
             if($package->getCountry()){
-                $node = $em->getRepository('KunstmaanNodeBundle:Node')
-                    ->getNodeFor($package->getCountry());
-                if($host){
-                    //if country in host and equal to node id
-                    if($package->getCountry()->getHosts()->contains($host) && $node->getId() == $nodeId){
-                        foreach ($package->getPlaces() as $place) {
-                            if($place->getHosts()->contains($host)){
+                $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
+                    ->getNodeTranslationFor($package->getCountry());
+
+                if($translation && $translation->isOnline()){
+                    $node = $em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($package->getCountry());
+                    if($host){
+                        //if country in host and equal to node id
+                        if($package->getCountry()->getHosts()->contains($host) && $node->getId() == $nodeId){
+                            foreach ($package->getPlaces() as $place) {
+                                if($place->getHosts()->contains($host)){
+                                    $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
+                                        ->getNodeFor($place);
+                                    $places[$placeNode->getId()] = $place;
+                                }
+                            }
+                        }
+                    }else{
+                        if($node->getId() == $nodeId){
+                            foreach ($package->getPlaces() as $place) {
                                 $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
                                     ->getNodeFor($place);
                                 $places[$placeNode->getId()] = $place;
                             }
-                        }
-                    }
-                }else{
-                    if($node->getId() == $nodeId){
-                        foreach ($package->getPlaces() as $place) {
-                            $placeNode = $em->getRepository('KunstmaanNodeBundle:Node')
-                                ->getNodeFor($place);
-                            $places[$placeNode->getId()] = $place;
                         }
                     }
                 }
