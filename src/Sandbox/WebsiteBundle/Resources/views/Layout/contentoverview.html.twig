@@ -1,9 +1,9 @@
 <div class="row nomargin content content-panel">
-	{% if news is not null %}
+	{% if news is not null and news|length > 0 %}
 	<div class="news-panel col-md-6">
         <!-- News pane -->
         {% if news is not null %}
-            {% if news > 0 %}
+            {% if news|length > 0 %}
 
                 <h2 class="topheader">{{ 'latest.news' | trans({}, 'frontend') }}</h2>
                 {% for item in news %}
