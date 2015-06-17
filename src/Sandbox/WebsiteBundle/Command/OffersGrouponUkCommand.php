@@ -17,7 +17,7 @@ use /** @noinspection PhpUndefinedClassInspection */
 use /** @noinspection PhpUndefinedClassInspection */
     Symfony\Component\Console\Output\OutputInterface;
 
-class OffersGrouponUkDeCommand extends OffersGrouponCommand
+class OffersGrouponUkCommand extends OffersGrouponCommand
 {
     protected $lang = 'en';
     protected $currncy = 'GBP';
