@@ -1,7 +1,50 @@
-.mainbg {)
-  background-image: url(http://viabaltica.ru/bundles/sandboxwebsite/img/general/);
+
+.splash__container {
   padding-top: 15px;
 }
+
+ul#form-type-switcher {
+  margin-left: 30px;
+}
+
+#form-flight .col-md-11 {  
+	padding: 0 15px;
+}
+
+.mainbg {)
+  padding-top: 15px;
+  min-height: 320px;
+}
+
+.move
+{
+width:435px;
+height:310px;
+background: url(/bundles/sandboxwebsite/img/general/move.png) no-repeat;
+-webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+position:absolute;
+top: 0;
+  right: 20%;
+  -webkit-filter: blur(0px);
+}
+#travelbase_tabs:hover .move
+{
+-webkit-transform: translate(1em,0);
+            -moz-transform: translate(1em,0);
+            -o-transform: translate(1em,0);
+            -ms-transform: translate(1em,0);
+            -webkit-filter: blur(2px);
+            
+}
+
+.form-header{
+	position:relative;
+	z-index:9
+}
+
 
 .splash__container .col-md-12 {
   background-color: transparent;
@@ -84,6 +127,7 @@
 .placeholder {
     padding: 8px 5px 5px 35px;
     margin-bottom: 2px;
+    font-weight: normal;
 }
 
 .form-header h1 {
@@ -320,15 +364,21 @@ main {
     display:block;
 }
 
+
+
+
 @media (min-width: 768px)  {
-.navbar .site-topmenu {
-  position: inherit;
-  top: 8px;
-  right:auto;
-  padding:0;
-  height:inherit!important;
-  background:transparent;
-}
+	.navbar .site-topmenu {
+	  position: inherit;
+	  top: 8px;
+	  right:auto;
+	  padding:0;
+	  height:inherit!important;
+	  background:transparent;
+	}
+	.travelbase_items {
+	  padding: 15px 15px 0px 43px;
+	}
 
 }
 

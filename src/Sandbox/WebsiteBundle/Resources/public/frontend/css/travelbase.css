@@ -25,6 +25,9 @@ body{background-color: #ffffff !important;}
 .padding-30 {
     padding:30px;
 } 
+.margin-bottom-20 {
+   margin-bottom: 20px;
+} 
 .nopadding, .no-padding {
     padding: 0;
 }
@@ -240,6 +243,7 @@ input:focus {outline:0;}
 time, .tags-block a, header, header a  {
 	margin-bottom:5px;
 }
+
 .news-panel header, .articles-panel header, .news-panel header a, .articles-panel header a, .doormat__list-item header, .doormat__list-item header a {
 	color: #999; 
 	margin-top: 10px;
@@ -329,7 +333,7 @@ body .splash--green {
     background-color: transparent;
 }
 .mainbg{
-    height: 380px;
+    min-height: 330px;
     background-size: cover;
     position: relative;
 }
@@ -344,7 +348,7 @@ body .splash--green {
 /* footer */
 .footer {
 }
-.doormat__title, .doormat__title a, .travelbase_top_menu > li a {
+.doormat__title, .doormat__title a {
     color: #fff;
     font-weight:700;
     font-family: "Open Sans",serif;
@@ -463,10 +467,17 @@ main .calendar-page .cal-day-today .events-list {
     font-size:16px;
     text-decoration:underline;
 }
+.dark-image .site-topmenu .travelbase_top_menu > li > a {
+    color: #fefefe;
+    font-size:16px;
+    text-decoration:underline;
+}
+
 #travelbase-form > div {
 }
 
 .top-img-title {
+	display:none; 
     position: absolute;
     right: 230px;
     top: 30px;
@@ -656,10 +667,10 @@ select {
 .clubbar {
   margin-bottom: 20px;
   margin-top: -45px;
-  background-image: url(/bundles/sandboxwebsite/img/general/register1.jpg);
   background-size: cover;
   padding: 30px;
-  min-height: 430px;
+  min-height: 470px;
+  border: 1px solid #eee;
 }
 
 #club-collapse {padding: 0 30px 0 0;}
@@ -908,7 +919,7 @@ select {
 .main-news--summary {
     position: relative;
     border-bottom: none;
-    padding: 0 0 15px 0;
+    padding: 0 0 40px 0;
 }
 
 .news-top-border {
@@ -1083,9 +1094,9 @@ label.directFlight-label,  label.sameDay-label {
 .trip .company-fritidsresor  {
     background-position:0 -75px;
 }
-.trip .company-apollo, .trip .company-apollomatkat, .trip .company-apollose, .trip .company-apollono,  {
+.trip .company-apollo, .trip .company-apollomatkat, .trip .company-apollose, .trip .company-apollono  {
     background-position:0 -100px;
-}
+} 
 .trip .company-nazar  {
     background-position:0 -125px;
 }
@@ -1148,7 +1159,8 @@ label.directFlight-label,  label.sameDay-label {
     margin-top: 12px;
 }
 .date-field {
-    margin-top: 13px;
+    margin-top: 14px;
+  	font-size: 13px;
 }
 .trip-path-point {
     display: inline-block;
@@ -1350,19 +1362,30 @@ label.directFlight-label,  label.sameDay-label {
   text-shadow: 1px 1px #DE7B7A;
 }
 
-#modal-registration .modal-content {
+#email-register-modal .modal-content, #modal-registration .modal-content {
   border-radius: 0;
   background-size: cover;
-  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
 }
 
-#modal-registration .modal-header {
+.modal-content-img-1 {
+  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
+}
+.modal-content-img-2 {
+  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg); 
+}
+.modal-content-img-3 {
+  background-image: url(/bundles/sandboxwebsite/img/general/register3.jpg);
+}
+.modal-content-img-4 {
+  background-image: url(/bundles/sandboxwebsite/img/general/register5.jpg);
+}
+#email-register-modal .modal-header, #modal-registration .modal-header {
   border-bottom: none;
 }
-#modal-registration .modal-header, #modal-registration .modal-body {
+#email-register-modal .modal-header, #email-register-modal .modal-body, #modal-registration .modal-header, #modal-registration .modal-body {
   padding: 30px 40px 0px;
 }
-#modal-registration h2 {
+#email-register-modal h2, #modal-registration h2 {
 font-weight: bold;
   color: #444540;
   font-size: 30px;
@@ -1370,7 +1393,7 @@ font-weight: bold;
   
  }
 @media (min-width: 768px){
-	#modal-registration .modal-dialog {
+	#email-register-modal .modal-dialog, #modal-registration .modal-dialog {
 	  width: 760px;
 	}
 }
@@ -1382,35 +1405,42 @@ font-weight: bold;
 	}
 }  
   
-#modal-registration .tab-pane {
+#email-register-modal .tab-pane,  #modal-registration .tab-pane {
   padding: 17px;
 }
 
-#modal-registration .nav-tabs>li {
+#email-register-modal .nav-tabs>li, #modal-registration .nav-tabs>li {
   height:50px;
 }
-#modal-registration .nav-tabs {
+#email-register-modal .nav-tabs, #modal-registration .nav-tabs {
   border:none;
   margin-left: 15px;
 }
+#email-register-modal .nav-tabs>li>a, #email-register-modal .nav-tabs>li>a:hover, #email-register-modal  .nav-tabs>li>a:focus,
 #modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus {
   font-weight: bold;
-    border: 2px solid #444540;
-  margin-right: 3px;
+    border: 2px solid #2F312B;
   opacity: 0.4;
-}
+} 
 
-#modal-registration .nav-tabs>li.active>a {
+#email-register-modal .nav-tabs>li.active>a, #modal-registration .nav-tabs>li.active>a {
   opacity: 1;
 }
-
+#modal-registration .nav-tabs>li.active:before {
+	width: 0; 
+	height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #f00;
+}
 #modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus, #modal-registration .nav-tabs>li.active>a {
 	background: -webkit-linear-gradient(#444540, #2D3029) repeat scroll 0 0 transparent !important;
 	color:#eee;
-	  border-radius: 4px;
+	  border-radius: 0;
 }
 #modal-registration .form-control, .clubbar .form-control  {
   border: 1px solid #999;
+    margin-left: -2px;
 }
 
 #modal-registration .register-slogan {
@@ -1810,22 +1840,8 @@ span.city-picker-close:hover {
         padding-right: 0;
     }
     .navbar .site-topmenu {
-        position: absolute;
-        top:0;
-        right:0;
-        padding-right:4%;
-        padding-top: 106px;
-        padding-left: 280px;
-        z-index: 0;
-        height: 380px!important;
-        background: -moz-linear-gradient(left,  rgba(135,224,253,0) 0%, rgba(197,220,245,0.8) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(135,224,253,0)), color-stop(100%,rgba(197,220,245,0.8))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(left,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* IE10+ */
-        background: linear-gradient(to right,  rgba(135,224,253,0) 0%,rgba(197,220,245, 0.8) 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87E0F3', endColorstr='#C5DCF5',GradientType=1 ); /* IE6-9 */
-
+    	padding-top:10px; 
+        padding-left: 4%;
     }
 
 }
@@ -1863,13 +1879,9 @@ span.city-picker-close:hover {
 .form-table-btn-switch a:hover{
   color: #eee;
 }
-.navbar-nav > li {
-    float: none;
-}
 
 @media (max-width: 992px){
     .mainbg{
-        height: 530px;
     }
 
     #form-submit, #package-filter, #offer-filter {
@@ -1914,8 +1926,9 @@ span.city-picker-close:hover {
 
 @media (max-width: 650px) {
     .mainbg{
-        height: 630px;
-    }
+    min-height: auto;
+    margin-bottom:50px;
+    } 
 }
 
 /*SMALL DEVICES ONLY*/

@@ -57,30 +57,49 @@
 		                                     	 <img src="{{ asset(item.image.url | imagine_filter("500x")) }}" alt="" class="img-responsive pull-right"/>
 		                                    	</a>
 	                                    	</div>
-		                            {% else %}
-		                            	{% if item.image %}
-	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
-	                                     	 <img src="{{ asset(item.image.url | imagine_filter("150x")) }}" alt="" class="img-responsive pull-right"/>
-	                                    	</a>
-			                            {% elseif item.companies|length > 0 %}
-			                                {% if item.companies[0].logo %}
-			                                {#<div class="col-xs-3">#}
-		                                        {#<a href="{{ path("_slug", {'url':articlenode.url}) }}">#}
-		                                            {#<img src="{{ asset(item.companies[0].logo.url | imagine_filter("150x")) }}" alt="" class="img-responsive pull-right"/>#}
-		                                        {#</a>#}
-		                                    {#</div>#}
-			                                {% endif %}
-			                            {% endif %}
-		                            {% endif %}
+	                                {% endif %}
+	                                
 		                            
-		                            	<div class="col-md-12 nopadding">
-			                            <p>{{ item.summary }}</p>
-	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
-	                                        {{ 'article.readmore' | trans }} &raquo;
-	                                    </a>
-	                                    </div>
-                                	</div>
-		                             
+	                            	<div class="col-xs-12 col-md-12 nopadding">    
+		                            
+		                            {% if item.imgSize %}
+			                            {% else %}
+			                            	{% if item.image %}
+		                                    	<a class="hidden-xs" href="{{ path("_slug", {'url':articlenode.url}) }}">
+		                                     	 <img src="{{ asset(item.image.url | imagine_filter("150x")) }}" alt="" class="img-responsive pull-right"/>
+		                                    	</a>
+				                            {% endif %}
+			                        {% endif %}	
+		                            
+		                            <p>{{ item.summary }}</p>
+                                    </div>
+			                           
+                                    {% if item.imgSize %}
+			                            {% else %}
+                                    	<div class="col-xs-12 visible-xs nopadding">
+			                            	{% if item.image %}
+		                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
+		                                     	 <img src="{{ asset(item.image.url | imagine_filter("300x")) }}" alt="" class="img-responsive margin-bottom-20"/>
+		                                    	</a>
+				                            {% elseif item.companies|length > 0 %}
+				                                {% if item.companies[0].logo %}
+				                                {#<div class="col-xs-3">#}
+			                                        {#<a href="{{ path("_slug", {'url':articlenode.url}) }}">#}
+			                                            {#<img src="{{ asset(item.companies[0].logo.url | imagine_filter("150x")) }}" alt="" class="img-responsive pull-right"/>#}
+			                                        {#</a>#}
+			                                    {#</div>#}
+				                                {% endif %}
+				                            {% endif %}
+			                        	</div>    
+			                        {% endif %}	
+                                </div>
+		                         <div class="row nomargin">
+                            			<div class="col-md-12"> 
+                            				<a href="{{ path("_slug", {'url':articlenode.url}) }}">
+                                       			{{ 'article.readmore' | trans }} &raquo;
+                                    		</a>
+                                      </div>
+                       			 </div>
                               </div>
                        		</div>
                         </div>
@@ -133,7 +152,7 @@
                         <p>{{ item.summary }}</p>
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary">
+                                <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="margin-bottom-20 btn btn-primary">
                                     {{ 'article.readmore' | trans }}
                                 </a>
                             </div>
