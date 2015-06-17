@@ -50,7 +50,7 @@
                                         <div class="col-md-12 col-xs-12">
                                             <p>
                                                 <input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>
-                                                <a id="fb-login-btn" class="btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
+                                                <a  class="fb-login-btn btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
 
                                                 {% if host and host.vkAppId and host.vkAppSecret %}
                                                     <a href="#" id="vk-login-btn" class="btn btn-primary"><span class="fa fa-vk"></span> | login</a>
@@ -88,7 +88,7 @@
                                     </p>
                                     <p>
                                         <input id="register-submit" type="submit" class="btn btn-primary" value="{{ 'sign.up'|trans({}, 'frontend') }}"/>
-                                        <a id="fb-login-btn" class="btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
+                                        <a class="fb-login-btn btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
 
                                         {% if host and host.vkAppId and host.vkAppSecret %}
                                             <a href="#" id="vk-login-btn" class="btn btn-primary"><span class="fa fa-vk"></span> | login</a>
