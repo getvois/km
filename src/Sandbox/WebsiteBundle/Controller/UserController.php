@@ -824,17 +824,17 @@ class UserController extends Controller
             return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
 
         if($request->query->has('flightOffers')){
-            $flightOffers = $request->query->get('flightOffers', 0);
+            $flightOffers = $request->query->get('flightOffers', false);
             if($flightOffers == 'on') $flightOffers = true;
             $user->setFlightOffers($flightOffers);
         }
         if($request->query->has('localOffers')){
-            $localOffers = $request->query->get('localOffers', 0);
+            $localOffers = $request->query->get('localOffers', false);
             if($localOffers == 'on') $localOffers = true;
             $user->setLocalOffers($localOffers);
         }
         if($request->query->has('internationalOffers')){
-            $internationalOffers = $request->query->get('internationalOffers', 0);
+            $internationalOffers = $request->query->get('internationalOffers', false);
             if($internationalOffers == 'on') $internationalOffers = true;
             $user->setInternationalOffers($internationalOffers);
         }
