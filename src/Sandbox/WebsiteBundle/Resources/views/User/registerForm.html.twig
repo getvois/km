@@ -9,19 +9,35 @@
     </div>
 
     {% if app.request.query.has('email') %}
-        <div class="register-form">
-            <form action="#">
-            <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
-            <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
-                <div  class="form-group pull-left">
-            <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
+
+        <!-- Modal -->
+        <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-content-img-{{ random([1,2,3]) }}">
+                    <div class="modal-header">
+                        {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="register-form">
+                            <form action="#">
+                                <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
+                                <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
+                                <div  class="form-group pull-left">
+                                    <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
+                                </div>
+                                <span class="pull-left">{{ 'recieve.your.new.acc.password'|trans({}, 'frontend') }}.</span>
+                                <p class="clear">
+                                    <a class="btn btn-primary" id="reset-password" href="#">{{ 'confirm'|trans({}, 'frontend') }}</a>
+                                </p>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
-            <span class="pull-left">{{ 'recieve.your.new.acc.password'|trans({}, 'frontend') }}.</span>
-            <p class="clear">
-                <a class="btn btn-primary" id="reset-password" href="#">{{ 'confirm'|trans({}, 'frontend') }}</a>
-            </p>
-            </form>
+            </div>
         </div>
+
     {% else %}
         {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
     {% endif %}
