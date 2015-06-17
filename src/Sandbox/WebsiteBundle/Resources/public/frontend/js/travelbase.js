@@ -468,11 +468,12 @@ $(document).ready(function() {
     $("#reset-user-password").click(function () {
         $(this).addClass('disabled');
         $.get('/reset-password/', function (responce) {
-            var $flashbag = $("#info-modal");
+            //var $flashbag = $("#info-modal");
+            var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }
 
             $flashbag.modal('show');
@@ -503,11 +504,12 @@ $(document).ready(function() {
 
         $(this).addClass('disabled');
         $.get('/user-edit/?'+$data, function (responce) {
-            var $flashbag = $("#info-modal");
+            //var $flashbag = $("#info-modal");
+            var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }
 
             $flashbag.modal('show');
@@ -521,11 +523,12 @@ $(document).ready(function() {
 
         $(this).addClass('disabled');
         $.get('/user-password/?'+$data, function (responce) {
-            var $flashbag = $("#info-modal");
+            //var $flashbag = $("#info-modal");
+            var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }
 
             $flashbag.modal('show');
@@ -620,11 +623,12 @@ $(document).ready(function() {
 
         $('#form_submit').addClass('disabled');
         $.post('/subscribe/', $(this).serialize(), function (responce) {
-            var $flashbag = $("#info-modal");
+            //var $flashbag = $("#info-modal");
+            var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.modal-body').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
             }
 
             $flashbag.modal('show');
