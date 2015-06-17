@@ -23,15 +23,15 @@
 
                     <form id="user-subscriptions" action="#">
                         <label>
-                            <input class="checkbox" type="checkbox" name="flightOffers"/>
+                            <input class="checkbox" type="checkbox" name="flightOffers" {% if app.user.flightOffers %}checked="checked"{% endif %}/>
                             {{ 'flight.offers'|trans({}, 'frontend') }}
                         </label>
                         <label>
-                            <input class="checkbox" type="checkbox" name="localOffers"/>
+                            <input class="checkbox" type="checkbox" name="localOffers" {% if app.user.localOffers %}checked="checked"{% endif %}/>
                             {{ 'local.offers'|trans({}, 'frontend') }}
                         </label>
                         <label>
-                            <input class="checkbox" type="checkbox" name="internationalOffers"/>
+                            <input class="checkbox" type="checkbox" name="internationalOffers" {% if app.user.internationalOffers %}checked="checked"{% endif %}/>
                             {{ 'international.offers'|trans({}, 'frontend') }}
                         </label>
                     </form>
