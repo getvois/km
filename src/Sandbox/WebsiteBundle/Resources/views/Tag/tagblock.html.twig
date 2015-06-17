@@ -1,5 +1,5 @@
 
-{% if tags is defined %}
+{% if tags is defined and tags|length > 0 %}
 <div class="tags-block">
     <h2>Tags</h2>
     {% for tag in tags %}

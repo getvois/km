@@ -92,7 +92,7 @@ input:focus {outline:0;}
     color: white;
     font-size: 16px;
     line-height: 34px;
-    padding: 45px 0 0 28px;
+    padding: 45px 0 0 0;
     position: absolute;
     top: 0;
     z-index:2;
@@ -194,7 +194,7 @@ input:focus {outline:0;}
 
 /* NEWS AND ARTICLE PANELS */
 .articles-panel { 
-	padding-left: 30px; 
+	padding-left: 20px; 
 }
 .news-panel article h3 a { 
 	font-size: 20px; 

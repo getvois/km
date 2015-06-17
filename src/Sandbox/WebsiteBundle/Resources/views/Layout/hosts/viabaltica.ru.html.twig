@@ -34,7 +34,7 @@
                             	<div class="row nomargin">
                             		<div class="col-md-12">
 		                                <a class="club-link" href="#" data-toggle="modal" data-target="#modal-registration" data-tab="login-form">{{ 'club.header' | trans({}, 'frontend') }}</a>
-			                            <a href="/" class="pull-left"><img src="/bundles/sandboxwebsite/img/general/logo-via.png"></a>
+			                            <a href="/" class="pull-left logo"><img src="/bundles/sandboxwebsite/img/general/logo-via.png"></a>
 		                            	{{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
 	                            	</div>
                         		</div>
@@ -62,7 +62,7 @@
 <div class="row nomargin inner-col">
     <div class="col-md-8">
  		<div class="row rel">	
- 			<div class="col-md-12">
+ 			<div class="col-md-12 nopadding">
  			<!-- Travelbase -->
 	        {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 	
@@ -105,7 +105,7 @@
  			</div>
  			<div class="col-md-4 side-abs no-padding">
             {% block club %}
-                <div class="clubbar" style="margin-top: 0">
+                <div class="clubbar hidden">
                     {% block userlogin %}
                         {% include '@SandboxWebsite/User/loginForm.html.twig' %}
                     {% endblock %} 
@@ -122,7 +122,7 @@
                 {% block sidebar %}
                 {% endblock %}
 
-	            {% endblock %}
+	         {% endblock %}
 	        </div>
  		</div>
     

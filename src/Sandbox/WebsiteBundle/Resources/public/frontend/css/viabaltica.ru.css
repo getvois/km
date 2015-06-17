@@ -72,8 +72,11 @@
   text-shadow: none;
   background: -webkit-linear-gradient(#E3D218, #CC9F0E) repeat scroll 0 0 transparent !important;
   text-decoration:none;
+  outline:0
 }
-
+.club-link:focus, #modal-registration .close:focus {
+  outline:0
+}
 #date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
   border: 1px solid #555;
   box-shadow: 0 2px 1px #ddd inset;
@@ -145,7 +148,7 @@ time, .tags-block a, header, header a {
 }
 
 #travelbase_tabs {
-  top: -40px;
+  top: -55px;
 }
 
 .tab-content>.active {
@@ -201,9 +204,100 @@ h2, .h2 {
 
 
 
- 
+/* registration*/
 
+#modal-registration .close {
+  background: -webkit-linear-gradient(#9D9A91, #34373C) repeat scroll 0 0 transparent !important;
+  padding: 5px 16px 8px;
+  display: block;
+  position: absolute;
+  border-radius: 40px;
+  top: -20px;
+  right: -20px;
+  opacity: 1;
+  color: #000;
+  font-size: 45px;
+  text-shadow: 1px 1px #DE7B7A;
+}
 
+#modal-registration .modal-content {
+  border-radius: 0;
+  background-size: cover;
+  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
+}
+
+#modal-registration .modal-header {
+  border-bottom: none;
+}
+#modal-registration .modal-header, #modal-registration .modal-body {
+  padding: 30px 40px 0px;
+}
+#modal-registration h2 {
+font-weight: bold;
+  color: #444540;
+  font-size: 30px;
+  line-height: 1.2em;
+  
+ }
+@media (min-width: 768px){
+	#modal-registration .modal-dialog {
+	  width: 760px;
+	}
+}
+
+@media (max-width: 400px) {
+	#modal-registration .modal-content {
+	  background-position: 0 0;
+	  background-size:inherit;
+	}
+}  
+  
+#modal-registration .tab-pane {
+  padding: 17px;
+}
+
+#modal-registration .nav-tabs>li {
+  height:50px;
+}
+#modal-registration .nav-tabs {
+  border:none;
+  margin-left: 15px;
+}
+#modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus {
+  font-weight: bold;
+    border: 2px solid #444540;
+  margin-right: 3px;
+  opacity: 0.4;
+}
+
+#modal-registration .nav-tabs>li.active>a {
+  opacity: 1;
+}
+
+#modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus, #modal-registration .nav-tabs>li.active>a {
+	background: -webkit-linear-gradient(#444540, #2D3029) repeat scroll 0 0 transparent !important;
+	color:#eee;
+	  border-radius: 4px;
+}
+#modal-registration .form-control {
+  border: 1px solid #999;
+}
+
+#modal-registration .register-slogan {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 9;
+}
+/* news and article pages*/
+
+main {
+  padding: 0 20px;
+}
+
+.logo {
+  position: relative;
+  z-index: 99;
+}
 
 .row-centered {
     text-align:center;
@@ -217,6 +311,10 @@ h2, .h2 {
     margin-right:-4px;
 }
 
+.top-40 {
+    margin-top:40px;
+    display:block;
+}
 .top-80 {
     margin-top:80px;
     display:block;
@@ -233,3 +331,178 @@ h2, .h2 {
 }
 
 }
+
+
+
+
+
+@media (max-width: 480px) {
+
+.col-xs-offset-right-12 {
+  margin-right: 100%;
+}
+.col-xs-offset-right-11 {
+  margin-right: 91.66666667%;
+}
+.col-xs-offset-right-10 {
+  margin-right: 83.33333333%;
+}
+.col-xs-offset-right-9 {
+  margin-right: 75%;
+}
+.col-xs-offset-right-8 {
+  margin-right: 66.66666667%;
+}
+.col-xs-offset-right-7 {
+  margin-right: 58.33333333%;
+}
+.col-xs-offset-right-6 {
+  margin-right: 50%;
+}
+.col-xs-offset-right-5 {
+  margin-right: 41.66666667%;
+}
+.col-xs-offset-right-4 {
+  margin-right: 33.33333333%;
+}
+.col-xs-offset-right-3 {
+  margin-right: 25%;
+}
+.col-xs-offset-right-2 {
+  margin-right: 16.66666667%;
+}
+.col-xs-offset-right-1 {
+  margin-right: 8.33333333%;
+}
+.col-xs-offset-right-0 {
+  margin-right: 0;
+}
+
+}
+
+@media (min-width: 768px) {
+  .col-sm-offset-right-12 {
+    margin-right: 100%;
+  }
+  .col-sm-offset-right-11 {
+    margin-right: 91.66666667%;
+  }
+  .col-sm-offset-right-10 {
+    margin-right: 83.33333333%;
+  }
+  .col-sm-offset-right-9 {
+    margin-right: 75%;
+  }
+  .col-sm-offset-right-8 {
+    margin-right: 66.66666667%;
+  }
+  .col-sm-offset-right-7 {
+    margin-right: 58.33333333%;
+  }
+  .col-sm-offset-right-6 {
+    margin-right: 50%;
+  }
+  .col-sm-offset-right-5 {
+    margin-right: 41.66666667%;
+  }
+  .col-sm-offset-right-4 {
+    margin-right: 33.33333333%;
+  }
+  .col-sm-offset-right-3 {
+    margin-right: 25%;
+  }
+  .col-sm-offset-right-2 {
+    margin-right: 16.66666667%;
+  }
+  .col-sm-offset-right-1 {
+    margin-right: 8.33333333%;
+  }
+  .col-sm-offset-right-0 {
+    margin-right: 0;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-offset-right-12 {
+    margin-right: 100%;
+  }
+  .col-md-offset-right-11 {
+    margin-right: 91.66666667%;
+  }
+  .col-md-offset-right-10 {
+    margin-right: 83.33333333%;
+  }
+  .col-md-offset-right-9 {
+    margin-right: 75%;
+  }
+  .col-md-offset-right-8 {
+    margin-right: 66.66666667%;
+  }
+  .col-md-offset-right-7 {
+    margin-right: 58.33333333%;
+  }
+  .col-md-offset-right-6 {
+    margin-right: 50%;
+  }
+  .col-md-offset-right-5 {
+    margin-right: 41.66666667%;
+  }
+  .col-md-offset-right-4 {
+    margin-right: 33.33333333%;
+  }
+  .col-md-offset-right-3 {
+    margin-right: 25%;
+  }
+  .col-md-offset-right-2 {
+    margin-right: 16.66666667%;
+  }
+  .col-md-offset-right-1 {
+    margin-right: 8.33333333%;
+  }
+  .col-md-offset-right-0 {
+    margin-right: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-offset-right-12 {
+    margin-right: 100%;
+  }
+  .col-lg-offset-right-11 {
+    margin-right: 91.66666667%;
+  }
+  .col-lg-offset-right-10 {
+    margin-right: 83.33333333%;
+  }
+  .col-lg-offset-right-9 {
+    margin-right: 75%;
+  }
+  .col-lg-offset-right-8 {
+    margin-right: 66.66666667%;
+  }
+  .col-lg-offset-right-7 {
+    margin-right: 58.33333333%;
+  }
+  .col-lg-offset-right-6 {
+    margin-right: 50%;
+  }
+  .col-lg-offset-right-5 {
+    margin-right: 41.66666667%;
+  }
+  .col-lg-offset-right-4 {
+    margin-right: 33.33333333%;
+  }
+  .col-lg-offset-right-3 {
+    margin-right: 25%;
+  }
+  .col-lg-offset-right-2 {
+    margin-right: 16.66666667%;
+  }
+  .col-lg-offset-right-1 {
+    margin-right: 8.33333333%;
+  }
+  .col-lg-offset-right-0 {
+    margin-right: 0;
+  }
+}
+
+
+

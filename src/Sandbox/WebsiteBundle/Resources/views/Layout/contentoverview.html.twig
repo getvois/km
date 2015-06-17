@@ -52,9 +52,11 @@
 		                        	
 <div class="{% if item.image or (item.companies|length > 0 and item.companies[0].logo) %}col-xs-12{% else %}col-xs-12{% endif %}">
 									{% if item.imgSize %}
-	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
-	                                     	 <img src="{{ asset(item.image.url | imagine_filter("500x")) }}" alt="" class="img-responsive pull-right"/>
-	                                    	</a>
+	                                    	<div class="col-md-10 nopadding">
+	                                    		<a href="{{ path("_slug", {'url':articlenode.url}) }}">
+		                                     	 <img src="{{ asset(item.image.url | imagine_filter("500x")) }}" alt="" class="img-responsive pull-right"/>
+		                                    	</a>
+	                                    	</div>
 		                            {% else %}
 		                            	{% if item.image %}
 	                                    	<a href="{{ path("_slug", {'url':articlenode.url}) }}">
@@ -71,11 +73,12 @@
 			                            {% endif %}
 		                            {% endif %}
 		                            
-		                            
+		                            	<div class="col-md-12 nopadding">
 			                            <p>{{ item.summary }}</p>
 	                                    <a href="{{ path("_slug", {'url':articlenode.url}) }}">
 	                                        {{ 'article.readmore' | trans }} &raquo;
 	                                    </a>
+	                                    </div>
                                 	</div>
 		                             
                               </div>
@@ -129,13 +132,14 @@
                         <p></p>
                         <p>{{ item.summary }}</p>
                         <div class="row">
-                            <div class="col-md-12 text-right">
+                            <div class="col-md-12">
                                 <a href="{{ path("_slug", {'url':articlenode.url}) }}" class="btn btn-primary">
                                     {{ 'article.readmore' | trans }}
                                 </a>
                             </div>
                         </div>
                         <div class="clear"></div>
+                        <p></p>
                     </article>
 
                     {#<div class="news">#}
