@@ -26,6 +26,8 @@ class OfferPageAdminType extends PageAdminType
     {
         parent::buildForm($builder, $options);
         $builder->add('titleTranslated');
+        $builder->add('translated');
+
         $builder->add('summary');
 
         $builder->add('offerId', 'integer', array(
@@ -180,7 +182,6 @@ class OfferPageAdminType extends PageAdminType
         ]);
 
         $builder->add('archived');
-        $builder->add('translated');
         $builder->add('favorite');
 
     }

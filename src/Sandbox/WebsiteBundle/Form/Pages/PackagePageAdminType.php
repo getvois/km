@@ -26,6 +26,7 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
     {
         parent::buildForm($builder, $options);
         $builder->add('titleTranslated');
+        $builder->add('translated');
 
         $builder->add('summary');
 
@@ -89,7 +90,6 @@ class PackagePageAdminType extends AbstractArticlePageAdminType
         ]);
 
         $builder->add('originalLanguage');
-        $builder->add('translated');
         $builder->add('favorite');
 
     }
