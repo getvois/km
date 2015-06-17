@@ -2453,6 +2453,6 @@ function repoFormatResult(repo) {
 function fadeOutInfoMessage() {
     var $flashbag = $("#modal-user-data");
     $flashbag.find('.info-message > div').each(function () {
-        $(this).fadeOut(2000);
+        $(this).fadeOut(4000);
     });
 }
