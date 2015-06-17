@@ -2,6 +2,7 @@ var $api_url = 'http://api.travelwebpartner.com/api/item.filter/';
 var $dpInterval = '1m';
 var $dpReturnInterval = '1m';
 var $offerPerPageLimit = 3;
+
 $(document).ready(function() {
     var $body = $("body");
     var $lang = $body.data('lang');
@@ -471,13 +472,14 @@ $(document).ready(function() {
             //var $flashbag = $("#info-modal");
             var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
             }
 
-            $flashbag.modal('show');
+            //$flashbag.modal('show');
             $("#reset-user-password").removeClass('disabled');
+            fadeOutInfoMessage();
         });
         return false;
     });
@@ -507,13 +509,14 @@ $(document).ready(function() {
             //var $flashbag = $("#info-modal");
             var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
             }
 
-            $flashbag.modal('show');
+            //$flashbag.modal('show');
             $("#save-user-details").removeClass('disabled');
+            fadeOutInfoMessage();
         });
         return false;
     });
@@ -526,13 +529,14 @@ $(document).ready(function() {
             //var $flashbag = $("#info-modal");
             var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
             }
 
-            $flashbag.modal('show');
+            //$flashbag.modal('show');
             $("#save-user-password").removeClass('disabled');
+            fadeOutInfoMessage();
         });
         return false;
     });
@@ -626,13 +630,14 @@ $(document).ready(function() {
             //var $flashbag = $("#info-modal");
             var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
             }else{
-                $flashbag.find('.info-message').html("<div>" + responce.msg + "</div>");
+                $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
             }
 
-            $flashbag.modal('show');
+            //$flashbag.modal('show');
             $('#form_submit').removeClass('disabled');
+            fadeOutInfoMessage();
         });
 
         return false;
@@ -2444,4 +2449,10 @@ function repoFormatResult(repo) {
     markup += '</div>';
 
     return markup;
+}
+function fadeOutInfoMessage() {
+    var $flashbag = $("#modal-user-data");
+    $flashbag.find('.info-message > div').each(function () {
+        $(this).fadeOut(2000);
+    });
 }
