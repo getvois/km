@@ -40,6 +40,11 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
             $this->translateEe('en');
             $this->translateRu('en');
             $this->translateFi('en');
+        }elseif($originalLang == 'de') {
+            $this->translateEe('de');
+            $this->translateRu('de');
+            $this->translateFi('de');
+            $this->translateEn('de');
         }
 
         if($this->emailBody){

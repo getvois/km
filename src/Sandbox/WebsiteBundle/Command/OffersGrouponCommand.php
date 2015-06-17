@@ -7,17 +7,23 @@ use Kunstmaan\NodeBundle\Entity\Node;
 use Kunstmaan\NodeBundle\Entity\NodeTranslation;
 use Kunstmaan\SeoBundle\Entity\Seo;
 use Sandbox\WebsiteBundle\Entity\Company\CompanyOverviewPage;
-use Sandbox\WebsiteBundle\Entity\PackageCategory;
 use Sandbox\WebsiteBundle\Entity\Pages\OfferPage;
 use Sandbox\WebsiteBundle\Entity\Place\PlaceOverviewPage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DomCrawler\Crawler;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Component\Console\Input\ArrayInput;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Component\Console\Input\InputInterface;
+use /** @noinspection PhpUndefinedClassInspection */
+    Symfony\Component\Console\Output\OutputInterface;
 
 class OffersGrouponCommand extends ContainerAwareCommand
 {
+    protected $lang = 'fi';
+    protected $currency = 'EUR';
+    protected $rate = 1;
+
+
     protected function configure()
     {
         $this
@@ -26,15 +32,15 @@ class OffersGrouponCommand extends ContainerAwareCommand
         ;
     }
 
-    private $emailBody;
+    protected $emailBody;
 
     /** @var  EntityManager */
-    private $em;
+    protected $em;
     /** @var  OutputInterface */
-    private $output;
-    private $company;
+    protected $output;
+    protected $company;
 
-    private function out($text)
+    protected function out($text)
     {
         $this->output->writeln($text);
     }
@@ -43,6 +49,8 @@ class OffersGrouponCommand extends ContainerAwareCommand
     {
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->output = $output;
+
+        $this->rate = $this->getCurrencyRate($this->currency);
 
         $rootNode = $this->em->getRepository('KunstmaanNodeBundle:Node')
             ->findOneBy([
@@ -173,7 +181,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
 
         $arguments = array(
             'command' => 'travelbase:translate:offers:title',
-            'originalLang'    => 'fi',
+            'originalLang'    => $this->lang,
         );
 
         $input = new ArrayInput($arguments);
@@ -230,6 +238,16 @@ class OffersGrouponCommand extends ContainerAwareCommand
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'price_normal', $offerPage->getPriceNormal(), $price_normal );
             $qb->set('o.priceNormal', $price_normal);
+        }
+
+        if($this->currency != 'EUR'){
+            if($offerPage->getPriceEur() != $price * $this->rate){
+                $qb->set('o.priceEur', $price * $this->rate);
+            }
+
+            if($offerPage->getPriceNormalEur() != $price_normal * $this->rate){
+                $qb->set('o.priceNormalEur', $price_normal * $this->rate);
+            }
         }
 
 //        $currency = $offer->filter('currency')->text();
@@ -603,7 +621,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
 //        $wide_image = $offer->filter('wide_image')->text();
 //        $offerPage->setWideImage($wide_image);
 
-        $currency = 'EUR';
+        $currency = $this->currency;
         $offerPage->setCurrency($currency);
 
         $price = $offer->priceSummary->value->amount;
@@ -613,6 +631,11 @@ class OffersGrouponCommand extends ContainerAwareCommand
         $price_normal = $offer->priceSummary->price->amount;
         str_split($price_normal, strlen($price_normal) - 2);
         $offerPage->setPriceNormal($price_normal);
+
+        if($currency != 'EUR'){
+            $offerPage->setPriceEur($price * $this->rate);
+            $offerPage->setPriceNormalEur($price_normal * $this->rate);
+        }
 
 //        $days = $offer->filter('days')->text();
 //        $offerPage->setDays($days);
@@ -736,7 +759,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
 
         $offerPage->setCompany($this->company);
 
-        $offerPage->setOriginalLanguage('fi');
+        $offerPage->setOriginalLanguage($this->lang);
 
         return $offerPage;
     }
@@ -773,7 +796,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
     protected function getOffers()
     {
         $context = stream_context_create(array('http' => array('header'=>'Connection: close\r\n')));
-        $content = @file_get_contents('https://partner-int-api.groupon.com/deals.json?tsToken=IE_AFF_0_201236_212556_0&country_code=FI&filters=topcategory:travel', false, $context);
+        $content = @file_get_contents('https://partner-int-api.groupon.com/deals.json?tsToken=IE_AFF_0_201236_212556_0&country_code=' . strtoupper($this->lang) . '&filters=topcategory:travel', false, $context);
 
         if(!$content) return [];
 
@@ -789,7 +812,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
     {
         /** @var EntityManager em */
         return $this->em->getRepository('SandboxWebsiteBundle:Pages\OfferPage')
-            ->getOfferPages('fi', 'fi');
+            ->getOfferPages($this->lang, $this->lang);
     }
 
     /**
@@ -806,5 +829,38 @@ class OffersGrouponCommand extends ContainerAwareCommand
         if(!$company) $this->out("WARNING: company Groupon not found\n");
 
         return $company;
+    }
+
+
+    /**
+     * @param $currency string 3 char code of currency that needs to convert to EUR
+     * @return float
+     */
+    private function getCurrencyRate($currency)
+    {
+        if($currency == "EUR")
+            return 1;
+
+        do{
+            $rate = null;
+            $content = @file_get_contents('http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22'.$currency.'EUR%22%29&format=json&env=store://datatables.org/alltableswithkeys&callback=');
+            if($content){
+                $res = json_decode($content);
+                if(property_exists($res, 'query') &&
+                    property_exists($res->query, 'results') &&
+                    property_exists($res->query->results, 'rate') &&
+                    property_exists($res->query->results->rate, 'Rate'))
+                    $rate = $res->query->results->rate->Rate;
+            }else{
+                $content = @file_get_contents('http://rate-exchange.appspot.com/currency?from='.$currency.'&to=EUR');
+                if($content) {
+                    $res = json_decode($content);
+                    $rate = $res->rate;
+                }
+            }
+
+        }while($content == false || $rate == null);
+
+        return $rate;
     }
 }
