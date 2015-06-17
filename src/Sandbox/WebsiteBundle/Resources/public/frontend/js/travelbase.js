@@ -460,10 +460,10 @@ $(document).ready(function() {
     //    return false;
     //});
 
-    $("#open-user-tab").click(function () {
-        $('#user-tab').tab('show');
-        return false;
-    });
+    //$("#open-user-tab").click(function () {
+    //    $('#user-tab').tab('show');
+    //    return false;
+    //});
 
     $("#reset-user-password").click(function () {
         $(this).addClass('disabled');
