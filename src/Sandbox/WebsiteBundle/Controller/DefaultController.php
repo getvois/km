@@ -44,6 +44,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class DefaultController extends Controller
 {
     /**
+     * @Route("topmenucategoryhelper/", name="topmenucategory1")
+     *
+     * @return array
+     */
+    public function topmenucategory1Action()
+    {
+        return $this->render('KunstmaanAdminBundle:Modules:index.html.twig');
+    }
+
+    /**
      * @Route("/api-filter/{body}")
      * @param Request $request
      * @param $body

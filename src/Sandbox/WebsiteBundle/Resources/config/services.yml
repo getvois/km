@@ -91,6 +91,10 @@ services:
         tags:
             - { name: form.type, alias: priceFromLabel }
 #Menu items
+    sandboxwebsitebundle.menu.adaptor.topmenucategory1:
+        class: Sandbox\WebsiteBundle\Helper\Menu\TopCategory1MenuAdaptor
+        tags:
+           -  { name: 'kunstmaan_admin.menu.adaptor' }
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor
         tags:
