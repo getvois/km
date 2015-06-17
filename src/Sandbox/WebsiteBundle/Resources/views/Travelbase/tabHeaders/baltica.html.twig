@@ -1,5 +1,5 @@
 <li class="">
-    <a class="hide" href="#baltica" data-toggle="tab" data-type="baltica" data-form="#form-baltica">
+    <a class="{% if host and host.tabs|length == 1 %}hide{% endif %}" href="#baltica" data-toggle="tab" data-type="baltica" data-form="#form-baltica">
         &nbsp;
                 <span class="visible-xs-inline-block visible-sm-inline-block">
                     <span class="fa fa-suitcase"></span>
