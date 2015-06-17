@@ -52,7 +52,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
             ]);
 
         if(!$rootNode){
-            echo("OffersOverviewPage with internal name offers not found. Please create one.\n");
+            $this->out("OffersOverviewPage with internal name offers not found. Please create one.\n");
             return;
         }
 
@@ -521,7 +521,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
                     ->findOneBy(['title' => $page->getCity()]);
                 if(!$place) {
                     $msg = 'place not found in db '. $page->getCity(). "<br>";
-                    echo($msg);
+                    $this->out($msg);
                     $this->emailBody .= $msg;
                     break;
                 }
@@ -529,7 +529,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
                 //get place page node
                 $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    echo('Node node found for city'. $page->getCity() . "<br>");
+                    $this->out('Node node found for city'. $page->getCity() . "<br>");
                     continue;
                 }
 
@@ -551,7 +551,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
                     ->findOneBy(['title' => $page->getCountry()]);
                 if(!$place) {
                     $msg = 'place not found in db ' . $page->getCountry() . "<br>";
-                    echo($msg);
+                    $this->out($msg);
                     $this->emailBody .= $msg;
                     break;
                 }
@@ -559,7 +559,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
                 //get place page node
                 $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    echo('Node node found for city'. $page->getCountry() . "\n");
+                    $this->out('Node node found for city'. $page->getCountry() . "\n");
                     continue;
                 }
 
@@ -803,7 +803,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
 
         $this->company = $company;
 
-        if(!$company) echo("WARNING: company Groupon not found\n");
+        if(!$company) $this->out("WARNING: company Groupon not found\n");
 
         return $company;
     }

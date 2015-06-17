@@ -247,7 +247,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * @var integer
      *
-     * @ORM\Column(name="offer_id", type="integer", nullable=true)
+     * @ORM\Column(name="offer_id", type="string", length=128, nullable=true)
      */
     private $offerId;
 
