@@ -27,7 +27,7 @@ class ArticleMenuAdaptor implements MenuAdaptorInterface
 
     public function adaptChildren(MenuBuilder $menu, array &$children, MenuItem $parent = null, Request $request = null)
     {
-        if (!is_null($parent) && 'KunstmaanAdminBundle_modules' == $parent->getRoute()) {
+        if (!is_null($parent) && 'topmenucategory1' == $parent->getRoute()) {
             // Page
             $menuitem = new TopMenuItem($menu);
             $menuitem->setRoute('sandboxwebsitebundle_admin_article_articlepage');

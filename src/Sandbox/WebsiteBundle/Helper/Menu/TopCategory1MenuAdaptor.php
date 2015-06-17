@@ -25,8 +25,8 @@ class TopCategory1MenuAdaptor implements MenuAdaptorInterface{
             $menuItem = new TopMenuItem($menu);
             $menuItem
                 ->setRoute('topmenucategory1')
-                ->setLabel('Modules 2')
-                ->setUniqueId('modules2')
+                ->setLabel('Content')
+                ->setUniqueId('content')
                 ->setParent($parent);
             if (stripos($request->attributes->get('_route'), $menuItem->getRoute()) === 0) {
                 $menuItem->setActive(true);

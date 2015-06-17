@@ -23,7 +23,7 @@ class CronMenuAdaptor implements MenuAdaptorInterface{
      */
     public function adaptChildren(MenuBuilder $menu, array &$children, MenuItem $parent = null, Request $request = null)
     {
-        if (!is_null($parent) && 'KunstmaanAdminBundle_modules' == $parent->getRoute() && !self::$added) {
+        if (!is_null($parent) && 'topmenu_project' == $parent->getRoute() && !self::$added) {
             $menuitem = new TopMenuItem($menu);
             $menuitem->setRoute('BCCCronManagerBundle_index');
             $menuitem->setInternalName('Cron Manager');

@@ -95,6 +95,10 @@ services:
         class: Sandbox\WebsiteBundle\Helper\Menu\TopCategory1MenuAdaptor
         tags:
            -  { name: 'kunstmaan_admin.menu.adaptor' }
+    sandboxwebsitebundle.menu.adaptor.topmenuproject:
+        class: Sandbox\WebsiteBundle\Helper\Menu\TopCategoryProjectMenuAdaptor
+        tags:
+           -  { name: 'kunstmaan_admin.menu.adaptor' }
     sandboxwebsitebundle.menu.adaptor.mainimage:
         class: Sandbox\WebsiteBundle\Helper\Menu\MainImageMenuAdaptor
         tags:

@@ -52,6 +52,15 @@ class DefaultController extends Controller
     {
         return $this->render('KunstmaanAdminBundle:Modules:index.html.twig');
     }
+    /**
+     * @Route("topmenucategoryhelper/", name="topmenu_project")
+     *
+     * @return array
+     */
+    public function topmenuproject1Action()
+    {
+        return $this->render('KunstmaanAdminBundle:Modules:index.html.twig');
+    }
 
     /**
      * @Route("/api-filter/{body}")

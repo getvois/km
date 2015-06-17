@@ -27,7 +27,7 @@ class HostMenuAdaptor implements MenuAdaptorInterface {
      */
     public function adaptChildren(MenuBuilder $menu, array &$children, MenuItem $parent = null, Request $request = null)
     {
-        if (!is_null($parent) && 'KunstmaanAdminBundle_modules' == $parent->getRoute()) {
+        if (!is_null($parent) && 'topmenu_project' == $parent->getRoute()) {
             $menuItem = new TopMenuItem($menu);
             $menuItem->setRoute('sandboxwebsitebundle_admin_host');
             $menuItem->setInternalName('Hosts');
