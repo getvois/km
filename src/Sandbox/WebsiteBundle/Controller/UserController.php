@@ -52,7 +52,6 @@ class UserController extends Controller
             $email = $request->request->get('email');
             $password = $request->request->get('password');
 
-
             //get user
             /** @var User $user */
             $user = $em->getRepository('SandboxWebsiteBundle:User')
@@ -70,6 +69,11 @@ class UserController extends Controller
 
             if (($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt()))) {
                 // User + password match
+                $ip = $request->getClientIp();
+                $user->setIp($ip);
+                $em->persist($user);
+                $em->flush();
+
                 // Here, "main" is the name of the firewall in your security.yml
                 $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
                 /** @noinspection YamlDeprecatedClasses */
@@ -188,6 +192,10 @@ class UserController extends Controller
             if($host){
                 $user->setLang($host->getLang());
             }
+
+            $ip = $request->getClientIp();
+            $user->setIp($ip);
+
             $em->persist($user);
             $em->flush();
 
@@ -428,6 +436,7 @@ class UserController extends Controller
                         $user->setName($name);
                         $user->setHost($request->getHost());
                         $user->setLang($host->getLang());
+
                         $em->persist($user);
                         $em->flush();
 
@@ -438,6 +447,10 @@ class UserController extends Controller
                     }
                 }
 
+                $ip = $request->getClientIp();
+                $user->setIp($ip);
+                $em->persist($user);
+                $em->flush();
 
                 // User + password match
                 // Here, "main" is the name of the firewall in your security.yml
@@ -536,6 +549,11 @@ class UserController extends Controller
                 return new JsonResponse(['status' => 'error', 'msg' => 'Error occurred while creating user']);
             }
         }
+
+        $ip = $request->getClientIp();
+        $user->setIp($ip);
+        $em->persist($user);
+        $em->flush();
 
         //log in user
         // Here, "main" is the name of the firewall in your security.yml

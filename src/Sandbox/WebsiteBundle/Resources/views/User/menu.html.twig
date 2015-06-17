@@ -20,6 +20,22 @@
                     {% include '@SandboxWebsite/User/changePassword.html.twig' %}
                 </div>
                 <div role="tabpanel" class="tab-pane" id="subscriptions">
+
+                    <form id="user-subscriptions" action="#">
+                        <label>
+                            <input class="checkbox" type="checkbox" name="flightOffers"/>
+                            {{ 'flight.offers'|trans({}, 'frontend') }}
+                        </label>
+                        <label>
+                            <input class="checkbox" type="checkbox" name="localOffers"/>
+                            {{ 'local.offers'|trans({}, 'frontend') }}
+                        </label>
+                        <label>
+                            <input class="checkbox" type="checkbox" name="internationalOffers"/>
+                            {{ 'international.offers'|trans({}, 'frontend') }}
+                        </label>
+                    </form>
+                    
                     {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}
                 </div>
                 {#<div role="tabpanel" class="tab-pane" id="settings">...</div>#}

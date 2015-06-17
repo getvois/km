@@ -15,6 +15,92 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser{
 
     /**
+     * @var boolean
+     * @ORM\Column(name="flight_offers", type="boolean", nullable=true)
+     */
+    private $flightOffers;
+    /**
+     * @var boolean
+     * @ORM\Column(name="local_offers", type="boolean", nullable=true)
+     */
+    private $localOffers;
+    /**
+     * @var boolean
+     * @ORM\Column(name="international_offers", type="boolean", nullable=true)
+     */
+    private $internationalOffers;
+
+    /**
+     * @return boolean
+     */
+    public function isFlightOffers()
+    {
+        return $this->flightOffers;
+    }
+
+    /**
+     * @param boolean $flightOffers
+     */
+    public function setFlightOffers($flightOffers)
+    {
+        $this->flightOffers = $flightOffers;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLocalOffers()
+    {
+        return $this->localOffers;
+    }
+
+    /**
+     * @param boolean $localOffers
+     */
+    public function setLocalOffers($localOffers)
+    {
+        $this->localOffers = $localOffers;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInternationalOffers()
+    {
+        return $this->internationalOffers;
+    }
+
+    /**
+     * @param boolean $internationalOffers
+     */
+    public function setInternationalOffers($internationalOffers)
+    {
+        $this->internationalOffers = $internationalOffers;
+    }
+
+    /**
+     * @var string
+     * @ORM\Column(name="ip", type="string", length=128, nullable=true)
+     */
+    private $ip;
+
+    /**
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param string $ip
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="hash", type="string", nullable=true)
