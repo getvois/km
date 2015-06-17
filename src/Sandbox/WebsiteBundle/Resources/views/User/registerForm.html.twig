@@ -11,15 +11,15 @@
     {% if app.request.query.has('email') %}
 
         <!-- Modal -->
-        <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div data-keyboard="false" data-backdrop="static" data-show="true" class="modal fade" id="email-register-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-img-{{ random([1,2,3]) }}">
                     <div class="modal-header">
                         {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        <h4 class="modal-title">Modal title</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="register-form">
+                        {#<div class="register-form">#}
                             <form action="#">
                                 <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
                                 <span class="pull-left">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
@@ -31,12 +31,17 @@
                                     <a class="btn btn-primary" id="reset-password" href="#">{{ 'confirm'|trans({}, 'frontend') }}</a>
                                 </p>
                             </form>
-                        </div>
+                        {#</div>#}
 
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#email-register-modal').modal('show');
+            });
+        </script>
 
     {% else %}
         {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
