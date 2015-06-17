@@ -825,14 +825,17 @@ class UserController extends Controller
 
         if($request->query->has('flightOffers')){
             $flightOffers = $request->query->get('flightOffers', 0);
+            if($flightOffers == 'on') $flightOffers = true;
             $user->setFlightOffers($flightOffers);
         }
         if($request->query->has('localOffers')){
             $localOffers = $request->query->get('localOffers', 0);
+            if($localOffers == 'on') $localOffers = true;
             $user->setLocalOffers($localOffers);
         }
         if($request->query->has('internationalOffers')){
             $internationalOffers = $request->query->get('internationalOffers', 0);
+            if($internationalOffers == 'on') $internationalOffers = true;
             $user->setInternationalOffers($internationalOffers);
         }
 
