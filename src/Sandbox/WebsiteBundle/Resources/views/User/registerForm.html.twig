@@ -9,7 +9,7 @@
     </div>
 
     {% if app.request.query.has('email') %}
-
+        {% if not app.user %}
         <!-- Modal -->
         <div data-keyboard="false" data-backdrop="static" data-show="true" class="modal fade" id="email-register-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -45,7 +45,7 @@
 
             });
         </script>
-
+        {% endif %}
     {% else %}
         {% include '@SandboxWebsite/Travelbase/tabBody/registerOverlay.html.twig' %}
     {% endif %}
