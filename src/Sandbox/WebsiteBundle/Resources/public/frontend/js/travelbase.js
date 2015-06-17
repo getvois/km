@@ -610,16 +610,17 @@ $(document).ready(function() {
 
     });
 
-    $('#form_submit').closest('form').submit(function () {
-        var $selected = $('.subscribe-tree').jstree('get_selected');
-
-        var $ids = '';
-        for(var i=0; i<$selected.length; i++){
-            $ids += $selected[i].replace('node_', '');
-            if(i != $selected.length - 1 ){
-                $ids += ",";
-            }
-        }
+    $('#form_submit').click(function () {
+        //.closest('form').submit(function () {
+        //var $selected = $('.subscribe-tree').jstree('get_selected');
+        //
+        //var $ids = '';
+        //for(var i=0; i<$selected.length; i++){
+        //    $ids += $selected[i].replace('node_', '');
+        //    if(i != $selected.length - 1 ){
+        //        $ids += ",";
+        //    }
+        //}
 
         var $messageShown = false;
 
@@ -638,25 +639,25 @@ $(document).ready(function() {
             fadeOutInfoMessage();
         });
 
-        if($ids.length == 0) return false;
-
-        $('#form_node').val($ids);
-
-        $('#form_submit').addClass('disabled');
-        $.post('/subscribe/', $(this).serialize(), function (responce) {
-            if($messageShown) return;
-            //var $flashbag = $("#info-modal");
-            var $flashbag = $("#modal-user-data");
-            if(responce.status == 'error'){
-                $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
-            }else{
-                $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
-            }
-
-            //$flashbag.modal('show');
-            $('#form_submit').removeClass('disabled');
-            fadeOutInfoMessage();
-        });
+        //if($ids.length == 0) return false;
+        //
+        //$('#form_node').val($ids);
+        //
+        //$('#form_submit').addClass('disabled');
+        //$.post('/subscribe/', $(this).serialize(), function (responce) {
+        //    if($messageShown) return;
+        //    //var $flashbag = $("#info-modal");
+        //    var $flashbag = $("#modal-user-data");
+        //    if(responce.status == 'error'){
+        //        $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
+        //    }else{
+        //        $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
+        //    }
+        //
+        //    //$flashbag.modal('show');
+        //    $('#form_submit').removeClass('disabled');
+        //    fadeOutInfoMessage();
+        //});
 
 
         return false;
