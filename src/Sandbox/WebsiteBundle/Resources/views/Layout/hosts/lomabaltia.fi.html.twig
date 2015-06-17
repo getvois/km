@@ -22,38 +22,35 @@
 
     <!-- Header -->
     <div class="row nomargin">
-        <div class="col-md-7 no-padding">
-            <header role="header" class="main-header">
-                <section class="">
+        <div class="col-md-8 col-sm-12 nopadding">
+        	<div class="row nomargin">
+        		<div class="col-md-12 col-sm-12 nopadding">
+            <header role="header">
+                <section class="splash mainbg {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageClass')) }}"
+                         style="background-image: url('{% block mainBgUrl %}{{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endblock %}')">
                     <div class=" splash__container">
                         <div class="row nomargin">
-                        	<a data-toggle="collapse" href="#club-collapse" aria-expanded="false">{{ 'club.header' | trans({}, 'frontend') }}</a>
-
-                            {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
-                            {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
+                            <div class="col-md-12">
+                            	<div class="row nomargin">
+                            		<div class="col-md-12">
+		                                <a class="club-link" href="#" data-toggle="modal" data-target="#modal-registration" data-tab="login-form">{{ 'club.header' | trans({}, 'frontend') }}</a>
+			                            <a href="/" class="pull-left logo"><img src="/bundles/sandboxwebsite/img/general/logo-via.png"></a>
+		                            	{{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
+	                            	</div>
+                        		</div>
+	                            {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
+                            </div>
                         </div>
                     </div>
-                </section>
+               </section> 
             </header>
+            </div>
+            
+            </div>
         </div>
-        <div class="col-md-5 no-padding">
-            {% block club %}
-                <div class="clubbar" style="margin-top: 0">
-                    {% block userlogin %}
-                        {% include '@SandboxWebsite/User/loginForm.html.twig' %}
-                    {% endblock %}
-                </div>
-
-                {% if host %}
-                    {{ host.fbBlock|raw }}
-                {% endif %}
-
-                {% block sidebar %}
-                    {% include '@SandboxWebsite/Travelbase/balticaMap.html.twig' %}
-                {% endblock %}
-
-            {% endblock %}
-        </div>
+        <div class="col-md-4 map-col hidden-xs hidden-sm no-padding">
+         {% include '@SandboxWebsite/Travelbase/balticaMap.html.twig' %}
+         </div>
     </div>
 
 
@@ -62,48 +59,73 @@
 
 
 {% block hostLayout %}
-<div class="row nomargin">
-    <div class="col-md-7">
-
-        <!-- Travelbase -->
-        {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
-
-        <section class="">
-            <div class="row">
-                <div class="col-md-12 col--padded">
-                    {% block breadcrumbs %}
-                        {% if nodemenu is defined and nodemenu.breadCrumb|length > 1 %}
-                            <nav role="navigation">
-                                <ol class="breadcrumb">
-                                    <li>
-                                        {% set homepagePageNode = nodemenu.getNodeByInternalName('homepage') %}
-                                        <a href="{{ path('_slug', { 'url': homepagePageNode.slug }) }}">
-                                            {{ 'startpage' | trans({}, 'frontend') }}
-                                        </a>
-                                    </li>
-                                    {% for node in nodemenu.breadCrumb %}
-                                        {% if not loop.first %}
-                                            {% if loop.last %}
-                                                <li class="active">{{ node.title }}</li>
-                                            {% else %}
-                                                <li>
-                                                    <a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a>
-                                                </li>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol>
-                            </nav>
-                        {% endif %}
-                    {% endblock breadcrumbs %}
+<div class="row nomargin inner-col">
+    <div class="col-md-8">
+ 		<div class="row rel">	
+ 			<div class="col-md-12 nopadding">
+ 			<!-- Travelbase -->
+	        {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
+	
+	        <section class="">
+	            <div class="row">
+	                <div class="col-md-12">
+	                    {% block breadcrumbs %}
+	                        {% if nodemenu is defined and nodemenu.breadCrumb|length > 1 %}
+	                            <nav role="navigation">
+	                                <ol class="breadcrumb">
+	                                    <li>
+	                                        {% set homepagePageNode = nodemenu.getNodeByInternalName('homepage') %}
+	                                        <a href="{{ path('_slug', { 'url': homepagePageNode.slug }) }}">
+	                                            {{ 'startpage' | trans({}, 'frontend') }}
+	                                        </a>
+	                                    </li>
+	                                    {% for node in nodemenu.breadCrumb %}
+	                                        {% if not loop.first %}
+	                                            {% if loop.last %}
+	                                                <li class="active">{{ node.title }}</li>
+	                                            {% else %}
+	                                                <li>
+	                                                    <a href="{{ path('_slug', { 'url': node.slug }) }}">{{ node.title }}</a>
+	                                                </li>
+	                                            {% endif %}
+	                                        {% endif %}
+	                                    {% endfor %}
+	                                </ol>
+	                            </nav>
+	                        {% endif %}
+	                    {% endblock breadcrumbs %}
+	                </div>
+	            </div>
+	        </section>
+	
+	        <!-- Main -->
+	        <main role="main">
+	            {% block content %}{% endblock %}
+	        </main>
+ 			</div>
+ 			<div class="col-md-4 side-abs no-padding">
+            {% block club %}
+                <div class="clubbar hidden">
+                    {% block userlogin %}
+                        {% include '@SandboxWebsite/User/loginForm.html.twig' %}
+                    {% endblock %} 
                 </div>
-            </div>
-        </section>
+                <script>
+                    $("#club-collapse").addClass('collapse');
+                </script>
 
-        <!-- Main -->
-        <main role="main">
-            {% block content %}{% endblock %}
-        </main>
+                {% if host %}
+                    {{ host.fbBlock|raw }}
+                {% endif %}
+
+               
+                {% block sidebar %}
+                {% endblock %}
+
+	         {% endblock %}
+	        </div>
+ 		</div>
+    
     </div>
     {#<div class="col-md-6 no-padding sidebar">#}
         {#{% block club %}#}

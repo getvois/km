@@ -199,7 +199,7 @@ input:focus {outline:0;}
 .news-panel article h3 a { 
 	font-size: 20px; 
 }
-.news-panel h2, .news-panel article h3 a, .clubbar h2, .clubbar h3 a, .register-form h2 { 
+.news-panel h2, .news-panel article h3 a, .register-form h2 { 
 	color:#F8C600;
 	line-height:1.1em;
 	  padding-top: 0!important;
@@ -218,9 +218,8 @@ input:focus {outline:0;}
 .clubbar h3 a { 
 	font-family: Yellowtail;
   	font-size: 30px;
-  	color:#ddd;
 }
-.news-panel article a:hover, .clubbar h3 a:hover { 
+.news-panel article a:hover { 
 	color:#eee;
 }
 .travelbase_items .my-popover { 
@@ -317,7 +316,7 @@ main h2 {
     margin: 5px 0 15px 0;  
 }
  
-main h2.topheader, .clubbar h2, .register-form h2 {
+main h2.topheader, .register-form h2 {
     font-weight: bold;
 	font-size: 20px; 
 	padding: 20px 0 0 0;
@@ -654,23 +653,16 @@ select {
 
 /* sidebar */
 
-.clubbar, .comments-row h4 {
-  background:-moz-linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
-    /*noinspection CssOverwrittenProperties*/
-    background:-webkit-linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
-	background: -ms-linear-gradient(top, #444444, #000000); /* IE10 */ 
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000'); /* IE6 & IE7 */  
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000')"; /* IE8+ */
-    /*noinspection CssUnknownProperty*/
-    -pie-background:linear-gradient(#444444, #000000) repeat scroll 0 0 transparent !important;
-}
 .clubbar {
-  color: #fff; 
   margin-bottom: 20px;
   margin-top: -45px;
+  background-image: url(/bundles/sandboxwebsite/img/general/register1.jpg);
+  background-size: cover;
+  padding: 30px;
+  min-height: 430px;
 }
 
-#club-collapse {padding: 20px;}
+#club-collapse {padding: 0 30px 0 0;}
 
 .sidebar {
 	padding-bottom:30px;
@@ -1091,7 +1083,7 @@ label.directFlight-label,  label.sameDay-label {
 .trip .company-fritidsresor  {
     background-position:0 -75px;
 }
-.trip .company-apollo, .trip .company-apollomatkat  {
+.trip .company-apollo, .trip .company-apollomatkat, .trip .company-apollose, .trip .company-apollono,  {
     background-position:0 -100px;
 }
 .trip .company-nazar  {
@@ -1140,6 +1132,12 @@ label.directFlight-label,  label.sameDay-label {
     background-position:0 -450px;
 }
 
+.trip .company-lomamatkat {
+    background-position:0 -480px;
+}
+.trip .company-solia {
+    background-position:0 -505px;
+}
 .trip-path {
     /*margin-left: 32px;*/
 }
@@ -1334,6 +1332,94 @@ label.directFlight-label,  label.sameDay-label {
 .company-info .company-clear{
     cursor: pointer;
 }
+
+
+/* registration*/
+
+#modal-registration .close {
+  background: -webkit-linear-gradient(#9D9A91, #34373C) repeat scroll 0 0 transparent !important;
+  padding: 5px 16px 8px;
+  display: block;
+  position: absolute;
+  border-radius: 40px;
+  top: -20px;
+  right: -20px;
+  opacity: 1;
+  color: #000;
+  font-size: 45px;
+  text-shadow: 1px 1px #DE7B7A;
+}
+
+#modal-registration .modal-content {
+  border-radius: 0;
+  background-size: cover;
+  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
+}
+
+#modal-registration .modal-header {
+  border-bottom: none;
+}
+#modal-registration .modal-header, #modal-registration .modal-body {
+  padding: 30px 40px 0px;
+}
+#modal-registration h2 {
+font-weight: bold;
+  color: #444540;
+  font-size: 30px;
+  line-height: 1.2em;
+  
+ }
+@media (min-width: 768px){
+	#modal-registration .modal-dialog {
+	  width: 760px;
+	}
+}
+
+@media (max-width: 400px) {
+	#modal-registration .modal-content {
+	  background-position: 0 0;
+	  background-size:inherit;
+	}
+}  
+  
+#modal-registration .tab-pane {
+  padding: 17px;
+}
+
+#modal-registration .nav-tabs>li {
+  height:50px;
+}
+#modal-registration .nav-tabs {
+  border:none;
+  margin-left: 15px;
+}
+#modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus {
+  font-weight: bold;
+    border: 2px solid #444540;
+  margin-right: 3px;
+  opacity: 0.4;
+}
+
+#modal-registration .nav-tabs>li.active>a {
+  opacity: 1;
+}
+
+#modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus, #modal-registration .nav-tabs>li.active>a {
+	background: -webkit-linear-gradient(#444540, #2D3029) repeat scroll 0 0 transparent !important;
+	color:#eee;
+	  border-radius: 4px;
+}
+#modal-registration .form-control, .clubbar .form-control  {
+  border: 1px solid #999;
+}
+
+#modal-registration .register-slogan {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 9;
+}
+
+
 
 /* PACKAGES AND OFFERS */ 
 

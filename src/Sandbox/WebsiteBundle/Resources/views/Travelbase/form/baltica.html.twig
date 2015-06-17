@@ -1,4 +1,4 @@
-{% if app.request.host == 'viabaltica.ru' %}
+{% if app.request.host == 'viabaltica.ru' or app.request.host == 'lomabaltia.fi'  %}
     {% include '@SandboxWebsite/Travelbase/form/baltica/balticaNarrow.html.twig' %}
 {% else %}
     {% include '@SandboxWebsite/Travelbase/form/baltica/balticaWide.html.twig' %}
