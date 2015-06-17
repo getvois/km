@@ -22,18 +22,24 @@
                 <div role="tabpanel" class="tab-pane" id="subscriptions">
 
                     <form id="user-subscriptions" action="#">
-                        <label>
-                            <input class="checkbox" type="checkbox" name="flightOffers" {% if app.user.flightOffers %}checked="checked"{% endif %}/>
-                            {{ 'flight.offers'|trans({}, 'frontend') }}
-                        </label>
-                        <label>
-                            <input class="checkbox" type="checkbox" name="localOffers" {% if app.user.localOffers %}checked="checked"{% endif %}/>
-                            {{ 'local.offers'|trans({}, 'frontend') }}
-                        </label>
-                        <label>
-                            <input class="checkbox" type="checkbox" name="internationalOffers" {% if app.user.internationalOffers %}checked="checked"{% endif %}/>
-                            {{ 'international.offers'|trans({}, 'frontend') }}
-                        </label>
+                        <div>
+                            <label>
+                                <input class="checkbox" type="checkbox" name="flightOffers" {% if app.user.flightOffers %}checked="checked"{% endif %}/>
+                                {{ 'flight.offers'|trans({}, 'frontend') }}
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input class="checkbox" type="checkbox" name="localOffers" {% if app.user.localOffers %}checked="checked"{% endif %}/>
+                                {{ 'local.offers'|trans({}, 'frontend') }}
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input class="checkbox" type="checkbox" name="internationalOffers" {% if app.user.internationalOffers %}checked="checked"{% endif %}/>
+                                {{ 'international.offers'|trans({}, 'frontend') }}
+                            </label>
+                        </div>
                     </form>
                     
                     {{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}
