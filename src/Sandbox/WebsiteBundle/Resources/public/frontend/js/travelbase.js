@@ -621,12 +621,30 @@ $(document).ready(function() {
             }
         }
 
+        var $messageShown = false;
+
+        $.get('/user-subscriptions-edit/?' + $('#user-subscriptions').serialize(), function (responce) {
+            if($messageShown) return;
+            //var $flashbag = $("#info-modal");
+            var $flashbag = $("#modal-user-data");
+            if(responce.status == 'error'){
+                $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
+            }
+            else{
+                $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
+            }
+            $flashbag.modal('show');
+            $('#form_submit').removeClass('disabled');
+            fadeOutInfoMessage();
+        });
+
         if($ids.length == 0) return false;
 
         $('#form_node').val($ids);
 
         $('#form_submit').addClass('disabled');
         $.post('/subscribe/', $(this).serialize(), function (responce) {
+            if($messageShown) return;
             //var $flashbag = $("#info-modal");
             var $flashbag = $("#modal-user-data");
             if(responce.status == 'error'){
@@ -638,21 +656,6 @@ $(document).ready(function() {
             //$flashbag.modal('show');
             $('#form_submit').removeClass('disabled');
             fadeOutInfoMessage();
-        });
-
-
-        $.get('/user-subscriptions-edit/?' + $('#user-subscriptions').serialize(), function (responce) {
-            //var $flashbag = $("#info-modal");
-            //var $flashbag = $("#modal-user-data");
-            //if(responce.status == 'error'){
-            //    $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
-            //}
-            //else{
-            //    $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
-            //}
-            //$flashbag.modal('show');
-            //$('#form_submit').removeClass('disabled');
-            //fadeOutInfoMessage();
         });
 
 
