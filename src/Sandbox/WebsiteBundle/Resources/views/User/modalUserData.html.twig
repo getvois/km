@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-user-data" tabindex="-1" role="dialog" aria-labelledby="modal-user-data" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-content-img-{{ random([1,2,3]) }}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title" id="myModalLabel">
+                    {{ 'welcome.to.the.club'|trans({}, 'frontend') }}
+                </h2>
+            </div>
+            <div class="modal-body">
+                <div class="info-message"></div>
+                {% include '@SandboxWebsite/User/menu.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.tab-switch').click(function () {
+
+            $('#modal-club-tabs').find('a[href="#register-form"]').tab('show');
+
+//            var active = $('#modal-club-tabs').find('li.active');
+//            if(active.next('li').length > 0){
+//                active.next('li').find('a').tab('show');
+//            }else{
+//                $('#modal-club-tabs').find('a:first').tab('show')
+//            }
+        });
+
+
+        $('#modal-registration').on('shown.bs.modal', function (e) {
+            var tab = $(e.relatedTarget).data('tab');
+            if(tab){
+                $('#modal-club-tabs').find('a[href="#' + tab + '"]').tab('show');
+            }
+        })
+    });
+</script>

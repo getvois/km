@@ -2,7 +2,7 @@
 
 	<p>{{ 'club.logged.description' | trans({}, 'frontend') }}</p>
 
-    <h4><a data-toggle="modal" data-tab="user" data-target="#modal-registration" id="open-user-tab" href="#">{{ app.user.email }} <span class="fa fa-edit"></span></a></h4>
+    <h4><a data-toggle="modal" data-target="#modal-user-data" id="open-user-tab" href="#">{{ app.user.email }} <span class="fa fa-edit"></span></a></h4>
     {#{{ render(controller('SandboxWebsiteBundle:Subscription:subscribeTree')) }}#}
 
     <a class="btn btn-default" href="{{ path('logout_action') }}">{{ 'Logout'|trans({}, 'frontend') }}</a>

@@ -28,14 +28,6 @@
 		                    <li role="presentation">
 		                        <a href="#register-form" aria-controls="register" role="tab" data-toggle="tab">{{ 'register.tab'|trans({}, 'frontend') }}</a><br/><br/>
 		                    </li>
-
-                            {% if app.user %}
-                                <li class="hidden">
-                                    <a href="#user" id="user-tab" data-toggle="tab" data-type="user">
-                                        {{ 'user.tab' | trans({}, 'frontend') }}
-                                    </a>
-                                </li>
-                            {% endif %}
 		                </ul>
 
                         <!-- Tab panes -->
@@ -110,9 +102,6 @@
                                     </p>
                                 </form>
                             </div>
-
-
-                            {% include '@SandboxWebsite/Travelbase/tabBody/user.html.twig' %}
 
                         </div>
 
