@@ -640,6 +640,22 @@ $(document).ready(function() {
             fadeOutInfoMessage();
         });
 
+
+        $.get('/user-subscriptions-edit/?' + $('#user-subscriptions').serialize(), function (responce) {
+            //var $flashbag = $("#info-modal");
+            //var $flashbag = $("#modal-user-data");
+            //if(responce.status == 'error'){
+            //    $flashbag.find('.info-message').html("<div class='alert alert-danger'>" + responce.msg + "</div>");
+            //}
+            //else{
+            //    $flashbag.find('.info-message').html("<div class='alert alert-info'>" + responce.msg + "</div>");
+            //}
+            //$flashbag.modal('show');
+            //$('#form_submit').removeClass('disabled');
+            //fadeOutInfoMessage();
+        });
+
+
         return false;
     });
 

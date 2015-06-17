@@ -809,4 +809,37 @@ class UserController extends Controller
         //
         return ['nodemenu' => $nodeMenu, 'page' => $page];
     }
+
+
+    /**
+     * @Route("/user-subscriptions-edit/")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function saveSubscriptions(Request $request)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if(!$user)
+            return new JsonResponse(['status' => 'error', 'msg' => 'user not found']);
+
+        if($request->query->has('flightOffers')){
+            $flightOffers = $request->query->get('flightOffers', 0);
+            $user->setFlightOffers($flightOffers);
+        }
+        if($request->query->has('localOffers')){
+            $localOffers = $request->query->get('localOffers', 0);
+            $user->setLocalOffers($localOffers);
+        }
+        if($request->query->has('internationalOffers')){
+            $internationalOffers = $request->query->get('internationalOffers', 0);
+            $user->setInternationalOffers($internationalOffers);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return new JsonResponse(['status' => 'ok', 'msg' => 'data saved']);
+    }
 }
