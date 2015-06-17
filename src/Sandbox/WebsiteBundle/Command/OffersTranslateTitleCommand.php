@@ -98,6 +98,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         if(!$offer->getTitleTranslated()){
+            $slugifier = new Slugifier();
             usleep(1000);
             $name = $offer->getTitle();
             $url = 'https://www.googleapis.com/language/translate/v2?key='.$this->key.'&source='.$originalLang.'&target='.$lang.'&q='.urlencode($name);
@@ -116,7 +117,7 @@ class OffersTranslateTitleCommand extends ContainerAwareCommand{
                     $translation = $em->getRepository('KunstmaanNodeBundle:NodeTranslation')
                         ->getNodeTranslationFor($offer);
                     if($translation){
-                        $translation->setSlug(Slugifier::slugify($translatedName));
+                        $translation->setSlug($slugifier->slugify($translatedName));
                         $em->persist($translation);
                     }
 

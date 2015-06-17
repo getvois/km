@@ -117,7 +117,8 @@ class OffersCommand extends ContainerAwareCommand
 
         $offerPages = $this->getOfferPages();
         foreach ($offerPages as $page) {
-            $offerIds[$page->getOfferId()] = $page->getOfferId();
+            if(is_numeric($page->getOfferId()))
+                $offerIds[$page->getOfferId()] = $page->getOfferId();
         }
 
 
