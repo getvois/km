@@ -1994,7 +1994,8 @@ $(document).ready(function() {
     });
 
     $('#mobile-tab-menu').change(function () {
-        console.log($(this).find(':selected'));
+        var selected = $(this).find(':selected');
+        $(selected.val()).tab('show');
     });
 });
 
