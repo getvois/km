@@ -73,6 +73,9 @@
 <body {% block extra_body_attributes %}{% endblock %} data-lang="{{ app.request.locale }}" {% if app.user %}data-user='{{ app.user.id }}'{% endif %}
     data-tab="{% block show_tab %}{% endblock %}">
 
+{# DROPDOWN MENU #}
+{% include "@SandboxWebsite/Travelbase/dropdown.html.twig" %}
+
 <div class="out-of-body">
 
 <div id="fb-root"></div>
@@ -96,9 +99,6 @@
         </div>
     </div>
     <![endif]-->
-
-    {# DROPDOWN MENU #}
-    {% include "@SandboxWebsite/Travelbase/dropdown.html.twig" %}
 
     <!-- Header -->
     <header role="header" class="main-header">
