@@ -2873,7 +2873,11 @@ input[type="checkbox"] .styled:checked + label::after {
     margin: 0;
     display: flex;
 }
-
+.datepick .datepick-cmd{
+    width: 100%;
+    padding: 10px;
+    float: none;
+}
 /* SUBSCRIPTION BLOCK */
 .block.block-total-subscription {
 }
@@ -2983,11 +2987,6 @@ input[type="checkbox"] .styled:checked + label::after {
     .datepick-nav button, .datepick-ctrl button {
         font-size: 20px;
     }
-}
-.datepick .datepick-cmd{
-    width: 100%;
-    padding: 10px;
-    float: none;
 }
 
 .out-of-body{
