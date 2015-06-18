@@ -2969,6 +2969,20 @@ input[type="checkbox"] .styled:checked + label::after {
     .datepick .datepick-month{
         width: 100%;
     }
+    a.datepick-cmd {
+        font-size: 22px;
+        height: auto;
+        padding: 20px;
+    }
+    .datepick table {
+        font-size: 20px;
+    }
+    .datepick-month-header {
+        font-size: 20px;
+    }
+    .datepick-ctrl button {
+        font-size: 20px;
+    }
 }
 
 .out-of-body{
