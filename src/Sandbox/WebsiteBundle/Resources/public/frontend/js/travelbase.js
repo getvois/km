@@ -2157,6 +2157,8 @@ function getTable(container, reimport, expand){
 
     var opts = tabSpinnerOpts();
 
+    $travelbase_items.parent().css('min-height', '400px');
+
     $($travelbase_items.data('badge')).hide();
     var spinner = new Spinner(opts).spin($badgeLoading[0]);
 
@@ -2251,6 +2253,7 @@ function getTable(container, reimport, expand){
         //hide loading
         spinner2.stop();
         $loading.hide();
+        $travelbase_items.parent().css('min-height', 'auto');
 
         if(expand === true || reimport === false)
             $travelbase_items.find('button[id=loadMore]').click();
