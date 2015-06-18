@@ -722,12 +722,17 @@ $(document).ready(function() {
         //noinspection JSUnresolvedFunction
         $datepickTo.datepick('option', 'minDate', $dates[0]);
 
+        var format = 'dd.mm.';
+        if(window.innerWidth > 768){
+            format = 'dd.mm.yyyy';
+        }
+
         if($dpInterval == '0d'){
             //noinspection JSUnresolvedVariable
-            $('#datepick-input-from-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]));
+            $('#datepick-input-from-holder').val($.datepick.formatDate(format, $dates[0]));
         }else{
             //noinspection JSUnresolvedVariable
-            $('#datepick-input-from-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]) + " – ");
+            $('#datepick-input-from-holder').val($.datepick.formatDate(format, $dates[0]) + " – ");
         }
     });
 
@@ -748,12 +753,17 @@ $(document).ready(function() {
         //noinspection JSUnresolvedFunction
         $(this).datepick('setDate', $dates);
 
+        var format = 'dd.mm.';
+        if(window.innerWidth > 768){
+            format = 'dd.mm.yyyy';
+        }
+
         if($dpReturnInterval == '0d'){
             //noinspection JSUnresolvedVariable
-            $('#datepick-input-to-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]));
+            $('#datepick-input-to-holder').val($.datepick.formatDate(format, $dates[0]));
         }else{
             //noinspection JSUnresolvedVariable
-            $('#datepick-input-to-holder').val($.datepick.formatDate('dd.mm.yyyy', $dates[0]) + " – ");
+            $('#datepick-input-to-holder').val($.datepick.formatDate(format, $dates[0]) + " – ");
         }
 
         $datepickerClearIcon.show();

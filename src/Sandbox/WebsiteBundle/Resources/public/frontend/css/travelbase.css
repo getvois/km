@@ -115,7 +115,7 @@ input:focus {outline:0;}
 	height: 38px;
 }
 .register-form .form-control{
-  font-family: Yellowtail;
+    font-family: Yellowtail, serif;
   font-size: 23px;
   width: 200px!important;
 }
@@ -218,8 +218,8 @@ input:focus {outline:0;}
 	color:#ddd;
 	text-decoration:underline;
 }
-.clubbar h3 a { 
-	font-family: Yellowtail;
+.clubbar h3 a {
+    font-family: Yellowtail, serif;
   	font-size: 30px;
 }
 .news-panel article a:hover { 
@@ -1373,23 +1373,27 @@ label.directFlight-label,  label.sameDay-label {
   font-size: 20px;
 }
 .modal-content-img-1 {
-  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
+    /*noinspection CssUnknownTarget*/
+    background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
 }
 .modal-content-img-2 {
-  background-image: url(/bundles/sandboxwebsite/img/general/register.jpg); 
+    /*noinspection CssUnknownTarget*/
+    background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
 }
 .modal-content-img-3 {
-  background-image: url(/bundles/sandboxwebsite/img/general/register3.jpg);
+    /*noinspection CssUnknownTarget*/
+    background-image: url(/bundles/sandboxwebsite/img/general/register3.jpg);
 }
 .modal-content-img-4 {
   min-height: 500px;
-  background-image: url(/bundles/sandboxwebsite/img/general/register8.jpg);
+    /*noinspection CssUnknownTarget*/
+    background-image: url(/bundles/sandboxwebsite/img/general/register8.jpg);
 }
 #email-register-modal .modal-header, #modal-registration .modal-header {
   border-bottom: none;
 }
 #email-register-modal .modal-header, #email-register-modal .modal-body, #modal-registration .modal-header, #modal-registration .modal-body {
-  padding: 30px 40px 0px;
+  padding: 30px 40px 0;
 }
 #email-register-modal h2, #modal-registration h2 {
 	font-weight: bold;
@@ -1435,7 +1439,7 @@ label.directFlight-label,  label.sameDay-label {
   max-width: 200px;
     font-size: 16px;
   padding: 10px 15px;
-  box-shadow: inset 0px 4px 4px #ccc;
+  box-shadow: inset 0 4px 4px #ccc;
   height: auto;
   margin-top:5px;
 }
@@ -1485,8 +1489,7 @@ label.directFlight-label,  label.sameDay-label {
 .well { 
 	border: 1px solid #e3e3e3;
 	box-shadow: inset 0 5px 5px rgba(0,0,0,.05);
-	background-color: #f5f5f5;
-	background-image: none;
+    background: #f5f5f5 none;
 }
 #packages .package-inside, .hotell-inside, #club .package-inside {margin: 20px 10px}
 #packages .package-title {margin-right: 40px;line-height: 1.4em;font-weight:700}
@@ -1528,7 +1531,7 @@ span.price-inc {font-size: 14px;}
 
 .package-terms {
     font-size:11px;
-    font-color:#555;
+    color:#555;
 }
 
 .icon-translate { 
@@ -1679,7 +1682,6 @@ span.price-inc {font-size: 14px;}
     border-radius: 12px;
     font-size: 22px;
     background-color: #ffffff;
-    cursor:hand;
     cursor:pointer;
 }
 
@@ -2065,7 +2067,6 @@ span.city-picker-close:hover {
 	}
 	.form-header h1 {
   		margin: 20px 0 30px;
-  		line-height: 1.1;
   		text-align: center;
   		line-height: 1.1;
 	  font-size: 25px;
@@ -2198,7 +2199,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 .loadDiv .loadDiv-line{
   border-top: 2px solid rgb(236, 219, 48);
   height: 2px;
-  box-shadow:0px 2px 5px 2px #f6f6f6;
+  box-shadow:0 2px 5px 2px #f6f6f6;
 }
 .travelbase_items #loadMore span, .loadDiv span{
     font-size: 33px;
@@ -2386,26 +2387,26 @@ a.top-link img {
 #map_shadow_left_OUT {
   position: absolute;
   left: -15px;
-  top: 0px;
+  top: 0;
   width: 15px;
   height: 100%;
-  border: 0px solid red;
+  border: 0 solid red;
   z-index: 1000;
-  -webkit-box-shadow: inset -15px 0px 15px -10px rgba(50,50,50,0.25);
-  -moz-box-shadow: inset -15px 0px 15px -10px rgba(50,50,50,0.25);
-  box-shadow: inset -15px 0px 15px -10px rgba(50,50,50,0.25);
+  -webkit-box-shadow: inset -15px 0 15px -10px rgba(50,50,50,0.25);
+  -moz-box-shadow: inset -15px 0 15px -10px rgba(50,50,50,0.25);
+  box-shadow: inset -15px 0 15px -10px rgba(50,50,50,0.25);
 }
 #map_shadow {
   position: absolute;
   left: 0;
-  top: 0px;
+  top: 0;
   width: 20px;
   height: 100%;
-  border: 0px solid red;
+  border: 0 solid red;
   z-index: 1000;
-  -webkit-box-shadow: inset 15px 0px 20px -10px rgba(50,50,50,0.25);
-  -moz-box-shadow: inset 15px 0px 20px -10px rgba(50,50,50,0.25);
-  box-shadow: inset 15px 0px 20px -10px rgba(50,50,50,0.25);
+  -webkit-box-shadow: inset 15px 0 20px -10px rgba(50,50,50,0.25);
+  -moz-box-shadow: inset 15px 0 20px -10px rgba(50,50,50,0.25);
+  box-shadow: inset 15px 0 20px -10px rgba(50,50,50,0.25);
 }
 
 .gm-style .map-window-all-mini  {
@@ -2416,7 +2417,6 @@ a.top-link img {
 }
 .gm-style .map-info-window .map-window-all {
     background-color: #ED1E61;
-    box-shadow: -2px -2px 9px #BE144B!important;
     border-left: 1px solid #CA1C54;
     border-bottom: 1px solid #CA1C54;
     padding: 0;
@@ -2478,7 +2478,7 @@ a.top-link img {
   bottom: -10px;
   right: 0;
   border-top: 10px solid #C8144E;
-  border-bottom: 0px solid transparent;
+  border-bottom: 0 solid transparent;
   border-right: 20px solid transparent;
 }
 
@@ -2524,7 +2524,6 @@ a.top-link img {
 
 .flight-subsearch  {
   background: -webkit-linear-gradient(#fff, #f6f6f6) repeat scroll 0 0 transparent !important;
-  border-radius: 7px;
   display: flex;
   padding: 12px;
   margin-bottom: 5px;
@@ -2584,7 +2583,7 @@ a.top-link img {
   outline-offset: -2px;
 }
 .checkbox input[type="checkbox"]:checked + label::after {
-  font-family: 'FontAwesome';
+    font-family: 'FontAwesome', serif;
   content: "\f00c";
 }
 .checkbox input[type="checkbox"]:disabled + label {
@@ -2750,7 +2749,7 @@ a.top-link img {
   background-color: #5cb85c;
 }
 input[type="checkbox"].styled:checked + label:after {
-  font-family: 'FontAwesome';
+    font-family: 'FontAwesome', serif;
   content: "\f00c";
 }
 input[type="checkbox"] .styled:checked + label::before {
