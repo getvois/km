@@ -1969,7 +1969,7 @@ $(document).ready(function() {
 
     //top menu from side
     $('.navbar-toggle').click(function (e) {
-        e.preventDefault();
+        //e.preventDefault();
         e.stopPropagation();
 
         if(window.innerWidth > 768) return;
