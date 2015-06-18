@@ -1987,7 +1987,15 @@ span.city-picker-close:hover {
     	margin-top: -99999px!important; 
     	position:absolute;
     }
-    .travelbase_items .trip, .travelbase_items .sort-controls {
+    .travelbase_items  #mobile-tab-menu {
+	  margin: 20px auto;
+	  min-width: 90%;
+	  padding: 10px;
+	  border: 2px solid #555;
+	  font-size: 18px;
+	}
+	
+	.travelbase_items .trip, .travelbase_items .sort-controls {
 	  margin:0 -25px 0 -15px;
 	}
 	.travelbase_items .trip {
@@ -1999,6 +2007,14 @@ span.city-picker-close:hover {
 	.travelbase_items .price {
 	  text-align: right;
 	}
+	.travelbase_items  .trip-cost > .trip-btn-cost, .travelbase_items .trip-cost > .trip-btn-close {
+    	display: block;
+	}
+	.trip p {
+		 display: none;
+	}
+	
+	
     .register-form{
     	padding: 20px 0 0 28px;
 	}
