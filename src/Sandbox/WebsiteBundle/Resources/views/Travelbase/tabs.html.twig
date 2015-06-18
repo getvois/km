@@ -1,5 +1,5 @@
 <section id="travelbase_tabs" class="">
-    <ul id="form-type-switcher" class="tabs nav nav-tabs hidden-xs">
+    <ul id="form-type-switcher" class="tabs nav nav-tabs">
 {% if host and host.tabs|length > 0 %}
     {% for tab in host.tabs %}
         {% include '@SandboxWebsite/Travelbase/tabHeaders/' ~ tab ~ '.html.twig' %}

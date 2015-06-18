@@ -1995,8 +1995,8 @@ $(document).ready(function() {
 
     $('#mobile-tab-menu').change(function () {
         var selected = $(this).find(':selected');
-        console.log(selected.val());
-        $(selected.val()).tab('show');
+        $('a[href="'+selected.val()+'"]').click();
+        //$(selected.val()).tab('show');
     });
 });
 
