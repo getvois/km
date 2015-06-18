@@ -2991,6 +2991,7 @@ input[type="checkbox"] .styled:checked + label::after {
     /*select2 */
     .select2-results{
         font-size: 20px;
+        max-height: 400px;
     }
 }
 
