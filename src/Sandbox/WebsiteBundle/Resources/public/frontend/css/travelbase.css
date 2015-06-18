@@ -2663,6 +2663,10 @@ a.top-link img {
   position: relative;
   padding-left: 5px;
 }
+
+.select2-focused{
+    background-color: #ffffff!important;
+}
 .radio label::before {
   content: "";
   display: inline-block;
