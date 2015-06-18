@@ -2986,6 +2986,7 @@ input[type="checkbox"] .styled:checked + label::after {
     .datepick .datepick-cmd{
         width: 100%;
         padding: 10px;
+        float: none;
     }
 }
 
