@@ -2666,6 +2666,7 @@ a.top-link img {
 
 .select2-container-active{
     background-color: #ffffff!important;
+    z-index: 99;
 }
 .radio label::before {
   content: "";
