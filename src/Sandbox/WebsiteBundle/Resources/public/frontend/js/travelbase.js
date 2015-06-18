@@ -1983,7 +1983,7 @@ $(document).ready(function() {
             $('.blanket').click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                v.trigger('click');
+                v.click();
             })
         }else{
             p.removeClass('is-expanded');
