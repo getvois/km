@@ -16,17 +16,16 @@ ul#form-type-switcher {
   min-height: 320px;
 }
 
-.move
-{
-width:435px;
-height:310px;
+.move {
+width:225px;
+height:130px;
 background: url(/bundles/sandboxwebsite/img/general/move.png) no-repeat;
 -webkit-transition: all 1s ease;
             -moz-transition: all 1s ease;
             -o-transition: all 1s ease;
             -ms-transition: all 1s ease;
 position:absolute;
-top: 0;
+top: 140px;
   right: 20%;
   -webkit-filter: blur(0px);
 }

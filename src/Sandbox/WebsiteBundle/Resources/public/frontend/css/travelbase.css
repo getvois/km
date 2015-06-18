@@ -419,7 +419,7 @@ main .calendar-page .cal-day-today .events-list {
 .site-logo {
 	position: absolute;
 	top: 0;
-	z-index: 9999;
+	z-index: 99;
 }
 .site-logo a {
     height:65px;
@@ -1377,7 +1377,8 @@ label.directFlight-label,  label.sameDay-label {
   background-image: url(/bundles/sandboxwebsite/img/general/register3.jpg);
 }
 .modal-content-img-4 {
-  background-image: url(/bundles/sandboxwebsite/img/general/register5.jpg);
+  min-height: 500px;
+  background-image: url(/bundles/sandboxwebsite/img/general/register8.jpg);
 }
 #email-register-modal .modal-header, #modal-registration .modal-header {
   border-bottom: none;
@@ -1386,12 +1387,17 @@ label.directFlight-label,  label.sameDay-label {
   padding: 30px 40px 0px;
 }
 #email-register-modal h2, #modal-registration h2 {
-font-weight: bold;
-  color: #444540;
+	font-weight: bold;
+    color: #43576C;
+  text-shadow: 1px 1px #DECED1;
   font-size: 30px;
   line-height: 1.2em;
   
  }
+#email-register-modal h4, #modal-registration h4 {
+  font-size: 24px;
+  line-height: 1.4em;
+}
 @media (min-width: 768px){
 	#email-register-modal .modal-dialog, #modal-registration .modal-dialog {
 	  width: 760px;
@@ -1412,10 +1418,28 @@ font-weight: bold;
 #email-register-modal .nav-tabs>li, #modal-registration .nav-tabs>li {
   height:50px;
 }
+
 #email-register-modal .nav-tabs, #modal-registration .nav-tabs {
   border:none;
   margin-left: 15px;
 }
+#email-register-modal .modal-body span {
+  font-weight:bold;
+}
+#email-register-modal .form-control {
+  max-width: 200px;
+    font-size: 16px;
+  padding: 10px 15px;
+  box-shadow: inset 0px 4px 4px #ccc;
+  height: auto;
+  margin-top:5px;
+}
+#email-register-modal .btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
 #email-register-modal .nav-tabs>li>a, #email-register-modal .nav-tabs>li>a:hover, #email-register-modal  .nav-tabs>li>a:focus,
 #modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus {
   font-weight: bold;
@@ -1438,7 +1462,7 @@ font-weight: bold;
 	color:#eee;
 	  border-radius: 0;
 }
-#modal-registration .form-control, .clubbar .form-control  {
+#modal-registration .form-control, .clubbar .form-control, #email-register-modal .form-control {
   border: 1px solid #999;
     margin-left: -2px;
 }
@@ -1946,6 +1970,11 @@ span.city-picker-close:hover {
 
 /*MOBILE ONLY*/
 @media (max-width: 768px) {
+    ul#form-type-switcher { 
+    	margin-top: -99999px!important; 
+    	position:absolute;
+    	}
+     
     .register-form{
     	padding: 20px 0 0 28px;
 	}
@@ -1962,6 +1991,10 @@ span.city-picker-close:hover {
         /*noinspection CssInvalidPropertyValue*/
         min-height: auto;
     }
+    .navbar-header {
+	  position: relative;
+	  z-index: 101;
+	}
     .travelbase_top_menu{
         padding-bottom: 0;
     }
@@ -1981,6 +2014,62 @@ span.city-picker-close:hover {
     .form-table-cell:first-child {
         margin-bottom: 17px;
     }
+    
+    .placeholder-item a.placeholder-item-remove {
+  		font-size: 34px;
+	}
+	.placeholder-item .placeholder-item-remove {
+  		top: 9px;
+	}
+	.placeholder-item {
+  		padding: 3px 0 3px 23px;
+	}
+	.placeholder-collapse {
+   		overflow: inherit;
+  		white-space: inherit;/
+	}
+	#datepick-input-from-holder, #datepick-input-to-holder {
+  		margin-top: 20px;
+	} 
+	#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
+	  border-bottom: 2px solid #555;
+	  border-top:none;
+	  border-right:none;
+	  border-left:none;
+	  background:transparent;
+	    box-shadow: none;
+	}
+	.placeholder-item, .select2-container-multi .select2-choices .select2-search-field input, #date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder {
+  		font-size: 24px;
+	}
+	
+	.form-control {
+  		background:transparent;
+  		box-shadow: none;
+	}
+	.form-header h1 {
+  		margin: 20px 0 30px;
+  		line-height: 1.1;
+  		text-align: center;
+  		line-height: 1.1;
+	  font-size: 25px;
+	  color: #333;
+	  text-shadow: none;
+	}
+	#form-flight #slider-range, #form-flight #slider-range-stopover {
+  	margin-left:20px;
+	}
+	#travelbase-form img.ico-price {
+		display:none;
+	}
+	#form-flight #amount {
+		color:#444;
+	  font-size: 18px;
+	  font-weight:bold;
+	}
+	.form-submit {
+	  border-radius: 5px;
+	}
 }
 
 #map_wrapper,#map_wrapper2 {
@@ -2049,7 +2138,6 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 .travelbase_items {
     clear:both;
     padding: 15px 15px 0px 15px;
-    background: #fff;
     border: 0 solid;
 }
 .travelbase_items > div:first-of-type{
@@ -2828,9 +2916,14 @@ input[type="checkbox"] .styled:checked + label::after {
     #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-travelbase-search-form .col-md-4, #block-travelbase-travelbase-search-form .col-md-8, #block-travelbase-travelbase-search-form .col-md-7, #block-travelbase-travelbase-search-form .col-md-6 {
         padding-bottom: 10px;
     }
-    .site-logo {
-        display:none;
+    .site-logo a {
+    	  background-position: center center;
+    	  top:5px;
+  		  right:auto;
     }
+    .site-logo, .site-logo a {
+  		 width: 100%;
+	}
     #travelbase-form .field-one, #travelbase-form .field-two, #travelbase-form .field-three, #travelbase-form .field-four {
     }
     /* From fields */
@@ -2841,7 +2934,9 @@ input[type="checkbox"] .styled:checked + label::after {
     	width: 12%;
 	}
 
-
+	.navbar {
+	  min-height:inherit;
+	}
     /* top menu */
     .site-topmenu{
         height: 100%;
@@ -2853,9 +2948,6 @@ input[type="checkbox"] .styled:checked + label::after {
     .navbar.navbar-default{
         display: inline-block;
         position: static;
-    }
-    .splash__container > div.row.nomargin{
-        text-align: right;
     }
 
     body{
