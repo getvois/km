@@ -1987,7 +1987,7 @@ span.city-picker-close:hover {
     	margin-top: -99999px!important; 
     	position:absolute;
     }
-    .travelbase_items  #mobile-tab-menu {
+    #mobile-tab-menu {
 	  margin: 20px auto;
 	  min-width: 90%;
 	  padding: 10px;
@@ -2047,10 +2047,7 @@ span.city-picker-close:hover {
     .form-table-cell {
         display: block;
         width: auto;
-    }
-
-    .form-table-cell:first-child {
-        margin-bottom: 17px;
+        height: 70px;
     }
     
     .placeholder-item a.placeholder-item-remove {
@@ -2068,6 +2065,7 @@ span.city-picker-close:hover {
 	}
 	#datepick-input-from-holder, #datepick-input-to-holder {
   		margin-top: 20px;
+  		  background-color: transparent;
 	} 
 	#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
 	  border-bottom: 2px solid #555;
@@ -2084,6 +2082,7 @@ span.city-picker-close:hover {
 	.form-control {
   		background:transparent;
   		box-shadow: none;
+  		min-height:50px;
 	}
 	.form-header h1 {
   		margin: 20px 0 30px;
