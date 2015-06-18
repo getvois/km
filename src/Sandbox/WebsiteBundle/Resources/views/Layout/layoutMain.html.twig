@@ -112,6 +112,9 @@
                         <a href="/"></a>
                     </div>
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
+
+                    {% include '@SandboxWebsite/Travelbase/tabsMobile.html.twig' %}
+
                     <div class="col-md-10 col-md-offset-0_5">
                     {% include "@SandboxWebsite/Travelbase/form.html.twig" %}
                     </div>
