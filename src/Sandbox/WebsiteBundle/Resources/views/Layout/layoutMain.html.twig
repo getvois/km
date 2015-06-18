@@ -73,6 +73,8 @@
 <body {% block extra_body_attributes %}{% endblock %} data-lang="{{ app.request.locale }}" {% if app.user %}data-user='{{ app.user.id }}'{% endif %}
     data-tab="{% block show_tab %}{% endblock %}">
 
+<div class="out-of-body">
+
 <div id="fb-root"></div>
 
 {% include 'SandboxWebsiteBundle:Layout:_googletagmanager.html.twig' %}
@@ -171,5 +173,6 @@
 {% include '@SandboxWebsite/Layout/modalFlashBag.html.twig' %}
 
 {% include 'SandboxWebsiteBundle:Layout:_js_footer.html.twig' %}
+</div>
 </body>
 </html>

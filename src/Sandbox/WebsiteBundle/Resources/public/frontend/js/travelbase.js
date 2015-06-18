@@ -1965,6 +1965,33 @@ $(document).ready(function() {
         $('.aviasales-widget-holder').html(responce);
     });
 
+
+
+    //top menu from side
+    $('.navbar-toggle').click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if(window.innerWidth > 768) return;
+
+        var v = $(this);
+        var p = $('.out-of-body');
+        if(v.is('.collapsed')){
+            p.removeClass('is-collapsed');
+            p.addClass('is-expanded');
+            p.append("<div class='blanket'></div>");
+            $('.blanket').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                v.trigger('click');
+            })
+        }else{
+            p.removeClass('is-expanded');
+            p.addClass('is-collapsed');
+            $('.blanket').remove();
+        }
+
+    });
 });
 
 function cityFilter(){

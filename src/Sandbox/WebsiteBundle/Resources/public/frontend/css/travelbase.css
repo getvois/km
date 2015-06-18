@@ -2840,8 +2840,55 @@ input[type="checkbox"] .styled:checked + label::after {
     .mobile-date-div {
     	width: 12%;
 	}
+
+
+    /* top menu */
+    .site-topmenu{
+        height: 100%;
+        left: -228px;
+        position: absolute;
+        top: 0;
+        width: 267px;
+    }
+    .navbar.navbar-default{
+        display: inline-block;
+        position: static;
+    }
+    .splash__container > div.row.nomargin{
+        text-align: right;
+    }
 }
 
+.out-of-body{
+    position: relative;
+    -webkit-transition: all 0.3s ease-in 0s;
+    -moz-transition: all 0.3s ease-in 0s;
+    -ms-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s;
+    transition: all 0.3s ease-in 0s;
+
+    transform: translate3d(0px,0px,0px);
+    -moz-transform: translate3d(0px,0px,0px);
+    -webkit-transform: translate3d(0px,0px,0px);
+    -ms-transform: translate3d(0px,0px,0px);
+    -o-transform: translate3d(0px,0px,0px);
+}
+.out-of-body.is-expanded{
+    transform: translate3d(267px,0px,0px);
+    -moz-transform: translate3d(267px,0px,0px);
+    -webkit-transform: translate3d(267px,0px,0px);
+    -ms-transform: translate3d(267px,0px,0px);
+    -o-transform: translate3d(267px,0px,0px);
+}
+.blanket{
+    position: absolute;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
 
 #ui-datepicker-div {
     z-index: 9999!important;
