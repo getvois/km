@@ -22,7 +22,7 @@
 
     {#select menu#}
     <label class="sr-only" for="mobile-tab-menu">{{ 'mobile.tab.menu'|trans({}, 'frontend') }}</label>
-    <select name="mobile-tab-menu" id="mobile-tab-menu">
+    <select class="hidden-lg hidden-md hidden-sm" name="mobile-tab-menu" id="mobile-tab-menu">
 
         {% if host and host.tabs|length > 0 %}
             {% for tab in host.tabs %}
