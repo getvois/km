@@ -154,6 +154,7 @@ class DefaultController extends Controller
             $host = $this->get('hosthelper')->getHost();
 
             $total = 0;
+            $minus = 0;
             foreach ($data as $item) {
                 if($host){
                     if($host->getLang() == 'ru' || $host->getMultiLanguage()){
@@ -163,6 +164,8 @@ class DefaultController extends Controller
                         if($item->company->name != 'Aviasales'){
                             $total++;
                             $table .= $this->itemToRow($item, $filter, $request);
+                        }else{
+                            $minus++;
                         }
                     }
                 }else{
@@ -176,14 +179,14 @@ class DefaultController extends Controller
             if($body)
                 $table .= '</div>';
 
-            if($body && $result->total > 2)//add load more button
-                $table .= '<div class="loadDiv"><div class="loadDiv-line"></div><button id="loadMore" data-total="'. $result->total .'" onclick="loadMore(this)"><span class="fa fa-angle-double-down"></span></button></div>';
-            if($body && $result->total == 0){
+            if($body && ($result->total - $minus) > 2)//add load more button
+                $table .= '<div class="loadDiv"><div class="loadDiv-line"></div><button id="loadMore" data-total="'. ($result->total - $minus) .'" onclick="loadMore(this)"><span class="fa fa-angle-double-down"></span></button></div>';
+            if($body && ($result->total - $minus) == 0){
                 $table = $noItemsFoundHTML;
             }
 
 
-            return new JsonResponse(['total' => $result->total, 'html' => $table]);
+            return new JsonResponse(['total' => $result->total - $minus, 'html' => $table]);
         }
         return new JsonResponse(['total' => 0, 'html' => $noItemsFoundHTML]);
     }
