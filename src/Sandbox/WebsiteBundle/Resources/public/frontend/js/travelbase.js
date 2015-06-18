@@ -2441,7 +2441,7 @@ function fixDiv() {
         $width = $container.parent().width();
         $height = $container.parent().height();
         offset = $container.offset().top;//350
-        if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
+        if ($(window).scrollTop() > offset && $(window).scrollTop() < $height + offset) {
             $container.css({
                 'position': 'fixed',
                 'top': '50px',
@@ -2463,7 +2463,7 @@ function fixDiv() {
         $width = $container.parent().width();
         $height = $container.parent().height();
         offset = $container.offset().top;//350
-        if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
+        if ($(window).scrollTop() > offset && $(window).scrollTop() < $height + offset) {
             $container.css({
                 'position': 'fixed',
                 'top': '50px',
