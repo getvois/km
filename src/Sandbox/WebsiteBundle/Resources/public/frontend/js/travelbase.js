@@ -43,6 +43,10 @@ $(document).ready(function() {
                 $($(e.target).data('form')).slideDown();
             }
         }
+
+        //preselect in select
+        $('#mobile-tab-menu').val('#' + $(e.target).prop('id'));
+
     });
     //hide because of isotope behavior
     //$('#package-pager').hide();
