@@ -46,9 +46,9 @@ $(document).ready(function() {
 
         //preselect in select
         console.log($(e.target));
-        console.log($(e.target).prop('id'));
+        console.log($(e.target).prop('href'));
         console.log($('#mobile-tab-menu'));
-        $('#mobile-tab-menu').val('#' + $(e.target).prop('id'));
+        $('#mobile-tab-menu').val($(e.target).prop('href'));
 
     });
     //hide because of isotope behavior
