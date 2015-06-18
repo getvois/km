@@ -999,6 +999,10 @@ label.directFlight-label,  label.sameDay-label {
     color: #ffffff;
 }
 
+input[type='checkbox']{
+    -webkit-appearance: checkbox;
+}
+
 .form-submit {
 	height: 40px;
 	/*position: absolute;*/
