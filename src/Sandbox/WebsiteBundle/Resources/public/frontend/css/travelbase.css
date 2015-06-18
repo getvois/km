@@ -3037,11 +3037,11 @@ input[type="checkbox"] .styled:checked + label::after {
     -o-transition: all 0.3s ease-in 0s;
     transition: all 0.3s ease-in 0s;
 
-    transform: translate3d(0px,0px,0px);
-    -moz-transform: translate3d(0px,0px,0px);
-    -webkit-transform: translate3d(0px,0px,0px);
-    -ms-transform: translate3d(0px,0px,0px);
-    -o-transform: translate3d(0px,0px,0px);
+    /*transform: translate3d(0px,0px,0px);*/
+    /*-moz-transform: translate3d(0px,0px,0px);*/
+    /*-webkit-transform: translate3d(0px,0px,0px);*/
+    /*-ms-transform: translate3d(0px,0px,0px);*/
+    /*-o-transform: translate3d(0px,0px,0px);*/
 }
 .out-of-body.is-expanded{
     transform: translate3d(267px,0px,0px);
