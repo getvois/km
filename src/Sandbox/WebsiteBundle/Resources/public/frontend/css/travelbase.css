@@ -2845,7 +2845,7 @@ input[type="checkbox"] .styled:checked + label::after {
     /* top menu */
     .site-topmenu{
         height: 100%;
-        left: -228px;
+        left: -267px;
         position: absolute;
         top: 0;
         width: 267px;
