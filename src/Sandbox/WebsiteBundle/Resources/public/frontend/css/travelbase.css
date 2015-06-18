@@ -2987,6 +2987,11 @@ input[type="checkbox"] .styled:checked + label::after {
     .datepick-nav button, .datepick-ctrl button {
         font-size: 20px;
     }
+
+    /*select2 */
+    .select2-results{
+        font-size: 20px;
+    }
 }
 
 .out-of-body{
