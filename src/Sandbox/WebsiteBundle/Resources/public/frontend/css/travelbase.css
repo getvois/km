@@ -2953,6 +2953,22 @@ input[type="checkbox"] .styled:checked + label::after {
     body{
         overflow-x: hidden;
     }
+
+
+    /*calendar*/
+    .datepick-popup{
+        height: 100%!important;
+        left: 0!important;
+        position: absolute;
+        top: 0!important;
+        width: 100%!important;
+    }
+    .datepick{
+        width: auto!important;
+    }
+    .datepick .datepick-month{
+        width: 100%;
+    }
 }
 
 .out-of-body{
