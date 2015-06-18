@@ -1366,7 +1366,12 @@ label.directFlight-label,  label.sameDay-label {
   border-radius: 0;
   background-size: cover;
 }
-
+#email-register-modal .win {
+  margin-top: 10px;
+}
+#email-register-modal .win .fa {
+  font-size: 20px;
+}
 .modal-content-img-1 {
   background-image: url(/bundles/sandboxwebsite/img/general/register.jpg);
 }
@@ -1828,7 +1833,9 @@ span.city-picker-close:hover {
     display: block;
     font-size: 27px;
 }
-
+.mobile-month {
+    font-size: 13px;
+}
 .mobile-date{
     margin-top: 5px;
     margin-left: 5px;
@@ -1973,12 +1980,22 @@ span.city-picker-close:hover {
     ul#form-type-switcher { 
     	margin-top: -99999px!important; 
     	position:absolute;
-    	}
-     
+    }
+    .travelbase_items .trip, .travelbase_items .sort-controls {
+	  margin:0 -25px 0 -15px;
+	}
+	.travelbase_items .trip {
+	  padding: 6px 12px;
+	}
+	.travelbase_items .trip-cost {
+  		text-align: inherit;
+	}
+	.travelbase_items .price {
+	  text-align: right;
+	}
     .register-form{
     	padding: 20px 0 0 28px;
 	}
-	
 	.navbar.navbar-default{
         position: absolute;
         width: auto;
@@ -1986,7 +2003,6 @@ span.city-picker-close:hover {
         margin: 10px;
         right: 0;
     }
-
     .navbar{
         /*noinspection CssInvalidPropertyValue*/
         min-height: auto;
@@ -2137,7 +2153,7 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
 #block-travelbase-travelbase-search-form .ico-flight:nth-of-type(2) {padding:0;}
 .travelbase_items {
     clear:both;
-    padding: 15px 15px 0px 15px;
+    padding: 15px 0 0 0;
     border: 0 solid;
 }
 .travelbase_items > div:first-of-type{
