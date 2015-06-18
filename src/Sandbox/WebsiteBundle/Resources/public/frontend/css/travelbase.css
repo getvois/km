@@ -2857,6 +2857,10 @@ input[type="checkbox"] .styled:checked + label::after {
     .splash__container > div.row.nomargin{
         text-align: right;
     }
+
+    body{
+        overflow-x: hidden;
+    }
 }
 
 .out-of-body{
