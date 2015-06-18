@@ -20,6 +20,28 @@
 
     </ul>
 
+    {#select menu#}
+    <label class="sr-only" for="mobile-tab-menu">{{ 'mobile.tab.menu'|trans({}, 'frontend') }}</label>
+    <select name="mobile-tab-menu" id="mobile-tab-menu">
+
+        {% if host and host.tabs|length > 0 %}
+            {% for tab in host.tabs %}
+                {% include '@SandboxWebsite/Travelbase/tabHeaders/options/' ~ tab ~ '.html.twig' %}
+            {% endfor %}
+        {% else %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/flight.hotel.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/flight.only.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/hotel.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/ferry.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/cruise.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/club.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/package.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/offer.html.twig' %}
+            {% include '@SandboxWebsite/Travelbase/tabHeaders/options/baltica.html.twig' %}
+        {% endif %}
+
+    </select>
+
     {% if page is instanceof('Sandbox\\WebsiteBundle\\Entity\\Company\\CompanyOverviewPage') %}
         <p class="company-info">{{ 'show.latest.offers.for.company'|trans({}, "frontend") }}
             <span class="badge" >{{ page.title }}
