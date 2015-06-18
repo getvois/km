@@ -2438,7 +2438,8 @@ function fixDiv() {
     var $container = $('.loading-container:visible');
     var $width = $container.parent().width();
     var $height = $container.parent().height();
-    if ($(window).scrollTop() > 350 && $(window).scrollTop() < $height) {
+    var offset = $container.offset().top;//350
+    if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
         $container.css({
             'position': 'fixed',
             'top': '50px',
@@ -2457,7 +2458,8 @@ function fixDiv() {
     $container = $('.register-form form:visible');
     $width = $container.parent().width();
     $height = $container.parent().height();
-    if ($(window).scrollTop() > 350 && $(window).scrollTop() < $height) {
+    offset = $container.offset().top;//350
+    if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
         $container.css({
             'position': 'fixed',
             'top': '50px',
