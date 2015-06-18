@@ -2980,7 +2980,7 @@ input[type="checkbox"] .styled:checked + label::after {
     .datepick-month-header {
         font-size: 20px;
     }
-    .datepick-ctrl button {
+    .datepick-nav button, .datepick-ctrl button {
         font-size: 20px;
     }
 }
