@@ -2157,7 +2157,7 @@ function getTable(container, reimport, expand){
 
     var opts = tabSpinnerOpts();
 
-    $travelbase_items.parent().css('min-height', '250px');
+    $travelbase_items.parent().css('min-height', '350px');
 
     $($travelbase_items.data('badge')).hide();
     var spinner = new Spinner(opts).spin($badgeLoading[0]);
