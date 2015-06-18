@@ -2983,6 +2983,10 @@ input[type="checkbox"] .styled:checked + label::after {
     .datepick-nav button, .datepick-ctrl button {
         font-size: 20px;
     }
+    .datepick-cmd{
+        width: 100%;
+
+    }
 }
 
 .out-of-body{
