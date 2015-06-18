@@ -1992,6 +1992,10 @@ $(document).ready(function() {
         }
 
     });
+
+    $('#mobile-tab-menu').change(function () {
+        console.log($(this));
+    });
 });
 
 function cityFilter(){
