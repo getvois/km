@@ -2436,43 +2436,49 @@ function cityPicker($el, $holder, $direction) {
 
 function fixDiv() {
     var $container = $('.loading-container:visible');
-    var $width = $container.parent().width();
-    var $height = $container.parent().height();
-    var offset = $container.offset().top;//350
-    if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
-        $container.css({
-            'position': 'fixed',
-            'top': '50px',
-            'width' : $width
-        });
-    }
-    else {
-        $container.css({
-            'position': 'relative',
-            'top': 'auto',
-            'width' : 'auto'
-        });
+    var $width,$height,offset;
+    if($container.length > 0) {
+        $width = $container.parent().width();
+        $height = $container.parent().height();
+        offset = $container.offset().top;//350
+        if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
+            $container.css({
+                'position': 'fixed',
+                'top': '50px',
+                'width': $width
+            });
+        }
+        else {
+            $container.css({
+                'position': 'relative',
+                'top': 'auto',
+                'width': 'auto'
+            });
+        }
     }
 
 
     $container = $('.register-form form:visible');
-    $width = $container.parent().width();
-    $height = $container.parent().height();
-    offset = $container.offset().top;//350
-    if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
-        $container.css({
-            'position': 'fixed',
-            'top': '50px',
-            'width' : $width
-        });
+    if($container.length > 0){
+        $width = $container.parent().width();
+        $height = $container.parent().height();
+        offset = $container.offset().top;//350
+        if ($(window).scrollTop() > offset && $(window).scrollTop() < $height) {
+            $container.css({
+                'position': 'fixed',
+                'top': '50px',
+                'width' : $width
+            });
+        }
+        else {
+            $container.css({
+                'position': 'relative',
+                'top': 'auto',
+                'width' : 'auto'
+            });
+        }
     }
-    else {
-        $container.css({
-            'position': 'relative',
-            'top': 'auto',
-            'width' : 'auto'
-        });
-    }
+
 
 }
 $(window).scroll(fixDiv);
