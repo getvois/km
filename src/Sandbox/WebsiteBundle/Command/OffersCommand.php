@@ -859,10 +859,10 @@ class OffersCommand extends ContainerAwareCommand
 
         //return $offerPage;
 
-//        if($this->company && $offerPage->getCompany()->getId() != $this->company->getId()){
-//            $update = true;
-//            $qb->set('o.company', $this->company->getId());
-//        }
+        if($this->company && $offerPage->getCompany() && $offerPage->getCompany()->getId() != $this->company->getId()){
+            $update = true;
+            $qb->set('o.company', $this->company->getId());
+        }
 
         if($update){
 
