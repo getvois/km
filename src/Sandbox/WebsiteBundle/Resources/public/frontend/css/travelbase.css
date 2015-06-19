@@ -385,10 +385,22 @@ body .splash--green {
 }
 main .calendar-page .cal-day-today .events-list {
   background: -webkit-linear-gradient(#F26E6E, #D34C4C) repeat scroll 0 0 transparent
+background:-moz-linear-gradient(#F26E6E, #D34C4C) repeat scroll 0 0 transparent !important;
+/*noinspection CssOverwrittenProperties*/
+background: -ms-linear-gradient(top, #F26E6E, #D34C4C); /* IE10 */ 
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endColorstr='#D34C4C'); /* IE6 & IE7 */  
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endColorstr='#D34C4C')"; /* IE8+ */
+-pie-background:linear-gradient(#F26E6E, #D34C4C) repeat scroll 0 0 transparent !important;
 }
 
 .calendar-page .cal-month-day .events-list {
 	background: -webkit-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent;
+	background:-moz-linear-gradient(#86f78f, #65DF6F) repeat scroll 0 0 transparent !important;
+	/*noinspection CssOverwrittenProperties*/
+	background: -ms-linear-gradient(top, #86f78f, #65DF6F); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#86f78f', endColorstr='#65DF6F'); /* IE6 & IE7 */  
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#86f78f', endColorstr='#65DF6F')"; /* IE8+ */
+	-pie-background:linear-gradient(#86f78f, #D34C4C) repeat scroll 0 0 transparent !important;
 }
 .calendar-page .cal-month-day .events-list {
   position: absolute;
@@ -503,7 +515,7 @@ main .calendar-page .cal-day-today .events-list {
 #form-header .form-col {padding:0 15px 0 0;}
 .placeholder{
     background-color: white;
-    min-height: 42px;
+    min-height: 43px;
     padding: 5px 5px 5px 35px;
     height: auto;
 }
@@ -629,7 +641,6 @@ select {
     
 }
 
-/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .travelbase-input-rel select, .splash__container>.row select {padding-right:28px}
 }
@@ -1356,6 +1367,12 @@ input[type='checkbox']{
 
 #modal-registration .close {
   background: -webkit-linear-gradient(#9D9A91, #34373C) repeat scroll 0 0 transparent !important;
+  background:-moz-linear-gradient(#9D9A91, #34373C) repeat scroll 0 0 transparent !important;
+	/*noinspection CssOverwrittenProperties*/
+	background: -ms-linear-gradient(top, #9D9A91, #34373C); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9D9A91', endColorstr='#34373C'); /* IE6 & IE7 */  
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#9D9A91', endColorstr='#34373C')"; /* IE8+ */
+	-pie-background:linear-gradient(#9D9A91, #34373C) repeat scroll 0 0 transparent !important;
   padding: 5px 16px 8px;
   display: block;
   position: absolute;
@@ -1482,6 +1499,12 @@ input[type='checkbox']{
 }
 #modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus, #modal-registration .nav-tabs>li.active>a {
 	background: -webkit-linear-gradient(#444540, #2D3029) repeat scroll 0 0 transparent !important;
+	background:-moz-linear-gradient(#444540, #2D3029) repeat scroll 0 0 transparent !important;
+	/*noinspection CssOverwrittenProperties*/
+	background: -ms-linear-gradient(top, #444540, #2D3029); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444540', endColorstr='#2D3029'); /* IE6 & IE7 */  
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#444540', endColorstr='#2D3029')"; /* IE8+ */
+	-pie-background:linear-gradient(#444540, #2D3029) repeat scroll 0 0 transparent !important;
 	color:#eee;
 	  border-radius: 0;
 }
@@ -2575,7 +2598,13 @@ a.top-link img {
 /* Travelbase search form more options checkboxes */
 
 .flight-subsearch  {
-  background: -webkit-linear-gradient(#fff, #f6f6f6) repeat scroll 0 0 transparent !important;
+  background: -webkit-linear-gradient(#ffffff, #f6f6f6) repeat scroll 0 0 transparent !important;
+  background:-moz-linear-gradient(#ffffff, #f6f6f6) repeat scroll 0 0 transparent !important;
+	/*noinspection CssOverwrittenProperties*/
+	background: -ms-linear-gradient(top, #ffffff, #f6f6f6); /* IE10 */ 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6'); /* IE6 & IE7 */  
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6')"; /* IE8+ */
+	-pie-background:linear-gradient(#ffffff, #f6f6f6) repeat scroll 0 0 transparent !important;
   display: flex;
   padding: 12px;
   margin-bottom: 5px;
