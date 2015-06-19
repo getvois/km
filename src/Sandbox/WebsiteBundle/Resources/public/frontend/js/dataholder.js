@@ -45,9 +45,8 @@
                     $(holder.data('target')).prev().hide();//.slideUp();
                     $(holder.data('target')).prev().prev().hide();//.slideUp();
                     $(holder.data('target')).prev().find('input').css('padding-left', '42px');
-                    setTimeout(function () {
-                        $($holder.data('target')).select2('open');
-                    }, 100);
+                    $($holder.data('target')).select2('open');
+
                 }
 
             });
@@ -73,9 +72,7 @@
                     $($holder.data('target')).prev().show();//.slideDown();
                     $($holder.data('target')).prev().prev().show();//.slideDown();
                     $($holder.data('target')).prev().find('input').css('padding-left', '42px');
-                    setTimeout(function () {
-                        $($holder.data('target')).select2('open');
-                    }, 100);
+                    $($holder.data('target')).select2('open');
                 }
 
                 options.afterRemove.call($holder);//call back
