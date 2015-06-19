@@ -1447,7 +1447,7 @@ the specific language governing permissions and limitations under the Apache Lic
             mask.show();
 
             this.positionDropdown();
-            if(this.dropdown.find('.select2-results').children().length > 0)
+            //if(this.dropdown.find('.select2-results').children().length > 0)
                 this.dropdown.show();
             this.positionDropdown();
 
