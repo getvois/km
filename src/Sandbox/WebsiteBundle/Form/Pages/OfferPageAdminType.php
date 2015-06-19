@@ -30,7 +30,7 @@ class OfferPageAdminType extends PageAdminType
 
         $builder->add('summary');
 
-        $builder->add('offerId', 'integer', array(
+        $builder->add('offerId', 'text', array(
             'required' => false,
         ));
         $builder->add('longTitle', 'text', array(

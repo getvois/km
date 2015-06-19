@@ -245,7 +245,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     }
 
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="offer_id", type="string", length=255, nullable=true)
      */
@@ -620,7 +620,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * Set offerId
      *
-     * @param integer $offerId
+     * @param string $offerId
      * @return OfferPage
      */
     public function setOfferId($offerId)
@@ -633,7 +633,7 @@ class OfferPage extends AbstractPage implements HasPageTemplateInterface, IPlace
     /**
      * Get offerId
      *
-     * @return integer 
+     * @return string
      */
     public function getOfferId()
     {
