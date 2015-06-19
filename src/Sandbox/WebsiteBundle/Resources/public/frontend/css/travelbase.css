@@ -3089,8 +3089,13 @@ input[type="checkbox"] .styled:checked + label::after {
 }
 
 .form-table-cell.active{
-    position: relative;
+    /*position: relative;*/
     z-index: 9999;
+    left: 0;
+    padding: 20px;
+    position: fixed;
+    top: 50px;
+    width: 100%;
 }
 
 .out-of-body{
