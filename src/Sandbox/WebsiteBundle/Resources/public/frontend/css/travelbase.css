@@ -2159,7 +2159,10 @@ span.city-picker-close:hover {
 	}
 	
 	.form-table-cell .fa-plus-square-o {
-	  font-size: 42px;
+        font-size: 42px;
+        float: right;
+        position: relative;
+        top: 30px;
 	}
 	
 }
@@ -3107,7 +3110,7 @@ input[type="checkbox"] .styled:checked + label::after {
     display: none;
 }
 #citypicker-overlay.active{
-    background: white none repeat scroll 0 0;
+    background: #ddd none repeat scroll 0 0;
     height: 100%;
     left: 0;
     position: fixed;
