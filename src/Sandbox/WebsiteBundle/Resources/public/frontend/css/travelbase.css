@@ -3131,13 +3131,14 @@ input[type="checkbox"] .styled:checked + label::after {
 }
 
 .form-table-cell.active .fa-plus-square-o{
-    right: 5px;
+
 }
 .form-table-cell .fa-plus-square-o{
     bottom: 0;
     font-size: 42px;
     position: absolute;
     z-index: 107;
+    right: 5px;
 }
 
 .out-of-body{
