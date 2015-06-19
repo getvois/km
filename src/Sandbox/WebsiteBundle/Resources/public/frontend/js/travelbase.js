@@ -2019,6 +2019,15 @@ $(document).ready(function() {
         $(this).closest('.select2-container').next().select2('open');
     });
 
+
+    $('.select-from').click(function () {
+        var dataholder = $('#departure-dataholder');
+        if(dataholder.is(':visible')){
+            dataholder.click();
+        }else{
+            $('#departure-el').select2('open');
+        }
+    });
 });
 
 function cityFilter(){
