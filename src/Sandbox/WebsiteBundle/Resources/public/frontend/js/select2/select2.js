@@ -1735,10 +1735,11 @@ the specific language governing permissions and limitations under the Apache Lic
             }
 
             if (search.val().length < opts.minimumInputLength) {
+                var text = "<div>qweqqqwe</div>";
                 if (checkFormatter(opts.formatInputTooShort, "formatInputTooShort")) {
-                    render("<li class='select2-no-results'>" + evaluate(opts.formatInputTooShort, opts.element, search.val(), opts.minimumInputLength) + "</li>");
+                    render("<li class='select2-no-results'>" + text + evaluate(opts.formatInputTooShort, opts.element, search.val(), opts.minimumInputLength) + "</li>");
                 } else {
-                    render("");
+                    render("" + text);
                 }
                 if (initial && this.showSearch) this.showSearch(true);
                 return;
