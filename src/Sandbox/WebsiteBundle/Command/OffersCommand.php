@@ -497,10 +497,10 @@ class OffersCommand extends ContainerAwareCommand
                     continue;
                 }
 
-                $translation = $node2->getNodeTranslation($lang, true);
-                if($translation){
+                $translation2 = $node2->getNodeTranslation($lang, true);
+                if($translation2){
                     /** @var PlaceOverviewPage $placePage */
-                    $placePage = $translation->getRef($this->em);
+                    $placePage = $translation2->getRef($this->em);
                     if($placePage){
                         $page->addPlace($placePage);
                         $this->em->persist($page);
@@ -527,10 +527,10 @@ class OffersCommand extends ContainerAwareCommand
                     continue;
                 }
 
-                $translation = $node2->getNodeTranslation($lang, true);
-                if($translation){
+                $translation2 = $node2->getNodeTranslation($lang, true);
+                if($translation2){
                     /** @var PlaceOverviewPage $placePage */
-                    $placePage = $translation->getRef($this->em);
+                    $placePage = $translation2->getRef($this->em);
                     if($placePage){
                         $page->setCountryPlace($placePage);
                         $this->em->persist($page);
