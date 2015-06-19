@@ -2460,7 +2460,7 @@ function cityPicker($el, $holder, $direction) {
     $($el).on('select2-close', function () {
         if(window.innerWidth <= 768){
             $(this).closest('.form-table-cell').removeClass('active');
-            $('#citypicker-overlay').removeClass('active').css('display', 'none');
+            $('#citypicker-overlay').removeClass('active').css('display', 'none!important');
         }
     });
     $($el).on('select2-open', function () {
