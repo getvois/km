@@ -1451,12 +1451,7 @@ the specific language governing permissions and limitations under the Apache Lic
             mask.show();
 
             this.positionDropdown();
-            console.log($('.select2-result'));
-            console.log($('.select2-result').length);
-            console.log(this.dropdown);
-            console.log(this.dropdown.find('.select2-results'));
-            //if(this.dropdown.find('.select2-results').children().length > 0)
-                this.dropdown.show();
+            this.dropdown.show();
             this.positionDropdown();
 
             this.dropdown.addClass("select2-drop-active");

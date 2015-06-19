@@ -3102,6 +3102,10 @@ input[type="checkbox"] .styled:checked + label::after {
 	  padding-left: 0;
 	}
 
+    #select2-drop-mask{
+        min-height: 10%;
+        min-width: 20%;
+    }
 }
 #citypicker-overlay{
     display: none;
