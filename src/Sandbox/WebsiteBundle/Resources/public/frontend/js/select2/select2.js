@@ -1812,6 +1812,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 }
 
                 if (data.results.length === 0 && checkFormatter(opts.formatNoMatches, "formatNoMatches")) {
+                    return;//todo kosmos added manually
                     render("<li class='select2-no-results'>" + evaluate(opts.formatNoMatches, opts.element, search.val()) + "</li>");
                     return;
                 }
@@ -1888,8 +1889,10 @@ the specific language governing permissions and limitations under the Apache Lic
         getPlaceholderOption: function() {
             if (this.select) {
                 var firstOption = this.select.children('option').first();
+                //noinspection JSUnresolvedVariable
                 if (this.opts.placeholderOption !== undefined ) {
                     //Determine the placeholder option based on the specified placeholderOption setting
+                    //noinspection JSUnresolvedVariable,JSUnresolvedFunction
                     return (this.opts.placeholderOption === "first" && firstOption) ||
                            (typeof this.opts.placeholderOption === "function" && this.opts.placeholderOption(this.select));
                 } else if ($.trim(firstOption.text()) === "" && firstOption.val() === "") {
@@ -1957,6 +1960,7 @@ the specific language governing permissions and limitations under the Apache Lic
         // single
 
         createContainer: function () {
+            //noinspection UnnecessaryLocalVariableJS
             var container = $(document.createElement("div")).attr({
                 "class": "select2-container"
             }).html([
@@ -2200,6 +2204,7 @@ the specific language governing permissions and limitations under the Apache Lic
                         this.clear();
                     }
                     killEvent(e);
+                    //noinspection UnnecessaryReturnStatementJS
                     return;
                 }
             }));
@@ -3423,6 +3428,7 @@ the specific language governing permissions and limitations under the Apache Lic
     };
 
     // plugin defaults, accessible to users
+    //noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
     $.fn.select2.defaults = {
         width: "copy",
         loadMorePadding: 0,
