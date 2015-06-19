@@ -85,6 +85,11 @@ class NewsletterController extends Controller
 //            echo "<pre>";
 //            var_dump($emailStructure);
 //            echo "</pre>";
+                    $elements = imap_mime_header_decode($headerInfo->fromaddress);
+                    $company = utf8_encode($elements[0]->text);
+
+                    var_dump($company);
+
                     if($emailStructure->type === 0){
                         $body = imap_qprint(imap_body($inbox, $mail));
                     }elseif($emailStructure->type === 1) {//multipart
