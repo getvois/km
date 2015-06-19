@@ -2014,6 +2014,7 @@ $(document).ready(function() {
     });
 
     $('body').on('focus', '.select2-input', function () {
+        console.log($(this));
         $(this).next().select2('open');
     });
 
