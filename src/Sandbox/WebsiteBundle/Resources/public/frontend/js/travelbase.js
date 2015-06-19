@@ -2014,8 +2014,6 @@ $(document).ready(function() {
     });
 
     $body.on('focus', '.select2-input', function () {
-        console.log($(this));
-        console.log($(this).closest('.select2-container').next());
         $(this).closest('.select2-container').next().select2('open');
     });
 
@@ -2512,8 +2510,6 @@ function fixDiv() {
         $width = $container.parent().width();
         $height = $container.parent().height();
         offset = $container.parent().offset().top;//350
-        console.log(offset);
-        console.log($(window).scrollTop());
         if ($(window).scrollTop() > offset && $(window).scrollTop() < ($height + offset - $container.height() - 50)) {
             $container.css({
                 'position': 'fixed',

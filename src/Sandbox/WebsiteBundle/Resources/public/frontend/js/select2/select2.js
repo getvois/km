@@ -234,6 +234,7 @@ the specific language governing permissions and limitations under the Apache Lic
     }
 
     function installDebouncedScroll(threshold, element) {
+        //noinspection JSCheckFunctionSignatures
         var notify = debounce(threshold, function (e) { element.trigger("scroll-debounced", e);});
         element.on("scroll", function (e) {
             if (indexOf(e.target, element.get()) >= 0) notify(e);
@@ -772,6 +773,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
             // Waiting for a click event on touch devices to select option and hide dropdown
             // otherwise click will be triggered on an underlying element
+            //noinspection JSUnusedLocalSymbols
             this.dropdown.on('click', this.bind(function (event) {
                 if (this._touchEvent) {
                     this._touchEvent = false;
@@ -1105,6 +1107,7 @@ the specific language governing permissions and limitations under the Apache Lic
         monitorSource: function () {
             var el = this.opts.element, observer, self = this;
 
+            //noinspection JSUnusedLocalSymbols
             el.on("change.select2", this.bind(function (e) {
                 if (this.opts.element.data("select2-change-triggered") !== true) {
                     this.initSelection();
@@ -1235,6 +1238,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // abstract
         positionDropdown: function() {
+            //noinspection JSValidateTypes
             var $dropdown = this.dropdown,
                 container = this.container,
                 offset = container.offset(),
@@ -2178,6 +2182,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 }
             }));
 
+            //noinspection JSUnusedLocalSymbols
             this.search.on("blur", this.bind(function(e) {
                 // a workaround for chrome to keep the search field focussed when the scroll bar is used to scroll the dropdown.
                 // without this the search field loses focus which is annoying
@@ -2324,6 +2329,7 @@ the specific language governing permissions and limitations under the Apache Lic
          */
         // single
         initSelection: function () {
+            //noinspection JSUnusedLocalSymbols
             var selected;
             if (this.isPlaceholderOptionSelected()) {
                 this.updateSelection(null);
@@ -2418,6 +2424,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // single
         postprocessResults: function (data, initial, noHighlightUpdate) {
+            //noinspection JSUnusedLocalSymbols
             var selected = 0, self = this, showSearchInput = true;
 
             // find the selected element in the result list
@@ -2599,6 +2606,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // multi
         createContainer: function () {
+            //noinspection UnnecessaryLocalVariableJS
             var container = $(document.createElement("div")).attr({
                 "class": "select2-container select2-container-multi"
             }).html([
