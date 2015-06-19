@@ -1357,7 +1357,7 @@ $(document).ready(function() {
                 var $eventSource = [];
 
                 var $row = '<div class="row skypicker-dropdown">' +
-                        '<div class="row">' +
+                        '<div class="row nomargin">' +
                             '<div class="col-md-6"><h2>'+ trans.departures[$lang] +'</h2>' +
                                 '<div class="btn-group">' +
                     '<button class="btn btn-primary disabled calendar-navigate-1 calendar-navigate-1-prev" data-calendar-nav="prev">&lt;&lt; ' + trans.prev[$lang] + '</button>' +
