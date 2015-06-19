@@ -96,6 +96,10 @@ class OffersGrouponCommand extends ContainerAwareCommand
                     //update or something
                     $this->updateFields($offerPage, $offer);
                     $this->out('UPDATING: ' . $offerPage->getTitle());
+
+                    $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($offerPage);
+                    $this->addPlaces($node);
                     continue;
                 }
 
@@ -416,6 +420,30 @@ class OffersGrouponCommand extends ContainerAwareCommand
             $qb->set('o.longitude', $qb->expr()->literal($longitude));
         }
 
+
+        if($longitude && $latitude){
+            $content = @file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyAfEHbffAkg6FoOqpCEUdgn9EGrONKiZeM");
+            if($content){
+                $data = json_decode($content);
+
+                if(property_exists($data, 'results')){
+                    $components = $data->results[0]->address_components;
+                    foreach ($components as $component) {
+                        foreach ($component->types as $type) {
+                            if($type == 'country'){
+                                $country = $component->long_name;
+                                if($country != $offerPage->getCountry()) {
+                                    $update = true;
+                                    $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'country', $offerPage->getCountry(), $country);
+                                    $qb->set('o.country', $qb->expr()->literal($country));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 //        $nights = $offer->filter('nights')->text();
 //        if($nights != $offerPage->getNights()){
 //            $update = true;
@@ -715,6 +743,24 @@ class OffersGrouponCommand extends ContainerAwareCommand
 
         $longitude = $offer->locations[0]->lng;
         $offerPage->setLongitude($longitude);
+
+        if($longitude && $latitude){
+            $content = @file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyAfEHbffAkg6FoOqpCEUdgn9EGrONKiZeM");
+            if($content){
+                $data = json_decode($content);
+
+                if(property_exists($data, 'results')){
+                    $components = $data->results[0]->address_components;
+                    foreach ($components as $component) {
+                        foreach ($component->types as $type) {
+                            if($type == 'country'){
+                                $offerPage->setCountry($component->long_name);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 //        $nights = $offer->filter('nights')->text();
 //        $offerPage->setNights($nights);
