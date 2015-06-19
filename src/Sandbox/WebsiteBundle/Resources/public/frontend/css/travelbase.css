@@ -631,10 +631,10 @@ select {
 
 /* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    .travelbase-input-rel select {padding-right:28px}
+    .travelbase-input-rel select, .splash__container>.row select {padding-right:28px}
 }
 
-.travelbase-input-rel label {position:relative;width:100%;}
+.travelbase-input-rel label, .splash__container>.row .mobile-tab-xs {position:relative;width:100%;}
 .travelbase-input-rel label:before {
     content:'>';
     font:18px "Consolas", monospace;
@@ -648,7 +648,8 @@ select {
     position:absolute;
     pointer-events:none;
 }
-.travelbase-input-rel label:after {
+
+.travelbase-input-rel label:after,  .splash__container>.row .mobile-tab-xs:after {
     content:'';
     padding-right: 5px;
 	right: 2px;
@@ -1373,9 +1374,14 @@ input[type='checkbox']{
 }
 #email-register-modal .win {
   margin-top: 10px;
+  width: 280px;
 }
 #email-register-modal .win .fa {
-  font-size: 20px;
+  font-size: 40px;
+    color: #6B4D3D;
+}
+#email-register-modal .checkbox.checkbox-inline {
+  margin-left: 0;
 }
 .modal-content-img-1 {
     /*noinspection CssUnknownTarget*/
@@ -1402,14 +1408,13 @@ input[type='checkbox']{
 }
 #email-register-modal h2, #modal-registration h2 {
 	font-weight: bold;
-    color: #43576C;
+    color: #15586B;
   text-shadow: 1px 1px #DECED1;
   font-size: 30px;
   line-height: 1.2em;
   
  }
 #email-register-modal h4, #modal-registration h4 {
-  font-size: 24px;
   line-height: 1.4em;
 }
 @media (min-width: 768px){
@@ -1448,11 +1453,15 @@ input[type='checkbox']{
   height: auto;
   margin-top:5px;
 }
+#email-register-modal form {
+  margin-top: -15px;
+}
 #email-register-modal .btn {
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 20px;
   font-size: 18px;
 }
+  
 
 #email-register-modal .nav-tabs>li>a, #email-register-modal .nav-tabs>li>a:hover, #email-register-modal  .nav-tabs>li>a:focus,
 #modal-registration .nav-tabs>li>a, #modal-registration .nav-tabs>li>a:hover, #modal-registration  .nav-tabs>li>a:focus {
@@ -1654,7 +1663,7 @@ span.price-inc {font-size: 14px;}
 #edit-date-start-datepicker-popup-0,#edit-date-end-datepicker-popup-0, .datepick-input{
     width: 1px;
     padding: 0;
-    margin: 0;
+    margin: 0 0 30px 0;
     line-height: 1px;
     height: 1px;
     border:0;
@@ -1870,6 +1879,8 @@ span.city-picker-close:hover {
         background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
         border: medium none;
         box-shadow: none;
+        margin-bottom:0;
+        min-height:40px;
     }
 
     .navbar-nav > li > a {
@@ -1926,6 +1937,7 @@ span.city-picker-close:hover {
         font-size: 32px;
         height: auto;
         margin-top: 15px;
+        margin-bottom: 20px
     }
     .text-center-mobile{
         text-align: center;
@@ -1933,7 +1945,6 @@ span.city-picker-close:hover {
 
     .form-col {
         line-height: 0;
-        margin-bottom: 17px;
     }
 
     #slider-range .ui-slider-handle, #slider-range-stopover .ui-slider-handle{
@@ -1988,6 +1999,9 @@ span.city-picker-close:hover {
     	margin-top: -99999px!important; 
     	position:absolute;
     }
+    #travelbase_tabs {
+	  top: 0;
+	}
     #mobile-tab-menu {
 	  margin: 20px auto;
 	  min-width: 90%;
@@ -1995,7 +2009,20 @@ span.city-picker-close:hover {
 	  border: 2px solid #555;
 	  font-size: 18px;
 	}
-	
+	.splash__container>.row .mobile-tab-xs:before {
+		content:'>';
+	    color:#aaa;
+	    -webkit-transform:rotate(90deg);
+	    -moz-transform:rotate(90deg);
+	    -ms-transform:rotate(90deg);
+	    transform:rotate(90deg);
+	    padding:0 0 2px;
+	    position:absolute;
+	    pointer-events:none;
+	  font: 28px "Consolas", monospace;
+	  right: 48px;
+	  top: 28px;
+	}
 	.travelbase_items .trip, .travelbase_items .sort-controls {
 	  margin:0 -25px 0 -15px;
 	}
@@ -2048,24 +2075,23 @@ span.city-picker-close:hover {
     .form-table-cell {
         display: block;
         width: auto;
-        height: 70px;
     }
     
     .placeholder-item a.placeholder-item-remove {
-  		font-size: 34px;
+  		font-size: 44px;
 	}
 	.placeholder-item .placeholder-item-remove {
   		top: 9px;
 	}
 	.placeholder-item {
-  		padding: 3px 0 3px 23px;
+  		padding: 3px 0 3px 28px;
 	}
 	.placeholder-collapse {
    		overflow: inherit;
-  		white-space: inherit;/
+  		white-space: inherit;
+  		  margin-bottom: 10px;
 	}
 	#datepick-input-from-holder, #datepick-input-to-holder {
-  		margin-top: 20px;
   		  background-color: transparent;
 	} 
 	#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
