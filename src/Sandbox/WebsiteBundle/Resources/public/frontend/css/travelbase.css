@@ -3073,6 +3073,10 @@ input[type="checkbox"] .styled:checked + label::after {
 	  padding-left: 0;
 	}
 
+}
+#citypicker-overlay{
+    display: none;
+}
 #citypicker-overlay.active{
     background: white none repeat scroll 0 0;
     height: 100%;
