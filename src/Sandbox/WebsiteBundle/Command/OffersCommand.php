@@ -37,6 +37,7 @@ class OffersCommand extends ContainerAwareCommand
         ;
     }
 
+    /** @var  CompanyOverviewPage */
     protected $company;
 
     protected function out($text){
@@ -858,15 +859,16 @@ class OffersCommand extends ContainerAwareCommand
 
         //return $offerPage;
 
-        if($this->company && $offerPage->getCompany()->getId() != $this->company->getId()){
-            $update = true;
-            $qb->set('o.company', $this->company->getId());
-        }
+//        if($this->company && $offerPage->getCompany()->getId() != $this->company->getId()){
+//            $update = true;
+//            $qb->set('o.company', $this->company->getId());
+//        }
 
         if($update){
 
-            if($this->company)
+            if($this->company) {
                 $qb->set('o.company', $this->company->getId());
+            }
 
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
