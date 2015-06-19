@@ -77,7 +77,11 @@
 {% include "@SandboxWebsite/Travelbase/dropdown.html.twig" %}
 
 <div class="out-of-body">
-<div id="citypicker-overlay"></div>
+<div id="citypicker-overlay visible-xs">
+    <span class="fa fa-long-arrow-left"></span>
+    <div class="select-from-message hide">departure</div>
+    <div class="select-to-message hide">destination</div>
+</div>
 <div id="fb-root"></div>
 
 {% include 'SandboxWebsiteBundle:Layout:_googletagmanager.html.twig' %}

@@ -2465,6 +2465,14 @@ function cityPicker($el, $holder, $direction) {
     });
     $($el).on('select2-open', function () {
         if(window.innerWidth <= 768){
+            if($el == '#departure-el'){
+                $('.select-from-message').removeClass('hide');
+                $('.select-to-message').addClass('hide');
+            }else{
+                $('.select-to-message').removeClass('hide');
+                $('.select-from-message').addClass('hide');
+            }
+
             $(this).closest('.form-table-cell').addClass('active');
             $('#citypicker-overlay').addClass('active');
         }
