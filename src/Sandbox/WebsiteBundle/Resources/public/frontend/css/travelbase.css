@@ -580,7 +580,8 @@ div.travelbase-input-addon{
     background-image: url("/bundles/sandboxwebsite/img/icons/search-icons.png");
     width: 27px;
     height: 28px;
-    z-index:9;
+    z-index:101;
+    position: relative;
 }
 
 .travelbase-icon-to-top{
