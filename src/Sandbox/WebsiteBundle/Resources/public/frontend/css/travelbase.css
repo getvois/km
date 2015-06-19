@@ -2093,6 +2093,7 @@ span.city-picker-close:hover {
 	}
 	#datepick-input-from-holder, #datepick-input-to-holder {
   		  background-color: transparent;
+  		  cursor: pointer!important;
 	} 
 	#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
 	  border-bottom: 2px solid #555;
@@ -2133,6 +2134,11 @@ span.city-picker-close:hover {
 	.form-submit {
 	  border-radius: 5px;
 	}
+	
+	.form-table-cell .fa-plus-square-o {
+	  font-size: 42px;
+	}
+	
 }
 
 #map_wrapper,#map_wrapper2 {
@@ -3063,7 +3069,9 @@ input[type="checkbox"] .styled:checked + label::after {
     .placeholder{
         padding: 5px 5px 5px 0;
     }
-}
+    .select2-container-multi .select2-choices .select2-search-field input {
+	  padding-left: 0;
+	}
 
 #citypicker-overlay.active{
     background: white none repeat scroll 0 0;
