@@ -428,12 +428,15 @@ class OffersGrouponCommand extends ContainerAwareCommand
 
                 if(property_exists($data, 'results')){
                     $components = $data->results[0]->address_components;
+                    $found = false;
                     foreach ($components as $component) {
+                        if($found) break;
                         foreach ($component->types as $type) {
                             if($type == 'country'){
                                 $country = $component->long_name;
                                 if($country != $offerPage->getCountry()) {
                                     $update = true;
+                                    $found = true;
                                     $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'country', $offerPage->getCountry(), $country);
                                     $qb->set('o.country', $qb->expr()->literal($country));
                                 }
