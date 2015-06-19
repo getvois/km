@@ -2275,7 +2275,7 @@ function getTable(container, reimport, expand){
         //hide loading
         spinner2.stop();
         $loading.hide();
-        $travelbase_items.parent().css('min-height', 'auto');
+        $travelbase_items.parent().css('min-height', 'unset');
 
         if(expand === true || reimport === false)
             $travelbase_items.find('button[id=loadMore]').click();
