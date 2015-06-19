@@ -2016,13 +2016,6 @@ $(document).ready(function() {
     $body.on('focus', '.select2-input', function () {
         $(this).closest('.select2-container').next().select2('open');
     });
-    $body.on('click', '#select2-drop-mask', function () {
-        if(window.innerWidth <= 768){
-            $('.form-table-cell').removeClass('active');
-            $('#citypicker-overlay').removeClass('active');
-        }
-        $('#form-submit').focus();
-    });
 
 
     $('.select-from').click(function () {
@@ -2463,11 +2456,11 @@ function cityPicker($el, $holder, $direction) {
 
 
     $($el).on('select2-close', function () {
-        //if(window.innerWidth <= 768){
-        //    $(this).closest('.form-table-cell').removeClass('active');
-        //    $('#citypicker-overlay').removeClass('active');
-        //}
-        //$('#form-submit').focus();
+        if(window.innerWidth <= 768){
+            $(this).closest('.form-table-cell').removeClass('active');
+            $('#citypicker-overlay').removeClass('active');
+        }
+        $('#form-submit').focus();
     });
     $($el).on('select2-open', function () {
         if(window.innerWidth <= 768){
