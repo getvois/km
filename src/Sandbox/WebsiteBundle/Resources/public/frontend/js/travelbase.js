@@ -2420,7 +2420,6 @@ function cityPicker($el, $holder, $direction) {
         $elem.select2("val", "");
     });
 
-
     $($el).on('select2-blur', function () {
         if($($holder).dataHolder('data').length > 0){
             $($el).prev().hide();//slideUp();
@@ -2430,6 +2429,20 @@ function cityPicker($el, $holder, $direction) {
             if(!holder.hasClass('placeholder-collapse')){
                 holder.addClass('placeholder-collapse');
             }
+        }
+    });
+
+
+    $($el).on('select2-removed', function () {
+        if(window.innerWidth <= 768){
+            $(this).closest('.form-table-cell').removeClass('active');
+            $('#citypicker-overlay').removeClass('active');
+        }
+    });
+    $($el).on('select2-open', function () {
+        if(window.innerWidth <= 768){
+            $(this).closest('.form-table-cell').addClass('active');
+            $('#citypicker-overlay').addClass('active');
         }
     });
 }

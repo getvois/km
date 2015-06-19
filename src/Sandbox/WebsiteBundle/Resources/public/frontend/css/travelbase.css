@@ -3034,6 +3034,21 @@ input[type="checkbox"] .styled:checked + label::after {
     }
 }
 
+#citypicker-overlay.active{
+    background: white none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.form-table-cell.active{
+    position: relative;
+    z-index: 9999;
+}
+
 .out-of-body{
     position: relative;
     -webkit-transition: all 0.3s ease-in 0s;
