@@ -3526,7 +3526,7 @@ the specific language governing permissions and limitations under the Apache Lic
          formatAjaxError: function (jqXHR, textStatus, errorThrown) { return "Loading failed"; },
          formatInputTooShort: function (input, min) {
              var n = min - input.length;
-             var text = "<div>qweqqqwe</div>";
+             var text = "<div>Please enter place or airport</div>";
              return text + "Please enter " + n + " or more character" + (n == 1 ? "" : "s");
          },
          formatInputTooLong: function (input, max) { var n = input.length - max; return "Please delete " + n + " character" + (n == 1 ? "" : "s"); },
