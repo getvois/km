@@ -3130,6 +3130,16 @@ input[type="checkbox"] .styled:checked + label::after {
     width: 100%;
 }
 
+.form-table-cell.active .fa-plus-square-o{
+    right: 5px;
+}
+.form-table-cell .fa-plus-square-o{
+    bottom: 0;
+    font-size: 42px;
+    position: absolute;
+    z-index: 107;
+}
+
 .out-of-body{
     position: relative;
     -webkit-transition: all 0.3s ease-in 0s;
