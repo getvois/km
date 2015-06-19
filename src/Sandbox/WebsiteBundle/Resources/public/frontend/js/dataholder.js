@@ -45,8 +45,9 @@
                     $(holder.data('target')).prev().hide();//.slideUp();
                     $(holder.data('target')).prev().prev().hide();//.slideUp();
                     $(holder.data('target')).prev().find('input').css('padding-left', '42px');
-                    $($holder.data('target')).select2('open');
-
+                    setTimeout(function () {
+                        $($holder.data('target')).select2('open');
+                    }, 100);
                 }
 
             });
@@ -72,7 +73,9 @@
                     $($holder.data('target')).prev().show();//.slideDown();
                     $($holder.data('target')).prev().prev().show();//.slideDown();
                     $($holder.data('target')).prev().find('input').css('padding-left', '42px');
-                    $($holder.data('target')).select2('open');
+                    setTimeout(function () {
+                        $($holder.data('target')).select2('open');
+                    }, 100);
                 }
 
                 options.afterRemove.call($holder);//call back

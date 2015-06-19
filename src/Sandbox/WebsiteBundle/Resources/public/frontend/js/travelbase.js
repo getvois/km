@@ -2016,7 +2016,10 @@ $(document).ready(function() {
     $body.on('focus', '.select2-input', function () {
         console.log($(this));
         console.log($(this).closest('.select2-container').next());
-        $(this).closest('.select2-container').next().select2('open');
+        var select = $(this);
+        setInterval(function () {
+            select.closest('.select2-container').next().select2('open');
+        }, 100);
     });
 
 
