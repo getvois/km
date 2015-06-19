@@ -3085,6 +3085,7 @@ input[type="checkbox"] .styled:checked + label::after {
     top: 0;
     width: 100%;
     z-index: 999;
+    display: block;
 }
 
 .form-table-cell.active{
