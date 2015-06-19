@@ -1,0 +1,45 @@
+{% if app.request.query.has('email') %}
+    {% if not app.user %}
+        <!-- Modal -->
+        <div data-keyboard="false" data-backdrop="static" data-show="true" class="modal fade" id="email-register-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-content-img-4">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2>{{ 'welcome.to.the.club'|trans({}, 'frontend') }}</h2>
+                        <h4>{{ 'register.slogan.and.win'|trans({}, 'frontend') }}</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form action="#">
+
+                                    <span class="">{{ 'confirm.your.email'|trans({}, 'frontend') }}</span>
+                                    <div  class="form-group">
+                                        <input class="form-control" value="{{ app.request.query.get('email') }}" type="email" name="email" id="reset-email" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
+                                    </div>
+                                    <span class="">{{ 'recieve.your.new.acc.password'|trans({}, 'frontend') }}</span>
+                                    <p class="clear">
+                                        <a class="btn btn-primary" id="reset-password" href="#">{{ 'confirm.email.reg'|trans({}, 'frontend') }}</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $('#email-register-modal').modal('show');
+                }, 500);
+
+            });
+        </script>
+    {% endif %}
+{% endif %}
