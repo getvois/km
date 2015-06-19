@@ -2028,6 +2028,14 @@ $(document).ready(function() {
             $('#departure-el').select2('open');
         }
     });
+    $('.select-to').click(function () {
+        var dataholder = $('#destination-dataholder');
+        if(dataholder.is(':visible')){
+            dataholder.click();
+        }else{
+            $('#destination-el').select2('open');
+        }
+    });
 });
 
 function cityFilter(){
