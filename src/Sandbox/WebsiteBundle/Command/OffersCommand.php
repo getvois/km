@@ -848,10 +848,6 @@ class OffersCommand extends ContainerAwareCommand
         $extras = implode(', ', $extra);
         if($extras != $offerPage->getExtra()){
             $update = true;
-
-            if($this->company);
-            $qb->set('o.company', $this->company->getId());
-
             $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'extra', $offerPage->getExtra(), $extras );
             $qb->set('o.extra', $qb->expr()->literal($extras));
         }
@@ -862,7 +858,15 @@ class OffersCommand extends ContainerAwareCommand
 
         //return $offerPage;
 
+        if($this->company && $offerPage->getCompany()->getId() != $this->company->getId()){
+            $update = true;
+            $qb->set('o.company', $this->company->getId());
+        }
+
         if($update){
+
+            if($this->company);
+            $qb->set('o.company', $this->company->getId());
 
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
