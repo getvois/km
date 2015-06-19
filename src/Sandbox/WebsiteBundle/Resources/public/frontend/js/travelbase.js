@@ -2460,7 +2460,7 @@ function cityPicker($el, $holder, $direction) {
     $($el).on('select2-close', function () {
         if(window.innerWidth <= 768){
             $(this).closest('.form-table-cell').removeClass('active');
-            $('#citypicker-overlay').removeClass('active').css('display', 'none');
+            $('#citypicker-overlay').removeClass('active');
         }
     });
     $($el).on('select2-open', function () {
@@ -2474,7 +2474,7 @@ function cityPicker($el, $holder, $direction) {
             }
 
             $(this).closest('.form-table-cell').addClass('active');
-            $('#citypicker-overlay').addClass('active').css('display', 'block');
+            $('#citypicker-overlay').addClass('active');
         }
     });
 }
