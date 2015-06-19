@@ -511,7 +511,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
                 $qb->set('o.company', $this->company->getId());
             }
 
-            $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
+            $query = $qb->where("o.offerId = '" . $offerPage->getOfferId() . "'")
                 ->getQuery();
 
             $query->execute();
