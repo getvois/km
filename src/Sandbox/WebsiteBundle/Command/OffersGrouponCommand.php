@@ -587,10 +587,10 @@ class OffersGrouponCommand extends ContainerAwareCommand
                     continue;
                 }
 
-                $translation = $node2->getNodeTranslation($lang, true);
-                if($translation){
+                $translation2 = $node2->getNodeTranslation($lang, true);
+                if($translation2){
                     /** @var PlaceOverviewPage $placePage */
-                    $placePage = $translation->getRef($this->em);
+                    $placePage = $translation2->getRef($this->em);
                     if($placePage){
                         $page->addPlace($placePage);
                         $this->em->persist($page);
@@ -604,7 +604,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
                 $place = $this->em->getRepository('SandboxWebsiteBundle:Place\PlaceOverviewPage')
                     ->findOneBy(['title' => $page->getCountry()]);
                 if(!$place) {
-                    $msg = 'place not found in db ' . $page->getCountry() . "<br>";
+                    $msg = 'country place not found in db ' . $page->getCountry() . "<br>";
                     $this->out($msg);
                     $this->emailBody .= $msg;
                     break;
@@ -613,14 +613,14 @@ class OffersGrouponCommand extends ContainerAwareCommand
                 //get place page node
                 $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    $this->out('Node node found for city'. $page->getCountry() . "\n");
+                    $this->out('Node node found for country'. $page->getCountry() . "\n");
                     continue;
                 }
 
-                $translation = $node2->getNodeTranslation($lang, true);
-                if($translation){
+                $translation2 = $node2->getNodeTranslation($lang, true);
+                if($translation2){
                     /** @var PlaceOverviewPage $placePage */
-                    $placePage = $translation->getRef($this->em);
+                    $placePage = $translation2->getRef($this->em);
                     if($placePage){
                         $page->setCountryPlace($placePage);
                         $this->em->persist($page);
