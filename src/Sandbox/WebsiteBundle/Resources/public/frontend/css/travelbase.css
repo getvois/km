@@ -3131,7 +3131,7 @@ input[type="checkbox"] .styled:checked + label::after {
 }
 
 .form-table-cell.active .fa-plus-square-o{
-
+    display: none;
 }
 .form-table-cell .fa-plus-square-o{
     bottom: 0;
