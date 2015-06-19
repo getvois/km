@@ -865,8 +865,8 @@ class OffersCommand extends ContainerAwareCommand
 
         if($update){
 
-            if($this->company);
-            $qb->set('o.company', $this->company->getId());
+            if($this->company)
+                $qb->set('o.company', $this->company->getId());
 
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
