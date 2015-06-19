@@ -1735,11 +1735,10 @@ the specific language governing permissions and limitations under the Apache Lic
             }
 
             if (search.val().length < opts.minimumInputLength) {
-                var text = "<div>qweqqqwe</div>";
                 if (checkFormatter(opts.formatInputTooShort, "formatInputTooShort")) {
-                    render("<li class='select2-no-results'>" + text + evaluate(opts.formatInputTooShort, opts.element, search.val(), opts.minimumInputLength) + "</li>");
+                    render("<li class='select2-no-results'>" + evaluate(opts.formatInputTooShort, opts.element, search.val(), opts.minimumInputLength) + "</li>");
                 } else {
-                    render("" + text);
+                    render("");
                 }
                 if (initial && this.showSearch) this.showSearch(true);
                 return;
@@ -3525,7 +3524,11 @@ the specific language governing permissions and limitations under the Apache Lic
          formatMatches: function (matches) { if (matches === 1) { return "One result is available, press enter to select it."; } return matches + " results are available, use up and down arrow keys to navigate."; },
          formatNoMatches: function () { return "No matches found"; },
          formatAjaxError: function (jqXHR, textStatus, errorThrown) { return "Loading failed"; },
-         formatInputTooShort: function (input, min) { var n = min - input.length; return "Please enter " + n + " or more character" + (n == 1 ? "" : "s"); },
+         formatInputTooShort: function (input, min) {
+             var n = min - input.length;
+             var text = "<div>qweqqqwe</div>";
+             return text + "Please enter " + n + " or more character" + (n == 1 ? "" : "s");
+         },
          formatInputTooLong: function (input, max) { var n = input.length - max; return "Please delete " + n + " character" + (n == 1 ? "" : "s"); },
          formatSelectionTooBig: function (limit) { return "You can only select " + limit + " item" + (limit == 1 ? "" : "s"); },
          formatLoadMore: function (pageNumber) { return "Loading more results…"; },
