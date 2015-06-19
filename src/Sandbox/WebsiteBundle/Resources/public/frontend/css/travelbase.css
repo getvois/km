@@ -3059,6 +3059,10 @@ input[type="checkbox"] .styled:checked + label::after {
         font-size: 20px;
         max-height: 400px;
     }
+
+    .placeholder{
+        padding: 5px 5px 5px 0;
+    }
 }
 
 #citypicker-overlay.active{
