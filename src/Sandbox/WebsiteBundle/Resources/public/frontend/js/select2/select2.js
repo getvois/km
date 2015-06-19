@@ -27,6 +27,7 @@ the specific language governing permissions and limitations under the Apache Lic
             */
             each2 : function (c) {
                 var j = $([0]), i = -1, l = this.length;
+                //noinspection StatementWithEmptyBodyJS
                 while (
                     ++i < l
                     && (j.context = j[0] = this[i])
@@ -87,6 +88,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 return true;
             }
 
+            //noinspection RedundantIfStatementJS
             if (e.metaKey) return true;
 
             return false;
@@ -164,6 +166,7 @@ the specific language governing permissions and limitations under the Apache Lic
      * strings
      * @param string
      * @param separator
+     * @param transform
      */
     function splitVal(string, separator, transform) {
         var val, i, l;
@@ -559,6 +562,7 @@ the specific language governing permissions and limitations under the Apache Lic
      * false if no formatting should be performed.
      *
      * @param formatter
+     * @param formatterName
      */
     function checkFormatter(formatter, formatterName) {
         if ($.isFunction(formatter)) return true;
@@ -660,8 +664,8 @@ the specific language governing permissions and limitations under the Apache Lic
     /**
      * Creates a new class
      *
-     * @param superClass
-     * @param methods
+     * @param SuperClass
+ * @param methods
      */
     function clazz(SuperClass, methods) {
         var constructor = function () {};
@@ -1138,6 +1142,7 @@ the specific language governing permissions and limitations under the Apache Lic
             }
 
             // safari, chrome, firefox, IE11
+            //noinspection JSUnresolvedVariable
             observer = window.MutationObserver || window.WebKitMutationObserver|| window.MozMutationObserver;
             if (observer !== undefined) {
                 if (this.propertyObserver) { delete this.propertyObserver; this.propertyObserver = null; }
@@ -1281,7 +1286,9 @@ the specific language governing permissions and limitations under the Apache Lic
                 height = this.container.outerHeight(false);
                 width = this.container.outerWidth(false);
                 dropHeight = $dropdown.outerHeight(false);
+                //noinspection JSValidateTypes
                 viewPortRight = $window.scrollLeft() + windowWidth;
+                //noinspection JSValidateTypes
                 viewportBottom = $window.scrollTop() + windowHeight;
                 dropTop = offset.top + height;
                 dropLeft = offset.left;
@@ -1398,6 +1405,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
             this.clearDropdownAlignmentPreference();
 
+            //noinspection JSValidateTypes
             if(this.dropdown[0] !== this.body.children().last()[0]) {
                 this.dropdown.detach().appendTo(this.body);
             }
