@@ -249,11 +249,12 @@ class DefaultController extends Controller
         $lastCol = $company;//"<a href='" . $item->link . "'>" . $company . "</a>";
 
         if($item->company->name == 'SkyPicker'){
-            $lastCol = "";
-            for($i=0;$i<count($item->airline); $i++){
-                $lastCol .= "<img src='/bundles/sandboxwebsite/img/airlines/".$item->airline[$i].".gif' title=".$item->airline[$i]." alt=".$item->airline[$i].">" ;
-                break;
-            }
+            $lastCol .= "<img src='/bundles/sandboxwebsite/img/general/icons/i-circle-close.png'>" ;
+//            $lastCol = "";
+//            for($i=0;$i<count($item->airline); $i++){
+//                $lastCol .= "<img src='/bundles/sandboxwebsite/img/airlines/".$item->airline[$i].".gif' title=".$item->airline[$i]." alt=".$item->airline[$i].">" ;
+//                break;
+//            }
         }
 
         $departure = $this->getTitle($item->departure, $request->getLocale(), false);
@@ -389,9 +390,18 @@ class DefaultController extends Controller
 
             $row .= '<div class="hidden-xs col-sm-2 trip-field text-center nopadding">'. $lastCol . '</div>';
 
-            $row .= '<div class="col-xs-2 col-sm-1 price text-right trip-cost"><p>'. round($item->price).'€</p>
+            if($item->company->name == 'SkyPicker'){
+                $row .= '<div class="col-xs-2 col-sm-1 price text-right trip-cost"><p>'. round($item->price).'€</p>
+            <a onclick="return false" target="_blank" href="'. $item->link .'?partner=' . $request->getHost() . ($this->getUser()?"&user=" . $this->getUser()->getId():"") . '" class="btn btn-info trip-btn-cost">'. round($item->price).'€</a>
+            </div>';
+            }else{
+                $row .= '<div class="col-xs-2 col-sm-1 price text-right trip-cost"><p>'. round($item->price).'€</p>
             <a target="_blank" href="'. $item->link .'?partner=' . $request->getHost() . ($this->getUser()?"&user=" . $this->getUser()->getId():"") . '" class="btn btn-info trip-btn-cost">'. round($item->price).'€</a>
             </div>';
+            }
+
+
+
         }else{
             //TYPE 1,2 FIRST TAB
             $row = '';
