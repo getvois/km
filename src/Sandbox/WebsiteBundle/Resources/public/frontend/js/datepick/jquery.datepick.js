@@ -57,8 +57,8 @@
 			@property disabledClass {string} Class for disabled commands. */
 		defaultRenderer: {
 			picker: '<div class="datepick">' +
-			'<div class="datepick-nav"><table><tr><td>{link:prev}</td><td width="1%" style="white-space: nowrap;">{link:buttons}{link:today}</td><td class="text-right">{link:next}</td></tr></table></div>{months}' +
-			'{popup:start}<div class="datepick-ctrl">{link:clear}{link:close}</div>{popup:end}' +
+			'<div class="datepick-nav"><div class="text-center">{link:close}</div><table><tr><td>{link:prev}</td><td width="1%" style="white-space: nowrap;">{link:buttons}{link:today}</td><td class="text-right">{link:next}</td></tr></table></div>{months}' +
+			'{popup:start}<div class="datepick-ctrl">{link:clear}</div>{popup:end}' +
 			'<div class="datepick-clear-fix"></div></div>',
 			monthRow: '<div class="datepick-month-row">{months}</div>',
 			month: '<div class="datepick-month"><div class="datepick-month-header">{monthHeader}</div>' +
