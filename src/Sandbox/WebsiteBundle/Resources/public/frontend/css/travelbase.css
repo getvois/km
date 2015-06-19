@@ -3124,10 +3124,10 @@ input[type="checkbox"] .styled:checked + label::after {
     /*position: relative;*/
     z-index: 9999;
     left: 0;
-    padding: 20px;
+    margin: 20px;
     position: fixed;
     top: 50px;
-    width: 100%;
+    width: auto;
 }
 
 .form-table-cell.active .fa-plus-square-o{
