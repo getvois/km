@@ -26,6 +26,8 @@ class OffersCommand extends ContainerAwareCommand
     protected $em; 
     
     protected $rate = 1;
+    /** @var  OutputInterface */
+    private $output;
 
     protected function configure()
     {
@@ -37,6 +39,10 @@ class OffersCommand extends ContainerAwareCommand
 
     protected $company;
 
+    protected function out($text){
+        $this->output->writeln($text);
+    }
+    
     protected function getId(Crawler $offer)
     {
         return $offer->filter('id')->text();
@@ -96,6 +102,9 @@ class OffersCommand extends ContainerAwareCommand
     {
         $this->rate = $this->getCurrencyRate('GBP');
 
+        $this->output = $output;
+        
+        
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
 
@@ -107,7 +116,7 @@ class OffersCommand extends ContainerAwareCommand
             ]);
 
         if(!$rootNode){
-            echo("OffersOverviewPage with internal name offers not found. Please create one.\n");
+            $this->out("OffersOverviewPage with internal name offers not found. Please create one.\n");
             return;
         }
 
@@ -143,14 +152,17 @@ class OffersCommand extends ContainerAwareCommand
                     //update or something
                     $this->updateFields($offerPage, $offer);
 
-                    echo($offerPage->getOfferId() . "\n");
+                    $node = $this->em->getRepository('KunstmaanNodeBundle:Node')
+                        ->getNodeFor($offerPage);
+                    $this->addPlaces($node);
+                    $this->out($offerPage->getOfferId() . "\n");
 
                     continue;
                 }
 
                 $offerPage = $this->setPageFields($offer);
 
-                echo($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count() . "\n");
+                $this->out($offerPage->getTitle() . ' ' . ($i + 1) . '/' . $offers->count() . "\n");
 
                 $meta_description = $this->getMetaDesc($offer);
 
@@ -447,7 +459,7 @@ class OffersCommand extends ContainerAwareCommand
 
         $this->company = $company;
 
-        if(!$company) echo("WARNING: company Travelbird not found\n");
+        if(!$company) $this->out("WARNING: company Travelbird not found\n");
 
         return $company;
     }
@@ -472,7 +484,7 @@ class OffersCommand extends ContainerAwareCommand
                     ->findOneBy(['title' => $page->getCity()]);
                 if(!$place) {
                     $msg = 'place not found in db '. $page->getCity(). "<br>";
-                    echo($msg);
+                    $this->out($msg);
                     $this->emailBody .= $msg;
                     break;
                 }
@@ -480,7 +492,7 @@ class OffersCommand extends ContainerAwareCommand
                 //get place page node
                 $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    echo('Node node found for city'. $page->getCity() . "<br>");
+                    $this->out('Node node found for city'. $page->getCity() . "<br>");
                     continue;
                 }
 
@@ -502,7 +514,7 @@ class OffersCommand extends ContainerAwareCommand
                     ->findOneBy(['title' => $page->getCountry()]);
                 if(!$place) {
                     $msg = 'place not found in db ' . $page->getCountry() . "<br>";
-                    echo($msg);
+                    $this->out($msg);
                     $this->emailBody .= $msg;
                     break;
                 }
@@ -510,7 +522,7 @@ class OffersCommand extends ContainerAwareCommand
                 //get place page node
                 $node2 = $this->em->getRepository('KunstmaanNodeBundle:Node')->getNodeFor($place);
                 if(!$node2) {
-                    echo('Node node found for city'. $page->getCountry() . "\n");
+                    $this->out('Node node found for city'. $page->getCountry() . "\n");
                     continue;
                 }
 
