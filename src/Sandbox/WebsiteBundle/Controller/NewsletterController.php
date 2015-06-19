@@ -49,7 +49,7 @@ class NewsletterController extends Controller
         }
 
         $accountFactory = new NewsLetterAccountFactory();
-        $accounts = $accountFactory->getByLocale('fi');
+        $accounts = $accountFactory->getAll();
 
         $output = '';
         foreach ($accounts as $account) {
@@ -198,14 +198,13 @@ class NewsletterController extends Controller
     private function setCompany(NewsPage $newsPage, $headerInfo)
     {
 
-
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         $elements = imap_mime_header_decode($headerInfo->fromaddress);
         $company = utf8_encode($elements[0]->text);
 
-        //var_dump($company);
+        var_dump($company);
 
         //company name rules
         $company = preg_replace("/<[A-Za-z0-9_.]+@[A-Za-z0-9._]+>/", "", $company);
