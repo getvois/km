@@ -2012,6 +2012,11 @@ $(document).ready(function() {
         $('a[href="'+selected.val()+'"]').click();
         //$(selected.val()).tab('show');
     });
+
+    $('body').on('focus', '.select2-input', function () {
+        $(this).next().select2('open');
+    });
+
 });
 
 function cityFilter(){
