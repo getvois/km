@@ -1390,7 +1390,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 lastMousePosition.x = e.pageX;
                 lastMousePosition.y = e.pageY;
             });
-
+            this.positionDropdown();
             return true;
         },
 
