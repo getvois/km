@@ -38,6 +38,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
     protected $em;
     /** @var  OutputInterface */
     protected $output;
+    /** @var  CompanyOverviewPage */
     protected $company;
 
     protected function out($text)
@@ -225,7 +226,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
 //        }
 
         $price = $offer->priceSummary->value->amount;
-        str_split($price, strlen($price) - 2);
+        $price = str_split($price, strlen($price) - 2)[0];
         if($price != $offerPage->getPrice()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'price', $offerPage->getPrice(), $price );
@@ -233,7 +234,7 @@ class OffersGrouponCommand extends ContainerAwareCommand
         }
 
         $price_normal = $offer->priceSummary->price->amount;
-        str_split($price_normal, strlen($price_normal) - 2);
+        $price_normal = str_split($price_normal, strlen($price_normal) - 2)[0];
         if($price_normal != $offerPage->getPriceNormal()){
             $update = true;
             $this->emailBody .= sprintf("%s updated from %s to %s<br>", 'price_normal', $offerPage->getPriceNormal(), $price_normal );
@@ -506,6 +507,10 @@ class OffersGrouponCommand extends ContainerAwareCommand
 
         if($update){
 
+            if($this->company) {
+                $qb->set('o.company', $this->company->getId());
+            }
+
             $query = $qb->where('o.offerId = ' . $offerPage->getOfferId())
                 ->getQuery();
 
@@ -625,11 +630,11 @@ class OffersGrouponCommand extends ContainerAwareCommand
         $offerPage->setCurrency($currency);
 
         $price = $offer->priceSummary->value->amount;
-        str_split($price, strlen($price) - 2);
+        $price = str_split($price, strlen($price) - 2)[0];
         $offerPage->setPrice($price);
 
         $price_normal = $offer->priceSummary->price->amount;
-        str_split($price_normal, strlen($price_normal) - 2);
+        $price_normal = str_split($price_normal, strlen($price_normal) - 2)[0];
         $offerPage->setPriceNormal($price_normal);
 
         if($currency != 'EUR'){
