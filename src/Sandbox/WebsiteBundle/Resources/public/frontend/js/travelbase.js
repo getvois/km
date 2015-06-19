@@ -2475,6 +2475,8 @@ function cityPicker($el, $holder, $direction) {
 
             $(this).closest('.form-table-cell').addClass('active');
             $('#citypicker-overlay').addClass('active');
+
+            $('html, body').animate({scrollTop:$(window).scrollTop() + 10 }, 'fast');
         }
     });
 }
