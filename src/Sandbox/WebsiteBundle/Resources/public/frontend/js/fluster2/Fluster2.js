@@ -87,7 +87,9 @@ function Fluster2(_map, _debug)
 			
 			// Get marker count
 			var markerCount = me.markers.length;
-			
+
+            console.log(markerCount);
+
 			// Walk all markers
 			for(var i = 0; i < markerCount; i++)
 			{
@@ -99,6 +101,7 @@ function Fluster2(_map, _debug)
 				// Find a cluster which contains the marker
 				for(var j = clusterCount - 1; j >= 0; j--)
 				{
+                    console.log('existing cluster');
 					var cluster = clustersThisZoomLevel[j];
 					if(cluster.contains(markerPosition))
 					{
@@ -110,6 +113,7 @@ function Fluster2(_map, _debug)
 				
 				if(!done)
 				{
+                    console.log('new cluster');
 					// No cluster found, create a new one
 					var cluster = new Fluster2Cluster(me, marker);
 					clustersThisZoomLevel.push(cluster);
