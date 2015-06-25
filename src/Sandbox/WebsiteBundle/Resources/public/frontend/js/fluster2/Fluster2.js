@@ -227,7 +227,7 @@ function Fluster2(_map, _debug)
 	{
 		return me.styles;
 	};
-	
+
 	/**
 	 * Sets map event handlers and setup's the markers for the current
 	 * map state.
@@ -235,11 +235,22 @@ function Fluster2(_map, _debug)
 	this.initialize = function()
 	{
 		// Add event listeners
-		google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
-		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
+		//google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
+		//google.maps.event.addListener(map, 'dragend', showClustersInBounds);
 
 		// Setup markers for the current state
         createClusters();
 		//window.setTimeout(createClusters, 1000);
+	};
+
+    /**
+	 * Sets map event handlers and setup's the markers for the current
+	 * map state.
+	 */
+	this.eventInitialize = function()
+	{
+		// Add event listeners
+		google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
+		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
 	};
 }
