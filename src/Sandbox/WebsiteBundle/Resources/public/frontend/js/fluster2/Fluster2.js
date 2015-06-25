@@ -69,7 +69,7 @@ function Fluster2(_map, _debug)
 	function createClusters()
 	{
 		var zoom = map.getZoom();
-
+        var markerstohide = [];
 		//if(clusters[zoom])
 		if(1==2)
 		{
@@ -116,7 +116,6 @@ function Fluster2(_map, _debug)
 				}
 			}
 
-            var markerstohide = [];
             //hide from map
             if(clusters[zoom]){
                 markerstohide = clusters[zoom];
