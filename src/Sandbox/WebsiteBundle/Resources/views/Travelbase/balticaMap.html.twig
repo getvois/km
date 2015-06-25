@@ -149,7 +149,7 @@
                             infW.setPosition(new google.maps.LatLng(hotel.lat, hotel.long));
                             //infW.open(map);
                             fluster.addMarker(infW);
-                            //infoWindows.push(infW);
+                            infoWindows.push(infW);
                         }else if(placesCache[hotel.city.toLowerCase()] != undefined){
 
                             //var infW = new google.maps.InfoWindow({disableAutoPan: true});
@@ -159,7 +159,7 @@
                             infW.setPosition(placesCache[hotel.city.toLowerCase()]);
                             //infW.open(map);
                             fluster.addMarker(infW);
-                            //infoWindows.push(infW);
+                            infoWindows.push(infW);
                         }else{
                             timeout += 500;
                             setTimeout(function () {
@@ -175,7 +175,7 @@
                                         infW.setPosition(results[0].geometry.location);
                                         //infW.open(map);
                                         fluster.addMarker(infW);
-                                        //infoWindows.push(infW);
+                                        infoWindows.push(infW);
 
                                     } else {
                                         console.log('Geocode was not successful for the following reason: ' + status);
