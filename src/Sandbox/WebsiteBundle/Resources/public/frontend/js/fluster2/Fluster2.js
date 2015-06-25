@@ -147,15 +147,19 @@ function Fluster2(_map, _debug)
 		// Show clusters
 		showClustersInBounds();
 
-        for(var i = 0; i < markerstohide.length; i++)
-        {
-            markerstohide[i].hide();
-        }
+        setTimeout(function () {
+            for(var i = 0; i < markerstohide.length; i++)
+            {
+                markerstohide[i].hide();
+            }
 
-        for(var i = 0; i < me.markersOld.length; i++)
-        {
-            me.markersOld[i].setMap(null);
-        }
+            for(var i = 0; i < me.markersOld.length; i++)
+            {
+                me.markersOld[i].setMap(null);
+            }
+
+        }, 100);
+
 
     }
 	
