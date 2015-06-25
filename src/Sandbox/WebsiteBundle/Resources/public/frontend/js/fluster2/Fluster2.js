@@ -88,13 +88,10 @@ function Fluster2(_map, _debug)
 			// Get marker count
 			var markerCount = me.markers.length;
 
-            console.log(markerCount);
-            console.log(me.markers);
 			// Walk all markers
 			for(var i = 0; i < markerCount; i++)
 			{
 				var marker = me.markers[i];
-                console.log(marker);
                 console.log(marker.getPosition());
 				var markerPosition = marker.getPosition();
 				var done = false;
