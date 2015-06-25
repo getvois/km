@@ -73,10 +73,12 @@ function Fluster2(_map, _debug)
 		
 		if(clusters[zoom])
 		{
+            console.log('initialized');
 			me.debug('Clusters for zoom level ' + zoom + ' already initialized.');
 		}
 		else
 		{
+            console.log('cluster');
 			// Create clusters array
 			var clustersThisZoomLevel = new Array();
 			
@@ -213,12 +215,10 @@ function Fluster2(_map, _debug)
 	 */
 	this.initialize = function()
 	{
-        console.log('init');
 		// Add event listeners
 		google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
 		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
 
-        console.log('setup');
 		// Setup markers for the current state
 		window.setTimeout(createClusters, 1000);
 	};
