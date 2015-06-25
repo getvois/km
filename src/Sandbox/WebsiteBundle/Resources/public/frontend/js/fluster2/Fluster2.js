@@ -94,6 +94,7 @@ function Fluster2(_map, _debug)
 			for(var i = 0; i < markerCount; i++)
 			{
 				var marker = me.markers[i];
+                console.log(marker);
                 console.log(marker.getPosition());
 				var markerPosition = marker.getPosition();
 				var done = false;
