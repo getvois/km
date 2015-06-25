@@ -160,14 +160,7 @@ function GenCustomWindow(){
      */
     CustomWindow.prototype.getPosition = function(){
         console.log('get pos');
-        console.log(this.marker);
-        console.log(this.marker.lat());
-        console.log(this.marker.lng());
-        var lat = this.container.setAttribute('data-lat');
-        var lng = this.container.setAttribute('data-lng');
-        console.log(lat);
-        console.log(lng);
-        return new google.maps.LatLng(lat, lng);
+        return new google.maps.LatLng(this.marker.lat(), this.marker.lng());
     };
     CustomWindow.prototype.setPosition = function(marker){
         this.marker = marker;
