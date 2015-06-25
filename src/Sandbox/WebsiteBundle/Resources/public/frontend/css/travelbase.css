@@ -2404,7 +2404,9 @@ a.top-link img {
 #travelbase-form .field-four {
     clear:both
 }
-
+#travelbase-form input[readonly] {
+    cursor: text;
+}
 
 
 /*Googlemap styling*/
