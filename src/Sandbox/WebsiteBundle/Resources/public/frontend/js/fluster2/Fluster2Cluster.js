@@ -75,8 +75,16 @@ function Fluster2Cluster(_fluster, _marker)
 	 */
 	this.show = function()
 	{
+        //show all markers
+        if(me.map.getZoom() >= 10){
+            // Hide all markers
+            for(var i = 0; i < this.markers.length; i++)
+            {
+                this.markers[i].setMap(me.map);
+            }
+        }
 		// Show marker if there is only 1
-		if(this.markers.length == 1)
+		else if(this.markers.length == 1)
 		{
             //todo kosmos changed
 			//this.markers[0].setMap(me.map);
