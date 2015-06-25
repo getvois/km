@@ -1176,7 +1176,23 @@ class DefaultController extends Controller
         foreach ($offers as $offer) {
 
             $city = $offer->getPlaces()->first();
-            if(!$city) continue;
+            if(!$city) {
+
+                if($offer->getCountryPlace()){
+                    $title = $offer->getCountryPlace()->getTitle() . rand(0, 99999);
+                    $html = $this->mapHtml($offer->getCountryPlace()->getTitle(), $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+                    $data[$title] =
+                      [
+                        'city' => null,
+                        'lat' => $offer->getLatitude(),
+                        'long' => $offer->getLongitude(),
+                        'html' => $html,
+                        'popup' => '',
+                      ];
+                }
+
+                continue;
+            }
 
             $city = $city->getTitle();
 
