@@ -69,9 +69,17 @@ function Fluster2(_map, _debug)
 	function createClusters()
 	{
 		var zoom = map.getZoom();
-		
-		if(clusters[zoom])
-		//if(1==2)
+
+        //hide from map
+        if(clusters[zoom]){
+            for(var i = 0; i < clusters[zoom].length; i++)
+            {
+                clusters[zoom][i].hide();
+            }
+        }
+
+		//if(clusters[zoom])
+		if(1==2)
 		{
 			me.debug('Clusters for zoom level ' + zoom + ' already initialized.');
 		}
@@ -116,7 +124,7 @@ function Fluster2(_map, _debug)
 				}
 			}
 			
-			//clusters[zoom] = clustersThisZoomLevel;
+			clusters[zoom] = clustersThisZoomLevel;
 			
 			me.debug('Initialized ' + clusters[zoom].length + ' clusters for zoom level ' + zoom + '.');
 		}
