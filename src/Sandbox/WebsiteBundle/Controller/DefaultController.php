@@ -1181,8 +1181,8 @@ class DefaultController extends Controller
                 if($offer->getCountryPlace()){
                     $title = $offer->getCountryPlace()->getTitle() . rand(0, 99999);
 
-                    $mapCategory = $offer->getMapCategory();
-                    $category = $mapCategory->getName();
+                    //$mapCategory = $offer->getMapCategory();
+                    $category = 'offer';
 
                     $price = $offer->getPriceEur()?$offer->getPriceEur():$offer->getPrice();
 
