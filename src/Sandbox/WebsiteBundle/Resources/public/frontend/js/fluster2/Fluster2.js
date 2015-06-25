@@ -68,17 +68,14 @@ function Fluster2(_map, _debug)
 	 */
 	function createClusters()
 	{
-        console.log('create');
 		var zoom = map.getZoom();
 		
 		if(clusters[zoom])
 		{
-            console.log('initialized');
 			me.debug('Clusters for zoom level ' + zoom + ' already initialized.');
 		}
 		else
 		{
-            console.log('cluster');
 			// Create clusters array
 			var clustersThisZoomLevel = new Array();
 			
@@ -92,15 +89,12 @@ function Fluster2(_map, _debug)
 			for(var i = 0; i < markerCount; i++)
 			{
 				var marker = me.markers[i];
-                console.log(marker);
-                console.log(marker.getPosition());
 				var markerPosition = marker.getPosition();
 				var done = false;
 				
 				// Find a cluster which contains the marker
 				for(var j = clusterCount - 1; j >= 0; j--)
 				{
-                    console.log('existing cluster');
 					var cluster = clustersThisZoomLevel[j];
 					if(cluster.contains(markerPosition))
 					{
@@ -112,7 +106,6 @@ function Fluster2(_map, _debug)
 				
 				if(!done)
 				{
-                    console.log('new cluster');
 					// No cluster found, create a new one
 					var cluster = new Fluster2Cluster(me, marker);
 					clustersThisZoomLevel.push(cluster);
