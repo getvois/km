@@ -1194,7 +1194,15 @@ class DefaultController extends Controller
                         'lat' => $offer->getLatitude(),
                         'long' => $offer->getLongitude(),
                         'html' => "<div class='$class map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>",
-                        'popup' => '',
+                        'popup' => "<div class='$class map-popup-item map-popup-item-$category'>".
+
+                          "<a href='" . $offer->getAbsoluteUrl() . "'>"
+
+                          . $hotel->getTitle() .
+                          $price .
+                          "</a>".
+
+                          "<div class='map-info-close'>x</div></div>",
                       ];
                 }
 
