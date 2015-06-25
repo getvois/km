@@ -158,7 +158,7 @@ function Fluster2(_map, _debug)
                 me.markersOld[i].setMap(null);
             }
 
-        }, 100);
+        }, 10);
 
 
     }
