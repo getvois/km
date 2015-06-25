@@ -70,7 +70,8 @@ function Fluster2(_map, _debug)
 	{
 		var zoom = map.getZoom();
 		
-		if(clusters[zoom])
+		//if(clusters[zoom])
+		if(1==2)
 		{
 			me.debug('Clusters for zoom level ' + zoom + ' already initialized.');
 		}
