@@ -87,6 +87,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
     var leftMarkers_ = [];
     var mcfn_ = null;
 
+    //get cluster images
     var i = 0;
     for (i = 1; i <= 5; ++i) {
         styles_.push({
@@ -96,6 +97,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
         });
     }
 
+    //set options
     if (typeof opt_opts === "object" && opt_opts !== null) {
         //noinspection JSUnresolvedVariable
         if (typeof opt_opts.gridSize === "number" && opt_opts.gridSize > 0) {
@@ -151,6 +153,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
         }
         clusters_ = [];
         leftMarkers_ = [];
+        //noinspection JSUnresolvedVariable
         GEvent.removeListener(mcfn_);
     };
 
@@ -445,13 +448,18 @@ function Cluster(markerClusterer) {
         if (!bounds) {
             bounds = map_.getBounds();
         }
+        //noinspection JSUnresolvedFunction
         var sw = map_.fromLatLngToDivPixel(bounds.getSouthWest());
+        //noinspection JSUnresolvedFunction
         var ne = map_.fromLatLngToDivPixel(bounds.getNorthEast());
 
+        //noinspection JSUnresolvedFunction
         var centerxy = map_.fromLatLngToDivPixel(center_);
         var inViewport = true;
         var gridSize = markerClusterer.getGridSize_();
+        //noinspection JSUnresolvedFunction
         if (zoom_ !== map_.getZoom()) {
+            //noinspection JSUnresolvedFunction
             var dl = map_.getZoom() - zoom_;
             gridSize = Math.pow(2, dl) * gridSize;
         }
@@ -533,10 +541,12 @@ function Cluster(markerClusterer) {
         }
 
         // Set cluster zoom level.
+        //noinspection JSUnresolvedFunction
         zoom_ = map_.getZoom();
         var i = 0;
         var mz = markerClusterer.getMaxZoom_();
         if (mz === null) {
+            //noinspection JSUnresolvedFunction
             mz = map_.getCurrentMapType().getMaximumResolution();
         }
         if (zoom_ >= mz || this.getTotalMarkers() === 1) {
@@ -549,6 +559,7 @@ function Cluster(markerClusterer) {
                         markers_[i].marker.show();
                     }
                 } else {
+                    //noinspection JSUnresolvedFunction
                     map_.addOverlay(markers_[i].marker);
                     markers_[i].isAdded = true;
                 }
