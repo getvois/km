@@ -70,8 +70,8 @@ function Fluster2(_map, _debug)
 	{
 		var zoom = map.getZoom();
 		
-		//if(clusters[zoom])
-		if(1==2)
+		if(clusters[zoom])
+		//if(1==2)
 		{
 			me.debug('Clusters for zoom level ' + zoom + ' already initialized.');
 		}
@@ -160,7 +160,7 @@ function Fluster2(_map, _debug)
 	this.zoomChanged = function()
 	{
 		window.clearInterval(zoomChangedTimeout);
-		zoomChangedTimeout = window.setTimeout(createClusters, 500);
+		zoomChangedTimeout = window.setTimeout(createClusters, 200);
 	};
 	
 	/**
