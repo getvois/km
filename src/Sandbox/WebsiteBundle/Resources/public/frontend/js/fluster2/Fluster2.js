@@ -116,7 +116,7 @@ function Fluster2(_map, _debug)
 				}
 			}
 			
-			clusters[zoom] = clustersThisZoomLevel;
+			//clusters[zoom] = clustersThisZoomLevel;
 			
 			me.debug('Initialized ' + clusters[zoom].length + ' clusters for zoom level ' + zoom + '.');
 		}
