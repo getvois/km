@@ -82,6 +82,7 @@ function Fluster2Cluster(_fluster, _marker)
             {
                 this.markers[i].setMap(me.map);
             }
+            this.hide();
         }
 		// Show marker if there is only 1
 		else if(this.markers.length == 1)
