@@ -78,7 +78,9 @@ function Fluster2Cluster(_fluster, _marker)
 		// Show marker if there is only 1
 		if(this.markers.length == 1)
 		{
-			this.markers[0].setMap(me.map);
+            //todo kosmos changed
+			//this.markers[0].setMap(me.map);
+			this.markers[0].open(me.map);
 		}
 		else if(this.markers.length > 1)
 		{
