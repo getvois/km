@@ -15,6 +15,8 @@ class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
 
     private $key = 'AIzaSyAfEHbffAkg6FoOqpCEUdgn9EGrONKiZeM';
     private $emailBody = '';
+    /** @var  OutputInterface */
+    private $output;
 
     protected function configure()
     {
@@ -24,8 +26,13 @@ class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
         ;
     }
 
+    protected function out($text){
+        $this->output->writeln($text);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
         $this->translateFi();
         $this->translateRu();
 
@@ -82,13 +89,13 @@ class HotelliveebTranslateTitleCommand extends ContainerAwareCommand{
                         }
 
                         $em->flush();
-                        var_dump('(EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
+                        $this->out('(EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName);
                         $this->emailBody .= 'Node: ' . $translation->getNode()->getId() . ' (EE)' . $name . ' <===> ('.strtoupper($lang).')' . $translatedName .'<br/>';
                     }else{
                         var_dump($data);
                     }
                 }else{
-                    var_dump('Error loading: ' . $url);
+                    $this->out('Error loading: ' . $url);
                 }
             }
         }
