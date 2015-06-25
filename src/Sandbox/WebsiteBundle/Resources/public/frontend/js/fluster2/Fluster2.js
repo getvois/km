@@ -205,6 +205,13 @@ function Fluster2(_map, _debug)
 	{
 		me.markers.push(_marker);
 	};
+	/**
+	 * clear markers of the Fluster.
+	 */
+	this.clearMarkers = function(_marker)
+	{
+		me.markers = [];
+	};
 	
 	/**
 	 * Returns the currently assigned styles.
@@ -220,6 +227,7 @@ function Fluster2(_map, _debug)
 	 */
 	this.initialize = function()
 	{
+        this.clearMarkers();
 		// Add event listeners
 		google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
 		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
