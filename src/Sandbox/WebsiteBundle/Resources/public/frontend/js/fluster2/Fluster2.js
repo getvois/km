@@ -38,6 +38,7 @@ function Fluster2(_map, _debug)
 	this.debugEnabled = _debug;
 	this.gridSize = 80;
 	this.markers = new Array();
+	this.markersOld = new Array();
 	this.currentZoomLevel = -1;
 	this.styles = {
 		0: {
@@ -150,7 +151,13 @@ function Fluster2(_map, _debug)
         {
             markerstohide[i].hide();
         }
-	}
+
+        for(var i = 0; i < me.markersOld.length; i++)
+        {
+            me.markersOld[i].setMap(null);
+        }
+
+    }
 	
 	/**
 	 * Displays all clusters inside the current map bounds.
@@ -218,10 +225,11 @@ function Fluster2(_map, _debug)
 	 */
 	this.clearMarkers = function(_marker)
 	{
-        for(var i = 0; i < me.markers.length; i++)
-        {
-            me.markers[i].setMap(null);
-        }
+        me.markersOld = me.markers;
+        //for(var i = 0; i < me.markers.length; i++)
+        //{
+        //    me.markers[i].setMap(null);
+        //}
 		me.markers = [];
 	};
 	
