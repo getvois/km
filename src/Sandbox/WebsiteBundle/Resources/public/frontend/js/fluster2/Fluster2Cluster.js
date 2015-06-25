@@ -77,10 +77,10 @@ function Fluster2Cluster(_fluster, _marker)
 	{
         //show all markers
         if(me.map.getZoom() >= 10){
-            // Hide all markers
+            // Show all markers
             for(var i = 0; i < this.markers.length; i++)
             {
-                this.markers[i].setMap(me.map);
+                this.markers[i].open(me.map);
             }
             this.hide();
         }
