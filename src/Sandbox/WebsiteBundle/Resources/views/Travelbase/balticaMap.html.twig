@@ -111,6 +111,7 @@
             update = false;
             $.get('/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + map.getZoom(), function (responce) {
                 //console.log(responce);
+                console.log(1);
                 fluster.clearMarkers();
                 var j;
 
@@ -133,6 +134,8 @@
 
                 markers = [];
                 infoWindows = [];
+
+                console.log(2);
 
                 //add markers
                 var timeout = 1;
@@ -188,9 +191,9 @@
                     })();
 
                 }
-
+                console.log(3);
                 fluster.initialize();
-
+                console.log(4);
                 setTimeout(function () {
                     //clear all markers
                     for(j=0; j<prevMarkers.length; j++){
@@ -198,7 +201,7 @@
                     }
                 }, 1);
 
-
+                console.log(5);
                 var zoom = map.getZoom();
                 if(zoom > 11){
                     $('.airbnb-badge').removeClass('hide');
