@@ -215,7 +215,7 @@ function Fluster2(_map, _debug)
 	{
         for(var i = 0; i < me.markers.length; i++)
         {
-            //me.markers[i].hide();
+            me.markers[i].setMap(null);
         }
 		me.markers = [];
 	};
