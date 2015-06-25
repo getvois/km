@@ -68,6 +68,7 @@ function Fluster2(_map, _debug)
 	 */
 	function createClusters()
 	{
+        console.log('create');
 		var zoom = map.getZoom();
 		
 		if(clusters[zoom])
@@ -211,11 +212,13 @@ function Fluster2(_map, _debug)
 	 * map state.
 	 */
 	this.initialize = function()
-	{		
+	{
+        console.log('init');
 		// Add event listeners
 		google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
 		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
 
+        console.log('setup');
 		// Setup markers for the current state
 		window.setTimeout(createClusters, 1000);
 	};
