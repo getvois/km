@@ -118,11 +118,11 @@ function Fluster2(_map, _debug)
 
             //hide from map
             if(clusters[zoom]){
-                //markerstohide = clusters[zoom];
-                for(var i = 0; i < clusters[zoom].length; i++)
-                {
-                    clusters[zoom][i].hide();
-                }
+                markerstohide = clusters[zoom];
+                //for(var i = 0; i < clusters[zoom].length; i++)
+                //{
+                //    clusters[zoom][i].hide();
+                //}
             }
 
 			clusters[zoom] = clustersThisZoomLevel;
@@ -145,6 +145,11 @@ function Fluster2(_map, _debug)
 		
 		// Show clusters
 		showClustersInBounds();
+
+        for(var i = 0; i < markerstohide.length; i++)
+        {
+            markerstohide[i].hide();
+        }
 	}
 	
 	/**
