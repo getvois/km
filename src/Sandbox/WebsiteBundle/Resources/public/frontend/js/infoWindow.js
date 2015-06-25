@@ -159,7 +159,6 @@ function GenCustomWindow(){
      * Close this overlay by setting its map to null.
      */
     CustomWindow.prototype.getPosition = function(){
-        console.log('get pos');
         return new google.maps.LatLng(this.marker.lat(), this.marker.lng());
     };
     CustomWindow.prototype.setPosition = function(marker){
