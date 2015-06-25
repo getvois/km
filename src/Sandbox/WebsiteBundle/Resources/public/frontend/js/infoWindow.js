@@ -155,6 +155,12 @@ function GenCustomWindow(){
     CustomWindow.prototype.close = function(){
         this.setMap(null);
     };
+    /**
+     * Close this overlay by setting its map to null.
+     */
+    CustomWindow.prototype.getPosition = function(){
+        return this.marker.getPosition();
+    };
     CustomWindow.prototype.setPosition = function(marker){
         this.marker = marker;
         this.container.setAttribute('data-lat', marker.lat());
