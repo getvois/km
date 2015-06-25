@@ -1113,13 +1113,13 @@ class DefaultController extends Controller
             $city = $hotel->getPlaces()->first();
             if(!$city) {
                 /** @var string $city */
-                $city = $hotel->getCityParish()?$hotel->getCityParish():$hotel->getCity();
-                if(!array_key_exists($city, $data)){
-                    $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
-                    if($html)
-                        $data[$city] = ['city' => $city . '----', 'html' => $html];
-                }
-                continue;
+//                $city = $hotel->getCityParish()?$hotel->getCityParish():$hotel->getCity();
+//                if(!array_key_exists($city, $data)){
+//                    $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+//                    if($html)
+//                        $data[$city] = ['city' => $city . '----', 'html' => $html];
+//                }
+//                continue;
             }
 
             if($hotel->isShowOnMap() && $hotel->getPlaces()->first()){
@@ -1156,7 +1156,7 @@ class DefaultController extends Controller
                     }
                 }
             }else{
-                $city = $city->getTitle() . '++++';
+                $city = $city->getTitle();
                 /** @var string $city */
                 if(!array_key_exists($city, $data)){
                     $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
