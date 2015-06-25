@@ -1180,13 +1180,20 @@ class DefaultController extends Controller
 
                 if($offer->getCountryPlace()){
                     $title = $offer->getCountryPlace()->getTitle() . rand(0, 99999);
-                    $html = $this->mapHtml($offer->getCountryPlace()->getTitle(), $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
+
+                    $mapCategory = $offer->getMapCategory();
+                    $category = $mapCategory->getName();
+
+                    $price = $offer->getPriceEur()?$offer->getPriceEur():$offer->getPrice();
+
+                    $class = $offer->isFavorite()?"favorite":"";
+
                     $data[$title] =
                       [
                         'city' => null,
                         'lat' => $offer->getLatitude(),
                         'long' => $offer->getLongitude(),
-                        'html' => $html,
+                        'html' => "<div class='$class map-window-item map-window-item-$category'  style='background-image: url({$mapCategory->getImage()})'><a href='#' class='map-popup'>" . (int)$hotel->getPrice() . "</a></div>",
                         'popup' => '',
                       ];
                 }
