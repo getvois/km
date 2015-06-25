@@ -241,6 +241,7 @@ function Fluster2(_map, _debug)
 		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
 
 		// Setup markers for the current state
-		window.setTimeout(createClusters, 1000);
+        createClusters();
+		//window.setTimeout(createClusters, 1000);
 	};
 }
