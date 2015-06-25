@@ -19,6 +19,7 @@ require_once __DIR__.'/../app/AppKernel.php';
 $environment = str_replace(".", "_", $_SERVER['HTTP_HOST']);
 $environment = str_replace('www_', '', $environment);
 $environment = str_replace(':80', '', $environment);
+$environment = strtolower($environment);
 
 $kernel = new AppKernel($environment, false);
 
