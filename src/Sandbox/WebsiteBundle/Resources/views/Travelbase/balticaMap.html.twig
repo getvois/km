@@ -111,6 +111,7 @@
             update = false;
             $.get('/gbb/' + topRight.lat() + "/" + topRight.lng() + "/" + bottomLeft.lat() + "/" + bottomLeft.lng() + "/" + map.getZoom(), function (responce) {
                 //console.log(responce);
+                fluster.clearMarkers();
                 var j;
 
                 var prevMarkers = infoWindows;

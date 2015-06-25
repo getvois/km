@@ -227,7 +227,6 @@ function Fluster2(_map, _debug)
 	 */
 	this.initialize = function()
 	{
-        this.clearMarkers();
 		// Add event listeners
 		google.maps.event.addListener(map, 'zoom_changed', this.zoomChanged);
 		google.maps.event.addListener(map, 'dragend', showClustersInBounds);
