@@ -1178,7 +1178,7 @@ class DefaultController extends Controller
             $city = $offer->getPlaces()->first();
             if(!$city) {
 
-                if($offer->getCountryPlace()){
+                if($offer->getCountryPlace() && $offer->hasCoordinates()){
                     $title = $offer->getCountryPlace()->getTitle() . rand(0, 99999);
 
                     //$mapCategory = $offer->getMapCategory();
