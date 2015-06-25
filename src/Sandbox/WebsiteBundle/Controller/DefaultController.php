@@ -1193,8 +1193,8 @@ class DefaultController extends Controller
                         'city' => null,
                         'lat' => $offer->getLatitude(),
                         'long' => $offer->getLongitude(),
-                        'icon' => 'http://google-maps-icons.googlecode.com/files/redblank.png',
-                        'html' => "<div class='$class map-window-item map-window-item-$category'><a href='#' class='map-popup'>" . (int)$offer->getPrice() . "</a></div>",
+//                        'icon' => 'http://google-maps-icons.googlecode.com/files/redblank.png',
+                        'html' => "<div class='$class map-window-item map-window-item-$category'><a href='#' class='map-popup' style='background-image: url(http://google-maps-icons.googlecode.com/files/redblank.png)'>" . (int)$offer->getPrice() . "</a></div>",
                         'popup' => "<div class='$class map-popup-item map-popup-item-$category'>".
 
                           "<a href='" . $offer->getAbsoluteUrl() . "'>"
