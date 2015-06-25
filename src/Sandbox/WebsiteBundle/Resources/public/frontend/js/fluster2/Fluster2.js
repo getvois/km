@@ -121,7 +121,7 @@ function Fluster2(_map, _debug)
                 //markerstohide = clusters[zoom];
                 for(var i = 0; i < clusters[zoom].length; i++)
                 {
-                    markerstohide[i].hide();
+                    clusters[zoom][i].hide();
                 }
             }
 
