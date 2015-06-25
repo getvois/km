@@ -96,6 +96,9 @@
 
         map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
 
+
+        var fluster = new Fluster2(map);
+
         google.maps.event.addListener((map), 'idle', function(event) {
 
             if(!update) return;
@@ -129,7 +132,7 @@
 
                 markers = [];
                 infoWindows = [];
-                var markerCluster;
+
                 //add markers
                 var timeout = 1;
                 for(i=0; i<responce.length; i++){
@@ -143,7 +146,8 @@
                             infW.setContent(hotel.html);
                             infW.setPopup(hotel.popup);
                             infW.setPosition(new google.maps.LatLng(hotel.lat, hotel.long));
-                            infW.open(map);
+                            //infW.open(map);
+                            fluster.addMarker(marker);
                             infoWindows.push(infW);
                         }else if(placesCache[hotel.city.toLowerCase()] != undefined){
 
@@ -152,7 +156,8 @@
                             //infW.setContent(placesInfoCache[hotel.city.toLowerCase()]);
                             infW.setContent(hotel.html);
                             infW.setPosition(placesCache[hotel.city.toLowerCase()]);
-                            infW.open(map);
+                            //infW.open(map);
+                            fluster.addMarker(marker);
                             infoWindows.push(infW);
                         }else{
                             timeout += 500;
@@ -167,7 +172,8 @@
                                         var infW = new (GenCustomWindow())();
                                         infW.setContent(hotel.html);
                                         infW.setPosition(results[0].geometry.location);
-                                        infW.open(map);
+                                        //infW.open(map);
+                                        fluster.addMarker(marker);
                                         infoWindows.push(infW);
 
                                     } else {
@@ -182,9 +188,7 @@
 
                 }
 
-                markerCluster = new MarkerClusterer(map, infoWindows);
-
-                console.log(markerCluster);
+                fluster.initialize();
 
                 setTimeout(function () {
                     //clear all markers

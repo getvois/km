@@ -220,6 +220,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
             if (center === null) {
                 continue;
             }
+            //noinspection JSUnresolvedFunction
             center = map_.fromLatLngToDivPixel(center);
 
             // Found a cluster which contains the marker.
