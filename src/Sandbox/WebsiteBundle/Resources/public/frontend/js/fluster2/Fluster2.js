@@ -133,11 +133,11 @@ function Fluster2(_map, _debug)
 		// Hide markers of previous zoom level
 		if(clusters[me.currentZoomLevel])
 		{
-            markerstohide = markerstohide.concat(clusters[me.currentZoomLevel]);
-			//for(var i = 0; i < clusters[me.currentZoomLevel].length; i++)
-			//{
-			//	clusters[me.currentZoomLevel][i].hide();
-			//}
+//            markerstohide = markerstohide.concat(clusters[me.currentZoomLevel]);
+			for(var i = 0; i < clusters[me.currentZoomLevel].length; i++)
+			{
+				clusters[me.currentZoomLevel][i].hide();
+			}
 		}
 		
 		// Set current zoom level
