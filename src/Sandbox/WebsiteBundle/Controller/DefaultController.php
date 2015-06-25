@@ -1198,7 +1198,7 @@ class DefaultController extends Controller
 
                           "<a href='" . $offer->getAbsoluteUrl() . "'>"
 
-                          . $hotel->getTitle() .
+                          . $offer->getTitle() .
                           $price .
                           "</a>".
 
