@@ -167,8 +167,9 @@ function Fluster2(_map, _debug)
 	 */
 	this.zoomChanged = function()
 	{
-		window.clearInterval(zoomChangedTimeout);
-		zoomChangedTimeout = window.setTimeout(createClusters, 200);
+		//window.clearInterval(zoomChangedTimeout);
+        createClusters();
+		//zoomChangedTimeout = window.setTimeout(createClusters, 200);
 	};
 	
 	/**
