@@ -1119,7 +1119,7 @@ class DefaultController extends Controller
 //                    if($html)
 //                        $data[$city] = ['city' => $city . '----', 'html' => $html];
 //                }
-//                continue;
+                continue;
             }
 
             if($hotel->isShowOnMap() && $hotel->getPlaces()->first()){
