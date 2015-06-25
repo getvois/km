@@ -161,6 +161,8 @@ function GenCustomWindow(){
     CustomWindow.prototype.getPosition = function(){
         console.log('get pos');
         console.log(this.marker);
+        console.log(this.marker.lat());
+        console.log(this.marker.lng());
         var lat = this.container.setAttribute('data-lat');
         var lng = this.container.setAttribute('data-lng');
         console.log(lat);
