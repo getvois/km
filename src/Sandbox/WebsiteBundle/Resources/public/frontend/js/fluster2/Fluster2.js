@@ -70,14 +70,6 @@ function Fluster2(_map, _debug)
 	{
 		var zoom = map.getZoom();
 
-        //hide from map
-        if(clusters[zoom]){
-            for(var i = 0; i < clusters[zoom].length; i++)
-            {
-                clusters[zoom][i].hide();
-            }
-        }
-
 		//if(clusters[zoom])
 		if(1==2)
 		{
@@ -123,7 +115,13 @@ function Fluster2(_map, _debug)
 					clusterCount++;
 				}
 			}
-			
+
+            var markerstohide = [];
+            //hide from map
+            if(clusters[zoom]){
+                markerstohide = clusters[zoom];
+            }
+
 			clusters[zoom] = clustersThisZoomLevel;
 			
 			me.debug('Initialized ' + clusters[zoom].length + ' clusters for zoom level ' + zoom + '.');
@@ -132,10 +130,11 @@ function Fluster2(_map, _debug)
 		// Hide markers of previous zoom level
 		if(clusters[me.currentZoomLevel])
 		{
-			for(var i = 0; i < clusters[me.currentZoomLevel].length; i++)
-			{
-				clusters[me.currentZoomLevel][i].hide();
-			}
+            markerstohide.concat(clusters[me.currentZoomLevel]);
+			//for(var i = 0; i < clusters[me.currentZoomLevel].length; i++)
+			//{
+			//	clusters[me.currentZoomLevel][i].hide();
+			//}
 		}
 		
 		// Set current zoom level
@@ -143,6 +142,12 @@ function Fluster2(_map, _debug)
 		
 		// Show clusters
 		showClustersInBounds();
+
+
+        for(var i = 0; i < markerstohide.length; i++)
+        {
+            markerstohide[i].hide();
+        }
 	}
 	
 	/**
