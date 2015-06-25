@@ -215,6 +215,10 @@ function Fluster2(_map, _debug)
 	 */
 	this.clearMarkers = function(_marker)
 	{
+        for(var i = 0; i < me.markers.length; i++)
+        {
+            me.markers[i].hide();
+        }
 		me.markers = [];
 	};
 	
