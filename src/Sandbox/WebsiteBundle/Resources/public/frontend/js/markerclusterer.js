@@ -66,6 +66,7 @@
  * @property {String} [opt_textColor="black"] Text color.
  */
 
+//noinspection JSValidateJSDoc,JSClosureCompilerSyntax
 /**
  * Creates a new MarkerClusterer to cluster markers on the map.
  *
@@ -96,13 +97,19 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
     }
 
     if (typeof opt_opts === "object" && opt_opts !== null) {
+        //noinspection JSUnresolvedVariable
         if (typeof opt_opts.gridSize === "number" && opt_opts.gridSize > 0) {
+            //noinspection JSUnresolvedVariable
             gridSize_ = opt_opts.gridSize;
         }
+        //noinspection JSUnresolvedVariable
         if (typeof opt_opts.maxZoom === "number") {
+            //noinspection JSUnresolvedVariable
             maxZoom_ = opt_opts.maxZoom;
         }
+        //noinspection JSUnresolvedVariable
         if (typeof opt_opts.styles === "object" && opt_opts.styles !== null && opt_opts.styles.length !== 0) {
+            //noinspection JSUnresolvedVariable
             styles_ = opt_opts.styles;
         }
     }
@@ -123,6 +130,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
         leftMarkers_ = leftMarkers;
     }
 
+    //noinspection JSClosureCompilerSyntax
     /**
      * Get cluster marker images of this marker cluster. Mostly used by {@link Cluster}
      * @private
@@ -152,9 +160,11 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
      * @return {Boolean} if it is in current map viewport
      */
     function isMarkerInViewport_(marker) {
+        //noinspection JSUnresolvedFunction
         return map_.getBounds().containsLatLng(marker.getLatLng());
     }
 
+    //noinspection JSClosureCompilerSyntax
     /**
      * When reset MarkerClusterer, there will be some markers get out of its cluster.
      * These markers should be add to new clusters.
@@ -169,6 +179,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
         addLeftMarkers_();
     }
 
+    //noinspection JSValidateJSDoc,JSClosureCompilerSyntax
     /**
      * Add a marker.
      * @private
@@ -188,6 +199,7 @@ function MarkerClusterer(map, opt_markers, opt_opts) {
 
         var isAdded = opt_isAdded;
         var clusters = opt_clusters;
+        //noinspection JSUnresolvedFunction
         var pos = map_.fromLatLngToDivPixel(marker.getLatLng());
 
         if (typeof isAdded !== "boolean") {
@@ -554,6 +566,7 @@ function Cluster(markerClusterer) {
             }
             if (clusterMarker_ === null) {
                 clusterMarker_ = new ClusterMarker_(center_, this.getTotalMarkers(), markerClusterer_.getStyles_(), markerClusterer_.getGridSize_());
+                //noinspection JSUnresolvedFunction
                 map_.addOverlay(clusterMarker_);
             } else {
                 if (clusterMarker_.isHidden()) {
@@ -569,10 +582,12 @@ function Cluster(markerClusterer) {
      */
     this.clearMarkers = function () {
         if (clusterMarker_ !== null) {
+            //noinspection JSUnresolvedFunction
             map_.removeOverlay(clusterMarker_);
         }
         for (var i = 0; i < markers_.length; ++i) {
             if (markers_[i].isAdded) {
+                //noinspection JSUnresolvedFunction
                 map_.removeOverlay(markers_[i].marker);
             }
         }
@@ -637,6 +652,7 @@ ClusterMarker_.prototype.initialize = function (map) {
     this.map_ = map;
     var div = document.createElement("div");
     var latlng = this.latlng_;
+    //noinspection JSUnresolvedFunction
     var pos = map.fromLatLngToDivPixel(latlng);
     pos.x -= parseInt(this.width_ / 2, 10);
     pos.y -= parseInt(this.height_ / 2, 10);
@@ -667,15 +683,24 @@ ClusterMarker_.prototype.initialize = function (map) {
     pos.x + "px;color:" + txtColor +  ";position:absolute;font-size:11px;" +
     'font-family:Arial,sans-serif;font-weight:bold';
     div.innerHTML = this.text_;
+    //noinspection JSUnresolvedFunction
     map.getPane(G_MAP_MAP_PANE).appendChild(div);
     var padding = this.padding_;
+    //noinspection JSUnresolvedFunction
     GEvent.addDomListener(div, "click", function () {
+        //noinspection JSUnresolvedFunction
         var pos = map.fromLatLngToDivPixel(latlng);
+        //noinspection JSUnresolvedFunction
         var sw = new GPoint(pos.x - padding, pos.y + padding);
+        //noinspection JSUnresolvedFunction
         sw = map.fromDivPixelToLatLng(sw);
+        //noinspection JSUnresolvedFunction
         var ne = new GPoint(pos.x + padding, pos.y - padding);
+        //noinspection JSUnresolvedFunction
         ne = map.fromDivPixelToLatLng(ne);
+        //noinspection JSUnresolvedFunction
         var zoom = map.getBoundsZoomLevel(new GLatLngBounds(sw, ne), map.getSize());
+        //noinspection JSUnresolvedFunction
         map.setCenter(latlng, zoom);
     });
     this.div_ = div;
@@ -705,6 +730,7 @@ ClusterMarker_.prototype.redraw = function (force) {
     if (!force) {
         return;
     }
+    //noinspection JSUnresolvedFunction
     var pos = this.map_.fromLatLngToDivPixel(this.latlng_);
     pos.x -= parseInt(this.width_ / 2, 10);
     pos.y -= parseInt(this.height_ / 2, 10);
