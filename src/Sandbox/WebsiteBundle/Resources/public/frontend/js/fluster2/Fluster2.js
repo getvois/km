@@ -89,7 +89,7 @@ function Fluster2(_map, _debug)
 			var markerCount = me.markers.length;
 
             console.log(markerCount);
-
+            console.log(me.markers);
 			// Walk all markers
 			for(var i = 0; i < markerCount; i++)
 			{
