@@ -51,7 +51,7 @@ class DatelocaleExtension extends \Twig_Extension{
 
         $date = $formatter->format($date->getTimestamp());
 
-        if($dateFormat == 'medium'){
+        if($dateFormat == 'long'){
             if(preg_match('/[0-9]{4}/', $date, $matches)){
                 $year = $matches[1];
                 $pos = strpos($date, $year);
