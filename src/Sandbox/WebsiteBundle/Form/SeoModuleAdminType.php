@@ -50,6 +50,8 @@ class SeoModuleAdminType extends AbstractType
         $builder->add('top', 'textarea', ['label' => "Top(wildcards:[title])", 'required' => false]);
         $builder->add('bottom');
         $builder->add('footer');
+        $builder->add('metaTitle');
+        $builder->add('metaDescription');
     }
 
     /**

@@ -15,6 +15,52 @@ use Kunstmaan\AdminBundle\Entity\AbstractEntity;
 class SeoModule extends AbstractEntity
 {
     /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_title", type="text", nullable=true)
+     */
+    private $metaTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_description", type="text", nullable=true)
+     */
+    private $metaDescription;
+
+    /**
+     * @return string
+     */
+    public function getMetaTitle()
+    {
+        return $this->metaTitle;
+    }
+
+    /**
+     * @param string $metaTitle
+     */
+    public function setMetaTitle($metaTitle)
+    {
+        $this->metaTitle = $metaTitle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetaDescription()
+    {
+        return $this->metaDescription;
+    }
+
+    /**
+     * @param string $metaDescription
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Sandbox\WebsiteBundle\Entity\Host", inversedBy="seoModules")

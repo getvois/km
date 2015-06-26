@@ -35,6 +35,8 @@ class SeoModuleAdminListConfigurator extends AbstractDoctrineORMAdminListConfigu
         $this->addField('top', 'Top', true);
         $this->addField('bottom', 'Bottom', true);
         $this->addField('footer', 'Footer', true);
+        $this->addField('metaTitle', 'Title', true);
+        $this->addField('metaDescription', 'Description', true);
     }
 
     /**
@@ -47,6 +49,8 @@ class SeoModuleAdminListConfigurator extends AbstractDoctrineORMAdminListConfigu
         $this->addFilter('top', new ORM\StringFilterType('top'), 'Top');
         $this->addFilter('bottom', new ORM\StringFilterType('bottom'), 'Bottom');
         $this->addFilter('footer', new ORM\StringFilterType('footer'), 'Footer');
+        $this->addFilter('metaTitle', new ORM\StringFilterType('metaTitle'), 'Title');
+        $this->addFilter('metaDescription', new ORM\StringFilterType('metaDescription'), 'Description');
     }
 
     /**
