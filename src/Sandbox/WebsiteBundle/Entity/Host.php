@@ -65,6 +65,29 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="fb_page", type="text", nullable=true)
+     */
+    private $fb_page;
+
+    /**
+     * @return string
+     */
+    public function getFbPage()
+    {
+        return $this->fb_page;
+    }
+
+    /**
+     * @param string $fb_page
+     */
+    public function setFbPage($fb_page)
+    {
+        $this->fb_page = $fb_page;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="fb_block", type="text", nullable=true)
      */
     private $fb_block;
