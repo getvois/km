@@ -2,10 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: @BCCCronManagerBundle/Resources/config/assetic.yml }
 
-cmf_routing:
-    dynamic:
-        enabled: true
-
 framework:
     #esi:             ~
     #translator:      { fallback: "%locale%" }
