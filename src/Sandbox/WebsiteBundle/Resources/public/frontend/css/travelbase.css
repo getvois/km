@@ -2500,6 +2500,9 @@ a.top-link img {
     width: 53px;
     height: 52px;
 }
+.map-window-all-mini .badge {
+    margin-top: 17px;
+}
 .gm-style .map-info-window .map-window-all {
     background-color: #ED1E61;
     border-left: 1px solid #CA1C54;
