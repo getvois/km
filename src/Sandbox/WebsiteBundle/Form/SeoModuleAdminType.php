@@ -47,7 +47,7 @@ class SeoModuleAdminType extends AbstractType
 //            "Sandbox\\WebsiteBundle\\Entity\\Pages\\SatelliteOverviewPage" => "SatelliteOverviewPage",
             "Sandbox\\WebsiteBundle\\Entity\\Place\\PlaceOverviewPage" => "PlaceOverviewPage",
         ]]);
-        $builder->add('top', 'textarea', ['label' => "Top(wildcards:[title])", 'required' => false]);
+        $builder->add('top', 'textarea', ['label' => "Top(wildcards:[title], [parent])", 'required' => false]);
         $builder->add('bottom');
         $builder->add('footer');
         $builder->add('metaTitle');
