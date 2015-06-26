@@ -158,11 +158,12 @@ function Fluster2Cluster(_fluster, _marker)
         for(var i=0; i< this.markers.length; i++){
             $(this.markers[i].container).find('.badge').each(function () {
                 //console.log(parseInt($(this).text()));
-                //total += parseInt($(this).text());
+                total += parseInt($(this).text());
             })
         }
-		return total;
-		//return this.markers.length;
+        console.log(total);
+		//return total;
+		return this.markers.length;
 	};
 	
 	/**
