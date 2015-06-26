@@ -17,8 +17,6 @@
         top: 30px;
         right: 20px;
         z-index: 200;
-        display: none;
-
     }
     #map-close .close{
         background: transparent linear-gradient(#9d9a91, #34373c) repeat scroll 0 0 !important;
@@ -33,6 +31,9 @@
     #map_wrapper.map-show{
         right: 0;
     }
+    #map_wrapper .register-form{
+        display: none;
+    }
 </style>
 <div id="map-toggle-wrapper"><button type="button" id="map-toggle" class="btn btn-default">{{ 'show.map'|trans({}, 'frontend') }}</button></div>
 <div id="map-close">
@@ -41,6 +42,7 @@
 <script>
     $(document).ready(function () {
         $('#map-toggle, #map-close .close').click(function () {
+            $('#map_wrapper .register-form').show();
             if($('#map_wrapper').hasClass('map-show')){
                 $('#map_wrapper').removeClass('map-show');
                 $('#map-close .close').hide();
