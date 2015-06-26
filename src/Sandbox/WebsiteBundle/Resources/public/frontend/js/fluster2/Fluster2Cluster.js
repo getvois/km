@@ -157,6 +157,7 @@ function Fluster2Cluster(_fluster, _marker)
         var total = 0;
         for(var i=0; i< this.markers.length; i++){
             $(this.markers[i].container).find('.badge').each(function () {
+                console.log(parseInt($(this).text()));
                 total += parseInt($(this).text());
             })
         }
