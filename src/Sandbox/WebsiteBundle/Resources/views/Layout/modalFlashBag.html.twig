@@ -7,10 +7,10 @@
                 {#<h4 class="modal-title">{{ '??'| trans({}, 'frontend') }}</h4>#}
             </div>
             <div class="modal-body">
-                {% for message in app.session.flashBag.get('error') %}
+                {% for message in app.session.flashBag.get('error')|raw %}
                     <div>{{ message }}</div>
                 {% endfor %}
-                {% for message in app.session.flashBag.get('info') %}
+                {% for message in app.session.flashBag.get('info')|raw %}
                     <div>{{ message }}</div>
                 {% endfor %}
             </div>
