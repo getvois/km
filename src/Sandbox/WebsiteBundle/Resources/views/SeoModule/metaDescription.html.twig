@@ -15,6 +15,6 @@
     {% endif %}
 {% endif %}
 
-{% if not added %}
+{% if added == false %}
     {{ render_seo_metadata_for(page) }}
 {% endif %}
