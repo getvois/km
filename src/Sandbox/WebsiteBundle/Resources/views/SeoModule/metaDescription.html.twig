@@ -1,3 +1,4 @@
+{% set added = false %}
 {% if host is defined and host is not null %}
     {% if host.seoModules|length  > 0 %}
         {% for seoModule in host.seoModules %}
@@ -7,10 +8,13 @@
             %}
                 {% if seoModule.metaDescription %}
                     <meta name="description" content="{{ seoModule.metaDescription | replace({'[title]' : page.title}) | raw }}">
-                {% else %}
-                    {{ render_seo_metadata_for(page) }}
+                    {% set added = true %}
                 {% endif %}
             {% endif %}
         {% endfor %}
     {% endif %}
+{% endif %}
+
+{% if not added %}
+    {{ render_seo_metadata_for(page) }}
 {% endif %}
