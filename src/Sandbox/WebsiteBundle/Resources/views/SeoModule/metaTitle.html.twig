@@ -1,16 +1,16 @@
 {% if host is defined and host is not null %}
-    <div class="row nomargin">
-        <div class="col-md-12">
-            {% if host.seoModules|length  > 0 %}
-                {% for seoModule in host.seoModules %}
-                    {% if seoModule.lang == app.request.locale
-                    and seoModule.hosts.contains(host)
-                    and seoModule.entity == get_node_for(page).refEntityName
-                    %}
-                        {{ seoModule.metaTitle | replace({'[title]' : page.title}) | raw }}
-                    {% endif %}
-                {% endfor %}
+    {% if host.seoModules|length  > 0 %}
+        {% for seoModule in host.seoModules %}
+            {% if seoModule.lang == app.request.locale
+            and seoModule.hosts.contains(host)
+            and seoModule.entity == get_node_for(page).refEntityName
+            %}
+                {% if seoModule.metaTitle %}
+                    {{ seoModule.metaTitle | replace({'[title]' : page.title}) | raw }}
+                {% else %}
+                    {{ get_title_for(page) }}
+                {% endif %}
             {% endif %}
-        </div>
-    </div>
+        {% endfor %}
+    {% endif %}
 {% endif %}
