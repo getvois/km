@@ -1,6 +1,1 @@
-{% set added = false %}{% if host is defined and host is not null %}{% if host.seoModules|length  > 0 %}{% for seoModule in host.seoModules %}
-{% if seoModule.lang == app.request.locale and seoModule.hosts.contains(host) and seoModule.entity == get_node_for(page).refEntityName %}
-{% if seoModule.metaTitle %}{% set parentTitle = get_node_for(page).parent.nodeTranslation(app.request.locale).title %}
-{{ seoModule.metaTitle | replace({'[title]' : page.title}) | replace({'[parent]' : parentTitle}) | raw }}
-{% set added = true %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}
-{% if added == false %}{{ get_title_for(page) }}{% endif %}
+{% set added = false %}{% if host is defined and host is not null %}{% if host.seoModules|length  > 0 %}{% for seoModule in host.seoModules %}{% if seoModule.lang == app.request.locale and seoModule.hosts.contains(host) and seoModule.entity == get_node_for(page).refEntityName %}{% if seoModule.metaTitle %}{% set parentTitle = get_node_for(page).parent.nodeTranslation(app.request.locale).title %}{{ seoModule.metaTitle | replace({'[title]' : page.title}) | replace({'[parent]' : parentTitle}) | raw }}{% set added = true %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}{% if added == false %}{{ get_title_for(page) }}{% endif %}
