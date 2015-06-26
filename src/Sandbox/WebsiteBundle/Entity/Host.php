@@ -65,7 +65,7 @@ class Host extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="fb_page", type="text", nullable=true)
+     * @ORM\Column(name="fb_page", type="string", length=255, nullable=true)
      */
     private $fb_page;
 
