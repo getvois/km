@@ -34,7 +34,7 @@
 	                <select name="baltica-hotel" id="baltica-hotel" class="form-control placeholder">
 	                    <option value="-1" selected="selected">{{ 'choose.category'|trans({}, 'frontend') }}</option>
 	                    {% for category in categories %}
-	                        <option value="{{ category.id }}">{{ category.name }}</option>
+	                        <option value="{{ category.id }}">{{ category.name|trans({}, 'frontend') }}</option>
 	                    {% endfor %}
 	                </select>
 	            </label>
