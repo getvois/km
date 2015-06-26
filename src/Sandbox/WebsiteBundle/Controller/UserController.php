@@ -60,7 +60,7 @@ class UserController extends Controller
                 ->findOneBy(['email' => $email]);
 
             if(!$user){
-                $this->get('session')->getFlashBag()->add('error', 'Invalid username or password');
+                $this->get('session')->getFlashBag()->add('error', 'Invalid username or password <a href="#" data-toggle="modal" data-tab="login-form" data-target="#modal-registration">try again</a>');
                 /** @noinspection Symfony2PhpRouteMissingInspection */
                 return $this->redirect($this->generateUrl('_slug', ["url" => ""]));
             }
