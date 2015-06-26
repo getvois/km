@@ -7,7 +7,8 @@
             and seoModule.entity == get_node_for(page).refEntityName
             %}
                 {% if seoModule.metaDescription %}
-                    <meta name="description" content="{{ seoModule.metaDescription | replace({'[title]' : page.title}) | raw }}">
+                    {% set parentTitle = get_node_for(page).parent.nodeTranslation(app.request.locale).title %}
+                    <meta name="description" content="{{ seoModule.metaDescription | replace({'[title]' : page.title}) |replace({'[parent]' : parentTitle}) | raw }}">
                     {% set added = true %}
                 {% endif %}
             {% endif %}
