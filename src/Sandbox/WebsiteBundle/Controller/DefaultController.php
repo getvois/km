@@ -1161,7 +1161,7 @@ class DefaultController extends Controller
                 if(!array_key_exists($city, $data)){
                     $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
                     if($html)
-                        $data[$city] = ['city' => '1'.$city, 'html' => $html];                }
+                        $data[$city] = ['city' => $city, 'html' => $html];                }
             }
 
 
@@ -1215,7 +1215,7 @@ class DefaultController extends Controller
             if(!array_key_exists($city, $data)){
                 $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
                 if($html)
-                    $data[$city] = ['city' => $city, 'html' => $html];
+                    $data[$city] = ['city' => '1'.$city, 'html' => $html];
             }
         }
 
