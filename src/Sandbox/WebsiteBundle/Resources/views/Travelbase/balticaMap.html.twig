@@ -72,7 +72,11 @@
         if(mapCoord.length > 0){
             center = new google.maps.LatLng(mapCoord.data('lat'), mapCoord.data('long'));
             openCity = mapCoord.data('city');
-            zoom = 12;
+            if(mapCoord.data('zoom')){
+                zoom = mapCoord.data('zoom');
+            }else{
+                zoom = 12;
+            }
         }
 
         var bounds = new google.maps.LatLngBounds();
