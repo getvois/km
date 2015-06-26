@@ -45,5 +45,6 @@ try {
     $response->send();
     $kernel->terminate($request, $response);
 } catch (Exception $e){
-    echo $e->getMessage();
+    //echo $e->getMessage();
+    echo '<h1>404 Page not found</h1>';
 }
