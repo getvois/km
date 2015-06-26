@@ -49,7 +49,17 @@ class DatelocaleExtension extends \Twig_Extension{
             $format
         );
 
-        return $formatter->format($date->getTimestamp());
+        $date = $formatter->format($date->getTimestamp());
+
+        if($dateFormat == 'medium'){
+            if(preg_match('/[0-9]{4}/', $date, $matches)){
+                $year = $matches[1];
+                $pos = strpos($date, $year);
+                $date = str_split($date, $pos+1)[0];
+            }
+        }
+
+        return $date;
     }
 
     /**
