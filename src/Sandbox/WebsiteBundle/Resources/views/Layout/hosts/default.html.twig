@@ -83,7 +83,20 @@
             right: 0;
             z-index: 999;
         }
+        .map-show{
+            right: 0;
+        }
     </style>
-    <div id="map-toggle-wrapper"><button id="map-toggle" class="btn btn-default">{{ 'show.map'|trans({}, 'frontend') }}</button></div>
-
+    <div id="map-toggle-wrapper"><button type="button" id="map-toggle" class="btn btn-default">{{ 'show.map'|trans({}, 'frontend') }}</button></div>
+    <script>
+        $(document).ready(function () {
+            $('#map-toggle').click(function () {
+                if($('#map-wrapper').hasClass('map-show')){
+                    $('#map-wrapper').removeClass('map-show');
+                }else{
+                    $('#map-wrapper').addClass('map-show');
+                }
+            });
+        });
+    </script>
 {% endblock %}
