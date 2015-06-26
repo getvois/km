@@ -413,7 +413,7 @@ $(document).ready(function() {
     $.get('/package-event-source/' + $packageCalendar.data('package-id') + "?from=" + fromDate.getTime() + "&to=" + endDate.getTime() , function (responce) {
         var control = $(".package-calendar-control");
 
-        if(responce.result.length > 0){
+        if(responce.avaliable > 0){
             var calendar = $packageCalendar.calendar(
                 {
                     tmpl_path: "/bundles/sandboxwebsite/frontend/js/calendar/tmpls/",
