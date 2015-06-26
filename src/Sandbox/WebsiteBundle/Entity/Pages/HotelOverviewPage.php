@@ -41,6 +41,12 @@ class HotelOverviewPage extends AbstractPage implements HasPageTemplateInterface
         $node = $em->getRepository('KunstmaanNodeBundle:Node')
             ->getNodeFor($page);
 
+        $translation = $node->getParent()->getNodeTranslation($request->getLocale());
+        /** @var PlaceOverviewPage $parentPage */
+        $parentPage = $translation->getRef($em);
+
+        $context['parentPage'] = $parentPage;
+
         /** @var HotelPage[] $hotels */
         $hotels = $em->getRepository('SandboxWebsiteBundle:Pages\HotelPage')
             ->getHotelPagesByParent($request->getLocale(), $node);

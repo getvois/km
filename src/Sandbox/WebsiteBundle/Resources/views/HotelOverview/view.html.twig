@@ -1,5 +1,15 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 {% block content %}
+
+    {% if parentPage.hasCoordinates() %}
+        <div id="map-center-coordinates"
+             data-lat="{{ parentPage.latitude }}"
+             data-long="{{ parentPage.longitude }}"
+             data-city="{{ parentPage.title }}"
+                ></div>
+    {% endif %}
+
+
 {{ render_pageparts(page, 'main') }}
     {#<div class="row">#}
         {#<div class="col-md-12"> #}
