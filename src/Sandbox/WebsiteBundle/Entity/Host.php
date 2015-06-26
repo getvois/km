@@ -16,6 +16,29 @@ class Host extends AbstractEntity
 {
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hide_fly_from", type="boolean", nullable=true)
+     */
+    private $hideFlyFrom;
+
+    /**
+     * @return boolean
+     */
+    public function isHideFlyFrom()
+    {
+        return $this->hideFlyFrom;
+    }
+
+    /**
+     * @param boolean $hideFlyFrom
+     */
+    public function setHideFlyFrom($hideFlyFrom)
+    {
+        $this->hideFlyFrom = $hideFlyFrom;
+    }
+
+    /**
      * @var array
      *
      * @ORM\Column(name="tabs", type="array", nullable=true)

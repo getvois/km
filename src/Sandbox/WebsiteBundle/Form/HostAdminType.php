@@ -44,6 +44,7 @@ class HostAdminType extends AbstractType
         $builder->add('preferredCountries', 'place');
 
         $builder->add('fromPlaces', 'place');
+        $builder->add('hideFlyFrom');
 
         $builder->add('locale');
         $builder->add('app_id');
