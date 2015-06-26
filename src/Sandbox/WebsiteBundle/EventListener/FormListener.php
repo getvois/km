@@ -320,6 +320,8 @@ class FormListener {
 
     private function copyHostsToChildren(PlaceOverviewPage $page, Node $node)
     {
+        if($node->getInternalName() == 'countries') return;
+
         $translations = $node->getNodeTranslations(true);
 
         //save hosts to add
