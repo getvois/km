@@ -38,7 +38,11 @@
         display: none;
     }
 </style>
-<div id="map-toggle-wrapper"><button type="button" id="map-toggle" class="btn btn-default">{{ 'show.map'|trans({}, 'frontend') }}</button></div>
+<div id="map-toggle-wrapper">
+    <button type="button" id="map-toggle" class="btn btn-default">
+        <img src="{{ asset('bundles/sandboxwebsite/img/icons/deals-map-' ~ app.request.locale ~ '.png') }}"/>
+    </button>
+</div>
 <div id="map-close">
     <button class="close" type="button"><span aria-hidden="true">×</span></button>
 </div>
