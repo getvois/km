@@ -165,7 +165,7 @@ function Fluster2Cluster(_fluster, _marker)
                 total += parseInt($(this).text());
             })
         }
-        if(total = 0) total = 1;
+        if(total = 0) total = this.markers.length;
 
         return total;
     };
