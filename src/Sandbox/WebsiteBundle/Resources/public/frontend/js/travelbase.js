@@ -75,6 +75,11 @@ $(document).ready(function() {
         $('a[data-type="'+$body.data('tab')+'"]').tab('show');
     }
 
+    //show packages under eesti
+    //reisid/eesti
+    if(window.location.pathname.match(/reisid\/eesti/)){
+        $('a[data-type="packages"]').tab('show');
+    }
     //club page
     if(window.location.pathname.match(/\/club/)){
         $('#club-tab').tab('show');
