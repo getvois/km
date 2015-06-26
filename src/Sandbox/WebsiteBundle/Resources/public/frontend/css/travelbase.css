@@ -2,8 +2,6 @@
 @import url(http://fonts.googleapis.com/css?family=Yellowtail:400,700&subset=cyrillic,latin);
 @import url(http://fonts.googleapis.com/css?family=Noto+Serif:400,700&subset=cyrillic,latin);
 
-
-
 html body {  
     font-family: "Open Sans",serif;
 }
@@ -442,6 +440,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endC
     /*noinspection CssUnknownTarget*/
     background:url("/bundles/sandboxwebsite/img/general/main-logo.png") no-repeat 0 0;
 }
+
+.fb-like {
+  position: absolute;
+  right: 35px;
+  top: 90px;
+}
 /*.site-topmenu {*/
     /*position: absolute;*/
     /*top:0;*/
@@ -515,7 +519,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endC
 #form-header .form-col {padding:0 15px 0 0;}
 .placeholder{
     background-color: white;
-    min-height: 43px;
+    min-height: 41px;
     padding: 5px 5px 5px 35px;
     height: auto;
 }
@@ -581,7 +585,7 @@ div.travelbase-input-addon{
     position: absolute;
     width: 40px;
     padding: 6px;
-    z-index: 10;
+    z-index: 104;
 }
 .travelbase-input{
     padding: 6px 10px 6px 38px;
@@ -600,6 +604,7 @@ div.travelbase-input-addon{
     left: 0;
     position: absolute;
     top: 0;
+    z-index:2;
 }
 .travelbase-icon-other{
     position: absolute;
@@ -1388,6 +1393,7 @@ input[type='checkbox']{
 #email-register-modal .modal-content, #modal-registration .modal-content {
   border-radius: 0;
   background-size: cover;
+  min-height: 400px;
 }
 #email-register-modal .win {
   margin-top: 10px;
@@ -1706,7 +1712,7 @@ span.price-inc {font-size: 14px;}
     cursor: text;
     height: auto !important;
     overflow: hidden;
-    padding-top: 9px;
+    padding-top: 10px;
     padding-bottom: 7px;
     position: relative;
 }
@@ -1771,7 +1777,7 @@ span.price-inc {font-size: 14px;}
     width: calc(100% - 42px);
 }
 #date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
-    border: 2px solid #555;
+    border: 1px solid #555;
     border-radius: 2px;
 }
 
@@ -2117,7 +2123,7 @@ span.city-picker-close:hover {
 	#datepick-input-from-holder, #datepick-input-to-holder {
   		  background-color: transparent;
   		  cursor: pointer!important;
-  		  margin-top: 25px;
+  		  margin-top:30px;
 	} 
 	#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
 	  border-bottom: 2px solid #555;

@@ -1,5 +1,6 @@
 {#select menu#}
 <label class="sr-only" for="mobile-tab-menu">{{ 'mobile.tab.menu'|trans({}, 'frontend') }}</label>
+<label class="mobile-tab-xs" for="mobile-tab-xs">
 <select class="hidden-lg hidden-md hidden-sm" name="mobile-tab-menu" id="mobile-tab-menu">
 
     {% if host and host.tabs|length > 0 %}
@@ -17,5 +18,6 @@
         {% include '@SandboxWebsite/Travelbase/tabHeaders/options/offer.html.twig' %}
         {% include '@SandboxWebsite/Travelbase/tabHeaders/options/baltica.html.twig' %}
     {% endif %}
-
 </select>
+
+</label>
