@@ -158,6 +158,12 @@ class PackageController extends Controller
 
         $data['result'] = $out;
 
+        if($items->count() > 0){
+            $data['avaliable'] = 1;
+        }else{
+            $data['avaliable'] = 0;
+        }
+
         return new JsonResponse($data);
     }
 
