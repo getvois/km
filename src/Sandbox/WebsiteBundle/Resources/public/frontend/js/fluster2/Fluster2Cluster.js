@@ -154,6 +154,7 @@ function Fluster2Cluster(_fluster, _marker)
 	 */
 	this.getMarkerCount = function()
 	{
+        console.log(this.markers);
 		return this.markers.length;
 	};
 	
