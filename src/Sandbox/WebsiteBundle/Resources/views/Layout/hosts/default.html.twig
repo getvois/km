@@ -82,22 +82,46 @@
         }
         #map-toggle-wrapper{
             position: fixed;
-            top: 0;
-            right: 0;
+            top: 50px;
+            left: 0;
             z-index: 999;
+        }
+        #map-close{
+            position: fixed;
+            top: 30px;
+            right: 20px;
+            z-index: 200;
+
+        }
+        #map-close .close{
+            background: transparent linear-gradient(#9d9a91, #34373c) repeat scroll 0 0 !important;
+            border-radius: 40px;
+            color: #000;
+            display: none;
+            font-size: 45px;
+            opacity: 1;
+            padding: 5px 16px 8px;
+            text-shadow: 1px 1px #de7b7a;
         }
         #map_wrapper.map-show{
             right: 0;
         }
     </style>
     <div id="map-toggle-wrapper"><button type="button" id="map-toggle" class="btn btn-default">{{ 'show.map'|trans({}, 'frontend') }}</button></div>
+    <div id="map-close">
+        <button class="close" type="button"><span aria-hidden="true">×</span></button>
+    </div>
     <script>
         $(document).ready(function () {
             $('#map-toggle').click(function () {
                 if($('#map_wrapper').hasClass('map-show')){
                     $('#map_wrapper').removeClass('map-show');
+                    $('#map-close .close').hide();
+                    $('#map_wrapper').show();
                 }else{
                     $('#map_wrapper').addClass('map-show');
+                    $('#map-close .close').show();
+                    $('#map_wrapper').hide();
                 }
             });
         });
