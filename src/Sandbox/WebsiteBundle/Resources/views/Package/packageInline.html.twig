@@ -62,7 +62,7 @@
                 <table class="table">
                     <tr>
                         {% for date, price in dates %}
-                            <th>{{ date|datelocale('short', 'none') }}</th>
+                            <th>{{ date|datelocale('medium', 'none') }}</th>
                         {% endfor %}
                     </tr>
                     <tr>
