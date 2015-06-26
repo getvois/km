@@ -1133,7 +1133,7 @@ class DefaultController extends Controller
                                 'lat' => $city->getLatitude(),
                                 'long' => $city->getLongitude(),
                                 'html' => $html,
-                                'popup' => '',
+                                'popup' => '1',
                             ];
                     }
                 }
@@ -1151,7 +1151,7 @@ class DefaultController extends Controller
                                 'lat' => $city->getLatitude(),
                                 'long' => $city->getLongitude(),
                                 'html' => $html,
-                                'popup' => '',
+                                'popup' => '2',
                             ];
                     }
                 }
