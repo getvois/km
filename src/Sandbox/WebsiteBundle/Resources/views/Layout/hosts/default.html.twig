@@ -77,5 +77,13 @@
         #map_wrapper{
             right: -42%;
         }
+        #map-toggle-wrapper{
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 999;
+        }
     </style>
+    <div id="map-toggle-wrapper"><button id="map-toggle" class="btn btn-default">{{ 'show.map'|trans({}, 'frontend') }}</button></div>
+
 {% endblock %}
