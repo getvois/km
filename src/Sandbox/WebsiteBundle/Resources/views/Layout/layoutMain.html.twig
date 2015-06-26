@@ -113,6 +113,11 @@
                     <div class="site-logo">
                         <a href="/"></a>
                     </div>
+
+                    {% if host and host.fbPage %}
+                        <div class="fb-like" data-href="{{ host.fbPage }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                    {% endif %}
+
                     {{ render(controller('SandboxWebsiteBundle:Travelbase:menu')) }}
 
                     {% include '@SandboxWebsite/Travelbase/tabsMobile.html.twig' %}
