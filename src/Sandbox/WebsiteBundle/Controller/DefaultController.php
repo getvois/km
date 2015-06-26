@@ -1151,7 +1151,7 @@ class DefaultController extends Controller
                                 'lat' => $city->getLatitude(),
                                 'long' => $city->getLongitude(),
                                 'html' => $html,
-                                'popup' => '2',
+                                'popup' => '',
                             ];
                     }
                 }
@@ -1212,10 +1212,10 @@ class DefaultController extends Controller
 
             $city = $city->getTitle();
 
-            if(!array_key_exists($city, $data)){
+            if(!array_key_exists($city, $data) && !array_key_exists($city.$city, $data)){
                 $html = $this->mapHtml($city, $trLat, $trLong, $blLat, $blLong, $request, $mapZoom);
                 if($html)
-                    $data[$city] = ['city' => '1'.$city, 'html' => $html];
+                    $data[$city] = ['city' => $city, 'html' => $html];
             }
         }
 
