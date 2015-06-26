@@ -2,7 +2,7 @@
     <h1>{{ 'last.minute.hotelliveeb.form.header' | trans({}, 'frontend') }}</h1>
 
     <div class="row nomargin travelbase-input-rel">
-        <div class="col-md-2 nopadding form-col select-style">
+        <div class="col-md-2 nopadding-left form-col select-style">
             <label for="package-country">
             <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-dest"></span>
             <select class="form-control placeholder" name="package-country" id="package-country">
@@ -14,7 +14,7 @@
             </label>
         </div>
 
-        <div class="col-md-2 nopadding form-col select-style">
+        <div class="col-md-2 nopadding-left form-col select-style">
             <label for="package-place">
             <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-city"></span>
             <select name="package-place" id="package-place" class="form-control placeholder" disabled>
@@ -23,7 +23,7 @@
             </label>
         </div>
 
-        <div class="col-md-2 col-xs-6 nopadding form-col select-style">
+        <div class="col-md-3 col-xs-6 nopadding-left form-col select-style">
             <label for="package-hotel">
             <span class="glyphicon travelbase-icon travelbase-icon-other travelbase-icon-hotel"></span>
             <select name="package-hotel" id="package-hotel" class="form-control placeholder" disabled>
@@ -32,14 +32,14 @@
             </label>
         </div> 
 
-        <div class="col-md-2 col-xs-6 nopadding form-col">
+        <div class="col-md-2 col-xs-6 nopadding-left form-col">
         	<div class="input-group-addon travelbase-input-addon">
         		<span class="glyphicon travelbase-icon travelbase-icon-date-from"></span>
         	</div>
             <input required="" class="datepick form-control placeholder" type="text" id="package-date-from" name="package-date-from" placeholder="{{ 'date.from'|trans({}, 'frontend') }}"/>
         </div>
 
-        <div class="col-md-2 col-xs-12">
+        <div class="col-md-1 col-xs-12 nopadding">
         	<div class="form-col text-center-mobile">
         		<a href="#" id="package-filter" type="button" class="btn btn-lg btn-primary form-submit"><span class="glyphicon glyphicon-search"></span></a>
         	</div>

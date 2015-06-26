@@ -43,7 +43,9 @@ top: 140px;
 	position:relative;
 	z-index:9
 }
-
+.form-header h1 {
+  text-shadow: 1px 1px #B7966C;
+}
 
 .splash__container .col-md-12 {
   background-color: transparent;
@@ -71,6 +73,13 @@ top: 140px;
 .travelbase_top_menu > li {
   display: inline-block;
 }
+
+.trip .company {
+  height: 24px;
+  margin-top: 3px;
+  zoom: 0.9;
+}
+
 
 .navbar {
   margin-bottom: 0;
@@ -340,6 +349,8 @@ main {
 .logo {
   position: relative;
   z-index: 99;
+  margin-top: -10px;
+  margin-left: 5px;
 }
 
 .row-centered {

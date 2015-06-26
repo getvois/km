@@ -28,14 +28,14 @@
 				{% if offer.price and offer.currency == 'EUR' %}
 					{% if offer.price %}
 						{{ offer.price |number_format(0, '.', ',') * 2 }} &euro;
-			    		<span class="price-inc">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+			    		<span class="price-inc">/2 <span class="fa fa-male"></span></span>
 			    	{% endif %}
 			    	{% if offer.discount %}
 			    		<span class="offer-discount">-{{ offer.discount }}</span>
 			   	 	{% endif %}
 			   	{% elseif offer.priceEur %}
 			   		{{ offer.priceEur |number_format(0, '.', ',') * 2 }} &euro;
-			    		<span class="price-inc">/2{{ 'price.per.pers'|trans({}, 'frontend') }}</span>
+			    		<span class="price-inc">/2 <span class="fa fa-male"></span></span>
 			    	{% if offer.discount %}
 			    		<span class="offer-discount">-{{ offer.discount }}</span>
 			   	 	{% endif %}
