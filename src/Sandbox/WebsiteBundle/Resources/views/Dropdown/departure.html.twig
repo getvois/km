@@ -16,7 +16,7 @@
     <div class="city-list row">
         <div class="no-cities" style="display: none">{{ 'no.destinations.found' | trans }}</div>
         <span class="city-picker-close glyphicon glyphicon-remove"></span>
-        {% if host and host.fromPlaces|length > 0 %}
+        {% if host and host.hideFlyFrom != true and host.fromPlaces|length > 0 %}
             <div class="columnize col-sm-9">
                 {% include '@SandboxWebsite/Dropdown/departureCitylist.html.twig' %}
             </div>
