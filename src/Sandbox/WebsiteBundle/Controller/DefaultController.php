@@ -249,7 +249,7 @@ class DefaultController extends Controller
         $lastCol = $company;//"<a href='" . $item->link . "'>" . $company . "</a>";
 
         if($item->company->name == 'SkyPicker'){
-            $lastCol .= "<img src='/bundles/sandboxwebsite/img/general/icons/i-circle-close.png'>" ;
+            $lastCol .= "<img src='/bundles/sandboxwebsite/img/general/icons/cheap-flights-" . $request->getLocale() . ".png'>" ;
 //            $lastCol = "";
 //            for($i=0;$i<count($item->airline); $i++){
 //                $lastCol .= "<img src='/bundles/sandboxwebsite/img/airlines/".$item->airline[$i].".gif' title=".$item->airline[$i]." alt=".$item->airline[$i].">" ;
