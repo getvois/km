@@ -1,9 +1,7 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 
-{% block show_tab %}
-    {{ get_node_for(page).id }}
-    packages
-{% endblock %}
+{% block show_tab %}{% if get_node_for(page).id == 39 %}packages{% endif %}{% endblock %}
+{# 39 == estonia #}
 
 {% block mainBgUrl %}
     {% if page.topImage is not null and page.topImage.picture is not null %}{{ page.topImage.picture.url }}{% else %}
