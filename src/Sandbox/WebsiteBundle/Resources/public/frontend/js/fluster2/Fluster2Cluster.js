@@ -154,8 +154,14 @@ function Fluster2Cluster(_fluster, _marker)
 	 */
 	this.getMarkerCount = function()
 	{
-        console.log(this.markers[0].container);
-		return this.markers.length;
+        var total = 0;
+        for(var i=0; i< this.markers.length; i++){
+            $(this.markers[i].container).find('.badge').each(function () {
+                total += parseInt($(this).text());
+            })
+        }
+		return total;
+		//return this.markers.length;
 	};
 	
 	/**
