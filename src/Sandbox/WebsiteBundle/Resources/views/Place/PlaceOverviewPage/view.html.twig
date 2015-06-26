@@ -1,5 +1,7 @@
 {% extends 'SandboxWebsiteBundle:Layout:layout.html.twig' %}
 
+{% block show_tab %}packages{% endblock %}
+
 {% block mainBgUrl %}
     {% if page.topImage is not null and page.topImage.picture is not null %}{{ page.topImage.picture.url }}{% else %}
         {{ render(controller('SandboxWebsiteBundle:Travelbase:getRandomImageUrl')) }}{% endif %}
