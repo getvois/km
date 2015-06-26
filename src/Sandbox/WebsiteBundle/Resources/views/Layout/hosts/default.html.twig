@@ -7,6 +7,8 @@
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
 
+        {% include "@SandboxWebsite/Ad/topAds.html.twig" %}
+
         <section class="">
             <div class="row">
                 <div class="col-md-12">
@@ -41,7 +43,6 @@
 
         <!-- Main -->
         <main role="main">
-            {% include "@SandboxWebsite/Ad/topAds.html.twig" %}
             {% block content %}{% endblock %}
             {% include "@SandboxWebsite/Ad/bottomAds.html.twig" %}
         </main>
