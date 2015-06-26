@@ -2495,6 +2495,9 @@ a.top-link img {
     box-shadow: -2px -2px 9px #BE144B!important;
     padding: 0;
     border-radius:0!important;
+    background-image: url("http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m1.png");
+    width: 53px;
+    height: 52px;
 }
 .gm-style .map-info-window .map-window-all {
     background-color: #ED1E61;
