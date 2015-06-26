@@ -83,7 +83,7 @@ Fluster2ClusterMarker.prototype.draw = function()
 		this.div.style.fontFamily = 'Arial, Helvetica';
 		this.div.style.fontSize = '11px';
 		this.div.style.fontWeight = 'bold';
-		this.div.innerHTML = this.markerCount;
+		this.div.innerHTML = this.cluster.getCount();//this.markerCount;
 		
 		// Cursor and onlick
 		this.div.style.cursor = 'pointer';

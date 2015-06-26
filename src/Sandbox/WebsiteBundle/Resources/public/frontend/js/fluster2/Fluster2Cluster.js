@@ -154,6 +154,10 @@ function Fluster2Cluster(_fluster, _marker)
 	 */
 	this.getMarkerCount = function()
 	{
+		return this.markers.length;
+	};
+
+    this.getCount = function () {
         var total = 0;
         for(var i=0; i< this.markers.length; i++){
             $(this.markers[i].container).find('.badge').each(function () {
@@ -162,9 +166,8 @@ function Fluster2Cluster(_fluster, _marker)
             })
         }
         console.log(total);
-		//return total;
-		return this.markers.length;
-	};
+        return total;
+    };
 	
 	/**
 	 * Checks if the cluster bounds contains the given position.
