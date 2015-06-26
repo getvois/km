@@ -36,7 +36,7 @@ function Fluster2(_map, _debug)
 	
 	// Properties
 	this.debugEnabled = _debug;
-	this.gridSize = 80;
+	this.gridSize = 120;
 	this.markers = new Array();
 	this.markersOld = new Array();
 	this.currentZoomLevel = -1;
