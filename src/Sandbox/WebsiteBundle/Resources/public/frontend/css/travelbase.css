@@ -2491,8 +2491,9 @@ a.top-link img {
 }
 
 .gm-style .map-window-all-mini  {
-    background-color: #ED1E61;
-    box-shadow: -2px -2px 9px #BE144B!important;
+    /*background-color: #ED1E61;*/
+    background-color: transparent;
+    /*box-shadow: -2px -2px 9px #BE144B!important;*/
     padding: 0;
     border-radius:0!important;
     background-image: url("http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/images/m1.png");
