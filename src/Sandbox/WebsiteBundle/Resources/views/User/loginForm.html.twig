@@ -15,23 +15,25 @@
     <p>{{ 'subscribe.now.text'|trans({}, 'frontend') }}</p>
 	
 		<form action="{{ path('login_action') }}" method="post">
-        <div class="row">
-			<div class="col-md-9 col-xs-9">
-		        <div class="form-group">
-		            <label class="sr-only" for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>
-		            <input required id="email" type="text" name="email" class="form-control" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>
-		        </div>
-		
-		        <div class="form-group">
-		            <label class="sr-only" for="password">{{ 'Password'|trans({}, 'frontend') }}:</label>
-		            <input required id="password" type="password" name="password" class="form-control" placeholder="{{ 'Password'|trans({}, 'frontend') }}"/>
-		        </div>
-	 		</div>
-	 	</div>
+        {#<div class="row">#}
+			{#<div class="col-md-9 col-xs-9">#}
+		        {#<div class="form-group">#}
+		            {#<label class="sr-only" for="email">{{ 'Email'|trans({}, 'frontend') }}:</label>#}
+		            {#<input required id="email" type="text" name="email" class="form-control" placeholder="{{ 'Email'|trans({}, 'frontend') }}"/>#}
+		        {#</div>#}
+		{##}
+		        {#<div class="form-group">#}
+		            {#<label class="sr-only" for="password">{{ 'Password'|trans({}, 'frontend') }}:</label>#}
+		            {#<input required id="password" type="password" name="password" class="form-control" placeholder="{{ 'Password'|trans({}, 'frontend') }}"/>#}
+		        {#</div>#}
+	 		{#</div>#}
+	 	{#</div>#}
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 		        <p>
-		            <input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>
+
+                    <a href="#" data-toggle="modal" data-tab="login-form" data-target="#modal-registration">{{ 'login.here'|trans({}, 'frontend') }}</a>
+                    {#<input type="submit" class="btn btn-primary" value="{{ 'Login'|trans({}, 'frontend') }}"/>#}
 		            <a class="fb-login-btn btn btn-primary" href="#"><span class="fa fa-facebook"></span> | {{ 'FB.login'|trans({}, 'frontend') }}</a>
 		
 		            {% if host and host.vkAppId and host.vkAppSecret %}
