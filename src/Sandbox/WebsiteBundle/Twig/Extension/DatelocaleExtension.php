@@ -52,11 +52,7 @@ class DatelocaleExtension extends \Twig_Extension{
         $date = $formatter->format($date->getTimestamp());
 
         if($dateFormat == 'long'){
-            if(preg_match('/[0-9]{4}/', $date, $matches)){
-                $year = $matches[1];
-                $pos = strpos($date, $year);
-                $date = str_split($date, $pos+1)[0];
-            }
+            $date = preg_split('/[0-9]{4}/', $date)[0];
         }
 
         return $date;
