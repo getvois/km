@@ -442,7 +442,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endC
 }
 
 .fb-like {
-  position: absolute;
+  position: absolute!important;
   right: 35px;
   top: 90px;
 }

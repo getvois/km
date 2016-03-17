@@ -129,7 +129,7 @@ class DefaultController extends Controller
                 //$date = $this->get('translator')->trans('date', [], 'frontend');
                 //$price = $this->get('translator')->trans('price', [], 'frontend');
 
-                $table .= '<div><div class="row table-header sort-controls">';
+                $table .= '<div><div class="row table-header nomargin sort-controls">';
                 $table .= '<div class="col-xs-6">';
                 $table .= '    <div class="btn-group" role="group" aria-label="...">
 	                             <div class="btn btn-default ' . (($field=='date' && $fieldOrder=='desc')?"active":"") . '"><a href="#" data-field="date" data-order="asc"><span class="glyphicon glyphicon-arrow-down"></span></a></div>
