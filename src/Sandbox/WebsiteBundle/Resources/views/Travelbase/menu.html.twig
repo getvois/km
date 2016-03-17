@@ -17,16 +17,18 @@
                 {#<li><a href="#">Link</a></li>#}
             {#</ul>#}
             <ul class="nav navbar-nav travelbase_top_menu">
-                <li>
-                    <a href="#" onclick="return false;">
-                        <span class="city-picker-list city-picker-dropdown" data-target="#dropdown-departure">{{ 'Destinations'|trans({}, 'frontend', app.request.locale) }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="return false;">
-                        <span class="city-picker-list city-picker-dropdown" data-target="#dropdown-company">{{ 'Companies'|trans({}, 'frontend', app.request.locale) }}</span>
-                    </a>
-                </li>
+
+                {# COMPANIES AND DESTINATION FROM TOP MENU #}
+                {#<li>#}
+                    {#<a href="#" onclick="return false;">#}
+                        {#<span class="city-picker-list city-picker-dropdown" data-target="#dropdown-departure">{{ 'Destinations'|trans({}, 'frontend', app.request.locale) }}</span>#}
+                    {#</a>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<a href="#" onclick="return false;">#}
+                        {#<span class="city-picker-list city-picker-dropdown" data-target="#dropdown-company">{{ 'Companies'|trans({}, 'frontend', app.request.locale) }}</span>#}
+                    {#</a>#}
+                {#</li>#}
 
                 {% if pages is defined %}
                     {% for page in pages %}

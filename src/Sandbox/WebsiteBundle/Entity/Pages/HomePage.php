@@ -39,11 +39,11 @@ class HomePage extends AbstractPage  implements HasPageTemplateInterface, SlugAc
         $host = $em->getRepository('SandboxWebsiteBundle:Host')
             ->findOneBy(['name' => $request->getHost()]);
 
-        $realNews = $em->getRepository('SandboxWebsiteBundle:News\NewsPage')
-            ->getArticles($locale, 0, 10, $host);
+        $realNews = [];//$em->getRepository('SandboxWebsiteBundle:News\NewsPage')
+            //->getArticles($locale, 0, 10, $host);
 
-        $realArticles = $em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
-            ->getArticles($locale, 0, 5, $host);
+        $realArticles = [];//$em->getRepository('SandboxWebsiteBundle:Article\ArticlePage')
+            //->getArticles($locale, 0, 5, $host);
 
         $context['news'] = $realNews;
         $context['articles'] = $realArticles;
