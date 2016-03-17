@@ -1,32 +1,298 @@
-{% if root is defined and root is not null %}
 <nav class="col-xs-12 col-sm-6 col-md-6 col--padded doormat">
-	{% if host and (host.name != "viabaltica.ru" and host.name != "lomabaltia.fi" and host.name != "eurotripdeals.com") %}
-    <img src="{{ asset("bundles/sandboxwebsite/img/general/world_map.png") }}" alt="World map" class="img-reponsive"/>
-    {% endif %}
+    <img class="img-reponsive" alt="World map" src="/bundles/sandboxwebsite/img/general/world_map.png?v1">
     <div class="row nomargin">
-         <nav class="col-xs-12 nopadding doormat">
-            <h5 class="doormat__title"><a href="{{ path('_slug', { 'url': root.slug }) }}">{{ root.title }}</a></h5>
+        <nav class="col-xs-12 nopadding doormat">
+            <h5 class="doormat__title"><a href="/reisid">Reisid</a></h5>
             <div class="row">
-                {% set braker = places|length / 4 %}
-                {% set counter = 0 %}
-                {% for place in places %}
-                    {% if counter == 0 or loop.index == 0 %}
-                        <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
-                    {% endif %}
+                <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
 
                     <li class="doormat__list-item">
-                        <a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ place.parent.slug }) }}" class="link--gray doormat__link">{{ place.parent.title }}</a>
+                        <a class="link--gray doormat__link" href="/reisid/albaania">Albaania</a>
                     </li>
 
-                    {% set counter = counter + 1 %}
 
-                    {% if counter >= braker %}
-                        </ul>
-                        {% set counter = 0 %}
-                    {% endif %}
-                {% endfor %}
-            </div>
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/araabia-uhendemiraadid">Araabia Ühendemiraadid</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/austria">Austria</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/belgia">Belgia</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/bulgaria">Bulgaria</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/cabo-verde">Cabo Verde</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/dominikaani-vabariik">Dominikaani Vabariik</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/egiptus">Egiptus</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/hispaania">Hispaania</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/holland">Holland</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/horvaatia">Horvaatia</a>
+                    </li>
+
+
+                </ul>
+                <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/iirimaa">Iirimaa</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/india">India</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/island">Island</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/itaalia">Itaalia</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/jamaica">Jamaica</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/jordaania">Jordaania</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/kreeka">Kreeka</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/kupros">Küpros</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/kuuba">Kuuba</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/malta">Malta</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/maroko">Maroko</a>
+                    </li>
+
+
+                </ul>
+                <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/mauritius">Mauritius</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/mehhiko">Mehhiko</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/montenegro">Montenegro</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/norra">Norra</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/portugal">Portugal</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/prantsusmaa">Prantsusmaa</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/serbia">Serbia</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/suurbritannia">Suurbritannia</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/svalbard-jan-mayen-saared">Svalbard &amp; Jan Mayen Saared</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/switzerland">Šveitsi</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/taani">Taani</a>
+                    </li>
+
+
+                </ul>
+                <ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/tai">Tai</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/trinidad-ja-tobago">Trinidad ja Tobago</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/tsehhi">Tšehhi</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/tuneesia">Tuneesia</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/turgi">Türgi</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/ungari">Ungari</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/usa">USA</a>
+                    </li>
+
+
+
+                    <li class="doormat__list-item">
+                        <a class="link--gray doormat__link" href="/reisid/venemaa">Venemaa</a>
+                    </li>
+
+
+                </ul></div>
         </nav>
     </div>
 </nav>
-{% endif %}
+
+
+
+{#{% if root is defined and root is not null %}#}
+{#<nav class="col-xs-12 col-sm-6 col-md-6 col--padded doormat">#}
+	{#{% if host and (host.name != "viabaltica.ru" and host.name != "lomabaltia.fi" and host.name != "eurotripdeals.com") %}#}
+    {#<img src="{{ asset("bundles/sandboxwebsite/img/general/world_map.png") }}" alt="World map" class="img-reponsive"/>#}
+    {#{% endif %}#}
+    {#<div class="row nomargin">#}
+         {#<nav class="col-xs-12 nopadding doormat">#}
+            {#<h5 class="doormat__title"><a href="{{ path('_slug', { 'url': root.slug }) }}">{{ root.title }}</a></h5>#}
+            {#<div class="row">#}
+                {#{% set braker = places|length / 4 %}#}
+                {#{% set counter = 0 %}#}
+                {#{% for place in places %}#}
+                    {#{% if counter == 0 or loop.index == 0 %}#}
+                        {#<ul class="list-reset doormat__link-list col-xs-6 col-sm-3 col-md-3">#}
+                    {#{% endif %}#}
+
+                    {#<li class="doormat__list-item">#}
+                        {#<a href="{{ path('_slug', { 'url': root.slug ~ "/" ~ place.parent.slug }) }}" class="link--gray doormat__link">{{ place.parent.title }}</a>#}
+                    {#</li>#}
+
+                    {#{% set counter = counter + 1 %}#}
+
+                    {#{% if counter >= braker %}#}
+                        {#</ul>#}
+                        {#{% set counter = 0 %}#}
+                    {#{% endif %}#}
+                {#{% endfor %}#}
+            {#</div>#}
+        {#</nav>#}
+    {#</div>#}
+{#</nav>#}
+{#{% endif %}#}
