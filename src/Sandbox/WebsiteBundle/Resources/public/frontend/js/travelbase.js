@@ -2027,16 +2027,19 @@ $(document).ready(function() {
         var dataholder = $('#departure-dataholder');
         if(dataholder.is(':visible')){
             dataholder.click();
+
         }else{
-            $('#departure-el').select2('open');
+           // $('#departure-el').select2('open');
         }
+        $('#departure-el').show().focus().click();
     });
     $('.select-to').click(function () {
         var dataholder = $('#destination-dataholder');
         if(dataholder.is(':visible')){
             dataholder.click();
+            $('#destination-el').focus();
         }else{
-            $('#destination-el').select2('open');
+            $('#destination-el').focus();//.select2('open');
         }
     });
 });
@@ -2287,6 +2290,13 @@ function getTable(container, reimport, expand){
     });
 }
 
+$(".close-citypicker").click(function () {
+    $('.form-table-cell').removeClass('active');
+    $('#citypicker-overlay').removeClass('active');
+});
+
+// cityPicker("#departure-el", "#departure-dataholder", 'from');
+// cityPicker("#destination-el", '#destination-dataholder', 'to');
 
 function cityPicker($el, $holder, $direction) {
     $($el).removeClass('hide');
@@ -2296,7 +2306,7 @@ function cityPicker($el, $holder, $direction) {
             var $data = this.dataHolder('data');
             var $elem = $(this.data('target'));
             $elem.data('selected', $data);
-            $elem.select2("val", "");
+            //$elem.select2("val", "");
         }
     });
 
@@ -2372,9 +2382,12 @@ function cityPicker($el, $holder, $direction) {
         //var $title = repo.countryName + "/" + repo.cityNameEn;
         var $title = repo['cityName' + $lang];
 
+        $title = repo['airportCode'];
+
         if(repo.id.toString().indexOf("_") != -1){
             $title = repo['countryName' + $locale];
         }
+        console.log(repo);
         repo.text = $title;
 
         $($holder).dataHolder('add', repo);
@@ -2382,6 +2395,56 @@ function cityPicker($el, $holder, $direction) {
         return $title;
     }
 
+    $( $el ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "http://api.travelwebpartner.com/api/city.findByText/",
+                dataType: "json",
+                data: {
+                    q: request.term
+                },
+                success: function( data ) {
+                    response( convertData(data) );
+                }
+            });
+        },
+        minLength: 3,
+        select: function( event, ui ) {
+            repoFormatSelection(ui.item);
+            //hide input
+            if($($holder).dataHolder('data').length > 0){
+                $($el).hide();
+            }
+            //if(window.innerWidth <= 768){
+                $(this).closest('.form-table-cell').removeClass('active');
+                $('#citypicker-overlay').removeClass('active');
+            //}
+        },
+        open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        }
+    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+        return $( "<li>" )
+            .append( repoFormatResult(item) )
+            .appendTo( ul );
+    };
+    $( $el).on("blur", function () {
+        if($($holder).dataHolder('data').length > 0) {
+            $(this).hide();
+        }
+    });
+    $( $el).on("focus", function () {
+        if(window.innerWidth <= 768){
+            $(this).closest('.form-table-cell').addClass('active');
+            $('#citypicker-overlay').addClass('active');
+        }
+    });
+
+
+/*
     $($el).select2({
         placeholder: $trans,
         minimumInputLength: 3,
@@ -2484,6 +2547,7 @@ function cityPicker($el, $holder, $direction) {
             //$('html, body').animate({scrollTop:0 }, 'fast');
         }
     });
+    */
 }
 
 function fixDiv() {

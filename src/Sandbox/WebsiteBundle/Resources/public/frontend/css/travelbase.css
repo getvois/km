@@ -331,6 +331,7 @@ body .splash--green {
     background-color: transparent;
 }
 .mainbg{
+    height: auto!important;
     min-height: 330px;
     background-size: cover;
     position: relative;
@@ -1777,7 +1778,7 @@ span.price-inc {font-size: 14px;}
     width: calc(100% - 42px);
 }
 #date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
-    border: 1px solid #555;
+    border: 0px solid #555;
     border-radius: 2px;
 }
 
@@ -2004,8 +2005,8 @@ span.city-picker-close:hover {
 
 @media (max-width: 650px) {
     .mainbg{
-    min-height: auto;
     margin-bottom:50px;
+        background: none !important;
     } 
 }
 
@@ -2105,16 +2106,25 @@ span.city-picker-close:hover {
         display: block;
         width: auto;
     }
-    
+    .dataholder{
+        text-align: center;
+    }
     .placeholder-item a.placeholder-item-remove {
-  		font-size: 44px;
+  		font-size: 74px;
 	}
 	.placeholder-item .placeholder-item-remove {
   		top: 9px;
+        position: relative;
+        left: -32px;
 	}
 	.placeholder-item {
   		padding: 3px 0 3px 28px;
+        width: 100%;
+
 	}
+    span.placeholder-item{
+        font-size: 44px;
+    }
 	.placeholder-collapse {
    		overflow: inherit;
   		white-space: inherit;
@@ -2126,20 +2136,28 @@ span.city-picker-close:hover {
   		  margin-top:30px;
 	} 
 	#date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder, .placeholder, .select2-container-multi .select2-choices {
-	  border-bottom: 2px solid #555;
-	  border-top:none;
-	  border-right:none;
-	  border-left:none;
-	  background:transparent;
-	    box-shadow: none;
+	  /*border-bottom: 0 solid #555;*/
+	  /*border-top:none;*/
+	  /*border-right:none;*/
+	  /*border-left:none;*/
+	  /*background:transparent;*/
+	    /*box-shadow: none;*/
 	}
+    .dataholder{
+        border-bottom: 0 solid #555;
+        border-top:none;
+        border-right:none;
+        border-left:none;
+        background:transparent;
+        box-shadow: none;
+    }
 	.placeholder-item, .select2-container-multi .select2-choices .select2-search-field input, #date-start-datepicker-holder, #date-end-datepicker-holder, .datepick-input-holder {
   		font-size: 24px;
 	}
 	
 	.form-control {
-  		background:transparent;
-  		box-shadow: none;
+  		/*background:transparent;*/
+  		/*box-shadow: none;*/
   		min-height:50px;
 	}
 	.form-header h1 {
@@ -3140,6 +3158,7 @@ input[type="checkbox"] .styled:checked + label::after {
     /*position: relative;*/
     z-index: 9999;
     left: 0;
+    right: 0;
     margin: 20px;
     position: fixed;
     top: 50px;
@@ -3155,6 +3174,9 @@ input[type="checkbox"] .styled:checked + label::after {
     position: absolute;
     z-index: 107;
     right: 5px;
+}
+.ui-autocomplete{
+    z-index: 99999;
 }
 
 .out-of-body{

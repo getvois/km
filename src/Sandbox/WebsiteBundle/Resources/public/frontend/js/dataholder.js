@@ -45,7 +45,8 @@
                     $(holder.data('target')).prev().hide();//.slideUp();
                     $(holder.data('target')).prev().prev().hide();//.slideUp();
                     $(holder.data('target')).prev().find('input').css('padding-left', '42px');
-                    $($holder.data('target')).select2('open');
+                    //$($holder.data('target')).select2('open');//removed 31.03.16
+                    $(holder.data('target')).show();//added 31.06.16
 
                 }
 
@@ -72,7 +73,8 @@
                     $($holder.data('target')).prev().show();//.slideDown();
                     $($holder.data('target')).prev().prev().show();//.slideDown();
                     $($holder.data('target')).prev().find('input').css('padding-left', '42px');
-                    $($holder.data('target')).select2('open');
+                    //$($holder.data('target')).select2('open'); //removed 31.03.16
+                    $(holder.data('target')).show();//added 31.03.16
                 }
 
                 options.afterRemove.call($holder);//call back
@@ -89,7 +91,7 @@
 
                 if(typeof data === 'object'){
                     //check if does not exist in data
-                    if ($data.indexOf(data.id) == -1) {
+                    if ($data.indexOf(data.id.toString()) == -1) {
                         $data.push(data.id.toString());
                         addElement(this, data);
                     }
