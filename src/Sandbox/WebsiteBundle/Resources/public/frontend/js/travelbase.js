@@ -96,7 +96,14 @@ $(document).ready(function() {
                     replace(/\{link:buttons}/, '')
                     .replace(/\{link:today}/, '')
                     .replace(/\{link:clear}/, '')
-                })
+                }),
+            onShow: function () {
+                if(window.innerWidth <= 768) {
+                    setTimeout(function () {
+                        $(window).scrollTop(0);
+                    }, 100);
+                }
+            }
         },
         $.datepick.regionalOptions[$lang]));
 
@@ -678,7 +685,14 @@ $(document).ready(function() {
             rangeSelect: true,
             monthsToShow: 2,
             minDate: '+1d',
-            changeMonth: false
+            changeMonth: false,
+            onShow: function () {
+                if(window.innerWidth <= 768) {
+                    setTimeout(function () {
+                        $(window).scrollTop(0);
+                    }, 100);
+                }
+            }
         },
         $.datepick.regionalOptions[$lang]));
 
@@ -2440,7 +2454,10 @@ function cityPicker($el, $holder, $direction) {
         if(window.innerWidth <= 768){
             $(this).closest('.form-table-cell').addClass('active');
             $('#citypicker-overlay').addClass('active');
-            $(window).scrollTop(0);
+            setTimeout(function () {
+                $(window).scrollTop(0);
+            }, 100);
+
         }
     });
 
