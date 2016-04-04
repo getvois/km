@@ -2216,6 +2216,10 @@ span.city-picker-close:hover {
         height: 100%;
         bottom: 0;
     }
+
+    .fb-page.fb_iframe_widget{
+        display: none;
+    }
 }
 
 #map_wrapper,#map_wrapper2 {
