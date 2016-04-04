@@ -31,6 +31,7 @@
 			'{button:name}' to insert a button trigger for command name,
 			'{popup:start}...{popup:end}' to mark a section for inclusion in a popup datepicker only,
 			'{inline:start}...{inline:end}' to mark a section for inclusion in an inline datepicker only.
+		 {link:close} close link
 			@property picker {string} Overall structure: '{months}' to insert calendar months.
 			@property monthRow {string} One row of months: '{months}' to insert calendar months.
 			@property month {string} A single month: '{monthHeader<em>:dateFormat</em>}' to insert the month header -
@@ -57,7 +58,18 @@
 			@property disabledClass {string} Class for disabled commands. */
 		defaultRenderer: {
 			picker: '<div class="datepick">' +
-			'<div class="datepick-nav"><div class="text-center">{link:close}</div><table><tr><td>{link:prev}</td><td width="1%" style="white-space: nowrap;">{link:buttons}{link:today}</td><td class="text-right">{link:next}</td></tr></table></div>{months}' +
+			'<div class="datepick-nav">' +
+				'<div class="text-center">' +
+					'<table width="100%"><tr><td>{link:prev}</td><td><a href="javascript:void(0)" title="" class="datepick-cmd datepick-cmd-close fa fa-times-circle"></a></td><td>{link:next}</td></tr></table>'+
+				'</div>' +
+				'<table width="100%" class="text-center">' +
+					'<tr>' +
+						//'<td>{link:prev}</td>' +
+						'<td style="white-space: nowrap;">{link:buttons}{link:today}</td>' +
+						//'<td class="text-right">{link:next}</td>' +
+					'</tr>' +
+				'</table>' +
+			'</div>{months}' +
 			'{popup:start}<div class="datepick-ctrl">{link:clear}</div>{popup:end}' +
 			'<div class="datepick-clear-fix"></div></div>',
 			monthRow: '<div class="datepick-month-row">{months}</div>',

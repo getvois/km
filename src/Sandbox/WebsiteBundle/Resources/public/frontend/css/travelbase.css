@@ -4,12 +4,16 @@
 
 html body {  
     font-family: "Open Sans",serif;
+    height: 100%;
 }
 h1, h2, h3, h4, h5  {
     font-family: "Open Sans",serif;
 	letter-spacing: -0.3px;
 }
-body{background-color: #ffffff !important;}
+body{
+    background-color: #ffffff !important;
+    position: relative;
+}
 
 .rel {
   position:relative;
@@ -1959,6 +1963,16 @@ span.city-picker-close:hover {
   color: #eee;
 }
 
+.datepick .datepick-cmd{
+    width: auto;
+    padding: 10px;
+    float: none;
+}
+.datepick .datepick-cmd-close{
+    font-size: 25px;
+    padding: 0;
+}
+
 @media (max-width: 992px){
     .mainbg{
     }
@@ -1997,8 +2011,6 @@ span.city-picker-close:hover {
     #amount{
         font-size: 21px;
     }
-
-
 
 
 }
@@ -2189,7 +2201,21 @@ span.city-picker-close:hover {
         position: relative;
         top: 30px;
 	}
-	
+    .datepick .datepick-cmd-close{
+        font-size: 80px;
+    }
+
+    .datepick-nav .dp-interval {
+        font-size: 30px;
+    }
+
+    .datepick.datepick-multi{
+        height: 100%;
+    }
+    .datepick-popup{
+        height: 100%;
+        bottom: 0;
+    }
 }
 
 #map_wrapper,#map_wrapper2 {
@@ -3010,11 +3036,6 @@ input[type="checkbox"] .styled:checked + label::after {
     height: 1px;
     margin: 0;
     display: flex;
-}
-.datepick .datepick-cmd{
-    width: 100%;
-    padding: 10px;
-    float: none;
 }
 /* SUBSCRIPTION BLOCK */
 .block.block-total-subscription {
