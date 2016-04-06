@@ -404,7 +404,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endC
 	background: -ms-linear-gradient(top, #86f78f, #65DF6F); /* IE10 */ 
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#86f78f', endColorstr='#65DF6F'); /* IE6 & IE7 */  
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#86f78f', endColorstr='#65DF6F')"; /* IE8+ */
-	-pie-background:linear-gradient(#86f78f, #D34C4C) repeat scroll 0 0 transparent !important;
+	/*-pie-background:linear-gradient(#86f78f, #D34C4C) repeat scroll 0 0 transparent !important;*/
 }
 .calendar-page .cal-month-day .events-list {
   position: absolute;
@@ -2207,7 +2207,7 @@ span.city-picker-close:hover {
     }
 
     .datepick-nav .dp-interval {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .datepick.datepick-multi{
