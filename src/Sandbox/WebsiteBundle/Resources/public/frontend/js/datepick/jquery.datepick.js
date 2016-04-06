@@ -61,6 +61,7 @@
 			'<div class="datepick-nav">' +
 				'<div class="text-center">' +
 					'<table width="100%"><tr><td>{link:prev}</td><td><a href="javascript:void(0)" title="" class="datepick-cmd datepick-cmd-close fa fa-times-circle"></a></td><td>{link:next}</td></tr></table>'+
+					//'<table width="100%"><tr><td>{link:prev}</td><td>{link:close}</td><td>{link:next}</td></tr></table>'+
 				'</div>' +
 				'<table width="100%" class="text-center">' +
 					'<tr>' +
@@ -80,7 +81,7 @@
 			week: '<tr>{days}</tr>',
 			day: '<td>{day}</td>',
 			monthSelector: '.datepick-month',
-			daySelector: 'td',
+			daySelector: '.datepick-month td',
 			rtlClass: 'datepick-rtl',
 			multiClass: 'datepick-multi',
 			defaultClass: '',
@@ -210,8 +211,15 @@
 			close: {text: 'closeText', status: 'closeStatus', // Close the datepicker
 				keystroke: {keyCode: 27}, // Escape
 				enabled: function(inst) { return true; },
-				date: function(inst) { return null; },
-				action: function(inst) { plugin.hide(this); }
+				date: function(inst) {
+					//added 6.04.2016
+					//return inst.selectedDates[0] || plugin.today();
+					return null;
+				},
+				action: function(inst) {
+					//$(document).trigger('mousedown.datepick');
+					plugin.hide(this);
+				}
 			},
 			prevWeek: {text: 'prevWeekText', status: 'prevWeekStatus', // Previous week
 				keystroke: {keyCode: 38, ctrlKey: true}, // Ctrl + Up
@@ -229,7 +237,7 @@
 					return (!minDate || plugin.add(plugin.newDate(inst.drawDate), -1, 'd').
 						getTime() >= minDate.getTime()); },
 				date: function(inst) { return plugin.add(plugin.newDate(inst.drawDate), -1, 'd'); },
-				action: function(inst) { plugin.changeDay(this, -1); }
+				action: function(inst) {plugin.changeDay(this, -1);}
 			},
 			nextDay: {text: 'nextDayText', status: 'nextDayStatus', // Next day
 				keystroke: {keyCode: 39, ctrlKey: true}, // Ctrl + Right
@@ -1957,7 +1965,12 @@
 							removeClass(inst.options.renderer.highlightedClass);
 					}).
 				click(function() {
-					self.selectDate(elem, this);
+					try {
+						self.selectDate(elem, this);
+					}
+					catch(err) {
+						console.log(err);
+					}
 				}).end().
 				find('select.' + this._monthYearClass + ':not(.' + this._anyYearClass + ')').
 				change(function() {

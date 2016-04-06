@@ -96,14 +96,7 @@ $(document).ready(function() {
                     replace(/\{link:buttons}/, '')
                     .replace(/\{link:today}/, '')
                     .replace(/\{link:clear}/, '')
-                }),
-            onShow: function () {
-                if(window.innerWidth <= 768) {
-                    setTimeout(function () {
-                        $(window).scrollTop(0);
-                    }, 100);
-                }
-            }
+                })
         },
         $.datepick.regionalOptions[$lang]));
 
@@ -685,14 +678,7 @@ $(document).ready(function() {
             rangeSelect: true,
             monthsToShow: 2,
             minDate: '+1d',
-            changeMonth: false,
-            onShow: function () {
-                if(window.innerWidth <= 768) {
-                    setTimeout(function () {
-                        $(window).scrollTop(0);
-                    }, 100);
-                }
-            }
+            changeMonth: false
         },
         $.datepick.regionalOptions[$lang]));
 
@@ -715,10 +701,20 @@ $(document).ready(function() {
     $('#datepick-input-from-holder, #datepick-trigger-from').click(function () {
         //noinspection JSUnresolvedFunction
         $datepickFrom.datepick('show');
+        if(window.innerWidth <= 768) {
+            setTimeout(function () {
+                $(window).scrollTop(0);
+            }, 200);
+        }
     });
     $('#datepick-input-to-holder, #datepick-trigger-to').click(function () {
         //noinspection JSUnresolvedFunction
         $datepickTo.datepick('show');
+        if(window.innerWidth <= 768) {
+            setTimeout(function () {
+                $(window).scrollTop(0);
+            }, 200);
+        }
     });
 
     //noinspection JSUnresolvedFunction
