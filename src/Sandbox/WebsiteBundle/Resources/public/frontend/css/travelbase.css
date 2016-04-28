@@ -2306,7 +2306,8 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     overflow: hidden; 
 }
 #offer-holder, #package-holder{
-    height: 240px;
+    /*height: 240px;*/
+    height: auto;
     overflow: hidden;
 }
 .travelbase_items table tbody tr th {
