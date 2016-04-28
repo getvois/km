@@ -34,21 +34,22 @@
             $(this).prev().click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                holder.toggleClass('placeholder-collapse');
-                if(!holder.hasClass('placeholder-collapse')){
+                console.log(holder.hasClass('placeholder-collapse'));
+                //if(!holder.hasClass('placeholder-collapse')){
+                if($(holder.data('target')).is(":visible")){
                     $(holder.data('target')).prev().show();//.slideDown();
                     $(holder.data('target')).prev().prev().show();//.slideDown();
-
-
                     $(holder.data('target')).prev().find('input').focus().css('padding-left', '5px');
                 }else{
                     $(holder.data('target')).prev().hide();//.slideUp();
                     $(holder.data('target')).prev().prev().hide();//.slideUp();
                     $(holder.data('target')).prev().find('input').css('padding-left', '42px');
                     //$($holder.data('target')).select2('open');//removed 31.03.16
-                    $(holder.data('target')).show();//added 31.06.16
+                    $(holder.data('target')).show().focus();//added 31.06.16
 
                 }
+                holder.toggleClass('placeholder-collapse');
+
 
             });
 

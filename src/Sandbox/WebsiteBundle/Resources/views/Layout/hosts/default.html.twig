@@ -2,7 +2,7 @@
 
 {% block hostLayout %}
 <div class="row nomargin">
-    <div class="col-md-9">
+    <div class="col-lg-10 col-lg-offset-1 ">
 
         <!-- Travelbase -->
         {% include '@SandboxWebsite/Travelbase/tabs.html.twig' %}
@@ -47,12 +47,10 @@
             {% include "@SandboxWebsite/Ad/bottomAds.html.twig" %}
         </main>
     </div>
-    <div class="col-md-3 sidebar">
+    <div class="col-md-4 col-md-offset-4 sidebar">
         {% block club %}
             <div class="clubbar modal-content-img-{{ random([1,2,3]) }}">
                 <h2>{{ 'club.header' | trans({}, 'frontend') }}</h2>
-
-
 
 
                 {% block userlogin %}

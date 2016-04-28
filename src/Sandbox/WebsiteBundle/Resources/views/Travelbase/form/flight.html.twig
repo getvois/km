@@ -26,7 +26,7 @@
                                     </div>
                                     <div>
                                         <div class="hidden-xs input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-from"></span></div>
-                                        <input id="departure-el" type="text" class="form-control hide placeholder" placeholder="Type to select">
+                                        <input id="departure-el" type="text" class="form-control hide placeholder" placeholder="{{ 'type.departure' | trans({}, 'frontend') }}">
                                     </div>
                                 </div>
                                 {#SWITCH#}
@@ -48,7 +48,7 @@
                                     </div>
                                     <div>
                                         <div class="hidden-xs input-group-addon travelbase-input-addon travelbase-icon-to-top"><span class="glyphicon travelbase-icon travelbase-icon-to"></span></div>
-                                        <input id="destination-el" type="text" class="form-control hide placeholder" placeholder="Type to select">
+                                        <input id="destination-el" type="text" class="form-control hide placeholder" placeholder="{{ 'type.destination' | trans({}, 'frontend') }}">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="row">
                     {#row 2#}
-                    <div class="col-md-2">
+                    <div class="col-md-4 col-md-offset-4">
                         <p style="position: relative">
                             <label for="amount">
                                 <img src="http://ku.markmedia.fi/sites/default/files/images/i-pri.png"

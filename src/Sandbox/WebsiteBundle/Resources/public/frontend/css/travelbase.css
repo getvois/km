@@ -452,6 +452,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endC
   right: 35px;
   top: 90px;
 }
+.site-topmenu{
+    text-align: center;
+}
 /*.site-topmenu {*/
     /*position: absolute;*/
     /*top:0;*/
@@ -473,6 +476,8 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F26E6E', endC
 .travelbase_top_menu{
 	margin:0;
     padding: 0;
+    display: inline-block;
+    float: none;
 
 }
 .travelbase_top_menu > li {
@@ -963,6 +968,7 @@ select {
 #travelbase_tabs{
     position: relative;
     top: -45px;
+    text-align: center;
 }
 #slider-range, #slider-range-stopover{
     border: none;
@@ -974,7 +980,7 @@ select {
 }
 #form-flight #slider-range, #form-flight  #slider-range-stopover{
 	margin-left: 50px;
-	margin-top: 20px;
+	margin-top: 0;
 }
 #slider-range .ui-slider-range,#slider-range-stopover .ui-slider-range{
     background: #f8c701 none;
@@ -1001,7 +1007,7 @@ select {
     background-color: rgba(252, 252, 252, 0);
 }
 #form-flight #amount {
-	top: 27px;
+	top: 13px;
 	left: 43px;
 	font-size:13px;
 }
@@ -1010,7 +1016,7 @@ select {
 }
 label[for=amount]{
     position: absolute; 
-    top: 12px;
+    top: 0;
 }
 label.directFlight-label,  label.sameDay-label {
 	color: #000;
@@ -1037,6 +1043,9 @@ input[type='checkbox']{
 }
 
 /* result table header */
+.sort-controls{
+    text-align: left;
+}
 .sort-controls .btn-group  {
 	z-index: 0;
 }
@@ -2292,7 +2301,8 @@ aside, #block-travelbase-travelbase-search-form .col-md-5, #block-travelbase-tra
     border: 0 solid;
 }
 .travelbase_items > div:first-of-type{
-    height: 205px;
+    /*height: 205px;*/
+    height:auto;
     overflow: hidden; 
 }
 #offer-holder, #package-holder{
@@ -3382,6 +3392,7 @@ ul#form-type-switcher { padding: 0;
     margin: 0;
     text-align: center;
     border:none;
+    display: inline-block;
 }
 ul#form-type-switcher li {
     float: left;

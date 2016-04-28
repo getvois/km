@@ -1119,7 +1119,9 @@ $(document).ready(function() {
 
 
             var $deparpureEl = $("#departure-el");
-            $deparpureEl.data('selected', $departure.dataHolder('data'));
+            $deparpureEl.css("display", "none");
+            $deparpureEl.addClass('placeholder-collapse');
+            //$deparpureEl.data('selected', $departure.dataHolder('data'));
         }
 
     }else{
@@ -1154,7 +1156,9 @@ $(document).ready(function() {
                     $departure.dataHolder('add', {id: $id, text: $(this).data('name')});
 
                     var $deparpureEl = $("#departure-el");
-                    $deparpureEl.data('selected', $departure.dataHolder('data'));
+                    $deparpureEl.css("display", "none");
+                    $deparpureEl.addClass('placeholder-collapse');
+                    //$deparpureEl.data('selected', $departure.dataHolder('data'));
                 }
             }
 
@@ -1187,7 +1191,9 @@ $(document).ready(function() {
                     $destination.dataHolder('add', {id: $id, text: $name});
 
                 var $deparpureEl = $("#destination-el");
-                $deparpureEl.data('selected', $destination.dataHolder('data'));
+                $deparpureEl.css("display", "none");
+                $deparpureEl.addClass('placeholder-collapse');
+                //$deparpureEl.data('selected', $destination.dataHolder('data'));
             }
         });
 
@@ -1215,7 +1221,9 @@ $(document).ready(function() {
                         $destination.dataHolder('add', {id: $id, text: $(this).data('name')});
 
                     var $deparpureEl = $("#destination-el");
-                    $deparpureEl.data('selected', $destination.dataHolder('data'));
+                    $deparpureEl.css("display", "none");
+                    $deparpureEl.addClass('placeholder-collapse');
+                    //$deparpureEl.data('selected', $destination.dataHolder('data'));
                 }
             }
         });
@@ -2394,6 +2402,11 @@ function cityPicker($el, $holder, $direction) {
 
         $title = repo['airportCode'];
 
+        if(repo['airportCode'].length > 3){
+            $title = repo['cityCode'];
+        }
+
+        //country
         if(repo.id.toString().indexOf("_") != -1){
             $title = repo['countryName' + $locale];
         }
@@ -2423,6 +2436,7 @@ function cityPicker($el, $holder, $direction) {
             repoFormatSelection(ui.item);
             //hide input
             if($($holder).dataHolder('data').length > 0){
+                $($el).addClass('placeholder-collapse');
                 $($el).hide();
             }
             //if(window.innerWidth <= 768){
@@ -2443,6 +2457,7 @@ function cityPicker($el, $holder, $direction) {
     };
     $( $el).on("blur", function () {
         if($($holder).dataHolder('data').length > 0) {
+            $(this).addClass('placeholder-collapse');
             $(this).hide();
         }
     });

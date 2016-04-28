@@ -115,7 +115,7 @@
     {% if articles is not null %}
     <div class="articles-panel col-md-6">
         <!-- Articles pane -->
-        {% if articles is not null %}
+        {% if articles is not null and articles is not empty%}
             {% if articles > 0 %}
                 <h2 class="topheader">{{ 'latest.articles' | trans({}, 'frontend') }}</h2>
                 {% for item in articles %}
